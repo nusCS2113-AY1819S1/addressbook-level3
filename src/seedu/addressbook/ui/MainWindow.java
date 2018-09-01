@@ -5,6 +5,8 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import seedu.addressbook.commands.ExitCommand;
 import seedu.addressbook.logic.Logic;
 import seedu.addressbook.commands.CommandResult;
@@ -23,23 +25,11 @@ public class MainWindow {
     private Logic logic;
     private Stoppable mainApp;
 
-    public MainWindow(){
-    }
-
-    public void setLogic(Logic logic){
-        this.logic = logic;
-    }
-
-    public void setMainApp(Stoppable mainApp){
-        this.mainApp = mainApp;
-    }
-
     @FXML
     private TextArea outputConsole;
 
     @FXML
     private TextField commandInput;
-
 
     @FXML
     void onCommand(ActionEvent event) {
@@ -57,6 +47,30 @@ public class MainWindow {
             throw new RuntimeException(e);
         }
     }
+
+    @FXML
+    private void initialize() {
+        commandInput.textProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observable,
+                                String oldValue, String newValue) {
+                System.out.println(newValue);
+            }
+        });
+    }
+
+    public MainWindow(){
+    }
+
+
+    public void setLogic(Logic logic){
+        this.logic = logic;
+    }
+
+    public void setMainApp(Stoppable mainApp){
+        this.mainApp = mainApp;
+    }
+
 
     private void exitApp() throws Exception {
         mainApp.stop();
