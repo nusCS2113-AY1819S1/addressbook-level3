@@ -46,7 +46,11 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |`* * *` |user |add a new person |
 |`* * *` |user |delete a person |remove entries that I no longer need
 |`* * *` |user |find a person by name |locate details of persons without having to go through the entire list
-|`* *` |user |hide <<private-contact-detail, private contact details>> by default |minimize chance of someone else seeing them by accident
+|`* * *` |user |find a person by phone number |identify a known contact in case I lose my phone contacts without having to call/message back to enquire
+|`* * *` |user |edit details of a person |update information that may have changed from my contacts like emails or phone numbers without having to delete and re-add the same user.
+|`* *` |user |hide <<private-contact-detail, private contact details>> by 
+default |minimize chance of someone else seeing them by accident
+|`* *` |business user |find persons by email domains | get a list of people using my company mail domain to send the latest newsletter emails to 
 |`*` |user with many persons in the address book |sort persons by name |locate a person easily
 |===========================================================================================================================================
 
