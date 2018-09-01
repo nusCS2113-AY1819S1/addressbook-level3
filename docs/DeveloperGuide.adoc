@@ -50,6 +50,11 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |`*` |user with many persons in the address book |sort persons by name |locate a person easily
 |===========================================================================================================================================
 
+*User Stories*
+As a user,i can edit the particulars of the address book so that if my friend have changed his handphone number,i will be able to update according to it.
+As a administrator, i can search for the student's faculty so that we can filter the student according to the different faculties
+As a lecturer,i can look for all the students taking my modules so that i will be able to contact them immediately if there is any urgent matters to settle.
+
 [appendix]
 == Use Cases
 
