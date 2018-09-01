@@ -59,9 +59,9 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 *MSS*
 
-. User requests to list persons
-. AddressBook shows a list of persons
-. User requests to delete a specific person in the list
+. User requests to list persons.
+. AddressBook shows a list of persons.
+. User requests to delete a specific person in the list.
 . AddressBook deletes the person.
 +
 Use case ends.
@@ -76,6 +76,35 @@ Use case ends.
 ** 3a1. AddressBook shows an error message.
 +
 Use case resumes at step 2.
+
+=== Use case: Rename tag
+
+*MSS*
+
+. User requests to rename tag.
+. AddressBook shows a list of unique tags.
+. User requests to rename a specific tag in the list.
+. AddressBook prompts for new tag to rename selected tag to from User.
+. User enters new tag.
+. AddressBook prompts for confirmation from User.
+. AddressBook renames the selected tag with the new tag provided by User.
++
+Use case ends.
+
+*Extensions*
+
+* 5a. The given new tag is invalid.
+** 5a1. AddressBook shows an error message.
+** 5a2. AddressBook prompts for valid new tag.
+** 5a3. User enters new tag.
++
+Steps 5a1-5a3 are repeated until a valid tag is entered.
++
+Use case resumes at step 6.
+
+* 6a. User cancels confirmation to proceed.
++
+Use case ends.
 
 [appendix]
 == Non Functional Requirements
