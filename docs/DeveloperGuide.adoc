@@ -77,6 +77,40 @@ Use case ends.
 +
 Use case resumes at step 2.
 
+=== Use case: Rename tags
+
+*MSS*
+
+. User requests to rename a tag
+. AddressBook shows a list of tags
+. User enters the tag to be changed
+. AddressBook prompts user for the new tag name
+. User enters the new tag name
+. Addressbook confirms the tag name with user
+. Addressbook changes all tags of the name chosen with the new name entered 
++
+Use case ends.
+
+*Extensions*
+
+* 2a. The list is empty.
++
+Use case ends.
+
+* 3a. The given tag name is invalid.
+** 3a1. AddressBook shows an error message.
++
+Use case resumes at step 2.
+
+* 5a. There is no input by the user
+** 5a1. AddressBook shows an error message.
++
+Use case resumes at step 4.
+
+* 6a. User declines the confirmation
++
+Use case resumes at step 4.
+
 [appendix]
 == Non Functional Requirements
 
