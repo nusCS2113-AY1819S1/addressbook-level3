@@ -47,7 +47,11 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |`* * *` |user |delete a person |remove entries that I no longer need
 |`* * *` |user |find a person by name |locate details of persons without having to go through the entire list
 |`* *` |user |hide <<private-contact-detail, private contact details>> by default |minimize chance of someone else seeing them by accident
+|`**` |user who has several friends of the same name |search someone without typing in the correct spelling of their name |look up someone without remembering how exactly to spell his/her name 
+|`*` |user with strangers in my addressbook |look up people whose name start with a certain letter |look up someone without remembering their whole name
 |`*` |user with many persons in the address book |sort persons by name |locate a person easily
+|`*` |user with many contacts whom I email |list out all the email |create a mailing list
+|`*` |user who sends sms often |list out all the phone numbers |to send mass sms more easily
 |===========================================================================================================================================
 
 [appendix]
