@@ -46,10 +46,11 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |`* * *` |user |add a new person |
 |`* * *` |user |delete a person |remove entries that I no longer need
 |`* * *` |user |find a person by name |locate details of persons without having to go through the entire list
-|`* * *` |user |edit a person's details |update entries that are outdated
+|`* * *` |user |edit a person's details |update entries that are outdated without having to delete the entry and re-enter it
 |`* *` |user |hide <<private-contact-detail, private contact details>> by default |minimize chance of someone else seeing them by accident
 |`*` |user with many persons in the address book |sort persons by name |locate a person easily
-|`*` |user with many persons in the address book |add persons into groups or favourites |locate a frequently searched for person easily
+|`*` |user with many persons in the address book |create groups, add persons into groups, and search for all contacts in a group |categorise persons into groups for better organisation and faster searching
+|`*` |user with many persons in the address book but only frequently searches for a few people|add persons into favourites list, and search for only contacts in the favourites list|locate a frequently searched for person more easily
 |===========================================================================================================================================
 
 [appendix]
