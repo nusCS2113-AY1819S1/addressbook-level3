@@ -48,6 +48,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |`* * *` |user |delete a person |remove entries that I no longer need
 |`* * *` |user |find a person by name |locate details of persons without having to go through the entire list
 |`* *` |user |hide <<private-contact-detail, private contact details>> by default |minimize chance of someone else seeing them by accident
+|`* *` |user |undo a deletion|retrieve data in event of accidental deletion
 |`*` |user with many persons in the address book |sort persons by name |locate a person easily
 |`*` |user with persons with many details |add more details to a person |store multiple details within the same person
 |===========================================================================================================================================
