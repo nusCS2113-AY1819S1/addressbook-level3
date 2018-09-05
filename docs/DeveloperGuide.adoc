@@ -77,6 +77,32 @@ Use case ends.
 +
 Use case resumes at step 2.
 
+=== Use case: Rename tag
+
+*MSS*
+
+. User requests to rename tags
+. AddressBook shows the list of tags
+. User a selects a specific tag in the list, e.g. 'friend'
+. AddressBook prompts User to enter the new name of the specified tag
+. User enters the new name, e.g. 'buddies'
+. AddressBook requests the User to confirm his/her change
+. User confirms his change
+. AddressBook renames all the specified tags to the renamed tag, e.g. 'friends' will now all be 'buddies'
++
+Use case ends.
+
+*Extensions*
+
+* 2a. The list is empty.
++
+Use case ends.
+
+* 3a. The given index is invalid.
+** 3a1. AddressBook shows an error message.
++
+Use case resumes at step 2.
+
 [appendix]
 == Non Functional Requirements
 
