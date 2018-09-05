@@ -48,6 +48,10 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |`* * *` |user |find a person by name |locate details of persons without having to go through the entire list
 |`* *` |user |hide <<private-contact-detail, private contact details>> by default |minimize chance of someone else seeing them by accident
 |`*` |user with many persons in the address book |sort persons by name |locate a person easily
+|`**` |user  |find my most frequently contacted people |locate their details easily in an instance
+|`**` |user with many groups of friends |label each person with a specific tag |know where I met the person if I forgot
+|`*` |user with few people (<= 5) in the address book |list each person's details on each prompt for new 
+command |locate a person quickly without additional typing
 |===========================================================================================================================================
 
 [appendix]
