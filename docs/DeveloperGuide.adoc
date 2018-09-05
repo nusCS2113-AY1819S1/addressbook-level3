@@ -46,6 +46,8 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |`* * *` |user |add a new person |
 |`* * *` |user |delete a person |remove entries that I no longer need
 |`* * *` |user |find a person by name |locate details of persons without having to go through the entire list
+|`* * *` |user |add multiple phone numbers to a person | keep track of people with multiple phone/work numbers
+|`* * *` |user | assign people to categories | keep track of my relationships with people (colleagues/friends)
 |`* *` |user |hide <<private-contact-detail, private contact details>> by default |minimize chance of someone else seeing them by accident
 |`*` |user with many persons in the address book |sort persons by name |locate a person easily
 |===========================================================================================================================================
@@ -54,6 +56,34 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 == Use Cases
 
 (For all use cases below, the *System* is the `AddressBook` and the *Actor* is the `user`, unless specified otherwise)
+
+=== Use case: Rename tag
+
+*MSS*
+
+. User requests to rename tag with provided old tag name and new tag name
+. AddressBook prompts User for confirmation
+. User confirms renaming of tag
+. AddressBook renames the tag
++
+Use case ends.
+
+*Extensions*
+
+* 2a. Old tag name cannot be found.
+** 2a1. AddressBook shows an error message.
++
+Use case ends.
+
+* 2b. New tag name already exists.
+** 2b1. AddressBook shows an error message.
++
+Use case ends.
+
+* 3a. User does not confirm renaming of tag.
+** 3a1. AddressBook shows an 'operation cancelled' message.
++
+Use case ends.
 
 === Use case: Delete person
 
