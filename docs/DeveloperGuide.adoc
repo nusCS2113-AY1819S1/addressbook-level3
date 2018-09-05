@@ -106,6 +106,17 @@ Use case resumes at step 2.
 ** 3b1. AddressBook shows an error message
 +
 Use case resumes at step 2.
+* *a. At any time, User can choose to cancel the renaming process.
+** *1a. AddressBook will prompt a cancellation confirmation.
+** *2a. User confirms the cancellation.
++
+User Case Ends.
+
+* *b. At any time, 120 seconds lapse without any input from the User.
+** *b1. AddressBook cancels the transfer.
+** *b2. AddressBook informs the User of the cancellation.
++
+Use case Ends.
 
 [appendix]
 == Non Functional Requirements
