@@ -1,4 +1,0 @@
-User stories for the printing tasking system based on Address Book:
-1. As a freshman student, I want to have guiding document so that I can pick up using the system quickly.
-2. As a mantainence offier, I want the queue capacity is sufficient so that system will not overflow easily.
-3. As a professor, I want to have a higher priority when printing so that I can get my emergecy printing job done quickly.
