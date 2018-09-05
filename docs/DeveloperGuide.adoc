@@ -60,6 +60,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 === Use case: Rename tag
 
 *MSS*
+
 . User requests to rename tag with provided old tag name and new tag name
 . AddressBook prompts User for confirmation
 . User confirms renaming of tag
