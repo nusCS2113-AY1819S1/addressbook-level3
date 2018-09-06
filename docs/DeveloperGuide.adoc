@@ -46,6 +46,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |`* * *` |user |add a new person |
 |`* * *` |user |delete a person |remove entries that I no longer need
 |`* * *` |user |find a person by name |locate details of persons without having to go through the entire list
+|`* *` |user |sort the address list in alphabetical order |tidy up the address book
 |`* *` |user |hide <<private-contact-detail, private contact details>> by default |minimize chance of someone else seeing them by accident
 |`*` |user with many persons in the address book |sort persons by name |locate a person easily
 |===========================================================================================================================================
@@ -76,6 +77,26 @@ Use case ends.
 ** 3a1. AddressBook shows an error message.
 +
 Use case resumes at step 2.
+
+=== Use case: Rename tag
+
+*MSS*
+
+. User requests to list persons
+. AddressBook shows a list of persons
+. User requests to rename the tag of a specific person in the list
+. User enters new tag of the person
+. AddressBook confirms the tag change with the user
+. User confirm with AddressBook
+. AddressBook renames tag of the chosen person
++
+Use case ends.
+
+*Extensions*
+
+* 6a. User does not confirm.
++
+Use case ends.
 
 [appendix]
 == Non Functional Requirements
