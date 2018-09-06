@@ -46,8 +46,12 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |`* * *` |user |add a new person |
 |`* * *` |user |delete a person |remove entries that I no longer need
 |`* * *` |user |find a person by name |locate details of persons without having to go through the entire list
+|'* * *' |user |edit a person's contact information| keep track of changes in phone numbers of addresses of my friends
 |`* *` |user |hide <<private-contact-detail, private contact details>> by default |minimize chance of someone else seeing them by accident
+|'* *' |user |group my contact list |filter my contact list through groups, e.g. "Friends who go to my gym"
+|'*' |user who often meets up with my friends |have a task scheduler |better plan and be aware of all the meetups I have
 |`*` |user with many persons in the address book |sort persons by name |locate a person easily
+|
 |===========================================================================================================================================
 
 [appendix]
