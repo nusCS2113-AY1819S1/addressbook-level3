@@ -15,6 +15,9 @@
         <TextArea fx:id="outputConsole" editable="false" wrapText="true" VBox.vgrow="ALWAYS">
         </TextArea>
 
+        <TextArea fx:id="Groot" editable="true" wrapText="true" VBox.vgrow="ALWAYS">
+            I AM CLIPPY
+        </TextArea>
     </children>
 
 </VBox>
