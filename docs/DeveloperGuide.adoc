@@ -67,6 +67,21 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 +
 Use case ends.
 
+=== Use case: Renaming a Tag
+
+*MSS*
+
+. User requests to rename Tag
+. AddressBook shows a list of all current Tags
+. User selects the Tag to rename
+. AddressBook prompts the user for the new Tag name
+. User input the new name
+. AddressBook confirms the new name with User
+. User confirms name
+. AddressBook changes Tag name
++
+Use case ends.
+
 *Extensions*
 
 * 2a. The list is empty.
