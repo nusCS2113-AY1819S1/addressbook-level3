@@ -50,8 +50,12 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |`* * *` |user |add a new person |
 |`* * *` |user |delete a person |remove entries that I no longer need
 |`* * *` |user |find a person by name |locate details of persons without having to go through the entire list
+|`* * *` |user |edit a person's detail |easily amend details of persons without removing and re-adding them
 |`* *` |user |hide <<private-contact-detail, private contact details>> by default |minimize chance of someone else seeing them by accident
+|`* *` |user |automatically add multiple persons provided in a text file |so that I do not have to manually add them one by one
+|`* *` |user |have a blacklist that can also have a short description|so that I will know who and why I wanted to avoid
 |`*` |user with many persons in the address book |sort persons by name |locate a person easily
+|`*` |user with many different group of persons |be able to categorise them |so that I know which groups they belong to in my social life
 |===========================================================================================================================================
 
 [appendix]
