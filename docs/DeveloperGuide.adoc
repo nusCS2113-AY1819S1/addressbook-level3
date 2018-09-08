@@ -73,13 +73,20 @@ Use case ends.
 *Extensions*
 
 * 2a. The list is empty.
-+
++¸
 Use case ends.
 
 * 3a. The given index is invalid.
 ** 3a1. AddressBook shows an error message.
 +
 Use case resumes at step 2.
+
+* 4a. Rename the tag "friends" to "buddies"
+** 4a1. Addressbook confirms the change
+** 4a2. User confirms
++
+Use case resumes at step 2. 
+
 
 [appendix]
 == Non Functional Requirements
