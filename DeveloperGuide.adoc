@@ -1,0 +1,3 @@
+As a freshman, I want to have the guidance while entering the system so that I can hand on quickly.
+As a maintainance officer, I want to have a database with sufficient capacity so that it will not overflow easily.
+As a professor, I want to have a higher priority of printing so that I can get my emergency handled properly.
