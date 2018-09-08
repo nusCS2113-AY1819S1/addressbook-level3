@@ -50,7 +50,11 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |`* * *` |user |add a new person |
 |`* * *` |user |delete a person |remove entries that I no longer need
 |`* * *` |user |find a person by name |locate details of persons without having to go through the entire list
+|`* * *` |user |add a picture to a person |better able to recognize who the contact person is
+|`* * *` |user |add labels to person |categorize the contacts
 |`* *` |user |hide <<private-contact-detail, private contact details>> by default |minimize chance of someone else seeing them by accident
+|`* * ` |user |add a picture to a contact |better able to recognize who the contact person is
+|`*` |user |be able to export my contact book |make a backup of it
 |`*` |user with many persons in the address book |sort persons by name |locate a person easily
 |===========================================================================================================================================
 
