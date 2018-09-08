@@ -50,8 +50,14 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |`* * *` |user |add a new person |
 |`* * *` |user |delete a person |remove entries that I no longer need
 |`* * *` |user |find a person by name |locate details of persons without having to go through the entire list
+|`* * *` |user |edit an existing person |update their info
 |`* *` |user |hide <<private-contact-detail, private contact details>> by default |minimize chance of someone else seeing them by accident
+|`* *` |user |undo my commands |revert things to the state before I messed it up
+|`* *` |user |find a person by phone number/ email/ other particulars |do a 'reverse' search if I dont have the name; but have the number
+|`* *` |user |backup my addressbook as a file |revert things to the state before I messed it up
+|`* *` |user |add people by category |Easily search for people by category 
 |`*` |user with many persons in the address book |sort persons by name |locate a person easily
+|`*` |user who has no friends |Generate random people in addressbook |Feel better about myself D:
 |===========================================================================================================================================
 
 [appendix]
