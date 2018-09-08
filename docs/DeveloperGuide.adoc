@@ -59,6 +59,34 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 (For all use cases below, the *System* is the `AddressBook` and the *Actor* is the `user`, unless specified otherwise)
 
+=== Use case: Rename tag
+
+*MSS*
+
+. User requests to rename tag with provided old tag name and new tag name
+. AddressBook prompts User for confirmation
+. User confirms renaming of tag
+. AddressBook renames the tag
++
+Use case ends.
+
+*Extensions*
+
+* 2a. Old tag name cannot be found.
+** 2a1. AddressBook shows an error message.
++
+Use case ends.
+
+* 2b. New tag name already exists.
+** 2b1. AddressBook shows an error message.
++
+Use case ends.
+
+* 3a. User does not confirm renaming of tag.
+** 3a1. AddressBook shows an 'operation cancelled' message.
++
+Use case ends.
+
 === Use case: Delete person
 
 *MSS*
