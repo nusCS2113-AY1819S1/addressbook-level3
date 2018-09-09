@@ -48,6 +48,9 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |Priority |As a ... |I want to ... |So that I can...
 |`* * *` |new user |see usage instructions |refer to instructions when I forget how to use the App
 |`* * *` |user |add a new person |
+|`* * *` |user |edit a person attributes | always update my address book to hold the most accurate information.
+|`* * *` |user |create a new group | group people in my address book
+|`* * *` |user |add more than 1 phone number | store multiple contact info in the address book
 |`* * *` |user |delete a person |remove entries that I no longer need
 |`* * *` |user |find a person by name |locate details of persons without having to go through the entire list
 |`* *` |user |hide <<private-contact-detail, private contact details>> by default |minimize chance of someone else seeing them by accident
@@ -80,6 +83,44 @@ Use case ends.
 ** 3a1. AddressBook shows an error message.
 +
 Use case resumes at step 2.
+
+=== Use case: Rename Tag
+*MSS*
+
+. User requests to rename existing Tag
+. AddressBook request for all the data with the existing Tag
+. User enters the Tag to be renamed
+. AddressBook will prompt for confirmation
+. User will confirm and all existing Tag will now be replaced with the new Tag.
++
+Use case ends.
+
+*Extensions*
+
+* 2a. The existing tag does not exist.
++
+Use case ends.
+
+* 3a. The rename Tag entered by user exist
+** 3a1. AddressBook shows an error message.
++
+Use case resumes at step 2.
+
+* 3b. The rename Tag entered by user is empty
+** 3b1. AddressBook shows an error message
++
+Use case resumes at step 2.
+* *a. At any time, User can choose to cancel the renaming process.
+** *1a. AddressBook will prompt a cancellation confirmation.
+** *2a. User confirms the cancellation.
++
+User Case Ends.
+
+* *b. At any time, 120 seconds lapse without any input from the User.
+** *b1. AddressBook cancels the transfer.
+** *b2. AddressBook informs the User of the cancellation.
++
+Use case Ends.
 
 [appendix]
 == Non Functional Requirements
