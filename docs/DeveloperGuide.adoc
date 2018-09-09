@@ -59,6 +59,29 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 (For all use cases below, the *System* is the `AddressBook` and the *Actor* is the `user`, unless specified otherwise)
 
+=== Use case: Rename Tag
+
+*MSS*
+
+. User requests to rename a specific tag
+. AddressBook shows a list of persons with that specific tag
+. User to input the new tag to replace the old tag
+. AddressBook will change the tag if confirmed by the user.
++
+Use case ends.
+
+*Extensions*
+
+* 2a. The list is empty.
++
+Use case ends.
+
+* 3a. The new tag is a invalid (e.g containing non-alphanumeric)
+** 3al. AddressBook shows an error message.
++
+Use case resumes at step 2.
+
+
 === Use case: Delete person
 
 *MSS*
