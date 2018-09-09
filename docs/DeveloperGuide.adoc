@@ -52,6 +52,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |`* * *` |user |find a person by name |locate details of persons without having to go through the entire list
 |`* *` |user |hide <<private-contact-detail, private contact details>> by default |minimize chance of someone else seeing them by accident
 |`*` |user with many persons in the address book |sort persons by name |locate a person easily
+|`* * *` |meticulous user |add notes along with my contacts | keep track of my working relations with colleagues
 |===========================================================================================================================================
 
 [appendix]
@@ -67,6 +68,21 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 . AddressBook shows a list of persons
 . User requests to delete a specific person in the list
 . AddressBook deletes the person.
++
+Use case ends.
+
+=== Use case: Renaming a Tag
+
+*MSS*
+
+. User requests to rename Tag
+. AddressBook shows a list of all current Tags
+. User selects the Tag to rename
+. AddressBook prompts the user for the new Tag name
+. User input the new name
+. AddressBook confirms the new name with User
+. User confirms name
+. AddressBook changes Tag name
 +
 Use case ends.
 
