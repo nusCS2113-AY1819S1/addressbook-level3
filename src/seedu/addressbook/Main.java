@@ -18,12 +18,14 @@ public class Main extends Application implements Stoppable{
 
     private Gui gui;
 
+    //GUI START METHOD
     @Override
     public void start(Stage primaryStage) throws Exception{
         gui = new Gui(new Logic(), VERSION);
         gui.start(primaryStage, this);
     }
 
+    //GUI STOP METHOD
     @Override
     public void stop() throws Exception {
         super.stop();

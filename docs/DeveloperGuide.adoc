@@ -48,6 +48,9 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |Priority |As a ... |I want to ... |So that I can...
 |`* * *` |new user |see usage instructions |refer to instructions when I forget how to use the App
 |`* * *` |user |add a new person |
+|`* * *` |user |edit a person attributes | always update my address book to hold the most accurate information.
+|`* * *` |user |create a new group | group people in my address book
+|`* * *` |user |add more than 1 phone number | store multiple contact info in the address book
 |`* * *` |user |delete a person |remove entries that I no longer need
 |`* * *` |user |find a person by name |locate details of persons without having to go through the entire list
 |`* *` |user |hide <<private-contact-detail, private contact details>> by default |minimize chance of someone else seeing them by accident
