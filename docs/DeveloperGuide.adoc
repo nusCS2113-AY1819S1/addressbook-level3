@@ -82,6 +82,33 @@ Use case ends.
 Use case resumes at step 2.
 
 [appendix]
+=== Use case: Reanme Tag
+
+*MSS*
+
+. User requests to list persons
+. AddressBook shows a list of persons
+. User requests to rename a specific person's tag in the list to another tag
+. AddressBook confirms with the user
+. AddressBooks renames the tag
++
+Use case ends.
+
+*Extensions*
+
+* 2a. The list is empty.
++
+Use case ends.
+
+* 3a. The given index is invalid.
+** 3a1. AddressBook shows an error message.
+* 3b. The given tag is invalid.
+** 3b1. AddressBook shows an error message.
+
++
+Use case resumes at step 2.
+
+[appendix]
 == Non Functional Requirements
 
 . Should work on any <<mainstream-os, mainstream OS>> as long as it has Java 9 or higher installed.
