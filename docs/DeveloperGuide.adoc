@@ -51,6 +51,8 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |`* * *` |user |delete a person |remove entries that I no longer need
 |`* * *` |user |find a person by name |locate details of persons without having to go through the entire list
 |`* *` |user |hide <<private-contact-detail, private contact details>> by default |minimize chance of someone else seeing them by accident
+|`* *` |user |add social media usernames | keep track of my friends' different social media and different platforms
+|`*  |exchange students |save a persons home country |keep track of what countries my fellow exchangers come from
 |`*` |user with many persons in the address book |sort persons by name |locate a person easily
 |===========================================================================================================================================
 
