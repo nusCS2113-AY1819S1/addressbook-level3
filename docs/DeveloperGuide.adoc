@@ -52,7 +52,8 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |`* * *` |user |find a person by name |locate details of persons without having to go through the entire list
 |`* *` |user |hide <<private-contact-detail, private contact details>> by default |minimize chance of someone else seeing them by accident
 |`*` |user with many persons in the address book |sort persons by name |locate a person easily
-|===========================================================================================================================================
+|`* *` |user who is forgetful|view history of my input commands|remember what i have done
+===========================================================================================================================================
 
 [appendix]
 == Use Cases
@@ -80,6 +81,37 @@ Use case ends.
 ** 3a1. AddressBook shows an error message.
 +
 Use case resumes at step 2.
+
+=== Use case: Rename tag
+
+*MSS*
+
+. User requests to rename a tag
+. Addressbook shows user a list of existing tags
+. User types the name of tag to be renamed
+. Addressbook requests for new tag name from user
+. User inputs name for renaming tag
+. Addressbook shows list with renamed tag to user
++
+Use case ends.
+
+*Extensions*
+
+* 2a. The list is empty.
+
+User case ends.
+
+* 3a. Tag to be renamed not found in list
+** 3a1. AddressBook says tag not found to user
++ 
+
+User case resumes at step 2.
+
+* 4a. Format of new name of tag invalid
+** 4a1. AddressBook asks for a fresh input of name from user
++
+
+Use case resumes at step 4. 
 
 [appendix]
 == Non Functional Requirements
