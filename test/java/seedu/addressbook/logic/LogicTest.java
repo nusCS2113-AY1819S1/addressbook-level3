@@ -12,7 +12,9 @@ import seedu.addressbook.data.AddressBook;
 import seedu.addressbook.data.person.*;
 import seedu.addressbook.data.tag.Tag;
 import seedu.addressbook.parser.Parser;
+import seedu.addressbook.storage.Storage;
 import seedu.addressbook.storage.StorageFile;
+import seedu.addressbook.stubs.StorageStub;
 
 import java.util.*;
 
@@ -28,6 +30,7 @@ public class LogicTest {
     @Rule
     public TemporaryFolder saveFolder = new TemporaryFolder();
 
+    private StorageStub stubFile;
     private StorageFile saveFile;
     private AddressBook addressBook;
     private Logic logic;
@@ -35,9 +38,10 @@ public class LogicTest {
     @Before
     public void setup() throws Exception {
         saveFile = new StorageFile(saveFolder.newFile("testSaveFile.txt").getPath());
+        stubFile = new StorageStub(saveFolder.newFile("testStubFile.txt").getPath());
         addressBook = new AddressBook();
         saveFile.save(addressBook);
-        logic = new Logic(saveFile, addressBook);
+        logic = new Logic(stubFile, addressBook);
     }
 
     @Test
@@ -95,7 +99,11 @@ public class LogicTest {
                                       boolean isRelevantPersonsExpected,
                                       List<? extends ReadOnlyPerson> lastShownList,
                                        boolean writesToFile) throws Exception {
-
+        // If we need to test if the command writes to file correctly
+        // Injects the saveFile object to check
+        if (writesToFile){
+            logic.setStorage(saveFile);
+        }
         //Execute the command
         CommandResult r = logic.execute(inputCommand);
 
@@ -133,6 +141,9 @@ public class LogicTest {
     @Test
     public void execute_clear() throws Exception {
         TestDataHelper helper = new TestDataHelper();
+        // TODO: refactor this elsewhere
+        logic.setStorage(saveFile);
+        // generates the 3 test people and execute the add command
         for(int i = 1; i <=3; ++i) {
             final Person testPerson = helper.generatePerson(i, true);
             addressBook.addPerson(testPerson);
