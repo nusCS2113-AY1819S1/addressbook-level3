@@ -63,19 +63,38 @@ public class LogicTest {
     private void assertCommandBehavior(String inputCommand, String expectedMessage) throws Exception {
         assertCommandBehavior(inputCommand, expectedMessage, AddressBook.empty(),false, Collections.emptyList());
     }
-
+    /**
+     * Executes the command and confirms that the result message is correct and
+     * Assumes the command does not write to file
+     *      * @see #assertCommandBehavior(String, String, AddressBook, boolean, List, boolean)
+     */
+    private void assertCommandBehavior(String inputCommand,
+                                       String expectedMessage,
+                                       AddressBook expectedAddressBook,
+                                       boolean isRelevantPersonsExpected,
+                                       List<? extends ReadOnlyPerson> lastShownList) throws Exception {
+        assertCommandBehavior(inputCommand,
+                                expectedMessage,
+                                expectedAddressBook,
+                                isRelevantPersonsExpected,
+                                lastShownList,
+                                false);
+    }
     /**
      * Executes the command and confirms that the result message is correct and
      * also confirms that the following three parts of the Logic object's state are as expected:<br>
      *      - the internal address book data are same as those in the {@code expectedAddressBook} <br>
      *      - the internal 'last shown list' matches the {@code expectedLastList} <br>
+     *
+     *      if the command will write to file
      *      - the storage file content matches data in {@code expectedAddressBook} <br>
      */
     private void assertCommandBehavior(String inputCommand,
                                       String expectedMessage,
                                       AddressBook expectedAddressBook,
                                       boolean isRelevantPersonsExpected,
-                                      List<? extends ReadOnlyPerson> lastShownList) throws Exception {
+                                      List<? extends ReadOnlyPerson> lastShownList,
+                                       boolean writesToFile) throws Exception {
 
         //Execute the command
         CommandResult r = logic.execute(inputCommand);
@@ -90,9 +109,8 @@ public class LogicTest {
         //Confirm the state of data is as expected
         assertEquals(expectedAddressBook, addressBook);
         assertEquals(lastShownList, logic.getLastShownList());
-        Parser p = new Parser();
-        if (p.parseCommand(inputCommand).isMutating())
-        assertEquals(addressBook, saveFile.load());
+        if (writesToFile)
+            assertEquals(addressBook, saveFile.load());
     }
 
 
@@ -115,11 +133,17 @@ public class LogicTest {
     @Test
     public void execute_clear() throws Exception {
         TestDataHelper helper = new TestDataHelper();
-        addressBook.addPerson(helper.generatePerson(1, true));
-        addressBook.addPerson(helper.generatePerson(2, true));
-        addressBook.addPerson(helper.generatePerson(3, true));
-
-        assertCommandBehavior("clear", ClearCommand.MESSAGE_SUCCESS, AddressBook.empty(), false, Collections.emptyList());
+        for(int i = 1; i <=3; ++i) {
+            final Person testPerson = helper.generatePerson(i, true);
+            addressBook.addPerson(testPerson);
+            logic.execute(helper.generateAddCommand(testPerson));
+        }
+        assertCommandBehavior("clear",
+                               ClearCommand.MESSAGE_SUCCESS,
+                                AddressBook.empty(),
+                              false,
+                               Collections.emptyList(),
+                              true);
     }
 
     @Test
@@ -161,7 +185,8 @@ public class LogicTest {
                               String.format(AddCommand.MESSAGE_SUCCESS, toBeAdded),
                               expectedAB,
                               false,
-                              Collections.emptyList());
+                              Collections.emptyList(),
+                             true);
 
     }
 
@@ -366,7 +391,8 @@ public class LogicTest {
                                 String.format(DeleteCommand.MESSAGE_DELETE_PERSON_SUCCESS, p2),
                                 expectedAB,
                                 false,
-                                threePersons);
+                                threePersons,
+                                true);
     }
 
     @Test
