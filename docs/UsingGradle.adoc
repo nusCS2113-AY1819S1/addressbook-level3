@@ -29,7 +29,7 @@ To run a Gradle command, open a command window on the project folder and enter t
 `./gradlew clean allTests`
 
 [NOTE]
-If you do not specify any tasks, Gradlew will run the default tasks `clean` `headless` `allTests` `coverage`
+If you do not specify any tasks, Gradlew will run the default tasks `clean` `test` `asciidoctor`
 
 == Cleaning the Project
 
@@ -61,8 +61,9 @@ Converts AsciiDoc files in `docs` to HTML format. Generated HTML files can be fo
 * **`deployOfflineDocs`** +
 Updates the offline user guide, and its associated files, used by the Help window in the application. Deployed HTML files and images can be found in `src/main/resources/docs`.
 
-== Running the application
 
+CRASHES FOR SOME REASONS (Needs confirmation)
+== Running the application
 * *`run`* +
 Builds and runs the application.
 * *`runShadow`* +
@@ -80,25 +81,10 @@ The set of code style rules implemented can be found in `config/checkstyle/check
 [[Running-Tests]]
 == Running Tests
 
-* **`allTests`** +
+* **`test`** +
 Runs all tests.
-* **`guiTests`** +
-Runs all tests in the `seedu.address.ui` and `systemtests` package
-* **`nonGuiTests`** +
-Runs all non-GUI tests in the `seedu.address`
-package
-* **`headless`** +
-Sets the test mode as _headless_. The mode is effective for that Gradle run only so it should be combined with other test tasks.
-+
-[WARNING]
-JDK `10` on Windows will fail to run tests in headless mode due to a https://github.com/javafxports/openjdk-jfx/issues/66[JavaFX bug].
-Windows developers are highly recommended to use JDK `9`.
 
-Here are some examples:
-
-* `./gradlew headless allTests` -- Runs all tests in headless mode
-* `./gradlew clean nonGuiTests` -- Cleans the project and runs non-GUI
-tests
+* `./gradlew clean test` -- Cleans the project and runs tests
 
 == Updating Dependencies
 
