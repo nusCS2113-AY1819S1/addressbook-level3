@@ -1,5 +1,7 @@
 package seedu.addressbook.data.person;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 import seedu.addressbook.data.tag.Tag;
@@ -37,50 +39,61 @@ public interface ReadOnlyPerson {
      * Formats the person as text, showing all contact details.
      */
     default String getAsTextShowAll() {
-        final StringBuilder builder = new StringBuilder();
-        final String detailIsPrivate = "(private) ";
-        builder.append(getName())
-                .append(" Phone: ");
+        final Printable detailsIsPrivate = () -> "(private)";
+        List<Printable> details = new ArrayList<>();
+        details.add(getName());
         if (getPhone().isPrivate()) {
-            builder.append(detailIsPrivate);
+            details.add(detailsIsPrivate);
         }
-        builder.append(getPhone())
-                .append(" Email: ");
+        details.add(getPhone());
         if (getEmail().isPrivate()) {
-            builder.append(detailIsPrivate);
+            details.add(detailsIsPrivate);
         }
-        builder.append(getEmail())
-                .append(" Address: ");
+        details.add(getEmail());
         if (getAddress().isPrivate()) {
-            builder.append(detailIsPrivate);
+            details.add(detailsIsPrivate);
         }
-        builder.append(getAddress())
-                .append(" Tags: ");
+        details.add(getAddress());
+        final StringBuilder builder = new StringBuilder();
+        builder.append("Tags: ");
         for (Tag tag : getTags()) {
             builder.append(tag);
         }
-        return builder.toString();
+        return getPrintableString(details) + builder.toString();
     }
 
     /**
      * Formats a person as text, showing only non-private contact details.
      */
     default String getAsTextHidePrivate() {
-        final StringBuilder builder = new StringBuilder();
-        builder.append(getName());
+        List<Printable> nonPrivateDetails = new ArrayList<>();
+        nonPrivateDetails.add(getName());
         if (!getPhone().isPrivate()) {
-            builder.append(" Phone: ").append(getPhone());
+            nonPrivateDetails.add(getPhone());
         }
         if (!getEmail().isPrivate()) {
-            builder.append(" Email: ").append(getEmail());
+            nonPrivateDetails.add(getEmail());
         }
         if (!getAddress().isPrivate()) {
-            builder.append(" Address: ").append(getAddress());
+            nonPrivateDetails.add(getAddress());
         }
-        builder.append(" Tags: ");
+        final StringBuilder builder = new StringBuilder();
+        builder.append("Tags: ");
         for (Tag tag : getTags()) {
             builder.append(tag);
         }
-        return builder.toString();
+        return getPrintableString(nonPrivateDetails) + builder.toString();
+    }
+
+    /**
+     * Returns a concatenated version of the printable strings of each object.
+     */
+    private String getPrintableString(List<Printable> printables) {
+        String result = "";
+        for (Printable printable: printables) {
+            result += printable.getPrintableString();
+            result += " ";
+        }
+        return result;
     }
 }
