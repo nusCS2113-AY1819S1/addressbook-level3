@@ -1,8 +1,8 @@
 package seedu.addressbook.data.person;
 
-import java.util.HashSet;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import seedu.addressbook.data.tag.Tag;
 
@@ -87,4 +87,41 @@ public class Person implements ReadOnlyPerson {
         return getAsTextShowAll();
     }
 
+    /**
+     * Formats a person as text, showing only non-private contact details.
+     */
+    @Override
+    public String getAsTextHidePrivate() {
+        final StringBuilder builder = new StringBuilder();
+
+        List<Printable> printables = new ArrayList<>();
+        printables.add(name);
+        if(!phone.isPrivate()){
+            printables.add(phone);
+        }
+        if(!email.isPrivate()){
+            printables.add(phone);
+        }
+        if(!address.isPrivate()){
+            printables.add(phone);
+        }
+        builder.append(getPrintableString(
+                printables.toArray(new Printable[printables.size()])));
+
+        builder.append(" Tags: ");
+        for (Tag tag : getTags()) {
+            builder.append(tag);
+        }
+        return builder.toString();
+    }
+
+    /**
+     * Returns a concatenated version of the printable strings of each object.
+     */
+    private String getPrintableString(Printable... printables) {
+        String result = Arrays.stream(printables)
+                .map(printable -> printable.getPrintableString())
+                .collect(Collectors.joining(" "));
+        return result;
+    }
 }
