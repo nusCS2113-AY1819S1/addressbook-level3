@@ -23,7 +23,6 @@ public class ListCommand extends Command {
         return new CommandResult(getMessageForPersonListShownSummary(allPersons), allPersons);
     }
 
-    @Override
     public boolean isMutating(){
         return false;
     }
