@@ -1,6 +1,9 @@
 package seedu.addressbook.storage;
 import seedu.addressbook.data.AddressBook;
-
+/**
+ *  This is the abstract class in charge of Storage.
+ *  Used to apply DI
+ * */
 public abstract class Storage {
     /**
      * Signals that some error has occured while trying to convert and read/write data between the application
