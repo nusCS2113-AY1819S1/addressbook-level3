@@ -1,21 +1,21 @@
 package seedu.addressbook.ui;
 
+import static seedu.addressbook.common.Messages.MESSAGE_PROGRAM_LAUNCH_ARGS_USAGE;
+import static seedu.addressbook.common.Messages.MESSAGE_USING_STORAGE_FILE;
+import static seedu.addressbook.common.Messages.MESSAGE_WELCOME;
+
+import java.util.List;
+import java.util.Optional;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
-import seedu.addressbook.commands.ExitCommand;
-import seedu.addressbook.logic.Logic;
+
 import seedu.addressbook.commands.CommandResult;
+import seedu.addressbook.commands.ExitCommand;
 import seedu.addressbook.data.person.ReadOnlyPerson;
-
-import java.util.List;
-import java.util.Optional;
-
-import static seedu.addressbook.common.Messages.MESSAGE_PROGRAM_LAUNCH_ARGS_USAGE;
-import static seedu.addressbook.common.Messages.MESSAGE_USING_STORAGE_FILE;
-import static seedu.addressbook.common.Messages.MESSAGE_WELCOME;
+import seedu.addressbook.logic.Logic;
 
 /**
  * Main Window of the GUI.
@@ -25,30 +25,29 @@ public class MainWindow {
     private Logic logic;
     private Stoppable mainApp;
 
-    public MainWindow(){
+    public MainWindow() {
     }
 
-    public void setLogic(Logic logic){
+    public void setLogic(Logic logic) {
         this.logic = logic;
     }
 
-    public void setMainApp(Stoppable mainApp){
+    public void setMainApp(Stoppable mainApp) {
         this.mainApp = mainApp;
     }
 
     @FXML
     private TextArea outputConsole;
-
     @FXML
     private TextField commandInput;
 
-
+    /** Reads the user command on the CLI **/
     @FXML
     void onCommand(ActionEvent event) {
         try {
             String userCommandText = commandInput.getText();
             CommandResult result = logic.execute(userCommandText);
-            if(isExitCommand(result)){
+            if (isExitCommand(result)) {
                 exitApp();
                 return;
             }
@@ -75,7 +74,7 @@ public class MainWindow {
     }
 
     /** Clears the output display area */
-    public void clearOutputConsole(){
+    public void clearOutputConsole() {
         outputConsole.clear();
     }
 
@@ -83,12 +82,12 @@ public class MainWindow {
     public void displayResult(CommandResult result) {
         clearOutputConsole();
         final Optional<List<? extends ReadOnlyPerson>> resultPersons = result.getRelevantPersons();
-        if(resultPersons.isPresent()) {
+        if (resultPersons.isPresent()) {
             display(resultPersons.get());
         }
         display(result.feedbackToUser);
     }
-
+    /** Displays the welcome message**/
     public void displayWelcomeMessage(String version, String storageFilePath) {
         String storageFileInfo = String.format(MESSAGE_USING_STORAGE_FILE, storageFilePath);
         display(MESSAGE_WELCOME, version, MESSAGE_PROGRAM_LAUNCH_ARGS_USAGE, storageFileInfo);

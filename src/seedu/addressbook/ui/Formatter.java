@@ -1,9 +1,10 @@
 package seedu.addressbook.ui;
 
-import seedu.addressbook.data.person.ReadOnlyPerson;
-
 import java.util.ArrayList;
 import java.util.List;
+
+import seedu.addressbook.data.person.ReadOnlyPerson;
+
 
 /**
  * Used for formatting text for display. e.g. for adding text decorations.
