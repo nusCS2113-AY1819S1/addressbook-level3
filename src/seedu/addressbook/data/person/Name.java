@@ -64,6 +64,6 @@ public class Name implements Printable {
 
     @Override
     public String getPrintableString(Printable... printables) {
-        return FIELD_PREFIX + fullName;
+        return FIELD_PREFIX + fullName + '\n';
     }
 }

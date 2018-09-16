@@ -62,6 +62,6 @@ public class Email implements Printable {
 
     @Override
     public String getPrintableString(Printable... printables) {
-        return FIELD_PREFIX + value;
+        return FIELD_PREFIX + value + '\n';
     }
 }
