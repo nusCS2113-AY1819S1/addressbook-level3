@@ -47,7 +47,7 @@ public abstract class Command {
     //public abstract CommandResult execute();
 
     /**
-     * Returns true if the command mutate the data
+     * Returns true if the command mutate the data.
      */
     public abstract boolean isMutating();
 
