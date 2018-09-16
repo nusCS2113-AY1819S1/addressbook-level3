@@ -1,5 +1,6 @@
 package seedu.addressbook.logic;
 
+import seedu.addressbook.commands.AddCommand;
 import seedu.addressbook.commands.Command;
 import seedu.addressbook.commands.CommandResult;
 import seedu.addressbook.data.AddressBook;
@@ -77,7 +78,7 @@ public class Logic {
 
     /**
      * Executes the command, updates storage, and returns the result.
-     *
+     * Only able to save into storage if isMutating boolean flag is true.
      * @param command user command
      * @return result of the command
      * @throws Exception if there was any problem during command execution.
@@ -85,7 +86,9 @@ public class Logic {
     private CommandResult execute(Command command) throws Exception {
         command.setData(addressBook, lastShownList);
         CommandResult result = command.execute();
-        storage.save(addressBook);
+        if (command.isMutating()) {
+            storage.save(addressBook);
+        }
         return result;
     }
 
