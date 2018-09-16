@@ -1,4 +1,4 @@
-= AddressBook (Level 3) Reeditted
+= AddressBook (Level 3)
 ifdef::env-github,env-browser[:relfileprefix: docs/]
 ifdef::env-github,env-browser[:imagesDir: docs/images]
 
