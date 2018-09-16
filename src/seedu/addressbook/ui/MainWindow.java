@@ -25,6 +25,11 @@ public class MainWindow {
     private Logic logic;
     private Stoppable mainApp;
 
+    @FXML
+    private TextField commandInput;
+    @FXML
+    private TextArea outputConsole;
+
     public MainWindow() {
     }
 
@@ -34,33 +39,6 @@ public class MainWindow {
 
     public void setMainApp(Stoppable mainApp) {
         this.mainApp = mainApp;
-    }
-
-    @FXML
-    private TextArea outputConsole;
-    @FXML
-    private TextField commandInput;
-
-    /** Reads the user command on the CLI **/
-    @FXML
-    void onCommand(ActionEvent event) {
-        try {
-            String userCommandText = commandInput.getText();
-            CommandResult result = logic.execute(userCommandText);
-            if (isExitCommand(result)) {
-                exitApp();
-                return;
-            }
-            displayResult(result);
-            clearCommandInput();
-        } catch (Exception e) {
-            display(e.getMessage());
-            throw new RuntimeException(e);
-        }
-    }
-
-    private void exitApp() throws Exception {
-        mainApp.stop();
     }
 
     /** Returns true of the result given is the result of an exit command */
@@ -108,4 +86,25 @@ public class MainWindow {
         outputConsole.setText(outputConsole.getText() + new Formatter().format(messages));
     }
 
+    /** Reads the user command on the CLI **/
+    @FXML
+    void onCommand(ActionEvent event) {
+        try {
+            String userCommandText = commandInput.getText();
+            CommandResult result = logic.execute(userCommandText);
+            if (isExitCommand(result)) {
+                exitApp();
+                return;
+            }
+            displayResult(result);
+            clearCommandInput();
+        } catch (Exception e) {
+            display(e.getMessage());
+            throw new RuntimeException(e);
+        }
+    }
+
+    private void exitApp() throws Exception {
+        mainApp.stop();
+    }
 }
