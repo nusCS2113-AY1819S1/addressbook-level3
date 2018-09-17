@@ -14,6 +14,7 @@ public interface ReadOnlyPerson {
     Phone getPhone();
     Email getEmail();
     Address getAddress();
+    Person getPerson();
 
     /**
      * The returned {@code Set} is a deep copy of the internal {@code Set},
@@ -66,16 +67,17 @@ public interface ReadOnlyPerson {
      * Formats a person as text, showing only non-private contact details.
      */
     default String getAsTextHidePrivate() {
+        final Person p = getPerson();
         final StringBuilder builder = new StringBuilder();
         builder.append(getName());
         if (!getPhone().isPrivate()) {
-            builder.append(" Phone: ").append(getPhone());
+            builder.append(p.getPrintableString(p.getPhone()));
         }
         if (!getEmail().isPrivate()) {
-            builder.append(" Email: ").append(getEmail());
+            builder.append(p.getPrintableString(p.getEmail()));
         }
         if (!getAddress().isPrivate()) {
-            builder.append(" Address: ").append(getAddress());
+            builder.append(p.getPrintableString(p.getAddress()));
         }
         builder.append(" Tags: ");
         for (Tag tag : getTags()) {
