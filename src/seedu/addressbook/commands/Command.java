@@ -63,6 +63,15 @@ public abstract class Command {
         return relevantPersons.get(getTargetIndex() - DISPLAYED_INDEX_OFFSET);
     }
 
+    /**
+     * Returns if the command changes the state of the address book by adding or removing entries.
+     * By default it returns false. This is a polymorphic method that will return true for the subclass
+     * commands.
+     */
+    public boolean isMutating() {
+        return false;
+    }
+
     public int getTargetIndex() {
         return targetIndex;
     }
