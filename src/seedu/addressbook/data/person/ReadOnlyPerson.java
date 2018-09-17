@@ -14,7 +14,7 @@ public interface ReadOnlyPerson {
     Phone getPhone();
     Email getEmail();
     Address getAddress();
-
+    Person getPerson();
     /**
      * The returned {@code Set} is a deep copy of the internal {@code Set},
      * changes on the returned list will not affect the person's internal tags.
@@ -82,5 +82,9 @@ public interface ReadOnlyPerson {
             builder.append(tag);
         }
         return builder.toString();
+    }
+
+    default String getAsTextExposeAll() {
+        return getPerson().getPrintableString(getName(),getPhone(),getEmail(),getAddress());
     }
 }

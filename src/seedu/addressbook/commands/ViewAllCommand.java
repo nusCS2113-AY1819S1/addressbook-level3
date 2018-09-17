@@ -32,7 +32,7 @@ public class ViewAllCommand extends Command {
             if (!addressBook.containsPerson(target)) {
                 return new CommandResult(Messages.MESSAGE_PERSON_NOT_IN_ADDRESSBOOK);
             }
-            return new CommandResult(String.format(MESSAGE_VIEW_PERSON_DETAILS, target.getAsTextShowAll()));
+            return new CommandResult(String.format(MESSAGE_VIEW_PERSON_DETAILS, target.getAsTextExposeAll()));
         } catch (IndexOutOfBoundsException ie) {
             return new CommandResult(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
         }
