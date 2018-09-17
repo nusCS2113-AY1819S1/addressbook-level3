@@ -85,7 +85,7 @@ public class MainWindow {
 
     /** Reads the user command on the CLI **/
     @FXML
-    private void onCommand(ActionEvent event) {
+    void onCommand(ActionEvent event) {
         try {
             String userCommandText = commandInput.getText();
             CommandResult result = logic.execute(userCommandText);
