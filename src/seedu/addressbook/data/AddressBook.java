@@ -13,10 +13,6 @@ public class AddressBook {
 
     private final UniquePersonList allPersons;
 
-    public static AddressBook empty() {
-        return new AddressBook();
-    }
-
     /**
      * Creates an empty address book.
      */
@@ -31,6 +27,10 @@ public class AddressBook {
      */
     public AddressBook(UniquePersonList persons) {
         this.allPersons = new UniquePersonList(persons);
+    }
+
+    public static AddressBook empty() {
+        return new AddressBook();
     }
 
     /**

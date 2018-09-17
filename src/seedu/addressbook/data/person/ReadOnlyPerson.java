@@ -22,7 +22,8 @@ public interface ReadOnlyPerson {
     Set<Tag> getTags();
 
     /**
-     * Returns true if the values inside this object is same as those of the other (Note: interfaces cannot override .equals)
+     * Returns true if the values inside this object is same as those of the other
+     * (Note: interfaces cannot override .equals)
      */
     default boolean isSameStateAs(ReadOnlyPerson other) {
         return other == this // short circuit if same object
@@ -39,7 +40,13 @@ public interface ReadOnlyPerson {
     default String getAsTextShowAll() {
         final TextFormatter textFormatter = new TextFormatter();
         final StringBuilder builder = new StringBuilder();
-        final String stringChain = textFormatter.getPrintableString(true, getName(), getPhone(), getEmail(), getAddress());
+        final String stringChain = textFormatter.getPrintableString(
+                true,
+                getName(),
+                getPhone(),
+                getEmail(),
+                getAddress());
+
         builder.append(stringChain)
                 .append(" Tags: ");
         for (Tag tag : getTags()) {
@@ -55,7 +62,12 @@ public interface ReadOnlyPerson {
     default String getAsTextHidePrivate() {
         final TextFormatter textFormatter = new TextFormatter();
         final StringBuilder builder = new StringBuilder();
-        final String stringChain = textFormatter.getPrintableString(false, getName(), getPhone(), getEmail(), getAddress());
+        final String stringChain = textFormatter.getPrintableString(
+                false,
+                getName(),
+                getPhone(),
+                getEmail(),
+                getAddress());
         builder.append(stringChain)
                 .append(" Tags: ");
         for (Tag tag : getTags()) {
