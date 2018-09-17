@@ -54,7 +54,7 @@ public class MainWindow {
             @Override
             public void changed(ObservableValue<? extends String> observable,
                                 String oldValue, String newValue) {
-                System.out.println(newValue);
+//                System.out.println(newValue);
             }
         });
     }
