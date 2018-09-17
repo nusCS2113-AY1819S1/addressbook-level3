@@ -37,6 +37,34 @@ public class ParserTest {
 
     private Parser parser;
 
+    /**
+     * Utility methods
+     */
+
+    /**
+     * Asserts that parsing the given inputs will return IncorrectCommand with the given feedback message.
+     */
+    private void parseAndAssertIncorrectWithMessage(String feedbackMessage, String... inputs) {
+        for (String input : inputs) {
+            final IncorrectCommand result = parseAndAssertCommandType(input, IncorrectCommand.class);
+
+            assertEquals(result.feedbackToUser, feedbackMessage);
+        }
+    }
+
+    /**
+     * Utility method for parsing input and asserting the class/type of the returned command object.
+     *
+     * @param input to be parsed
+     * @param expectedCommandClass expected class of returned command
+     * @return the parsed command object
+     */
+    private <T extends Command> T parseAndAssertCommandType(String input, Class<T> expectedCommandClass) {
+        final Command result = parser.parseCommand(input);
+        assertTrue(result.getClass().isAssignableFrom(expectedCommandClass));
+        return (T) result;
+    }
+
     @Before
     public void setUp() {
         parser = new Parser();
@@ -47,6 +75,7 @@ public class ParserTest {
         final String[] emptyInputs = { "", "  ", "\n  \n" };
         final String resultMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE);
         parseAndAssertIncorrectWithMessage(resultMessage, emptyInputs);
+        assertTrue(true);
     }
 
     @Test
@@ -285,32 +314,5 @@ public class ParserTest {
             addCommand += " t/" + tag.tagName;
         }
         return addCommand;
-    }
-
-    /**
-     * Utility methods
-     */
-
-    /**
-     * Asserts that parsing the given inputs will return IncorrectCommand with the given feedback message.
-     */
-    private void parseAndAssertIncorrectWithMessage(String feedbackMessage, String... inputs) {
-        for (String input : inputs) {
-            final IncorrectCommand result = parseAndAssertCommandType(input, IncorrectCommand.class);
-            assertEquals(result.feedbackToUser, feedbackMessage);
-        }
-    }
-
-    /**
-     * Utility method for parsing input and asserting the class/type of the returned command object.
-     *
-     * @param input to be parsed
-     * @param expectedCommandClass expected class of returned command
-     * @return the parsed command object
-     */
-    private <T extends Command> T parseAndAssertCommandType(String input, Class<T> expectedCommandClass) {
-        final Command result = parser.parseCommand(input);
-        assertTrue(result.getClass().isAssignableFrom(expectedCommandClass));
-        return (T) result;
     }
 }
