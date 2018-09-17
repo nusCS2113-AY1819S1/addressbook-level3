@@ -27,6 +27,10 @@ public class StorageFile extends Storage {
     /** Default file path used if the user doesn't provide the file name. */
     public static final String DEFAULT_STORAGE_FILEPATH = "addressbook.txt";
 
+    public final Path path;
+
+    private final JAXBContext jaxbContext;
+
     /* Note: Note the use of nested classes below.
      * More info https://docs.oracle.com/javase/tutorial/java/javaOO/nested.html
      */
@@ -39,10 +43,6 @@ public class StorageFile extends Storage {
             super(message);
         }
     }
-
-    public final Path path;
-
-    private final JAXBContext jaxbContext;
 
     /**
      * @throws InvalidStorageFilePathException if the default path is invalid
