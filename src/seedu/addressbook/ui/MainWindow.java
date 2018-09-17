@@ -30,9 +30,6 @@ public class MainWindow {
     @FXML
     private TextArea outputConsole;
 
-    public MainWindow() {
-    }
-
     public void setLogic(Logic logic) {
         this.logic = logic;
     }
@@ -88,7 +85,7 @@ public class MainWindow {
 
     /** Reads the user command on the CLI **/
     @FXML
-    void onCommand(ActionEvent event) {
+    private void onCommand(ActionEvent event) {
         try {
             String userCommandText = commandInput.getText();
             CommandResult result = logic.execute(userCommandText);

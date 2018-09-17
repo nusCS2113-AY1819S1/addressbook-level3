@@ -40,6 +40,10 @@ public class Parser {
                     + " (?<isAddressPrivate>p?)a/(?<address>[^/]+)"
                     + "(?<tagArguments>(?: t/[^/]+)*)"); // variable number of tags
 
+    /**
+     * Used for initial separation of command word and args.
+     */
+    public static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
 
     /**
      * Signals that the user input could not be parsed.
@@ -48,12 +52,8 @@ public class Parser {
         ParseException(String message) {
             super(message);
         }
-    }
 
-    /**
-     * Used for initial separation of command word and args.
-     */
-    public static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
+    }
 
     /**
      * Parses user input into command for execution.
