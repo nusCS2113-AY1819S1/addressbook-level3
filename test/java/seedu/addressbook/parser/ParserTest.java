@@ -38,7 +38,7 @@ public class ParserTest {
     private Parser parser;
 
     @Before
-    public void setup() {
+    public void setUp() {
         parser = new Parser();
     }
 
@@ -286,7 +286,6 @@ public class ParserTest {
         }
         return addCommand;
     }
-
     /**
      * Utility methods
      */
@@ -297,6 +296,7 @@ public class ParserTest {
     private void parseAndAssertIncorrectWithMessage(String feedbackMessage, String... inputs) {
         for (String input : inputs) {
             final IncorrectCommand result = parseAndAssertCommandType(input, IncorrectCommand.class);
+
             assertEquals(result.feedbackToUser, feedbackMessage);
         }
     }
@@ -313,4 +313,5 @@ public class ParserTest {
         assertTrue(result.getClass().isAssignableFrom(expectedCommandClass));
         return (T) result;
     }
+
 }
