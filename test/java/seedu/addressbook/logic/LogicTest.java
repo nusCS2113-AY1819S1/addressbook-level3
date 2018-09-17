@@ -50,13 +50,13 @@ public class LogicTest {
     @Rule
     public TemporaryFolder saveFolder = new TemporaryFolder();
 
-    private StorageStub stubFile;
     private StorageFile saveFile;
     private AddressBook addressBook;
     private Logic logic;
 
     @Before
     public void setup() throws Exception {
+        StorageStub stubFile;
         saveFile = new StorageFile(saveFolder.newFile("testSaveFile.txt").getPath());
         stubFile = new StorageStub(saveFolder.newFile("testStubFile.txt").getPath());
         addressBook = new AddressBook();
@@ -150,17 +150,17 @@ public class LogicTest {
     }
 
     @Test
-    public void execute_help() throws Exception {
+    public void executeHelp() throws Exception {
         assertCommandBehavior("help", HelpCommand.MESSAGE_ALL_USAGES);
     }
 
     @Test
-    public void execute_exit() throws Exception {
+    public void executeExit() throws Exception {
         assertCommandBehavior("exit", ExitCommand.MESSAGE_EXIT_ACKNOWEDGEMENT);
     }
 
     @Test
-    public void execute_clear() throws Exception {
+    public void executeClear() throws Exception {
         TestDataHelper helper = new TestDataHelper();
         // TODO: refactor this elsewhere
         logic.setStorage(saveFile);
@@ -179,7 +179,7 @@ public class LogicTest {
     }
 
     @Test
-    public void execute_add_invalidArgsFormat() throws Exception {
+    public void executeAddInvalidArgsFormat() throws Exception {
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE);
         assertCommandBehavior(
                 "add wrong args wrong args", expectedMessage);
@@ -192,7 +192,7 @@ public class LogicTest {
     }
 
     @Test
-    public void execute_add_invalidPersonData() throws Exception {
+    public void executeAddInvalidPersonData() throws Exception {
         assertCommandBehavior(
                 "add []\\[;] p/12345 e/valid@e.mail a/valid, address", Name.MESSAGE_NAME_CONSTRAINTS);
         assertCommandBehavior(
@@ -205,7 +205,7 @@ public class LogicTest {
     }
 
     @Test
-    public void execute_add_successful() throws Exception {
+    public void executeAddSuccessful() throws Exception {
         // setup expectations
         TestDataHelper helper = new TestDataHelper();
         Person toBeAdded = helper.adam();
@@ -223,7 +223,7 @@ public class LogicTest {
     }
 
     @Test
-    public void execute_addDuplicate_notAllowed() throws Exception {
+    public void executeAddDuplicateNotAllowed() throws Exception {
         // setup expectations
         TestDataHelper helper = new TestDataHelper();
         Person toBeAdded = helper.adam();
@@ -244,7 +244,7 @@ public class LogicTest {
     }
 
     @Test
-    public void execute_list_showsAllPersons() throws Exception {
+    public void executeListShowsAllPersons() throws Exception {
         // prepare expectations
         TestDataHelper helper = new TestDataHelper();
         AddressBook expected = helper.generateAddressBook(false, true);
@@ -261,14 +261,14 @@ public class LogicTest {
     }
 
     @Test
-    public void execute_view_invalidArgsFormat() throws Exception {
+    public void executeViewInvalidArgsFormat() throws Exception {
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, ViewCommand.MESSAGE_USAGE);
         assertCommandBehavior("view ", expectedMessage);
         assertCommandBehavior("view arg not number", expectedMessage);
     }
 
     @Test
-    public void execute_view_invalidIndex() throws Exception {
+    public void executeViewInvalidIndex() throws Exception {
         assertInvalidIndexBehaviorForCommand("view");
     }
 
@@ -291,7 +291,7 @@ public class LogicTest {
     }
 
     @Test
-    public void execute_view_onlyShowsNonPrivate() throws Exception {
+    public void executeViewOnlyShowsNonPrivate() throws Exception {
 
         TestDataHelper helper = new TestDataHelper();
         Person p1 = helper.generatePerson(1, true);
@@ -316,7 +316,7 @@ public class LogicTest {
     }
 
     @Test
-    public void execute_tryToViewMissingPerson_errorMessage() throws Exception {
+    public void executeTryToViewMissingPersonErrorMessage() throws Exception {
         TestDataHelper helper = new TestDataHelper();
         Person p1 = helper.generatePerson(1, false);
         Person p2 = helper.generatePerson(2, false);
@@ -336,19 +336,19 @@ public class LogicTest {
     }
 
     @Test
-    public void execute_viewAll_invalidArgsFormat() throws Exception {
+    public void executeViewAllInvalidArgsFormat() throws Exception {
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, ViewAllCommand.MESSAGE_USAGE);
         assertCommandBehavior("viewall ", expectedMessage);
         assertCommandBehavior("viewall arg not number", expectedMessage);
     }
 
     @Test
-    public void execute_viewAll_invalidIndex() throws Exception {
+    public void executeViewAllInvalidIndex() throws Exception {
         assertInvalidIndexBehaviorForCommand("viewall");
     }
 
     @Test
-    public void execute_viewAll_alsoShowsPrivate() throws Exception {
+    public void executeViewAllAlsoShowsPrivate() throws Exception {
         TestDataHelper helper = new TestDataHelper();
         Person p1 = helper.generatePerson(1, true);
         Person p2 = helper.generatePerson(2, false);
@@ -372,7 +372,7 @@ public class LogicTest {
     }
 
     @Test
-    public void execute_tryToViewAllPersonMissingInAddressBook_errorMessage() throws Exception {
+    public void executeTryToViewAllPersonMissingInAddressBookErrorMessage() throws Exception {
         TestDataHelper helper = new TestDataHelper();
         Person p1 = helper.generatePerson(1, false);
         Person p2 = helper.generatePerson(2, false);
@@ -392,19 +392,19 @@ public class LogicTest {
     }
 
     @Test
-    public void execute_delete_invalidArgsFormat() throws Exception {
+    public void executeDeleteInvalidArgsFormat() throws Exception {
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE);
         assertCommandBehavior("delete ", expectedMessage);
         assertCommandBehavior("delete arg not number", expectedMessage);
     }
 
     @Test
-    public void execute_delete_invalidIndex() throws Exception {
+    public void executeDeleteInvalidIndex() throws Exception {
         assertInvalidIndexBehaviorForCommand("delete");
     }
 
     @Test
-    public void execute_delete_removesCorrectPerson() throws Exception {
+    public void executeDeleteRemovesCorrectPerson() throws Exception {
         TestDataHelper helper = new TestDataHelper();
         Person p1 = helper.generatePerson(1, false);
         Person p2 = helper.generatePerson(2, true);
@@ -428,7 +428,7 @@ public class LogicTest {
     }
 
     @Test
-    public void execute_delete_missingInAddressBook() throws Exception {
+    public void executeDeleteMissingInAddressBook() throws Exception {
 
         TestDataHelper helper = new TestDataHelper();
         Person p1 = helper.generatePerson(1, false);
@@ -452,13 +452,13 @@ public class LogicTest {
     }
 
     @Test
-    public void execute_find_invalidArgsFormat() throws Exception {
+    public void executeFindInvalidArgsFormat() throws Exception {
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE);
         assertCommandBehavior("find ", expectedMessage);
     }
 
     @Test
-    public void execute_find_onlyMatchesFullWordsInNames() throws Exception {
+    public void executeFindOnlyMatchesFullWordsInNames() throws Exception {
         TestDataHelper helper = new TestDataHelper();
         Person pTarget1 = helper.generatePersonWithName("bla bla KEY bla");
         Person pTarget2 = helper.generatePersonWithName("bla KEY bla bceofeia");
@@ -478,7 +478,7 @@ public class LogicTest {
     }
 
     @Test
-    public void execute_find_isCaseSensitive() throws Exception {
+    public void executeFindIsCaseSensitive() throws Exception {
         TestDataHelper helper = new TestDataHelper();
         Person pTarget1 = helper.generatePersonWithName("bla bla KEY bla");
         Person pTarget2 = helper.generatePersonWithName("bla KEY bla bceofeia");
@@ -498,7 +498,7 @@ public class LogicTest {
     }
 
     @Test
-    public void execute_find_matchesIfAnyKeywordPresent() throws Exception {
+    public void executeFindMatchesIfAnyKeywordPresent() throws Exception {
         TestDataHelper helper = new TestDataHelper();
         Person pTarget1 = helper.generatePersonWithName("bla bla KEY bla");
         Person pTarget2 = helper.generatePersonWithName("bla rAnDoM bla bceofeia");
@@ -541,7 +541,7 @@ public class LogicTest {
          * @param seed used to generate the person data field values
          * @param isAllFieldsPrivate determines if private-able fields (phone, email, address) will be private
          */
-        Person generatePerson(int seed, boolean isAllFieldsPrivate) throws Exception {
+        private Person generatePerson(int seed, boolean isAllFieldsPrivate) throws Exception {
             return new Person(
                     new Name("Person " + seed),
                     new Phone("" + Math.abs(seed), isAllFieldsPrivate),
@@ -552,15 +552,18 @@ public class LogicTest {
         }
 
         /** Generates the correct add command based on the person given */
-        String generateAddCommand(Person p) {
+        private String generateAddCommand(Person p) {
             StringJoiner cmd = new StringJoiner(" ");
+            String phoneField = (p.getPhone().isPrivate() ? " pp/" : " p/") + p.getPhone();
+            String emailField = (p.getEmail().isPrivate() ? " pe/" : " e/") + p.getEmail();
+            String addressField = (p.getAddress().isPrivate() ? " pa/" : " a/") + p.getAddress();
 
             cmd.add("add");
 
             cmd.add(p.getName().toString());
-            cmd.add((p.getPhone().isPrivate() ? "pp/" : "p/") + p.getPhone());
-            cmd.add((p.getEmail().isPrivate() ? "pe/" : "e/") + p.getEmail());
-            cmd.add((p.getAddress().isPrivate() ? "pa/" : "a/") + p.getAddress());
+            cmd.add(phoneField);
+            cmd.add(emailField);
+            cmd.add(addressField);
 
             Set<Tag> tags = p.getTags();
             for (Tag t: tags) {
@@ -575,7 +578,7 @@ public class LogicTest {
          * @param isPrivateStatuses flags to indicate if all contact details of respective persons should be set to
          *                          private.
          */
-        AddressBook generateAddressBook(Boolean... isPrivateStatuses) throws Exception {
+        private AddressBook generateAddressBook(Boolean... isPrivateStatuses) throws Exception {
             AddressBook addressBook = new AddressBook();
             addToAddressBook(addressBook, isPrivateStatuses);
             return addressBook;
@@ -584,7 +587,7 @@ public class LogicTest {
         /**
          * Generates an AddressBook based on the list of Persons given.
          */
-        AddressBook generateAddressBook(List<Person> persons) throws Exception {
+        private AddressBook generateAddressBook(List<Person> persons) throws Exception {
             AddressBook addressBook = new AddressBook();
             addToAddressBook(addressBook, persons);
             return addressBook;
@@ -596,14 +599,14 @@ public class LogicTest {
          * @param isPrivateStatuses flags to indicate if all contact details of generated persons should be set to
          *                          private.
          */
-        void addToAddressBook(AddressBook addressBook, Boolean... isPrivateStatuses) throws Exception {
+        private void addToAddressBook(AddressBook addressBook, Boolean... isPrivateStatuses) throws Exception {
             addToAddressBook(addressBook, generatePersonList(isPrivateStatuses));
         }
 
         /**
          * Adds the given list of Persons to the given AddressBook
          */
-        void addToAddressBook(AddressBook addressBook, List<Person> personsToAdd) throws Exception {
+        private void addToAddressBook(AddressBook addressBook, List<Person> personsToAdd) throws Exception {
             for (Person p: personsToAdd) {
                 addressBook.addPerson(p);
             }
@@ -612,7 +615,7 @@ public class LogicTest {
         /**
          * Creates a list of Persons based on the give Person objects.
          */
-        List<Person> generatePersonList(Person... persons) throws Exception {
+        private List<Person> generatePersonList(Person... persons) throws Exception {
             List<Person> personList = new ArrayList<>();
             for (Person p: persons) {
                 personList.add(p);
@@ -625,7 +628,7 @@ public class LogicTest {
          * @param isPrivateStatuses flags to indicate if all contact details of respective persons should be set to
          *                          private.
          */
-        List<Person> generatePersonList(Boolean... isPrivateStatuses) throws Exception {
+        private List<Person> generatePersonList(Boolean... isPrivateStatuses) throws Exception {
             List<Person> persons = new ArrayList<>();
             int i = 1;
             for (Boolean p: isPrivateStatuses) {
@@ -637,7 +640,7 @@ public class LogicTest {
         /**
           * Generates a Person object with given name. Other fields will have some dummy values.
           */
-        Person generatePersonWithName(String name) throws Exception {
+        private Person generatePersonWithName(String name) throws Exception {
             return new Person(
                     new Name(name),
                     new Phone("1", false),

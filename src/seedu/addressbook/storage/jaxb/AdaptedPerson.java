@@ -23,16 +23,6 @@ import seedu.addressbook.data.tag.Tag;
  * JAXB-friendly adapted person data holder class.
  */
 public class AdaptedPerson {
-    /**
-     * JAXB-friendly adapted contact detail data holder class.
-     */
-    private static class AdaptedContactDetail {
-        @XmlValue
-        private String value;
-        @XmlAttribute(required = true)
-        private boolean isPrivate;
-    }
-
     @XmlElement(required = true)
     private String name;
     @XmlElement(required = true)
@@ -44,6 +34,17 @@ public class AdaptedPerson {
 
     @XmlElement
     private List<AdaptedTag> tagged = new ArrayList<>();
+
+    /**
+     * JAXB-friendly adapted contact detail data holder class.
+     */
+    private static class AdaptedContactDetail {
+        @XmlValue
+        private String value;
+        @XmlAttribute(required = true)
+        private boolean isPrivate;
+
+    }
 
     /**
      * No-arg constructor for JAXB use.

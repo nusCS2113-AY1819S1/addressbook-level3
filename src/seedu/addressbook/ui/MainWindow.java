@@ -30,9 +30,6 @@ public class MainWindow {
     @FXML
     private TextArea outputConsole;
 
-    public MainWindow() {
-    }
-
     public void setLogic(Logic logic) {
         this.logic = logic;
     }

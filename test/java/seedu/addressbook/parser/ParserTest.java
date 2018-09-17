@@ -276,11 +276,11 @@ public class ParserTest {
     }
     /** **/
     private static String convertPersonToAddCommandString(ReadOnlyPerson person) {
-        String addCommand = "add "
-                + person.getName().fullName
-                + (person.getPhone().isPrivate() ? " pp/" : " p/") + person.getPhone().value
-                + (person.getEmail().isPrivate() ? " pe/" : " e/") + person.getEmail().value
-                + (person.getAddress().isPrivate() ? " pa/" : " a/") + person.getAddress().value;
+        String phoneField = (person.getPhone().isPrivate() ? " pp/" : " p/") + person.getPhone().value;
+        String emailField = (person.getEmail().isPrivate() ? " pe/" : " e/") + person.getEmail().value;
+        String addressField = (person.getAddress().isPrivate() ? " pa/" : " a/") + person.getAddress().value;
+
+        String addCommand = "add " + person.getName().fullName + phoneField + emailField + addressField;
         for (Tag tag : person.getTags()) {
             addCommand += " t/" + tag.tagName;
         }
