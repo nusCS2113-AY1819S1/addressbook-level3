@@ -9,17 +9,14 @@ https://www.codacy.com/app/se-edu/addressbook-level3?utm_source=github.com&utm_m
 image::Ui.png[]
 
 * JitHub is a CLI (Command Line Interface) Address Book application *written in OOP fashion*. It has a very basic GUI.
-* It is a Java sample application intended for students learning Software Engineering while using Java as
-the main programming language.
+* It is a Java application intended for busy students to schedule their meetings and view their calenders by entering natural language commands.
 * It provides a *reasonably well-written* code example that is *significantly bigger* than what students
 usually write in data structure modules.
 * It has also included *additional features* based on Addressbook Level 3.
 
-*What's different from level 2*
+*What's different from the original Addressbook Level 3*
 
-* A simple GUI added to replace the Text UI.
-* A `Logic` class added together with a `LogicTest` class.
-* Appendices added to <<DeveloperGuide#, Developer Guide>>
+* Humours are added in JitHub.
 
 *Useful Links*
 
