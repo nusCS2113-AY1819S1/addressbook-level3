@@ -6,7 +6,7 @@ import seedu.addressbook.data.AddressBook;
  * */
 public abstract class Storage {
     /**
-     * Signals that some error has occured while trying to convert and read/write data between the application
+     * Signals that some error has occurred while trying to convert and read/write data between the application
      * and the storage file.
      */
     public static class StorageOperationException extends Exception {
