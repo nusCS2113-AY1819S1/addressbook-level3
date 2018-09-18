@@ -23,8 +23,7 @@ public class ViewAllCommand extends Command {
     public ViewAllCommand(int targetVisibleIndex) {
         super(targetVisibleIndex);
     }
-
-
+    
     @Override
     public CommandResult execute() {
         try {
@@ -40,6 +39,6 @@ public class ViewAllCommand extends Command {
     
     @Override
     public boolean isMutating() {
-        return false; 
+        return false;
     }
 }
