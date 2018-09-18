@@ -18,6 +18,8 @@ import seedu.addressbook.data.exception.DuplicateDataException;
  */
 public class UniquePersonList implements Iterable<Person> {
 
+    private final List<Person> internalList = new ArrayList<>();
+
     /**
      * Signals that an operation would have violated the 'no duplicates' property of the list.
      */
@@ -32,8 +34,6 @@ public class UniquePersonList implements Iterable<Person> {
      * there is no such matching person in the list.
      */
     public static class PersonNotFoundException extends Exception {}
-
-    private final List<Person> internalList = new ArrayList<>();
 
     /**
      * Constructs empty person list.

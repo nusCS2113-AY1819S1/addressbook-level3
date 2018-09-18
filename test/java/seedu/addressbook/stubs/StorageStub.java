@@ -11,6 +11,7 @@ public class StorageStub extends Storage {
     public StorageStub(String filePath) {
         path = filePath;
     }
+    /***/
     public void save(AddressBook addressBook){}
 
     public AddressBook load() {

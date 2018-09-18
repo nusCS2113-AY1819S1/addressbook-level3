@@ -11,6 +11,7 @@ import java.util.Set;
 import org.junit.Before;
 import org.junit.Test;
 
+import seedu.addressbook.TestDataHelper;
 import seedu.addressbook.commands.AddCommand;
 import seedu.addressbook.commands.ClearCommand;
 import seedu.addressbook.commands.Command;
@@ -275,9 +276,10 @@ public class ParserTest {
     }
     /** **/
     private static String convertPersonToAddCommandString(ReadOnlyPerson person) {
-        String phoneField = (person.getPhone().isPrivate() ? " pp/" : " p/") + person.getPhone().value;
-        String emailField = (person.getEmail().isPrivate() ? " pe/" : " e/") + person.getEmail().value;
-        String addressField = (person.getAddress().isPrivate() ? " pa/" : " a/") + person.getAddress().value;
+        TestDataHelper helper = new TestDataHelper();
+        String phoneField = helper.getPrefix(person.getPhone()) + person.getPhone();
+        String emailField = helper.getPrefix(person.getEmail()) + person.getEmail();
+        String addressField = helper.getPrefix(person.getAddress()) + person.getAddress();
 
         String addCommand = "add " + person.getName().fullName + phoneField + emailField + addressField;
         for (Tag tag : person.getTags()) {

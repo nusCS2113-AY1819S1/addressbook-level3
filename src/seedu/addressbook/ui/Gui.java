@@ -22,7 +22,6 @@ public class Gui {
     public static final int INITIAL_WINDOW_HEIGHT = 600;
     private final Logic logic;
 
-    private MainWindow mainWindow;
     private String version;
 
     public Gui(Logic logic, String version) {
@@ -31,6 +30,7 @@ public class Gui {
     }
     /** Create the startup the window **/
     public void start(Stage stage, Stoppable mainApp) throws IOException {
+        MainWindow mainWindow;
         mainWindow = createMainWindow(stage, mainApp);
         mainWindow.displayWelcomeMessage(version, logic.getStorageFilePath());
     }
