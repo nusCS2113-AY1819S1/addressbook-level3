@@ -3,6 +3,7 @@ package seedu.addressbook.data.person;
 import java.util.Set;
 
 import seedu.addressbook.data.tag.Tag;
+import seedu.addressbook.ui.Formatter;
 
 /**
  * A read-only immutable interface for a Person in the addressbook.
@@ -38,9 +39,9 @@ public interface ReadOnlyPerson {
      * Formats the person as text, showing all contact details.
      */
     default String getAsTextShowAll() {
-        final TextFormatter textFormatter = new TextFormatter();
+        final Formatter formatter = new Formatter();
         final StringBuilder builder = new StringBuilder();
-        final String stringChain = textFormatter.getPrintableString(
+        final String stringChain = formatter.getPrintableString(
                 true,
                 getName(),
                 getPhone(),
@@ -60,9 +61,9 @@ public interface ReadOnlyPerson {
      * Formats a person as text, showing only non-private contact details.
      */
     default String getAsTextHidePrivate() {
-        final TextFormatter textFormatter = new TextFormatter();
+        final Formatter formatter = new Formatter();
         final StringBuilder builder = new StringBuilder();
-        final String stringChain = textFormatter.getPrintableString(
+        final String stringChain = formatter.getPrintableString(
                 false,
                 getName(),
                 getPhone(),
