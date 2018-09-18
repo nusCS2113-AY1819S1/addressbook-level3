@@ -19,7 +19,7 @@ image::Ui.png[]
 
 == Contributors
 
-* The current JitHub organization can be found at https://github.com/CS2113-AY1819S1-W12-1[here].
+* The current JitHub developers can be found at https://github.com/CS2113-AY1819S1-W12-1/main/blob/master/docs/AboutUs.adoc[here].
 * The full list of the original addressbook contributors for se-edu can be found https://se-edu.github.io/Team.html[here].
 
 == Acknowledgements
