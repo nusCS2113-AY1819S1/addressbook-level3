@@ -69,7 +69,5 @@ public abstract class Command {
     /**
      * Lets us know whether we have to write to file
      */
-    public boolean isMutating() {
-        throw new UnsupportedOperationException("This method should be implement in child classes");
-    }
+    public abstract boolean isMutating();
 }
