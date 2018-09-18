@@ -63,7 +63,7 @@ public abstract class Command {
         return relevantPersons.get(getTargetIndex() - DISPLAYED_INDEX_OFFSET);
     }
 
-    abstract boolean isMutating();
+    abstract public  boolean isMutating();
 
     public int getTargetIndex() {
         return targetIndex;
