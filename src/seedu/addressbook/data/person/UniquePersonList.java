@@ -131,4 +131,12 @@ public class UniquePersonList implements Iterable<Person> {
         return internalList.hashCode();
     }
 
+    String getPrintableString(Printable... printables) {
+        String output = new String();
+        for(Printable printable : printables){
+            output = output + "\n" + printable.getPrintableString();
+        }
+        return output;
+    }
+
 }

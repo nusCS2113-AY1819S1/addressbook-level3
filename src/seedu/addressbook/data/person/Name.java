@@ -14,7 +14,7 @@ public class Name implements Printable {
     public static final String EXAMPLE = "John Doe";
     public static final String MESSAGE_NAME_CONSTRAINTS = "Person names should be spaces or alphanumeric characters";
     public static final String NAME_VALIDATION_REGEX = "[\\p{Alnum} ]+";
-    public static final String PREFIX_NAME = "Name: ";
+    public static final String PREFIX_NAME = " Name: ";
 
     public final String fullName;
 
