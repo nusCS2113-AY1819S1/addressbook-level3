@@ -1,6 +1,6 @@
 = JitHub
 
-image::Ui.png[]
+image::docs/images/Ui.png[]
 
 * JitHub is a CLI (Command Line Interface) Address Book application. It has a very basic GUI.
 * It is a Java application intended for busy students to schedule their meetings and view their calenders by entering natural language commands.
