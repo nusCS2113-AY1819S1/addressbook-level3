@@ -3,7 +3,6 @@ package seedu.addressbook.storage;
 import static org.junit.Assert.assertEquals;
 import static seedu.addressbook.util.TestUtil.assertTextFilesEqual;
 
-import java.io.FileNotFoundException;
 import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.Collections;
@@ -14,7 +13,6 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 import org.junit.rules.TemporaryFolder;
 
-import seedu.addressbook.Main;
 import seedu.addressbook.data.AddressBook;
 import seedu.addressbook.data.exception.IllegalValueException;
 import seedu.addressbook.data.person.Address;
