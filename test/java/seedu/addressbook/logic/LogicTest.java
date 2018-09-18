@@ -3,13 +3,8 @@ package seedu.addressbook.logic;
 import static junit.framework.TestCase.assertEquals;
 import static seedu.addressbook.common.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
-import java.util.StringJoiner;
 
 import org.junit.Before;
 import org.junit.Rule;
@@ -31,7 +26,6 @@ import seedu.addressbook.commands.ViewCommand;
 import seedu.addressbook.common.Messages;
 
 import seedu.addressbook.data.AddressBook;
-import seedu.addressbook.data.person.Address;
 import seedu.addressbook.data.person.Email;
 import seedu.addressbook.data.person.Name;
 import seedu.addressbook.data.person.Person;

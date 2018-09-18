@@ -11,9 +11,8 @@ import seedu.addressbook.data.person.Person;
 import seedu.addressbook.ui.Formatter;
 
 public class FormatterTest {
-    private static final String TEST_DATA_FOLDER = "test/data/StorageFileTest";
-    private Formatter formatter = new Formatter();
-    private String LS = System.lineSeparator();
+    private static Formatter formatter = new Formatter();
+    private static String LS = System.lineSeparator();
 
 
     @Test
