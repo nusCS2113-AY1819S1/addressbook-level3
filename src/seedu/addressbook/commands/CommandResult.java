@@ -33,4 +33,5 @@ public class CommandResult {
         return Optional.ofNullable(relevantPersons);
     }
 
+    public boolean isMutating() { return false; }
 }
