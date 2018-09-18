@@ -23,8 +23,7 @@ public class ViewAllCommand extends Command {
     public ViewAllCommand(int targetVisibleIndex) {
         super(targetVisibleIndex);
     }
-
-
+    
     @Override
     public CommandResult execute() {
         try {
@@ -36,5 +35,10 @@ public class ViewAllCommand extends Command {
         } catch (IndexOutOfBoundsException ie) {
             return new CommandResult(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
         }
+    }
+    
+    @Override
+    public boolean isMutating() {
+        return false;
     }
 }
