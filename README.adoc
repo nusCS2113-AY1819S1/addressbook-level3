@@ -10,6 +10,7 @@ image::Ui.png[]
 * Humours are added in JitHub.
 * Users can manage their contacts in JitHub.
 * Users can schedule meetings in JitHub.
+* Users can view their calender on JitHub
 
 *Useful Links*
 
