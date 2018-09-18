@@ -9,7 +9,7 @@ import java.util.List;
  * Represents a Person's name in the address book.
  * Guarantees: immutable; is valid as declared in {@link #isValidName(String)}
  */
-public class Name {
+public class Name implements Printable {
 
     public static final String EXAMPLE = "John Doe";
     public static final String MESSAGE_NAME_CONSTRAINTS = "Person names should be spaces or alphanumeric characters";
@@ -49,6 +49,13 @@ public class Name {
         return fullName;
     }
 
+    @Override
+    public String getPrintableString() {
+        String temp = "Name: ";
+        temp += this.toString();
+        return temp;
+    }
+    
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
