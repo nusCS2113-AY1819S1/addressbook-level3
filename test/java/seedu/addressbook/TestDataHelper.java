@@ -50,15 +50,27 @@ public class TestDataHelper {
         );
     }
 
+    /**Generated the prefix for the field **/
+    public String getPrefix (Phone phone) {
+        return (phone.isPrivate() ? " pp/" : " p/");
+    }
+
+    public String getPrefix (Email email) {
+        return (email.isPrivate() ? " pe/" : " e/");
+    }
+
+    public String getPrefix (Address address) {
+        return (address.isPrivate() ? " pa/" : " a/");
+    }
+
     /** Generates the correct add command based on the person given */
     public String generateAddCommand(Person p) {
         StringJoiner cmd = new StringJoiner(" ");
-        String phoneField = (p.getPhone().isPrivate() ? " pp/" : " p/") + p.getPhone();
-        String emailField = (p.getEmail().isPrivate() ? " pe/" : " e/") + p.getEmail();
-        String addressField = (p.getAddress().isPrivate() ? " pa/" : " a/") + p.getAddress();
+        String phoneField = getPrefix(p.getPhone()) + p.getPhone();
+        String emailField = getPrefix(p.getEmail()) + p.getEmail();
+        String addressField = getPrefix(p.getAddress()) + p.getAddress();
 
         cmd.add("add");
-
         cmd.add(p.getName().toString());
         cmd.add(phoneField);
         cmd.add(emailField);
@@ -68,7 +80,6 @@ public class TestDataHelper {
         for (Tag t: tags) {
             cmd.add("t/" + t.tagName);
         }
-
         return cmd.toString();
     }
 
