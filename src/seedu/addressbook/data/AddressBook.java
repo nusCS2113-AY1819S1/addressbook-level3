@@ -1,6 +1,7 @@
 package seedu.addressbook.data;
 
 import seedu.addressbook.data.person.Person;
+import seedu.addressbook.data.person.Printable;
 import seedu.addressbook.data.person.ReadOnlyPerson;
 import seedu.addressbook.data.person.UniquePersonList;
 import seedu.addressbook.data.person.UniquePersonList.DuplicatePersonException;
@@ -70,6 +71,14 @@ public class AddressBook {
      */
     public UniquePersonList getAllPersons() {
         return new UniquePersonList(allPersons);
+    }
+
+    String getPrintableString(Printable ...printables) {
+        String temp = "";
+        for (Printable printable : printables) {
+            temp += printable.getPrintableString() + "\n";
+        }
+        return temp;
     }
 
     @Override
