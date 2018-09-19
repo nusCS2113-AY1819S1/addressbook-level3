@@ -32,7 +32,7 @@ public class ViewCommand extends Command {
             if (!addressBook.containsPerson(target)) {
                 return new CommandResult(Messages.MESSAGE_PERSON_NOT_IN_ADDRESSBOOK);
             }
-            return new CommandResult(String.format(MESSAGE_VIEW_PERSON_DETAILS, target.getAsTextHidePrivate()));
+            return new CommandResult(String.format(MESSAGE_VIEW_PERSON_DETAILS, target.getPrintableString(target.getName(), target.getPhone(), target.getEmail(), target.getAddress())));
         } catch (IndexOutOfBoundsException ie) {
             return new CommandResult(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
         }
