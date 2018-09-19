@@ -61,6 +61,15 @@ public class Person implements ReadOnlyPerson {
         return new HashSet<>(tags);
     }
 
+    public String getPrintableString(Printable ...printables){
+        String printableString = printables[0].getPrintableString();
+
+        for (int i=1; i<printables.length; i++) {
+            printableString += ", " + printables[i].getPrintableString();
+        }
+        return printableString;
+    }
+
     /**
      * Replaces this person's tags with the tags in {@code replacement}.
      */
@@ -85,6 +94,10 @@ public class Person implements ReadOnlyPerson {
     @Override
     public String toString() {
         return getAsTextShowAll();
+    }
+
+    public String getAsTextNoRestrictions() {
+        return getPrintableString(getName(), getPhone(), getEmail(), getAddress());
     }
 
 }
