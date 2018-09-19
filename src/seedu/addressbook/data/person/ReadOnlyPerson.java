@@ -21,6 +21,8 @@ public interface ReadOnlyPerson {
      */
     Set<Tag> getTags();
 
+    String getAsTextNoRestrictions();
+
     /**
      * Returns true if the values inside this object is same as those of the other (Note: interfaces cannot override .equals)
      */
