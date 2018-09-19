@@ -1,6 +1,7 @@
 package seedu.addressbook.data;
 
 import seedu.addressbook.data.person.Person;
+import seedu.addressbook.data.person.Printable;
 import seedu.addressbook.data.person.ReadOnlyPerson;
 import seedu.addressbook.data.person.UniquePersonList;
 import seedu.addressbook.data.person.UniquePersonList.DuplicatePersonException;
@@ -40,6 +41,19 @@ public class AddressBook {
      */
     public void addPerson(Person toAdd) throws DuplicatePersonException {
         allPersons.add(toAdd);
+        System.out.println(getPrintableString(toAdd.getName(),toAdd.getEmail()));
+    }
+
+    public String getPrintableString(Printable... printables) {
+        String string = "";
+
+        for (Printable s:printables) {
+            string += s.getPrintableString();
+            string += " ";
+        }
+
+        return string;
+
     }
 
     /**
