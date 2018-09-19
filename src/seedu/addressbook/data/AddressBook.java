@@ -40,6 +40,10 @@ public class AddressBook {
      */
     public void addPerson(Person toAdd) throws DuplicatePersonException {
         allPersons.add(toAdd);
+        System.out.println(toAdd.getPrintableString(toAdd.getName(),
+                toAdd.getPhone(),
+                toAdd.getEmail(),
+                toAdd.getAddress()));
     }
 
     /**
