@@ -35,6 +35,10 @@ public class Person implements ReadOnlyPerson {
     public Person(ReadOnlyPerson source) {
         this(source.getName(), source.getPhone(), source.getEmail(), source.getAddress(), source.getTags());
     }
+    /**
+     * Returns a concatenated version of the printable strings of each object.
+     */
+
 
     @Override
     public Name getName() {
