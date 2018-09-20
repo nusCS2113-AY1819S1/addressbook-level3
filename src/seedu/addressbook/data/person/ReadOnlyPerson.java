@@ -8,7 +8,7 @@ import seedu.addressbook.data.tag.Tag;
  * A read-only immutable interface for a Person in the addressbook.
  * Implementations should guarantee: details are present and not null, field values are validated.
  */
-public interface ReadOnlyPerson {
+public interface ReadOnlyPerson extends Printable{
 
     Name getName();
     Phone getPhone();
@@ -33,14 +33,16 @@ public interface ReadOnlyPerson {
                 && other.getAddress().equals(this.getAddress()));
     }
 
+    String getPrintableString();
+
     /**
      * Formats the person as text, showing all contact details.
      */
     default String getAsTextShowAll() {
         final StringBuilder builder = new StringBuilder();
         final String detailIsPrivate = "(private) ";
-        builder.append(getName())
-                .append(" Phone: ");
+        builder.append(getPrintableString());
+                //.append(" Phone: ");
         if (getPhone().isPrivate()) {
             builder.append(detailIsPrivate);
         }
