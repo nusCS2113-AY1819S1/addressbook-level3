@@ -16,12 +16,12 @@ Responsibilities: Managing Pull Requests
 
 '''
 
-=== John Roe
-image::lejolly.jpg[width="150", align="left"]
-{empty}[http://github.com/lejolly[github]] [<<johndoe#, portfolio>>]
+=== Mick Lee
+image::micklee.jpg[width="150", align="left"]
+{empty}[http://github.com/micklwl[github]]
 
-Role: Team Lead +
-Responsibilities: UI
+Role: Bug catcher +
+Responsibilities: Managing subjects + exams
 
 '''
 
