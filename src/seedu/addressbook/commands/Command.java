@@ -15,6 +15,7 @@ public abstract class Command {
     protected AddressBook addressBook;
     protected List<? extends ReadOnlyPerson> relevantPersons;
     private int targetIndex = -1;
+    private String userCommandText;
 
     /**
      * @param targetIndex last visible listing index of the target person
@@ -39,12 +40,14 @@ public abstract class Command {
     /**
      * Executes the command and returns the result.
      */
-    public CommandResult execute(){
-        throw new UnsupportedOperationException("This method should be implement in child classes");
-    }
+//    public CommandResult execute(){
+//        throw new UnsupportedOperationException("This method should be implement in child classes");
+//    }
 
     //Note: it is better to make the execute() method abstract, by replacing the above method with the line below:
     //public abstract CommandResult execute();
+
+    public abstract CommandResult execute();
 
     /**
      * Supplies the data the command will operate on.
@@ -69,5 +72,11 @@ public abstract class Command {
 
     public void setTargetIndex(int targetIndex) {
         this.targetIndex = targetIndex;
+    }
+
+    public boolean isMutating(String userCommandText) {
+        this.userCommandText = userCommandText;
+        if(userCommandText == "add" || userCommandText == "delete") return true;
+        else return false;
     }
 }

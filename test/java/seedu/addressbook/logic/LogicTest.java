@@ -157,7 +157,7 @@ public class LogicTest {
         assertCommandBehavior(helper.generateAddCommand(toBeAdded),
                               String.format(AddCommand.MESSAGE_SUCCESS, toBeAdded),
                               expectedAB,
-                              false,
+                              true,
                               Collections.emptyList());
 
     }
