@@ -80,6 +80,7 @@ public class MainWindow {
     /** Displays the result of a command execution to the user. */
     public void displayResult(CommandResult result) {
         clearOutputConsole();
+        outputConsole.setText("List of Contact(s) found: \n");
         final Optional<List<? extends ReadOnlyPerson>> resultPersons = result.getRelevantPersons();
         if(resultPersons.isPresent()) {
             display(resultPersons.get());
