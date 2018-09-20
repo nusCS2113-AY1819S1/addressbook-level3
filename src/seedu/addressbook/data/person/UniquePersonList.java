@@ -1,9 +1,14 @@
 package seedu.addressbook.data.person;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Iterator;
+import java.util.List;
+
 import seedu.addressbook.common.Utils;
 import seedu.addressbook.data.exception.DuplicateDataException;
-
-import java.util.*;
 
 /**
  * A list of persons. Does not allow null elements or duplicates.
@@ -12,6 +17,8 @@ import java.util.*;
  * @see Utils#elementsAreUnique(Collection)
  */
 public class UniquePersonList implements Iterable<Person> {
+
+    private final List<Person> internalList = new ArrayList<>();
 
     /**
      * Signals that an operation would have violated the 'no duplicates' property of the list.
@@ -27,8 +34,6 @@ public class UniquePersonList implements Iterable<Person> {
      * there is no such matching person in the list.
      */
     public static class PersonNotFoundException extends Exception {}
-
-    private final List<Person> internalList = new ArrayList<>();
 
     /**
      * Constructs empty person list.
@@ -122,8 +127,8 @@ public class UniquePersonList implements Iterable<Person> {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof UniquePersonList // instanceof handles nulls
-                && this.internalList.equals(
-                        ((UniquePersonList) other).internalList));
+                && this.internalList.equals((
+                        (UniquePersonList) other).internalList));
     }
 
     @Override

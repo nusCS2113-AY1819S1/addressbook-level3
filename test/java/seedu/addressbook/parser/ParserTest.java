@@ -1,25 +1,44 @@
 package seedu.addressbook.parser;
 
-import org.junit.Before;
-import org.junit.Test;
-import seedu.addressbook.commands.*;
-import seedu.addressbook.data.exception.IllegalValueException;
-import seedu.addressbook.data.tag.Tag;
-import seedu.addressbook.data.person.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+import static seedu.addressbook.common.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
-import static org.junit.Assert.*;
-import static seedu.addressbook.common.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import org.junit.Before;
+import org.junit.Test;
+
+import seedu.addressbook.TestDataHelper;
+import seedu.addressbook.commands.AddCommand;
+import seedu.addressbook.commands.ClearCommand;
+import seedu.addressbook.commands.Command;
+import seedu.addressbook.commands.DeleteCommand;
+import seedu.addressbook.commands.ExitCommand;
+import seedu.addressbook.commands.FindCommand;
+import seedu.addressbook.commands.HelpCommand;
+import seedu.addressbook.commands.IncorrectCommand;
+import seedu.addressbook.commands.ListCommand;
+import seedu.addressbook.commands.ViewAllCommand;
+import seedu.addressbook.commands.ViewCommand;
+import seedu.addressbook.data.exception.IllegalValueException;
+import seedu.addressbook.data.person.Address;
+import seedu.addressbook.data.person.Email;
+import seedu.addressbook.data.person.Name;
+import seedu.addressbook.data.person.Person;
+import seedu.addressbook.data.person.Phone;
+import seedu.addressbook.data.person.ReadOnlyPerson;
+import seedu.addressbook.data.tag.Tag;
+
 
 public class ParserTest {
 
     private Parser parser;
 
     @Before
-    public void setup() {
+    public void setUp() {
         parser = new Parser();
     }
 
@@ -39,13 +58,12 @@ public class ParserTest {
     /**
      * Test 0-argument commands
      */
-    
     @Test
     public void helpCommand_parsedCorrectly() {
         final String input = "help";
         parseAndAssertCommandType(input, HelpCommand.class);
     }
-    
+
     @Test
     public void clearCommand_parsedCorrectly() {
         final String input = "clear";
@@ -67,7 +85,6 @@ public class ParserTest {
     /**
      * Test ingle index argument commands
      */
-    
     @Test
     public void deleteCommand_noArgs() {
         final String[] inputs = { "delete", "delete " };
@@ -81,7 +98,7 @@ public class ParserTest {
         final String resultMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE);
         parseAndAssertIncorrectWithMessage(resultMessage, inputs);
     }
-    
+
     @Test
     public void deleteCommand_numericArg_indexParsedCorrectly() {
         final int testIndex = 1;
@@ -103,7 +120,7 @@ public class ParserTest {
         final String resultMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, ViewCommand.MESSAGE_USAGE);
         parseAndAssertIncorrectWithMessage(resultMessage, inputs);
     }
-    
+
     @Test
     public void viewCommand_numericArg_indexParsedCorrectly() {
         final int testIndex = 2;
@@ -143,8 +160,8 @@ public class ParserTest {
     public void findCommand_invalidArgs() {
         // no keywords
         final String[] inputs = {
-                "find",
-                "find "
+            "find",
+            "find "
         };
         final String resultMessage =
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE);
@@ -177,19 +194,18 @@ public class ParserTest {
     /**
      * Test add person command
      */
-    
     @Test
     public void addCommand_invalidArgs() {
         final String[] inputs = {
-                "add",
-                "add ",
-                "add wrong args format",
-                // no phone prefix
-                String.format("add $s $s e/$s a/$s", Name.EXAMPLE, Phone.EXAMPLE, Email.EXAMPLE, Address.EXAMPLE),
-                // no email prefix
-                String.format("add $s p/$s $s a/$s", Name.EXAMPLE, Phone.EXAMPLE, Email.EXAMPLE, Address.EXAMPLE),
-                // no address prefix
-                String.format("add $s p/$s e/$s $s", Name.EXAMPLE, Phone.EXAMPLE, Email.EXAMPLE, Address.EXAMPLE)
+            "add",
+            "add ",
+            "add wrong args format",
+            // no phone prefix
+            String.format("add $s $s e/$s a/$s", Name.EXAMPLE, Phone.EXAMPLE, Email.EXAMPLE, Address.EXAMPLE),
+            // no email prefix
+            String.format("add $s p/$s $s a/$s", Name.EXAMPLE, Phone.EXAMPLE, Email.EXAMPLE, Address.EXAMPLE),
+            // no address prefix
+            String.format("add $s p/$s e/$s $s", Name.EXAMPLE, Phone.EXAMPLE, Email.EXAMPLE, Address.EXAMPLE)
         };
         final String resultMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE);
         parseAndAssertIncorrectWithMessage(resultMessage, inputs);
@@ -244,7 +260,7 @@ public class ParserTest {
         final AddCommand result = parseAndAssertCommandType(input, AddCommand.class);
         assertEquals(result.getPerson(), testPerson);
     }
-
+    /** **/
     private static Person generateTestPerson() {
         try {
             return new Person(
@@ -258,19 +274,19 @@ public class ParserTest {
             throw new RuntimeException("test person data should be valid by definition");
         }
     }
-
+    /** **/
     private static String convertPersonToAddCommandString(ReadOnlyPerson person) {
-        String addCommand = "add "
-                + person.getName().fullName
-                + (person.getPhone().isPrivate() ? " pp/" : " p/") + person.getPhone().value
-                + (person.getEmail().isPrivate() ? " pe/" : " e/") + person.getEmail().value
-                + (person.getAddress().isPrivate() ? " pa/" : " a/") + person.getAddress().value;
+        TestDataHelper helper = new TestDataHelper();
+        String phoneField = helper.getPrefix(person.getPhone()) + person.getPhone();
+        String emailField = helper.getPrefix(person.getEmail()) + person.getEmail();
+        String addressField = helper.getPrefix(person.getAddress()) + person.getAddress();
+
+        String addCommand = "add " + person.getName().fullName + phoneField + emailField + addressField;
         for (Tag tag : person.getTags()) {
             addCommand += " t/" + tag.tagName;
         }
         return addCommand;
     }
-
     /**
      * Utility methods
      */
@@ -281,6 +297,7 @@ public class ParserTest {
     private void parseAndAssertIncorrectWithMessage(String feedbackMessage, String... inputs) {
         for (String input : inputs) {
             final IncorrectCommand result = parseAndAssertCommandType(input, IncorrectCommand.class);
+
             assertEquals(result.feedbackToUser, feedbackMessage);
         }
     }
@@ -297,4 +314,5 @@ public class ParserTest {
         assertTrue(result.getClass().isAssignableFrom(expectedCommandClass));
         return (T) result;
     }
+
 }

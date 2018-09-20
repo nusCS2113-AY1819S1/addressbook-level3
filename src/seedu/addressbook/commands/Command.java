@@ -1,12 +1,13 @@
 package seedu.addressbook.commands;
 
+import static seedu.addressbook.ui.Gui.DISPLAYED_INDEX_OFFSET;
+
+import java.util.List;
+
 import seedu.addressbook.common.Messages;
 import seedu.addressbook.data.AddressBook;
 import seedu.addressbook.data.person.ReadOnlyPerson;
 
-import java.util.List;
-
-import static seedu.addressbook.ui.Gui.DISPLAYED_INDEX_OFFSET;
 
 /**
  * Represents an executable command.
@@ -39,12 +40,7 @@ public abstract class Command {
     /**
      * Executes the command and returns the result.
      */
-    public CommandResult execute(){
-        throw new UnsupportedOperationException("This method should be implement in child classes");
-    }
-
-    //Note: it is better to make the execute() method abstract, by replacing the above method with the line below:
-    //public abstract CommandResult execute();
+    public abstract CommandResult execute();
 
     /**
      * Supplies the data the command will operate on.
@@ -69,5 +65,12 @@ public abstract class Command {
 
     public void setTargetIndex(int targetIndex) {
         this.targetIndex = targetIndex;
+    }
+
+    /**
+     * Checks if the command changes the data to be stored
+     */
+    public boolean isMutating() {
+        return false;
     }
 }

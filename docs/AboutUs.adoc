@@ -1,0 +1,52 @@
+= About Us
+:site-section: AboutUs
+:relfileprefix: team/
+:imagesDir: images
+:stylesDir: stylesheets
+
+We are a team based in the http://www.comp.nus.edu.sg[School of Computing, National University of Singapore].
+
+== Project Team
+
+=== Ng Tek In
+image::0WN463.png[width="150", align="left"]
+
+Role: Team Lead +
+Responsibilities: Managing Pull Requests
+
+'''
+
+=== Mick Lee
+image::micklee.jpg[width="150", align="left"]
+{empty}[http://github.com/micklwl[github]]
+
+Role: Bug catcher +
+Responsibilities: Managing subjects + exams
+
+'''
+
+=== Meghana Narayanan
+image::Meg1456.jpg[width="150", align="left"]
+
+Role: Deliverables and Deadlines In-charge + 
+Responsibilities: Ensuring work is completed on time
+
+'''
+
+=== Johnny Roe
+image::m133225.jpg[width="150", align="left"]
+{empty}[http://github.com/m133225[github]] [<<johndoe#, portfolio>>]
+
+Role: Developer +
+Responsibilities: Dev Ops + Threading
+
+'''
+
+=== Benson Meier
+image::yl_coder.jpg[width="150", align="left"]
+{empty}[http://github.com/yl-coder[github]] [<<johndoe#, portfolio>>]
+
+Role: Developer +
+Responsibilities: UI
+
+'''

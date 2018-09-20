@@ -1,30 +1,28 @@
 package seedu.addressbook.storage.jaxb;
 
-import seedu.addressbook.common.Utils;
-import seedu.addressbook.data.exception.IllegalValueException;
-import seedu.addressbook.data.person.*;
-import seedu.addressbook.data.tag.Tag;
-
-import javax.xml.bind.annotation.XmlAttribute;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlValue;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlValue;
+
+import seedu.addressbook.common.Utils;
+import seedu.addressbook.data.exception.IllegalValueException;
+import seedu.addressbook.data.person.Address;
+import seedu.addressbook.data.person.Email;
+import seedu.addressbook.data.person.Name;
+import seedu.addressbook.data.person.Person;
+import seedu.addressbook.data.person.Phone;
+import seedu.addressbook.data.person.ReadOnlyPerson;
+import seedu.addressbook.data.tag.Tag;
+
 
 /**
  * JAXB-friendly adapted person data holder class.
  */
 public class AdaptedPerson {
-
-    private static class AdaptedContactDetail {
-        @XmlValue
-        public String value;
-        @XmlAttribute(required = true)
-        public boolean isPrivate;
-    }
-
     @XmlElement(required = true)
     private String name;
     @XmlElement(required = true)
@@ -36,6 +34,17 @@ public class AdaptedPerson {
 
     @XmlElement
     private List<AdaptedTag> tagged = new ArrayList<>();
+
+    /**
+     * JAXB-friendly adapted contact detail data holder class.
+     */
+    private static class AdaptedContactDetail {
+        @XmlValue
+        private String value;
+        @XmlAttribute(required = true)
+        private boolean isPrivate;
+
+    }
 
     /**
      * No-arg constructor for JAXB use.
