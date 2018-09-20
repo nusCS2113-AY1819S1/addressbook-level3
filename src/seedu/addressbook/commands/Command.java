@@ -45,6 +45,7 @@ public abstract class Command {
 
     //Note: it is better to make the execute() method abstract, by replacing the above method with the line below:
     //public abstract CommandResult execute();
+
     public abstract CommandResult execute();
 
     /**
@@ -72,5 +73,8 @@ public abstract class Command {
         this.targetIndex = targetIndex;
     }
 
-    //public boolean isMutating()
+    public boolean isMutating(String userCommandText) {
+        if(userCommandText == "add" || userCommandText == "delete") return true;
+        else return false;
+    }
 }
