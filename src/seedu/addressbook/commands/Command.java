@@ -48,7 +48,14 @@ public abstract class Command {
         this.addressBook = addressBook;
         this.relevantPersons = relevantPersons;
     }
-
+    /**Checks if the command mutates data.
+     */
+    public static boolean isMutating(String userCommandChoice)
+    {
+        if(userCommandChoice == "add" || userCommandChoice == "delete")
+            return true;
+        return false;
+    }
     /**
      * Extracts the the target person in the last shown list from the given arguments.
      *
