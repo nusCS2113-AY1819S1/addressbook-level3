@@ -70,7 +70,7 @@ public class Logic {
      */
     public CommandResult execute(String userCommandText) throws Exception {
         Command command = new Parser().parseCommand(userCommandText);
-        CommandResult result = execute(command);
+        CommandResult result = execute(command, userCommandText);
         recordResult(result);
         return result;
     }
@@ -82,10 +82,11 @@ public class Logic {
      * @return result of the command
      * @throws Exception if there was any problem during command execution.
      */
-    private CommandResult execute(Command command) throws Exception {
+    private CommandResult execute(Command command, String userCommandText) throws Exception {
         command.setData(addressBook, lastShownList);
         CommandResult result = command.execute();
-        storage.save(addressBook);
+        if(!(command.isMutating(userCommandText)))
+            storage.save(addressBook);
         return result;
     }
 
