@@ -15,6 +15,7 @@ public abstract class Command {
     protected AddressBook addressBook;
     protected List<? extends ReadOnlyPerson> relevantPersons;
     private int targetIndex = -1;
+    private String userCommandText;
 
     /**
      * @param targetIndex last visible listing index of the target person
@@ -74,6 +75,7 @@ public abstract class Command {
     }
 
     public boolean isMutating(String userCommandText) {
+        this.userCommandText = userCommandText;
         if(userCommandText == "add" || userCommandText == "delete") return true;
         else return false;
     }

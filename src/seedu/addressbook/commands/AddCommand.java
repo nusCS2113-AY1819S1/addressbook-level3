@@ -68,4 +68,9 @@ public class AddCommand extends Command {
         }
     }
 
+    @Override
+    public boolean isMutating(String userCommandText) {
+        return super.isMutating(userCommandText);
+    }
+
 }

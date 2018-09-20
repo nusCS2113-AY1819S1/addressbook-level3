@@ -29,8 +29,8 @@ public class Logic {
     }
 
     Logic(StorageFile storageFile, AddressBook addressBook){
-        setStorage(storageFile);
-        setAddressBook(addressBook);
+            setStorage(storageFile);
+            setAddressBook(addressBook);
     }
 
     void setStorage(StorageFile storage){
@@ -82,10 +82,10 @@ public class Logic {
      * @return result of the command
      * @throws Exception if there was any problem during command execution.
      */
-    private CommandResult execute(Command command) throws Exception {
+    private CommandResult execute(Command command, String userCommandText) throws Exception {
         command.setData(addressBook, lastShownList);
         CommandResult result = command.execute();
-        storage.save(addressBook);
+        if(!(command.isMutating(userCommandText))) storage.save(addressBook);
         return result;
     }
 
