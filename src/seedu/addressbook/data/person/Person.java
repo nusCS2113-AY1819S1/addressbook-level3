@@ -1,8 +1,12 @@
 package seedu.addressbook.data.person;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Objects;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import seedu.addressbook.data.tag.Tag;
 
@@ -87,4 +91,28 @@ public class Person implements ReadOnlyPerson {
         return getAsTextShowAll();
     }
 
+    /**
+     * Formats the person as text, showing all contact details.
+     */
+    @Override
+    public String getAsTextShowAll() {
+        final StringBuilder builder = new StringBuilder();
+        builder.append(getPrintableString(name,phone,email,address));
+
+        builder.append(" Tags: ");
+        for (Tag tag : getTags()) {
+            builder.append(tag);
+        }
+        return builder.toString();
+    }
+
+    /**
+     * Returns a concatenated version of the printable strings of each object.
+     */
+    private String getPrintableString(Printable... printables) {
+        String result = Arrays.stream(printables)
+                .map(printable -> printable.getPrintableString())
+                .collect(Collectors.joining(" "));
+        return result;
+    }
 }
