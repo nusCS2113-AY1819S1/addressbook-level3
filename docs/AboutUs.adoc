@@ -33,12 +33,11 @@ Responsibilities: Ensuring work is completed on time
 
 '''
 
-=== Johnny Roe
-image::m133225.jpg[width="150", align="left"]
-{empty}[http://github.com/m133225[github]] [<<johndoe#, portfolio>>]
+=== Neow Bo Kai
+image::Neow_Bo_Kai.png[width="150", align="left"]
 
-Role: Developer +
-Responsibilities: Dev Ops + Threading
+Role: Developer + Code Quality Check
+Responsibilities: Code Quality
 
 '''
 
