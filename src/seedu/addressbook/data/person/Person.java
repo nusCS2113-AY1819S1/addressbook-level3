@@ -92,25 +92,12 @@ public class Person implements ReadOnlyPerson {
     }
 
     /**
-     * Formats a person as text, showing only non-private contact details.
+     * Formats the person as text, showing all contact details.
      */
     @Override
-    public String getAsTextHidePrivate() {
+    public String getAsTextShowAll() {
         final StringBuilder builder = new StringBuilder();
-
-        List<Printable> printables = new ArrayList<>();
-        printables.add(name);
-        if(!phone.isPrivate()){
-            printables.add(phone);
-        }
-        if(!email.isPrivate()){
-            printables.add(phone);
-        }
-        if(!address.isPrivate()){
-            printables.add(phone);
-        }
-        builder.append(getPrintableString(
-                printables.toArray(new Printable[printables.size()])));
+        builder.append(getPrintableString(name,phone,email,address));
 
         builder.append(" Tags: ");
         for (Tag tag : getTags()) {
