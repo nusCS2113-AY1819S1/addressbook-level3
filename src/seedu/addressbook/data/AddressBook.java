@@ -134,7 +134,7 @@ public class AddressBook {
     }
 
     public boolean nextBoxIsEmpty() {
-        if((STATEITERATOR + ITERATOROFFSET) > addressBookStates.size()) return false;
+        if((STATEITERATOR + ITERATOROFFSET) >= addressBookStates.size()) return false;
         else return true;
     }
 
@@ -149,7 +149,7 @@ public class AddressBook {
 
     public void redoLast() throws HistoryOutOfBoundException {
         moveIteratorForward();
-        if(STATEITERATOR > addressBookStates.size()){
+        if(STATEITERATOR + ITERATOROFFSET> addressBookStates.size()){
             moveIteratorBackward();
             throw new HistoryOutOfBoundException();
         }
