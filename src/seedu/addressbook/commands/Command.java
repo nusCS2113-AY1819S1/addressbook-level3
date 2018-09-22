@@ -14,7 +14,6 @@ import static seedu.addressbook.ui.Gui.DISPLAYED_INDEX_OFFSET;
  */
 public abstract class Command {
     protected AddressBook addressBook;
-    protected CommandHistory commandHistory;
     protected List<? extends ReadOnlyPerson> relevantPersons;
     private int targetIndex = -1;
 

@@ -14,7 +14,7 @@ public class ClearCommand extends Command {
     @Override
     public CommandResult execute() {
         addressBook.clear();
-        commandHistory.checkForAction();
+        addressBook.checkForAction();
         return new CommandResult(MESSAGE_SUCCESS);
     }
 }

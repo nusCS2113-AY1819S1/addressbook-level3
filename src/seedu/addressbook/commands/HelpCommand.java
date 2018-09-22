@@ -19,7 +19,8 @@ public class HelpCommand extends Command {
             + "\n" + ViewCommand.MESSAGE_USAGE
             + "\n" + ViewAllCommand.MESSAGE_USAGE
             + "\n" + HelpCommand.MESSAGE_USAGE
-            + "\n" + ExitCommand.MESSAGE_USAGE;
+            + "\n" + ExitCommand.MESSAGE_USAGE
+            + "\n" + UndoCommand.MESSAGE_USAGE;
 
     @Override
     public CommandResult execute() {
