@@ -3,6 +3,7 @@ package seedu.addressbook.logic;
 import seedu.addressbook.commands.Command;
 import seedu.addressbook.commands.CommandResult;
 import seedu.addressbook.data.AddressBook;
+import seedu.addressbook.data.CommandHistory;
 import seedu.addressbook.data.person.ReadOnlyPerson;
 import seedu.addressbook.parser.Parser;
 import seedu.addressbook.storage.StorageFile;
@@ -19,6 +20,7 @@ public class Logic {
 
     private StorageFile storage;
     private AddressBook addressBook;
+    private CommandHistory commandHistory;
 
     /** The list of person shown to the user most recently.  */
     private List<? extends ReadOnlyPerson> lastShownList = Collections.emptyList();
@@ -26,6 +28,7 @@ public class Logic {
     public Logic() throws Exception{
         setStorage(initializeStorage());
         setAddressBook(storage.load());
+        setCommandHistory(commandHistory);
     }
 
     Logic(StorageFile storageFile, AddressBook addressBook){
@@ -39,6 +42,11 @@ public class Logic {
 
     void setAddressBook(AddressBook addressBook){
         this.addressBook = addressBook;
+    }
+
+    void setCommandHistory(CommandHistory commandHistory) {
+        this.commandHistory = commandHistory;
+        this.commandHistory.saveInitialState();
     }
 
     /**
