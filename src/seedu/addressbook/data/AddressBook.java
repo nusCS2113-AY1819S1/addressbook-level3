@@ -122,7 +122,7 @@ public class AddressBook {
      * truncate old history when new undo-able command is executed after undo-ing
      */
     public void truncateOldPath() {
-        addressBookStates.subList(STATEITERATOR, addressBookStates.size()).clear();
+        addressBookStates.subList(STATEITERATOR + ITERATOROFFSET, addressBookStates.size()).clear();
     }
 
     /**
@@ -134,8 +134,8 @@ public class AddressBook {
     }
 
     public boolean nextBoxIsEmpty() {
-        if((STATEITERATOR + ITERATOROFFSET) >= addressBookStates.size()) return false;
-        else return true;
+        if((STATEITERATOR + ITERATOROFFSET) >= addressBookStates.size()) return true;
+        else return false;
     }
 
     public void undoLast() throws HistoryOutOfBoundException {
