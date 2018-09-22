@@ -146,4 +146,13 @@ public class AddressBook {
         }
         switchAddressBook(addressBookStates.get(STATEITERATOR));
     }
+
+    public void redoLast() throws HistoryOutOfBoundException {
+        moveIteratorForward();
+        if(STATEITERATOR > addressBookStates.size()){
+            moveIteratorBackward();
+            throw new HistoryOutOfBoundException();
+        }
+        switchAddressBook(addressBookStates.get(STATEITERATOR));
+    }
 }

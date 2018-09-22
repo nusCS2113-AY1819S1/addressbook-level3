@@ -2,18 +2,18 @@ package seedu.addressbook.commands;
 
 import seedu.addressbook.data.AddressBook;
 
-public class UndoCommand extends Command {
-    public static final String COMMAND_WORD = "undo";
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ":\n" + "Undo previous undo-able action.\n\t"
+public class RedoCommand extends Command{
+    public static final String COMMAND_WORD = "redo";
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ":\n" + "Redo previous undid action.\n\t"
             + "Example: " + COMMAND_WORD;
 
-    public static final String MESSAGE_SUCCESS = "Undo successful!";
-    public static final String MESSAGE_FAILURE = "No command to undo";
+    public static final String MESSAGE_SUCCESS = "Redo successful!";
+    public static final String MESSAGE_FAILURE = "No command to redo";
 
     @Override
     public CommandResult execute() {
         try {
-            addressBook.undoLast();
+            addressBook.redoLast();
 
             return new CommandResult(MESSAGE_SUCCESS);
         } catch (AddressBook.HistoryOutOfBoundException hoobe){
