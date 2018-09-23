@@ -62,7 +62,6 @@ public class Phone implements Printable {
         if (isPrivate) {
             return "(private) ";
         }
-
         return String.format("Phone: %s", value);
     }
 }
