@@ -57,11 +57,11 @@ public class Address implements Printable{
     }
 
     @Override
-    public String getPrintableString(){
+    public  String getPrintableString(){
         if(isPrivate){
             return "(private) ";
         }
 
-        return "Address: " + value;
+        return String.format("Address: %s",value);
     }
 }
