@@ -57,9 +57,13 @@ public class Person implements ReadOnlyPerson {
     }
 
     @Override
+    public Person getPerson() { return this; }
+
+    @Override
     public Set<Tag> getTags() {
         return new HashSet<>(tags);
     }
+
 
     /**
      * Replaces this person's tags with the tags in {@code replacement}.
@@ -87,4 +91,15 @@ public class Person implements ReadOnlyPerson {
         return getAsTextShowAll();
     }
 
+    /**
+     * Returns a concatenated version of the printable strings of each object.
+     */
+    String getPrintableString(Printable... printables) {
+        final StringBuilder concatenatedPrintable = new StringBuilder();
+        for (Printable printableDetails: printables) {
+            concatenatedPrintable.append(printableDetails.getPrintableString());
+            concatenatedPrintable.append(" ");
+        }
+        return concatenatedPrintable.toString();
+    }
 }
