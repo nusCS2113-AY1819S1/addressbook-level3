@@ -4,10 +4,18 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.VBox?>
 
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.Image?>
+
 <VBox stylesheets="@/seedu/addressbook/ui/DarkTheme.css" alignment="center" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
       fx:controller="seedu.addressbook.ui.MainWindow">
 
     <children>
+        <ImageView>
+            <image>
+                <Image url="@/seedu/addressbook/resources/chinchin@60.png" />
+            </image>
+        </ImageView>
 
         <TextField fx:id="commandInput" onAction="#onCommand" VBox.vgrow="NEVER">
         </TextField>
