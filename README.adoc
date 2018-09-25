@@ -9,7 +9,7 @@ image::Ui.png[]
 
 * This is the CLI (Command Line Interface) for the Restaurant Management Application.
 
-* About Us*
+*About Us*
 * Restaurant Management System was developed by CS2113-AY1819S1-F09-2 team. We are a team based in the School of Computing, National University of Singapore
 
 
