@@ -70,4 +70,9 @@ public abstract class Command {
     public void setTargetIndex(int targetIndex) {
         this.targetIndex = targetIndex;
     }
+
+    /**
+     * Limits file saving to only command types that mutate data
+     */
+    public abstract boolean isMutating();
 }
