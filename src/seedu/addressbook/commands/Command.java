@@ -36,6 +36,7 @@ public abstract class Command {
         return String.format(Messages.MESSAGE_PERSONS_LISTED_OVERVIEW, personsDisplayed.size());
     }
 
+
     /**
      * Executes the command and returns the result.
      */

@@ -11,7 +11,7 @@ import java.util.*;
  * @see Person#equals(Object)
  * @see Utils#elementsAreUnique(Collection)
  */
-public class UniquePersonList implements Iterable<Person> {
+public class UniquePersonList implements Iterable<Person>, Printable {
 
     /**
      * Signals that an operation would have violated the 'no duplicates' property of the list.
@@ -46,6 +46,17 @@ public class UniquePersonList implements Iterable<Person> {
         internalList.addAll(initialTags);
     }
 
+
+    @Override
+    public String getPrintableString (Printable... printables) {
+        String result = "";
+        for (Printable prints: printables) {
+            result += prints.getPrintableString() + " ";
+        }
+
+        return result;
+    }
+
     /**
      * Constructs a list from the items in the given collection.
      * @param persons a collection of persons
@@ -63,7 +74,13 @@ public class UniquePersonList implements Iterable<Person> {
      */
     public UniquePersonList(UniquePersonList source) {
         internalList.addAll(source.internalList);
+
+        for (Person person: internalList) {
+            System.out.println(getPrintableString(person.getName(), person.getPhone(), person.getEmail()));
+        }
     }
+
+
 
     /**
      * Unmodifiable java List view with elements cast as immutable {@link ReadOnlyPerson}s.
