@@ -1,0 +1,57 @@
+= About Us
+:site-section: AboutUs
+:relfileprefix: team/
+:imagesDir: images
+:stylesDir: stylesheets
+
+
+Restaurant Management System was developed by the https://github.com/CS2113-AY1819S1-F09-2/main[CS2113-AY1819S1-F09-2] team. +
+We are a team based in the http://www.comp.nus.edu.sg[School of Computing, National University of Singapore].
+
+
+== Project Team
+
+=== Tay Kang Ming
+image::km.jpg[width="150", align="left"]
+{empty} [https://github.com/kangmingtay[github]] [<<johndoe#, portfolio>>]
+
+Role: Team Leader +
+Responsibilities: Responsible for overall project coordination.
+
+'''
+
+=== Salsabil Tasnia Ali Nikita MD
+image::sb.jpg[width="150", align="left"]
+{empty}[https://github.com/SalsabilTasnia[github]] [<<johndoe#, portfolio>>]
+
+Role: Developer, Documentation Lead +
+Responsibilities: Responsible for the menu feature.
+
+'''
+
+=== Pham Minh
+image::pham.jpg[width="150", align="left"]
+{empty}[https://github.com/px1099[github]] [<<johndoe#, portfolio>>]
+
+Role: Developer +
+Responsibilities: Responsible for maintaining the code quality & testing. + Order Feature
+
+'''
+
+=== Ang Wei Ming
+image::wm.jpg[width="150", align="left"]
+{empty}[https://github.com/AngWM[github]] [<<johndoe#, portfolio>>]
+
+Role: Developer +
+Responsibilities: In charge of the Statistics feature
+
+'''
+
+=== Lim Kian Hong
+image::kh.jpg[width="150", align="left"]
+{empty}[https://github.com/kianhong95[github]] [<<johndoe#, portfolio>>]
+
+Role: Developer +
+Responsibilities: In charge of Employee Feature
+
+'''
