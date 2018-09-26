@@ -1,150 +1,328 @@
-= User Guide
+= Restaurant Management System (RMS) - User Guide
 :site-section: UserGuide
+:toc:
+:toc-title:
+:toc-placement: preamble
+:sectnums:
 :imagesDir: images
 :stylesDir: stylesheets
+:xrefstyle: full
+:experimental:
 ifdef::env-github[]
 :tip-caption: :bulb:
 :note-caption: :information_source:
 endif::[]
+:repoURL: https://github.com/CS2113-AY1819S1-F09-2/main.git
 
-This product is not meant for end-users and therefore there is no user-friendly installer.
-Please refer to the <<DeveloperGuide#setting-up, Setting up>> section to learn how to set up the project.
+By: `CS2113-AY1819S1-F09-2`      Since: `Aug 2018`      Licence: `MIT`
 
-== Starting the program
+== Introduction
 
-. Find the project pane (usually located at the left side)
-. Open up `src/seedu.addressbook` folder
-. Right click on `Main`
-. Click `Run Main.main()`
-. The GUI should appear in a few seconds
-+
-image::Ui.png[]
+Food Management System is to help provide restaurants
+ with a more efficient way to manage their restaurants.
+  It has various amount of features that can improve
+   productivity of the different staff members in the
+    restaurant.
+    Jump to the <<Quick Start>> to get started.
 
-== Viewing help : `help`
+== Quick Start
 
-Format: `help`
+*[Coming Soon]*
 
-[TIP]
+.  Refer to <<Features>> for details of each command.
+
+[[Features]]
+== Features
+
 ====
-Help is also shown if you enter an incorrect command e.g. `abcd`
-====
+*How It Works*
 
-== Adding a person: `add`
+When the application is first started, users have to choose
+ which state it wants to enter. There are 5 choices to pick from
+ :
 
-Adds a person to the address book. +
-Format: `add NAME [p]p/PHONE_NUMBER [p]e/EMAIL [p]a/ADDRESS [t/TAG]...`
+ 1. Menu
 
-****
-Words in `UPPER_CASE` are the parameters, items in `SQUARE_BRACKETS` are optional,
-items with `...` after them can have multiple instances. Order of parameters are fixed.
+ 2. Order
 
-Put a `p` before the phone / email / address prefixes to mark it as `private`. `private` details can only
-be seen using the `viewall` command.
+3. Customers
 
-Persons can have any number of tags (including 0)
-****
+4. Employees
 
-Examples:
+5. Statistics
 
-* `add John Doe p/98765432 e/johnd@gmail.com a/John street, block 123, #01-01`
-* `add Betsy Crowe pp/1234567 e/betsycrowe@gmail.com pa/Newgate Prison t/criminal t/friend`
+*Command Format*
 
-== Listing all persons : `list`
-
-Shows a list of all persons in the address book. +
-Format: `list`
-
-== Finding all persons containing any keyword in their name: `find`
-
-Finds persons whose names contain any of the given keywords. +
-Format: `find KEYWORD [MORE_KEYWORDS]`
-
-[NOTE]
-====
-The search is case sensitive, the order of the keywords does not matter, only the name is searched,
-and persons matching at least one keyword will be returned (i.e. `OR` search).
+* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
+* Items in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
 ====
 
-Examples:
+=== Menu
+==== View Menu
 
-* `find John` +
-Returns `John Doe` but not `john`.
+View all items inside the menu +
+Format: view
 
-* `find Betsy Tim John` +
-Returns Any person having names `Betsy`, `Tim`, or `John`.
+* List the current food items in the menu
 
-== Deleting a person : `delete`
+==== Find Menu
 
-Deletes the specified person from the address book. Irreversible. +
-Format: `delete INDEX`
+Finds the food item(s) related to the keywords typed in by the user. +
+Format: find KEYWORD [MORE KEYWORDS]
 
-****
-Deletes the person at the specified `INDEX`.
-The index refers to the index number shown in the most recent listing.
-****
+* A list of menu items with names related to the keyword(s) will be displayed.
+* The command is case insensitive.
+* Order of keywords do not matter.
 
-Examples:
+Example: +
+find Burger COKE fries +
+Returns Double Cheese Burger, Veggie Burger, Coke, Coke Zero, Fries, Curly Fries
 
-* `list` +
-`delete 2` +
-Deletes the 2nd person in the address book.
+==== Update Menu
 
-* `find Betsy` +
-`delete 1` +
-Deletes the 1st person in the results of the `find` command.
+Shows options that you can use to update the menu. +
+Format: update
 
-== View non-private details of a person : `view`
+* Update Menu will show user what he/ she can do to update menu.
+* Menu is updated by adding, editing or deleting food items from menu list.
 
-Displays the non-private details of the specified person. +
-Format: `view INDEX`
+==== Add Item
 
-****
-Views the person at the specified `INDEX`.
-The index refers to the index number shown in the most recent listing.
-****
+Add a new item to the menu and sorts the menu. +
+Format: add NAME p/PRICE [t/TAG]
 
-Examples:
+* Adds the new food item into the menu list
 
-* `list` +
-`view 2` +
-Views the 2nd person in the address book.
+Example: +
+add Cheese Fries p/3.50 t/New item +
+System adds Cheese Fries to the existing menu.
 
-* `find Betsy` +
-`view 1` +
-Views the 1st person in the results of the `find` command.
+==== Edit Item
 
-== View all details of a person : `viewall`
+Edit an item on the menu +
+Format: edit INDEX [n/NAME] [p/PRICE] [t/TAG]
 
-Displays all details (including private details) of the specified person. +
-Format: `viewall INDEX`
+* Edits the name, price and tag of food item in that particular index (User able to edit either one or all three attributes of the particular food item)
 
-****
-Views all details of the person at the specified `INDEX`.
-The index refers to the index number shown in the most recent listing.
-****
+Example: +
+edit 3 Cheese Fries with bacon p/5.00 t/Limited Offer +
+System updates Cheese Fries, which is in index 3, to Cheese Fries with bacon and changes the price from $3.50 to $5.00
 
-Examples:
+==== Delete Item
 
-* `list` +
-`viewall 2` +
-Views all details of the 2nd person in the address book.
+Delete an item on the menu +
+Format: delete INDEX
 
-* `find Betsy` +
-`viewall 1` +
-Views all details of the 1st person in the results of the `find` command.
+* Deletes the food item in that particular index
 
-== Clearing all entries : `clear`
+Example: +
+view menu +
+delete 1 +
+System deletes food item in index 1 from the menu. +
+find Cheese Fries +
+Delete 3 +
+System deletes Cheese Fries in index 3 from the menu.
 
-Clears all entries from the address book. +
-Format: `clear`
+=== Order
+==== View All Order
 
-== Exiting the program : `exit`
+Shows a list of all the current orders. +
+Format: viewall
 
-Exits the program. +
-Format: `exit`
+==== View Order
 
-== Saving the data
+Shows the details of a specified order. +
+Format: view INDEX
 
-Address book data are saved in the hard disk automatically after any command that changes the data.
+* Edit the order at a specific index
 
-There is no need to save manually. Address book data are saved in a file called `addressbook.txt` in the project root folder.
+
+==== Add Order
+
+Adds a new order to the list of current orders and display the list. +
+Format: add ORDERNAME
+
+
+==== Update Order
+
+Shows options that you can use to update orders. +
+Format: update
+
+* Shows the list of commands the user can use (add, edit, delete)
+
+
+==== Edit Order
+
+Edit details of an order. +
+Format: edit INDEX
+
+
+* Edit the order at a specific index
+
+
+==== Delete Order
+
+Delete an order. +
+Format: delete INDEX
+
+* Deletes the order at a specific index
+
+==== Find Order
+
+Find an order by certain parameters. +
+Format: find KEYWORD [MORE_KEYWORDS]
+
+* The search is case-insensitive
+* The order of keywords do not matter
+* Only the name of the order will be searched
+
+=== Members
+
+==== Add Member
+
+Add a new member to the RMS +
+Format: add NAME p/PHONE_NUMBER e/EMAIL_ADDRESS d/DATE_JOINED
+
+==== Edit Member
+
+Edit membership details of a member in the RMS +
+Format: edit NAME [p/PHONE_NUMBER] [e/EMAIL_ADDRESS][d/DATE_JOINED][pt/POINTS]
+
+===== Delete Member
+
+Delete membership details of a member in the RMS +
+Format: delete NAME
+
+==== Find Member
+
+Find membership details of a member in the RMS +
+Format: find NAME
+
+
+=== Employees
+==== View Employees
+
+Show a list of all the employees on the RMS. +
+Format: view
+
+==== Add Employee
+
+Adds a new employee to the RMS. +
+Format: add n/NAME p/PHONE_NUMBER pos/POSITION
+
+Examples: +
+add n/Joe Bob p/91234567 pos/Chef
+
+==== Edit Employee
+
+Edit details of an employee. +
+Format: edit NAME [p/PHONE_NUMBER] [pos/POSITION]
+
+* Edits the person with the given NAME.
+* Parameters in square brackets are optional.
+* At least one of the optional parameters must be provided.
+* Existing values will be updated to the input values.
+
+Examples: +
+edit Joe Bob pos/Cashier +
+Edits the position of Joe Bob to Cashier
+
+=== Delete Employee
+
+Delete and employee. +
+Format: delete NAME
+
+Examples: +
+delete Joe Bob +
+Deletes Joe Bob.
+
+==== Calculate Wages
+
+Calculates the wage of an employee. +
+Format calcwage NAME
+
+Examples: +
+calcwage Joe Bob
+
+=== Statistics
+
+=== View Order Statistics
+
+Display the order statistics overview +
+Format: vieworderstats
+
+
+=== View Member Statistics
+
+Display the member statistics overview +
+Format: viewmemberstats
+
+=== Saving the data
+
+Address book data are saved in the hard disk automatically after any command that changes the data. +
+There is no need to save manually.
+
+== FAQ
+
+*Q*: How do I transfer my data to another Computer? +
+*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Restaurant Management System folder.
+
+== Command Summary
+
+=== Menu
+
+*View Menu* : `view`
+
+*Find Menu* : `find KEYWORD [MORE KEYWORDS]`
+
+*Update Menu* : `update`
+
+*Add Item* : `add NAME p/PRICE [t/TAG]`
+
+*Edit Item* : `edit INDEX [n/NAME] [p/PRICE] [t/TAG]`
+
+*Delete Item* : `delete INDEX`
+
+=== Order
+
+*View All Order* : `viewall`
+
+*View Order* : `view INDEX`
+
+*Add Order* : `add ORDERNAME`
+
+*Update Order* : `update`
+
+*Edit Order* : `edit INDEX`
+
+*Delete Order* : `delete INDEX`
+
+*Find Order* : `find KEYWORD [MORE_KEYWORDS]`
+
+=== Employees
+
+*View Employees* : `add n/NAME p/PHONE_NUMBER pos/POSITION`
+
+*Add Employee* : `add n/NAME p/PHONE_NUMBER pos/POSITION`
+
+*Edit Employee* : `edit NAME [p/PHONE_NUMBER] [pos/POSITION]`
+
+*Delete Employee* : `delete NAME`
+
+*Calculate Wages* : `calcwage NAME`
+
+=== Members
+
+*Add Member* : `add NAME p/PHONE_NUMBER e/EMAIL_ADDRESS d/DATE_JOINED`
+
+*Edit Member* : `edit NAME [p/PHONE_NUMBER] [e/EMAIL_ADDRESS][d/DATE_JOINED][pt/POINTS]`
+
+*Delete Member* : `delete NAME`
+
+*Find Member* : `find NAME`
+
+=== Statistics
+
+*View Order Statistics* : `vieworderstats`
+
+*View Member Statistics* : `viewmemberstats`
