@@ -29,9 +29,9 @@ Responsibilities: Responsible for the menu feature.
 
 '''
 
-=== Pham Minh
-image::pham.jpg[width="150", align="left"]
-{empty}[https://github.com/px1099[github]] [<<johndoe#, portfolio>>]
+=== Pham Quang Minh
+image::px1099.png[width="150", align="left"]
+{empty}[https://github.com/px1099[github]]
 
 Role: Developer +
 Responsibilities: Responsible for maintaining the code quality & testing. + Order Feature
