@@ -933,9 +933,9 @@ _{More to be added}_
 [appendix]
 == Non Functional Requirements
 
-.  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `9` or higher installed.
-.  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
-.  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
+. Quality requirement: The system should be efficient enough for restaurants which want to add a management system for their orders. The orders will be processed in less than 5 clicks.
+. Performance requirements: The system should respond within three seconds as speed and efficiency is important for a restaurant.
+. Project scope: The product is not developed for the customers of the restaurants to use.
 
 _{More to be added}_
 
