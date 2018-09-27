@@ -7,7 +7,7 @@ import seedu.addressbook.data.exception.IllegalValueException;
  * Guarantees: immutable; is valid as declared in {@link #isValidTitle(String)}
  */
 public class Title {
-    public static final String EXAMPLE = "d";
+    public static final String EXAMPLE = "Doctor";
     public static final String MESSAGE_TITLE_CONSTRAINTS = "Title should either be ''Doctor' or 'Patient'";
 
     public final String value;
