@@ -34,7 +34,6 @@ public class AddCommand extends Command {
                       String phone, boolean isPhonePrivate,
                       String email, boolean isEmailPrivate,
                       String address, boolean isAddressPrivate,
-                      String title, boolean isTitlePrivate,
                       Set<String> tags) throws IllegalValueException {
         final Set<Tag> tagSet = new HashSet<>();
         for (String tagName : tags) {
@@ -45,7 +44,6 @@ public class AddCommand extends Command {
                 new Phone(phone, isPhonePrivate),
                 new Email(email, isEmailPrivate),
                 new Address(address, isAddressPrivate),
-                new Title(title, isTitlePrivate),
                 tagSet
         );
     }
