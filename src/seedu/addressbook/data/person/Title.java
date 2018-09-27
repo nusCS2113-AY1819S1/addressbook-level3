@@ -8,7 +8,7 @@ import seedu.addressbook.data.exception.IllegalValueException;
  */
 public class Title {
     public static final String EXAMPLE = "d";
-    public static final String MESSAGE_TITLE_CONSTRAINTS = "Title should either be 'd' for Doctor or 'p' for Patient";
+    public static final String MESSAGE_TITLE_CONSTRAINTS = "Title should either be ''Doctor' or 'Patient'";
 
     public final String value;
     private boolean isPrivate;
@@ -23,7 +23,7 @@ public class Title {
     }
 
     public static boolean isValidTitle(String test){
-        if((test == "Doctor") || (test == "Patient")) return true;
+        if(test.equals("Doctor") || test.equals("Patient")) return true;
         else return false;
     }
 
