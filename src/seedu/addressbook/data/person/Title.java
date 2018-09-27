@@ -23,7 +23,7 @@ public class Title {
     }
 
     public static boolean isValidTitle(String test){
-        if((test == "p") || (test == "d")) return true;
+        if((test == "Doctor") || (test == "Patient")) return true;
         else return false;
     }
 
