@@ -138,10 +138,6 @@ Views all details of the 1st person in the results of the `find` command.
 Clears all entries from the address book. +
 Format: `clear`
 
-== Undo/Redo
-
-Undo/Redo last undo-able command
-
 == Exiting the program : `exit`
 
 Exits the program. +
