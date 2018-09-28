@@ -1,5 +1,7 @@
 = JitHub
 
+https://travis-ci.org/CS2113-AY1819S1-W12-1/main[image:https://travis-ci.org/CS2113-AY1819S1-W12-1/main.svg?branch=master[Build Status]]
+
 image::docs/images/Ui.png[]
 
 * JitHub is a CLI (Command Line Interface) Address Book application. It has a very basic GUI.
