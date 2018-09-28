@@ -31,6 +31,7 @@ public class DeleteCommand extends Command {
             final ReadOnlyPerson target = getTargetPerson();
             addressBook.removePerson(target);
             commandHistory.checkForAction();
+            commandHistory.addHistory(COMMAND_WORD + " " + getTargetIndex());
             return new CommandResult(String.format(MESSAGE_DELETE_PERSON_SUCCESS, target));
 
         } catch (IndexOutOfBoundsException ie) {

@@ -63,6 +63,7 @@ public class AddCommand extends Command {
         try {
             addressBook.addPerson(toAdd);
             commandHistory.checkForAction();
+            commandHistory.addHistory(COMMAND_WORD + " " + toAdd.toString());
             return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
         } catch (UniquePersonList.DuplicatePersonException dpe) {
             return new CommandResult(MESSAGE_DUPLICATE_PERSON);

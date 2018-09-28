@@ -7,6 +7,7 @@ import java.util.ArrayList;
 public class CommandHistory {
     private AddressBook addressBook;
     private ArrayList<UniquePersonList> addressBookStates = new ArrayList<>();
+    private ArrayList<String> history = new ArrayList<>();
     private int STATEITERATOR = 0;
     private int ITERATOROFFSET = 1;
 
@@ -16,6 +17,7 @@ public class CommandHistory {
     }
 
     public static class HistoryOutOfBoundException extends Exception {}
+    public static class EmptyHistoryException extends Exception {}
     /**
      * Save initial state of the address book
      */
@@ -75,5 +77,22 @@ public class CommandHistory {
             throw new HistoryOutOfBoundException();
         }
         addressBook.switchAddressBook(addressBookStates.get(STATEITERATOR));
+    }
+    public void addHistory(String Arg) {
+        history.add(Arg);
+    }
+
+    public String getHistory() throws EmptyHistoryException {
+        if(history.size() == 0) throw new EmptyHistoryException();
+        return historyToString();
+    }
+
+    public String historyToString() {
+        final StringBuilder builder = new StringBuilder();
+        for (String command:history) {
+            builder.append(command);
+            builder.append("\n");
+        }
+        return builder.toString();
     }
 }

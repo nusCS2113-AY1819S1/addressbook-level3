@@ -15,6 +15,7 @@ public class ClearCommand extends Command {
     public CommandResult execute() {
         addressBook.clear();
         commandHistory.checkForAction();
+        commandHistory.addHistory(COMMAND_WORD);
         return new CommandResult(MESSAGE_SUCCESS);
     }
 }

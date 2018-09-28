@@ -18,6 +18,7 @@ public class UndoCommand extends Command {
     public CommandResult execute() {
         try {
             commandHistory.undoLast();
+            commandHistory.addHistory(COMMAND_WORD);
             List<ReadOnlyPerson> allPersons = addressBook.getAllPersons().immutableListView();
             return new CommandResult(MESSAGE_SUCCESS + getMessageForPersonListShownSummary(allPersons), allPersons);
         } catch (CommandHistory.HistoryOutOfBoundException hoobe){

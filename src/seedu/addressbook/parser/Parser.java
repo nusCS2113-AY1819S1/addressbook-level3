@@ -88,6 +88,9 @@ public class Parser {
             case RedoCommand.COMMAND_WORD:
                 return new RedoCommand();
 
+            case HistoryCommand.COMMAND_WORD:
+                return new HistoryCommand();
+
             case HelpCommand.COMMAND_WORD: // Fallthrough
             default:
                 return new HelpCommand();
