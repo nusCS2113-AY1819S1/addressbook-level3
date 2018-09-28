@@ -25,4 +25,7 @@ public class UndoCommand extends Command {
             return new CommandResult(MESSAGE_FAILURE);
         }
     }
+    public boolean isMutating(){
+        return true;
+    }
 }

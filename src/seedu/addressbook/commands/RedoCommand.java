@@ -14,7 +14,6 @@ public class RedoCommand extends Command{
     public static final String MESSAGE_SUCCESS = "Redo successful!\n";
     public static final String MESSAGE_FAILURE = "No command to redo";
 
-    @Override
     public CommandResult execute() {
         try {
             commandHistory.redoLast();
@@ -24,5 +23,8 @@ public class RedoCommand extends Command{
         } catch (CommandHistory.HistoryOutOfBoundException hoobe){
             return new CommandResult(MESSAGE_FAILURE);
         }
+    }
+    public boolean isMutating(){
+        return true;
     }
 }

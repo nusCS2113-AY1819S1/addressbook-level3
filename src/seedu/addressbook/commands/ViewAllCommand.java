@@ -25,7 +25,6 @@ public class ViewAllCommand extends Command {
     }
 
 
-    @Override
     public CommandResult execute() {
         try {
             final ReadOnlyPerson target = getTargetPerson();
@@ -37,5 +36,8 @@ public class ViewAllCommand extends Command {
         } catch (IndexOutOfBoundsException ie) {
             return new CommandResult(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
         }
+    }
+    public boolean isMutating(){
+        return false;
     }
 }
