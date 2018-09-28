@@ -87,4 +87,19 @@ public class Person implements ReadOnlyPerson {
         return getAsTextShowAll();
     }
 
+    /**
+     * Formats the person as text, showing all contact details regardless of privacy.
+     */
+    private String getPrintableString(Printable... printables) {
+        final StringBuilder builder = new StringBuilder();
+
+        for (Printable printable : printables) {
+            builder.append(printable.getPrintableString());
+        }
+        for (Tag tag : getTags()) {
+            builder.append(tag);
+        }
+        return builder.toString();
+    }
+
 }
