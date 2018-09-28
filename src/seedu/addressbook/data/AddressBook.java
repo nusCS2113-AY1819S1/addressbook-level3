@@ -13,6 +13,7 @@ import java.util.ArrayList;
  */
 public class AddressBook {
 
+    private CommandHistory commandHistory;
     private UniquePersonList allPersons;
     private ArrayList<UniquePersonList> addressBookStates = new ArrayList<>();
     private int STATEITERATOR = 0;
@@ -27,6 +28,7 @@ public class AddressBook {
      */
     public AddressBook() {
         allPersons = new UniquePersonList();
+        commandHistory = new CommandHistory(this);
     }
 
     /**
@@ -36,6 +38,7 @@ public class AddressBook {
      */
     public AddressBook(UniquePersonList persons) {
         this.allPersons = new UniquePersonList(persons);
+        this.commandHistory = new CommandHistory(this);
         saveInitialState();
     }
 
@@ -154,5 +157,9 @@ public class AddressBook {
             throw new HistoryOutOfBoundException();
         }
         switchAddressBook(addressBookStates.get(STATEITERATOR));
+    }
+
+    public CommandHistory getCommandHistory() {
+        return commandHistory;
     }
 }
