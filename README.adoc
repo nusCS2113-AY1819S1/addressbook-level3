@@ -1,37 +1,38 @@
-= AddressBook (Level 3)
+image::homepage.png[]
 ifdef::env-github,env-browser[:relfileprefix: docs/]
 ifdef::env-github,env-browser[:imagesDir: docs/images]
+
+=== _Catering_ _To_ _Your_ _Needs_
 
 https://travis-ci.org/CS2113-AY1819S1-F09-2/main[image:https://travis-ci.org/CS2113-AY1819S1-F09-2/main.svg?branch=master[Build Status]]
 https://www.codacy.com/app/se-edu/addressbook-level3?utm_source=github.com&utm_medium=referral&utm_content=se-edu/addressbook-level3&utm_campaign=Badge_Grade[image:https://api.codacy.com/project/badge/Grade/d4a0954383444a8db8cb26e5f5b7302c[Codacy Badge]]
 https://coveralls.io/github/CS2113-AY1819S1-F09-2/main?branch=master[image:https://coveralls.io/repos/github/CS2113-AY1819S1-F09-2/main/badge.svg?branch=master[Coverage Status]]
 
-image::Ui.png[]
+<<AboutUs#, *ABOUT US*>>
+||
+<<UserGuide#,*USER GUIDE*>>
+||
+<<DeveloperGuide#, *DEVELOPER GUIDE*>>
+||
+<<ContactUs#, *CONTACT US*>>
 
-* This is the CLI (Command Line Interface) for the Restaurant Management Application.
+=== Welcome to RMS Homepage
+Restaurant Management System (RMS) promises to increase the quality of your service and enhance your work experience.  The Command Line Interface makes RMS highly efficient as it reduces the number of steps taken to perform a task to just one (or two).  It is your one-stop solution that can be used for serving customers, updating menu as well as storing and tracking important data. In a nutshell, RMS guarantees to be a faster, safer and smarter choice of management for any restaurants and fast food chains.
 
-*About Us*
+image::UImockup.PNG[]
 
-* Restaurant Management System was developed by CS2113-AY1819S1-F09-2 team. We are a team based in the School of Computing, National University of Singapore
+* This is a Desktop Application for Restaurant Management System. It is making use of Command Line Interface
+* Our primary target audience for RMS are *Restaurants* and *Fast Food Chains*
+* RMS contains support for Build Automation using Gradle and for Continuous Integration using Travis CI, with coverage checks using Coveralls.
 
+== Who we are
 
-*Useful Links*
-
-* <<UserGuide#, User Guide>>
-* <<DeveloperGuide#, Developer Guide>>
-* <<LearningOutcomes#, Learning Outcomes>>
-
-== Contributors
-
-The full list of contributors for se-edu can be found https://se-edu.github.io/Team.html[here].
+* Restaurant Management System was developed by CS2113-AY1819S1-F09-2 team. We are a team based in the School of Computing, National University of Singapore. For further information, visit <<AboutUs#, ABOUT US>> page.
 
 == Acknowledgements
 
-Some parts of this sample application was inspired by the excellent
+* Restaurant Management System was developed based on the souce code of an
+https://github.com/se-edu/addressbook-level4[Address Book] created by
+SE-EDU initiative.
+* Some parts of this sample application was inspired by the excellent
 http://code.makery.ch/library/javafx-8-tutorial/[Java FX tutorial] by Marco Jakob
-
-== Contact Us
-
-* *Bug reports, Suggestions* : Post in our https://github.com/se-edu/addressbook-level3/issues[issue tracker]
-if you noticed bugs or have suggestions on how to improve.
-* *Contributing* : We welcome pull requests. Follow the process described https://github.com/oss-generic/process[here]
