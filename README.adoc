@@ -1,7 +1,6 @@
-image::docs/images/homepage.png[]
-
-ifdef::env-github,env-browser[:relfileprefix: docs/]
-ifdef::env-github,env-browser[:imagesDir: docs/images]
+:imagesDir: docs/images
+:relfileprefix: docs/
+image::homepage.png[]
 
 
 https://travis-ci.org/CS2113-AY1819S1-F09-2/main[image:https://travis-ci.org/CS2113-AY1819S1-F09-2/main.svg?branch=master[Build Status]]
