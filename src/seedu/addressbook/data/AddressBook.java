@@ -72,6 +72,15 @@ public class AddressBook {
     }
 
     /**
+     * Finds and returns the given person in the AddressBook
+     *
+     * @throws PersonNotFoundException if no such Person could be found.
+     */
+    public Person findPerson(ReadOnlyPerson person) throws PersonNotFoundException {
+        return allPersons.find(person);
+    }
+
+    /**
      * Clears all persons from the address book.
      */
     public void clear() {
