@@ -12,7 +12,7 @@ We are a team based in the http://www.comp.nus.edu.sg[School of Computing, Natio
 == Project Team
 
 === Lee Geng Yu
-![leegengyu](docs/images/leegengyu.png)
+image::https://github.com/CS2113-AY1819S1-W12-2/main/blob/master/docs/images/leegengyu.png[width="150", align="left"]
 {empty} [https://github.com/leegengyu[github]] [<<leegengyu#, portfolio>>]
 
 Role: Team Lead +
