@@ -61,9 +61,7 @@ public class Person implements ReadOnlyPerson {
     }
 
     @Override
-    public Set<Tag> getTags() {
-        return new HashSet<>(tags);
-    }
+    public Set<Tag> getTags() { return new HashSet<>(tags); }
 
     @Override
     public Curriculum getCurriculum() {return curriculum;}

@@ -32,7 +32,8 @@ public interface ReadOnlyPerson {
                 && other.getName().equals(this.getName()) // state checks here onwards
                 && other.getPhone().equals(this.getPhone())
                 && other.getEmail().equals(this.getEmail())
-                && other.getAddress().equals(this.getAddress()));
+                && other.getAddress().equals(this.getAddress())
+                && other.getCurriculum().equals(this.getCurriculum()));
     }
 
     /**
@@ -86,6 +87,9 @@ public interface ReadOnlyPerson {
         for (Tag tag : getTags()) {
             builder.append(tag);
         }
+        builder.append(" Curriculum: ");
+        builder.append(getCurriculum());
+
         return builder.toString();
     }
 }
