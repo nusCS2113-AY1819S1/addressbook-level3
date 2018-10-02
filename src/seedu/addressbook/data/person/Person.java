@@ -5,6 +5,7 @@ import java.util.Objects;
 import java.util.Set;
 
 import seedu.addressbook.data.tag.Tag;
+import seedu.addressbook.data.person.curriculum.Curriculum;
 
 /**
  * Represents a Person in the address book.
@@ -16,24 +17,27 @@ public class Person implements ReadOnlyPerson {
     private Phone phone;
     private Email email;
     private Address address;
+    private Curriculum curriculum;
 
     private final Set<Tag> tags = new HashSet<>();
     /**
      * Assumption: Every field must be present and not null.
      */
-    public Person(Name name, Phone phone, Email email, Address address, Set<Tag> tags) {
+    public Person(Name name, Phone phone, Email email, Address address, Set<Tag> tags, Curriculum curriculum) {
         this.name = name;
         this.phone = phone;
         this.email = email;
         this.address = address;
         this.tags.addAll(tags);
+        this.curriculum = curriculum;
     }
 
     /**
      * Copy constructor.
      */
     public Person(ReadOnlyPerson source) {
-        this(source.getName(), source.getPhone(), source.getEmail(), source.getAddress(), source.getTags());
+        this(source.getName(), source.getPhone(), source.getEmail(), source.getAddress(),
+             source.getTags(), source.getCurriculum());
     }
 
     @Override
@@ -57,9 +61,10 @@ public class Person implements ReadOnlyPerson {
     }
 
     @Override
-    public Set<Tag> getTags() {
-        return new HashSet<>(tags);
-    }
+    public Set<Tag> getTags() { return new HashSet<>(tags); }
+
+    @Override
+    public Curriculum getCurriculum() {return curriculum;}
 
     /**
      * Replaces this person's tags with the tags in {@code replacement}.
