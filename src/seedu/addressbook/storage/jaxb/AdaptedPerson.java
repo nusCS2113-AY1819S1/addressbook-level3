@@ -19,7 +19,7 @@ import java.util.Set;
  */
 public class AdaptedPerson {
 
-    private static class AdaptedContactDetail {
+    public static class AdaptedContactDetail {
         @XmlValue
         private String value;
         @XmlAttribute(required = true)
@@ -49,7 +49,7 @@ public class AdaptedPerson {
      *
      * @param source future changes to this will not affect the created AdaptedPerson
      */
-    private AdaptedPerson(ReadOnlyPerson source) {
+    public AdaptedPerson(ReadOnlyPerson source) {
         name = source.getName().fullName;
 
         phone = new AdaptedContactDetail();
@@ -78,7 +78,7 @@ public class AdaptedPerson {
      * is to ensure that every xml element in the document is present. JAXB sets missing elements as null,
      * so we check for that.
      */
-    private boolean isAnyRequiredFieldMissing() {
+    public boolean isAnyRequiredFieldMissing() {
         for (AdaptedTag tag : tagged) {
             if (tag.isAnyRequiredFieldMissing()) {
                 return true;
@@ -94,7 +94,7 @@ public class AdaptedPerson {
      *
      * @throws IllegalValueException if there were any data constraints violated in the adapted person
      */
-    private Person toModelType() throws IllegalValueException {
+    public Person toModelType() throws IllegalValueException {
         final Set<Tag> tags = new HashSet<>();
         for (AdaptedTag tag : tagged) {
             tags.add(tag.toModelType());

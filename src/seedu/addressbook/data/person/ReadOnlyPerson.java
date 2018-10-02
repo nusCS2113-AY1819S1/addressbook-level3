@@ -61,6 +61,9 @@ public interface ReadOnlyPerson {
         for (Tag tag : getTags()) {
             builder.append(tag);
         }
+        builder.append(" Curriculum: ");
+        builder.append(getCurriculum());
+
         return builder.toString();
     }
 
