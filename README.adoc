@@ -1,4 +1,4 @@
-image::homepage.png
+image::homepage.png[]
 ifdef::env-github,env-browser[:relfileprefix: docs/]
 ifdef::env-github,env-browser[:imagesDir: docs/images]
 
