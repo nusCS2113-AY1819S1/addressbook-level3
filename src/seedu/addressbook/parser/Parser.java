@@ -26,6 +26,16 @@ public class Parser {
                     + " (?<isAddressPrivate>p?)a/(?<address>[^/]+)"
                     + "(?<tagArguments>(?: t/[^/]+)*)"); // variable number of tags
 
+    public static final Pattern MEMBER_INDEX_ARGS_FORMAT = Pattern.compile("(?<targetIndex>.+)");
+
+    public static final Pattern MEMBER_DATA_ARGS_FORMAT =
+            Pattern.compile("(?<name>[^/]+)"
+                    + " (?<isPhonePrivate>p?)p/(?<phone>[^/]+)"
+                    + " (?<isEmailPrivate>p?)e/(?<email>[^/]+)"
+                    + " (?<isAddressPrivate>p?)a/(?<address>[^/]+)"
+                    + " (?<isPointsPrivate>p?)pt/(?<points>[^/]+)"
+                    + "(?<tagArguments>(?: t/[^/]+)*)"); // variable number of tags
+
 
     /**
      * Signals that the user input could not be parsed.
@@ -80,6 +90,9 @@ public class Parser {
 
             case ExitCommand.COMMAND_WORD:
                 return new ExitCommand();
+
+            case ListMembersCommand.COMMAND_WORD:
+                return new ListMembersCommand();
 
             case HelpCommand.COMMAND_WORD: // Fallthrough
             default:
