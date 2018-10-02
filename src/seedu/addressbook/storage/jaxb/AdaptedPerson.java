@@ -3,6 +3,7 @@ package seedu.addressbook.storage.jaxb;
 import seedu.addressbook.common.Utils;
 import seedu.addressbook.data.exception.IllegalValueException;
 import seedu.addressbook.data.person.*;
+import seedu.addressbook.data.person.curriculum.Curriculum;
 import seedu.addressbook.data.tag.Tag;
 
 import javax.xml.bind.annotation.XmlAttribute;
@@ -20,9 +21,9 @@ public class AdaptedPerson {
 
     private static class AdaptedContactDetail {
         @XmlValue
-        public String value;
+        private String value;
         @XmlAttribute(required = true)
-        public boolean isPrivate;
+        private boolean isPrivate;
     }
 
     @XmlElement(required = true)
@@ -48,7 +49,7 @@ public class AdaptedPerson {
      *
      * @param source future changes to this will not affect the created AdaptedPerson
      */
-    public AdaptedPerson(ReadOnlyPerson source) {
+    private AdaptedPerson(ReadOnlyPerson source) {
         name = source.getName().fullName;
 
         phone = new AdaptedContactDetail();
@@ -77,7 +78,7 @@ public class AdaptedPerson {
      * is to ensure that every xml element in the document is present. JAXB sets missing elements as null,
      * so we check for that.
      */
-    public boolean isAnyRequiredFieldMissing() {
+    private boolean isAnyRequiredFieldMissing() {
         for (AdaptedTag tag : tagged) {
             if (tag.isAnyRequiredFieldMissing()) {
                 return true;
@@ -93,7 +94,7 @@ public class AdaptedPerson {
      *
      * @throws IllegalValueException if there were any data constraints violated in the adapted person
      */
-    public Person toModelType() throws IllegalValueException {
+    private Person toModelType() throws IllegalValueException {
         final Set<Tag> tags = new HashSet<>();
         for (AdaptedTag tag : tagged) {
             tags.add(tag.toModelType());
@@ -102,6 +103,7 @@ public class AdaptedPerson {
         final Phone phone = new Phone(this.phone.value, this.phone.isPrivate);
         final Email email = new Email(this.email.value, this.email.isPrivate);
         final Address address = new Address(this.address.value, this.address.isPrivate);
-        return new Person(name, phone, email, address, tags);
+        final Curriculum curriculum = new Curriculum();
+        return new Person(name, phone, email, address, tags, curriculum);
     }
 }

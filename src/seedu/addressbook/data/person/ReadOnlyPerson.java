@@ -3,6 +3,7 @@ package seedu.addressbook.data.person;
 import java.util.Set;
 
 import seedu.addressbook.data.tag.Tag;
+import seedu.addressbook.data.person.curriculum.Curriculum;
 
 /**
  * A read-only immutable interface for a Person in the addressbook.
@@ -14,6 +15,7 @@ public interface ReadOnlyPerson {
     Phone getPhone();
     Email getEmail();
     Address getAddress();
+    Curriculum getCurriculum();
 
     /**
      * The returned {@code Set} is a deep copy of the internal {@code Set},
