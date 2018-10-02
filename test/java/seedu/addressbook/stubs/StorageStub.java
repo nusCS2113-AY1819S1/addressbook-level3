@@ -10,6 +10,11 @@ import seedu.addressbook.storage.Storage;
 public class StorageStub extends Storage {
     private String path;
     private String pathExam;
+
+    public StorageStub(String filePath) {
+        path = filePath;
+    }
+
     public StorageStub(String filePath, String filePathExam) {
         path = filePath;
         pathExam = filePathExam;

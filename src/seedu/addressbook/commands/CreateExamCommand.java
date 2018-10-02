@@ -33,10 +33,6 @@ public class CreateExamCommand extends Command {
         this.toAdd = new Exam(subjectName, examName, examDate, examStartTime, examEndTime, examDetails, isExamPrivate);
     }
 
-    public CreateExamCommand(Exam toAdd) {
-        this.toAdd = toAdd;
-    }
-
     public Exam getExam() {
         return toAdd;
     }
@@ -55,5 +51,10 @@ public class CreateExamCommand extends Command {
     @Override
     public boolean isMutating() {
         return true;
+    }
+
+    @Override
+    public String getCommandUsageMessage() {
+        return MESSAGE_USAGE;
     }
 }

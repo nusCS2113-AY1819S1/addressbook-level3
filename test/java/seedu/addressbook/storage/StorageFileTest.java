@@ -1,11 +1,13 @@
 package seedu.addressbook.storage;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import static seedu.addressbook.util.TestUtil.assertTextFilesEqual;
 
 import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.HashSet;
 
 import org.junit.Rule;
@@ -27,6 +29,7 @@ import seedu.addressbook.storage.Storage.StorageOperationException;
 
 public class StorageFileTest {
     private static final String TEST_DATA_FOLDER = "test/data/StorageFileTest";
+    private static final String VALID_EXAM_DATA_PATH = "ValidExamData.txt";
 
     @Rule
     public ExpectedException thrown = ExpectedException.none();
@@ -54,7 +57,8 @@ public class StorageFileTest {
 
     @Test
     public void constructor_defaultPath() throws Exception {
-        new StorageFile();
+        StorageFile storage = new StorageFile();
+        assertNotNull(storage);
     }
 
     @Test
@@ -87,12 +91,22 @@ public class StorageFileTest {
 
     @Test
     public void load_validFormat() throws Exception {
-        AddressBook actual = getStorage("ValidData.txt", "ValidExamData.txt").load();
-        AddressBook expected = getTestAddressBook();
+        HashMap<String, AddressBook> inputToExpectedOutputs = new HashMap<>();
+        inputToExpectedOutputs.put("ValidDataWithoutPassword.txt", getTestAddressBook(true));
+        inputToExpectedOutputs.put("ValidDataWithNewPassword.txt", getTestAddressBook(false));
+        inputToExpectedOutputs.put("ValidDataWithDefaultPassword.txt", getTestAddressBook(true));
+        inputToExpectedOutputs.put("ValidEmptyData.txt", AddressBook.empty());
 
-        // ensure loaded AddressBook is properly constructed with test data
-        // TODO: overwrite equals method in AddressBook class and replace with equals method below
-        assertEquals(actual.getAllPersons(), expected.getAllPersons());
+        for (HashMap.Entry<String, AddressBook> inputToExpected : inputToExpectedOutputs.entrySet()) {
+            final AddressBook actual = getStorage(inputToExpected.getKey()).load();
+            final AddressBook expected = inputToExpected.getValue();
+
+            // ensure loaded AddressBook is properly constructed with test data
+            // TODO: overwrite equals method in AddressBook class and replace with equals method below
+
+            assertEquals(actual.getAllPersons(), expected.getAllPersons());
+            assertEquals(actual.getMasterPassword(), expected.getMasterPassword());
+        }
     }
 
     @Test
@@ -121,12 +135,20 @@ public class StorageFileTest {
 
     @Test
     public void save_validAddressBook() throws Exception {
+        AddressBook ab = getTestAddressBook(true);
         ExamBook eb = getTestExamBook();
-        AddressBook ab = getTestAddressBook();
         StorageFile storage = getTempStorage();
         storage.saveExam(eb);
         storage.save(ab);
-        assertStorageFilesEqual(storage, getStorage("ValidData.txt", "ValidExamData.txt"));
+        // Checks that the password is saved as a new field
+        assertStorageFilesEqual(storage, getStorage("ValidDataWithDefaultPassword.txt"));
+
+        ab = getTestAddressBook();
+        storage = getTempStorage();
+        storage.save(ab);
+
+        assertStorageFilesEqual(storage, getStorage("ValidDataWithNewPassword.txt"));
+        assertStorageFilesEqual(storage, getStorage("ValidDataWithNewPassword.txt", "ValidExamData.txt"));
     }
 
     @Test
@@ -160,12 +182,19 @@ public class StorageFileTest {
         return new StorageFile(TEST_DATA_FOLDER + "/" + fileName, TEST_DATA_FOLDER + "/" + examFileName);
     }
 
+    private StorageFile getStorage(String fileName) throws Exception {
+        return new StorageFile(TEST_DATA_FOLDER + "/" + fileName, VALID_EXAM_DATA_PATH);
+    }
     private StorageFile getTempStorage() throws Exception {
         String tempExam = testFolder.getRoot().getPath() + "/" + "tempExam.txt";
         return new StorageFile(testFolder.getRoot().getPath() + "/" + "temp.txt", tempExam);
     }
 
     private AddressBook getTestAddressBook() throws Exception {
+        return getTestAddressBook(false);
+    }
+
+    private AddressBook getTestAddressBook(boolean isUsingDefaultPassword) throws Exception {
         AddressBook ab = new AddressBook();
         ab.addPerson(new Person(new Name("John Doe"),
                 new Phone("98765432", false),
@@ -177,6 +206,9 @@ public class StorageFileTest {
                 new Email("betsycrowe@gmail.com", false),
                 new Address("Newgate Prison", true),
                 new HashSet<>(Arrays.asList(new Tag("friend"), new Tag("criminal")))));
+        if (!isUsingDefaultPassword) {
+            ab.setMasterPassword("newPassword");
+        }
         return ab;
     }
 

@@ -8,12 +8,24 @@ import seedu.addressbook.common.Messages;
 import seedu.addressbook.data.AddressBook;
 import seedu.addressbook.data.ExamBook;
 import seedu.addressbook.data.person.ReadOnlyPerson;
+import seedu.addressbook.privilege.Privilege;
 
 
 /**
  * Represents an executable command.
  */
 public abstract class Command {
+    /**
+     * Enum used to indicate which category the command belongs to
+     * */
+    public enum Category {
+        DETAILS,
+        PRIVILEGE,
+        GENERAL
+    }
+
+
+    protected static Privilege privilege;
     protected AddressBook addressBook;
     protected ExamBook examBook;
     protected List<? extends ReadOnlyPerson> relevantPersons;
@@ -47,9 +59,17 @@ public abstract class Command {
     /**
      * Supplies the data the command will operate on.
      */
-    public void setData(AddressBook addressBook, List<? extends ReadOnlyPerson> relevantPersons, ExamBook exambook) {
+    public void setData(AddressBook addressBook, List<? extends ReadOnlyPerson> relevantPersons, Privilege privilege) {
         this.addressBook = addressBook;
         this.relevantPersons = relevantPersons;
+        this.privilege = privilege;
+    }
+
+    public void setData(AddressBook addressBook,
+                        List<? extends ReadOnlyPerson> relevantPersons,
+                        Privilege privilege,
+                        ExamBook exambook) {
+        setData(addressBook, relevantPersons, privilege);
         this.examBook = exambook;
     }
 
@@ -70,10 +90,21 @@ public abstract class Command {
         this.targetIndex = targetIndex;
     }
 
+    //TODO: Fix potato code
+    public Category getCategory() {
+        return Category.GENERAL;
+    }
+
     /**
      * Checks if the command changes the data to be stored
      */
     public boolean isMutating() {
         return false;
     }
+
+    /**
+     * Returns the usage message to be used to construct HelpCommand's message
+     */
+    public abstract String getCommandUsageMessage();
+
 }

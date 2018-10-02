@@ -1,15 +1,19 @@
 package seedu.addressbook.logic;
 
+import static seedu.addressbook.common.Messages.MESSAGE_INSUFFICIENT_PRIVILEGE;
+
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
 import seedu.addressbook.commands.Command;
 import seedu.addressbook.commands.CommandResult;
+import seedu.addressbook.commands.IncorrectCommand;
 import seedu.addressbook.data.AddressBook;
 import seedu.addressbook.data.ExamBook;
 import seedu.addressbook.data.person.ReadOnlyPerson;
 import seedu.addressbook.parser.Parser;
+import seedu.addressbook.privilege.Privilege;
 import seedu.addressbook.storage.Storage;
 import seedu.addressbook.storage.StorageFile;
 
@@ -17,19 +21,29 @@ import seedu.addressbook.storage.StorageFile;
  * Represents the main Logic of the AddressBook.
  */
 public class Logic {
-
-
     private Storage storage;
     private AddressBook addressBook;
+    private Privilege privilege;
     private ExamBook examBook;
 
     /** The list of person shown to the user most recently.  */
     private List<? extends ReadOnlyPerson> lastShownList = Collections.emptyList();
 
+    /**
+     * Signals that an operation requiring password authentication failed.
+     */
+    public static class WrongPasswordEnteredException extends Exception {}
+
     public Logic() throws Exception {
+        privilege = new Privilege();
         setStorage(initializeStorage());
         setAddressBook(storage.load());
         setExamBook(storage.loadExam());
+    }
+
+    Logic(Storage storageFile, AddressBook addressBook, ExamBook examBook, Privilege privilege) {
+        this(storageFile, addressBook, examBook);
+        setPrivilege(privilege);
     }
 
     Logic(Storage storageFile, AddressBook addressBook, ExamBook examBook) {
@@ -44,6 +58,10 @@ public class Logic {
 
     public void setAddressBook(AddressBook addressBook) {
         this.addressBook = addressBook;
+    }
+
+    public void setPrivilege(Privilege privilege) {
+        this.privilege = privilege;
     }
 
     public void setExamBook(ExamBook examBook) {
@@ -98,8 +116,20 @@ public class Logic {
      * @throws Exception if there was any problem during command execution.
      */
     private CommandResult execute(Command command) throws Exception {
-        command.setData(addressBook, lastShownList, examBook);
-        CommandResult result = command.execute();
+        final CommandResult result;
+
+        command.setData(addressBook, lastShownList, privilege, examBook);
+
+        /** Checking instanceof IncorrectCommand to prevent overwriting the message of an incorrect command*/
+        if (privilege.isAllowedCommand(command) || (command instanceof IncorrectCommand)) {
+            result = command.execute();
+        } else {
+            result = new IncorrectCommand (String.format(MESSAGE_INSUFFICIENT_PRIVILEGE,
+                            privilege.getRequiredPrivilegeAsString(command),
+                            privilege.getLevelAsString()))
+                    .execute();
+        }
+
         if (command.isMutating()) {
             storage.save(addressBook);
             storage.saveExam(examBook);

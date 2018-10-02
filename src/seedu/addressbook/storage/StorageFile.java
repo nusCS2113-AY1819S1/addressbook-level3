@@ -69,7 +69,9 @@ public class StorageFile extends Storage {
             InvalidInitialisationException {
         this(DEFAULT_STORAGE_FILEPATH, DEFAULT_EXAMS_FILEPATH);
     }
-
+    public StorageFile(String filePath) throws InvalidStorageFilePathException, InvalidInitialisationException {
+        this(filePath, DEFAULT_EXAMS_FILEPATH);
+    }
     /**
      * @throws InvalidStorageFilePathException if the given file path is invalid
      */
