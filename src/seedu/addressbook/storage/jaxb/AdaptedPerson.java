@@ -34,6 +34,8 @@ public class AdaptedPerson {
     private AdaptedContactDetail email;
     @XmlElement(required = true)
     private AdaptedContactDetail address;
+    @XmlElement(required = true)
+    private AdaptedContactDetail curriculum;
 
     @XmlElement
     private List<AdaptedTag> tagged = new ArrayList<>();
@@ -68,6 +70,9 @@ public class AdaptedPerson {
         for (Tag tag : source.getTags()) {
             tagged.add(new AdaptedTag(tag));
         }
+
+        curriculum = new AdaptedContactDetail();
+        curriculum.value = source.getCurriculum().value;
     }
 
     /**
