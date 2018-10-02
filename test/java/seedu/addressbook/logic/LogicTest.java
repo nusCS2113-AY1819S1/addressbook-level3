@@ -16,6 +16,7 @@ import seedu.addressbook.commands.AddCommand;
 import seedu.addressbook.commands.ClearCommand;
 import seedu.addressbook.commands.Command;
 import seedu.addressbook.commands.CommandResult;
+import seedu.addressbook.commands.CreateExamCommand;
 import seedu.addressbook.commands.DeleteCommand;
 import seedu.addressbook.commands.ExitCommand;
 import seedu.addressbook.commands.FindCommand;
@@ -26,7 +27,9 @@ import seedu.addressbook.commands.ViewCommand;
 import seedu.addressbook.common.Messages;
 
 import seedu.addressbook.data.AddressBook;
+import seedu.addressbook.data.ExamBook;
 import seedu.addressbook.data.person.Email;
+import seedu.addressbook.data.person.Exam;
 import seedu.addressbook.data.person.Name;
 import seedu.addressbook.data.person.Person;
 import seedu.addressbook.data.person.Phone;
@@ -47,16 +50,21 @@ public class LogicTest {
 
     private StorageFile saveFile;
     private AddressBook addressBook;
+    private ExamBook examBook;
     private Logic logic;
 
     @Before
-    public void setup() throws Exception {
+    public void setUp() throws Exception {
         StorageStub stubFile;
-        saveFile = new StorageFile(saveFolder.newFile("testSaveFile.txt").getPath());
-        stubFile = new StorageStub(saveFolder.newFile("testStubFile.txt").getPath());
+        saveFile = new StorageFile(saveFolder.newFile("testSaveFile.txt").getPath(),
+                saveFolder.newFile("testExamFile.txt").getPath());
+        stubFile = new StorageStub(saveFolder.newFile("testStubFile.txt").getPath(),
+                saveFolder.newFile("testStubExamFile.txt").getPath());
         addressBook = new AddressBook();
+        examBook = new ExamBook();
         saveFile.save(addressBook);
-        logic = new Logic(stubFile, addressBook);
+        saveFile.saveExam(examBook);
+        logic = new Logic(stubFile, addressBook, examBook);
     }
 
     @Test
@@ -101,6 +109,19 @@ public class LogicTest {
     }
     /**
      * Executes the command and confirms that the result message is correct and
+     * Assumes the command does not write to file
+     *      * @see #assertCommandBehavior(String, String, ExamBook, boolean, List, boolean)
+     */
+    private void assertCommandBehavior(String inputCommand,
+                                       String expectedMessage,
+                                       ExamBook expectedExamBook) throws Exception {
+        assertCommandBehavior(inputCommand,
+                expectedMessage,
+                expectedExamBook,
+                false);
+    }
+    /**
+     * Executes the command and confirms that the result message is correct and
      * also confirms that the following three parts of the Logic object's state are as expected:<br>
      *      - the internal address book data are same as those in the {@code expectedAddressBook} <br>
      *      - the internal 'last shown list' matches the {@code expectedLastList} <br>
@@ -131,12 +152,40 @@ public class LogicTest {
 
         //Confirm the state of data is as expected
         assertEquals(expectedAddressBook, addressBook);
-        assertEquals(lastShownList, logic.getLastShownList());
         if (writesToFile) {
             assertEquals(addressBook, saveFile.load());
         }
     }
 
+    /**
+     * Executes the command and confirms that the result message is correct and
+     * also confirms that the following three parts of the Logic object's state are as expected:<br>
+     *      - the internal exam book data are same as those in the {@code expectedExamBook} <br>
+     *
+     *      if the command will write to file
+     *      - the storage file content matches data in {@code expectedExamBook} <br>
+     */
+    private void assertCommandBehavior(String inputCommand,
+                                       String expectedMessage,
+                                       ExamBook expectedExamBook,
+                                       boolean writesToFile) throws Exception {
+        // If we need to test if the command writes to file correctly
+        // Injects the saveFile object to check
+        if (writesToFile) {
+            logic.setStorage(saveFile);
+        }
+        //Execute the command
+        CommandResult r = logic.execute(inputCommand);
+
+        //Confirm the result contains the right data
+        assertEquals(expectedMessage, r.feedbackToUser);
+
+        //Confirm the state of data is as expected
+        assertEquals(expectedExamBook, examBook);
+        if (writesToFile) {
+            assertEquals(examBook, saveFile.loadExam());
+        }
+    }
 
     @Test
     public void execute_unknownCommandWord() throws Exception {
@@ -235,6 +284,40 @@ public class LogicTest {
                 expected,
                 false,
                 Collections.emptyList());
+
+    }
+
+    @Test
+    public void executeCreateExamSuccessful() throws Exception {
+        // setup expectations
+        TestDataHelper helper = new TestDataHelper();
+        Exam toBeAdded = helper.math();
+        ExamBook expected = new ExamBook();
+        expected.addExam(toBeAdded);
+
+        // execute command and verify result
+        assertCommandBehavior(
+                helper.generateCreateExamCommand(toBeAdded),
+                String.format(CreateExamCommand.MESSAGE_SUCCESS, toBeAdded),
+                expected, true);
+    }
+
+    @Test
+    public void executeCreateDuplicateExamNotAllowed() throws Exception {
+        // setup expectations
+        TestDataHelper helper = new TestDataHelper();
+        Exam toBeAdded = helper.math();
+        ExamBook expected = new ExamBook();
+        expected.addExam(toBeAdded);
+
+        // setup starting state
+        examBook.addExam(toBeAdded); // person already in internal exam book
+
+        // execute command and verify result
+        assertCommandBehavior(
+                helper.generateCreateExamCommand(toBeAdded),
+                CreateExamCommand.MESSAGE_DUPLICATE_EXAM,
+                expected);
 
     }
 

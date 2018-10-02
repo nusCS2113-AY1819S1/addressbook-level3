@@ -13,6 +13,7 @@ import java.util.regex.Pattern;
 import seedu.addressbook.commands.AddCommand;
 import seedu.addressbook.commands.ClearCommand;
 import seedu.addressbook.commands.Command;
+import seedu.addressbook.commands.CreateExamCommand;
 import seedu.addressbook.commands.DeleteCommand;
 import seedu.addressbook.commands.ExitCommand;
 import seedu.addressbook.commands.FindCommand;
@@ -39,6 +40,14 @@ public class Parser {
                     + " (?<isEmailPrivate>p?)e/(?<email>[^/]+)"
                     + " (?<isAddressPrivate>p?)a/(?<address>[^/]+)"
                     + "(?<tagArguments>(?: t/[^/]+)*)"); // variable number of tags
+
+    public static final Pattern EXAM_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
+            Pattern.compile("(?<subjectName>[^/]+)"
+                    + " (?<isExamPrivate>p?)n/(?<examName>[^/]+)"
+                    + " d/(?<examDate>[^/]+)"
+                    + " st/(?<examStartTime>[^/]+)"
+                    + " et/(?<examEndTime>[^/]+)"
+                    + " dt/(?<examDetails>[^/]+)");
 
     /**
      * Used for initial separation of command word and args.
@@ -93,6 +102,9 @@ public class Parser {
 
         case ExitCommand.COMMAND_WORD:
             return new ExitCommand();
+
+        case CreateExamCommand.COMMAND_WORD:
+            return prepareCreateExam(arguments);
 
         case HelpCommand.COMMAND_WORD: // Fallthrough
         default:
@@ -237,5 +249,32 @@ public class Parser {
         final String[] keywords = matcher.group("keywords").split("\\s+");
         final Set<String> keywordSet = new HashSet<>(Arrays.asList(keywords));
         return new FindCommand(keywordSet);
+    }
+
+    /**
+     * Parses arguments in the context of the createexam exam command.
+     *
+     * @param args full command args string
+     * @return the prepared command
+     */
+    private Command prepareCreateExam(String args) {
+        final Matcher matcher = EXAM_DATA_ARGS_FORMAT.matcher(args.trim());
+        // Validate arg string format
+        if (!matcher.matches()) {
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, CreateExamCommand.MESSAGE_USAGE));
+        }
+        try {
+            return new CreateExamCommand(
+                    matcher.group("subjectName"),
+                    matcher.group("examName"),
+                    matcher.group("examDate"),
+                    matcher.group("examStartTime"),
+                    matcher.group("examEndTime"),
+                    matcher.group("examDetails"),
+                    isPrivatePrefixPresent(matcher.group("isExamPrivate"))
+            );
+        } catch (IllegalValueException ive) {
+            return new IncorrectCommand(ive.getMessage());
+        }
     }
 }

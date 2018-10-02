@@ -7,6 +7,7 @@ import java.util.Optional;
 import seedu.addressbook.commands.Command;
 import seedu.addressbook.commands.CommandResult;
 import seedu.addressbook.data.AddressBook;
+import seedu.addressbook.data.ExamBook;
 import seedu.addressbook.data.person.ReadOnlyPerson;
 import seedu.addressbook.parser.Parser;
 import seedu.addressbook.storage.Storage;
@@ -20,6 +21,7 @@ public class Logic {
 
     private Storage storage;
     private AddressBook addressBook;
+    private ExamBook examBook;
 
     /** The list of person shown to the user most recently.  */
     private List<? extends ReadOnlyPerson> lastShownList = Collections.emptyList();
@@ -27,11 +29,13 @@ public class Logic {
     public Logic() throws Exception {
         setStorage(initializeStorage());
         setAddressBook(storage.load());
+        setExamBook(storage.loadExam());
     }
 
-    Logic(Storage storageFile, AddressBook addressBook) {
+    Logic(Storage storageFile, AddressBook addressBook, ExamBook examBook) {
         setStorage(storageFile);
         setAddressBook(addressBook);
+        setExamBook(examBook);
     }
 
     public void setStorage(Storage storage) {
@@ -42,16 +46,26 @@ public class Logic {
         this.addressBook = addressBook;
     }
 
+    public void setExamBook(ExamBook examBook) {
+        this.examBook = examBook;
+    }
     /**
      * Creates the StorageFile object based on the user specified path (if any) or the default storage path.
      * @throws StorageFile.InvalidStorageFilePathException if the target file path is incorrect.
+     * @throws StorageFile.InvalidInitialisationException if the JAXB set up has error
      */
-    private StorageFile initializeStorage() throws StorageFile.InvalidStorageFilePathException {
+    private StorageFile initializeStorage()
+            throws StorageFile.InvalidStorageFilePathException,
+            StorageFile.InvalidInitialisationException {
         return new StorageFile();
     }
 
     public String getStorageFilePath() {
         return storage.getPath();
+    }
+
+    public String getStorageFilePathExam() {
+        return storage.getPathExam();
     }
 
     /**
@@ -84,10 +98,11 @@ public class Logic {
      * @throws Exception if there was any problem during command execution.
      */
     private CommandResult execute(Command command) throws Exception {
-        command.setData(addressBook, lastShownList);
+        command.setData(addressBook, lastShownList, examBook);
         CommandResult result = command.execute();
         if (command.isMutating()) {
             storage.save(addressBook);
+            storage.saveExam(examBook);
         }
         return result;
     }

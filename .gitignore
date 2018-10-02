@@ -3,6 +3,7 @@
 
 # Default data file
 addressbook.txt
+exams.txt
 
 # Package Files #
 *.jar
