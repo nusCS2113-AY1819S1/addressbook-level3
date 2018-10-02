@@ -2,6 +2,7 @@ package seedu.addressbook.logic;
 
 import static junit.framework.TestCase.assertEquals;
 import static seedu.addressbook.common.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.addressbook.logic.CommandAssertions.assertCommandBehavior;
 
 import java.util.Collections;
 import java.util.List;
@@ -28,6 +29,7 @@ import seedu.addressbook.common.Messages;
 
 import seedu.addressbook.data.AddressBook;
 import seedu.addressbook.data.ExamBook;
+import seedu.addressbook.data.person.Address;
 import seedu.addressbook.data.person.Email;
 import seedu.addressbook.data.person.Exam;
 import seedu.addressbook.data.person.Name;
@@ -85,9 +87,17 @@ public class LogicTest {
     }
 
     @Test
+    public void defaultConstructor() throws Exception {
+        // Verifies if addressbook.txt is loadable
+        logic = new Logic();
+        //Confirm the last shown list is empty
+        assertEquals(Collections.emptyList(), logic.getLastShownList());
+    }
+
+    @Test
     public void execute_invalid() throws Exception {
         String invalidCommand = "       ";
-        CommandAssertions.assertCommandBehavior(invalidCommand,
+        assertCommandBehavior(invalidCommand,
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
     }
 
@@ -95,23 +105,23 @@ public class LogicTest {
     @Test
     public void execute_unknownCommandWord() throws Exception {
         String unknownCommand = "uicfhmowqewca";
-        CommandAssertions.assertCommandBehavior(unknownCommand, HelpCommand.makeHelpMessage());
+        assertCommandBehavior(unknownCommand, HelpCommand.makeHelpMessage());
     }
 
     @Test
     public void executeHelp() throws Exception {
-        CommandAssertions.assertCommandBehavior("help", HelpCommand.makeHelpMessage());
+        assertCommandBehavior("help", HelpCommand.makeHelpMessage());
 
         privilege.raiseToTutor();
-        CommandAssertions.assertCommandBehavior("help", HelpCommand.makeHelpMessage());
+        assertCommandBehavior("help", HelpCommand.makeHelpMessage());
 
         privilege.raiseToAdmin();
-        CommandAssertions.assertCommandBehavior("help", HelpCommand.makeHelpMessage());
+        assertCommandBehavior("help", HelpCommand.makeHelpMessage());
     }
 
     @Test
     public void executeExit() throws Exception {
-        CommandAssertions.assertCommandBehavior("exit", ExitCommand.MESSAGE_EXIT_ACKNOWEDGEMENT);
+        assertCommandBehavior("exit", ExitCommand.MESSAGE_EXIT_ACKNOWEDGEMENT);
     }
 
 
@@ -126,7 +136,7 @@ public class LogicTest {
             addressBook.addPerson(testPerson);
             logic.execute(helper.generateAddCommand(testPerson));
         }
-        CommandAssertions.assertCommandBehavior("clear",
+        assertCommandBehavior("clear",
                                ClearCommand.MESSAGE_SUCCESS,
                                 AddressBook.empty(),
                               false,
@@ -137,26 +147,28 @@ public class LogicTest {
     @Test
     public void executeAddInvalidArgsFormat() throws Exception {
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE);
-        CommandAssertions.assertCommandBehavior(
+        assertCommandBehavior(
                 "add wrong args wrong args", expectedMessage);
-        CommandAssertions.assertCommandBehavior(
+        assertCommandBehavior(
                 "add Valid Name 12345 e/valid@email.butNoPhonePrefix a/valid, address", expectedMessage);
-        CommandAssertions.assertCommandBehavior(
+        assertCommandBehavior(
                 "add Valid Name p/12345 valid@email.butNoPrefix a/valid, address", expectedMessage);
-        CommandAssertions.assertCommandBehavior(
+        assertCommandBehavior(
                 "add Valid Name p/12345 e/valid@email.butNoAddressPrefix valid, address", expectedMessage);
     }
 
     @Test
     public void executeAddInvalidPersonData() throws Exception {
-        CommandAssertions.assertCommandBehavior(
+        assertCommandBehavior(
                 "add []\\[;] p/12345 e/valid@e.mail a/valid, address", Name.MESSAGE_NAME_CONSTRAINTS);
-        CommandAssertions.assertCommandBehavior(
+        assertCommandBehavior(
                 "add Valid Name p/not_numbers e/valid@e.mail a/valid, address", Phone.MESSAGE_PHONE_CONSTRAINTS);
-        CommandAssertions.assertCommandBehavior(
+        assertCommandBehavior(
                 "add Valid Name p/12345 e/notAnEmail a/valid, address", Email.MESSAGE_EMAIL_CONSTRAINTS);
-        CommandAssertions.assertCommandBehavior(
-                "add Valid Name p/12345 e/valid@e.mail a/valid, address t/invalid_-[.tag", Tag.MESSAGE_TAG_CONSTRAINTS);
+        assertCommandBehavior(
+                "add Valid Name p/12345 e/valid@e.mail a/#$%#@#What Am I?", Address.MESSAGE_ADDRESS_CONSTRAINTS);
+        assertCommandBehavior(
+                "add Valid Name p/1234 e/valid@e.mail a/valid, address t/invalid_-[.tag", Tag.MESSAGE_TAG_CONSTRAINTS);
 
     }
 
@@ -169,7 +181,7 @@ public class LogicTest {
         expected.addPerson(toBeAdded);
 
         // execute command and verify result
-        CommandAssertions.assertCommandBehavior(helper.generateAddCommand(toBeAdded),
+        assertCommandBehavior(helper.generateAddCommand(toBeAdded),
                               String.format(AddCommand.MESSAGE_SUCCESS, toBeAdded),
                               expected,
                               false,
@@ -190,7 +202,7 @@ public class LogicTest {
         addressBook.addPerson(toBeAdded); // person already in internal address book
 
         // execute command and verify result
-        CommandAssertions.assertCommandBehavior(
+        assertCommandBehavior(
                 helper.generateAddCommand(toBeAdded),
                 AddCommand.MESSAGE_DUPLICATE_PERSON,
                 expected,
@@ -208,7 +220,7 @@ public class LogicTest {
         expected.addExam(toBeAdded);
 
         // execute command and verify result
-        CommandAssertions.assertCommandBehavior(
+        assertCommandBehavior(
                 helper.generateCreateExamCommand(toBeAdded),
                 String.format(CreateExamCommand.MESSAGE_SUCCESS, toBeAdded),
                 expected, true);
@@ -226,7 +238,7 @@ public class LogicTest {
         examBook.addExam(toBeAdded); // person already in internal exam book
 
         // execute command and verify result
-        CommandAssertions.assertCommandBehavior(
+        assertCommandBehavior(
                 helper.generateCreateExamCommand(toBeAdded),
                 CreateExamCommand.MESSAGE_DUPLICATE_EXAM,
                 expected,
@@ -244,7 +256,7 @@ public class LogicTest {
         // prepare address book state
         helper.addToAddressBook(addressBook, false, true);
 
-        CommandAssertions.assertCommandBehavior("list",
+        assertCommandBehavior("list",
                               Command.getMessageForPersonListShownSummary(expectedList),
                               expected,
                               true,
@@ -254,8 +266,8 @@ public class LogicTest {
     @Test
     public void executeViewInvalidArgsFormat() throws Exception {
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, ViewCommand.MESSAGE_USAGE);
-        CommandAssertions.assertCommandBehavior("view ", expectedMessage);
-        CommandAssertions.assertCommandBehavior("view arg not number", expectedMessage);
+        assertCommandBehavior("view ", expectedMessage);
+        assertCommandBehavior("view arg not number", expectedMessage);
     }
 
     @Test
@@ -275,13 +287,13 @@ public class LogicTest {
 
         logic.setLastShownList(lastShownList);
 
-        CommandAssertions.assertCommandBehavior(commandWord + " -1", expectedMessage,
+        assertCommandBehavior(commandWord + " -1", expectedMessage,
                 AddressBook.empty(), false, lastShownList);
 
-        CommandAssertions.assertCommandBehavior(commandWord + " 0", expectedMessage,
+        assertCommandBehavior(commandWord + " 0", expectedMessage,
                 AddressBook.empty(), false, lastShownList);
 
-        CommandAssertions.assertCommandBehavior(commandWord + " 3", expectedMessage,
+        assertCommandBehavior(commandWord + " 3", expectedMessage,
                 AddressBook.empty(), false, lastShownList);
 
     }
@@ -298,13 +310,13 @@ public class LogicTest {
 
         logic.setLastShownList(lastShownList);
 
-        CommandAssertions.assertCommandBehavior("view 1",
+        assertCommandBehavior("view 1",
                               String.format(ViewCommand.MESSAGE_VIEW_PERSON_DETAILS, p1.getAsTextHidePrivate()),
                               expected,
                               false,
                               lastShownList);
 
-        CommandAssertions.assertCommandBehavior("view 2",
+        assertCommandBehavior("view 2",
                               String.format(ViewCommand.MESSAGE_VIEW_PERSON_DETAILS, p2.getAsTextHidePrivate()),
                               expected,
                               false,
@@ -324,7 +336,7 @@ public class LogicTest {
         addressBook.addPerson(p2);
         logic.setLastShownList(lastShownList);
 
-        CommandAssertions.assertCommandBehavior("view 1",
+        assertCommandBehavior("view 1",
                               Messages.MESSAGE_PERSON_NOT_IN_ADDRESSBOOK,
                               expected,
                               false,
@@ -334,8 +346,8 @@ public class LogicTest {
     @Test
     public void executeViewAllInvalidArgsFormat() throws Exception {
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, ViewAllCommand.MESSAGE_USAGE);
-        CommandAssertions.assertCommandBehavior("viewall ", expectedMessage);
-        CommandAssertions.assertCommandBehavior("viewall arg not number", expectedMessage);
+        assertCommandBehavior("viewall ", expectedMessage);
+        assertCommandBehavior("viewall arg not number", expectedMessage);
     }
 
     @Test
@@ -354,13 +366,13 @@ public class LogicTest {
 
         logic.setLastShownList(lastShownList);
 
-        CommandAssertions.assertCommandBehavior("viewall 1",
+        assertCommandBehavior("viewall 1",
                             String.format(ViewCommand.MESSAGE_VIEW_PERSON_DETAILS, p1.getAsTextShowAll()),
                             expected,
                             false,
                             lastShownList);
 
-        CommandAssertions.assertCommandBehavior("viewall 2",
+        assertCommandBehavior("viewall 2",
                             String.format(ViewCommand.MESSAGE_VIEW_PERSON_DETAILS, p2.getAsTextShowAll()),
                             expected,
                             false,
@@ -380,7 +392,7 @@ public class LogicTest {
         addressBook.addPerson(p1);
         logic.setLastShownList(lastShownList);
 
-        CommandAssertions.assertCommandBehavior("viewall 2",
+        assertCommandBehavior("viewall 2",
                                 Messages.MESSAGE_PERSON_NOT_IN_ADDRESSBOOK,
                                 expected,
                                 false,
@@ -390,8 +402,8 @@ public class LogicTest {
     @Test
     public void executeDeleteInvalidArgsFormat() throws Exception {
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE);
-        CommandAssertions.assertCommandBehavior("delete ", expectedMessage);
-        CommandAssertions.assertCommandBehavior("delete arg not number", expectedMessage);
+        assertCommandBehavior("delete ", expectedMessage);
+        assertCommandBehavior("delete arg not number", expectedMessage);
     }
 
     @Test
@@ -415,7 +427,7 @@ public class LogicTest {
         helper.addToAddressBook(addressBook, threePersons);
         logic.setLastShownList(threePersons);
 
-        CommandAssertions.assertCommandBehavior("delete 2",
+        assertCommandBehavior("delete 2",
                                 String.format(DeleteCommand.MESSAGE_DELETE_PERSON_SUCCESS, p2),
                                 expected,
                                 false,
@@ -440,7 +452,7 @@ public class LogicTest {
         addressBook.removePerson(p2);
         logic.setLastShownList(threePersons);
 
-        CommandAssertions.assertCommandBehavior("delete 2",
+        assertCommandBehavior("delete 2",
                                 Messages.MESSAGE_PERSON_NOT_IN_ADDRESSBOOK,
                                 expected,
                                 false,
@@ -450,7 +462,7 @@ public class LogicTest {
     @Test
     public void executeFindInvalidArgsFormat() throws Exception {
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE);
-        CommandAssertions.assertCommandBehavior("find ", expectedMessage);
+        assertCommandBehavior("find ", expectedMessage);
     }
 
     @Test
@@ -466,7 +478,7 @@ public class LogicTest {
         List<Person> expectedList = helper.generatePersonList(pTarget1, pTarget2);
         helper.addToAddressBook(addressBook, fourPersons);
 
-        CommandAssertions.assertCommandBehavior("find KEY",
+        assertCommandBehavior("find KEY",
                                 Command.getMessageForPersonListShownSummary(expectedList),
                                 expected,
                                 true,
@@ -486,7 +498,7 @@ public class LogicTest {
         List<Person> expectedList = helper.generatePersonList(pTarget1, pTarget2);
         helper.addToAddressBook(addressBook, fourPersons);
 
-        CommandAssertions.assertCommandBehavior("find KEY",
+        assertCommandBehavior("find KEY",
                                 Command.getMessageForPersonListShownSummary(expectedList),
                                 expected,
                                 true,
@@ -506,7 +518,7 @@ public class LogicTest {
         List<Person> expectedList = helper.generatePersonList(pTarget1, pTarget2);
         helper.addToAddressBook(addressBook, fourPersons);
 
-        CommandAssertions.assertCommandBehavior("find KEY rAnDoM",
+        assertCommandBehavior("find KEY rAnDoM",
                                 Command.getMessageForPersonListShownSummary(expectedList),
                                 expected,
                                 true,
@@ -518,8 +530,8 @@ public class LogicTest {
         final String initialPassword = addressBook.getMasterPassword();
         final String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                 ChangePasswordCommand.MESSAGE_USAGE);
-        CommandAssertions.assertCommandBehavior("change", expectedMessage);
-        CommandAssertions.assertCommandBehavior("change ", expectedMessage);
+        assertCommandBehavior("change", expectedMessage);
+        assertCommandBehavior("change ", expectedMessage);
         assertEquals(addressBook.getMasterPassword(), initialPassword);
     }
 
@@ -530,11 +542,11 @@ public class LogicTest {
         final String expectedMessage = ChangePasswordCommand.MESSAGE_WRONG_NUMBER_ARGUMENTS;
         final int requiredArguments = 2;
         int actualArguments = 1;
-        CommandAssertions.assertCommandBehavior("change default_pw", String.format(expectedMessage,
+        assertCommandBehavior("change default_pw", String.format(expectedMessage,
                 requiredArguments, actualArguments, ChangePasswordCommand.MESSAGE_USAGE));
 
         actualArguments = 3;
-        CommandAssertions.assertCommandBehavior("change default_pw new_pw extra_arg",
+        assertCommandBehavior("change default_pw new_pw extra_arg",
                 String.format(expectedMessage, requiredArguments, actualArguments,
                         ChangePasswordCommand.MESSAGE_USAGE));
         assertEquals(addressBook.getMasterPassword(), initialPassword);
@@ -544,9 +556,9 @@ public class LogicTest {
     public void executeChangePasswordWrongPassword() throws Exception {
         final String initialPassword = addressBook.getMasterPassword();
         String expectedMessage = ChangePasswordCommand.MESSAGE_WRONG_PASSWORD;
-        CommandAssertions.assertCommandBehavior("change wrong_password new_password", expectedMessage);
-        CommandAssertions.assertCommandBehavior("change default_password1 new_password", expectedMessage);
-        CommandAssertions.assertCommandBehavior("change Default_password new_password", expectedMessage);
+        assertCommandBehavior("change wrong_password new_password", expectedMessage);
+        assertCommandBehavior("change default_password1 new_password", expectedMessage);
+        assertCommandBehavior("change Default_password new_password", expectedMessage);
         assertEquals(addressBook.getMasterPassword(), initialPassword);
     }
 
@@ -557,14 +569,14 @@ public class LogicTest {
         String oldPassword = addressBook.getMasterPassword();
         String newPassword = "new_password";
         String commandInput = String.format(commandFormat, oldPassword, newPassword);
-        CommandAssertions.assertCommandBehavior(commandInput,
+        assertCommandBehavior(commandInput,
                 String.format(expectedMessage, newPassword));
         assertEquals(addressBook.getMasterPassword(), newPassword);
 
         oldPassword = addressBook.getMasterPassword();
         newPassword = "another_new_password";
         commandInput = String.format(commandFormat, oldPassword, newPassword);
-        CommandAssertions.assertCommandBehavior(commandInput,
+        assertCommandBehavior(commandInput,
                 String.format(expectedMessage, newPassword));
         assertEquals(addressBook.getMasterPassword(), newPassword);
     }

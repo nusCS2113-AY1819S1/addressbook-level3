@@ -96,7 +96,7 @@ public abstract class Command {
     }
 
     /**
-     * Checks if the command changes the data to be stored
+     * Checks if the command can potentially change the data to be stored
      */
     public boolean isMutating() {
         return false;

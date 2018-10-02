@@ -109,7 +109,8 @@ public class Logic {
     }
 
     /**
-     * Executes the command, updates storage, and returns the result.
+     * Executes the command, updates storage if the command can potentially mutate data,
+     * and returns the result.
      *
      * @param command user command
      * @return result of the command
