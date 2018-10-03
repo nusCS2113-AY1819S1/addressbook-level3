@@ -155,7 +155,7 @@ Redo the deletion of 2nd person in the addressbook.
 
 * `find Betsy` +
 `delete 1` +
-Deletes the 1st person in the results of the `find` command.
+Deletes the 1st person in the results of the `find` command. +
 `undo` +
 Undo the deletion of the deleted person. +
 `redo` +
