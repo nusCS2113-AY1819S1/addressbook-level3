@@ -1,7 +1,5 @@
 package seedu.addressbook.data.order;
 
-import seedu.addressbook.common.Utils;
-
 import java.util.*;
 
 /**
