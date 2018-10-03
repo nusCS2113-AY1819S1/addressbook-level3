@@ -32,13 +32,13 @@ Help is also shown if you enter an incorrect command e.g. `abcd`
 == Adding a person: `add`
 
 Adds a person to the address book. +
-Format: `add NAME [p]p/PHONE_NUMBER [p]e/EMAIL [p]a/ADDRESS [t/TAG]...`
+Format: `add NAME [p]p/PHONE_NUMBER [p]e/EMAIL [p]a/ADDRESS [p]s/TITLE [t/TAG]...`
 
 ****
 Words in `UPPER_CASE` are the parameters, items in `SQUARE_BRACKETS` are optional,
 items with `...` after them can have multiple instances. Order of parameters are fixed.
 
-Put a `p` before the phone / email / address prefixes to mark it as `private`. `private` details can only
+Put a `p` before the phone / email / address / title prefixes to mark it as `private`. `private` details can only
 be seen using the `viewall` command.
 
 Persons can have any number of tags (including 0)
@@ -46,8 +46,8 @@ Persons can have any number of tags (including 0)
 
 Examples:
 
-* `add John Doe p/98765432 e/johnd@gmail.com a/John street, block 123, #01-01`
-* `add Betsy Crowe pp/1234567 e/betsycrowe@gmail.com pa/Newgate Prison t/criminal t/friend`
+* `add John Doe p/98765432 e/johnd@gmail.com a/John street, block 123, #01-01` s/Doctor
+* `add Betsy Crowe pp/1234567 e/betsycrowe@gmail.com pa/Newgate Prison s/Patient t/criminal t/friend`
 
 == Listing all persons : `list`
 
@@ -138,9 +138,33 @@ Views all details of the 1st person in the results of the `find` command.
 Clears all entries from the address book. +
 Format: `clear`
 
-== Undo/Redo
+== Undo/Redo : `undo` , `redo`
 
-Undo/Redo last undo-able command
+Undo/Redo last undo-able command. +
+Format: `undo` or `redo`
+
+Examples:
+
+* `list` +
+`delete 2` +
+Deletes the 2nd person in the address book. +
+`undo` +
+Undo the deletion of the deleted person. +
+`redo` +
+Redo the deletion of 2nd person in the addressbook.
+
+* `find Betsy` +
+`delete 1` +
+Deletes the 1st person in the results of the `find` command.
+`undo` +
+Undo the deletion of the deleted person. +
+`redo` +
+Redo the deletion of 1st person in the results of the `find` command.
+
+== Listing all executed commands : `history`
+
+Shows a list of all executed commands in the current session. +
+Format: `history`
 
 == Exiting the program : `exit`
 
