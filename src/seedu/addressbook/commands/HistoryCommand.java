@@ -15,14 +15,12 @@ public class HistoryCommand extends Command {
     public static final String MESSAGE_NO_HISTORY = "No commands had been executed";
 
 
+    @Override
     public CommandResult execute() {
         try {
             return new CommandResult(commandHistory.getHistory());
         } catch (CommandHistory.EmptyHistoryException ehe) {
             return new CommandResult(MESSAGE_NO_HISTORY);
         }
-    }
-    public boolean isMutating(){
-        return false;
     }
 }

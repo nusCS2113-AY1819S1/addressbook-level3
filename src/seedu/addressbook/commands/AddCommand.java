@@ -58,6 +58,7 @@ public class AddCommand extends Command {
         return toAdd;
     }
 
+    @Override
     public CommandResult execute() {
         try {
             addressBook.addPerson(toAdd);
@@ -69,7 +70,4 @@ public class AddCommand extends Command {
         }
     }
 
-    public boolean isMutating(){
-        return true;
-    }
 }

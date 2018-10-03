@@ -25,6 +25,7 @@ public class ViewCommand extends Command {
     }
 
 
+    @Override
     public CommandResult execute() {
         try {
             final ReadOnlyPerson target = getTargetPerson();
@@ -38,7 +39,4 @@ public class ViewCommand extends Command {
         }
     }
 
-    public boolean isMutating(){
-        return false;
-    }
 }

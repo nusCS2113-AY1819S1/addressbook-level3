@@ -23,10 +23,8 @@ public class HelpCommand extends Command {
             + "\n" + UndoCommand.MESSAGE_USAGE
             + "\n" + RedoCommand.MESSAGE_USAGE;
 
+    @Override
     public CommandResult execute() {
         return new CommandResult(MESSAGE_ALL_USAGES);
-    }
-    public boolean isMutating(){
-        return false;
     }
 }

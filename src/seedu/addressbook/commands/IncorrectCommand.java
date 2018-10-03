@@ -12,11 +12,9 @@ public class IncorrectCommand extends Command{
         this.feedbackToUser = feedbackToUser;
     }
 
+    @Override
     public CommandResult execute() {
         return new CommandResult(feedbackToUser);
     }
 
-    public boolean isMutating(){
-        return false;
-    }
 }
