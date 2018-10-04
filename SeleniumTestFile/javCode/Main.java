@@ -29,6 +29,15 @@ public class Main {
         WebElement passwordInputField0= driver.findElement(By.id("ctl00_ctl00_ContentPlaceHolder1_password"));
         passwordInputField0.sendKeys(ivlePassword);
         driver.findElement(By.id("ctl00_ctl00_ContentPlaceHolder1_btnSignIn")).click();
+
+        try
+        {
+            driver.findElement(By.id("ctl00_ctl00_ContentPlaceHolder1_ContentPlaceHolder1_btnRequest")).click();
+
+        }
+        catch (Exception e)
+        {
+        }
         //extracting the key
         String key=driver.findElement(By.id("ctl00_ctl00_ContentPlaceHolder1_ContentPlaceHolder1_lblInfo")).getText();
         String[] parts=key.split("key is ");
