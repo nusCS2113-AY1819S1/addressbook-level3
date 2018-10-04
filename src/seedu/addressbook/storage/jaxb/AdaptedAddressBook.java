@@ -4,6 +4,8 @@ import seedu.addressbook.data.AddressBook;
 import seedu.addressbook.data.exception.IllegalValueException;
 import seedu.addressbook.data.person.Person;
 import seedu.addressbook.data.person.UniquePersonList;
+import seedu.addressbook.data.person.Employee;
+import seedu.addressbook.data.person.UniqueEmployeeList;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -19,6 +21,10 @@ public class AdaptedAddressBook {
     @XmlElement
     private List<AdaptedPerson> persons = new ArrayList<>();
 
+
+    @XmlElement
+    private List<AdaptedEmployee> employees = new ArrayList<>();
+
     /**
      * No-arg constructor for JAXB use.
      */
@@ -31,7 +37,9 @@ public class AdaptedAddressBook {
      */
     public AdaptedAddressBook(AddressBook source) {
         persons = new ArrayList<>();
+        employees = new ArrayList<>();
         source.getAllPersons().forEach(person -> persons.add(new AdaptedPerson(person)));
+        source.getAllEmployees().forEach(employee -> employees.add(new AdaptedEmployee(employee)));
     }
 
 
@@ -57,6 +65,11 @@ public class AdaptedAddressBook {
         for (AdaptedPerson person : persons) {
             personList.add(person.toModelType());
         }
-        return new AddressBook(new UniquePersonList(personList));
+        // goes through employeeList to change it
+        final List<Employee> employeeList = new ArrayList<>();
+        for (AdaptedEmployee employee : employees) {
+            employeeList.add(employee.toModelType());
+        }
+        return new AddressBook(new UniquePersonList(personList), new UniqueEmployeeList(employeeList));
     }
 }
