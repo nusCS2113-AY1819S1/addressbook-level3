@@ -24,8 +24,6 @@ public class Parser {
                     + " (?<isPhonePrivate>p?)p/(?<phone>[^/]+)"
                     + " (?<isEmailPrivate>p?)e/(?<email>[^/]+)"
                     + " (?<isAddressPrivate>p?)a/(?<address>[^/]+)"
-                    + " (?<isTitlePrivate>p?)s/(?<title>[^/]+)"
-                    + " (?<isSchedulePrivate>p?)d/(?<schedule>[^/]+)"
                     + "(?<tagArguments>(?: t/[^/]+)*)"); // variable number of tags
 
 
@@ -89,9 +87,6 @@ public class Parser {
             case RedoCommand.COMMAND_WORD:
                 return new RedoCommand();
 
-            case HistoryCommand.COMMAND_WORD:
-                return new HistoryCommand();
-
             case HelpCommand.COMMAND_WORD: // Fallthrough
             default:
                 return new HelpCommand();
@@ -122,12 +117,6 @@ public class Parser {
 
                     matcher.group("address"),
                     isPrivatePrefixPresent(matcher.group("isAddressPrivate")),
-
-                    matcher.group("title"),
-                    isPrivatePrefixPresent(matcher.group("isTitlePrivate")),
-
-                    matcher.group("schedule"),
-                    isPrivatePrefixPresent(matcher.group("isSchedulePrivate")),
 
                     getTagsFromArgs(matcher.group("tagArguments"))
             );
