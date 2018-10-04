@@ -2,8 +2,12 @@ package seedu.addressbook.storage.jaxb;
 
 import seedu.addressbook.data.AddressBook;
 import seedu.addressbook.data.exception.IllegalValueException;
+import seedu.addressbook.data.person.Menu;
 import seedu.addressbook.data.person.Person;
+import seedu.addressbook.data.person.UniqueMenuList;
 import seedu.addressbook.data.person.UniquePersonList;
+import seedu.addressbook.data.person.Employee;
+import seedu.addressbook.data.person.UniqueEmployeeList;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -16,8 +20,14 @@ import java.util.List;
 @XmlRootElement(name = "AddressBook")
 public class AdaptedAddressBook {
 
-    @XmlElement
+    @XmlElement(name = "persons")
     private List<AdaptedPerson> persons = new ArrayList<>();
+    @XmlElement(name = "menus")
+    private List<AdaptedMenu> menus = new ArrayList<>();
+
+
+    @XmlElement(name = "employees")
+    private List<AdaptedEmployee> employees = new ArrayList<>();
 
     /**
      * No-arg constructor for JAXB use.
@@ -29,9 +39,18 @@ public class AdaptedAddressBook {
      *
      * @param source future changes to this will not affect the created AdaptedAddressBook
      */
-    public AdaptedAddressBook(AddressBook source) {
+    /*public AdaptedAddressBook(AddressBook source) {
         persons = new ArrayList<>();
         source.getAllPersons().forEach(person -> persons.add(new AdaptedPerson(person)));
+    }
+*/
+    public AdaptedAddressBook(AddressBook source) {
+        persons = new ArrayList<>();
+        menus = new ArrayList<>();
+        employees = new ArrayList<>();
+        source.getAllPersons().forEach(person -> persons.add(new AdaptedPerson(person)));
+        source.getAllMenus().forEach(menu -> menus.add(new AdaptedMenu(menu)));
+        source.getAllEmployees().forEach(employee -> employees.add(new AdaptedEmployee(employee)));
     }
 
 
@@ -47,6 +66,10 @@ public class AdaptedAddressBook {
         return persons.stream().anyMatch(AdaptedPerson::isAnyRequiredFieldMissing);
     }
 
+    public boolean isAnyRequiredFieldMissingMenu() {
+        return menus.stream().anyMatch(AdaptedMenu::isAnyRequiredFieldMissing);
+    }
+
 
     /**
      * Converts this jaxb-friendly {@code AdaptedAddressBook} object into the corresponding(@code AddressBook} object.
@@ -54,9 +77,21 @@ public class AdaptedAddressBook {
      */
     public AddressBook toModelType() throws IllegalValueException {
         final List<Person> personList = new ArrayList<>();
+        final List<Menu> menuList = new ArrayList<>();
+        final List<Employee> employeeList = new ArrayList<>();
         for (AdaptedPerson person : persons) {
             personList.add(person.toModelType());
         }
-        return new AddressBook(new UniquePersonList(personList));
+        
+      // goes through employeeList to change it  
+        for (AdaptedEmployee employee : employees) {
+            employeeList.add(employee.toModelType());
+        }
+
+        for (AdaptedMenu menu : menus) {
+            menuList.add(menu.toModelType());
+        }
+        return new AddressBook(new UniquePersonList(personList), new UniqueMenuList(menuList), new UniqueEmployeeList(employeeList));
+
     }
 }

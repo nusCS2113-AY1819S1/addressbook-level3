@@ -4,6 +4,7 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
+import seedu.addressbook.data.exception.IllegalValueException;
 import seedu.addressbook.data.tag.Tag;
 
 /**
@@ -21,6 +22,9 @@ public class Person implements ReadOnlyPerson {
     /**
      * Assumption: Every field must be present and not null.
      */
+
+    public Person(){ }
+
     public Person(Name name, Phone phone, Email email, Address address, Set<Tag> tags) {
         this.name = name;
         this.phone = phone;
@@ -59,6 +63,22 @@ public class Person implements ReadOnlyPerson {
     @Override
     public Set<Tag> getTags() {
         return new HashSet<>(tags);
+    }
+
+    protected void setName(Name name) {
+        this.name = name;
+    }
+
+    protected void setPhone(Phone phone){
+        this.phone = phone;
+    }
+
+    protected void setEmail(Email email) {
+        this.email = email;
+    }
+
+    protected void setAddress(Address address){
+        this.address = address;
     }
 
     /**
