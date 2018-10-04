@@ -16,6 +16,10 @@ public class Order implements ReadOnlyOrder {
     private Person customer;
     private Date date;
     private int price;
+
+    /**
+     * Map with Dishes as keys and quantities as Integer values.
+     */
     private final Map<Dish, Integer> dishes = new HashMap();
 
     /**
@@ -82,6 +86,15 @@ public class Order implements ReadOnlyOrder {
             result += (dishPrice * dishQuantity);
         }
         return result;
+    }
+
+    public int getDishQuantity(Dish dish) {
+        if (dishes.containsKey(dish)) {
+            return dishes.get(dish);
+        } else {
+            return 0;
+        }
+
     }
 
     public void changeDishQuantity(Dish dish, int quantity) {
