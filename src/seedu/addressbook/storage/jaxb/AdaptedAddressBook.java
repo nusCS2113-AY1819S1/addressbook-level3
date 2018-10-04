@@ -18,9 +18,9 @@ import java.util.List;
 @XmlRootElement(name = "AddressBook")
 public class AdaptedAddressBook {
 
-    @XmlElement
+    @XmlElement(name = "persons")
     private List<AdaptedPerson> persons = new ArrayList<>();
-    @XmlElement
+    @XmlElement(name = "menus")
     private List<AdaptedMenu> menus = new ArrayList<>();
 
     /**

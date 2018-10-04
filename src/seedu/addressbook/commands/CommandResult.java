@@ -40,10 +40,11 @@ public class CommandResult {
                          List<? extends ReadOnlyOrder> relevantOrders) {
         this.feedbackToUser = feedbackToUser;
         this.relevantPersons = relevantPersons;
+        this.relevantMenus = null;
         this.relevantOrders = relevantOrders;
     }
 
-    public CommandResult(String feedbackToUser, List<? extends ReadOnlyPerson> relevantPersons, List<? extends ReadOnlyMenus> relevantMenus, List<? extends ReadOnlyOrders> relevantOrders) {
+    public CommandResult(String feedbackToUser, List<? extends ReadOnlyPerson> relevantPersons, List<? extends ReadOnlyMenus> relevantMenus, List<? extends ReadOnlyOrder> relevantOrders) {
         this.feedbackToUser = feedbackToUser;
         this.relevantPersons = relevantPersons;
         this.relevantMenus = relevantMenus;
@@ -59,6 +60,7 @@ public class CommandResult {
 
     public Optional<List<? extends ReadOnlyMenus>> getRelevantMenus() {
         return Optional.ofNullable(relevantMenus);
+    }
 
     /**
      * Returns list of orders relevant to the command command result, if any.
