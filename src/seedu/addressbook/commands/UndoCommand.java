@@ -1,7 +1,6 @@
 package seedu.addressbook.commands;
 
 import seedu.addressbook.data.AddressBook;
-import seedu.addressbook.data.CommandHistory;
 import seedu.addressbook.data.person.ReadOnlyPerson;
 
 import java.util.List;
@@ -17,11 +16,10 @@ public class UndoCommand extends Command {
     @Override
     public CommandResult execute() {
         try {
-            commandHistory.undoLast();
-            commandHistory.addHistory(COMMAND_WORD);
+            addressBook.undoLast();
             List<ReadOnlyPerson> allPersons = addressBook.getAllPersons().immutableListView();
             return new CommandResult(MESSAGE_SUCCESS + getMessageForPersonListShownSummary(allPersons), allPersons);
-        } catch (CommandHistory.HistoryOutOfBoundException hoobe){
+        } catch (AddressBook.HistoryOutOfBoundException hoobe){
             return new CommandResult(MESSAGE_FAILURE);
         }
     }

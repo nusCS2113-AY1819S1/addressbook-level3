@@ -5,16 +5,12 @@
         <phone isPrivate="false">98765432</phone>
         <email isPrivate="false">johnd@gmail.com</email>
         <address isPrivate="false">John street, block 123, #01-01</address>
-        <title isPrivate="false">Doctor</title>
-        <schedule isPrivate="false">28-03-2018</schedule>
     </persons>
     <persons>
         <name>Betsy Crowe</name>
         <phone isPrivate="true">1234567</phone>
         <email isPrivate="false">betsycrowe@gmail.com</email>
         <address isPrivate="true">Newgate Prison</address>
-        <title isPrivate="false">Patient</title>
-        <schedule isPrivate="true">01-05-1995</schedule>
         <tagged>friend</tagged>
         <tagged>criminal</tagged>
     </persons>
