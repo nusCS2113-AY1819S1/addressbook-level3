@@ -27,7 +27,11 @@ usually write in data structure modules.
 
 == Contributors
 
-The full list of contributors for se-edu can be found https://se-edu.github.io/Team.html[here].
+Nicholas Pang Wey Shern
+image::nichpang1.png[]
+Ong Jia Jian
+Ooi Xi Yi
+Keith Tan Qisheng
 
 == Acknowledgements
 
