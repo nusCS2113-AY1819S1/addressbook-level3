@@ -29,7 +29,7 @@ usually write in data structure modules.
 
 Nicholas Pang Wey Shern
 
-image::nichpang1.png[]
+image::nichpang1.jpg[]
 
 Ong Jia Jian
 
