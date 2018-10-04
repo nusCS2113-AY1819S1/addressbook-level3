@@ -28,10 +28,15 @@ usually write in data structure modules.
 == Contributors
 
 Nicholas Pang Wey Shern
+
 image::nichpang1.png[]
+
 Ong Jia Jian
+
 Ooi Xi Yi
+
 Keith Tan Qisheng
+
 
 == Acknowledgements
 
