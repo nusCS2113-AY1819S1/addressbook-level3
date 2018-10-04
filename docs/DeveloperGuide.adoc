@@ -50,23 +50,36 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |`* * *` |user |add a new person |
 |`* * *` |user |delete a person |remove entries that I no longer need
 |`* * *` |user |find a person by name |locate details of persons without having to go through the entire list
+|`* * *` |user |undo/redo changes made |revert changes that are unwanted
 |`* *` |user |hide <<private-contact-detail, private contact details>> by default |minimize chance of someone else seeing them by accident
-|`*` |user with many persons in the address book |sort persons by name |locate a person easily
+|`*` |user with many persons in the Health Booklet |sort persons by name |locate a person easily
+|`*` |user |see history of commands made |identify changes that were made to the Health Booklet
 |===========================================================================================================================================
 
 [appendix]
 == Use Cases
 
-(For all use cases below, the *System* is the `AddressBook` and the *Actor* is the `user`, unless specified otherwise)
+(For all use cases below, the *System* is the `Health Booklet` and the *Actor* is the `user`, unless specified otherwise)
+
+=== Use case: Login
+
+*MSS*
+
+. User opens up Health Booklet
+. Health Booklet prompts for Username and Password
+. User keys in Username and Password
+. On successful login, program continues. On failed login, program exits
++
+Use case ends.
 
 === Use case: Delete person
 
 *MSS*
 
 . User requests to list persons
-. AddressBook shows a list of persons
+. Health Booklet shows a list of persons
 . User requests to delete a specific person in the list
-. AddressBook deletes the person.
+. Health Booklet deletes the person.
 +
 Use case ends.
 
@@ -77,7 +90,7 @@ Use case ends.
 Use case ends.
 
 * 3a. The given index is invalid.
-** 3a1. AddressBook shows an error message.
+** 3a1. Health Booklet shows an error message.
 +
 Use case resumes at step 2.
 
