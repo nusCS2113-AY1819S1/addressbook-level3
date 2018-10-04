@@ -122,6 +122,7 @@ public class Logic {
         Command command = new Parser().parseCommand(userCommandText);
         CommandResult result = execute(command);
         recordResult(result);
+        recordOrderResult(result);
         return result;
     }
 
@@ -146,6 +147,13 @@ public class Logic {
         final Optional<List<? extends ReadOnlyPerson>> personList = result.getRelevantPersons();
         if (personList.isPresent()) {
             lastShownList = personList.get();
+        }
+    }
+
+    private void recordOrderResult(CommandResult result) {
+        final Optional<List<? extends ReadOnlyOrder>> orderList = result.getRelevantOrders();
+        if (orderList.isPresent()) {
+            lastShownOrderList = orderList.get();
         }
     }
 }
