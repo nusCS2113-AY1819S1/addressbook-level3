@@ -34,6 +34,7 @@ Keith Tan Qisheng
 
 == Acknowledgements
 
-Original source of the code can be found https://github.com/se-edu/addressbook-level3[here]
+Original source of the code can be found https://github.com/se-edu/addressbook-level3[here].
+
 Some parts of this sample application was inspired by the excellent
 http://code.makery.ch/library/javafx-8-tutorial/[Java FX tutorial] by Marco Jakob
