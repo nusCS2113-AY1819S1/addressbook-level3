@@ -1,2 +1,34 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<OrderList/>
+<OrderList>
+    <orders>
+        <customer>
+            <name>Pham</name>
+            <phone isPrivate="false">83715248</phone>
+            <email isPrivate="false">px1099@gmail.com</email>
+            <address isPrivate="false">PGP</address>
+        </customer>
+        <date>3600000</date>
+        <price>16.0</price>
+        <dishItems>
+            <dish>
+                <dishName>coke</dishName>
+                <dishPrice>2.0</dishPrice>
+            </dish>
+            <quantity>1</quantity>
+        </dishItems>
+        <dishItems>
+            <dish>
+                <dishName>salad</dishName>
+                <dishPrice>4.0</dishPrice>
+            </dish>
+            <quantity>1</quantity>
+        </dishItems>
+        <dishItems>
+            <dish>
+                <dishName>chicken</dishName>
+                <dishPrice>5.0</dishPrice>
+            </dish>
+            <quantity>2</quantity>
+        </dishItems>
+    </orders>
+</OrderList>

@@ -31,18 +31,18 @@ public interface ReadOnlyOrder {
      */
     default String getAsTextShowAll() {
         final StringBuilder builder = new StringBuilder();
-        builder.append("Customer: \n\t")
+        builder.append("\tCustomer: ")
                 .append(getCustomer().getAsTextShowAll()).append("\n")
-                .append("Date: ").append(getDate()).append("\n")
-                .append("Price: ").append(getPrice()).append("\n")
-                .append("Dishes: \n");
+                .append("\t\tDate: ").append(getDate()).append("\n")
+                .append("\t\tPrice: ").append(getPrice()).append(" SGD\n")
+                .append("\t\tDishes: \n");
         int i = 0;
         for (Map.Entry<Dish, Integer> m: getDishItems().entrySet()) {
             i++;
             String dishName = m.getKey().getDishName();
             double dishPrice = m.getKey().getDishPrice();
             int quantity = m.getValue();
-            builder.append("\t")
+            builder.append("\t\t\t")
                     .append(i).append(". ")
                     .append(dishName)
                     .append(" (").append(dishPrice).append(" SGD) \t")
@@ -56,18 +56,18 @@ public interface ReadOnlyOrder {
      */
     default String getAsTextHidePrivate() {
         final StringBuilder builder = new StringBuilder();
-        builder.append("Customer: \n\t")
+        builder.append("\tCustomer: ")
                 .append(getCustomer().getAsTextHidePrivate()).append("\n")
-                .append("Date: ").append(getDate()).append("\n")
-                .append("Price: ").append(getPrice()).append("\n")
-                .append("Dishes: \n");
+                .append("\t\tDate: ").append(getDate()).append("\n")
+                .append("\t\tPrice: ").append(getPrice()).append(" SGD\n")
+                .append("\t\tDishes: \n");
         int i = 0;
         for (Map.Entry<Dish, Integer> m: getDishItems().entrySet()) {
             i++;
             String dishName = m.getKey().getDishName();
             double dishPrice = m.getKey().getDishPrice();
             int quantity = m.getValue();
-            builder.append("\t")
+            builder.append("\t\t\t")
                     .append(i).append(". ")
                     .append(dishName)
                     .append(" (").append(dishPrice).append(" SGD) \t")
