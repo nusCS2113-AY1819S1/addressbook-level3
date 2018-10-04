@@ -124,13 +124,19 @@ Delete 3 +
 System deletes Cheese Fries in index 3 from the menu.
 
 === Order
-==== View All Order
+==== List Orders
 
 Shows a list of all the current orders. +
-Format: viewall
+
+Each order include details of: customer, ordered time, total price and the list of dish items and quantities ordered +
+
+Only the non-private data of customer will be showed. +
+
+Format: listorder
 
 ==== View Order
 
+(To be implemented) +
 Shows the details of a specified order. +
 Format: view INDEX
 
@@ -139,12 +145,14 @@ Format: view INDEX
 
 ==== Add Order
 
+(To be implemented) +
 Adds a new order to the list of current orders and display the list. +
-Format: add ORDERNAME
+Format: add ORDERFORMAT
 
 
 ==== Update Order
 
+(To be implemented) +
 Shows options that you can use to update orders. +
 Format: update
 
@@ -153,6 +161,7 @@ Format: update
 
 ==== Edit Order
 
+(To be implemented) +
 Edit details of an order. +
 Format: edit INDEX
 
@@ -162,6 +171,7 @@ Format: edit INDEX
 
 ==== Delete Order
 
+(To be implemented) +
 Delete an order. +
 Format: delete INDEX
 
@@ -169,6 +179,7 @@ Format: delete INDEX
 
 ==== Find Order
 
+(To be implemented) +
 Find an order by certain parameters. +
 Format: find KEYWORD [MORE_KEYWORDS]
 

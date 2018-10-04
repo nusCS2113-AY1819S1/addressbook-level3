@@ -3,8 +3,11 @@ package seedu.addressbook.logic;
 import seedu.addressbook.commands.Command;
 import seedu.addressbook.commands.CommandResult;
 import seedu.addressbook.data.AddressBook;
+import seedu.addressbook.data.RMS;
+import seedu.addressbook.data.order.ReadOnlyOrder;
 import seedu.addressbook.data.person.ReadOnlyPerson;
 import seedu.addressbook.parser.Parser;
+import seedu.addressbook.storage.RMSStorageFile;
 import seedu.addressbook.storage.StorageFile;
 
 import java.util.Collections;
@@ -18,14 +21,22 @@ public class Logic {
 
 
     private StorageFile storage;
+    private RMSStorageFile rmsStorage;
     private AddressBook addressBook;
+    private RMS rms;
 
     /** The list of person shown to the user most recently.  */
     private List<? extends ReadOnlyPerson> lastShownList = Collections.emptyList();
 
+    /** The list of order shown to the user most recently.  */
+    private List<? extends ReadOnlyOrder> lastShownOrderList = Collections.emptyList();
+
     public Logic() throws Exception{
         setStorage(initializeStorage());
         setAddressBook(storage.load());
+
+        setRMSStorage(initializeRMSStorage());
+        setRMS(rmsStorage.load());
     }
 
     Logic(StorageFile storageFile, AddressBook addressBook){
@@ -33,12 +44,28 @@ public class Logic {
         setAddressBook(addressBook);
     }
 
+    Logic(StorageFile storageFile, AddressBook addressBook, RMSStorageFile rmsStorageFile, RMS rms){
+        setStorage(storageFile);
+        setAddressBook(addressBook);
+
+        setRMSStorage(rmsStorageFile);
+        setRMS(rms);
+    }
+
     void setStorage(StorageFile storage){
         this.storage = storage;
     }
 
+    void setRMSStorage(RMSStorageFile rmsStorage) {
+        this.rmsStorage = rmsStorage;
+    }
+
     void setAddressBook(AddressBook addressBook){
         this.addressBook = addressBook;
+    }
+
+    void setRMS(RMS rms) {
+        this.rms = rms;
     }
 
     /**
@@ -49,8 +76,20 @@ public class Logic {
         return new StorageFile();
     }
 
+    /**
+     * Creates the RMSStorageFile object based on the user specified path (if any) or the default storage path.
+     * @throws RMSStorageFile.InvalidStorageFilePathException if the target file path is incorrect.
+     */
+    private RMSStorageFile initializeRMSStorage() throws RMSStorageFile.InvalidStorageFilePathException {
+        return new RMSStorageFile();
+    }
+
     public String getStorageFilePath() {
         return storage.getPath();
+    }
+
+    public String getOrderListFilePath() {
+        return rmsStorage.getOrderListPath();
     }
 
     /**
@@ -60,8 +99,19 @@ public class Logic {
         return Collections.unmodifiableList(lastShownList);
     }
 
+    /**
+     * Unmodifiable view of the current last shown order list.
+     */
+    public List<ReadOnlyOrder> getLastShownOrderList() {
+        return Collections.unmodifiableList(lastShownOrderList);
+    }
+
     protected void setLastShownList(List<? extends ReadOnlyPerson> newList) {
         lastShownList = newList;
+    }
+
+    protected void setLastShownOrderList(List<? extends ReadOnlyOrder> newList) {
+        lastShownOrderList = newList;
     }
 
     /**
@@ -72,6 +122,7 @@ public class Logic {
         Command command = new Parser().parseCommand(userCommandText);
         CommandResult result = execute(command);
         recordResult(result);
+        recordOrderResult(result);
         return result;
     }
 
@@ -84,8 +135,10 @@ public class Logic {
      */
     private CommandResult execute(Command command) throws Exception {
         command.setData(addressBook, lastShownList);
+        command.setRMSData(rms, lastShownOrderList);
         CommandResult result = command.execute();
         storage.save(addressBook);
+        rmsStorage.save(rms);
         return result;
     }
 
@@ -94,6 +147,13 @@ public class Logic {
         final Optional<List<? extends ReadOnlyPerson>> personList = result.getRelevantPersons();
         if (personList.isPresent()) {
             lastShownList = personList.get();
+        }
+    }
+
+    private void recordOrderResult(CommandResult result) {
+        final Optional<List<? extends ReadOnlyOrder>> orderList = result.getRelevantOrders();
+        if (orderList.isPresent()) {
+            lastShownOrderList = orderList.get();
         }
     }
 }

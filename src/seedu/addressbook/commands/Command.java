@@ -2,6 +2,8 @@ package seedu.addressbook.commands;
 
 import seedu.addressbook.common.Messages;
 import seedu.addressbook.data.AddressBook;
+import seedu.addressbook.data.RMS;
+import seedu.addressbook.data.order.ReadOnlyOrder;
 import seedu.addressbook.data.person.ReadOnlyPerson;
 
 import java.util.List;
@@ -14,6 +16,10 @@ import static seedu.addressbook.ui.Gui.DISPLAYED_INDEX_OFFSET;
 public abstract class Command {
     protected AddressBook addressBook;
     protected List<? extends ReadOnlyPerson> relevantPersons;
+
+    protected RMS rms;
+    protected List<? extends ReadOnlyOrder> relevantOrders;
+
     private int targetIndex = -1;
 
     /**
@@ -37,6 +43,16 @@ public abstract class Command {
     }
 
     /**
+     * Constructs a feedback message to summarise an operation that displayed a listing of orders.
+     *
+     * @param ordersDisplayed used to generate summary
+     * @return summary message for orders displayed
+     */
+    public static String getMessageForOrderListShownSummary(List<? extends ReadOnlyOrder> ordersDisplayed) {
+        return String.format(Messages.MESSAGE_ORDERS_LISTED_OVERVIEW, ordersDisplayed.size());
+    }
+
+    /**
      * Executes the command and returns the result.
      */
     public CommandResult execute(){
@@ -54,6 +70,11 @@ public abstract class Command {
         this.relevantPersons = relevantPersons;
     }
 
+    public void setRMSData(RMS rms, List<? extends ReadOnlyOrder> relevantOrders) {
+        this.rms = rms;
+        this.relevantOrders = relevantOrders;
+    }
+
     /**
      * Extracts the the target person in the last shown list from the given arguments.
      *
@@ -61,6 +82,15 @@ public abstract class Command {
      */
     protected ReadOnlyPerson getTargetPerson() throws IndexOutOfBoundsException {
         return relevantPersons.get(getTargetIndex() - DISPLAYED_INDEX_OFFSET);
+    }
+
+    /**
+     * Extracts the the target order in the last shown list from the given arguments.
+     *
+     * @throws IndexOutOfBoundsException if the target index is out of bounds of the last viewed listing
+     */
+    protected ReadOnlyOrder getTargetOrder() throws IndexOutOfBoundsException {
+        return relevantOrders.get(getTargetIndex() - DISPLAYED_INDEX_OFFSET);
     }
 
     public int getTargetIndex() {

@@ -15,12 +15,13 @@ public class Main extends Application implements Stoppable{
 
     /** Version info of the program. */
     public static final String VERSION = "AddressBook Level 3 - Version 1.0";
+    public static final String RMS_VERSION = "Restaurant Management System - Version 1.0";
 
     private Gui gui;
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        gui = new Gui(new Logic(), VERSION);
+        gui = new Gui(new Logic(), RMS_VERSION);
         gui.start(primaryStage, this);
     }
 

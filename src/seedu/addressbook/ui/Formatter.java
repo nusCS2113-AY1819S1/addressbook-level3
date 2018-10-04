@@ -1,5 +1,6 @@
 package seedu.addressbook.ui;
 
+import seedu.addressbook.data.order.ReadOnlyOrder;
 import seedu.addressbook.data.person.ReadOnlyPerson;
 
 import java.util.ArrayList;
@@ -41,6 +42,15 @@ public class Formatter {
             formattedPersons.add(person.getAsTextHidePrivate());
         }
         return format(asIndexedList(formattedPersons));
+    }
+
+    /** Formats the given list of orders for displaying to the user. */
+    public String formatOrderResult(List<? extends ReadOnlyOrder> orders) {
+        final List<String> formattedOrders = new ArrayList<>();
+        for (ReadOnlyOrder order : orders) {
+            formattedOrders.add(order.getAsTextHidePrivate());
+        }
+        return format(asIndexedList(formattedOrders));
     }
 
     /** Formats a list of strings as an indexed list. */
