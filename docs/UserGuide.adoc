@@ -16,6 +16,8 @@ Please refer to the <<DeveloperGuide#setting-up, Setting up>> section to learn h
 . Open up `src/seedu.addressbook` folder
 . Right click on `Main`
 . Click `Run Main.main()`
+. Enter your Username and Password according to the prompts
+. Upon successful login, `Welcome to AddressBook3` will appear, program will exit upon login failure
 . The GUI should appear in a few seconds
 +
 image::Ui.png[]
