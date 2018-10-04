@@ -8,18 +8,18 @@ import seedu.addressbook.data.order.ReadOnlyOrder;
 /**
  * Represents the entire restaurant management system. Contains the data of the order list.
  */
-public class RestaurantManagementSystem {
+public class RMS {
 
     private final OrderList allOrders;
 
-    public static RestaurantManagementSystem empty() {
-        return new RestaurantManagementSystem();
+    public static RMS empty() {
+        return new RMS();
     }
 
     /**
-     * Creates a empty order list.
+     * Creates a new system.
      */
-    public RestaurantManagementSystem() {
+    public RMS() {
         allOrders = new OrderList();
     }
 
@@ -28,7 +28,7 @@ public class RestaurantManagementSystem {
      *
      * @param orders external changes to this will not affect this order list
      */
-    public RestaurantManagementSystem(OrderList orders) {
+    public RMS(OrderList orders) {
         this.allOrders = new OrderList(orders);
     }
 
@@ -47,7 +47,7 @@ public class RestaurantManagementSystem {
     }
 
     /**
-     * Removes the equivalent order from the address book.
+     * Removes the equivalent order from the order list.
      *
      * @throws OrderNotFoundException if no such Order could be found.
      */
@@ -56,7 +56,7 @@ public class RestaurantManagementSystem {
     }
 
     /**
-     * Clears all orders from the address book.
+     * Clears all orders from the order list.
      */
     public void clearOrderList() {
         allOrders.clear();
@@ -72,8 +72,8 @@ public class RestaurantManagementSystem {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof RestaurantManagementSystem // instanceof handles nulls
-                && this.allOrders.equals(((RestaurantManagementSystem) other).allOrders));
+                || (other instanceof RMS // instanceof handles nulls
+                && this.allOrders.equals(((RMS) other).allOrders));
     }
 
     @Override
