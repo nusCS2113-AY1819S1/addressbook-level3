@@ -41,7 +41,7 @@ public abstract class Command_Menu {
     /**
      * Executes the command and returns the result.
      */
-    public CommandResult execute(){
+    public CommandResult_Menu execute(){
         throw new UnsupportedOperationException("This method should be implement in child classes");
     }
 

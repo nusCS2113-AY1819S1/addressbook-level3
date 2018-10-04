@@ -9,7 +9,7 @@ import java.util.List;
 /**
  * Used for formatting text for display. e.g. for adding text decorations.
  */
-public class Formatter {
+public class Formatter_Menu {
 
     /** A decorative prefix added to the beginning of lines printed by AddressBook */
     private static final String LINE_PREFIX = " ";
@@ -36,13 +36,13 @@ public class Formatter {
     }
 
     /** Formats the given list of persons for displaying to the user.
-     * @param persons*/
-    public String format(List<? extends ReadOnlyPerson> persons) {
-        final List<String> formattedPersons = new ArrayList<>();
-        for (ReadOnlyPerson person : persons) {
-            formattedPersons.add(person.getAsTextHidePrivate());
+     * @param menus*/
+    public String format(List<? extends ReadOnlyMenus> menus) {
+        final List<String> formattedMenus = new ArrayList<>();
+        for (ReadOnlyMenus menu : menus) {
+            formattedMenus.add(menu.getAsTextHidePrivate());
         }
-        return format(asIndexedList(formattedPersons));
+        return format(asIndexedList(formattedMenus));
     }
 
     /** Formats a list of strings as an indexed list. */

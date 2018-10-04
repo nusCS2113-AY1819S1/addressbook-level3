@@ -53,12 +53,12 @@ public class AddMenu extends Command_Menu {
     }
 
     @Override
-    public CommandResult execute() {
+    public CommandResult_Menu execute() {
         try {
             menuBook.addMenuItem(toAdd);
-            return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
+            return new CommandResult_Menu(String.format(MESSAGE_SUCCESS, toAdd));
         } catch (UniqueMenuList.DuplicateMenuException dpe) {
-            return new CommandResult(MESSAGE_DUPLICATE_MENUITEM);
+            return new CommandResult_Menu(MESSAGE_DUPLICATE_MENUITEM);
         }
     }
 

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<RMS_menu>
+    <menus>
+        <name>john</name>
+        <price isPrivate="false">$5.00</price>
+    </menus>
+</RMS_menu>
