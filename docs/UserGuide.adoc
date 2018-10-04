@@ -133,6 +133,37 @@ Views all details of the 2nd person in the address book.
 `viewall 1` +
 Views all details of the 1st person in the results of the `find` command.
 
+== Raises your privilege level : `raise`
+
+Raises the privilege level to Admin. Requires the master password. +
+Format: `viewall PASSWORD`
+
+****
+Examples:
+
+* `raise default_pw` +
+Raises your privilege level to Admin.
+****
+
+== See your privilege level : `say`
+
+Displays your current privilege level +
+Format: `say`
+
+== Change the password : `change`
+Changes the master password. Requires the current master password and Admin privileges. +
+Format: `change OLD_PASSWORD NEW_PASSWORD`
+
+Changes the master password to `NEW_PASSWORD`, if the provided `OLD_PASSWORD` is correct. +
+Default master password is "default_pw".
+
+****
+Examples:
+
+* `change default_pw new_pw` +
+Changes the master password to "new_pw".
+****
+
 == Clearing all entries : `clear`
 
 Clears all entries from the address book. +
