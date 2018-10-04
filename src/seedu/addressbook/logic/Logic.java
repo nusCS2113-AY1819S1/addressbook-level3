@@ -115,8 +115,8 @@ public class Logic {
         lastShownList = newList;
     }
 
-    protected void setLastShownMenuList(List<? extends ReadOnlyMenus> newList1) {
-        lastShownMenuList = newList1;
+    protected void setLastShownMenuList(List<? extends ReadOnlyMenus> newList) {
+        lastShownMenuList = newList;
     }
 
     protected void setLastShownOrderList(List<? extends ReadOnlyOrder> newList) {
@@ -143,7 +143,7 @@ public class Logic {
      * @throws Exception if there was any problem during command execution.
      */
     private CommandResult execute(Command command) throws Exception {
-        command.setData(addressBook, lastShownList, lastShownList1);
+        command.setData(addressBook, lastShownList, lastShownMenuList);
         command.setRMSData(rms, lastShownOrderList);
         CommandResult result = command.execute();
         storage.save(addressBook);
@@ -158,7 +158,6 @@ public class Logic {
             lastShownList = personList.get();
         }
     }
-}
 
 // ADD METHOD TO RECORD MENU RESULT
 

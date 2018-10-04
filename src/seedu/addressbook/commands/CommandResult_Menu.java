@@ -30,6 +30,6 @@ public class CommandResult_Menu extends CommandResult{
      * Returns list of persons relevant to the command command result, if any.
      */
     public CommandResult_Menu(String feedbackToUser, List<? extends ReadOnlyMenus> relevantMenus){
-        super(feedbackToUser, null, relevantMenus);
+        super(feedbackToUser, null, relevantMenus, null);
     }
 }

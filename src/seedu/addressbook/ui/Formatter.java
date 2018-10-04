@@ -54,6 +54,7 @@ public class Formatter {
             formattedMenus.add(menu.getAsTextHidePrivate());
         }
         return format(asIndexedList(formattedMenus));
+    }
 
     /** Formats the given list of orders for displaying to the user. */
     public String formatOrderResult(List<? extends ReadOnlyOrder> orders) {
