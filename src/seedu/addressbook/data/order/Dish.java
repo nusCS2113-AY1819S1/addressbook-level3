@@ -5,13 +5,13 @@ package seedu.addressbook.data.order;
  */
 public class Dish {
     private String dishName;
-    private int dishPrice;
+    private double dishPrice;
 
     public String getDishName() {
         return dishName;
     }
 
-    public int getDishPrice() {
+    public double getDishPrice() {
         return dishPrice;
     }
 }

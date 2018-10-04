@@ -12,7 +12,7 @@ public interface ReadOnlyOrder {
 
     Person getCustomer();
     Date getDate();
-    int getPrice();
+    double getPrice();
     Map<Dish, Integer> getDishItems();
 
     /**
@@ -40,7 +40,7 @@ public interface ReadOnlyOrder {
         for (Map.Entry<Dish, Integer> m: getDishItems().entrySet()) {
             i++;
             String dishName = m.getKey().getDishName();
-            int dishPrice = m.getKey().getDishPrice();
+            double dishPrice = m.getKey().getDishPrice();
             int quantity = m.getValue();
             builder.append("\t")
                     .append(i).append(". ")
@@ -65,7 +65,7 @@ public interface ReadOnlyOrder {
         for (Map.Entry<Dish, Integer> m: getDishItems().entrySet()) {
             i++;
             String dishName = m.getKey().getDishName();
-            int dishPrice = m.getKey().getDishPrice();
+            double dishPrice = m.getKey().getDishPrice();
             int quantity = m.getValue();
             builder.append("\t")
                     .append(i).append(". ")

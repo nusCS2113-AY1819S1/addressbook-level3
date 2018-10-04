@@ -15,7 +15,7 @@ public class Order implements ReadOnlyOrder {
 
     private Person customer;
     private Date date;
-    private int price;
+    private double price;
 
     /**
      * Map with Dishes as keys and quantities as Integer values.
@@ -47,7 +47,7 @@ public class Order implements ReadOnlyOrder {
     /**
      * Full constructor.
      */
-    public Order(Person customer, Date date, int price, Map<Dish, Integer> dishItems) {
+    public Order(Person customer, Date date, double price, Map<Dish, Integer> dishItems) {
         this.customer = customer;
         this.dishItems.putAll(dishItems);
         this.price = price;
@@ -58,7 +58,7 @@ public class Order implements ReadOnlyOrder {
      * Copy constructor.
      */
     public Order(ReadOnlyOrder source) {
-        this(source.getCustomer(), source.getDate(), source.getDishItems());
+        this(source.getCustomer(), source.getDate(), source.getPrice(), source.getDishItems());
     }
 
     @Override
@@ -72,7 +72,7 @@ public class Order implements ReadOnlyOrder {
     }
 
     @Override
-    public int getPrice() {
+    public double getPrice() {
         return price;
     }
 
@@ -90,10 +90,10 @@ public class Order implements ReadOnlyOrder {
         price = calculatePrice(dishItems);
     }
 
-    public int calculatePrice(Map<Dish, Integer> dishItems) {
-        int result = 0;
+    public double calculatePrice(Map<Dish, Integer> dishItems) {
+        double result = 0;
         for (Map.Entry<Dish, Integer> m: getDishItems().entrySet()) {
-            int dishPrice = m.getKey().getDishPrice();
+            double dishPrice = m.getKey().getDishPrice();
             int dishQuantity = m.getValue();
             result += (dishPrice * dishQuantity);
         }
