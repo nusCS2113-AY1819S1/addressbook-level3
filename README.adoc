@@ -33,7 +33,7 @@ image::nichpang1.jpg[]
 
 Ong Jia Jian
 
-image::ongjiajian.jpg[]
+image::ongjiajian.JPG[]
 
 Ooi Xi Yi
 
