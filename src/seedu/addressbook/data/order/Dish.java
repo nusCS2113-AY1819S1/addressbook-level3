@@ -34,5 +34,5 @@ public class Dish {
     public int hashCode() {
         return Objects.hash(dishName, dishPrice);
     }
-    
+
 }
