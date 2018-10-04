@@ -5,8 +5,8 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import seedu.addressbook.Main;
 import seedu.addressbook.logic.Logic;
-//import seedu.addressbook.logic.Logic_RMS;
 
+import java.io.File;
 import java.io.IOException;
 
 /**
@@ -30,8 +30,10 @@ public class Gui {
     }
 
     public void start(Stage stage, Stoppable mainApp) throws IOException {
-        mainWindow_rms = createMainWindow(stage, mainApp);
-        mainWindow_rms.displayWelcomeMessage(version, logic_rms.getStorageFilePath());
+      // ADD DISPLAY OF STORAGE FILE PATH
+        mainWindow = createMainWindow(stage, mainApp);
+        mainWindow.displayRMSWelcomeMessage(version, logic_rms.getOrderListFilePath());
+
     }
 
     private MainWindow createMainWindow(Stage stage, Stoppable mainApp) throws IOException{

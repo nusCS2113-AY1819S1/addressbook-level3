@@ -1,8 +1,7 @@
+:imagesDir: docs/images
+:relfileprefix: docs/
+image::homepage.png[]
 
-image::docs/images/homepage.png[]
-
-ifdef::env-github,env-browser[:relfileprefix: docs/]
-ifdef::env-github,env-browser[:imagesDir: docs/images]
 
 
 https://travis-ci.org/CS2113-AY1819S1-F09-2/main[image:https://travis-ci.org/CS2113-AY1819S1-F09-2/main.svg?branch=master[Build Status]]
@@ -17,10 +16,11 @@ https://coveralls.io/github/CS2113-AY1819S1-F09-2/main?branch=master[image:https
 ||
 <<ContactUs#, *CONTACT US*>>
 
+
 === Welcome to RMS Homepage
 Restaurant Management System (RMS) promises to increase the quality of your service and enhance your work experience.  The Command Line Interface makes RMS highly efficient as it reduces the number of steps taken to perform a task to just one (or two).  It is your one-stop solution that can be used for serving customers, updating menu as well as storing and tracking important data. In a nutshell, RMS guarantees to be a faster, safer and smarter choice of management for any restaurants and fast food chains.
 
-image::docs/images/UImockup.PNG[]
+image::UImockup.PNG[]
 
 * This is a Desktop Application for Restaurant Management System. It is making use of Command Line Interface
 * Our primary target audience for RMS are *Restaurants* and *Fast Food Chains*

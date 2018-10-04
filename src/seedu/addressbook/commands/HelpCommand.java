@@ -22,6 +22,7 @@ public class HelpCommand extends Command {
             + "\n" + ViewAllCommand.MESSAGE_USAGE
             + "\n" + ViewAllCommand_Menu.MESSAGE_USAGE
             + "\n" + HelpCommand.MESSAGE_USAGE
+            + "\n" + OrderListCommand.MESSAGE_USAGE
             + "\n" + ExitCommand.MESSAGE_USAGE;
 
     @Override

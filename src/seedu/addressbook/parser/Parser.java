@@ -14,7 +14,7 @@ import static seedu.addressbook.common.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
  */
 public class Parser {
 
-    public static final Pattern MENU_ITEM_INDEX_ARGS_FORMAT = Pattern.compile("(?<targetIndex>.+)");
+    public static final Pattern INDEX_ARGS_FORMAT = Pattern.compile("(?<targetIndex>.+)");
 
     public static final Pattern KEYWORDS_ARGS_FORMAT =
             Pattern.compile("(?<keywords>\\S+(?:\\s+\\S+)*)"); // one or more keywords separated by whitespace
@@ -90,6 +90,8 @@ public class Parser {
             case ViewAllCommand_Menu.COMMAND_WORD:
                 return prepareViewAllMenu(arguments);
 
+            case OrderListCommand.COMMAND_WORD:
+                return new OrderListCommand();
 
             case ExitCommand.COMMAND_WORD:
                 return new ExitCommand();
@@ -222,7 +224,7 @@ public class Parser {
      * @throws NumberFormatException the args string region is not a valid number
      */
     private int parseArgsAsDisplayedIndex(String args) throws ParseException, NumberFormatException {
-        final Matcher matcher = MENU_ITEM_INDEX_ARGS_FORMAT.matcher(args.trim());
+        final Matcher matcher = INDEX_ARGS_FORMAT.matcher(args.trim());
         if (!matcher.matches()) {
             throw new ParseException("Could not find index number to parse");
         }
