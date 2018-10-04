@@ -36,6 +36,9 @@ public class AdaptedPerson {
     @XmlElement(required = true)
     private AdaptedContactDetail title;
 
+    @XmlElement(required = true)
+    private AdaptedContactDetail schedule;
+
     @XmlElement
     private List<AdaptedTag> tagged = new ArrayList<>();
 
@@ -69,6 +72,10 @@ public class AdaptedPerson {
         title.isPrivate = source.getTitle().isPrivate();
         title.value = source.getTitle().value;
 
+        schedule = new AdaptedContactDetail();
+        schedule.isPrivate = source.getSchedule().isPrivate();
+        schedule.value = source.getSchedule().value;
+
         tagged = new ArrayList<>();
         for (Tag tag : source.getTags()) {
             tagged.add(new AdaptedTag(tag));
@@ -90,8 +97,8 @@ public class AdaptedPerson {
             }
         }
         // second call only happens if phone/email/address are all not null
-        return Utils.isAnyNull(name, phone, email, address, title)
-                || Utils.isAnyNull(phone.value, email.value, address.value, title.value);
+        return Utils.isAnyNull(name, phone, email, address, title, schedule)
+                || Utils.isAnyNull(phone.value, email.value, address.value, title.value, schedule.value);
     }
 
     /**
@@ -109,6 +116,7 @@ public class AdaptedPerson {
         final Email email = new Email(this.email.value, this.email.isPrivate);
         final Address address = new Address(this.address.value, this.address.isPrivate);
         final Title title = new Title(this.title.value, this.title.isPrivate);
-        return new Person(name, phone, email, address, title, tags);
+        final Schedule schedule = new Schedule(this.schedule.value, this.schedule.isPrivate);
+        return new Person(name, phone, email, address, title, schedule, tags);
     }
 }

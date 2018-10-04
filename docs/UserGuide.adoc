@@ -32,13 +32,13 @@ Help is also shown if you enter an incorrect command e.g. `abcd`
 == Adding a person: `add`
 
 Adds a person to the address book. +
-Format: `add NAME [p]p/PHONE_NUMBER [p]e/EMAIL [p]a/ADDRESS [p]s/TITLE [t/TAG]...`
+Format: `add NAME [p]p/PHONE_NUMBER [p]e/EMAIL [p]a/ADDRESS [p]s/TITLE [p]d/DD-MM-YYYY [t/TAG]...`
 
 ****
 Words in `UPPER_CASE` are the parameters, items in `SQUARE_BRACKETS` are optional,
 items with `...` after them can have multiple instances. Order of parameters are fixed.
 
-Put a `p` before the phone / email / address / title prefixes to mark it as `private`. `private` details can only
+Put a `p` before the phone / email / address / title / schedule prefixes to mark it as `private`. `private` details can only
 be seen using the `viewall` command.
 
 Persons can have any number of tags (including 0)
@@ -46,8 +46,8 @@ Persons can have any number of tags (including 0)
 
 Examples:
 
-* `add John Doe p/98765432 e/johnd@gmail.com a/John street, block 123, #01-01` s/Doctor
-* `add Betsy Crowe pp/1234567 e/betsycrowe@gmail.com pa/Newgate Prison s/Patient t/criminal t/friend`
+* `add John Doe p/98765432 e/johnd@gmail.com a/John street, block 123, #01-01` s/Doctor d/09-11-2018
+* `add Betsy Crowe pp/1234567 e/betsycrowe@gmail.com pa/Newgate Prison s/Patient d/04-10-2018 t/criminal t/friend`
 
 == Listing all persons : `list`
 

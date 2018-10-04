@@ -135,13 +135,13 @@ public class LogicTest {
     @Test
     public void execute_add_invalidPersonData() throws Exception {
         assertCommandBehavior(
-                "add []\\[;] p/12345 e/valid@e.mail a/valid, address s/Doctor", Name.MESSAGE_NAME_CONSTRAINTS);
+                "add []\\[;] p/12345 e/valid@e.mail a/valid, address s/Doctor d/01-01-2001", Name.MESSAGE_NAME_CONSTRAINTS);
         assertCommandBehavior(
-                "add Valid Name p/not_numbers e/valid@e.mail a/valid, address s/Doctor", Phone.MESSAGE_PHONE_CONSTRAINTS);
+                "add Valid Name p/not_numbers e/valid@e.mail a/valid, address s/Doctor d/01-01-2001", Phone.MESSAGE_PHONE_CONSTRAINTS);
         assertCommandBehavior(
-                "add Valid Name p/12345 e/notAnEmail a/valid, address s/Doctor", Email.MESSAGE_EMAIL_CONSTRAINTS);
+                "add Valid Name p/12345 e/notAnEmail a/valid, address s/Doctor d/01-01-2001", Email.MESSAGE_EMAIL_CONSTRAINTS);
         assertCommandBehavior(
-                "add Valid Name p/12345 e/valid@e.mail a/valid, address s/Doctor t/invalid_-[.tag", Tag.MESSAGE_TAG_CONSTRAINTS);
+                "add Valid Name p/12345 e/valid@e.mail a/valid, address s/Doctor d/01-01-2001 t/invalid_-[.tag", Tag.MESSAGE_TAG_CONSTRAINTS);
 
     }
 
@@ -467,10 +467,11 @@ public class LogicTest {
             Email email = new Email("adam@gmail.com", false);
             Address privateAddress = new Address("111, alpha street", true);
             Title title = new Title("Patient", false);
+            Schedule schedule = new Schedule("25-01-2019", false);
             Tag tag1 = new Tag("tag1");
             Tag tag2 = new Tag("tag2");
             Set<Tag> tags = new HashSet<>(Arrays.asList(tag1, tag2));
-            return new Person(name, privatePhone, email, privateAddress, title, tags);
+            return new Person(name, privatePhone, email, privateAddress, title, schedule, tags);
         }
 
         /**
@@ -488,6 +489,7 @@ public class LogicTest {
                     new Email(seed + "@email", isAllFieldsPrivate),
                     new Address("House of " + seed, isAllFieldsPrivate),
                     new Title("Doctor", isAllFieldsPrivate),
+                    new Schedule("26-01-2019", isAllFieldsPrivate),
                     new HashSet<>(Arrays.asList(new Tag("tag" + Math.abs(seed)), new Tag("tag" + Math.abs(seed + 1))))
             );
         }
@@ -503,6 +505,7 @@ public class LogicTest {
             cmd.add((p.getEmail().isPrivate() ? "pe/" : "e/") + p.getEmail());
             cmd.add((p.getAddress().isPrivate() ? "pa/" : "a/") + p.getAddress());
             cmd.add((p.getTitle().isPrivate() ? "ps/" : "s/") + p.getTitle());
+            cmd.add((p.getSchedule().isPrivate() ? "pd/" : "d/") + p.getSchedule());
 
             Set<Tag> tags = p.getTags();
             for(Tag t: tags){
@@ -586,6 +589,7 @@ public class LogicTest {
                     new Email("1@email", false),
                     new Address("House of 1", false),
                     new Title("Doctor", false),
+                    new Schedule("27-01-2019", false),
                     Collections.singleton(new Tag("tag"))
             );
         }
