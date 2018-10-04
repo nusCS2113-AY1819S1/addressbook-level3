@@ -1,5 +1,8 @@
 package seedu.addressbook.data;
 
+import seedu.addressbook.data.person.Menu;
+import seedu.addressbook.data.person.ReadOnlyMenus;
+import seedu.addressbook.data.person.UniqueMenuList;
 import seedu.addressbook.data.person.Person;
 import seedu.addressbook.data.person.ReadOnlyPerson;
 import seedu.addressbook.data.person.UniqueEmployeeList;
@@ -101,6 +104,7 @@ public class AddressBook {
     // this is a copy of getAllPersons for employees
     public UniqueEmployeeList getAllEmployees() {
         return new UniqueEmployeeList(allEmployees);
+    }
 
     public UniqueMenuList getAllMenus() {
         return new UniqueMenuList(allFoodItems);
@@ -118,3 +122,4 @@ public class AddressBook {
         return allPersons.hashCode();
     }
 }
+
