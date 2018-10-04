@@ -10,6 +10,7 @@ import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import seedu.addressbook.commands.AddAssignmentStatistics;
 import seedu.addressbook.commands.AddCommand;
 import seedu.addressbook.commands.ChangePasswordCommand;
 import seedu.addressbook.commands.ClearCommand;
@@ -53,6 +54,16 @@ public class Parser {
                     + " st/(?<examStartTime>[^/]+)"
                     + " et/(?<examEndTime>[^/]+)"
                     + " dt/(?<examDetails>[^/]+)");
+
+    public static final Pattern STATISTICS_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
+            Pattern.compile("(?<subjectName>[^/]+)"
+                    + " (?<isExamPrivate>p?)en/(?<examName>[^/]+)"
+                    + " ts/(?<topScorer>[^/]+)"
+                    + " av/(?<averageScore>[^/]+)"
+                    + " te/(?<totalExamTakers>[^/]+)"
+                    + " ab/(?<numberAbsent>[^/]+)"
+                    + " tp/(?<totalPass>[^/]+)"
+                    + " mm/(?<maxMin>[^/]+)");
 
     /**
      * Used for initial separation of command word and args.
@@ -119,6 +130,9 @@ public class Parser {
 
         case CreateExamCommand.COMMAND_WORD:
             return prepareCreateExam(arguments);
+
+        case AddAssignmentStatistics.COMMAND_WORD:
+            return prepareAddStatistics(arguments);
 
         case HelpCommand.COMMAND_WORD: // Fallthrough
         default:
@@ -322,6 +336,33 @@ public class Parser {
                     matcher.group("examStartTime"),
                     matcher.group("examEndTime"),
                     matcher.group("examDetails"),
+                    isPrivatePrefixPresent(matcher.group("isExamPrivate"))
+            );
+        } catch (IllegalValueException ive) {
+            return new IncorrectCommand(ive.getMessage());
+        }
+    }
+
+    /**
+     * Parses arguments in the context of the add assignment statistics command.
+     */
+    private Command prepareAddStatistics(String args) {
+        final Matcher matcher = STATISTICS_DATA_ARGS_FORMAT.matcher(args.trim());
+        // Validate arg string format
+        if (!matcher.matches()) {
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    AddAssignmentStatistics.MESSAGE_USAGE));
+        }
+        try {
+            return new AddAssignmentStatistics(
+                    matcher.group("subjectName"),
+                    matcher.group("examName"),
+                    matcher.group("topScorer"),
+                    matcher.group("averageScore"),
+                    matcher.group("totalExamTakers"),
+                    matcher.group("numberAbsent"),
+                    matcher.group("totalPass"),
+                    matcher.group("maxMin"),
                     isPrivatePrefixPresent(matcher.group("isExamPrivate"))
             );
         } catch (IllegalValueException ive) {

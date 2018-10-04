@@ -11,6 +11,7 @@ import seedu.addressbook.commands.CommandResult;
 import seedu.addressbook.commands.IncorrectCommand;
 import seedu.addressbook.data.AddressBook;
 import seedu.addressbook.data.ExamBook;
+import seedu.addressbook.data.StatisticsBook;
 import seedu.addressbook.data.person.ReadOnlyPerson;
 import seedu.addressbook.parser.Parser;
 import seedu.addressbook.privilege.Privilege;
@@ -25,6 +26,7 @@ public class Logic {
     private AddressBook addressBook;
     private Privilege privilege;
     private ExamBook examBook;
+    private StatisticsBook statisticsBook;
 
     /** The list of person shown to the user most recently.  */
     private List<? extends ReadOnlyPerson> lastShownList = Collections.emptyList();
@@ -39,17 +41,20 @@ public class Logic {
         setStorage(initializeStorage());
         setAddressBook(storage.load());
         setExamBook(storage.loadExam());
+        setStatisticsBook(storage.loadStatistics());
     }
 
-    Logic(Storage storageFile, AddressBook addressBook, ExamBook examBook, Privilege privilege) {
-        this(storageFile, addressBook, examBook);
+    Logic(Storage storageFile, AddressBook addressBook, ExamBook examBook, StatisticsBook statisticsBook, Privilege
+            privilege) {
+        this(storageFile, addressBook, examBook, statisticsBook);
         setPrivilege(privilege);
     }
 
-    Logic(Storage storageFile, AddressBook addressBook, ExamBook examBook) {
+    Logic(Storage storageFile, AddressBook addressBook, ExamBook examBook, StatisticsBook statisticsBook) {
         setStorage(storageFile);
         setAddressBook(addressBook);
         setExamBook(examBook);
+        setStatisticsBook(statisticsBook);
     }
 
     public void setStorage(Storage storage) {
@@ -66,6 +71,10 @@ public class Logic {
 
     public void setExamBook(ExamBook examBook) {
         this.examBook = examBook;
+    }
+
+    public void setStatisticsBook(StatisticsBook statisticsBook) {
+        this.statisticsBook = statisticsBook;
     }
     /**
      * Creates the StorageFile object based on the user specified path (if any) or the default storage path.
@@ -84,6 +93,10 @@ public class Logic {
 
     public String getStorageFilePathExam() {
         return storage.getPathExam();
+    }
+
+    public String getStorageFilePathStatistics() {
+        return storage.getPathStatistics();
     }
 
     /**
@@ -119,21 +132,22 @@ public class Logic {
     private CommandResult execute(Command command) throws Exception {
         final CommandResult result;
 
-        command.setData(addressBook, lastShownList, privilege, examBook);
+        command.setData(addressBook, lastShownList, privilege, examBook, statisticsBook);
 
         /** Checking instanceof IncorrectCommand to prevent overwriting the message of an incorrect command*/
         if (privilege.isAllowedCommand(command) || (command instanceof IncorrectCommand)) {
             result = command.execute();
         } else {
             result = new IncorrectCommand (String.format(MESSAGE_INSUFFICIENT_PRIVILEGE,
-                            privilege.getRequiredPrivilegeAsString(command),
-                            privilege.getLevelAsString()))
+                    privilege.getRequiredPrivilegeAsString(command),
+                    privilege.getLevelAsString()))
                     .execute();
         }
 
         if (command.isMutating()) {
             storage.save(addressBook);
             storage.saveExam(examBook);
+            storage.saveStatistics(statisticsBook);
         }
         return result;
     }

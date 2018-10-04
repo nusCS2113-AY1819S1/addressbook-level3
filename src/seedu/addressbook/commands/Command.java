@@ -7,9 +7,9 @@ import java.util.List;
 import seedu.addressbook.common.Messages;
 import seedu.addressbook.data.AddressBook;
 import seedu.addressbook.data.ExamBook;
+import seedu.addressbook.data.StatisticsBook;
 import seedu.addressbook.data.person.ReadOnlyPerson;
 import seedu.addressbook.privilege.Privilege;
-
 
 /**
  * Represents an executable command.
@@ -28,6 +28,7 @@ public abstract class Command {
     protected static Privilege privilege;
     protected AddressBook addressBook;
     protected ExamBook examBook;
+    protected StatisticsBook statisticsBook;
     protected List<? extends ReadOnlyPerson> relevantPersons;
     private int targetIndex = -1;
 
@@ -59,18 +60,19 @@ public abstract class Command {
     /**
      * Supplies the data the command will operate on.
      */
-    public void setData(AddressBook addressBook, List<? extends ReadOnlyPerson> relevantPersons, Privilege privilege) {
+    public void setData(AddressBook addressBook, StatisticsBook statisticsBook, List<? extends ReadOnlyPerson>
+            relevantPersons, Privilege privilege) {
         this.addressBook = addressBook;
+        this.statisticsBook = statisticsBook;
         this.relevantPersons = relevantPersons;
         this.privilege = privilege;
     }
 
-    public void setData(AddressBook addressBook,
-                        List<? extends ReadOnlyPerson> relevantPersons,
-                        Privilege privilege,
-                        ExamBook exambook) {
-        setData(addressBook, relevantPersons, privilege);
+    public void setData(AddressBook addressBook, List<? extends ReadOnlyPerson> relevantPersons, Privilege privilege,
+                        ExamBook exambook, StatisticsBook statisticsBook) {
+        setData(addressBook, statisticsBook, relevantPersons, privilege);
         this.examBook = exambook;
+        this.statisticsBook = statisticsBook;
     }
 
     /**
