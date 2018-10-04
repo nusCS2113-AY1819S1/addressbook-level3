@@ -3,6 +3,7 @@ package seedu.addressbook.storage.jaxb;
 import seedu.addressbook.common.Utils;
 import seedu.addressbook.data.exception.IllegalValueException;
 import seedu.addressbook.data.person.*;
+import seedu.addressbook.data.person.curriculum.Curriculum;
 import seedu.addressbook.data.tag.Tag;
 
 import javax.xml.bind.annotation.XmlAttribute;
@@ -18,11 +19,11 @@ import java.util.Set;
  */
 public class AdaptedPerson {
 
-    private static class AdaptedContactDetail {
+    public static class AdaptedContactDetail {
         @XmlValue
-        public String value;
+        private String value;
         @XmlAttribute(required = true)
-        public boolean isPrivate;
+        private boolean isPrivate;
     }
 
     @XmlElement(required = true)
@@ -33,6 +34,8 @@ public class AdaptedPerson {
     private AdaptedContactDetail email;
     @XmlElement(required = true)
     private AdaptedContactDetail address;
+    @XmlElement(required = true)
+    private AdaptedContactDetail curriculum;
 
     @XmlElement
     private List<AdaptedTag> tagged = new ArrayList<>();
@@ -67,6 +70,9 @@ public class AdaptedPerson {
         for (Tag tag : source.getTags()) {
             tagged.add(new AdaptedTag(tag));
         }
+
+        curriculum = new AdaptedContactDetail();
+        curriculum.value = source.getCurriculum().value;
     }
 
     /**
@@ -102,6 +108,7 @@ public class AdaptedPerson {
         final Phone phone = new Phone(this.phone.value, this.phone.isPrivate);
         final Email email = new Email(this.email.value, this.email.isPrivate);
         final Address address = new Address(this.address.value, this.address.isPrivate);
-        return new Person(name, phone, email, address, tags);
+        final Curriculum curriculum = new Curriculum();
+        return new Person(name, phone, email, address, tags, curriculum);
     }
 }

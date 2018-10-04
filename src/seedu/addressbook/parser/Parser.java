@@ -26,6 +26,9 @@ public class Parser {
                     + " (?<isAddressPrivate>p?)a/(?<address>[^/]+)"
                     + "(?<tagArguments>(?: t/[^/]+)*)"); // variable number of tags
 
+    public static final Pattern ENROLLED_CLASS_ARGS_FORMAT =
+            Pattern.compile("(?<index>[^/]+)" + " ec/(?<enrolledClass>[^/]+)");
+
 
     /**
      * Signals that the user input could not be parsed.
@@ -59,6 +62,9 @@ public class Parser {
 
             case AddCommand.COMMAND_WORD:
                 return prepareAdd(arguments);
+
+            case AddEnrolledClassCommand.COMMAND_WORD:
+                return prepareAddEnrolledClass(arguments);
 
             case DeleteCommand.COMMAND_WORD:
                 return prepareDelete(arguments);
@@ -113,6 +119,31 @@ public class Parser {
                     isPrivatePrefixPresent(matcher.group("isAddressPrivate")),
 
                     getTagsFromArgs(matcher.group("tagArguments"))
+            );
+        } catch (IllegalValueException ive) {
+            return new IncorrectCommand(ive.getMessage());
+        }
+    }
+
+    /**
+     * Parses arguments in the context of the add enrolled class command.
+     *
+     * @param args full command args string
+     * @return the prepared command
+     */
+    private Command prepareAddEnrolledClass (String args){
+        final Matcher matcher = ENROLLED_CLASS_ARGS_FORMAT.matcher(args.trim());
+        // Validate arg string format
+        if (!matcher.matches()) {
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                                             AddEnrolledClassCommand.MESSAGE_USAGE));
+        }
+        try {
+            return new AddEnrolledClassCommand(
+                    Integer.parseInt(matcher.group("index")),
+
+                    matcher.group("enrolledClass")
+
             );
         } catch (IllegalValueException ive) {
             return new IncorrectCommand(ive.getMessage());
