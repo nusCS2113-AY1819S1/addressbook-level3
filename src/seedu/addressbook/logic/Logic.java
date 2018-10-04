@@ -3,6 +3,7 @@ package seedu.addressbook.logic;
 import seedu.addressbook.commands.Command;
 import seedu.addressbook.commands.CommandResult;
 import seedu.addressbook.data.AddressBook;
+import seedu.addressbook.data.person.ReadOnlyMenus;
 import seedu.addressbook.data.RMS;
 import seedu.addressbook.data.order.ReadOnlyOrder;
 import seedu.addressbook.data.person.ReadOnlyPerson;
@@ -27,6 +28,7 @@ public class Logic {
 
     /** The list of person shown to the user most recently.  */
     private List<? extends ReadOnlyPerson> lastShownList = Collections.emptyList();
+    private List<? extends ReadOnlyMenus> lastShownMenuList = Collections.emptyList();
 
     /** The list of order shown to the user most recently.  */
     private List<? extends ReadOnlyOrder> lastShownOrderList = Collections.emptyList();
@@ -98,6 +100,9 @@ public class Logic {
     public List<ReadOnlyPerson> getLastShownList() {
         return Collections.unmodifiableList(lastShownList);
     }
+    public List<ReadOnlyMenus> getLastShownMenuList() {
+        return Collections.unmodifiableList(lastShownMenuList);
+    }
 
     /**
      * Unmodifiable view of the current last shown order list.
@@ -108,6 +113,10 @@ public class Logic {
 
     protected void setLastShownList(List<? extends ReadOnlyPerson> newList) {
         lastShownList = newList;
+    }
+
+    protected void setLastShownMenuList(List<? extends ReadOnlyMenus> newList1) {
+        lastShownMenuList = newList1;
     }
 
     protected void setLastShownOrderList(List<? extends ReadOnlyOrder> newList) {
@@ -134,7 +143,7 @@ public class Logic {
      * @throws Exception if there was any problem during command execution.
      */
     private CommandResult execute(Command command) throws Exception {
-        command.setData(addressBook, lastShownList);
+        command.setData(addressBook, lastShownList, lastShownList1);
         command.setRMSData(rms, lastShownOrderList);
         CommandResult result = command.execute();
         storage.save(addressBook);
@@ -149,6 +158,9 @@ public class Logic {
             lastShownList = personList.get();
         }
     }
+}
+
+// ADD METHOD TO RECORD MENU RESULT
 
     private void recordOrderResult(CommandResult result) {
         final Optional<List<? extends ReadOnlyOrder>> orderList = result.getRelevantOrders();
@@ -157,3 +169,4 @@ public class Logic {
         }
     }
 }
+

@@ -1,8 +1,6 @@
 package seedu.addressbook.data;
 
-import seedu.addressbook.data.person.Person;
-import seedu.addressbook.data.person.ReadOnlyPerson;
-import seedu.addressbook.data.person.UniquePersonList;
+import seedu.addressbook.data.person.*;
 import seedu.addressbook.data.person.UniquePersonList.DuplicatePersonException;
 import seedu.addressbook.data.person.UniquePersonList.PersonNotFoundException;
 
@@ -12,6 +10,7 @@ import seedu.addressbook.data.person.UniquePersonList.PersonNotFoundException;
 public class AddressBook {
 
     private final UniquePersonList allPersons;
+    private final UniqueMenuList allFoodItems;
 
     public static AddressBook empty() {
         return new AddressBook();
@@ -21,7 +20,9 @@ public class AddressBook {
      * Creates an empty address book.
      */
     public AddressBook() {
+
         allPersons = new UniquePersonList();
+        allFoodItems = new UniqueMenuList();
     }
 
     /**
@@ -29,9 +30,12 @@ public class AddressBook {
      *
      * @param persons external changes to this will not affect this address book
      */
-    public AddressBook(UniquePersonList persons) {
+    public AddressBook(UniquePersonList persons, UniqueMenuList menus) {
+
         this.allPersons = new UniquePersonList(persons);
+        this.allFoodItems = new UniqueMenuList(menus);
     }
+
 
     /**
      * Adds a person to the address book.
@@ -42,11 +46,19 @@ public class AddressBook {
         allPersons.add(toAdd);
     }
 
+    public void addMenu(Menu toAdd1) throws UniqueMenuList.DuplicateMenuException {
+        allFoodItems.add(toAdd1);
+    }
+
     /**
      * Checks if an equivalent person exists in the address book.
      */
     public boolean containsPerson(ReadOnlyPerson key) {
         return allPersons.contains(key);
+    }
+
+    public boolean containsMenus(ReadOnlyMenus key1) {
+        return allFoodItems.contains(key1);
     }
 
     /**
@@ -58,6 +70,10 @@ public class AddressBook {
         allPersons.remove(toRemove);
     }
 
+    public void removeMenuItem(ReadOnlyMenus toRemove1) throws UniqueMenuList.MenuNotFoundException {
+        allFoodItems.remove(toRemove1);
+    }
+
     /**
      * Clears all persons from the address book.
      */
@@ -65,11 +81,19 @@ public class AddressBook {
         allPersons.clear();
     }
 
+    public void clearmenu() {
+        allFoodItems.clear();
+    }
+
     /**
      * Defensively copied UniquePersonList of all persons in the address book at the time of the call.
      */
     public UniquePersonList getAllPersons() {
         return new UniquePersonList(allPersons);
+    }
+
+    public UniqueMenuList getAllMenus() {
+        return new UniqueMenuList(allFoodItems);
     }
 
     @Override
