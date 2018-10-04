@@ -19,26 +19,38 @@ public class Order implements ReadOnlyOrder {
 
     /**
      * Map with Dishes as keys and quantities as Integer values.
+     *
+     * Use {@code entrySet()} to create a Set for iteration.
      */
-    private final Map<Dish, Integer> dishes = new HashMap();
+    private final Map<Dish, Integer> dishItems = new HashMap();
 
     /**
      * Constructor for new order.
      */
-    public Order(Person customer, Map<Dish, Integer> dishes) {
+    public Order(Person customer, Map<Dish, Integer> dishItems) {
         this.customer = customer;
-        this.dishes.putAll(dishes);
-        this.price = calculatePrice(dishes);
+        this.dishItems.putAll(dishItems);
+        this.price = calculatePrice(dishItems);
         this.date = new Date();
     }
 
     /**
      * Constructor for edited order to keep the original ordered date.
      */
-    public Order(Person customer, Map<Dish, Integer> dishes, Date date) {
+    public Order(Person customer, Date date, Map<Dish, Integer> dishItems) {
         this.customer = customer;
-        this.dishes.putAll(dishes);
-        this.price = calculatePrice(dishes);
+        this.dishItems.putAll(dishItems);
+        this.price = calculatePrice(dishItems);
+        this.date = date;
+    }
+
+    /**
+     * Full constructor.
+     */
+    public Order(Person customer, Date date, int price, Map<Dish, Integer> dishItems) {
+        this.customer = customer;
+        this.dishItems.putAll(dishItems);
+        this.price = price;
         this.date = date;
     }
 
@@ -46,7 +58,7 @@ public class Order implements ReadOnlyOrder {
      * Copy constructor.
      */
     public Order(ReadOnlyOrder source) {
-        this(source.getCustomer(), source.getDishes(), source.getDate());
+        this(source.getCustomer(), source.getDate(), source.getDishItems());
     }
 
     @Override
@@ -65,22 +77,22 @@ public class Order implements ReadOnlyOrder {
     }
 
     @Override
-    public Map<Dish, Integer> getDishes() {
-        return new HashMap<>(dishes);
+    public Map<Dish, Integer> getDishItems() {
+        return new HashMap<>(dishItems);
     }
 
     /**
-     * Replaces the list of dishes with the dishes in {@code replacement}.
+     * Replaces the list of dish items with the dish items in {@code replacement}.
      */
-    public void setDishes(Map<Dish, Integer> replacement) {
-        dishes.clear();
-        dishes.putAll(replacement);
-        price = calculatePrice(dishes);
+    public void setDishItems(Map<Dish, Integer> replacement) {
+        dishItems.clear();
+        dishItems.putAll(replacement);
+        price = calculatePrice(dishItems);
     }
 
-    public int calculatePrice(Map<Dish, Integer> dishes) {
+    public int calculatePrice(Map<Dish, Integer> dishItems) {
         int result = 0;
-        for (Map.Entry<Dish, Integer> m: getDishes().entrySet()) {
+        for (Map.Entry<Dish, Integer> m: getDishItems().entrySet()) {
             int dishPrice = m.getKey().getDishPrice();
             int dishQuantity = m.getValue();
             result += (dishPrice * dishQuantity);
@@ -89,8 +101,8 @@ public class Order implements ReadOnlyOrder {
     }
 
     public int getDishQuantity(Dish dish) {
-        if (dishes.containsKey(dish)) {
-            return dishes.get(dish);
+        if (dishItems.containsKey(dish)) {
+            return dishItems.get(dish);
         } else {
             return 0;
         }
@@ -98,10 +110,10 @@ public class Order implements ReadOnlyOrder {
     }
 
     public void changeDishQuantity(Dish dish, int quantity) {
-        if (dishes.containsKey(dish)) {
-            dishes.remove(dish);
+        if (dishItems.containsKey(dish)) {
+            dishItems.remove(dish);
         }
-        dishes.put(dish, quantity);
+        dishItems.put(dish, quantity);
     }
 
     @Override
@@ -114,7 +126,7 @@ public class Order implements ReadOnlyOrder {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(customer, date, price, dishes);
+        return Objects.hash(customer, date, price, dishItems);
     }
 
     @Override

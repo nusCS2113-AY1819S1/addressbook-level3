@@ -13,7 +13,7 @@ public interface ReadOnlyOrder {
     Person getCustomer();
     Date getDate();
     int getPrice();
-    Map<Dish, Integer> getDishes();
+    Map<Dish, Integer> getDishItems();
 
     /**
      * Returns true if the values inside this object is same as those of the other (Note: interfaces cannot override .equals)
@@ -23,7 +23,7 @@ public interface ReadOnlyOrder {
                 || (other != null // this is first to avoid NPE below
                 && other.getCustomer().equals(this.getCustomer()) // state checks here onwards
                 && other.getDate().equals(this.getDate())
-                && other.getDishes().equals(this.getDishes()));
+                && other.getDishItems().equals(this.getDishItems()));
     }
 
     /**
@@ -37,7 +37,7 @@ public interface ReadOnlyOrder {
                 .append("Price: ").append(getPrice()).append("\n")
                 .append("Dishes: \n");
         int i = 0;
-        for (Map.Entry<Dish, Integer> m: getDishes().entrySet()) {
+        for (Map.Entry<Dish, Integer> m: getDishItems().entrySet()) {
             i++;
             String dishName = m.getKey().getDishName();
             int dishPrice = m.getKey().getDishPrice();
@@ -62,7 +62,7 @@ public interface ReadOnlyOrder {
                 .append("Price: ").append(getPrice()).append("\n")
                 .append("Dishes: \n");
         int i = 0;
-        for (Map.Entry<Dish, Integer> m: getDishes().entrySet()) {
+        for (Map.Entry<Dish, Integer> m: getDishItems().entrySet()) {
             i++;
             String dishName = m.getKey().getDishName();
             int dishPrice = m.getKey().getDishPrice();
