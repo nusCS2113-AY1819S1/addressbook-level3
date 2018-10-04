@@ -7,7 +7,18 @@ https://www.codacy.com/app/se-edu/addressbook-level3?utm_source=github.com&utm_m
 
 image::NewUI.png[]
 
-* This is a alternative to the primitive pen and paper management system for hospitals to store patient data as well as doctor information and their schedule
+This is a alternative to the primitive pen and paper management system for hospitals to store patient data as well as doctor information and their schedule.
+Doctors will be able to have essential patients information literally at their fingertips!
+In accordance with PDPA, doctors will only be able to see patients information that are relevant to them!
+
+Features
+ * High level security (Authentication and Authorization)
+ * Essential and relevant patients' information with just a click
+ * Check your coworkers schedule
+ * Undo/Redo - no need to fret over accidentally deleting your patients' information
+ * Online integrated communication  
+
+
 
 *Useful Links*
 
@@ -19,18 +30,22 @@ image::NewUI.png[]
 image::nichpang1.jpg[]
 
 Nicholas Pang Wey Shern
+State Control
 
 image::ongjiajian.JPG[]
 
 Ong Jia Jian
+Authentication
 
 image::c-e-ooi.jpg[]
 
 Ooi Xi Yi
+Scheduling
 
 image::keithtqs.jpg[]
 
 Keith Tan Qisheng
+Communication
 
 == Acknowledgements
 

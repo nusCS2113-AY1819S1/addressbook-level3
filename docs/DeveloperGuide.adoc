@@ -61,6 +61,17 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 (For all use cases below, the *System* is the `Health Booklet` and the *Actor* is the `user`, unless specified otherwise)
 
+=== Use case: Login
+
+*MSS*
+
+. User opens up Health Booklet
+. Health Booklet prompts for Username and Password
+. User keys in Username and Password
+. On successful login, program continues. On failed login, program exits
++
+Use case ends.
+
 === Use case: Delete person
 
 *MSS*
