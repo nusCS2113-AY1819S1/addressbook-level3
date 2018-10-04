@@ -7,6 +7,11 @@ public class Dish {
     private String dishName;
     private double dishPrice;
 
+    public Dish(String dishName, double dishPrice) {
+        this.dishName = dishName;
+        this.dishPrice = dishPrice;
+    }
+
     public String getDishName() {
         return dishName;
     }
