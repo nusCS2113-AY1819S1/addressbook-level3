@@ -14,6 +14,8 @@ public interface ReadOnlyPerson {
     Phone getPhone();
     Email getEmail();
     Address getAddress();
+    Title getTitle();
+    Schedule getSchedule();
 
     /**
      * The returned {@code Set} is a deep copy of the internal {@code Set},
@@ -30,7 +32,9 @@ public interface ReadOnlyPerson {
                 && other.getName().equals(this.getName()) // state checks here onwards
                 && other.getPhone().equals(this.getPhone())
                 && other.getEmail().equals(this.getEmail())
-                && other.getAddress().equals(this.getAddress()));
+                && other.getAddress().equals(this.getAddress())
+                && other.getTitle().equals(this.getTitle())
+                && other.getSchedule().equals(this.getSchedule()));
     }
 
     /**
@@ -55,6 +59,16 @@ public interface ReadOnlyPerson {
             builder.append(detailIsPrivate);
         }
         builder.append(getAddress())
+                .append(" Title: ");
+        if (getTitle().isPrivate()) {
+            builder.append(detailIsPrivate);
+        }
+        builder.append(getTitle())
+                .append(" Schedule: ");
+        if (getSchedule().isPrivate()) {
+            builder.append(detailIsPrivate);
+        }
+        builder.append(getSchedule())
                 .append(" Tags: ");
         for (Tag tag : getTags()) {
             builder.append(tag);
@@ -76,6 +90,12 @@ public interface ReadOnlyPerson {
         }
         if (!getAddress().isPrivate()) {
             builder.append(" Address: ").append(getAddress());
+        }
+        if (!getTitle().isPrivate()) {
+            builder.append(" Title: ").append(getTitle());
+        }
+        if (!getSchedule().isPrivate()) {
+            builder.append(" Schedule: ").append(getSchedule());
         }
         builder.append(" Tags: ");
         for (Tag tag : getTags()) {
