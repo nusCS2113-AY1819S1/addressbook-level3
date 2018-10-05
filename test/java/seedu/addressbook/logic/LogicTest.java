@@ -38,9 +38,12 @@ public class LogicTest {
     @Before
     public void setup() throws Exception {
         saveFile = new StorageFile(saveFolder.newFile("testSaveFile.txt").getPath());
+        rmsStorageFile = new RMSStorageFile(saveFolder.newFile("testOrderSaveFile.txt").getPath());
         addressBook = new AddressBook();
+        rms = new RMS();
+        rmsStorageFile.save(rms);
         saveFile.save(addressBook);
-        logic = new Logic(saveFile, addressBook, null, null);
+        logic = new Logic(saveFile, addressBook, rmsStorageFile, rms);
     }
 
     @Test
