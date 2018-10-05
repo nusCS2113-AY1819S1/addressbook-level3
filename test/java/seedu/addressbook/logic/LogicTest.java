@@ -9,8 +9,10 @@ import seedu.addressbook.commands.CommandResult;
 import seedu.addressbook.commands.*;
 import seedu.addressbook.common.Messages;
 import seedu.addressbook.data.AddressBook;
+import seedu.addressbook.data.RMS;
 import seedu.addressbook.data.person.*;
 import seedu.addressbook.data.tag.Tag;
+import seedu.addressbook.storage.RMSStorageFile;
 import seedu.addressbook.storage.StorageFile;
 
 import java.util.*;
@@ -28,15 +30,20 @@ public class LogicTest {
     public TemporaryFolder saveFolder = new TemporaryFolder();
 
     private StorageFile saveFile;
+    private RMSStorageFile rmsStorageFile;
     private AddressBook addressBook;
+    private RMS rms;
     private Logic logic;
 
     @Before
     public void setup() throws Exception {
         saveFile = new StorageFile(saveFolder.newFile("testSaveFile.txt").getPath());
+        rmsStorageFile = new RMSStorageFile(saveFolder.newFile("testOrderSaveFile.txt").getPath());
         addressBook = new AddressBook();
+        rms = new RMS();
+        rmsStorageFile.save(rms);
         saveFile.save(addressBook);
-        logic = new Logic(saveFile, addressBook);
+        logic = new Logic(saveFile, addressBook, rmsStorageFile, rms);
     }
 
     @Test
