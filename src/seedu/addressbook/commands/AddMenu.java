@@ -10,9 +10,9 @@ import java.util.Set;
 /**
  * Adds a person to the address book.
  */
-public class AddMenu extends Command_Menu {
+/*public class AddMenu extends Command_ {
 
-    public static final String COMMAND_WORD = "add";
+    public static final String COMMAND_WORD = "addmenu";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ":\n" + "Adds a menu to the existing menu list. "
             + "Contact details can be marked private by prepending 'p' to the prefix.\n\t"
@@ -30,7 +30,7 @@ public class AddMenu extends Command_Menu {
      *
      * @throws IllegalValueException if any of the raw values are invalid
      */
-    public AddMenu(String name,
+  /*  public AddMenu(String name,
                    String price, boolean isPricePrivate,
                    Set<String> tags) throws IllegalValueException {
         final Set<Tag> tagSet = new HashSet<>();
@@ -63,3 +63,4 @@ public class AddMenu extends Command_Menu {
     }
 
 }
+*/

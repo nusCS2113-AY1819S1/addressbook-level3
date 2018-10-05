@@ -8,9 +8,9 @@ import seedu.addressbook.data.exception.IllegalValueException;
  */
 public class Price {
 
-    public static final String EXAMPLE = "$4.40";
+    public static final String EXAMPLE = "440";
     public static final String MESSAGE_PHONE_CONSTRAINTS = "Price should be in SGD and in dollars and cents";
-    public static final String PHONE_VALIDATION_REGEX = "^\\$\\d+([.][0-9]+)?$";
+    public static final String PHONE_VALIDATION_REGEX = "\\d+";//"^\\$\\d+([.][0-9]+)?$";
 
     public final String value;
     private boolean isPrivate;

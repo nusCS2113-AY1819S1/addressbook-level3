@@ -45,6 +45,16 @@ public class Formatter {
         return format(asIndexedList(formattedPersons));
     }
 
+    /** Formats the given list of menus for displaying to the user.
+     * @param menus*/
+    public String formatMenu(List<? extends ReadOnlyMenus> menus) {
+        final List<String> formattedMenus = new ArrayList<>();
+        for (ReadOnlyMenus menu : menus) {
+            formattedMenus.add(menu.getAsTextHidePrivate());
+        }
+        return format(asIndexedList(formattedMenus));
+    }
+
     /** Formats a list of strings as an indexed list. */
     private static String asIndexedList(List<String> listItems) {
         final StringBuilder formatted = new StringBuilder();
@@ -55,6 +65,8 @@ public class Formatter {
         }
         return formatted.toString();
     }
+
+
 
     /**
      * Formats a string as an indexed list item.

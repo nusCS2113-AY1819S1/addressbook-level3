@@ -1,4 +1,4 @@
-package seedu.addressbook.parser;
+/*package seedu.addressbook.parser;
 
 import seedu.addressbook.commands.*;
 import seedu.addressbook.data.exception.IllegalValueException;
@@ -12,7 +12,7 @@ import static seedu.addressbook.common.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 /**
  * Parses user input.
  */
-public class Parser_RMSMenu {
+/*public class Parser_RMSMenu {
 
     public static final Pattern MENU_ITEM_INDEX_ARGS_FORMAT = Pattern.compile("(?<targetIndex>.+)");
 
@@ -28,7 +28,7 @@ public class Parser_RMSMenu {
     /**
      * Signals that the user input could not be parsed.
      */
-    public static class ParseException extends Exception {
+  /*  public static class ParseException extends Exception {
         ParseException(String message) {
             super(message);
         }
@@ -37,7 +37,7 @@ public class Parser_RMSMenu {
     /**
      * Used for initial separation of command word and args.
      */
-    public static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
+    /*public static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
 
     /**
      * Parses user input into command for execution.
@@ -45,7 +45,7 @@ public class Parser_RMSMenu {
      * @param userInput full user input string
      * @return the command based on the user input
      */
-    public Command_Menu parseCommand_Menu(String userInput) {
+    /*public Command_Menu parseCommand_Menu(String userInput) {
         final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(userInput.trim());
         if (!matcher.matches()) {
             return new IncorrectCommand_Menu(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
@@ -78,7 +78,7 @@ public class Parser_RMSMenu {
      * @param args full command args string
      * @return the prepared command
      */
-    private Command_Menu prepareAdd(String args){
+    /*private Command_Menu prepareAdd(String args){
         final Matcher matcher = MENU_ITEM_INDEX_ARGS_FORMAT.matcher(args.trim());
         // Validate arg string format
         if (!matcher.matches()) {
@@ -101,7 +101,7 @@ public class Parser_RMSMenu {
     /**
      * Checks whether the private prefix of a contact detail in the add command's arguments string is present.
      */
-    private static boolean isPrivatePrefixPresent(String matchedPrefix) {
+    /*private static boolean isPrivatePrefixPresent(String matchedPrefix) {
         return matchedPrefix.equals("p");
     }
 
@@ -109,7 +109,7 @@ public class Parser_RMSMenu {
      * Extracts the new person's tags from the add command's tag arguments string.
      * Merges duplicate tag strings.
      */
-    private static Set<String> getTagsFromArgs(String tagArguments) throws IllegalValueException {
+    /*private static Set<String> getTagsFromArgs(String tagArguments) throws IllegalValueException {
         // no tags
         if (tagArguments.isEmpty()) {
             return Collections.emptySet();
@@ -126,7 +126,7 @@ public class Parser_RMSMenu {
      * @param args full command args string
      * @return the prepared command
      */
-    private Command prepareDelete(String args) {
+    /*private Command prepareDelete(String args) {
         try {
             final int targetIndex = parseArgsAsDisplayedIndex(args);
             return new DeleteCommand(targetIndex);
@@ -141,7 +141,7 @@ public class Parser_RMSMenu {
      * @param args full command args string
      * @return the prepared command
      */
-    private Command prepareView(String args) {
+    /*private Command prepareView(String args) {
 
         try {
             final int targetIndex = parseArgsAsDisplayedIndex(args);
@@ -158,7 +158,7 @@ public class Parser_RMSMenu {
      * @param args full command args string
      * @return the prepared command
      */
-    private Command_Menu prepareViewAll(String args) {
+    /*private Command_Menu prepareViewAll(String args) {
 
         try {
             final int targetIndex = parseArgsAsDisplayedIndex(args);
@@ -177,7 +177,7 @@ public class Parser_RMSMenu {
      * @throws ParseException if no region of the args string could be found for the index
      * @throws NumberFormatException the args string region is not a valid number
      */
-    private int parseArgsAsDisplayedIndex(String args) throws ParseException, NumberFormatException {
+    /*private int parseArgsAsDisplayedIndex(String args) throws ParseException, NumberFormatException {
         final Matcher matcher = MENU_ITEM_INDEX_ARGS_FORMAT.matcher(args.trim());
         if (!matcher.matches()) {
             throw new ParseException("Could not find index number to parse");
@@ -192,7 +192,7 @@ public class Parser_RMSMenu {
      * @param args full command args string
      * @return the prepared command
      */
-    private Command_Menu prepareFind(String args) {
+    /*private Command_Menu prepareFind(String args) {
         final Matcher matcher = KEYWORDS_ARGS_FORMAT.matcher(args.trim());
         if (!matcher.matches()) {
             return new IncorrectCommand_Menu(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
@@ -207,3 +207,4 @@ public class Parser_RMSMenu {
 
 
 }
+*/

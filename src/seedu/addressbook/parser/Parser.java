@@ -14,7 +14,7 @@ import static seedu.addressbook.common.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
  */
 public class Parser {
 
-    public static final Pattern PERSON_INDEX_ARGS_FORMAT = Pattern.compile("(?<targetIndex>.+)");
+    public static final Pattern MENU_ITEM_INDEX_ARGS_FORMAT = Pattern.compile("(?<targetIndex>.+)");
 
     public static final Pattern KEYWORDS_ARGS_FORMAT =
             Pattern.compile("(?<keywords>\\S+(?:\\s+\\S+)*)"); // one or more keywords separated by whitespace
@@ -26,6 +26,11 @@ public class Parser {
                     + " (?<isAddressPrivate>p?)a/(?<address>[^/]+)"
                     + "(?<tagArguments>(?: t/[^/]+)*)"); // variable number of tags
 
+    /*public static final Pattern MENU_ITEM_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
+            Pattern.compile("(?<name>[^/]+)"
+                    + " (?<isPricePrivate>p?)p/(?<price>[^/]+)"
+                    + "(?<tagArguments>(?: t/[^/]+)*)"); // variable number of tags
+*/
 
     /**
      * Signals that the user input could not be parsed.
@@ -72,11 +77,19 @@ public class Parser {
             case ListCommand.COMMAND_WORD:
                 return new ListCommand();
 
+            case ListCommand_Menu.COMMAND_WORD:
+                return new ListCommand_Menu();
+
+
             case ViewCommand.COMMAND_WORD:
                 return prepareView(arguments);
 
             case ViewAllCommand.COMMAND_WORD:
                 return prepareViewAll(arguments);
+
+            case ViewAllCommand_Menu.COMMAND_WORD:
+                return prepareViewAllMenu(arguments);
+
 
             case ExitCommand.COMMAND_WORD:
                 return new ExitCommand();
@@ -190,6 +203,16 @@ public class Parser {
         }
     }
 
+    private Command prepareViewAllMenu(String args) {
+
+        try {
+            final int targetIndex = parseArgsAsDisplayedIndex(args);
+            return new ViewAllCommand_Menu(targetIndex);
+        } catch (ParseException | NumberFormatException e) {
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    ViewAllCommand_Menu.MESSAGE_USAGE));
+        }
+    }
     /**
      * Parses the given arguments string as a single index number.
      *
@@ -199,7 +222,7 @@ public class Parser {
      * @throws NumberFormatException the args string region is not a valid number
      */
     private int parseArgsAsDisplayedIndex(String args) throws ParseException, NumberFormatException {
-        final Matcher matcher = PERSON_INDEX_ARGS_FORMAT.matcher(args.trim());
+        final Matcher matcher = MENU_ITEM_INDEX_ARGS_FORMAT.matcher(args.trim());
         if (!matcher.matches()) {
             throw new ParseException("Could not find index number to parse");
         }

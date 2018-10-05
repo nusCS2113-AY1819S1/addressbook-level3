@@ -16,7 +16,7 @@ import java.util.List;
 /**
  * JAXB-friendly adapted address book data holder class.
  */
-@XmlRootElement(name = "RMS")
+@XmlRootElement(name = "RMS_menu")
 public class AdaptedRMS_menu {
 
     @XmlElement

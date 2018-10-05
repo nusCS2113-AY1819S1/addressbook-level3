@@ -5,7 +5,10 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import seedu.addressbook.commands.CommandResult_Menu;
 import seedu.addressbook.commands.ExitCommand;
+//import seedu.addressbook.commands.ExitCommand_Menu;
+import seedu.addressbook.data.person.ReadOnlyMenus;
 import seedu.addressbook.logic.Logic;
 import seedu.addressbook.commands.CommandResult;
 import seedu.addressbook.data.person.ReadOnlyPerson;
@@ -81,8 +84,12 @@ public class MainWindow {
     public void displayResult(CommandResult result) {
         clearOutputConsole();
         final Optional<List<? extends ReadOnlyPerson>> resultPersons = result.getRelevantPersons();
-        if(resultPersons.isPresent()) {
-            display(resultPersons.get());
+        final Optional<List<? extends ReadOnlyMenus>> resultMenus = result.getRelevantMenus();
+        if(resultMenus.isPresent()) {
+            display(resultMenus.get());
+        }
+        if(resultPersons.isPresent()){
+            display1(resultPersons.get());
         }
         display(result.feedbackToUser);
     }
@@ -96,7 +103,12 @@ public class MainWindow {
      * Displays the list of persons in the output display area, formatted as an indexed list.
      * Private contact details are hidden.
      */
-    private void display(List<? extends ReadOnlyPerson> persons) {
+    private void display(List<? extends ReadOnlyMenus> menus) {
+        display(new Formatter().formatMenu(menus));
+    }
+
+    private void display1(List<? extends ReadOnlyPerson> persons) {
+
         display(new Formatter().format(persons));
     }
 

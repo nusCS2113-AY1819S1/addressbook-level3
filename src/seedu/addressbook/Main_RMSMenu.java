@@ -1,3 +1,4 @@
+/*
 package seedu.addressbook;
 
 import javafx.application.Application;
@@ -12,10 +13,10 @@ import seedu.addressbook.ui.Stoppable;
 /**
  * Main entry point to the application.
  */
-public class Main_Menu extends Application implements Stoppable{
+/*public class Main_RMSMenu extends Application implements Stoppable{
 
     /** Version info of the program. */
-    public static final String VERSION = "Restaurant Management System - Version 1.0";
+  /*  public static final String VERSION = "Restaurant Management System - Version 1.0";
 
     private Gui_RMS gui;
 
@@ -36,5 +37,5 @@ public class Main_Menu extends Application implements Stoppable{
         launch(args);
     }
 }
-
+*/
 

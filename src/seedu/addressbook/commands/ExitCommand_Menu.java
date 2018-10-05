@@ -1,9 +1,10 @@
+/*
 package seedu.addressbook.commands;
 
 /**
  * Terminates the program.
  */
-public class ExitCommand_Menu extends Command_Menu {
+/*public class ExitCommand_Menu extends Command_Menu {
 
     public static final String COMMAND_WORD = "exit";
 
@@ -17,3 +18,4 @@ public class ExitCommand_Menu extends Command_Menu {
     }
 
 }
+*/

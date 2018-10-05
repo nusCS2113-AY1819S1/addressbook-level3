@@ -1,4 +1,4 @@
-package seedu.addressbook.ui;
+/*package seedu.addressbook.ui;
 
 
 import javafx.event.ActionEvent;
@@ -22,7 +22,7 @@ import static seedu.addressbook.common.Messages.*;
 /**
  * Main Window of the GUI.
  */
-public class MainWindow_RMS_Menu {
+/*public class MainWindow_RMS_Menu {
 
     private Logic_RMS logic_rms;
     private Stoppable mainApp;
@@ -67,22 +67,22 @@ public class MainWindow_RMS_Menu {
     }
 
     /** Returns true of the result given is the result of an exit command */
-    private boolean isExitCommand(CommandResult_Menu result) {
+   /* private boolean isExitCommand(CommandResult_Menu result) {
         return result.feedbackToUser.equals(ExitCommand_Menu.MESSAGE_EXIT_ACKNOWEDGEMENT);
     }
 
     /** Clears the command input box */
-    private void clearCommandInput() {
+    /*private void clearCommandInput() {
         commandInput.setText("");
     }
 
     /** Clears the output display area */
-    public void clearOutputConsole(){
+    /*public void clearOutputConsole(){
         outputConsole.clear();
     }
 
     /** Displays the result of a command execution to the user. */
-    public void displayResult(CommandResult_Menu result) {
+    /*public void displayResult(CommandResult_Menu result) {
         clearOutputConsole();
         final Optional<List<? extends ReadOnlyMenus>> resultMenus = result.getRelevantMenus();
         if(resultMenus.isPresent()) {
@@ -100,15 +100,16 @@ public class MainWindow_RMS_Menu {
      * Displays the list of persons in the output display area, formatted as an indexed list.
      * Private contact details are hidden.
      */
-    private void display(List<? extends ReadOnlyMenus> menus) {
+    /*private void display(List<? extends ReadOnlyMenus> menus) {
         display(new Formatter_Menu().format(menus));
     }
 
     /**
      * Displays the given messages on the output display area, after formatting appropriately.
      */
-    private void display(String... messages) {
+    /*private void display(String... messages) {
         outputConsole.setText(outputConsole.getText() + new Formatter().format(messages));
     }
 
 }
+*/

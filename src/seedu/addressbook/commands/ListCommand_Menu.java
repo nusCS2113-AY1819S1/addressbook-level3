@@ -9,7 +9,7 @@ import java.util.List;
 /**
  * Lists all persons in the address book to the user.
  */
-public class ListCommand_Menu extends Command_Menu {
+public class ListCommand_Menu extends Command {
 
     public static final String COMMAND_WORD = "listmenu";
 
@@ -20,7 +20,7 @@ public class ListCommand_Menu extends Command_Menu {
 
     @Override
     public CommandResult_Menu execute() {
-        List<ReadOnlyMenus> allMenus = menuBook.getAllMenus().immutableListView();
+        List<ReadOnlyMenus> allMenus = addressBook.getAllMenus().immutableListView();
         return new CommandResult_Menu(getMessageForMenuListShownSummary(allMenus), allMenus);
     }
 }

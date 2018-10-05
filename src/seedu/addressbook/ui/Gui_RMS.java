@@ -1,3 +1,4 @@
+/*
 package seedu.addressbook.ui;
 
 import javafx.fxml.FXMLLoader;
@@ -12,10 +13,10 @@ import java.io.IOException;
 /**
  * The GUI of the App
  */
-public class Gui_RMS {
+/*public class Gui_RMS {
 
     /** Offset required to convert between 1-indexing and 0-indexing.  */
-    public static final int DISPLAYED_INDEX_OFFSET = 1;
+  /*  public static final int DISPLAYED_INDEX_OFFSET = 1;
 
     public static final int INITIAL_WINDOW_WIDTH = 800;
     public static final int INITIAL_WINDOW_HEIGHT = 600;
@@ -40,7 +41,7 @@ public class Gui_RMS {
         /* Note: When calling getResource(), use '/', instead of File.separator or '\\'
          * More info: http://docs.oracle.com/javase/8/docs/technotes/guides/lang/resources.html#res_name_context
          */
-        loader.setLocation(Main.class.getResource("ui/mainwindowrms.fxml"));
+    /*    loader.setLocation(Main.class.getResource("ui/mainwindow_rms.fxml"));
 
         stage.setTitle(version);
         stage.setScene(new Scene(loader.load(), INITIAL_WINDOW_WIDTH, INITIAL_WINDOW_HEIGHT));
@@ -52,3 +53,4 @@ public class Gui_RMS {
     }
 
 }
+*/

@@ -1,10 +1,11 @@
+/*
 package seedu.addressbook.commands;
 
 
 /**
  * Represents an incorrect command. Upon execution, produces some feedback to the user.
  */
-public class IncorrectCommand_Menu extends Command_Menu{
+/*public class IncorrectCommand_Menu extends Command_Menu{
 
     public final String feedbackToUser;
 
@@ -18,3 +19,4 @@ public class IncorrectCommand_Menu extends Command_Menu{
     }
 
 }
+*/

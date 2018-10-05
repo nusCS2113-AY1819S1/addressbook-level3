@@ -12,13 +12,15 @@ public class HelpCommand extends Command {
             + "Example: " + COMMAND_WORD;
 
     public static final String MESSAGE_ALL_USAGES = AddCommand.MESSAGE_USAGE
-            + "\n" + AddMenu.MESSAGE_DUPLICATE_MENUITEM
+            //+ "\n" + AddMenu.MESSAGE_DUPLICATE_MENUITEM
             + "\n" + DeleteCommand.MESSAGE_USAGE
             + "\n" + ClearCommand.MESSAGE_USAGE
             + "\n" + FindCommand.MESSAGE_USAGE
             + "\n" + ListCommand.MESSAGE_USAGE
+            + "\n" + ListCommand_Menu.MESSAGE_USAGE
             + "\n" + ViewCommand.MESSAGE_USAGE
             + "\n" + ViewAllCommand.MESSAGE_USAGE
+            + "\n" + ViewAllCommand_Menu.MESSAGE_USAGE
             + "\n" + HelpCommand.MESSAGE_USAGE
             + "\n" + ExitCommand.MESSAGE_USAGE;
 

@@ -55,7 +55,7 @@ public interface ReadOnlyMenus {
         final StringBuilder builder = new StringBuilder();
         builder.append(getName());
         if (!getPrice().isPrivate()) {
-            builder.append(" Phone: ").append(getPrice());
+            builder.append(" Price: ").append(getPrice());
         }
         builder.append(" Tags: ");
         for (Tag tag : getTags()) {
