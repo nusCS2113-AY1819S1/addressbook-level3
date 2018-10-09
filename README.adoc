@@ -3,6 +3,7 @@
 image::homepage.png[]
 
 
+
 https://travis-ci.org/CS2113-AY1819S1-F09-2/main[image:https://travis-ci.org/CS2113-AY1819S1-F09-2/main.svg?branch=master[Build Status]]
 https://www.codacy.com/app/se-edu/addressbook-level3?utm_source=github.com&utm_medium=referral&utm_content=se-edu/addressbook-level3&utm_campaign=Badge_Grade[image:https://api.codacy.com/project/badge/Grade/d4a0954383444a8db8cb26e5f5b7302c[Codacy Badge]]
 https://coveralls.io/github/CS2113-AY1819S1-F09-2/main?branch=master[image:https://coveralls.io/repos/github/CS2113-AY1819S1-F09-2/main/badge.svg?branch=master[Coverage Status]]
@@ -14,6 +15,7 @@ https://coveralls.io/github/CS2113-AY1819S1-F09-2/main?branch=master[image:https
 <<DeveloperGuide#, *DEVELOPER GUIDE*>>
 ||
 <<ContactUs#, *CONTACT US*>>
+
 
 === Welcome to RMS Homepage
 Restaurant Management System (RMS) promises to increase the quality of your service and enhance your work experience.  The Command Line Interface makes RMS highly efficient as it reduces the number of steps taken to perform a task to just one (or two).  It is your one-stop solution that can be used for serving customers, updating menu as well as storing and tracking important data. In a nutshell, RMS guarantees to be a faster, safer and smarter choice of management for any restaurants and fast food chains.

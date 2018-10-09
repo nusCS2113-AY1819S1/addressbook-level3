@@ -3,8 +3,8 @@ package seedu.addressbook.ui;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import seedu.addressbook.logic.Logic;
 import seedu.addressbook.Main;
+import seedu.addressbook.logic.Logic;
 
 import java.io.File;
 import java.io.IOException;
@@ -24,14 +24,16 @@ public class Gui {
     private MainWindow mainWindow;
     private String version;
 
-    public Gui(Logic logic, String version) {
-        this.logic = logic;
+    public Gui(Logic logic_rms, String version) {
+        this.logic = logic_rms;
         this.version = version;
     }
 
     public void start(Stage stage, Stoppable mainApp) throws IOException {
+      // ADD DISPLAY OF STORAGE FILE PATH
         mainWindow = createMainWindow(stage, mainApp);
-        mainWindow.displayWelcomeMessage(version, logic.getStorageFilePath());
+        mainWindow.displayRMSWelcomeMessage(version, logic.getStorageFilePath());
+
     }
 
     private MainWindow createMainWindow(Stage stage, Stoppable mainApp) throws IOException{
@@ -45,10 +47,10 @@ public class Gui {
         stage.setTitle(version);
         stage.setScene(new Scene(loader.load(), INITIAL_WINDOW_WIDTH, INITIAL_WINDOW_HEIGHT));
         stage.show();
-        MainWindow mainWindow = loader.getController();
-        mainWindow.setLogic(logic);
-        mainWindow.setMainApp(mainApp);
-        return mainWindow;
+        MainWindow mainWindow_rms = loader.getController();
+        mainWindow_rms.setLogic(logic);
+        mainWindow_rms.setMainApp(mainApp);
+        return mainWindow_rms;
     }
 
 }
