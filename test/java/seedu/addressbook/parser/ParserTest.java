@@ -4,6 +4,7 @@ import org.junit.Before;
 import org.junit.Test;
 import seedu.addressbook.commands.*;
 import seedu.addressbook.data.exception.IllegalValueException;
+import seedu.addressbook.data.person.curriculum.Curriculum;
 import seedu.addressbook.data.tag.Tag;
 import seedu.addressbook.data.person.*;
 
@@ -252,7 +253,8 @@ public class ParserTest {
                 new Phone(Phone.EXAMPLE, true),
                 new Email(Email.EXAMPLE, false),
                 new Address(Address.EXAMPLE, true),
-                new HashSet<>(Arrays.asList(new Tag("tag1"), new Tag("tag2"), new Tag("tag3")))
+                new HashSet<>(Arrays.asList(new Tag("tag1"), new Tag("tag2"), new Tag("tag3"))),
+                new Curriculum()
             );
         } catch (IllegalValueException ive) {
             throw new RuntimeException("test person data should be valid by definition");

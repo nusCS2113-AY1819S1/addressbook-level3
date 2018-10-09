@@ -10,6 +10,7 @@ import seedu.addressbook.commands.*;
 import seedu.addressbook.common.Messages;
 import seedu.addressbook.data.AddressBook;
 import seedu.addressbook.data.person.*;
+import seedu.addressbook.data.person.curriculum.Curriculum;
 import seedu.addressbook.data.tag.Tag;
 import seedu.addressbook.storage.StorageFile;
 
@@ -469,7 +470,8 @@ public class LogicTest {
             Tag tag1 = new Tag("tag1");
             Tag tag2 = new Tag("tag2");
             Set<Tag> tags = new HashSet<>(Arrays.asList(tag1, tag2));
-            return new Person(name, privatePhone, email, privateAddress, tags);
+            Curriculum curriculum = new Curriculum();
+            return new Person(name, privatePhone, email, privateAddress, tags, curriculum);
         }
 
         /**
@@ -486,7 +488,9 @@ public class LogicTest {
                     new Phone("" + Math.abs(seed), isAllFieldsPrivate),
                     new Email(seed + "@email", isAllFieldsPrivate),
                     new Address("House of " + seed, isAllFieldsPrivate),
-                    new HashSet<>(Arrays.asList(new Tag("tag" + Math.abs(seed)), new Tag("tag" + Math.abs(seed + 1))))
+                    new HashSet<>(Arrays.asList(new Tag("tag" + Math.abs(seed)),
+                                                new Tag("tag" + Math.abs(seed + 1)))),
+                    new Curriculum()
             );
         }
 
@@ -582,7 +586,8 @@ public class LogicTest {
                     new Phone("1", false),
                     new Email("1@email", false),
                     new Address("House of 1", false),
-                    Collections.singleton(new Tag("tag"))
+                    Collections.singleton(new Tag("tag")),
+                    new Curriculum()
             );
         }
     }
