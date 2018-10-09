@@ -1,4 +1,4 @@
-= AddressBook (Level 3)
+= NUSync
 ifdef::env-github,env-browser[:relfileprefix: docs/]
 ifdef::env-github,env-browser[:imagesDir: docs/images]
 
@@ -6,17 +6,13 @@ https://travis-ci.org/se-edu/addressbook-level3[image:https://travis-ci.org/se-e
 
 image::Ui.png[]
 
-* This is a CLI (Command Line Interface) Address Book application *written in OOP fashion*. It has a very basic GUI.
-* It is a Java sample application intended for students learning Software Engineering while using Java as
-the main programming language.
-* It provides a *reasonably well-written* code example that is *significantly bigger* than what students
-usually write in data structure modules.
+* This is a CLI (Command Line Interface) Address Book application *written in OOP-fashion*. It has a very basic GUI.
+* It is a simple Java application intended for NUS students to save time, by means of arranging schedules in a more convenient manner, and downloading their IVLE resources in one-click.
 
-*What's different from level 2*
+*What's different from the original address book*
 
-* A simple GUI added to replace the Text UI.
-* A `Logic` class added together with a `LogicTest` class.
-* Appendices added to <<DeveloperGuide#, Developer Guide>>
+* A function to arrange schedules via a common time-table is implemented.
+* A function for students to download their IVLE materials in one-click is implemented.
 
 *Useful Links*
 
@@ -26,6 +22,7 @@ usually write in data structure modules.
 
 == Contributors
 
+The full list of contributors for this project can be found https://github.com/CS2113-AY1819S1-W12-2/main/blob/master/docs/AboutUs.adoc.
 The full list of contributors for se-edu can be found https://se-edu.github.io/Team.html[here].
 
 == Acknowledgements
@@ -35,6 +32,6 @@ http://code.makery.ch/library/javafx-8-tutorial/[Java FX tutorial] by Marco Jako
 
 == Contact Us
 
-* *Bug reports, Suggestions* : Post in our https://github.com/se-edu/addressbook-level3/issues[issue tracker]
+* *Bug reports, Suggestions* : Post in our https://github.com/CS2113-AY1819S1-W12-2/main/issues[issue tracker]
 if you noticed bugs or have suggestions on how to improve.
 * *Contributing* : We welcome pull requests. Follow the process described https://github.com/oss-generic/process[here]
