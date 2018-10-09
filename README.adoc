@@ -22,8 +22,7 @@ image::Ui.png[]
 
 == Contributors
 
-The full list of contributors for this project can be found https://github.com/CS2113-AY1819S1-W12-2/main/blob/master/docs/AboutUs.adoc.
-The full list of contributors for se-edu can be found https://se-edu.github.io/Team.html[here].
+The full list of contributors for this project can be found https://github.com/CS2113-AY1819S1-W12-2/main/blob/master/docs/AboutUs.adoc[here], and the full list of contributors for se-edu can be found https://se-edu.github.io/Team.html[here].
 
 == Acknowledgements
 
@@ -34,4 +33,4 @@ http://code.makery.ch/library/javafx-8-tutorial/[Java FX tutorial] by Marco Jako
 
 * *Bug reports, Suggestions* : Post in our https://github.com/CS2113-AY1819S1-W12-2/main/issues[issue tracker]
 if you noticed bugs or have suggestions on how to improve.
-* *Contributing* : We welcome pull requests. Follow the process described https://github.com/oss-generic/process[here]
+* *Contributing* : We welcome pull requests. Follow the process described https://github.com/oss-generic/process[here].
