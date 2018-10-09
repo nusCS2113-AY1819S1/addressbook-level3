@@ -11,7 +11,7 @@ public class Main {
     {
         System.out.println("Enter ivle user name: ie: E1234567");
         Scanner scanner= new Scanner(System.in);
-        String ivleUsername=scanner.nextLine();
+        String ivleUsername=scanner.nextLine(); 
         System.out.println("Enter Password");
         String ivlePassword=scanner.nextLine();
 
