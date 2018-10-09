@@ -1,0 +1,48 @@
+= About Us
+:site-section: AboutUs
+:relfileprefix: team/
+:imagesDir: images
+:stylesDir: stylesheets
+
+AddressBook - Level 4 was developed by the https://github.com/CS2113-AY1819S1-W12-2[W12-2] team. +
+
+{empty} +
+We are a team based in the http://www.comp.nus.edu.sg[School of Computing, National University of Singapore].
+
+== Project Team
+
+=== Lee Geng Yu
+image::https://github.com/CS2113-AY1819S1-W12-2/main/blob/master/docs/images/leegengyu.png[width="150", align="left"]
+{empty} [https://github.com/leegengyu[github]] [<<leegengyu#, portfolio>>]
+
+Role: Team Lead +
+Responsibilities: Logic
+
+'''
+
+=== Low Wei Jie, Oscar
+image::https://github.com/CS2113-AY1819S1-W12-2/main/blob/master/docs/images/auskure.png[width="150", align="left"]
+{empty}[http://github.com/auskure[github]] [<<auskure#, portfolio>>]
+
+Role: Developer +
+Responsibilities: Storage
+
+'''
+
+=== Hu Yiqing
+image::https://github.com/CS2113-AY1819S1-W12-2/main/blob/master/docs/images/bearperson1.png[width="150", align="left"]
+{empty}[http://github.com/BearPerson1[github]] [<<BearPerson1#, portfolio>>]
+
+Role: Developer +
+Responsibilities: Model
+
+'''
+
+=== Lim Zhi Hui Alden
+image::https://github.com/CS2113-AY1819S1-W12-2/main/blob/master/docs/images/e0201942.png[width="150", align="left"]
+{empty}[http://github.com/e0201942[github]] [<<e0201942#, portfolio>>]
+
+Role: Developer +
+Responsibilities: UI
+
+'''
