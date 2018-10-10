@@ -48,7 +48,7 @@ Responsibilities: In charge of the Statistics feature
 '''
 
 === Lim Kian Hong
-image::kh.jpg[width="150", align="left"]
+image::kianhong95.png[width="150", align="left"]
 {empty}[https://github.com/kianhong95[github]] [<<johndoe#, portfolio>>]
 
 Role: Developer +
