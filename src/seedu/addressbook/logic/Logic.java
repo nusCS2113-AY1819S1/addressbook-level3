@@ -25,6 +25,8 @@ public class Logic {
 
     /** The list of person shown to the user most recently.  */
     private List<? extends ReadOnlyPerson> lastShownList = Collections.emptyList();
+
+    /** The menu list shown to the user most recently*/
     private List<? extends ReadOnlyMenus> lastShownMenuList = Collections.emptyList();
 
     /** The list of member shown to the user most recently.  */

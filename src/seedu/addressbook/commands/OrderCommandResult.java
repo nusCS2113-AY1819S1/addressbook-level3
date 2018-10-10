@@ -10,6 +10,6 @@ import java.util.List;
 public class OrderCommandResult extends CommandResult {
 
     public OrderCommandResult(String feedbackToUser, List<? extends ReadOnlyOrder> relevantOrders) {
-        super(feedbackToUser, null, relevantOrders);
+        super(feedbackToUser, null, null, relevantOrders, null);
     }
 }
