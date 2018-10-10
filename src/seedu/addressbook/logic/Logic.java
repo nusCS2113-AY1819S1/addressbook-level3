@@ -2,13 +2,11 @@ package seedu.addressbook.logic;
 
 import seedu.addressbook.commands.Command;
 import seedu.addressbook.commands.CommandResult;
-import seedu.addressbook.data.AddressBook;
-import seedu.addressbook.data.person.ReadOnlyMenus;
 import seedu.addressbook.data.RMS;
+import seedu.addressbook.data.menu.ReadOnlyMenus;
 import seedu.addressbook.data.order.ReadOnlyOrder;
 import seedu.addressbook.data.person.ReadOnlyPerson;
 import seedu.addressbook.parser.Parser;
-import seedu.addressbook.storage.RMSStorageFile;
 import seedu.addressbook.storage.StorageFile;
 
 import java.util.Collections;
@@ -16,14 +14,12 @@ import java.util.List;
 import java.util.Optional;
 
 /**
- * Represents the main Logic of the AddressBook.
+ * Represents the main Logic of the RMS.
  */
 public class Logic {
 
 
     private StorageFile storage;
-    private RMSStorageFile rmsStorage;
-    private AddressBook addressBook;
     private RMS rms;
 
     /** The list of person shown to the user most recently.  */
@@ -35,38 +31,19 @@ public class Logic {
 
     public Logic() throws Exception{
         setStorage(initializeStorage());
-        setAddressBook(storage.load());
-
-        setRMSStorage(initializeRMSStorage());
-        setRMS(rmsStorage.load());
+        setRms(storage.load());
     }
 
-    Logic(StorageFile storageFile, AddressBook addressBook){
+    Logic(StorageFile storageFile, RMS rms){
         setStorage(storageFile);
-        setAddressBook(addressBook);
-    }
-
-    Logic(StorageFile storageFile, AddressBook addressBook, RMSStorageFile rmsStorageFile, RMS rms){
-        setStorage(storageFile);
-        setAddressBook(addressBook);
-
-        setRMSStorage(rmsStorageFile);
-        setRMS(rms);
+        setRms(rms);
     }
 
     void setStorage(StorageFile storage){
         this.storage = storage;
     }
 
-    void setRMSStorage(RMSStorageFile rmsStorage) {
-        this.rmsStorage = rmsStorage;
-    }
-
-    void setAddressBook(AddressBook addressBook){
-        this.addressBook = addressBook;
-    }
-
-    void setRMS(RMS rms) {
+    void setRms(RMS rms){
         this.rms = rms;
     }
 
@@ -78,20 +55,8 @@ public class Logic {
         return new StorageFile();
     }
 
-    /**
-     * Creates the RMSStorageFile object based on the user specified path (if any) or the default storage path.
-     * @throws RMSStorageFile.InvalidStorageFilePathException if the target file path is incorrect.
-     */
-    private RMSStorageFile initializeRMSStorage() throws RMSStorageFile.InvalidStorageFilePathException {
-        return new RMSStorageFile();
-    }
-
     public String getStorageFilePath() {
         return storage.getPath();
-    }
-
-    public String getOrderListFilePath() {
-        return rmsStorage.getOrderListPath();
     }
 
     /**
@@ -143,11 +108,9 @@ public class Logic {
      * @throws Exception if there was any problem during command execution.
      */
     private CommandResult execute(Command command) throws Exception {
-        command.setData(addressBook, lastShownList, lastShownMenuList);
-        command.setRMSData(rms, lastShownOrderList);
+        command.setData(rms, lastShownList, lastShownMenuList, lastShownOrderList);
         CommandResult result = command.execute();
-        storage.save(addressBook);
-        rmsStorage.save(rms);
+        storage.save(rms);
         return result;
     }
 

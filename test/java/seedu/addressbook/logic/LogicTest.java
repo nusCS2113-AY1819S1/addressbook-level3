@@ -8,11 +8,9 @@ import org.junit.rules.TemporaryFolder;
 import seedu.addressbook.commands.CommandResult;
 import seedu.addressbook.commands.*;
 import seedu.addressbook.common.Messages;
-import seedu.addressbook.data.AddressBook;
 import seedu.addressbook.data.RMS;
 import seedu.addressbook.data.person.*;
 import seedu.addressbook.data.tag.Tag;
-import seedu.addressbook.storage.RMSStorageFile;
 import seedu.addressbook.storage.StorageFile;
 
 import java.util.*;
@@ -30,20 +28,15 @@ public class LogicTest {
     public TemporaryFolder saveFolder = new TemporaryFolder();
 
     private StorageFile saveFile;
-    private RMSStorageFile rmsStorageFile;
-    private AddressBook addressBook;
     private RMS rms;
     private Logic logic;
 
     @Before
     public void setup() throws Exception {
         saveFile = new StorageFile(saveFolder.newFile("testSaveFile.txt").getPath());
-        rmsStorageFile = new RMSStorageFile(saveFolder.newFile("testOrderSaveFile.txt").getPath());
-        addressBook = new AddressBook();
         rms = new RMS();
-        rmsStorageFile.save(rms);
-        saveFile.save(addressBook);
-        logic = new Logic(saveFile, addressBook, rmsStorageFile, rms);
+        saveFile.save(rms);
+        logic = new Logic(saveFile, rms);
     }
 
     @Test
@@ -64,22 +57,22 @@ public class LogicTest {
     /**
      * Executes the command and confirms that the result message is correct.
      * Both the 'address book' and the 'last shown list' are expected to be empty.
-     * @see #assertCommandBehavior(String, String, AddressBook, boolean, List)
+     * @see #assertCommandBehavior(String, String, RMS, boolean, List)
      */
     private void assertCommandBehavior(String inputCommand, String expectedMessage) throws Exception {
-        assertCommandBehavior(inputCommand, expectedMessage, AddressBook.empty(),false, Collections.emptyList());
+        assertCommandBehavior(inputCommand, expectedMessage, RMS.empty(),false, Collections.emptyList());
     }
 
     /**
      * Executes the command and confirms that the result message is correct and
      * also confirms that the following three parts of the Logic object's state are as expected:<br>
-     *      - the internal address book data are same as those in the {@code expectedAddressBook} <br>
+     *      - the internal address book data are same as those in the {@code expectedRMS} <br>
      *      - the internal 'last shown list' matches the {@code expectedLastList} <br>
-     *      - the storage file content matches data in {@code expectedAddressBook} <br>
+     *      - the storage file content matches data in {@code expectedRMS} <br>
      */
     private void assertCommandBehavior(String inputCommand,
                                       String expectedMessage,
-                                      AddressBook expectedAddressBook,
+                                      RMS expectedRMS,
                                       boolean isRelevantPersonsExpected,
                                       List<? extends ReadOnlyPerson> lastShownList) throws Exception {
 
@@ -94,9 +87,9 @@ public class LogicTest {
         }
 
         //Confirm the state of data is as expected
-        assertEquals(expectedAddressBook, addressBook);
+        assertEquals(expectedRMS, rms);
         assertEquals(lastShownList, logic.getLastShownList());
-        assertEquals(addressBook, saveFile.load());
+        assertEquals(rms, saveFile.load());
     }
 
 
@@ -119,11 +112,11 @@ public class LogicTest {
     @Test
     public void execute_clear() throws Exception {
         TestDataHelper helper = new TestDataHelper();
-        addressBook.addPerson(helper.generatePerson(1, true));
-        addressBook.addPerson(helper.generatePerson(2, true));
-        addressBook.addPerson(helper.generatePerson(3, true));
+        rms.addPerson(helper.generatePerson(1, true));
+        rms.addPerson(helper.generatePerson(2, true));
+        rms.addPerson(helper.generatePerson(3, true));
 
-        assertCommandBehavior("clear", ClearCommand.MESSAGE_SUCCESS, AddressBook.empty(), false, Collections.emptyList());
+        assertCommandBehavior("clear", ClearCommand.MESSAGE_SUCCESS, RMS.empty(), false, Collections.emptyList());
     }
 
     @Test
@@ -157,7 +150,7 @@ public class LogicTest {
         // setup expectations
         TestDataHelper helper = new TestDataHelper();
         Person toBeAdded = helper.adam();
-        AddressBook expectedAB = new AddressBook();
+        RMS expectedAB = new RMS();
         expectedAB.addPerson(toBeAdded);
 
         // execute command and verify result
@@ -174,11 +167,11 @@ public class LogicTest {
         // setup expectations
         TestDataHelper helper = new TestDataHelper();
         Person toBeAdded = helper.adam();
-        AddressBook expectedAB = new AddressBook();
+        RMS expectedAB = new RMS();
         expectedAB.addPerson(toBeAdded);
 
         // setup starting state
-        addressBook.addPerson(toBeAdded); // person already in internal address book
+        rms.addPerson(toBeAdded); // person already in internal address book
 
         // execute command and verify result
         assertCommandBehavior(
@@ -194,11 +187,11 @@ public class LogicTest {
     public void execute_list_showsAllPersons() throws Exception {
         // prepare expectations
         TestDataHelper helper = new TestDataHelper();
-        AddressBook expectedAB = helper.generateAddressBook(false, true);
+        RMS expectedAB = helper.generateAddressBook(false, true);
         List<? extends ReadOnlyPerson> expectedList = expectedAB.getAllPersons().immutableListView();
 
         // prepare address book state
-        helper.addToAddressBook(addressBook, false, true);
+        helper.addToAddressBook(rms, false, true);
 
         assertCommandBehavior("list",
                               Command.getMessageForPersonListShownSummary(expectedList),
@@ -231,9 +224,9 @@ public class LogicTest {
 
         logic.setLastShownList(lastShownList);
 
-        assertCommandBehavior(commandWord + " -1", expectedMessage, AddressBook.empty(), false, lastShownList);
-        assertCommandBehavior(commandWord + " 0", expectedMessage, AddressBook.empty(), false, lastShownList);
-        assertCommandBehavior(commandWord + " 3", expectedMessage, AddressBook.empty(), false, lastShownList);
+        assertCommandBehavior(commandWord + " -1", expectedMessage, RMS.empty(), false, lastShownList);
+        assertCommandBehavior(commandWord + " 0", expectedMessage, RMS.empty(), false, lastShownList);
+        assertCommandBehavior(commandWord + " 3", expectedMessage, RMS.empty(), false, lastShownList);
 
     }
 
@@ -244,8 +237,8 @@ public class LogicTest {
         Person p1 = helper.generatePerson(1, true);
         Person p2 = helper.generatePerson(2, false);
         List<Person> lastShownList = helper.generatePersonList(p1, p2);
-        AddressBook expectedAB = helper.generateAddressBook(lastShownList);
-        helper.addToAddressBook(addressBook, lastShownList);
+        RMS expectedAB = helper.generateAddressBook(lastShownList);
+        helper.addToAddressBook(rms, lastShownList);
 
         logic.setLastShownList(lastShownList);
 
@@ -269,10 +262,10 @@ public class LogicTest {
         Person p2 = helper.generatePerson(2, false);
         List<Person> lastShownList = helper.generatePersonList(p1, p2);
 
-        AddressBook expectedAB = new AddressBook();
+        RMS expectedAB = new RMS();
         expectedAB.addPerson(p2);
 
-        addressBook.addPerson(p2);
+        rms.addPerson(p2);
         logic.setLastShownList(lastShownList);
 
         assertCommandBehavior("view 1",
@@ -300,8 +293,8 @@ public class LogicTest {
         Person p1 = helper.generatePerson(1, true);
         Person p2 = helper.generatePerson(2, false);
         List<Person> lastShownList = helper.generatePersonList(p1, p2);
-        AddressBook expectedAB = helper.generateAddressBook(lastShownList);
-        helper.addToAddressBook(addressBook, lastShownList);
+        RMS expectedAB = helper.generateAddressBook(lastShownList);
+        helper.addToAddressBook(rms, lastShownList);
 
         logic.setLastShownList(lastShownList);
 
@@ -325,10 +318,10 @@ public class LogicTest {
         Person p2 = helper.generatePerson(2, false);
         List<Person> lastShownList = helper.generatePersonList(p1, p2);
 
-        AddressBook expectedAB = new AddressBook();
+        RMS expectedAB = new RMS();
         expectedAB.addPerson(p1);
 
-        addressBook.addPerson(p1);
+        rms.addPerson(p1);
         logic.setLastShownList(lastShownList);
 
         assertCommandBehavior("viewall 2",
@@ -359,11 +352,11 @@ public class LogicTest {
 
         List<Person> threePersons = helper.generatePersonList(p1, p2, p3);
 
-        AddressBook expectedAB = helper.generateAddressBook(threePersons);
+        RMS expectedAB = helper.generateAddressBook(threePersons);
         expectedAB.removePerson(p2);
 
 
-        helper.addToAddressBook(addressBook, threePersons);
+        helper.addToAddressBook(rms, threePersons);
         logic.setLastShownList(threePersons);
 
         assertCommandBehavior("delete 2",
@@ -383,11 +376,11 @@ public class LogicTest {
 
         List<Person> threePersons = helper.generatePersonList(p1, p2, p3);
 
-        AddressBook expectedAB = helper.generateAddressBook(threePersons);
+        RMS expectedAB = helper.generateAddressBook(threePersons);
         expectedAB.removePerson(p2);
 
-        helper.addToAddressBook(addressBook, threePersons);
-        addressBook.removePerson(p2);
+        helper.addToAddressBook(rms, threePersons);
+        rms.removePerson(p2);
         logic.setLastShownList(threePersons);
 
         assertCommandBehavior("delete 2",
@@ -412,9 +405,9 @@ public class LogicTest {
         Person p2 = helper.generatePersonWithName("KEYKEYKEY sduauo");
 
         List<Person> fourPersons = helper.generatePersonList(p1, pTarget1, p2, pTarget2);
-        AddressBook expectedAB = helper.generateAddressBook(fourPersons);
+        RMS expectedAB = helper.generateAddressBook(fourPersons);
         List<Person> expectedList = helper.generatePersonList(pTarget1, pTarget2);
-        helper.addToAddressBook(addressBook, fourPersons);
+        helper.addToAddressBook(rms, fourPersons);
 
         assertCommandBehavior("find KEY",
                                 Command.getMessageForPersonListShownSummary(expectedList),
@@ -432,9 +425,9 @@ public class LogicTest {
         Person p2 = helper.generatePersonWithName("KEy sduauo");
 
         List<Person> fourPersons = helper.generatePersonList(p1, pTarget1, p2, pTarget2);
-        AddressBook expectedAB = helper.generateAddressBook(fourPersons);
+        RMS expectedAB = helper.generateAddressBook(fourPersons);
         List<Person> expectedList = helper.generatePersonList(pTarget1, pTarget2);
-        helper.addToAddressBook(addressBook, fourPersons);
+        helper.addToAddressBook(rms, fourPersons);
 
         assertCommandBehavior("find KEY",
                                 Command.getMessageForPersonListShownSummary(expectedList),
@@ -452,9 +445,9 @@ public class LogicTest {
         Person p2 = helper.generatePersonWithName("KEy sduauo");
 
         List<Person> fourPersons = helper.generatePersonList(p1, pTarget1, p2, pTarget2);
-        AddressBook expectedAB = helper.generateAddressBook(fourPersons);
+        RMS expectedAB = helper.generateAddressBook(fourPersons);
         List<Person> expectedList = helper.generatePersonList(pTarget1, pTarget2);
-        helper.addToAddressBook(addressBook, fourPersons);
+        helper.addToAddressBook(rms, fourPersons);
 
         assertCommandBehavior("find KEY rAnDoM",
                                 Command.getMessageForPersonListShownSummary(expectedList),
@@ -517,41 +510,41 @@ public class LogicTest {
         }
 
         /**
-         * Generates an AddressBook with auto-generated persons.
+         * Generates an RMS with auto-generated persons.
          * @param isPrivateStatuses flags to indicate if all contact details of respective persons should be set to
          *                          private.
          */
-        AddressBook generateAddressBook(Boolean... isPrivateStatuses) throws Exception{
-            AddressBook addressBook = new AddressBook();
-            addToAddressBook(addressBook, isPrivateStatuses);
-            return addressBook;
+        RMS generateAddressBook(Boolean... isPrivateStatuses) throws Exception{
+            RMS rms = new RMS();
+            addToAddressBook(rms, isPrivateStatuses);
+            return rms;
         }
 
         /**
-         * Generates an AddressBook based on the list of Persons given.
+         * Generates an RMS based on the list of Persons given.
          */
-        AddressBook generateAddressBook(List<Person> persons) throws Exception{
-            AddressBook addressBook = new AddressBook();
-            addToAddressBook(addressBook, persons);
-            return addressBook;
+        RMS generateAddressBook(List<Person> persons) throws Exception{
+            RMS rms = new RMS();
+            addToAddressBook(rms, persons);
+            return rms;
         }
 
         /**
-         * Adds auto-generated Person objects to the given AddressBook
-         * @param addressBook The AddressBook to which the Persons will be added
+         * Adds auto-generated Person objects to the given RMS
+         * @param rms The RMS to which the Persons will be added
          * @param isPrivateStatuses flags to indicate if all contact details of generated persons should be set to
          *                          private.
          */
-        void addToAddressBook(AddressBook addressBook, Boolean... isPrivateStatuses) throws Exception{
-            addToAddressBook(addressBook, generatePersonList(isPrivateStatuses));
+        void addToAddressBook(RMS rms, Boolean... isPrivateStatuses) throws Exception{
+            addToAddressBook(rms, generatePersonList(isPrivateStatuses));
         }
 
         /**
-         * Adds the given list of Persons to the given AddressBook
+         * Adds the given list of Persons to the given RMS
          */
-        void addToAddressBook(AddressBook addressBook, List<Person> personsToAdd) throws Exception{
+        void addToAddressBook(RMS rms, List<Person> personsToAdd) throws Exception{
             for(Person p: personsToAdd){
-                addressBook.addPerson(p);
+                rms.addPerson(p);
             }
         }
 

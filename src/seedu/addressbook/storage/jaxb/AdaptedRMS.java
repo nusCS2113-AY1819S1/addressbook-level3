@@ -1,10 +1,12 @@
 package seedu.addressbook.storage.jaxb;
 
-import seedu.addressbook.data.AddressBook;
+import seedu.addressbook.data.RMS;
 import seedu.addressbook.data.exception.IllegalValueException;
-import seedu.addressbook.data.person.Menu;
+import seedu.addressbook.data.order.Order;
+import seedu.addressbook.data.order.UniqueOrderList;
+import seedu.addressbook.data.menu.Menu;
+import seedu.addressbook.data.menu.UniqueMenuList;
 import seedu.addressbook.data.person.Person;
-import seedu.addressbook.data.person.UniqueMenuList;
 import seedu.addressbook.data.person.UniquePersonList;
 import seedu.addressbook.data.person.Employee;
 import seedu.addressbook.data.person.UniqueEmployeeList;
@@ -17,40 +19,41 @@ import java.util.List;
 /**
  * JAXB-friendly adapted address book data holder class.
  */
-@XmlRootElement(name = "AddressBook")
-public class AdaptedAddressBook {
+@XmlRootElement(name = "RMS")
+public class AdaptedRMS {
 
     @XmlElement(name = "persons")
     private List<AdaptedPerson> persons = new ArrayList<>();
     @XmlElement(name = "menus")
     private List<AdaptedMenu> menus = new ArrayList<>();
-
-
     @XmlElement(name = "employees")
     private List<AdaptedEmployee> employees = new ArrayList<>();
+    @XmlElement(name = "orders")
+    private List<AdaptedOrder> orders = new ArrayList<>();
 
     /**
      * No-arg constructor for JAXB use.
      */
-    public AdaptedAddressBook() {}
+    public AdaptedRMS() {}
 
     /**
-     * Converts a given AddressBook into this class for JAXB use.
+     * Converts a given RMS into this class for JAXB use.
      *
-     * @param source future changes to this will not affect the created AdaptedAddressBook
+     * @param source future changes to this will not affect the created AdaptedRMS
      */
-    /*public AdaptedAddressBook(AddressBook source) {
+    /*public AdaptedRMS(RMS source) {
         persons = new ArrayList<>();
         source.getAllPersons().forEach(person -> persons.add(new AdaptedPerson(person)));
     }
 */
-    public AdaptedAddressBook(AddressBook source) {
+    public AdaptedRMS(RMS source) {
         persons = new ArrayList<>();
         menus = new ArrayList<>();
         employees = new ArrayList<>();
         source.getAllPersons().forEach(person -> persons.add(new AdaptedPerson(person)));
         source.getAllMenus().forEach(menu -> menus.add(new AdaptedMenu(menu)));
         source.getAllEmployees().forEach(employee -> employees.add(new AdaptedEmployee(employee)));
+        source.getAllOrders().forEach(order -> orders.add(new AdaptedOrder(order)));
     }
 
 
@@ -72,13 +75,14 @@ public class AdaptedAddressBook {
 
 
     /**
-     * Converts this jaxb-friendly {@code AdaptedAddressBook} object into the corresponding(@code AddressBook} object.
+     * Converts this jaxb-friendly {@code AdaptedRMS} object into the corresponding(@code RMS} object.
      * @throws IllegalValueException if there were any data constraints violated in the adapted person
      */
-    public AddressBook toModelType() throws IllegalValueException {
+    public RMS toModelType() throws IllegalValueException {
         final List<Person> personList = new ArrayList<>();
         final List<Menu> menuList = new ArrayList<>();
         final List<Employee> employeeList = new ArrayList<>();
+        final List<Order> orderList = new ArrayList<>();
         for (AdaptedPerson person : persons) {
             personList.add(person.toModelType());
         }
@@ -91,7 +95,11 @@ public class AdaptedAddressBook {
         for (AdaptedMenu menu : menus) {
             menuList.add(menu.toModelType());
         }
-        return new AddressBook(new UniquePersonList(personList), new UniqueMenuList(menuList), new UniqueEmployeeList(employeeList));
+
+        for (AdaptedOrder order : orders) {
+            orderList.add(order.toModelType());
+        }
+        return new RMS(new UniquePersonList(personList), new UniqueMenuList(menuList), new UniqueEmployeeList(employeeList), new UniqueOrderList(orderList));
 
     }
 }

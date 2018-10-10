@@ -1,8 +1,8 @@
 package seedu.addressbook.storage;
 
-import seedu.addressbook.data.AddressBook;
+import seedu.addressbook.data.RMS;
 import seedu.addressbook.data.exception.IllegalValueException;
-import seedu.addressbook.storage.jaxb.AdaptedAddressBook;
+import seedu.addressbook.storage.jaxb.AdaptedRMS;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
@@ -18,7 +18,7 @@ import java.nio.file.Paths;
 public class StorageFile {
 
     /** Default file path used if the user doesn't provide the file name. */
-    public static final String DEFAULT_STORAGE_FILEPATH = "addressbook.txt";
+    public static final String DEFAULT_STORAGE_FILEPATH = "RMS.txt";
 
     /* Note: Note the use of nested classes below.
      * More info https://docs.oracle.com/javase/tutorial/java/javaOO/nested.html
@@ -59,7 +59,7 @@ public class StorageFile {
      */
     public StorageFile(String filePath) throws InvalidStorageFilePathException {
         try {
-            jaxbContext = JAXBContext.newInstance(AdaptedAddressBook.class);
+            jaxbContext = JAXBContext.newInstance(AdaptedRMS.class);
         } catch (JAXBException jaxbe) {
             throw new RuntimeException("jaxb initialisation error");
         }
@@ -83,7 +83,7 @@ public class StorageFile {
      *
      * @throws StorageOperationException if there were errors converting and/or storing data to file.
      */
-    public void save(AddressBook addressBook) throws StorageOperationException {
+    public void save(RMS rms) throws StorageOperationException {
 
         /* Note: Note the 'try with resource' statement below.
          * More info: https://docs.oracle.com/javase/tutorial/essential/exceptions/tryResourceClose.html
@@ -91,7 +91,7 @@ public class StorageFile {
         try (final Writer fileWriter =
                      new BufferedWriter(new FileWriter(path.toFile()))) {
 
-            final AdaptedAddressBook toSave = new AdaptedAddressBook(addressBook);
+            final AdaptedRMS toSave = new AdaptedRMS(rms);
             final Marshaller marshaller = jaxbContext.createMarshaller();
             marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
             marshaller.marshal(toSave, fileWriter);
@@ -108,12 +108,12 @@ public class StorageFile {
      *
      * @throws StorageOperationException if there were errors reading and/or converting data from file.
      */
-    public AddressBook load() throws StorageOperationException {
+    public RMS load() throws StorageOperationException {
         try (final Reader fileReader =
                      new BufferedReader(new FileReader(path.toFile()))) {
 
             final Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();
-            final AdaptedAddressBook loaded = (AdaptedAddressBook) unmarshaller.unmarshal(fileReader);
+            final AdaptedRMS loaded = (AdaptedRMS) unmarshaller.unmarshal(fileReader);
             // manual check for missing elements
             if (loaded.isAnyRequiredFieldMissing()) {
                 throw new StorageOperationException("File data missing some elements");
@@ -127,7 +127,7 @@ public class StorageFile {
 
         // create empty file if not found
         } catch (FileNotFoundException fnfe) {
-            final AddressBook empty = new AddressBook();
+            final RMS empty = new RMS();
             save(empty);
             return empty;
 

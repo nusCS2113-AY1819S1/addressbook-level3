@@ -1,4 +1,4 @@
-package seedu.addressbook.data.person;
+package seedu.addressbook.data.menu;
 
 import seedu.addressbook.data.tag.Tag;
 

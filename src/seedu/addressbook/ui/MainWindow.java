@@ -5,9 +5,8 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
-import seedu.addressbook.commands.CommandResult_Menu;
 import seedu.addressbook.commands.ExitCommand;
-import seedu.addressbook.data.person.ReadOnlyMenus;
+import seedu.addressbook.data.menu.ReadOnlyMenus;
 import seedu.addressbook.data.order.ReadOnlyOrder;
 import seedu.addressbook.logic.Logic;
 import seedu.addressbook.commands.CommandResult;
@@ -94,11 +93,6 @@ public class MainWindow {
             displayMenuResult(resultMenus.get());
         }
         display(result.feedbackToUser);
-    }
-
-    public void displayWelcomeMessage(String version, String storageFilePath) {
-        String storageFileInfo = String.format(MESSAGE_USING_STORAGE_FILE, storageFilePath);
-        display(MESSAGE_WELCOME, version, MESSAGE_PROGRAM_LAUNCH_ARGS_USAGE, storageFileInfo);
     }
 
     public void displayRMSWelcomeMessage(String version, String orderListStorageFilePath) {

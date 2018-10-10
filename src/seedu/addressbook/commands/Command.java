@@ -1,9 +1,8 @@
 package seedu.addressbook.commands;
 
 import seedu.addressbook.common.Messages;
-import seedu.addressbook.data.AddressBook;
-import seedu.addressbook.data.person.ReadOnlyMenus;
 import seedu.addressbook.data.RMS;
+import seedu.addressbook.data.menu.ReadOnlyMenus;
 import seedu.addressbook.data.order.ReadOnlyOrder;
 import seedu.addressbook.data.person.ReadOnlyPerson;
 
@@ -19,10 +18,9 @@ public abstract class Command {
 
     //protected List<? extends ReadOnlyPerson> relevantPersons;
 
-    protected AddressBook addressBook;
+    protected RMS rms;
     protected List<? extends ReadOnlyPerson> relevantPersons;
     protected List<? extends ReadOnlyMenus> relevantMenus;
-    protected RMS rms;
     protected List<? extends ReadOnlyOrder> relevantOrders;
 
     private int targetIndex = -1;
@@ -75,14 +73,10 @@ public abstract class Command {
     /**
      * Supplies the data the command will operate on.
      */
-    public void setData(AddressBook addressBook, List<? extends ReadOnlyPerson> relevantPersons, List<? extends ReadOnlyMenus> relevantMenus) {
-        this.addressBook = addressBook;
+    public void setData(RMS rms, List<? extends ReadOnlyPerson> relevantPersons, List<? extends ReadOnlyMenus> relevantMenus, List<? extends ReadOnlyOrder> relevantOrders ) {
+        this.rms = rms;
         this.relevantPersons = relevantPersons;
         this.relevantMenus = relevantMenus;
-    }
-
-    public void setRMSData(RMS rms, List<? extends ReadOnlyOrder> relevantOrders) {
-        this.rms = rms;
         this.relevantOrders = relevantOrders;
     }
 

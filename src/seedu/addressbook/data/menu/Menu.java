@@ -1,5 +1,7 @@
-package seedu.addressbook.data.person;
+package seedu.addressbook.data.menu;
 
+import seedu.addressbook.data.menu.Price;
+import seedu.addressbook.data.menu.ReadOnlyMenus;
 import seedu.addressbook.data.tag.Tag;
 
 import java.util.HashSet;

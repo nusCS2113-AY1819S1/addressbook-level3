@@ -18,10 +18,10 @@ public class HelpCommand extends Command {
             + "\n" + FindCommand.MESSAGE_USAGE
             + "\n" + ListCommand.MESSAGE_USAGE
             + "\n" + ListMembersCommand.MESSAGE_USAGE
-            + "\n" + ListCommand_Menu.MESSAGE_USAGE
+            + "\n" + MenuListCommand.MESSAGE_USAGE
             + "\n" + ViewCommand.MESSAGE_USAGE
             + "\n" + ViewAllCommand.MESSAGE_USAGE
-            + "\n" + ViewAllCommand_Menu.MESSAGE_USAGE
+            + "\n" + MenuViewAllCommand.MESSAGE_USAGE
             + "\n" + HelpCommand.MESSAGE_USAGE
             + "\n" + OrderListCommand.MESSAGE_USAGE
             + "\n" + ExitCommand.MESSAGE_USAGE;

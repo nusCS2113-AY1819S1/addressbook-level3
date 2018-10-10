@@ -1,6 +1,6 @@
 package seedu.addressbook.commands;
 
-import seedu.addressbook.data.person.ReadOnlyMenus;
+import seedu.addressbook.data.menu.ReadOnlyMenus;
 import seedu.addressbook.data.order.ReadOnlyOrder;
 import seedu.addressbook.data.person.ReadOnlyPerson;
 
