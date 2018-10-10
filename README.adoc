@@ -19,7 +19,7 @@ image::homepage.png[]
 === Welcome to RMS Homepage
 Restaurant Management System (RMS) promises to increase the quality of your service and enhance your work experience.  The Command Line Interface makes RMS highly efficient as it reduces the number of steps taken to perform a task to just one (or two).  It is your one-stop solution that can be used for serving customers, updating menu as well as storing and tracking important data. In a nutshell, RMS guarantees to be a faster, safer and smarter choice of management for any restaurants and fast food chains.
 
-image::UImockup.PNG[]
+image::Ui.png[]
 
 * This is a Desktop Application for Restaurant Management System. It is making use of Command Line Interface
 * Our primary target audience for RMS are *Restaurants* and *Fast Food Chains*
