@@ -7,7 +7,7 @@ import java.util.Objects;
 public class Member implements ReadOnlyMember {
     private Name name;
 
-    public Member() {};
+    public Member() {}
 
     public Member(Name name) {
         this.name = name;
