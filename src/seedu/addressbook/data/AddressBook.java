@@ -1,5 +1,8 @@
 package seedu.addressbook.data;
 
+import seedu.addressbook.data.member.Member;
+import seedu.addressbook.data.member.ReadOnlyMember;
+import seedu.addressbook.data.member.UniqueMemberList;
 import seedu.addressbook.data.person.Menu;
 import seedu.addressbook.data.person.ReadOnlyMenus;
 import seedu.addressbook.data.person.UniqueMenuList;
@@ -9,6 +12,8 @@ import seedu.addressbook.data.person.UniqueEmployeeList;
 import seedu.addressbook.data.person.UniquePersonList;
 import seedu.addressbook.data.person.UniquePersonList.DuplicatePersonException;
 import seedu.addressbook.data.person.UniquePersonList.PersonNotFoundException;
+import seedu.addressbook.data.member.UniqueMemberList.DuplicateMemberException;
+import seedu.addressbook.data.member.UniqueMemberList.MemberNotFoundException;
 
 /**
  * Represents the entire address book. Contains the data of the address book.
@@ -18,6 +23,7 @@ public class AddressBook {
     private final UniquePersonList allPersons;
     private final UniqueEmployeeList allEmployees;
     private final UniqueMenuList allFoodItems;
+    private final UniqueMemberList allMembers;
 
     public static AddressBook empty() {
         return new AddressBook();
@@ -32,6 +38,7 @@ public class AddressBook {
         allPersons = new UniquePersonList();
         allEmployees = new UniqueEmployeeList();
         allFoodItems = new UniqueMenuList();
+        allMembers = new UniqueMemberList();
     }
 
     /**
@@ -40,10 +47,11 @@ public class AddressBook {
      * @param persons external changes to this will not affect this address book
      */
     // Construct address book with persons and employees
-    public AddressBook(UniquePersonList persons, UniqueMenuList menus, UniqueEmployeeList employees) {
+    public AddressBook(UniquePersonList persons, UniqueMenuList menus, UniqueEmployeeList employees, UniqueMemberList members) {
         this.allPersons = new UniquePersonList(persons);
         this.allEmployees = new UniqueEmployeeList(employees);
         this.allFoodItems = new UniqueMenuList(menus);
+        this.allMembers = new UniqueMemberList(members);
     }
 
     /**
@@ -60,6 +68,16 @@ public class AddressBook {
     }
 
     /**
+     * Adds a member to the address book.
+     *
+     * @throws DuplicateMemberException if an equivalent member already exists.
+     */
+
+    public void addMember(Member toAdd) throws DuplicateMemberException {
+        allMembers.add(toAdd);
+    }
+
+    /**
      * Checks if an equivalent person exists in the address book.
      */
     public boolean containsPerson(ReadOnlyPerson key) {
@@ -68,6 +86,13 @@ public class AddressBook {
 
     public boolean containsMenus(ReadOnlyMenus key1) {
         return allFoodItems.contains(key1);
+    }
+
+    /**
+     * Checks if an equivalent member exists in the address book.
+     */
+    public boolean containsMember(ReadOnlyMember key) {
+        return allMembers.contains(key);
     }
 
     /**
@@ -84,6 +109,15 @@ public class AddressBook {
     }
 
     /**
+     * Removes the equivalent member from the address book.
+     *
+     * @throws MemberNotFoundException if no such Member could be found.
+     */
+    public void removeMember(ReadOnlyMember toRemove) throws MemberNotFoundException {
+        allMembers.remove(toRemove);
+    }
+
+    /**
      * Clears all persons from the address book.
      */
     public void clear() {
@@ -92,6 +126,13 @@ public class AddressBook {
 
     public void clearmenu() {
         allFoodItems.clear();
+    }
+
+    /**
+     * Clears all members from the address book.
+     */
+    public void clearmembers() {
+        allMembers.clear();
     }
 
     /**
@@ -108,6 +149,13 @@ public class AddressBook {
 
     public UniqueMenuList getAllMenus() {
         return new UniqueMenuList(allFoodItems);
+    }
+
+    /**
+     * Defensively copied UniqueMemberList of all members in the address book at the time of the call.
+     */
+    public UniqueMemberList getAllMembers() {
+        return new UniqueMemberList(allMembers);
     }
 
     @Override

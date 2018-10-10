@@ -12,6 +12,7 @@ public class Messages {
     public static final String MESSAGE_MENU_ITEM_NOT_IN_ADDRESSBOOK = "Menu item could not be found in RMS";
     public static final String MESSAGE_PERSONS_LISTED_OVERVIEW = "%1$d persons listed!";
     public static final String MESSAGE_MENUS_LISTED_OVERVIEW = "%1$d food items listed!";
+    public static final String MESSAGE_MEMBERS_LISTED_OVERVIEW = "%1$d members listed!";
     public static final String MESSAGE_PROGRAM_LAUNCH_ARGS_USAGE = "Launch command format: " +
             "java seedu.addressbook.Main [STORAGE_FILE_PATH]";
     public static final String MESSAGE_WELCOME = "Welcome to Restaurant Management System! \n" +

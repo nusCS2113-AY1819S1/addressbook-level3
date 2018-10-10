@@ -1,5 +1,6 @@
 package seedu.addressbook.commands;
 
+import seedu.addressbook.data.member.ReadOnlyMember;
 import seedu.addressbook.data.person.ReadOnlyMenus;
 import seedu.addressbook.data.order.ReadOnlyOrder;
 import seedu.addressbook.data.person.ReadOnlyPerson;
@@ -19,6 +20,9 @@ public class CommandResult {
     private final List<? extends ReadOnlyPerson> relevantPersons;
     private final List<? extends ReadOnlyMenus> relevantMenus;
 
+    /** The list of members that was produced by the command */
+    private final List<? extends ReadOnlyMember> relevantMembers;
+
     /** The list of orders that was produced by the command */
     private final List<? extends ReadOnlyOrder> relevantOrders;
 
@@ -27,6 +31,7 @@ public class CommandResult {
         relevantPersons = null;
         relevantMenus = null;
         relevantOrders = null;
+        relevantMembers = null;
     }
 
     public CommandResult(String feedbackToUser, List<? extends ReadOnlyPerson> relevantPersons) {
@@ -34,6 +39,7 @@ public class CommandResult {
         this.relevantPersons = relevantPersons;
         this.relevantMenus = null;
         this.relevantOrders = null;
+        this.relevantMembers = null;
     }
 
     public CommandResult(String feedbackToUser, List<? extends ReadOnlyPerson> relevantPersons,
@@ -42,6 +48,7 @@ public class CommandResult {
         this.relevantPersons = relevantPersons;
         this.relevantMenus = null;
         this.relevantOrders = relevantOrders;
+        this.relevantMembers =  null;
     }
 
     public CommandResult(String feedbackToUser, List<? extends ReadOnlyPerson> relevantPersons, List<? extends ReadOnlyMenus> relevantMenus, List<? extends ReadOnlyOrder> relevantOrders) {
@@ -49,8 +56,16 @@ public class CommandResult {
         this.relevantPersons = relevantPersons;
         this.relevantMenus = relevantMenus;
         this.relevantOrders = relevantOrders;
+        this.relevantMembers = null;
     }
 
+    public CommandResult(String feedbackToUser, List<? extends ReadOnlyPerson> relevantPersons, List<? extends ReadOnlyMenus> relevantMenus, List<? extends ReadOnlyOrder> relevantOrders, List<? extends ReadOnlyMember> relevantMembers) {
+        this.feedbackToUser = feedbackToUser;
+        this.relevantPersons = relevantPersons;
+        this.relevantMenus = relevantMenus;
+        this.relevantOrders = relevantOrders;
+        this.relevantMembers = relevantMembers;
+    }
     /**
      * Returns list of persons relevant to the command command result, if any.
      */
@@ -67,6 +82,13 @@ public class CommandResult {
      */
     public Optional<List<? extends ReadOnlyOrder>> getRelevantOrders() {
         return Optional.ofNullable(relevantOrders);
+    }
+
+    /**
+     * Returns list of members relevant to the command command result, if any.
+     */
+    public Optional<List<? extends ReadOnlyMember>> getRelevantMember() {
+        return Optional.ofNullable(relevantMembers);
     }
 
 }

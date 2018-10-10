@@ -1,5 +1,6 @@
 package seedu.addressbook.ui;
 
+import seedu.addressbook.data.member.ReadOnlyMember;
 import seedu.addressbook.data.person.ReadOnlyMenus;
 import seedu.addressbook.data.order.ReadOnlyOrder;
 import seedu.addressbook.data.person.ReadOnlyPerson;
@@ -61,6 +62,15 @@ public class Formatter {
         final List<String> formattedOrders = new ArrayList<>();
         for (ReadOnlyOrder order : orders) {
             formattedOrders.add(order.getAsTextHidePrivate());
+        }
+        return format(asIndexedList(formattedOrders));
+    }
+
+    /** Formats the given list of members for displaying to the user. */
+    public String formatMemberResult(List<? extends ReadOnlyMember> members) {
+        final List<String> formattedOrders = new ArrayList<>();
+        for (ReadOnlyMember member : members) {
+            formattedOrders.add(member.getAsTextHidePrivate());
         }
         return format(asIndexedList(formattedOrders));
     }

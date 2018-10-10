@@ -2,6 +2,8 @@ package seedu.addressbook.storage.jaxb;
 
 import seedu.addressbook.data.AddressBook;
 import seedu.addressbook.data.exception.IllegalValueException;
+import seedu.addressbook.data.member.Member;
+import seedu.addressbook.data.member.UniqueMemberList;
 import seedu.addressbook.data.person.Menu;
 import seedu.addressbook.data.person.Person;
 import seedu.addressbook.data.person.UniqueMenuList;
@@ -22,8 +24,12 @@ public class AdaptedAddressBook {
 
     @XmlElement(name = "persons")
     private List<AdaptedPerson> persons = new ArrayList<>();
+
     @XmlElement(name = "menus")
     private List<AdaptedMenu> menus = new ArrayList<>();
+
+    @XmlElement(name = "members")
+    private List<AdaptedMember> members = new ArrayList<>();
 
 
     @XmlElement(name = "employees")
@@ -48,9 +54,11 @@ public class AdaptedAddressBook {
         persons = new ArrayList<>();
         menus = new ArrayList<>();
         employees = new ArrayList<>();
+        members = new ArrayList<>();
         source.getAllPersons().forEach(person -> persons.add(new AdaptedPerson(person)));
         source.getAllMenus().forEach(menu -> menus.add(new AdaptedMenu(menu)));
         source.getAllEmployees().forEach(employee -> employees.add(new AdaptedEmployee(employee)));
+        source.getAllMembers().forEach(member -> members.add(new AdaptedMember(member)));
     }
 
 
@@ -79,6 +87,7 @@ public class AdaptedAddressBook {
         final List<Person> personList = new ArrayList<>();
         final List<Menu> menuList = new ArrayList<>();
         final List<Employee> employeeList = new ArrayList<>();
+        final List<Member> memberList = new ArrayList<>();
         for (AdaptedPerson person : persons) {
             personList.add(person.toModelType());
         }
@@ -91,7 +100,11 @@ public class AdaptedAddressBook {
         for (AdaptedMenu menu : menus) {
             menuList.add(menu.toModelType());
         }
-        return new AddressBook(new UniquePersonList(personList), new UniqueMenuList(menuList), new UniqueEmployeeList(employeeList));
+
+        for (AdaptedMember member : members) {
+            memberList.add(member.toModelType());
+        }
+        return new AddressBook(new UniquePersonList(personList), new UniqueMenuList(menuList), new UniqueEmployeeList(employeeList), new UniqueMemberList(memberList));
 
     }
 }
