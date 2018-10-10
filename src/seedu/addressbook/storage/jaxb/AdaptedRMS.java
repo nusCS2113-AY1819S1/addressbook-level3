@@ -8,7 +8,6 @@ import seedu.addressbook.data.menu.Menu;
 import seedu.addressbook.data.menu.UniqueMenuList;
 import seedu.addressbook.data.member.Member;
 import seedu.addressbook.data.member.UniqueMemberList;
-import seedu.addressbook.data.person.Menu;
 import seedu.addressbook.data.person.Person;
 import seedu.addressbook.data.person.UniquePersonList;
 import seedu.addressbook.data.person.Employee;

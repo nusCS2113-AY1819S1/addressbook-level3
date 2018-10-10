@@ -1,5 +1,8 @@
 package seedu.addressbook.data;
 
+import seedu.addressbook.data.member.Member;
+import seedu.addressbook.data.member.ReadOnlyMember;
+import seedu.addressbook.data.member.UniqueMemberList;
 import seedu.addressbook.data.menu.Menu;
 import seedu.addressbook.data.menu.ReadOnlyMenus;
 import seedu.addressbook.data.menu.UniqueMenuList;
@@ -14,6 +17,8 @@ import seedu.addressbook.data.person.UniqueEmployeeList;
 import seedu.addressbook.data.person.UniquePersonList;
 import seedu.addressbook.data.person.UniquePersonList.DuplicatePersonException;
 import seedu.addressbook.data.person.UniquePersonList.PersonNotFoundException;
+import seedu.addressbook.data.member.UniqueMemberList.DuplicateMemberException;
+import seedu.addressbook.data.member.UniqueMemberList.MemberNotFoundException;
 
 /**
  * Represents the entire address book. Contains the data of the address book.
@@ -24,6 +29,7 @@ public class RMS {
     private final UniqueEmployeeList allEmployees;
     private final UniqueMenuList allFoodItems;
     private final UniqueOrderList allOrders;
+    private final UniqueMemberList allMembers;
 
     public static RMS empty() {
         return new RMS();
@@ -39,6 +45,7 @@ public class RMS {
         allEmployees = new UniqueEmployeeList();
         allFoodItems = new UniqueMenuList();
         allOrders = new UniqueOrderList();
+        allMembers = new UniqueMemberList();
     }
 
     /**
@@ -47,11 +54,12 @@ public class RMS {
      * @param persons external changes to this will not affect this address book
      */
     // Construct address book with persons and employees
-    public RMS(UniquePersonList persons, UniqueMenuList menus, UniqueEmployeeList employees, UniqueOrderList orders) {
+    public RMS(UniquePersonList persons, UniqueMenuList menus, UniqueEmployeeList employees, UniqueOrderList orders, UniqueMemberList members) {
         this.allPersons = new UniquePersonList(persons);
         this.allEmployees = new UniqueEmployeeList(employees);
         this.allFoodItems = new UniqueMenuList(menus);
         this.allOrders = new UniqueOrderList(orders);
+        this.allMembers = new UniqueMemberList(members);
     }
 
     /**
@@ -70,6 +78,15 @@ public class RMS {
         allOrders.add(toAdd);
     }
 
+    /**
+     * Adds a member to the address book.
+     *
+     * @throws DuplicateMemberException if an equivalent member already exists.
+     */
+
+    public void addMember(Member toAdd) throws DuplicateMemberException {
+        allMembers.add(toAdd);
+    }
 
     /**
      * Checks if an equivalent person exists in the address book.
@@ -88,6 +105,13 @@ public class RMS {
      */
     public boolean containsOrder(ReadOnlyOrder key) {
         return allOrders.contains(key);
+    }
+
+    /**
+     * Checks if an equivalent member exists in the address book.
+     */
+    public boolean containsMember(ReadOnlyMember key) {
+        return allMembers.contains(key);
     }
 
     /**
@@ -113,6 +137,15 @@ public class RMS {
     }
 
     /**
+     * Removes the equivalent member from the address book.
+     *
+     * @throws MemberNotFoundException if no such Member could be found.
+     */
+    public void removeMember(ReadOnlyMember toRemove) throws MemberNotFoundException {
+        allMembers.remove(toRemove);
+    }
+
+    /**
      * Clears all persons from the address book.
      */
     public void clear() {
@@ -131,10 +164,24 @@ public class RMS {
     }
 
     /**
+     * Clears all members from the address book.
+     */
+    public void clearmembers() {
+        allMembers.clear();
+    }
+
+    /**
      * Defensively copied UniquePersonList of all persons in the address book at the time of the call.
      */
     public UniquePersonList getAllPersons() {
         return new UniquePersonList(allPersons);
+    }
+
+    /**
+     * Defensively copied UniqueMemberList of all members in the address book at the time of the call.
+     */
+    public UniqueMemberList getAllMembers() {
+        return new UniqueMemberList(allMembers);
     }
 
     // this is a copy of getAllPersons for employees

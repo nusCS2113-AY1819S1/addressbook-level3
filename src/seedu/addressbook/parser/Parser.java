@@ -101,8 +101,8 @@ public class Parser {
             case ExitCommand.COMMAND_WORD:
                 return new ExitCommand();
 
-            case ListMembersCommand.COMMAND_WORD:
-                return new ListMembersCommand();
+            case MemberListCommand.COMMAND_WORD:
+                return new MemberListCommand();
 
             case HelpCommand.COMMAND_WORD: // Fallthrough
             default:

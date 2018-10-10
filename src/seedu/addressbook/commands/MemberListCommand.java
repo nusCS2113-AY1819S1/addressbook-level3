@@ -5,7 +5,7 @@ import seedu.addressbook.data.member.ReadOnlyMember;
 
 import java.util.List;
 
-public class ListMembersCommand extends Command{
+public class MemberListCommand extends Command{
     public static final String COMMAND_WORD = "listmembers";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ":\n"
