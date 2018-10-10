@@ -6,6 +6,9 @@ import seedu.addressbook.data.order.Order;
 import seedu.addressbook.data.order.UniqueOrderList;
 import seedu.addressbook.data.menu.Menu;
 import seedu.addressbook.data.menu.UniqueMenuList;
+import seedu.addressbook.data.member.Member;
+import seedu.addressbook.data.member.UniqueMemberList;
+import seedu.addressbook.data.person.Menu;
 import seedu.addressbook.data.person.Person;
 import seedu.addressbook.data.person.UniquePersonList;
 import seedu.addressbook.data.person.Employee;
@@ -26,6 +29,8 @@ public class AdaptedRMS {
     private List<AdaptedPerson> persons = new ArrayList<>();
     @XmlElement(name = "menus")
     private List<AdaptedMenu> menus = new ArrayList<>();
+    @XmlElement(name = "members")
+    private List<AdaptedMember> members = new ArrayList<>();
     @XmlElement(name = "employees")
     private List<AdaptedEmployee> employees = new ArrayList<>();
     @XmlElement(name = "orders")
@@ -50,9 +55,11 @@ public class AdaptedRMS {
         persons = new ArrayList<>();
         menus = new ArrayList<>();
         employees = new ArrayList<>();
+        members = new ArrayList<>();
         source.getAllPersons().forEach(person -> persons.add(new AdaptedPerson(person)));
         source.getAllMenus().forEach(menu -> menus.add(new AdaptedMenu(menu)));
         source.getAllEmployees().forEach(employee -> employees.add(new AdaptedEmployee(employee)));
+        source.getAllMembers().forEach(member -> members.add(new AdaptedMember(member)));
         source.getAllOrders().forEach(order -> orders.add(new AdaptedOrder(order)));
     }
 
@@ -82,6 +89,7 @@ public class AdaptedRMS {
         final List<Person> personList = new ArrayList<>();
         final List<Menu> menuList = new ArrayList<>();
         final List<Employee> employeeList = new ArrayList<>();
+        final List<Member> memberList = new ArrayList<>();
         final List<Order> orderList = new ArrayList<>();
         for (AdaptedPerson person : persons) {
             personList.add(person.toModelType());
@@ -96,10 +104,14 @@ public class AdaptedRMS {
             menuList.add(menu.toModelType());
         }
 
+        for (AdaptedMember member : members) {
+            memberList.add(member.toModelType());
+        }
+
         for (AdaptedOrder order : orders) {
             orderList.add(order.toModelType());
         }
-        return new RMS(new UniquePersonList(personList), new UniqueMenuList(menuList), new UniqueEmployeeList(employeeList), new UniqueOrderList(orderList));
+        return new RMS(new UniquePersonList(personList), new UniqueMenuList(menuList), new UniqueEmployeeList(employeeList), new UniqueOrderList(orderList), new UniqueMemberList(memberList));
 
     }
 }
