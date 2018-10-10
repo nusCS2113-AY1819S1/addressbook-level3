@@ -134,7 +134,7 @@ public class MainWindow {
      * Displays the menu list in the output display area, formatted as an indexed list.
      */
     private void displayMenuResult(List<? extends ReadOnlyMenus> menus) {
-        display(new Formatter().formatMenu(menus));
+        display(new Formatter().formatMenuResult(menus));
     }
 
     /**

@@ -3,10 +3,13 @@ package seedu.addressbook.data;
 import seedu.addressbook.data.member.Member;
 import seedu.addressbook.data.member.ReadOnlyMember;
 import seedu.addressbook.data.member.UniqueMemberList;
+import seedu.addressbook.data.member.UniqueMemberList.DuplicateMemberException;
+import seedu.addressbook.data.member.UniqueMemberList.MemberNotFoundException;
 import seedu.addressbook.data.menu.Menu;
 import seedu.addressbook.data.menu.ReadOnlyMenus;
 import seedu.addressbook.data.menu.UniqueMenuList;
 import seedu.addressbook.data.menu.UniqueMenuList.DuplicateMenuException;
+import seedu.addressbook.data.menu.UniqueMenuList.MenuNotFoundException;
 import seedu.addressbook.data.order.Order;
 import seedu.addressbook.data.order.ReadOnlyOrder;
 import seedu.addressbook.data.order.UniqueOrderList;
@@ -17,8 +20,6 @@ import seedu.addressbook.data.person.UniqueEmployeeList;
 import seedu.addressbook.data.person.UniquePersonList;
 import seedu.addressbook.data.person.UniquePersonList.DuplicatePersonException;
 import seedu.addressbook.data.person.UniquePersonList.PersonNotFoundException;
-import seedu.addressbook.data.member.UniqueMemberList.DuplicateMemberException;
-import seedu.addressbook.data.member.UniqueMemberList.MemberNotFoundException;
 
 /**
  * Represents the entire address book. Contains the data of the address book.
@@ -54,7 +55,11 @@ public class RMS {
      * @param persons external changes to this will not affect this address book
      */
     // Construct address book with persons and employees
-    public RMS(UniquePersonList persons, UniqueMenuList menus, UniqueEmployeeList employees, UniqueOrderList orders, UniqueMemberList members) {
+    public RMS(UniquePersonList persons,
+               UniqueMenuList menus,
+               UniqueEmployeeList employees,
+               UniqueOrderList orders,
+               UniqueMemberList members) {
         this.allPersons = new UniquePersonList(persons);
         this.allEmployees = new UniqueEmployeeList(employees);
         this.allFoodItems = new UniqueMenuList(menus);
@@ -69,6 +74,9 @@ public class RMS {
      */
     public void addPerson(Person toAdd) throws DuplicatePersonException { allPersons.add(toAdd); }
 
+    /**
+     * Adds a menu item to the menu list.
+     */
     public void addMenu(Menu toAdd) throws DuplicateMenuException { allFoodItems.add(toAdd); }
 
     /**
@@ -123,7 +131,12 @@ public class RMS {
         allPersons.remove(toRemove);
     }
 
-    public void removeMenuItem(ReadOnlyMenus toRemove) throws UniqueMenuList.MenuNotFoundException {
+    /**
+     * Removes the equivalent menu item from the menu.
+     *
+     * @throws MenuNotFoundException if no such Order could be found.
+     */
+    public void removeMenuItem(ReadOnlyMenus toRemove) throws MenuNotFoundException {
         allFoodItems.remove(toRemove);
     }
 
