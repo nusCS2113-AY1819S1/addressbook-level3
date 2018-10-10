@@ -2,6 +2,7 @@ package seedu.addressbook.commands;
 
 import seedu.addressbook.common.Messages;
 import seedu.addressbook.data.RMS;
+import seedu.addressbook.data.member.ReadOnlyMember;
 import seedu.addressbook.data.menu.ReadOnlyMenus;
 import seedu.addressbook.data.order.ReadOnlyOrder;
 import seedu.addressbook.data.person.ReadOnlyPerson;
@@ -21,6 +22,7 @@ public abstract class Command {
     protected RMS rms;
     protected List<? extends ReadOnlyPerson> relevantPersons;
     protected List<? extends ReadOnlyMenus> relevantMenus;
+    protected List<? extends ReadOnlyMember> relevantMembers;
     protected List<? extends ReadOnlyOrder> relevantOrders;
 
     private int targetIndex = -1;
@@ -50,7 +52,15 @@ public abstract class Command {
         return String.format(Messages.MESSAGE_MENUS_LISTED_OVERVIEW, menusDisplayed.size());
     }
 
-
+    /**
+     * Constructs a feedback message to summarise an operation that displayed a listing of members.
+     *
+     * @param membersDisplayed used to generate summary
+     * @return summary message for members displayed
+     */
+    public static String getMessageForMemberListShownSummary(List<? extends ReadOnlyMember> membersDisplayed) {
+        return String.format(Messages.MESSAGE_MEMBERS_LISTED_OVERVIEW, membersDisplayed.size());
+    }
 
     /**
      * Constructs a feedback message to summarise an operation that displayed a listing of orders.
@@ -73,11 +83,12 @@ public abstract class Command {
     /**
      * Supplies the data the command will operate on.
      */
-    public void setData(RMS rms, List<? extends ReadOnlyPerson> relevantPersons, List<? extends ReadOnlyMenus> relevantMenus, List<? extends ReadOnlyOrder> relevantOrders ) {
+    public void setData(RMS rms, List<? extends ReadOnlyPerson> relevantPersons, List<? extends ReadOnlyMenus> relevantMenus, List<? extends ReadOnlyOrder> relevantOrders,  List<? extends ReadOnlyMember> relevantMembers) {
         this.rms = rms;
         this.relevantPersons = relevantPersons;
         this.relevantMenus = relevantMenus;
         this.relevantOrders = relevantOrders;
+        this.relevantMembers = relevantMembers;
     }
 
     /**
@@ -90,6 +101,15 @@ public abstract class Command {
     }
     protected ReadOnlyMenus getTargetMenu() throws IndexOutOfBoundsException {
         return relevantMenus.get(getTargetIndex() - DISPLAYED_INDEX_OFFSET);
+    }
+
+    /**
+     * Extracts the the target member in the last shown list from the given arguments.
+     *
+     * @throws IndexOutOfBoundsException if the target index is out of bounds of the last viewed listing
+     */
+    protected ReadOnlyMember getTargetMember() throws IndexOutOfBoundsException {
+        return relevantMembers.get(getTargetIndex() - DISPLAYED_INDEX_OFFSET);
     }
 
     /**

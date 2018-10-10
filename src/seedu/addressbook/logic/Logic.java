@@ -2,6 +2,7 @@ package seedu.addressbook.logic;
 
 import seedu.addressbook.commands.Command;
 import seedu.addressbook.commands.CommandResult;
+import seedu.addressbook.data.member.ReadOnlyMember;
 import seedu.addressbook.data.RMS;
 import seedu.addressbook.data.menu.ReadOnlyMenus;
 import seedu.addressbook.data.order.ReadOnlyOrder;
@@ -25,6 +26,9 @@ public class Logic {
     /** The list of person shown to the user most recently.  */
     private List<? extends ReadOnlyPerson> lastShownList = Collections.emptyList();
     private List<? extends ReadOnlyMenus> lastShownMenuList = Collections.emptyList();
+
+    /** The list of member shown to the user most recently.  */
+    private List<? extends ReadOnlyMember> lastShownMemberList = Collections.emptyList();
 
     /** The list of order shown to the user most recently.  */
     private List<? extends ReadOnlyOrder> lastShownOrderList = Collections.emptyList();
@@ -70,6 +74,13 @@ public class Logic {
     }
 
     /**
+     * Unmodifiable view of the current last shown list.
+     */
+    public List<ReadOnlyMember> getLastShownMemberList() {
+        return Collections.unmodifiableList(lastShownMemberList);
+    }
+
+    /**
      * Unmodifiable view of the current last shown order list.
      */
     public List<ReadOnlyOrder> getLastShownOrderList() {
@@ -87,6 +98,8 @@ public class Logic {
     protected void setLastShownOrderList(List<? extends ReadOnlyOrder> newList) {
         lastShownOrderList = newList;
     }
+
+    protected void setLastShownMemberList(List<? extends ReadOnlyMember> newList) { lastShownMemberList = newList; }
 
     /**
      * Parses the user command, executes it, and returns the result.
@@ -108,7 +121,7 @@ public class Logic {
      * @throws Exception if there was any problem during command execution.
      */
     private CommandResult execute(Command command) throws Exception {
-        command.setData(rms, lastShownList, lastShownMenuList, lastShownOrderList);
+        command.setData(rms, lastShownList, lastShownMenuList, lastShownOrderList, lastShownMemberList);
         CommandResult result = command.execute();
         storage.save(rms);
         return result;

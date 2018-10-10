@@ -18,6 +18,9 @@
         <name>Pizza</name>
         <price isPrivate="false">10</price>
     </menus>
+    <members>
+        <name>Kang Ming</name>
+    </members>
     <employees>
         <name>Wei Ming</name>
         <phone>93219416</phone>
