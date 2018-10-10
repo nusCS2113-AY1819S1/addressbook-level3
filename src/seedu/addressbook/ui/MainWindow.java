@@ -95,11 +95,6 @@ public class MainWindow {
         display(result.feedbackToUser);
     }
 
-    public void displayWelcomeMessage(String version, String storageFilePath) {
-        String storageFileInfo = String.format(MESSAGE_USING_STORAGE_FILE, storageFilePath);
-        display(MESSAGE_WELCOME, version, MESSAGE_PROGRAM_LAUNCH_ARGS_USAGE, storageFileInfo);
-    }
-
     public void displayRMSWelcomeMessage(String version, String orderListStorageFilePath) {
         String orderListStorageFileInfo = String.format(MESSAGE_USING_ORDER_LIST_STORAGE_FILE,
                 orderListStorageFilePath);
