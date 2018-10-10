@@ -1,15 +1,14 @@
 package seedu.addressbook.commands;
 
-import seedu.addressbook.data.person.ReadOnlyMenus;
-import seedu.addressbook.data.person.ReadOnlyPerson;
-
 import java.util.List;
+
+import seedu.addressbook.data.menu.ReadOnlyMenus;
 
 
 /**
  * Lists all persons in the address book to the user.
  */
-public class ListCommand_Menu extends Command {
+public class MenuListCommand extends Command {
 
     public static final String COMMAND_WORD = "listmenu";
 
@@ -19,8 +18,8 @@ public class ListCommand_Menu extends Command {
 
 
     @Override
-    public CommandResult_Menu execute() {
-        List<ReadOnlyMenus> allMenus = addressBook.getAllMenus().immutableListView();
-        return new CommandResult_Menu(getMessageForMenuListShownSummary(allMenus), allMenus);
+    public CommandResult execute() {
+        List<ReadOnlyMenus> allMenus = rms.getAllMenus().immutableListView();
+        return new MenuCommandResult(getMessageForMenuListShownSummary(allMenus), allMenus);
     }
 }

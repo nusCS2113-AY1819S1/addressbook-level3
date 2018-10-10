@@ -1,2 +1,58 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<RMS_menu/>
+<RMS>
+    <persons>
+        <name>Wei Ming</name>
+        <phone isPrivate="false">93219416</phone>
+        <email isPrivate="false">email@email.com</email>
+        <address isPrivate="false">447</address>
+    </persons>
+    <persons>
+        <name>John Doe</name>
+        <phone isPrivate="false">98765432</phone>
+        <email isPrivate="false">johnd@gmail.com</email>
+        <address isPrivate="false">311, Clementi Ave 2, #02-25</address>
+        <tagged>owesMoney</tagged>
+        <tagged>friends</tagged>
+    </persons>
+    <menus>
+        <name>Pizza</name>
+        <price isPrivate="false">10</price>
+    </menus>
+    <employees>
+        <name>Wei Ming</name>
+        <phone>93219416</phone>
+        <email>email@email.com</email>
+        <address>447</address>
+    </employees>
+    <orders>
+        <customer>
+            <name>Pham</name>
+            <phone isPrivate="false">83715248</phone>
+            <email isPrivate="false">px1099@gmail.com</email>
+            <address isPrivate="false">PGP</address>
+        </customer>
+        <date>3600000</date>
+        <price>16.0</price>
+        <dishItems>
+            <dish>
+                <dishName>coke</dishName>
+                <dishPrice>2.0</dishPrice>
+            </dish>
+            <quantity>1</quantity>
+        </dishItems>
+        <dishItems>
+            <dish>
+                <dishName>salad</dishName>
+                <dishPrice>4.0</dishPrice>
+            </dish>
+            <quantity>1</quantity>
+        </dishItems>
+        <dishItems>
+            <dish>
+                <dishName>chicken</dishName>
+                <dishPrice>5.0</dishPrice>
+            </dish>
+            <quantity>2</quantity>
+        </dishItems>
+    </orders>
+</RMS>

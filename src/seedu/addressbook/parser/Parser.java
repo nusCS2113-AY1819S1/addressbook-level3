@@ -80,9 +80,8 @@ public class Parser {
             case ListCommand.COMMAND_WORD:
                 return new ListCommand();
 
-            case ListCommand_Menu.COMMAND_WORD:
-                return new ListCommand_Menu();
-
+            case MenuListCommand.COMMAND_WORD:
+                return new MenuListCommand();
 
             case ViewCommand.COMMAND_WORD:
                 return prepareView(arguments);
@@ -90,10 +89,10 @@ public class Parser {
             case ViewAllCommand.COMMAND_WORD:
                 return prepareViewAll(arguments);
 
-            case ViewEmp.COMMAND_WORD:
-                return new ViewEmp();
+            case EmployeeListCommand.COMMAND_WORD:
+                return new EmployeeListCommand();
 
-            case ViewAllCommand_Menu.COMMAND_WORD:
+            case MenuViewAllCommand.COMMAND_WORD:
                 return prepareViewAllMenu(arguments);
 
             case OrderListCommand.COMMAND_WORD:
@@ -218,10 +217,10 @@ public class Parser {
 
         try {
             final int targetIndex = parseArgsAsDisplayedIndex(args);
-            return new ViewAllCommand_Menu(targetIndex);
+            return new MenuViewAllCommand(targetIndex);
         } catch (ParseException | NumberFormatException e) {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                    ViewAllCommand_Menu.MESSAGE_USAGE));
+                    MenuViewAllCommand.MESSAGE_USAGE));
         }
     }
     /**

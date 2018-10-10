@@ -1,11 +1,16 @@
 package seedu.addressbook.data.order;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Iterator;
+import java.util.List;
 
 /**
  * A list of orders.
  */
-public class OrderList implements Iterable<Order> {
+public class UniqueOrderList implements Iterable<Order> {
 
     /**
      * Signals that an operation targeting a specified order in the list would fail because
@@ -18,12 +23,12 @@ public class OrderList implements Iterable<Order> {
     /**
      * Constructs empty order list.
      */
-    public OrderList() {}
+    public UniqueOrderList() {}
 
     /**
      * Constructs an order list with the given orders.
      */
-    public OrderList(Order... orders) {
+    public UniqueOrderList(Order... orders) {
         final List<Order> initialTags = Arrays.asList(orders);
         internalList.addAll(initialTags);
     }
@@ -31,14 +36,14 @@ public class OrderList implements Iterable<Order> {
     /**
      * Constructs a list from the items in the given collection.
      */
-    public OrderList(Collection<Order> orders) {
+    public UniqueOrderList(Collection<Order> orders) {
         internalList.addAll(orders);
     }
 
     /**
      * Constructs a shallow copy of the list.
      */
-    public OrderList(OrderList source) {
+    public UniqueOrderList(UniqueOrderList source) {
         internalList.addAll(source.internalList);
     }
 
@@ -93,9 +98,9 @@ public class OrderList implements Iterable<Order> {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof OrderList // instanceof handles nulls
+                || (other instanceof UniqueOrderList // instanceof handles nulls
                 && this.internalList.equals(
-                ((OrderList) other).internalList));
+                ((UniqueOrderList) other).internalList));
     }
 
     @Override

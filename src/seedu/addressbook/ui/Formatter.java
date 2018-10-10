@@ -1,6 +1,6 @@
 package seedu.addressbook.ui;
 
-import seedu.addressbook.data.person.ReadOnlyMenus;
+import seedu.addressbook.data.menu.ReadOnlyMenus;
 import seedu.addressbook.data.order.ReadOnlyOrder;
 import seedu.addressbook.data.person.ReadOnlyPerson;
 
@@ -12,7 +12,7 @@ import java.util.List;
  */
 public class Formatter {
 
-    /** A decorative prefix added to the beginning of lines printed by AddressBook */
+    /** A decorative prefix added to the beginning of lines printed by RMS */
     private static final String LINE_PREFIX = " ";
 
     /** A platform independent line separator. */
