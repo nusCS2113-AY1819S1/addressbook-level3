@@ -21,7 +21,7 @@ Responsibilities: Responsible for overall project coordination.
 '''
 
 === Salsabil Tasnia Ali Nikita MD
-image::SalsabilTasnia.png[width="150", align="left"]
+image::salsabiltasnia.png[width="150", align="left"]
 {empty}[https://github.com/SalsabilTasnia[github]] [<<johndoe#, portfolio>>]
 
 Role: Developer, Documentation Lead +
@@ -39,7 +39,7 @@ Responsibilities: Responsible for maintaining the code quality & testing. + Orde
 '''
 
 === Ang Wei Ming
-image::angWM.png[width="150", align="left"]
+image::angwm.png[width="150", align="left"]
 {empty}[https://github.com/AngWM[github]] [<<johndoe#, portfolio>>]
 
 Role: Developer +
