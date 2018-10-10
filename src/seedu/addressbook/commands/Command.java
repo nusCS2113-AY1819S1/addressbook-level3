@@ -43,11 +43,16 @@ public abstract class Command {
      * @param personsDisplayed used to generate summary
      * @return summary message for persons displayed
      */
-
     public static String getMessageForPersonListShownSummary(List<? extends ReadOnlyPerson> personsDisplayed) {
         return String.format(Messages.MESSAGE_PERSONS_LISTED_OVERVIEW, personsDisplayed.size());
     }
 
+    /**
+     * Constructs a feedback message to summarise an operation that displayed a listing of menu.
+     *
+     * @param menusDisplayed used to generate summary
+     * @return summary message for menus displayed
+     */
     public static String getMessageForMenuListShownSummary(List<? extends ReadOnlyMenus> menusDisplayed) {
         return String.format(Messages.MESSAGE_MENUS_LISTED_OVERVIEW, menusDisplayed.size());
     }
@@ -99,6 +104,12 @@ public abstract class Command {
     protected ReadOnlyPerson getTargetPerson() throws IndexOutOfBoundsException {
         return relevantPersons.get(getTargetIndex() - DISPLAYED_INDEX_OFFSET);
     }
+
+    /**
+     * Extracts the the target menu item in the last shown menu list from the given arguments.
+     *
+     * @throws IndexOutOfBoundsException if the target index is out of bounds of the last viewed listing
+     */
     protected ReadOnlyMenus getTargetMenu() throws IndexOutOfBoundsException {
         return relevantMenus.get(getTargetIndex() - DISPLAYED_INDEX_OFFSET);
     }
@@ -113,7 +124,7 @@ public abstract class Command {
     }
 
     /**
-     * Extracts the the target order in the last shown list from the given arguments.
+     * Extracts the the target order in the last shown order list from the given arguments.
      *
      * @throws IndexOutOfBoundsException if the target index is out of bounds of the last viewed listing
      */
