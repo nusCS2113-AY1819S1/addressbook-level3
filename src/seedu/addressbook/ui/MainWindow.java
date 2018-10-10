@@ -109,10 +109,6 @@ public class MainWindow {
      * Displays the list of persons in the output display area, formatted as an indexed list.
      * Private contact details are hidden.
      */
-    private void displayMenuResult(List<? extends ReadOnlyMenus> menus) {
-        display(new Formatter().formatMenu(menus));
-    }
-
     private void display(List<? extends ReadOnlyPerson> persons) {
 
         display(new Formatter().format(persons));
@@ -132,6 +128,13 @@ public class MainWindow {
      */
     private void displayOrderResult(List<? extends ReadOnlyOrder> orders) {
         display(new Formatter().formatOrderResult(orders));
+    }
+
+    /**
+     * Displays the menu list in the output display area, formatted as an indexed list.
+     */
+    private void displayMenuResult(List<? extends ReadOnlyMenus> menus) {
+        display(new Formatter().formatMenu(menus));
     }
 
     /**

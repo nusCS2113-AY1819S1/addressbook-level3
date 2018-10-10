@@ -110,7 +110,12 @@ public class AdaptedRMS {
         for (AdaptedOrder order : orders) {
             orderList.add(order.toModelType());
         }
-        return new RMS(new UniquePersonList(personList), new UniqueMenuList(menuList), new UniqueEmployeeList(employeeList), new UniqueOrderList(orderList), new UniqueMemberList(memberList));
-
+        return new RMS(
+                new UniquePersonList(personList),
+                new UniqueMenuList(menuList),
+                new UniqueEmployeeList(employeeList),
+                new UniqueOrderList(orderList),
+                new UniqueMemberList(memberList)
+        );
     }
 }

@@ -27,6 +27,6 @@ public class MenuCommandResult extends CommandResult{
      * Returns list of persons relevant to the command command result, if any.
      */
     public MenuCommandResult(String feedbackToUser, List<? extends ReadOnlyMenus> relevantMenus){
-        super(feedbackToUser, null, relevantMenus, null);
+        super(feedbackToUser, null, relevantMenus, null, null);
     }
 }

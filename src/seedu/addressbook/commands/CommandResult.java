@@ -18,14 +18,17 @@ public class CommandResult {
 
     /** The list of persons that was produced by the command */
     private final List<? extends ReadOnlyPerson> relevantPersons;
+
+    /** The menu list produced by the menu command*/
     private final List<? extends ReadOnlyMenus> relevantMenus;
 
     /** The list of members that was produced by the command */
     private final List<? extends ReadOnlyMember> relevantMembers;
 
-    /** The list of orders that was produced by the command */
+    /** The list of orders that was produced by the order command */
     private final List<? extends ReadOnlyOrder> relevantOrders;
 
+    /** Old AB3 command result constructor for result which do not return person list*/
     public CommandResult(String feedbackToUser) {
         this.feedbackToUser = feedbackToUser;
         relevantPersons = null;
@@ -34,6 +37,7 @@ public class CommandResult {
         relevantMembers = null;
     }
 
+    /** Old AB3 command result constructor for result which return person list*/
     public CommandResult(String feedbackToUser, List<? extends ReadOnlyPerson> relevantPersons) {
         this.feedbackToUser = feedbackToUser;
         this.relevantPersons = relevantPersons;
@@ -42,24 +46,12 @@ public class CommandResult {
         this.relevantMembers = null;
     }
 
-    public CommandResult(String feedbackToUser, List<? extends ReadOnlyPerson> relevantPersons,
-                         List<? extends ReadOnlyOrder> relevantOrders) {
-        this.feedbackToUser = feedbackToUser;
-        this.relevantPersons = relevantPersons;
-        this.relevantMenus = null;
-        this.relevantOrders = relevantOrders;
-        this.relevantMembers =  null;
-    }
-
-    public CommandResult(String feedbackToUser, List<? extends ReadOnlyPerson> relevantPersons, List<? extends ReadOnlyMenus> relevantMenus, List<? extends ReadOnlyOrder> relevantOrders) {
-        this.feedbackToUser = feedbackToUser;
-        this.relevantPersons = relevantPersons;
-        this.relevantMenus = relevantMenus;
-        this.relevantOrders = relevantOrders;
-        this.relevantMembers = null;
-    }
-
-    public CommandResult(String feedbackToUser, List<? extends ReadOnlyPerson> relevantPersons, List<? extends ReadOnlyMenus> relevantMenus, List<? extends ReadOnlyOrder> relevantOrders, List<? extends ReadOnlyMember> relevantMembers) {
+    /** Command result constructor used by child classes for RMS commands*/
+    public CommandResult(String feedbackToUser,
+                         List<? extends ReadOnlyPerson> relevantPersons,
+                         List<? extends ReadOnlyMenus> relevantMenus,
+                         List<? extends ReadOnlyOrder> relevantOrders,
+                         List<? extends ReadOnlyMember> relevantMembers) {
         this.feedbackToUser = feedbackToUser;
         this.relevantPersons = relevantPersons;
         this.relevantMenus = relevantMenus;
