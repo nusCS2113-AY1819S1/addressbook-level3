@@ -13,15 +13,15 @@ public class Price {
     public static final String PHONE_VALIDATION_REGEX = "\\d+";//"^\\$\\d+([.][0-9]+)?$";
 
     public final String value;
-    private boolean isPrivate;
+    //private boolean isPrivate;
 
     /**
      * Validates given phone number.
      *
      * @throws IllegalValueException if given phone string is invalid.
      */
-    public Price(String price, boolean isPrivate) throws IllegalValueException {
-        this.isPrivate = isPrivate;
+    public Price(String price/*, boolean isPrivate*/) throws IllegalValueException {
+        //this.isPrivate = isPrivate;
         price = price.trim();
         if (!isValidPhone(price)) {
             throw new IllegalValueException(MESSAGE_PHONE_CONSTRAINTS);
@@ -55,7 +55,7 @@ public class Price {
         return value.hashCode();
     }
 
-    public boolean isPrivate() {
+   /* public boolean isPrivate() {
         return isPrivate;
-    }
+    }*/
 }

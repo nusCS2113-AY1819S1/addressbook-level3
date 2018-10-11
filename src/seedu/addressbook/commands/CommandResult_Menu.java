@@ -25,6 +25,9 @@ public class CommandResult_Menu extends CommandResult{
         this.feedbackToUser = feedbackToUser;
         this.relevantMenus = relevantMenus;
     }*/
+    public CommandResult_Menu(String feedbackToUser) {
+        super(feedbackToUser);
+    }
 
     /**
      * Returns list of persons relevant to the command command result, if any.

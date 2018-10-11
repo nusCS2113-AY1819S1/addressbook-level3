@@ -30,16 +30,16 @@ public interface ReadOnlyMenus {
     }
 
     /**
-     * Formats the person as text, showing all contact details.
+     * Formats the food item as text, showing all relevant details.
      */
     default String getAsTextShowAll() {
         final StringBuilder builder = new StringBuilder();
-        final String detailIsPrivate = "(private) ";
+        //final String detailIsPrivate = "(private) ";
         builder.append(getName())
                 .append(" Price: ");
-        if (getPrice().isPrivate()) {
+        /*if (getPrice().isPrivate()) {
             builder.append(detailIsPrivate);
-        }
+        }*/
         builder.append(getPrice())
                 .append(" Tags: ");
         for (Tag tag : getTags()) {
@@ -53,10 +53,10 @@ public interface ReadOnlyMenus {
      */
     default String getAsTextHidePrivate() {
         final StringBuilder builder = new StringBuilder();
-        builder.append(getName());
-        if (!getPrice().isPrivate()) {
+        builder.append(getName()).append(" Price ").append(getPrice());
+        /*if (!getPrice().isPrivate()) {
             builder.append(" Price: ").append(getPrice());
-        }
+        }*/
         builder.append(" Tags: ");
         for (Tag tag : getTags()) {
             builder.append(tag);

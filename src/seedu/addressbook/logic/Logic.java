@@ -28,6 +28,8 @@ public class Logic {
 
     /** The list of person shown to the user most recently.  */
     private List<? extends ReadOnlyPerson> lastShownList = Collections.emptyList();
+
+    /** The list of menu shown to the user most recently.  */
     private List<? extends ReadOnlyMenus> lastShownMenuList = Collections.emptyList();
 
     /** The list of order shown to the user most recently.  */
@@ -159,7 +161,14 @@ public class Logic {
         }
     }
 
-// ADD METHOD TO RECORD MENU RESULT
+    /** Updates the {@link #lastShownMenuList} if the result contains a list of Menus. */
+    private void recordMenuResult(CommandResult result) {
+        final Optional<List<? extends ReadOnlyMenus>> menuList = result.getRelevantMenus();
+        if (menuList.isPresent()) {
+            lastShownMenuList = menuList.get();
+        }
+    }
+
 
     private void recordOrderResult(CommandResult result) {
         final Optional<List<? extends ReadOnlyOrder>> orderList = result.getRelevantOrders();

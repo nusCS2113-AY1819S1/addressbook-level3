@@ -55,8 +55,8 @@ public class AddressBook {
         allPersons.add(toAdd);
     }
 
-    public void addMenu(Menu toAdd1) throws UniqueMenuList.DuplicateMenuException {
-        allFoodItems.add(toAdd1);
+    public void addMenu(Menu toAddFoodItem) throws UniqueMenuList.DuplicateMenuException {
+        allFoodItems.add(toAddFoodItem);
     }
 
     /**
