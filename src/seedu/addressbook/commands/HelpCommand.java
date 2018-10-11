@@ -25,6 +25,7 @@ public class HelpCommand extends Command {
             + "\n" + MenuListCommand.MESSAGE_USAGE
             + "\n" + MenuViewAllCommand.MESSAGE_USAGE
 
+            + "\n" + OrderDeleteCommand.MESSAGE_USAGE
             + "\n" + OrderClearCommand.MESSAGE_USAGE
             + "\n" + OrderListCommand.MESSAGE_USAGE
 
