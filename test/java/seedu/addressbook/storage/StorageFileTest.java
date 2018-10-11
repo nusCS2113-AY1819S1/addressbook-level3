@@ -59,6 +59,8 @@ public class StorageFileTest {
         // ensure loaded AddressBook is properly constructed with test data
         // TODO: overwrite equals method in AddressBook class and replace with equals method below
         assertEquals(actualAB.getAllPersons(), expectedAB.getAllPersons());
+        assertEquals(actualAB.getAllMenus(), expectedAB.getAllMenus());
+
     }
 
     @Test
@@ -106,6 +108,7 @@ public class StorageFileTest {
                                 new Email("betsycrowe@gmail.com", false),
                                 new Address("Newgate Prison", true),
                                 new HashSet<>(Arrays.asList(new Tag("friend"), new Tag("criminal")))));
+       // ab.addMenu(new Menu(new Name("Pizza"), new Price("5"), Collections.emptySet()));
         return ab;
     }
 }

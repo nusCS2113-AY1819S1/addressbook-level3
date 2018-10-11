@@ -30,7 +30,7 @@ public class Price {
     }
 
     /**
-     * Checks if a given string is a valid person phone number.
+     * Checks if a given string is a valid menu item price.
      */
     public static boolean isValidPhone(String test) {
         return test.matches(PHONE_VALIDATION_REGEX);

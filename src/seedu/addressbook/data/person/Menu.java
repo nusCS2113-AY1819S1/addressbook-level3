@@ -7,7 +7,7 @@ import java.util.Objects;
 import java.util.Set;
 
 /**
- * Represents a Person in the address book.
+ * Represents a Menu in the RMS.
  * Guarantees: details are present and not null, field values are validated.
  */
 public class Menu implements ReadOnlyMenus {
@@ -49,7 +49,7 @@ public class Menu implements ReadOnlyMenus {
     }
 
     /**
-     * Replaces this person's tags with the tags in {@code replacement}.
+     * Replaces this menu item's tags with the tags in {@code replacement}.
      */
     public void setTags(Set<Tag> replacement) {
         tags.clear();

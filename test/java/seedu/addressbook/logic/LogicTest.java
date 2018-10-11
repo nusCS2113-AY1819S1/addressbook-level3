@@ -75,6 +75,7 @@ public class LogicTest {
      * also confirms that the following three parts of the Logic object's state are as expected:<br>
      *      - the internal address book data are same as those in the {@code expectedAddressBook} <br>
      *      - the internal 'last shown list' matches the {@code expectedLastList} <br>
+     *      - the internal 'last show menu list' matches the (@code expectedLastMenuList) <br>
      *      - the storage file content matches data in {@code expectedAddressBook} <br>
      */
     private void assertCommandBehavior(String inputCommand,

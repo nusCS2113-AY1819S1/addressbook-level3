@@ -1,5 +1,7 @@
 package seedu.addressbook.util;
 
+import seedu.addressbook.data.person.Menu;
+
 import static org.junit.Assert.assertEquals;
 import java.io.IOException;
 import java.nio.charset.Charset;
@@ -16,5 +18,7 @@ public class TestUtil {
         List<String> list1 = Files.readAllLines(path1, Charset.defaultCharset());
         List<String> list2 = Files.readAllLines(path2, Charset.defaultCharset());
         assertEquals(String.join("\n", list1), String.join("\n", list2));
+        //assertEquals(String.join("\n", list1), String.join("\n", list2));
+
     }
 }
