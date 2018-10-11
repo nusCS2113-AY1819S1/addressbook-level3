@@ -39,7 +39,7 @@ public class AddressBook {
      *
      * @param persons external changes to this will not affect this address book
      */
-    // Construct address book with persons and employees
+    // Construct address book with persons, employees and food items
     public AddressBook(UniquePersonList persons, UniqueMenuList menus, UniqueEmployeeList employees) {
         this.allPersons = new UniquePersonList(persons);
         this.allEmployees = new UniqueEmployeeList(employees);
@@ -55,6 +55,12 @@ public class AddressBook {
         allPersons.add(toAdd);
     }
 
+    /**
+     * Adds a menu item to the address book.
+     *
+     * @throws DuplicatePersonException if an equivalent food item already exists.
+     */
+
     public void addMenu(Menu toAddFoodItem) throws UniqueMenuList.DuplicateMenuException {
         allFoodItems.add(toAddFoodItem);
     }
@@ -66,6 +72,9 @@ public class AddressBook {
         return allPersons.contains(key);
     }
 
+    /**
+     * Checks if an equivalent menu item exists in the address book.
+     */
     public boolean containsMenus(ReadOnlyMenus key1) {
         return allFoodItems.contains(key1);
     }
@@ -79,6 +88,12 @@ public class AddressBook {
         allPersons.remove(toRemove);
     }
 
+    /**
+     * Removes the equivalent food item from the address book.
+     *
+     * @throws PersonNotFoundException if no such Person could be found.
+     */
+
     public void removeMenuItem(ReadOnlyMenus toRemove1) throws UniqueMenuList.MenuNotFoundException {
         allFoodItems.remove(toRemove1);
     }
@@ -90,6 +105,9 @@ public class AddressBook {
         allPersons.clear();
     }
 
+    /**
+     * Clears all menu items from the address book.
+     */
     public void clearmenu() {
         allFoodItems.clear();
     }
@@ -106,6 +124,9 @@ public class AddressBook {
         return new UniqueEmployeeList(allEmployees);
     }
 
+    /**
+     * Defensively copied UniqueMenuList of all menu items in the address book at the time of the call.
+     */
     public UniqueMenuList getAllMenus() {
         return new UniqueMenuList(allFoodItems);
     }

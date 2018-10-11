@@ -8,7 +8,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 /**
- * Adds a person to the address book.
+ * Adds a menu item to the address book.
  */
 public class MenuAddCommand extends Command {
 

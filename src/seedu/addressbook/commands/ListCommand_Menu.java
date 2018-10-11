@@ -7,7 +7,7 @@ import java.util.List;
 
 
 /**
- * Lists all persons in the address book to the user.
+ * Lists all food items in the address book to the user.
  */
 public class ListCommand_Menu extends Command {
 
