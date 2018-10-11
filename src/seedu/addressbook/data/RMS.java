@@ -103,6 +103,9 @@ public class RMS {
         return allPersons.contains(key);
     }
 
+    /**
+     * Checks if an equivalent menu item exists in the address book.
+     */
     public boolean containsMenus(ReadOnlyMenus key) {
         return allFoodItems.contains(key);
     }
