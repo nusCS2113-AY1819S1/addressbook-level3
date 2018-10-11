@@ -139,9 +139,8 @@ public class Logic {
             result = command.execute();
         } else {
             result = new IncorrectCommand (String.format(MESSAGE_INSUFFICIENT_PRIVILEGE,
-                    privilege.getRequiredPrivilegeAsString(command),
-                    privilege.getLevelAsString()))
-                    .execute();
+                            privilege.getRequiredPrivilegeAsString(command),
+                            privilege.getLevelAsString())).execute();
         }
 
         if (command.isMutating()) {

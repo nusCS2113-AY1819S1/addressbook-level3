@@ -15,6 +15,9 @@ public class Messages {
     public static final String MESSAGE_USING_STORAGE_FILE = "Using storage file : %1$s";
     public static final String MESSAGE_INSUFFICIENT_PRIVILEGE = "Insufficient Privilege.\n"
             + "Requires privilege level of %s, but current level is %s";
+    public static final String MESSAGE_NOT_LOGGED_IN = "Unable to process command as user is not logged in.\n";
+    public static final String MESSAGE_WRONG_NUMBER_ARGUMENTS =
+            "Wrong number of arguments, expected %d, actual %d\n %s";
     public static final String MESSAGE_USING_EXAMS_FILE = "Using exams file : %1$s";
     public static final String MESSAGE_USING_STATISTICS_FILE = "Using statistics file : %1$s";
 }

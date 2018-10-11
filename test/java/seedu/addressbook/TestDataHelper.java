@@ -1,5 +1,7 @@
 package seedu.addressbook;
 
+import static seedu.addressbook.ui.Gui.DISPLAYED_INDEX_OFFSET;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -10,6 +12,7 @@ import java.util.StringJoiner;
 
 import seedu.addressbook.data.AddressBook;
 
+import seedu.addressbook.data.account.Account;
 import seedu.addressbook.data.person.Address;
 import seedu.addressbook.data.person.AssignmentStatistics;
 import seedu.addressbook.data.person.Email;
@@ -272,7 +275,7 @@ public class TestDataHelper {
     /**
      * Creates a list of Persons based on the give Person objects.
      */
-    public List<Person> generatePersonList(Person... persons) throws Exception {
+    public List<Person> generatePersonList(Person... persons) {
         List<Person> personList = new ArrayList<>();
         for (Person p: persons) {
             personList.add(p);
@@ -307,5 +310,63 @@ public class TestDataHelper {
         );
     }
 
+    /**
+     * Class used to wrap the return arrays for generateThreePersons
+     */
+    public static class ThreePersons {
+        private List<Person> expected;
+        private List<Person> actual;
 
+        public ThreePersons() {
+            expected = new ArrayList<>();
+            actual = new ArrayList<>();
+        }
+        public List<Person> getExpected() {
+            return expected;
+        }
+
+        public void setExpected(List<Person> expected) {
+            // copies the list
+            for (Person person: expected) {
+                this.expected.add(new Person(person));
+            }
+        }
+
+        public List<Person> getActual() {
+            return actual;
+        }
+
+        public void setActual(List<Person> actual) {
+            // copies the list
+            for (Person person: actual) {
+                this.actual.add(new Person(person));
+            }
+        }
+
+        public Person getActualPerson(int index) {
+            return actual.get(index - DISPLAYED_INDEX_OFFSET);
+        }
+
+        public Person getExpectedPerson(int index) {
+            return expected.get(index - DISPLAYED_INDEX_OFFSET);
+        }
+
+        public void setBothPersons(int index, Account account) {
+            actual.get(index - DISPLAYED_INDEX_OFFSET).setAccount(account);
+            expected.get(index - DISPLAYED_INDEX_OFFSET).setAccount(account);
+        }
+    }
+    /**
+     * Generates a 3 Person object with given name. Returns the Lists wrapped in ThreePerson
+     */
+    public ThreePersons generateThreePersons() throws Exception {
+        ThreePersons threePersons = new ThreePersons();
+        final List<Person> p = new ArrayList<>();
+        p.add(generatePerson(1, true));
+        p.add(generatePerson(2, false));
+        p.add(generatePerson(3, false));
+        threePersons.setActual(p);
+        threePersons.setExpected(p);
+        return threePersons;
+    }
 }

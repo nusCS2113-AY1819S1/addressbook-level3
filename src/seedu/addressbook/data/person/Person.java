@@ -2,8 +2,10 @@ package seedu.addressbook.data.person;
 
 import java.util.HashSet;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.Set;
 
+import seedu.addressbook.data.account.Account;
 import seedu.addressbook.data.tag.Tag;
 
 /**
@@ -16,6 +18,7 @@ public class Person implements ReadOnlyPerson {
     private Phone phone;
     private Email email;
     private Address address;
+    private Optional<Account> account = Optional.empty();
     private Fees fees;
     private final Set<Tag> tags = new HashSet<>();
     private Attendance attendance;
@@ -32,7 +35,10 @@ public class Person implements ReadOnlyPerson {
         this.attendance = new Attendance();
         this.fees = new Fees();
     }
-
+    public Person(Name name, Phone phone, Email email, Address address, Set<Tag> tags, Account account) {
+        this(name, phone, email, address, tags);
+        this.account = Optional.ofNullable(account);
+    }
     /**
      * Copy constructor.
      */
@@ -78,12 +84,25 @@ public class Person implements ReadOnlyPerson {
         return new HashSet<>(tags);
     }
 
+    @Override
+    public Optional<Account> getAccount() {
+        return account;
+    }
+
     /**
      * Replaces this person's tags with the tags in {@code replacement}.
      */
     public void setTags(Set<Tag> replacement) {
         tags.clear();
         tags.addAll(replacement);
+    }
+
+    public void setAccount(Account account) {
+        this.account = Optional.ofNullable(account);
+    }
+
+    public void removeAccount() {
+        this.account = Optional.empty();
     }
 
     @Override

@@ -20,6 +20,8 @@ public class UniquePersonList implements Iterable<Person> {
 
     private final List<Person> internalList = new ArrayList<>();
 
+
+
     /**
      * Signals that an operation would have violated the 'no duplicates' property of the list.
      */
@@ -114,7 +116,6 @@ public class UniquePersonList implements Iterable<Person> {
         throw new PersonNotFoundException();
     }
 
-
     /**
      * Removes the equivalent person from the list.
      *
@@ -152,4 +153,31 @@ public class UniquePersonList implements Iterable<Person> {
         return internalList.hashCode();
     }
 
+    /** Finds and returns the Person who has the given username in its Account
+     * @param username
+     * @return The Person who matches the username. This should be guaranteed to be unique.
+     * @throws PersonNotFoundException
+     */
+    public Person findPersonByUsername(String username) throws PersonNotFoundException {
+        //TODO: Fix potato
+        for (Person p: internalList) {
+            if (p.getAccount().isPresent() && p.getAccount().get().getUsername().equals(username)) {
+                return p;
+            }
+        }
+        throw new PersonNotFoundException();
+    }
+
+    /**Checks if UniquePersonList holds a Person who has given username in its Account
+     * @param username
+     * @return true if such a Person exists. False otherwise
+     */
+    public Boolean containsPersonWithUsername(String username) {
+        try {
+            findPersonByUsername(username);
+            return true;
+        } catch (PersonNotFoundException pne) {
+            return false;
+        }
+    }
 }

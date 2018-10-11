@@ -21,7 +21,8 @@ public abstract class Command {
     public enum Category {
         DETAILS,
         PRIVILEGE,
-        GENERAL
+        GENERAL,
+        ACCOUNT
     }
 
 

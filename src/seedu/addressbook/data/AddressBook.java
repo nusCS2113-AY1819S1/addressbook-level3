@@ -71,6 +71,13 @@ public class AddressBook {
         allPersons.remove(toRemove);
     }
 
+    public Person findPersonByUsername(String username) throws PersonNotFoundException {
+        return allPersons.findPersonByUsername(username);
+    }
+
+    public Boolean containsPersonWithUsername(String username) {
+        return allPersons.containsPersonWithUsername(username);
+    }
     /**
      * Finds and returns the given person in the AddressBook
      *

@@ -18,8 +18,8 @@ public class TutorUser extends BasicUser {
 
     public TutorUser() {
         super();
-        allowedCommands.addAll(newAllowedCommand);
-        this.currentLevel = PrivilegeLevel.Tutor;
+        addAllowedCommands(newAllowedCommand);
+        setCurrentLevel(PrivilegeLevel.Tutor);
         sortCommands();
     }
 }

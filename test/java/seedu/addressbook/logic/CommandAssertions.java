@@ -1,14 +1,17 @@
 package seedu.addressbook.logic;
 
 import static junit.framework.TestCase.assertEquals;
+import static seedu.addressbook.common.Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX;
 
 import java.util.Collections;
 import java.util.List;
 
+import seedu.addressbook.TestDataHelper;
 import seedu.addressbook.commands.CommandResult;
 import seedu.addressbook.data.AddressBook;
 import seedu.addressbook.data.ExamBook;
 import seedu.addressbook.data.StatisticsBook;
+import seedu.addressbook.data.person.Person;
 import seedu.addressbook.data.person.ReadOnlyPerson;
 import seedu.addressbook.storage.StorageFile;
 
@@ -158,5 +161,50 @@ public class CommandAssertions {
             assertEquals(statisticsBook, saveFile.loadStatistics());
         }
     }
+    /**
+     * Confirms the 'invalid argument index number behaviour' for the given command
+     * targeting a single person in the last shown list, using visible index.
+     * Used for commands in the form of COMMAND_WORD INDEX
+     * @param commandWord to test assuming it targets a single person in the last shown list based on visible index.
+     */
+    public static void assertInvalidIndexBehaviorForCommand(String commandWord) throws Exception {
+        final String[] commands = {commandWord + " 0", commandWord + " -1", commandWord + " 3"};
+        assertInvalidIndexBehaviour(commands);
+    }
 
+    /**
+     * Confirms the 'invalid argument index number behaviour' for the given command
+     * targeting a single person in the last shown list, using visible index.
+     * Used for commands in the form of COMMAND_WORD PREFIX INDEX SUFFIX
+     * PREFIX and SUFFIX can be empty
+     * @param commandWord of the command.
+     * @param prefix containing required information to enter before the INDEX.
+     * @param suffix containing required information to enter after the INDEX.
+     */
+    public static void assertInvalidIndexBehaviorForCommand(String commandWord, String prefix, String suffix)
+            throws Exception {
+        final String[] commands = {String.format("%s %s 0 %s", commandWord, prefix, suffix),
+                String.format("%s %s -1 %s", commandWord, prefix, suffix),
+                String.format("%s %s 3 %s", commandWord, prefix, suffix)};
+        assertInvalidIndexBehaviour(commands);
+    }
+
+    /**
+     * Confirms the 'invalid argument index number behaviour' for the given command array
+     * targeting a single person in the last shown list, using visible index.
+     *
+     * @param commands to test assuming it targets a single person in the last shown list based on visible index.
+     */
+    private static void assertInvalidIndexBehaviour(String[] commands) throws Exception {
+        String expectedMessage = MESSAGE_INVALID_PERSON_DISPLAYED_INDEX;
+        TestDataHelper helper = new TestDataHelper();
+        List<Person> lastShownList = helper.generatePersonList(false, true);
+
+        logic.setLastShownList(lastShownList);
+
+        for (String command: commands) {
+            assertCommandBehavior(command, expectedMessage,
+                    AddressBook.empty(), false, lastShownList);
+        }
+    }
 }

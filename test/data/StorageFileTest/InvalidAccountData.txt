@@ -6,14 +6,10 @@
         <email isPrivate="false">johnd@gmail.com</email>
         <address isPrivate="false">John street, block 123, #01-01</address>
         <fees isPrivate="true">0.0</fees>
-    </persons>
-    <persons>
-        <name>Betsy Crowe</name>
-        <phone isPrivate="true">1234567</phone>
-        <email isPrivate="false">betsycrowe@gmail.com</email>
-        <address isPrivate="true">Newgate Prison</address>
-        <tagged>friend</tagged>
-        <tagged>criminal</tagged>
+        <account>
+            <username>user</username>
+            <privilege>Basic</privilege>
+        </account>
     </persons>
     <password>newPassword</password>
 </AddressBook>

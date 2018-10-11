@@ -34,7 +34,6 @@ public class HelpCommand extends Command {
         return message;
     }
 
-
     @Override
     public String getCommandUsageMessage() {
         return MESSAGE_USAGE;
