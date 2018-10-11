@@ -165,6 +165,9 @@ public class RMS {
         allPersons.clear();
     }
 
+    /**
+     * Clears all menu items from the menu.
+     */
     public void clearMenu() {
         allFoodItems.clear();
     }
@@ -179,7 +182,7 @@ public class RMS {
     /**
      * Clears all members from the address book.
      */
-    public void clearmembers() {
+    public void clearMembers() {
         allMembers.clear();
     }
 
@@ -191,21 +194,29 @@ public class RMS {
     }
 
     /**
-     * Defensively copied UniqueMemberList of all members in the address book at the time of the call.
+     * Defensively copied UniqueMemberList of all members in the member list at the time of the call.
      */
     public UniqueMemberList getAllMembers() {
         return new UniqueMemberList(allMembers);
     }
 
-    // this is a copy of getAllPersons for employees
+    /**
+     * Defensively copied UniqueEmployeeList of all employees in the employee list at the time of the call.
+     */
     public UniqueEmployeeList getAllEmployees() {
         return new UniqueEmployeeList(allEmployees);
     }
 
+    /**
+     * Defensively copied UniqueMenuList of all menu items in the menu at the time of the call.
+     */
     public UniqueMenuList getAllMenus() {
         return new UniqueMenuList(allFoodItems);
     }
 
+    /**
+     * Defensively copied UniqueOrderList of all orders in the employee list at the time of the call.
+     */
     public UniqueOrderList getAllOrders() { return new UniqueOrderList(allOrders); }
 
     @Override
