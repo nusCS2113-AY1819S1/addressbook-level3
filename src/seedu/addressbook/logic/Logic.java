@@ -19,7 +19,6 @@ import java.util.Optional;
  */
 public class Logic {
 
-
     private StorageFile storage;
     private RMS rms;
 
@@ -105,7 +104,9 @@ public class Logic {
         lastShownOrderList = newList;
     }
 
-    protected void setLastShownMemberList(List<? extends ReadOnlyMember> newList) { lastShownMemberList = newList; }
+    protected void setLastShownMemberList(List<? extends ReadOnlyMember> newList) {
+        lastShownMemberList = newList;
+    }
 
     /**
      * Parses the user command, executes it, and returns the result.
@@ -115,7 +116,6 @@ public class Logic {
         Command command = new Parser().parseCommand(userCommandText);
         CommandResult result = execute(command);
         recordResult(result);
-        recordOrderResult(result);
         return result;
     }
 
@@ -136,17 +136,20 @@ public class Logic {
     /** Updates the {@link #lastShownList} if the result contains a list of Persons. */
     private void recordResult(CommandResult result) {
         final Optional<List<? extends ReadOnlyPerson>> personList = result.getRelevantPersons();
+        final Optional<List<? extends ReadOnlyMenus>> menuList = result.getRelevantMenus();
+        final Optional<List<? extends ReadOnlyOrder>> orderList = result.getRelevantOrders();
+        final Optional<List<? extends ReadOnlyMember>> memberList = result.getRelevantMember();
         if (personList.isPresent()) {
             lastShownList = personList.get();
         }
-    }
-
-// ADD METHOD TO RECORD MENU RESULT
-
-    private void recordOrderResult(CommandResult result) {
-        final Optional<List<? extends ReadOnlyOrder>> orderList = result.getRelevantOrders();
+        if (menuList.isPresent()) {
+            lastShownMenuList = menuList.get();
+        }
         if (orderList.isPresent()) {
             lastShownOrderList = orderList.get();
+        }
+        if (memberList.isPresent()) {
+            lastShownMemberList = memberList.get();
         }
     }
 }
