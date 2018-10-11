@@ -107,6 +107,12 @@ public class Parser {
             case MenuViewAllCommand.COMMAND_WORD:
                 return prepareViewAllMenu(arguments);
 
+            case OrderDeleteCommand.COMMAND_WORD:
+                return prepareOrderDelete(arguments);
+
+            case OrderClearCommand.COMMAND_WORD:
+                return new OrderClearCommand();
+
             case OrderListCommand.COMMAND_WORD:
                 return new OrderListCommand();
 
@@ -238,6 +244,21 @@ public class Parser {
         try {
             final int targetIndex = parseArgsAsDisplayedIndex(args);
             return new DeleteCommand(targetIndex);
+        } catch (ParseException | NumberFormatException e) {
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
+        }
+    }
+
+    /**
+     * Parses arguments in the context of the delete order command.
+     *
+     * @param args full command args string
+     * @return the prepared command
+     */
+    private Command prepareOrderDelete(String args) {
+        try {
+            final int targetIndex = parseArgsAsDisplayedIndex(args);
+            return new OrderDeleteCommand(targetIndex);
         } catch (ParseException | NumberFormatException e) {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
         }

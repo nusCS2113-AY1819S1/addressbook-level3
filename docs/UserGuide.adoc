@@ -41,9 +41,9 @@ When the application is first started, users have to choose
  which state it wants to enter. There are 5 choices to pick from
  :
 
- 1. Menu
+1. Menu
 
- 2. Order
+2. Order
 
 3. Customers
 
@@ -132,7 +132,7 @@ Each order include details of: customer, ordered time, total price and the list 
 
 Only the non-private data of customer will be showed. +
 
-Format: listorder
+Format: `listorder`
 
 ==== View Order
 
@@ -171,11 +171,19 @@ Format: edit INDEX
 
 ==== Delete Order
 
-(To be implemented) +
 Delete an order. +
-Format: delete INDEX
 
-* Deletes the order at a specific index
+The deleted order is specified by the index of that order on the last displayed order list. +
+
+Format: `deleteorder INDEX`
+
+
+==== Clear Order
+
+Clear the entire order list. +
+
+Format: `clearorder`
+
 
 ==== Find Order
 
@@ -296,7 +304,7 @@ There is no need to save manually.
 
 === Order
 
-*View All Order* : `viewall`
+*List All Order* : `listorder`
 
 *View Order* : `view INDEX`
 
@@ -306,7 +314,9 @@ There is no need to save manually.
 
 *Edit Order* : `edit INDEX`
 
-*Delete Order* : `delete INDEX`
+*Delete Order* : `deleteorder INDEX`
+
+*Clear Order* : `clearorder`
 
 *Find Order* : `find KEYWORD [MORE_KEYWORDS]`
 

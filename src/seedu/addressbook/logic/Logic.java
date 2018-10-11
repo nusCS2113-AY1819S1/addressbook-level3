@@ -19,7 +19,6 @@ import java.util.Optional;
  */
 public class Logic {
 
-
     private StorageFile storage;
     private RMS rms;
 
@@ -72,12 +71,16 @@ public class Logic {
     public List<ReadOnlyPerson> getLastShownList() {
         return Collections.unmodifiableList(lastShownList);
     }
+
+    /**
+     * Unmodifiable view of the current last shown menu list.
+     */
     public List<ReadOnlyMenus> getLastShownMenuList() {
         return Collections.unmodifiableList(lastShownMenuList);
     }
 
     /**
-     * Unmodifiable view of the current last shown list.
+     * Unmodifiable view of the current last shown member list.
      */
     public List<ReadOnlyMember> getLastShownMemberList() {
         return Collections.unmodifiableList(lastShownMemberList);
@@ -102,7 +105,9 @@ public class Logic {
         lastShownOrderList = newList;
     }
 
-    protected void setLastShownMemberList(List<? extends ReadOnlyMember> newList) { lastShownMemberList = newList; }
+    protected void setLastShownMemberList(List<? extends ReadOnlyMember> newList) {
+        lastShownMemberList = newList;
+    }
 
     /**
      * Parses the user command, executes it, and returns the result.
@@ -112,7 +117,6 @@ public class Logic {
         Command command = new Parser().parseCommand(userCommandText);
         CommandResult result = execute(command);
         recordResult(result);
-        recordOrderResult(result);
         return result;
     }
 
@@ -133,24 +137,20 @@ public class Logic {
     /** Updates the {@link #lastShownList} if the result contains a list of Persons. */
     private void recordResult(CommandResult result) {
         final Optional<List<? extends ReadOnlyPerson>> personList = result.getRelevantPersons();
+        final Optional<List<? extends ReadOnlyMenus>> menuList = result.getRelevantMenus();
+        final Optional<List<? extends ReadOnlyOrder>> orderList = result.getRelevantOrders();
+        final Optional<List<? extends ReadOnlyMember>> memberList = result.getRelevantMember();
         if (personList.isPresent()) {
             lastShownList = personList.get();
         }
-    }
-
-    /** Updates the {@link #lastShownMenuList} if the result contains a list of Menus. */
-    private void recordMenuResult(CommandResult result) {
-        final Optional<List<? extends ReadOnlyMenus>> menuList = result.getRelevantMenus();
         if (menuList.isPresent()) {
             lastShownMenuList = menuList.get();
         }
-    }
-
-
-    private void recordOrderResult(CommandResult result) {
-        final Optional<List<? extends ReadOnlyOrder>> orderList = result.getRelevantOrders();
         if (orderList.isPresent()) {
             lastShownOrderList = orderList.get();
+        }
+        if (memberList.isPresent()) {
+            lastShownMemberList = memberList.get();
         }
     }
 }

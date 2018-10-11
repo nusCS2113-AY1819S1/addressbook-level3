@@ -88,7 +88,11 @@ public abstract class Command {
     /**
      * Supplies the data the command will operate on.
      */
-    public void setData(RMS rms, List<? extends ReadOnlyPerson> relevantPersons, List<? extends ReadOnlyMenus> relevantMenus, List<? extends ReadOnlyOrder> relevantOrders,  List<? extends ReadOnlyMember> relevantMembers) {
+    public void setData(RMS rms,
+                        List<? extends ReadOnlyPerson> relevantPersons,
+                        List<? extends ReadOnlyMenus> relevantMenus,
+                        List<? extends ReadOnlyOrder> relevantOrders,
+                        List<? extends ReadOnlyMember> relevantMembers) {
         this.rms = rms;
         this.relevantPersons = relevantPersons;
         this.relevantMenus = relevantMenus;
