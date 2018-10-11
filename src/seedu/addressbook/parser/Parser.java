@@ -2,6 +2,7 @@ package seedu.addressbook.parser;
 
 import seedu.addressbook.commands.*;
 import seedu.addressbook.data.exception.IllegalValueException;
+import seedu.addressbook.data.menu.Menu;
 
 import java.util.*;
 import java.util.regex.Matcher;
@@ -24,6 +25,11 @@ public class Parser {
                     + " (?<isPhonePrivate>p?)p/(?<phone>[^/]+)"
                     + " (?<isEmailPrivate>p?)e/(?<email>[^/]+)"
                     + " (?<isAddressPrivate>p?)a/(?<address>[^/]+)"
+                    + "(?<tagArguments>(?: t/[^/]+)*)"); // variable number of tags
+
+    public static final Pattern MENU_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
+            Pattern.compile("(?<name>[^/]+)"
+                    + " p/(?<price>[^/]+)"
                     + "(?<tagArguments>(?: t/[^/]+)*)"); // variable number of tags
 
     public static final Pattern MEMBER_DATA_ARGS_FORMAT =
@@ -68,6 +74,9 @@ public class Parser {
             case AddCommand.COMMAND_WORD:
                 return prepareAdd(arguments);
 
+            case MenuAddCommand.COMMAND_WORD:
+                return prepareAddMenu(arguments);
+
             case DeleteCommand.COMMAND_WORD:
                 return prepareDelete(arguments);
 
@@ -91,6 +100,9 @@ public class Parser {
 
             case EmployeeListCommand.COMMAND_WORD:
                 return new EmployeeListCommand();
+
+            case EmployeeAddCommand.COMMAND_WORD:
+                return prepareEmpAdd(arguments);
 
             case MenuViewAllCommand.COMMAND_WORD:
                 return prepareViewAllMenu(arguments);
@@ -148,6 +160,58 @@ public class Parser {
         }
     }
 
+    private Command prepareAddMenu(String args){
+        final Matcher matcher = MENU_DATA_ARGS_FORMAT.matcher(args.trim());
+        // Validate arg string format
+        if (!matcher.matches()) {
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, MenuAddCommand.MESSAGE_USAGE));
+        }
+        try {
+            return new MenuAddCommand(
+                    matcher.group("name"),
+
+                    matcher.group("price"),
+                    //isPrivatePrefixPresent(matcher.group("isPricePrivate")),
+
+                    getTagsFromArgs(matcher.group("tagArguments"))
+            );
+        } catch (IllegalValueException ive) {
+            return new IncorrectCommand(ive.getMessage());
+        }
+    }
+
+    /**
+     * Parses arguments in the context of the add employee command.
+     *
+     * @param args full command args string
+     * @return the prepared command
+     */
+    private Command prepareEmpAdd(String args){
+        final Matcher matcher = PERSON_DATA_ARGS_FORMAT.matcher(args.trim());
+        // Validate arg string format
+        if (!matcher.matches()) {
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EmployeeAddCommand.MESSAGE_USAGE));
+        }
+        try {
+            return new EmployeeAddCommand(
+                    matcher.group("name"),
+
+                    matcher.group("phone"),
+                    isPrivatePrefixPresent(matcher.group("isPhonePrivate")),
+
+                    matcher.group("email"),
+                    isPrivatePrefixPresent(matcher.group("isEmailPrivate")),
+
+                    matcher.group("address"),
+                    isPrivatePrefixPresent(matcher.group("isAddressPrivate")),
+
+                    getTagsFromArgs(matcher.group("tagArguments"))
+            );
+        } catch (IllegalValueException ive) {
+            return new IncorrectCommand(ive.getMessage());
+        }
+    }
+
     /**
      * Checks whether the private prefix of a contact detail in the add command's arguments string is present.
      */
@@ -156,8 +220,8 @@ public class Parser {
     }
 
     /**
-     * Extracts the new person's tags from the add command's tag arguments string.
-     * Merges duplicate tag strings.
+     *      * Extracts the new person's tags from the add command's tag arguments string.
+     *      * Merges duplicate tag strings.
      */
     private static Set<String> getTagsFromArgs(String tagArguments) throws IllegalValueException {
         // no tags

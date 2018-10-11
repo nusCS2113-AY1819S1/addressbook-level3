@@ -16,7 +16,9 @@ import seedu.addressbook.data.order.UniqueOrderList;
 import seedu.addressbook.data.order.UniqueOrderList.OrderNotFoundException;
 import seedu.addressbook.data.person.Person;
 import seedu.addressbook.data.person.ReadOnlyPerson;
+import seedu.addressbook.data.person.Employee;
 import seedu.addressbook.data.person.UniqueEmployeeList;
+import seedu.addressbook.data.person.UniqueEmployeeList.DuplicateEmployeeException;
 import seedu.addressbook.data.person.UniquePersonList;
 import seedu.addressbook.data.person.UniquePersonList.DuplicatePersonException;
 import seedu.addressbook.data.person.UniquePersonList.PersonNotFoundException;
@@ -73,6 +75,13 @@ public class RMS {
      * @throws DuplicatePersonException if an equivalent person already exists.
      */
     public void addPerson(Person toAdd) throws DuplicatePersonException { allPersons.add(toAdd); }
+
+    /**
+     * Adds a person to the address book.
+     *
+     * @throws DuplicatePersonException if an equivalent person already exists.
+     */
+    public void addEmployee(Employee toAdd) throws DuplicateEmployeeException { allEmployees.add(toAdd); }
 
     /**
      * Adds a menu item to the menu list.
