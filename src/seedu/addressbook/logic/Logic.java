@@ -71,12 +71,16 @@ public class Logic {
     public List<ReadOnlyPerson> getLastShownList() {
         return Collections.unmodifiableList(lastShownList);
     }
+
+    /**
+     * Unmodifiable view of the current last shown menu list.
+     */
     public List<ReadOnlyMenus> getLastShownMenuList() {
         return Collections.unmodifiableList(lastShownMenuList);
     }
 
     /**
-     * Unmodifiable view of the current last shown list.
+     * Unmodifiable view of the current last shown member list.
      */
     public List<ReadOnlyMember> getLastShownMemberList() {
         return Collections.unmodifiableList(lastShownMemberList);
