@@ -4,7 +4,7 @@ matrix:
     - jdk: oraclejdk9
 
 script: >-
-    ./gradlew test coverage coveralls asciidoctor
+    ./gradlew allTests coverage coveralls asciidoctor
 
 deploy:
   skip_cleanup: true
