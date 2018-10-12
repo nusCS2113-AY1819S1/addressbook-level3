@@ -1,5 +1,7 @@
 package seedu.addressbook.parser;
 
+import static java.lang.Boolean.parseBoolean;
+import static java.lang.Integer.parseInt;
 import static seedu.addressbook.common.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
 import java.util.Arrays;
@@ -71,8 +73,9 @@ public class Parser {
                     + " tp/(?<totalPass>[^/]+)"
                     + " mm/(?<maxMin>[^/]+)");
     public static final Pattern ATTENDANCE_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
-            Pattern.compile("(?<targetIndex>[^/]+)"
-                          + " att/(?<isPresent>[^/]+)");
+            Pattern.compile("(?<targetIndex>.+)"
+                    + " d/(?<date>[^/]+)"
+                    + " att/(?<isPresent>[0-1])");
 
     /**
      * Used for initial separation of command word and args.
@@ -312,7 +315,7 @@ public class Parser {
         if (!matcher.matches()) {
             throw new ParseException("Could not find index number to parse");
         }
-        return Integer.parseInt(matcher.group("targetIndex"));
+        return parseInt(matcher.group("targetIndex"));
     }
 
     /**
@@ -439,16 +442,28 @@ public class Parser {
      * Parses arguments in the context of the update Attendance command.
      */
     private Command prepareUpdateAttendance(String args) {
+
         final Matcher matcher = ATTENDANCE_ARGS_FORMAT.matcher(args.trim());
         // Validate arg string format
         if (!matcher.matches()) {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     UpdateAttendanceCommand.MESSAGE_USAGE));
         }
+        try {
+            final int targetIndex = parseInt(matcher.group("targetIndex"));
+            final int isPresent = parseInt(matcher.group("isPresent"));
+            final boolean isPresent_b;
+            if((matcher.group("isPresent")).equals("1")) isPresent_b = true;
+            else isPresent_b = false;
 
-        return new UpdateAttendanceCommand(
-                matcher.group("targetIndex"),
-                matcher.group("isPresent"));
+            return new UpdateAttendanceCommand(
+                    targetIndex,
+                    matcher.group("date"),
+                    isPresent_b);
+        } catch (NumberFormatException nfe) { //do the most specific catch on top
+            return new IncorrectCommand(nfe.getMessage());
+        }
+
     }
 
     /**
@@ -463,7 +478,7 @@ public class Parser {
         }
 
         return new ViewAttendanceCommand(
-                matcher.group("targetIndex")
+                parseInt(matcher.group("targetIndex"))
         );
     }
 }

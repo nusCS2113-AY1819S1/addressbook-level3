@@ -13,34 +13,30 @@ import seedu.addressbook.data.person.UniquePersonList;
  */
 public class UpdateAttendanceCommand extends Command {
     public static final String COMMAND_WORD = "attendance";
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ":\n" + "Updates the attendance of a student. \n"
-            + "Parameters: INDEXOFPERSON att/ATTENDANCE \n\t"
-            + "Example: " + COMMAND_WORD + " "
-            + "1 att/1 or 0"; // '1' will be read at true, '0' will be read as false
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ":\n"
+            + "Updates the attendance of a student. \n"
+            + "Parameters: indexOfPerson d/dd-mm-yyy att/attendance \n"
+            + "Example: " + COMMAND_WORD + " " + "1 d/29-09-2018 att/1 \n"
+            + "To input today's date, input d/0";
 
     public static final String MESSAGE_SUCCESS = "Attendance updated : %1$s";
     public static final String MESSAGE_DUPLICATE_EXAM = "Attendance has already been taken";
-    private String isPresent;
 
-    // TODO shift date tp Attendance object and make date adjustable
-    // TODO If no date specified, default to current date
-    private String currentDate = new SimpleDateFormat("dd-MM-yyyy").format(new Date());
-
-
+    private boolean isPresent;
+    private String date;
 
     // Constructor
-    public UpdateAttendanceCommand(String targetIndex, String isPresent) {
-        super(Integer.parseInt(targetIndex));
+    public UpdateAttendanceCommand(int targetIndex, String date, boolean isPresent) {
+        super(targetIndex); // super is calling the constructor of the parent function
+        this.date = date;
         this.isPresent = isPresent;
     }
-
-    // TODO Ensure target index is an integer
 
     @Override
     public CommandResult execute() {
         try {
             Person person = addressBook.findPerson(getTargetPerson());
-            person.updateAttendanceMethod(currentDate, isPresent);
+            person.updateAttendanceMethod(date, isPresent);
             return new CommandResult(String.format(MESSAGE_SUCCESS, getTargetIndex()));
 
         } catch (IndexOutOfBoundsException ie) {
