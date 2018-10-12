@@ -31,6 +31,10 @@
         <name>cheese</name>
         <price isPrivate="false">5454</price>
     </menus>
+    <menus>
+        <name>cheesecheeseburger</name>
+        <price isPrivate="false">5</price>
+    </menus>
     <members>
         <name>Kang Ming</name>
     </members>
