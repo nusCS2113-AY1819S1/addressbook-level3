@@ -1,7 +1,5 @@
 package seedu.addressbook.util;
 
-import seedu.addressbook.data.person.Menu;
-
 import static org.junit.Assert.assertEquals;
 import java.io.IOException;
 import java.nio.charset.Charset;
