@@ -1,8 +1,7 @@
-package seedu.addressbook.commands;
+package seedu.addressbook.commands.employee;
 
-import java.util.HashSet;
-import java.util.Set;
-
+import seedu.addressbook.commands.Command;
+import seedu.addressbook.commands.CommandResult;
 import seedu.addressbook.data.exception.IllegalValueException;
 import seedu.addressbook.data.person.Address;
 import seedu.addressbook.data.person.Email;
@@ -13,11 +12,14 @@ import seedu.addressbook.data.person.ReadOnlyPerson;
 import seedu.addressbook.data.person.UniqueEmployeeList;
 import seedu.addressbook.data.tag.Tag;
 
+import java.util.HashSet;
+import java.util.Set;
+
 /**
  * Adds a new employee.
  */
 
-public class EmployeeAddCommand extends Command{
+public class EmployeeAddCommand extends Command {
 
     public static final String COMMAND_WORD = "addemp";
 

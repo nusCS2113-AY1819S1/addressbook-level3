@@ -3,10 +3,10 @@ package seedu.addressbook.logic;
 import seedu.addressbook.commands.Command;
 import seedu.addressbook.commands.CommandResult;
 import seedu.addressbook.data.member.ReadOnlyMember;
-import seedu.addressbook.data.RMS;
 import seedu.addressbook.data.menu.ReadOnlyMenus;
 import seedu.addressbook.data.order.ReadOnlyOrder;
 import seedu.addressbook.data.person.ReadOnlyPerson;
+import seedu.addressbook.data.RMS;
 import seedu.addressbook.parser.Parser;
 import seedu.addressbook.storage.StorageFile;
 

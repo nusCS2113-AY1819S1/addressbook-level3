@@ -1,5 +1,6 @@
-package seedu.addressbook.commands;
+package seedu.addressbook.commands.menu;
 
+import seedu.addressbook.commands.CommandResult;
 import seedu.addressbook.data.menu.ReadOnlyMenus;
 
 import java.util.List;
@@ -7,7 +8,7 @@ import java.util.List;
 /**
  * Represents the result of a command execution.
  */
-public class MenuCommandResult extends CommandResult{
+public class MenuCommandResult extends CommandResult {
 
     /** The feedback message to be shown to the user. Contains a description of the execution result */
     //public final String feedbackToUser;

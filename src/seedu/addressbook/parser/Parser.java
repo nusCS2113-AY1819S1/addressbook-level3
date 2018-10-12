@@ -1,8 +1,11 @@
 package seedu.addressbook.parser;
 
 import seedu.addressbook.commands.*;
+import seedu.addressbook.commands.employee.*;
+import seedu.addressbook.commands.member.*;
+import seedu.addressbook.commands.menu.*;
+import seedu.addressbook.commands.order.*;
 import seedu.addressbook.data.exception.IllegalValueException;
-import seedu.addressbook.data.menu.Menu;
 
 import java.util.*;
 import java.util.regex.Matcher;

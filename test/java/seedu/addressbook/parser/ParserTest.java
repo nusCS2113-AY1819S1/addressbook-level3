@@ -3,10 +3,11 @@ package seedu.addressbook.parser;
 import org.junit.Before;
 import org.junit.Test;
 import seedu.addressbook.commands.*;
+import seedu.addressbook.commands.menu.*;
 import seedu.addressbook.data.exception.IllegalValueException;
-import seedu.addressbook.data.tag.Tag;
-import seedu.addressbook.data.person.*;
 import seedu.addressbook.data.menu.*;
+import seedu.addressbook.data.person.*;
+import seedu.addressbook.data.tag.Tag;
 
 import java.util.Arrays;
 import java.util.HashSet;

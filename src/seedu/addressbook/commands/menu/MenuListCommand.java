@@ -1,9 +1,10 @@
-package seedu.addressbook.commands;
+package seedu.addressbook.commands.menu;
 
-import java.util.List;
-
+import seedu.addressbook.commands.Command;
+import seedu.addressbook.commands.CommandResult;
 import seedu.addressbook.data.menu.ReadOnlyMenus;
 
+import java.util.List;
 
 /**
  * Lists all food items in the address book to the user.

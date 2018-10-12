@@ -1,6 +1,10 @@
 package seedu.addressbook.commands;
 
 
+import seedu.addressbook.commands.member.*;
+import seedu.addressbook.commands.menu.*;
+import seedu.addressbook.commands.order.*;
+
 /**
  * Shows help instructions.
  */

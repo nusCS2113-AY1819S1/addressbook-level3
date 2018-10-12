@@ -1,4 +1,7 @@
-package seedu.addressbook.commands;
+package seedu.addressbook.commands.order;
+
+import seedu.addressbook.commands.Command;
+import seedu.addressbook.commands.CommandResult;
 
 /**
  * Clears the order list.

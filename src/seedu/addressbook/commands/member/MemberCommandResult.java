@@ -1,7 +1,7 @@
-package seedu.addressbook.commands;
+package seedu.addressbook.commands.member;
 
+import seedu.addressbook.commands.CommandResult;
 import seedu.addressbook.data.member.ReadOnlyMember;
-
 
 import java.util.List;
 
