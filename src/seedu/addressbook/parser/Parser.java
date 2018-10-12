@@ -101,6 +101,9 @@ public class Parser {
             case EmployeeListCommand.COMMAND_WORD:
                 return new EmployeeListCommand();
 
+            case EmployeeAddCommand.COMMAND_WORD:
+                return prepareEmpAdd(arguments);
+
             case MenuViewAllCommand.COMMAND_WORD:
                 return prepareViewAllMenu(arguments);
 
@@ -163,6 +166,38 @@ public class Parser {
 
                     matcher.group("price"),
                     //isPrivatePrefixPresent(matcher.group("isPricePrivate")),
+
+                    getTagsFromArgs(matcher.group("tagArguments"))
+            );
+        } catch (IllegalValueException ive) {
+            return new IncorrectCommand(ive.getMessage());
+        }
+    }
+
+    /**
+     * Parses arguments in the context of the add employee command.
+     *
+     * @param args full command args string
+     * @return the prepared command
+     */
+    private Command prepareEmpAdd(String args){
+        final Matcher matcher = PERSON_DATA_ARGS_FORMAT.matcher(args.trim());
+        // Validate arg string format
+        if (!matcher.matches()) {
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EmployeeAddCommand.MESSAGE_USAGE));
+        }
+        try {
+            return new EmployeeAddCommand(
+                    matcher.group("name"),
+
+                    matcher.group("phone"),
+                    isPrivatePrefixPresent(matcher.group("isPhonePrivate")),
+
+                    matcher.group("email"),
+                    isPrivatePrefixPresent(matcher.group("isEmailPrivate")),
+
+                    matcher.group("address"),
+                    isPrivatePrefixPresent(matcher.group("isAddressPrivate")),
 
                     getTagsFromArgs(matcher.group("tagArguments"))
             );
