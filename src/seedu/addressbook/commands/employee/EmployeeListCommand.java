@@ -1,14 +1,15 @@
-package seedu.addressbook.commands;
+package seedu.addressbook.commands.employee;
 
-import java.util.List;
-
+import seedu.addressbook.commands.Command;
+import seedu.addressbook.commands.CommandResult;
 import seedu.addressbook.data.person.ReadOnlyPerson;
 
+import java.util.List;
 
 /**
  * List all employees.
  */
-public class EmployeeListCommand extends Command{
+public class EmployeeListCommand extends Command {
 
     public static final String COMMAND_WORD = "listemp";
 
