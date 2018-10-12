@@ -27,6 +27,10 @@
         <price isPrivate="false">55</price>
         <tagged>bestseller</tagged>
     </menus>
+    <menus>
+        <name>cheese</name>
+        <price isPrivate="false">5454</price>
+    </menus>
     <members>
         <name>Kang Ming</name>
     </members>
