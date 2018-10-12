@@ -5,9 +5,9 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
-import seedu.addressbook.commands.CommandResult_Menu;
 import seedu.addressbook.commands.ExitCommand;
-import seedu.addressbook.data.person.ReadOnlyMenus;
+import seedu.addressbook.data.member.ReadOnlyMember;
+import seedu.addressbook.data.menu.ReadOnlyMenus;
 import seedu.addressbook.data.order.ReadOnlyOrder;
 import seedu.addressbook.logic.Logic;
 import seedu.addressbook.commands.CommandResult;
@@ -86,19 +86,17 @@ public class MainWindow {
         final Optional<List<? extends ReadOnlyPerson>> resultPersons = result.getRelevantPersons();
         final Optional<List<? extends ReadOnlyMenus>> resultMenus = result.getRelevantMenus();
         final Optional<List<? extends ReadOnlyOrder>> resultOrders = result.getRelevantOrders();
+        final Optional<List<? extends ReadOnlyMember>> resultMembers = result.getRelevantMember();
         if(resultPersons.isPresent()) {
             display(resultPersons.get());
         } else if (resultOrders.isPresent()) {
             displayOrderResult(resultOrders.get());
         } else if(resultMenus.isPresent()) {
             displayMenuResult(resultMenus.get());
+        } else if(resultMembers.isPresent()) {
+            displayMemberResult(resultMembers.get());
         }
         display(result.feedbackToUser);
-    }
-
-    public void displayWelcomeMessage(String version, String storageFilePath) {
-        String storageFileInfo = String.format(MESSAGE_USING_STORAGE_FILE, storageFilePath);
-        display(MESSAGE_WELCOME, version, MESSAGE_PROGRAM_LAUNCH_ARGS_USAGE, storageFileInfo);
     }
 
     public void displayRMSWelcomeMessage(String version, String orderListStorageFilePath) {
@@ -111,21 +109,32 @@ public class MainWindow {
      * Displays the list of persons in the output display area, formatted as an indexed list.
      * Private contact details are hidden.
      */
-    private void displayMenuResult(List<? extends ReadOnlyMenus> menus) {
-        display(new Formatter().formatMenu(menus));
-    }
-
     private void display(List<? extends ReadOnlyPerson> persons) {
 
         display(new Formatter().format(persons));
     }
 
     /**
-     * Displays the list of persons in the output display area, formatted as an indexed list.
+     * Displays the list of members in the output display area, formatted as an indexed list.
+     * Private contact details are hidden.
+     */
+    private void displayMemberResult(List<? extends ReadOnlyMember> members) {
+        display(new Formatter().formatMemberResult(members));
+    }
+
+    /**
+     * Displays the list of orders in the output display area, formatted as an indexed list.
      * Private contact details are hidden.
      */
     private void displayOrderResult(List<? extends ReadOnlyOrder> orders) {
         display(new Formatter().formatOrderResult(orders));
+    }
+
+    /**
+     * Displays the menu list in the output display area, formatted as an indexed list.
+     */
+    private void displayMenuResult(List<? extends ReadOnlyMenus> menus) {
+        display(new Formatter().formatMenuResult(menus));
     }
 
     /**

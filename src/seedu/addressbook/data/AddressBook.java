@@ -1,8 +1,8 @@
 package seedu.addressbook.data;
 
-import seedu.addressbook.data.person.Menu;
-import seedu.addressbook.data.person.ReadOnlyMenus;
-import seedu.addressbook.data.person.UniqueMenuList;
+import seedu.addressbook.data.menu.Menu;
+import seedu.addressbook.data.menu.ReadOnlyMenus;
+import seedu.addressbook.data.menu.UniqueMenuList;
 import seedu.addressbook.data.person.Person;
 import seedu.addressbook.data.person.ReadOnlyPerson;
 import seedu.addressbook.data.person.UniqueEmployeeList;

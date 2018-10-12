@@ -1,6 +1,7 @@
 package seedu.addressbook.ui;
 
-import seedu.addressbook.data.person.ReadOnlyMenus;
+import seedu.addressbook.data.member.ReadOnlyMember;
+import seedu.addressbook.data.menu.ReadOnlyMenus;
 import seedu.addressbook.data.order.ReadOnlyOrder;
 import seedu.addressbook.data.person.ReadOnlyPerson;
 
@@ -12,7 +13,7 @@ import java.util.List;
  */
 public class Formatter {
 
-    /** A decorative prefix added to the beginning of lines printed by AddressBook */
+    /** A decorative prefix added to the beginning of lines printed by RMS */
     private static final String LINE_PREFIX = " ";
 
     /** A platform independent line separator. */
@@ -36,8 +37,7 @@ public class Formatter {
         return sb.toString();
     }
 
-    /** Formats the given list of persons for displaying to the user.
-     * @param persons*/
+    /** Formats the given list of persons for displaying to the user. */
     public String format(List<? extends ReadOnlyPerson> persons) {
         final List<String> formattedPersons = new ArrayList<>();
         for (ReadOnlyPerson person : persons) {
@@ -46,9 +46,8 @@ public class Formatter {
         return format(asIndexedList(formattedPersons));
     }
 
-    /** Formats the given list of menus for displaying to the user.
-     * @param menus*/
-    public String formatMenu(List<? extends ReadOnlyMenus> menus) {
+    /** Formats the given list of menus for displaying to the user. */
+    public String formatMenuResult(List<? extends ReadOnlyMenus> menus) {
         final List<String> formattedMenus = new ArrayList<>();
         for (ReadOnlyMenus menu : menus) {
             formattedMenus.add(menu.getAsTextHidePrivate());
@@ -65,6 +64,15 @@ public class Formatter {
         return format(asIndexedList(formattedOrders));
     }
 
+    /** Formats the given list of members for displaying to the user. */
+    public String formatMemberResult(List<? extends ReadOnlyMember> members) {
+        final List<String> formattedOrders = new ArrayList<>();
+        for (ReadOnlyMember member : members) {
+            formattedOrders.add(member.getAsTextHidePrivate());
+        }
+        return format(asIndexedList(formattedOrders));
+    }
+
     /** Formats a list of strings as an indexed list. */
     private static String asIndexedList(List<String> listItems) {
         final StringBuilder formatted = new StringBuilder();
@@ -75,8 +83,6 @@ public class Formatter {
         }
         return formatted.toString();
     }
-
-
 
     /**
      * Formats a string as an indexed list item.

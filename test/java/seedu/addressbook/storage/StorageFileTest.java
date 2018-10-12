@@ -11,7 +11,7 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 import org.junit.rules.TemporaryFolder;
 
-import seedu.addressbook.data.AddressBook;
+import seedu.addressbook.data.RMS;
 import seedu.addressbook.data.exception.IllegalValueException;
 import seedu.addressbook.data.person.Address;
 import seedu.addressbook.data.person.Email;
@@ -45,7 +45,7 @@ public class StorageFileTest {
 
     @Test
     public void load_invalidFormat_exceptionThrown() throws Exception {
-        // The file contains valid xml data, but does not match the AddressBook class
+        // The file contains valid xml data, but does not match the RMS class
         StorageFile storage = getStorage("InvalidData.txt");
         thrown.expect(StorageOperationException.class);
         storage.load();
@@ -53,11 +53,11 @@ public class StorageFileTest {
 
     @Test
     public void load_validFormat() throws Exception {
-        AddressBook actualAB = getStorage("ValidData.txt").load();
-        AddressBook expectedAB = getTestAddressBook();
+        RMS actualAB = getStorage("ValidData.txt").load();
+        RMS expectedAB = getTestAddressBook();
 
-        // ensure loaded AddressBook is properly constructed with test data
-        // TODO: overwrite equals method in AddressBook class and replace with equals method below
+        // ensure loaded RMS is properly constructed with test data
+        // overwrite equals method in RMS class and replace with equals method below
         assertEquals(actualAB.getAllPersons(), expectedAB.getAllPersons());
         assertEquals(actualAB.getAllMenus(), expectedAB.getAllMenus());
 
@@ -72,7 +72,7 @@ public class StorageFileTest {
 
     @Test
     public void save_validAddressBook() throws Exception {
-        AddressBook ab = getTestAddressBook();
+        RMS ab = getTestAddressBook();
         StorageFile storage = getTempStorage();
         storage.save(ab);
 
@@ -96,8 +96,8 @@ public class StorageFileTest {
         return new StorageFile(testFolder.getRoot().getPath() + "/" + "temp.txt");
     }
 
-    private AddressBook getTestAddressBook() throws Exception {
-        AddressBook ab = new AddressBook();
+    private RMS getTestAddressBook() throws Exception {
+        RMS ab = new RMS();
         ab.addPerson(new Person(new Name("John Doe"),
                                 new Phone("98765432", false),
                                 new Email("johnd@gmail.com", false),

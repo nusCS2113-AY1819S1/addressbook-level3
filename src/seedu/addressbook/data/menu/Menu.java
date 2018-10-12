@@ -1,5 +1,7 @@
-package seedu.addressbook.data.person;
+package seedu.addressbook.data.menu;
 
+import seedu.addressbook.data.menu.Price;
+import seedu.addressbook.data.menu.ReadOnlyMenus;
 import seedu.addressbook.data.tag.Tag;
 
 import java.util.HashSet;
@@ -12,14 +14,14 @@ import java.util.Set;
  */
 public class Menu implements ReadOnlyMenus {
 
-    private Name name;
+    private MenuName name;
     private Price price;
 
     private final Set<Tag> tags = new HashSet<>();
     /**
      * Assumption: Every field must be present and not null.
      */
-    public Menu(Name name, Price price, Set<Tag> tags) {
+    public Menu(MenuName name, Price price, Set<Tag> tags) {
         this.name = name;
         this.price = price;
         this.tags.addAll(tags);
@@ -33,7 +35,7 @@ public class Menu implements ReadOnlyMenus {
     }
 
     @Override
-    public Name getName() {
+    public MenuName getName() {
         return name;
     }
 

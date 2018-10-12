@@ -2,7 +2,7 @@ package seedu.addressbook.storage.jaxb;
 
 import seedu.addressbook.common.Utils;
 import seedu.addressbook.data.exception.IllegalValueException;
-import seedu.addressbook.data.person.*;
+import seedu.addressbook.data.menu.*;
 import seedu.addressbook.data.tag.Tag;
 
 import javax.xml.bind.annotation.XmlAttribute;
@@ -87,7 +87,7 @@ public class AdaptedMenu {
         for (AdaptedTag tag : tagged) {
             tags.add(tag.toModelType());
         }
-        final Name name = new Name(this.name);
+        final MenuName name = new MenuName(this.name);
         final Price price = new Price(this.price.value/*, this.price.isPrivate*/);
         return new Menu(name, price, tags);
     }

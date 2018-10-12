@@ -6,6 +6,7 @@ import seedu.addressbook.commands.*;
 import seedu.addressbook.data.exception.IllegalValueException;
 import seedu.addressbook.data.tag.Tag;
 import seedu.addressbook.data.person.*;
+import seedu.addressbook.data.menu.*;
 
 import java.util.Arrays;
 import java.util.HashSet;
@@ -61,7 +62,7 @@ public class ParserTest {
     @Test
     public void MenulistCommand_parsedCorrectly() {
         final String input = "listmenu";
-        parseAndAssertCommandType(input, ListCommand_Menu.class);
+        parseAndAssertCommandType(input, MenuListCommand.class);
     }
 
     @Test
@@ -302,7 +303,7 @@ public class ParserTest {
     @Test
     public void addmenuCommand_invalidFoodItemDataInArgs() {
         final String invalidName = "[]\\[;]";
-        final String validName = Name.EXAMPLE_MENU;
+        final String validName = MenuName.EXAMPLE;
         final String invalidPriceArg = "p/not__numbers";
         final String validPriceArg = "p/" + Price.EXAMPLE;
         final String invalidTagArg = "t/invalid_-[.tag";
@@ -351,7 +352,7 @@ public class ParserTest {
     private static Menu generateTestMenu() {
         try {
             return new Menu(
-                    new Name(Name.EXAMPLE_MENU),
+                    new MenuName(MenuName.EXAMPLE),
                     new Price(Price.EXAMPLE),
                     new HashSet<>(Arrays.asList(new Tag("tag1"), new Tag("tag2"), new Tag("tag3")))
             );

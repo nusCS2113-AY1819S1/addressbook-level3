@@ -1,15 +1,14 @@
 package seedu.addressbook.commands;
 
 import seedu.addressbook.common.Messages;
-import seedu.addressbook.data.person.ReadOnlyMenus;
-import seedu.addressbook.data.person.ReadOnlyPerson;
+import seedu.addressbook.data.menu.ReadOnlyMenus;
 
 
 /**
  * Shows all details of the person identified using the last displayed index.
  * Private contact details are shown.
  */
-public class ViewAllCommand_Menu extends Command {
+public class MenuViewAllCommand extends Command {
 
     public static final String COMMAND_WORD = "viewallmenu";
 
@@ -21,7 +20,7 @@ public class ViewAllCommand_Menu extends Command {
     public static final String MESSAGE_VIEW_MENU_ITEM_DETAILS = "Viewing menu: %1$s";
 
 
-    public ViewAllCommand_Menu(int targetVisibleIndex) {
+    public MenuViewAllCommand(int targetVisibleIndex) {
         super(targetVisibleIndex);
     }
 
@@ -30,7 +29,7 @@ public class ViewAllCommand_Menu extends Command {
     public CommandResult execute() {
         try {
             final ReadOnlyMenus target = getTargetMenu();
-            if (!addressBook.containsMenus(target)) {
+            if (!rms.containsMenus(target)) {
                 return new CommandResult(Messages.MESSAGE_MENU_ITEM_NOT_IN_ADDRESSBOOK);
             }
             return new CommandResult(String.format(MESSAGE_VIEW_MENU_ITEM_DETAILS, target.getAsTextShowAll()));

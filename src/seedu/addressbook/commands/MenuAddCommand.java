@@ -1,7 +1,7 @@
 package seedu.addressbook.commands;
 
 import seedu.addressbook.data.exception.IllegalValueException;
-import seedu.addressbook.data.person.*;
+import seedu.addressbook.data.menu.*;
 import seedu.addressbook.data.tag.Tag;
 
 import java.util.HashSet;
@@ -38,7 +38,7 @@ public class MenuAddCommand extends Command {
             tagSet.add(new Tag(tagName));
         }
         this.toAddFoodItem = new Menu(
-                new Name(name),
+                new MenuName(name),
                 new Price(price),
                 tagSet
         );
@@ -55,8 +55,8 @@ public class MenuAddCommand extends Command {
     @Override
     public CommandResult execute() {
         try {
-            addressBook.addMenu(toAddFoodItem);
-            return new CommandResult_Menu(String.format(MESSAGE_SUCCESS, toAddFoodItem));
+            rms.addMenu(toAddFoodItem);
+            return new MenuCommandResult(String.format(MESSAGE_SUCCESS, toAddFoodItem));
         } catch (UniqueMenuList.DuplicateMenuException dpe) {
             return new CommandResult(MESSAGE_DUPLICATE_MENU_ITEM);
         }

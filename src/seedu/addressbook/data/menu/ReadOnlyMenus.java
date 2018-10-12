@@ -1,4 +1,4 @@
-package seedu.addressbook.data.person;
+package seedu.addressbook.data.menu;
 
 import seedu.addressbook.data.tag.Tag;
 
@@ -10,7 +10,7 @@ import java.util.Set;
  */
 public interface ReadOnlyMenus {
 
-    Name getName();
+    MenuName getName();
     Price getPrice();
 
     /**

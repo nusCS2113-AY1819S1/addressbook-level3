@@ -22,7 +22,7 @@ public class Order implements ReadOnlyOrder {
      *
      * Use {@code entrySet()} to create a Set for iteration.
      */
-    private final Map<Dish, Integer> dishItems = new HashMap();
+    private final Map<Dish, Integer> dishItems = new HashMap<>();
 
     /**
      * Constructor for new order.
@@ -110,9 +110,7 @@ public class Order implements ReadOnlyOrder {
     }
 
     public void changeDishQuantity(Dish dish, int quantity) {
-        if (dishItems.containsKey(dish)) {
-            dishItems.remove(dish);
-        }
+        dishItems.remove(dish);
         dishItems.put(dish, quantity);
     }
 
