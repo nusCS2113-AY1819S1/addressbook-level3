@@ -1,6 +1,6 @@
 package seedu.addressbook.storage.jaxb;
 
-import seedu.addressbook.data.RMS;
+import seedu.addressbook.data.Rms;
 import seedu.addressbook.data.exception.IllegalValueException;
 import seedu.addressbook.data.order.Order;
 import seedu.addressbook.data.order.UniqueOrderList;
@@ -21,8 +21,8 @@ import java.util.List;
 /**
  * JAXB-friendly adapted address book data holder class.
  */
-@XmlRootElement(name = "RMS")
-public class AdaptedRMS {
+@XmlRootElement(name = "Rms")
+public class AdaptedRms {
 
     @XmlElement(name = "persons")
     private List<AdaptedPerson> persons = new ArrayList<>();
@@ -38,19 +38,19 @@ public class AdaptedRMS {
     /**
      * No-arg constructor for JAXB use.
      */
-    public AdaptedRMS() {}
+    public AdaptedRms() {}
 
     /**
-     * Converts a given RMS into this class for JAXB use.
+     * Converts a given Rms into this class for JAXB use.
      *
-     * @param source future changes to this will not affect the created AdaptedRMS
+     * @param source future changes to this will not affect the created AdaptedRms
      */
-    /*public AdaptedRMS(RMS source) {
+    /*public AdaptedRms(Rms source) {
         persons = new ArrayList<>();
         source.getAllPersons().forEach(person -> persons.add(new AdaptedPerson(person)));
     }
 */
-    public AdaptedRMS(RMS source) {
+    public AdaptedRms(Rms source) {
         persons = new ArrayList<>();
         menus = new ArrayList<>();
         employees = new ArrayList<>();
@@ -81,10 +81,10 @@ public class AdaptedRMS {
 
 
     /**
-     * Converts this jaxb-friendly {@code AdaptedRMS} object into the corresponding(@code RMS} object.
+     * Converts this jaxb-friendly {@code AdaptedRms} object into the corresponding(@code Rms} object.
      * @throws IllegalValueException if there were any data constraints violated in the adapted person
      */
-    public RMS toModelType() throws IllegalValueException {
+    public Rms toModelType() throws IllegalValueException {
         final List<Person> personList = new ArrayList<>();
         final List<Menu> menuList = new ArrayList<>();
         final List<Employee> employeeList = new ArrayList<>();
@@ -110,7 +110,7 @@ public class AdaptedRMS {
         for (AdaptedOrder order : orders) {
             orderList.add(order.toModelType());
         }
-        return new RMS(
+        return new Rms(
                 new UniquePersonList(personList),
                 new UniqueMenuList(menuList),
                 new UniqueEmployeeList(employeeList),

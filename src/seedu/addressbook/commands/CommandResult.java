@@ -46,7 +46,7 @@ public class CommandResult {
         this.relevantMembers = null;
     }
 
-    /** Command result constructor used by child classes for RMS commands*/
+    /** Command result constructor used by child classes for Rms commands*/
     public CommandResult(String feedbackToUser,
                          List<? extends ReadOnlyPerson> relevantPersons,
                          List<? extends ReadOnlyMenus> relevantMenus,

@@ -32,7 +32,7 @@ public class Gui {
     public void start(Stage stage, Stoppable mainApp) throws IOException {
       // ADD DISPLAY OF STORAGE FILE PATH
         mainWindow = createMainWindow(stage, mainApp);
-        mainWindow.displayRMSWelcomeMessage(version, logic.getStorageFilePath());
+        mainWindow.displayRmsWelcomeMessage(version, logic.getStorageFilePath());
 
     }
 

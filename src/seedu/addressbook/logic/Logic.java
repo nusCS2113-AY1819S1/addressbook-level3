@@ -6,7 +6,7 @@ import seedu.addressbook.data.member.ReadOnlyMember;
 import seedu.addressbook.data.menu.ReadOnlyMenus;
 import seedu.addressbook.data.order.ReadOnlyOrder;
 import seedu.addressbook.data.person.ReadOnlyPerson;
-import seedu.addressbook.data.RMS;
+import seedu.addressbook.data.Rms;
 import seedu.addressbook.parser.Parser;
 import seedu.addressbook.storage.StorageFile;
 
@@ -15,12 +15,12 @@ import java.util.List;
 import java.util.Optional;
 
 /**
- * Represents the main Logic of the RMS.
+ * Represents the main Logic of the Rms.
  */
 public class Logic {
 
     private StorageFile storage;
-    private RMS rms;
+    private Rms rms;
 
     /** The list of person shown to the user most recently.  */
     private List<? extends ReadOnlyPerson> lastShownList = Collections.emptyList();
@@ -40,7 +40,7 @@ public class Logic {
         setRms(storage.load());
     }
 
-    Logic(StorageFile storageFile, RMS rms){
+    Logic(StorageFile storageFile, Rms rms){
         setStorage(storageFile);
         setRms(rms);
     }
@@ -49,7 +49,7 @@ public class Logic {
         this.storage = storage;
     }
 
-    void setRms(RMS rms){
+    void setRms(Rms rms){
         this.rms = rms;
     }
 

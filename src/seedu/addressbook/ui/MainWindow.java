@@ -99,7 +99,7 @@ public class MainWindow {
         display(result.feedbackToUser);
     }
 
-    public void displayRMSWelcomeMessage(String version, String orderListStorageFilePath) {
+    public void displayRmsWelcomeMessage(String version, String orderListStorageFilePath) {
         String orderListStorageFileInfo = String.format(MESSAGE_USING_ORDER_LIST_STORAGE_FILE,
                 orderListStorageFilePath);
         display(MESSAGE_WELCOME, version, MESSAGE_PROGRAM_LAUNCH_ARGS_USAGE, orderListStorageFileInfo);
