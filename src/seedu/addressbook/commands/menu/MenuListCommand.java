@@ -14,7 +14,7 @@ public class MenuListCommand extends Command {
     public static final String COMMAND_WORD = "listmenu";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ":\n" 
-            + "Displays all menu items in the RMS system as a list with index numbers.\n\t"
+            + "Displays all menu items in the Rms system as a list with index numbers.\n\t"
             + "Example: " + COMMAND_WORD;
 
 

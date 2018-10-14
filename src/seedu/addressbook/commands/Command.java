@@ -1,7 +1,7 @@
 package seedu.addressbook.commands;
 
 import seedu.addressbook.common.Messages;
-import seedu.addressbook.data.RMS;
+import seedu.addressbook.data.Rms;
 import seedu.addressbook.data.member.ReadOnlyMember;
 import seedu.addressbook.data.menu.ReadOnlyMenus;
 import seedu.addressbook.data.order.ReadOnlyOrder;
@@ -20,7 +20,7 @@ public abstract class Command {
 
     //protected List<? extends ReadOnlyPerson> relevantPersons;
 
-    protected RMS rms;
+    protected Rms rms;
     protected List<? extends ReadOnlyPerson> relevantPersons;
     protected List<? extends ReadOnlyMenus> relevantMenus;
     protected List<? extends ReadOnlyMember> relevantMembers;
@@ -100,7 +100,7 @@ public abstract class Command {
     /**
      * Supplies the data the command will operate on.
      */
-    public void setData(RMS rms,
+    public void setData(Rms rms,
                         List<? extends ReadOnlyPerson> relevantPersons,
                         List<? extends ReadOnlyMenus> relevantMenus,
                         List<? extends ReadOnlyOrder> relevantOrders,

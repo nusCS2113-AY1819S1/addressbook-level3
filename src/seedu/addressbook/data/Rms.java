@@ -28,7 +28,7 @@ import seedu.addressbook.data.person.UniquePersonList.PersonNotFoundException;
 /**
  * Represents the entire address book. Contains the data of the address book.
  */
-public class RMS {
+public class Rms {
 
     private final UniquePersonList allPersons;
     private final UniqueEmployeeList allEmployees;
@@ -36,15 +36,15 @@ public class RMS {
     private final UniqueOrderList allOrders;
     private final UniqueMemberList allMembers;
 
-    public static RMS empty() {
-        return new RMS();
+    public static Rms empty() {
+        return new Rms();
     }
 
     /**
      * Creates an empty address book.
      */
     // added allEmployees = new UniqueEmployeeList();
-    public RMS() {
+    public Rms() {
 
         allPersons = new UniquePersonList();
         allEmployees = new UniqueEmployeeList();
@@ -59,7 +59,7 @@ public class RMS {
      * @param persons external changes to this will not affect this address book
      */
     // Construct address book with persons and employees
-    public RMS(UniquePersonList persons,
+    public Rms(UniquePersonList persons,
                UniqueMenuList menus,
                UniqueEmployeeList employees,
                UniqueOrderList orders,
@@ -260,8 +260,8 @@ public class RMS {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof RMS // instanceof handles nulls
-                && this.allPersons.equals(((RMS) other).allPersons));
+                || (other instanceof Rms // instanceof handles nulls
+                && this.allPersons.equals(((Rms) other).allPersons));
     }
 
     @Override

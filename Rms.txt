@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<RMS>
+<Rms>
     <persons>
         <name>Wei Ming</name>
         <phone isPrivate="false">93219416</phone>
@@ -107,4 +107,4 @@
             <quantity>2</quantity>
         </dishItems>
     </orders>
-</RMS>
+</Rms>

@@ -3,7 +3,7 @@
 
 # Default data file
 addressbook.txt
-RMS.txt
+Rms.txt
 
 # Package Files #
 *.jar

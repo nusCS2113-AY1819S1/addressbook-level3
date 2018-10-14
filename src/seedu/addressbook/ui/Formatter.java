@@ -14,7 +14,7 @@ import java.util.List;
  */
 public class Formatter {
 
-    /** A decorative prefix added to the beginning of lines printed by RMS */
+    /** A decorative prefix added to the beginning of lines printed by Rms */
     private static final String LINE_PREFIX = " ";
 
     /** A platform independent line separator. */

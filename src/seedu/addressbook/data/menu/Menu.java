@@ -9,7 +9,7 @@ import java.util.Objects;
 import java.util.Set;
 
 /**
- * Represents a Menu in the RMS.
+ * Represents a Menu in the Rms.
  * Guarantees: details are present and not null, field values are validated.
  */
 public class Menu implements ReadOnlyMenus {
