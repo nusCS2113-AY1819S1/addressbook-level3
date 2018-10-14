@@ -6,6 +6,7 @@ import seedu.addressbook.commands.member.*;
 import seedu.addressbook.commands.menu.*;
 import seedu.addressbook.commands.order.*;
 import seedu.addressbook.data.exception.IllegalValueException;
+import seedu.addressbook.data.menu.Menu;
 
 import java.util.*;
 import java.util.regex.Matcher;
@@ -109,6 +110,9 @@ public class Parser {
 
             case MenuViewAllCommand.COMMAND_WORD:
                 return prepareViewAllMenu(arguments);
+
+            case MenuDeleteCommand.COMMAND_WORD:
+                return prepareMenuDelete(arguments);
 
             case OrderDeleteCommand.COMMAND_WORD:
                 return prepareOrderDelete(arguments);
@@ -249,6 +253,21 @@ public class Parser {
             return new DeleteCommand(targetIndex);
         } catch (ParseException | NumberFormatException e) {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
+        }
+    }
+
+    /**
+     * Parses arguments in the context of the delete menu item command.
+     *
+     * @param args full command args string
+     * @return the prepared command
+     */
+    private Command prepareMenuDelete(String args) {
+        try {
+            final int targetIndex = parseArgsAsDisplayedIndex(args);
+            return new MenuDeleteCommand(targetIndex);
+        } catch (ParseException | NumberFormatException e) {
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, MenuDeleteCommand.MESSAGE_USAGE));
         }
     }
 
