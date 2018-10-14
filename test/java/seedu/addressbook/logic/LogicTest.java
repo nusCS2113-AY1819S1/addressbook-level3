@@ -712,7 +712,6 @@ public class LogicTest {
 
         AddressBook expected_book = helper.generateAddressBook(threePersons_expected);
         String currentDate = "29-09-2018";
-        //new SimpleDateFormat("dd-MM-yyyy").format(new Date());
         p1_expected.updateAttendanceMethod(currentDate, true);
 
         helper.addToAddressBook(addressBook, threePersons);
