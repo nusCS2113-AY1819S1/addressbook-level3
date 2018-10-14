@@ -16,8 +16,8 @@ public class UpdateAttendanceCommand extends Command {
             + "Example: " + COMMAND_WORD + " " + "1 d/29-09-2018 att/1 \n"
             + "To input today's date, input d/0";
 
-    public static final String MESSAGE_SUCCESS = "Attendance updated";
-    public static final String MESSAGE_DUPLICATE_ATTENDANCE = "Attendance has already been taken";
+    public static final String MESSAGE_SUCCESS = "Attendance updated for: ";
+    public static final String MESSAGE_DUPLICATE_ATTENDANCE = "Attendance has been taken for the date: ";
 
     private boolean isPresent;
     private String date;
@@ -34,7 +34,7 @@ public class UpdateAttendanceCommand extends Command {
         try {
             Person person = addressBook.findPerson(getTargetPerson());
             person.updateAttendanceMethod(date, isPresent);
-            return new CommandResult(String.format(MESSAGE_SUCCESS, getTargetIndex()));
+            return new CommandResult(String.format(MESSAGE_SUCCESS) + person.getName());
 
         } catch (IndexOutOfBoundsException ie) {
             return new CommandResult(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
