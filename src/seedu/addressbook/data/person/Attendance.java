@@ -26,6 +26,7 @@ public class Attendance implements Printable {
         for (Map.Entry entry : attendance_map.entrySet()) {
             output += entry.getKey() + " -> " + entry.getValue() + "\n";
         }
+        if (output.equals("")) output = "NIL";
         return output;
     }
 
