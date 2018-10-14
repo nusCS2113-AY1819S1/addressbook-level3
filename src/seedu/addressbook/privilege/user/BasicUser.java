@@ -67,13 +67,6 @@ public class BasicUser implements User {
         allowedCommands.sort(new SortByCategory());
     }
 
-    @Override
-    public boolean equals(Object other) {
-        return other == this // short circuit if same object
-                || (other instanceof BasicUser // instanceof handles nulls
-                && this.currentLevel.equals(((BasicUser) other).currentLevel)); // state check
-    }
-
     /** Checks if this privilege level have access to the given command*/
     public boolean isAllowedCommand(Command command) {
         for (Command allowedCommand: allowedCommands) {
@@ -100,5 +93,12 @@ public class BasicUser implements User {
                 return a.toString().compareTo(b.toString());
             }
         }
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof BasicUser // instanceof handles nulls
+                && this.currentLevel.equals(((BasicUser) other).currentLevel)); // state check
     }
 }

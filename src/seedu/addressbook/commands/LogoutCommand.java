@@ -3,8 +3,7 @@ package seedu.addressbook.commands;
 import static seedu.addressbook.common.Messages.MESSAGE_NOT_LOGGED_IN;
 
 /**
- * Changes the master password to a new one.
- * Checks that the old password given is correct.
+ * Logs out of your account.
  */
 public class LogoutCommand extends Command {
 
@@ -13,6 +12,7 @@ public class LogoutCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ":\n"
             + "Logs out of your account, resetting privilege to Basic.\n\t "
             + "Example: " + COMMAND_WORD;
+
     public static final String MESSAGE_SUCCESS = "Logged out!";
 
     @Override
@@ -25,12 +25,12 @@ public class LogoutCommand extends Command {
     }
 
     @Override
-    public String getCommandUsageMessage() {
-        return MESSAGE_USAGE;
+    public Category getCategory() {
+        return Category.ACCOUNT;
     }
 
     @Override
-    public Category getCategory() {
-        return Category.ACCOUNT;
+    public String getCommandUsageMessage() {
+        return MESSAGE_USAGE;
     }
 }

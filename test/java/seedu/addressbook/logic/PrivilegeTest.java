@@ -62,6 +62,7 @@ public class PrivilegeTest {
         CommandAssertions.assertCommandBehavior("viewpri",
                         String.format(feedbackFormat, User.PrivilegeLevel.Admin.toString()));
     }
+
     @Test
     public void executeSayLoggedIn() throws Exception {
         TestDataHelper helper = new TestDataHelper();
@@ -87,7 +88,6 @@ public class PrivilegeTest {
         final String defaultPassword = "default_pw";
         assertEquals(addressBook.getMasterPassword(), defaultPassword);
     }
-
 
     @Test
     public void executeRaisePrivilegeInvalidArg() throws Exception {
@@ -148,5 +148,4 @@ public class PrivilegeTest {
                     privilege.getRequiredPrivilegeAsString(command), privilege.getLevelAsString()));
         }
     }
-
 }

@@ -58,10 +58,10 @@ public class Privilege {
         }
         return null;
     }
+
     public void raiseToAccountLevel(Account account) {
         user = account.getPrivilege().getUser();
     }
-
 
     public void raiseToTutor() {
         user = PrivilegeLevels.TUTOR.getUserType();
@@ -106,9 +106,11 @@ public class Privilege {
     public User getUser() {
         return user;
     }
+
     public List<Command> getAllowedCommands() {
         return user.getAllowedCommands();
     }
+
     public boolean isAllowedCommand(Command command) {
         return user.isAllowedCommand(command);
     }
@@ -122,9 +124,11 @@ public class Privilege {
             throw new SelfTargetingException();
         }
     }
+
     private boolean isTargetSelf(ReadOnlyPerson person) {
         return myPerson.isPresent() && person.equals(myPerson.get());
     }
+
     public String getRequiredPrivilegeAsString(Command command) {
         // TODO Fix this potato code
         String requiredPrivilege = "PRIVILEGE NOT FOUND";
@@ -133,7 +137,6 @@ public class Privilege {
                 requiredPrivilege = p.getUserType().getPrivilegeLevelAsString();
             }
         }
-
         return requiredPrivilege;
     }
 }

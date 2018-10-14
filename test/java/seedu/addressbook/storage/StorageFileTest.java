@@ -262,8 +262,8 @@ public class StorageFileTest {
 
     private ExamBook getTestExamBook() throws Exception {
         ExamBook eb = new ExamBook();
-        eb.addExam(new Exam("Mathematics", "Math Midterms", "01/12/2018", "09:00", "10:00", "Held in MPSH", false));
-        eb.addExam(new Exam("English", "English Midterms", "02/12/2018", "09:00", "10:00", "Held in MPSH", false));
+        eb.addExam(new Exam("Math Midterms", "Mathematics", "01-12-2018", "09:00", "10:00", "Held in MPSH", false));
+        eb.addExam(new Exam("English Midterms", "English", "02-12-2018", "09:00", "10:00", "Held in MPSH", false));
         return eb;
     }
 

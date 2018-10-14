@@ -81,6 +81,7 @@ public interface ReadOnlyPerson {
         getAccount().ifPresent(a -> builder.append(" User Type:" + a.getPrintableString(true)));
         return builder.toString();
     }
+
     /**
      * Formats the person as text, showing name and fees.
      */

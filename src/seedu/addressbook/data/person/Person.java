@@ -35,10 +35,12 @@ public class Person implements ReadOnlyPerson {
         this.attendance = new Attendance();
         this.fees = new Fees();
     }
+
     public Person(Name name, Phone phone, Email email, Address address, Set<Tag> tags, Account account) {
         this(name, phone, email, address, tags);
         this.account = Optional.ofNullable(account);
     }
+
     /**
      * Copy constructor.
      */
@@ -52,6 +54,34 @@ public class Person implements ReadOnlyPerson {
      */
     public void setFees(Fees fees) {
         this.fees = fees;
+    }
+
+    /**
+     * Replaces this person's tags with the tags in {@code replacement}.
+     */
+    public void setTags(Set<Tag> replacement) {
+        tags.clear();
+        tags.addAll(replacement);
+    }
+
+    public void setAccount(Account account) {
+        this.account = Optional.ofNullable(account);
+    }
+
+    public void removeAccount() {
+        this.account = Optional.empty();
+    }
+
+    public void updateAttendanceMethod(String currentDate, String isPresent) {
+        attendance.addAttendance(currentDate, isPresent);
+    }
+
+    public String viewAttendanceMethod() {
+        return attendance.viewAttendance();
+    }
+
+    public Attendance getAttendance() {
+        return attendance;
     }
 
     @Override
@@ -89,22 +119,6 @@ public class Person implements ReadOnlyPerson {
         return account;
     }
 
-    /**
-     * Replaces this person's tags with the tags in {@code replacement}.
-     */
-    public void setTags(Set<Tag> replacement) {
-        tags.clear();
-        tags.addAll(replacement);
-    }
-
-    public void setAccount(Account account) {
-        this.account = Optional.ofNullable(account);
-    }
-
-    public void removeAccount() {
-        this.account = Optional.empty();
-    }
-
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
@@ -121,17 +135,5 @@ public class Person implements ReadOnlyPerson {
     @Override
     public String toString() {
         return getAsTextShowAll();
-    }
-
-    public void updateAttendanceMethod(String currentDate, String isPresent) {
-        attendance.addAttendance(currentDate, isPresent);
-    }
-
-    public String viewAttendanceMethod() {
-        return attendance.viewAttendance();
-    }
-
-    public Attendance getAttendance() {
-        return attendance;
     }
 }

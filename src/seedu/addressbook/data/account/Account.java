@@ -5,7 +5,7 @@ import seedu.addressbook.data.person.Printable;
 import seedu.addressbook.privilege.Privilege;
 
 /**
- * Represents a Tag in the address book.
+ * Represents a Account in the address book.
  * Guarantees: immutable; name is valid as declared in {@link #isValidPrivilegeName(String)}
  */
 public class Account implements Printable {
@@ -23,6 +23,7 @@ public class Account implements Printable {
         this.password = trimmedPassword;
         this.privilege = privilege;
     }
+
     public Account(String username, String password, String privilege) throws IllegalValueException {
         this(username, password, Privilege.getPrivilegeFromString(privilege));
         if (!isValidPrivilegeName(privilege)) {

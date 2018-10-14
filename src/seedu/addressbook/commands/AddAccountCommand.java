@@ -7,7 +7,6 @@ import seedu.addressbook.data.person.Person;
 import seedu.addressbook.data.person.ReadOnlyPerson;
 import seedu.addressbook.data.person.UniquePersonList.PersonNotFoundException;
 
-
 /**
  * Deletes a person identified using it's last displayed index from the address book.
  */
@@ -16,22 +15,17 @@ public class AddAccountCommand extends Command {
     public static final String COMMAND_WORD = "addacc";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ":\n"
-            + "Add an account as specified to the person identified by the "
+            + "Adds an account as specified to the person identified by the "
             + "index number used in the last person listing.\n\t"
             + "Parameters: INDEX USERNAME PASSWORD PRIVILEGE\n\t"
-            + "PRIVILEGE could be of type \"Basic\", \"Tutor\", \"Admin\"\n\t"
+            + "PRIVILEGE could be of type \"Basic\", \"Tutor\", \"Admin\".\n\t"
             + "Example: " + COMMAND_WORD + " 1 username password basic";
 
     public static final String MESSAGE_ADD_ACCOUNT_PERSON_SUCCESS = "Added Account to: %1$s";
     public static final String MESSAGE_USERNAME_TAKEN = "Username Taken!";
     public static final String MESSAGE_PERSON_HAS_ACCOUNT = "Target person already has an existing account!!";
-    private final Account toAdd;
 
-    public AddAccountCommand(int targetVisibleIndex, String username, String password, String privilege)
-            throws IllegalValueException {
-        super(targetVisibleIndex);
-        toAdd = new Account(username, password, privilege);
-    }
+    private final Account toAdd;
 
     /**
      * Constructor used for Privileges
@@ -41,6 +35,13 @@ public class AddAccountCommand extends Command {
         //TODO: Fix potato code
         toAdd = null;
     }
+
+    public AddAccountCommand(int targetVisibleIndex, String username, String password, String privilege)
+            throws IllegalValueException {
+        super(targetVisibleIndex);
+        toAdd = new Account(username, password, privilege);
+    }
+
     // TODO: Prevent user from overrriding their logged-in account
     @Override
     public CommandResult execute() {

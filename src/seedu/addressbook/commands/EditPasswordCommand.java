@@ -1,7 +1,5 @@
 package seedu.addressbook.commands;
 
-import static seedu.addressbook.common.Messages.MESSAGE_WRONG_NUMBER_ARGUMENTS;
-
 import seedu.addressbook.data.exception.IllegalValueException;
 import seedu.addressbook.logic.Logic;
 
@@ -14,18 +12,26 @@ public class EditPasswordCommand extends Command {
     public static final String COMMAND_WORD = "editpw";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ":\n"
-            + "Changes master password to a new specified one\n\t "
+            + "Changes master password to a new specified one.\n\t "
             + "Parameters: OLD_PASSWORD NEW_PASSWORD\n\t"
             + "Example: " + COMMAND_WORD + " old_password sudo1234";
+
     public static final String MESSAGE_SUCCESS = "Password changed to %s";
     public static final String MESSAGE_WRONG_PASSWORD = "Wrong password entered";
-
     public static final String MESSAGE_WRONG_NUMBER_ARGUMENTS =
             "Wrong number of arguments, expected %d, actual %d\n %s";
+
     private static final int REQUIRED_ARGUMENTS = 2;
 
     private String newPassword;
     private String oldPassword;
+
+    /**
+     * Constructor used for Privileges
+     * Command constructed has no functionality
+     * */
+    public EditPasswordCommand() {
+    }
 
     public EditPasswordCommand(String[] arguments) throws IllegalValueException {
         if (arguments.length != REQUIRED_ARGUMENTS) {
@@ -35,12 +41,6 @@ public class EditPasswordCommand extends Command {
 
         this.oldPassword = arguments[0];
         this.newPassword = arguments[1];
-    }
-    /**
-     * Constructor used for Privileges
-     * Command constructed has no functionality
-     * */
-    public EditPasswordCommand() {
     }
 
     @Override
@@ -61,8 +61,9 @@ public class EditPasswordCommand extends Command {
     }
 
     @Override
-    public String getCommandUsageMessage() {
-        return MESSAGE_USAGE;
+    public boolean isMutating() {
+        // TODO maybe make it so that it only saves the password portion of the XML
+        return true;
     }
 
     @Override
@@ -71,8 +72,7 @@ public class EditPasswordCommand extends Command {
     }
 
     @Override
-    public boolean isMutating() {
-        // TODO maybe make it so that it only saves the password portion of the XML
-        return true;
+    public String getCommandUsageMessage() {
+        return MESSAGE_USAGE;
     }
 }

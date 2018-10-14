@@ -1,11 +1,14 @@
 package seedu.addressbook.parser;
 
 import static seedu.addressbook.common.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.addressbook.common.Messages.MESSAGE_NO_ARGS_FOUND;
 
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -13,13 +16,17 @@ import java.util.regex.Pattern;
 import seedu.addressbook.commands.AddAccountCommand;
 import seedu.addressbook.commands.AddAssignmentStatistics;
 import seedu.addressbook.commands.AddCommand;
+import seedu.addressbook.commands.AddExamCommand;
 import seedu.addressbook.commands.AddFeesCommand;
 import seedu.addressbook.commands.ClearCommand;
+import seedu.addressbook.commands.ClearExamsCommand;
 import seedu.addressbook.commands.Command;
-import seedu.addressbook.commands.CreateExamCommand;
 import seedu.addressbook.commands.DeleteAccountCommand;
 import seedu.addressbook.commands.DeleteCommand;
+import seedu.addressbook.commands.DeleteExamCommand;
+import seedu.addressbook.commands.EditExamCommand;
 import seedu.addressbook.commands.EditPasswordCommand;
+import seedu.addressbook.commands.ExamsListCommand;
 import seedu.addressbook.commands.ExitCommand;
 import seedu.addressbook.commands.FindCommand;
 import seedu.addressbook.commands.HelpCommand;
@@ -46,6 +53,7 @@ public class Parser {
 
     public static final Pattern KEYWORDS_ARGS_FORMAT =
             Pattern.compile("(?<keywords>\\S+(?:\\s+\\S+)*)"); // one or more keywords separated by whitespace
+
     public static final Pattern SINGLE_KEYWORD_ARGS_FORMAT =
             Pattern.compile("(?<keywords>\\S+\\s*)"); // one keyword separated by whitespace
 
@@ -57,27 +65,39 @@ public class Parser {
                     + "(?<tagArguments>(?: t/[^/]+)*)"); // variable number of tags
 
     public static final Pattern EXAM_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
-            Pattern.compile("(?<subjectName>[^/]+)"
-                    + " (?<isExamPrivate>p?)n/(?<examName>[^/]+)"
+            Pattern.compile("(?<isExamPrivate>p?)e/(?<examName>[^/]+)"
+                    + " s/(?<subjectName>[^/]+)"
                     + " d/(?<examDate>[^/]+)"
                     + " st/(?<examStartTime>[^/]+)"
                     + " et/(?<examEndTime>[^/]+)"
                     + " dt/(?<examDetails>[^/]+)");
+
     public static final Pattern FEES_DATA_ARGS_FORMAT =
             Pattern.compile("(?<index>[^/]+)"
                     + " (?<fees>[^/]+)");
+
     public static final Pattern STATISTICS_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
             Pattern.compile("(?<subjectName>[^/]+)"
-                    + " (?<isExamPrivate>p?)en/(?<examName>[^/]+)"
+                    + " (?<isExamPrivate>p?)e/(?<examName>[^/]+)"
                     + " ts/(?<topScorer>[^/]+)"
                     + " av/(?<averageScore>[^/]+)"
                     + " te/(?<totalExamTakers>[^/]+)"
                     + " ab/(?<numberAbsent>[^/]+)"
                     + " tp/(?<totalPass>[^/]+)"
                     + " mm/(?<maxMin>[^/]+)");
+
     public static final Pattern ATTENDANCE_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
             Pattern.compile("(?<targetIndex>[^/]+)"
                           + " att/(?<isPresent>[^/]+)");
+
+    public static final Pattern EDIT_EXAM_INDEX_ARGS_FORMAT = Pattern.compile("(?<targetIndex>[^/]+)"
+                    + "(p/(?<isExamPrivate>[^/]+))*"
+                    + "(e/(?<examName>[^/]+))*"
+                    + "(s/(?<subjectName>[^/]+))*"
+                    + "(d/(?<examDate>[^/]+))*" // '/' forward slashes are reserved for delimiter prefixes
+                    + "(st/(?<examStartTime>[^/]+))*"
+                    + "(et/(?<examEndTime>[^/]+))*"
+                    + "(dt/(?<examDetails>[^/]+))*");
 
     /**
      * Used for initial separation of command word and args.
@@ -91,7 +111,6 @@ public class Parser {
         ParseException(String message) {
             super(message);
         }
-
     }
 
     /**
@@ -141,25 +160,31 @@ public class Parser {
 
         case ViewSelfCommand.COMMAND_WORD:
             return new ViewSelfCommand();
+
         case RaisePrivilegeCommand.COMMAND_WORD:
             return prepareRaisePrivilege(arguments);
 
         case EditPasswordCommand.COMMAND_WORD:
             return prepareChangePassword(arguments);
 
+        case AddExamCommand.COMMAND_WORD:
+            return prepareAddExam(arguments);
+
         case AddAccountCommand.COMMAND_WORD:
             return prepareAddAccount(arguments);
 
         case DeleteAccountCommand.COMMAND_WORD:
             return prepareDeleteAccount(arguments);
+
         case LoginCommand.COMMAND_WORD:
             return prepareLogin(arguments);
+
         case LogoutCommand.COMMAND_WORD:
             return new LogoutCommand();
-        case CreateExamCommand.COMMAND_WORD:
-            return prepareCreateExam(arguments);
+
         case ViewFeesCommand.COMMAND_WORD:
             return prepareViewFees(arguments);
+
         case AddAssignmentStatistics.COMMAND_WORD:
             return prepareAddStatistics(arguments);
 
@@ -168,6 +193,18 @@ public class Parser {
 
         case ViewAttendanceCommand.COMMAND_WORD:
             return prepareViewAttendance(arguments);
+
+        case ExamsListCommand.COMMAND_WORD:
+            return new ExamsListCommand();
+
+        case DeleteExamCommand.COMMAND_WORD:
+            return prepareDeleteExam(arguments);
+
+        case ClearExamsCommand.COMMAND_WORD:
+            return new ClearExamsCommand();
+
+        case EditExamCommand.COMMAND_WORD:
+            return prepareEditExam(arguments);
 
         case HelpCommand.COMMAND_WORD: // Fallthrough
         default:
@@ -253,7 +290,6 @@ public class Parser {
         }
     }
 
-
     /**
      * Parses arguments in the context of the delete person command.
      *
@@ -288,7 +324,6 @@ public class Parser {
      * @return the prepared command
      */
     private Command prepareView(String args) {
-
         try {
             final int targetIndex = parseArgsAsDisplayedIndex(args);
             return new ViewCommand(targetIndex);
@@ -305,7 +340,6 @@ public class Parser {
      * @return the prepared command
      */
     private Command prepareViewAll(String args) {
-
         try {
             final int targetIndex = parseArgsAsDisplayedIndex(args);
             return new ViewAllCommand(targetIndex);
@@ -367,7 +401,6 @@ public class Parser {
      * @return the prepared command
      */
     private Command prepareRaisePrivilege(String args) {
-
         final Matcher matcher = SINGLE_KEYWORD_ARGS_FORMAT.matcher(args.trim());
         if (!matcher.matches()) {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
@@ -400,6 +433,7 @@ public class Parser {
             return new IncorrectCommand(ive.getMessage());
         }
     }
+
     /**
      * Parses arguments in the context of the AddAccount command.
      * @param args full command args string
@@ -428,6 +462,7 @@ public class Parser {
                     AddAccountCommand.MESSAGE_USAGE));
         }
     }
+
     /**
      * Parses arguments in the context of the Login command.
      * @param args full command args string
@@ -465,19 +500,20 @@ public class Parser {
                     DeleteAccountCommand.MESSAGE_USAGE));
         }
     }
+
     /**
-     * Parses arguments in the context of the createexam exam command.
+     * Parses arguments in the context of the add exam command.
      */
-    private Command prepareCreateExam(String args) {
+    private Command prepareAddExam(String args) {
         final Matcher matcher = EXAM_DATA_ARGS_FORMAT.matcher(args.trim());
         // Validate arg string format
         if (!matcher.matches()) {
-            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, CreateExamCommand.MESSAGE_USAGE));
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddExamCommand.MESSAGE_USAGE));
         }
         try {
-            return new CreateExamCommand(
-                    matcher.group("subjectName"),
+            return new AddExamCommand(
                     matcher.group("examName"),
+                    matcher.group("subjectName"),
                     matcher.group("examDate"),
                     matcher.group("examStartTime"),
                     matcher.group("examEndTime"),
@@ -515,6 +551,7 @@ public class Parser {
             return new IncorrectCommand(ive.getMessage());
         }
     }
+
     /**
      * Parses arguments in the context of the update Attendance command.
      */
@@ -545,5 +582,100 @@ public class Parser {
         return new ViewAttendanceCommand(
                 matcher.group("targetIndex")
         );
+    }
+
+    /**
+     * Parses arguments in the context of the edit exam command.
+     *
+     * @param args full command args string
+     * @return the prepared command
+     */
+    private Command prepareDeleteExam(String args) {
+        try {
+            final int targetIndex = parseArgsAsDisplayedIndex(args);
+            return new DeleteExamCommand(targetIndex);
+        } catch (ParseException | NumberFormatException e) {
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteExamCommand.MESSAGE_USAGE));
+        }
+    }
+
+    /**
+     * Parses arguments in the context of the edit exam command.
+     *
+     * @param args full command args string
+     * @return the prepared command
+     */
+    private Command prepareEditExam(String args) {
+        final Matcher matcher = EDIT_EXAM_INDEX_ARGS_FORMAT.matcher(args.trim());
+        // Validate arg string format
+        if (!matcher.matches()) {
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    EditExamCommand.MESSAGE_USAGE));
+        }
+
+        String isPrivate = matcher.group("isExamPrivate");
+        // Validate private status
+        if (!isPrivateValid(isPrivate)) {
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    EditExamCommand.MESSAGE_USAGE));
+        }
+
+        Map<String, String> changedDetails = storeNewDetails(matcher.group("examName"),
+                matcher.group("subjectName"), matcher.group("examDate"),
+                matcher.group("examStartTime"), matcher.group("examEndTime"),
+                matcher.group("examDetails"), isPrivate);
+        if (changedDetails.isEmpty()) {
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    MESSAGE_NO_ARGS_FOUND + EditExamCommand.MESSAGE_USAGE));
+        }
+
+        try {
+            final int targetIndex = Integer.parseInt(matcher.group("targetIndex").trim());
+            return new EditExamCommand(targetIndex, changedDetails);
+        } catch (NumberFormatException e) {
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditExamCommand.MESSAGE_USAGE));
+        }
+    }
+
+    /**
+     * Stores the new values of exam to be edited to.
+    */
+    private static Map<String, String> storeNewDetails(String examName, String subjectName,
+                                                    String examDate, String startTime, String endTime,
+                                                    String details, String isExamPrivate) {
+        Map<String, String> result = new HashMap<>();
+        if (examName != null) {
+            result.put("examName", examName);
+        }
+        if (subjectName != null) {
+            result.put("subjectName", subjectName);
+        }
+        if (examDate != null) {
+            result.put("examDate", examDate);
+        }
+        if (startTime != null) {
+            result.put("examStartTime", startTime);
+        }
+        if (endTime != null) {
+            result.put("examEndTime", endTime);
+        }
+        if (details != null) {
+            result.put("examDetails", details);
+        }
+        if (isExamPrivate != null) {
+            result.put("isPrivate", isExamPrivate);
+        }
+        return result;
+    }
+
+    /**
+     * Checks if the private status for edit exam command is valid.
+     */
+    private static boolean isPrivateValid(String value) {
+        boolean valid = true;
+        if (value != null && !"y".equals(value.trim()) && !"n".equals(value.trim())) {
+            valid = false;
+        }
+        return valid;
     }
 }

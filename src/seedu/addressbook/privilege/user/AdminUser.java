@@ -5,6 +5,7 @@ import java.util.List;
 
 import seedu.addressbook.commands.AddAccountCommand;
 import seedu.addressbook.commands.ClearCommand;
+import seedu.addressbook.commands.ClearExamsCommand;
 import seedu.addressbook.commands.Command;
 import seedu.addressbook.commands.DeleteAccountCommand;
 import seedu.addressbook.commands.EditPasswordCommand;
@@ -17,6 +18,8 @@ public class AdminUser extends TutorUser {
     private static List<Command> newAllowedCommand = Arrays.asList(
             new ClearCommand(),
             new ViewAllCommand(),
+            new EditPasswordCommand(),
+            new ClearExamsCommand(),
             new EditPasswordCommand(),
             new AddAccountCommand(),
             new DeleteAccountCommand()

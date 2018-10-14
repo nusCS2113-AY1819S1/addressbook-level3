@@ -18,9 +18,10 @@ public class LoginCommand extends Command {
     public static final String COMMAND_WORD = "login";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ":\n"
-            + "Logs into your account. Raises current privilege to that of your account\n\t "
+            + "Logs into your account. Raises current privilege to that of your account.\n\t "
             + "Parameters: USERNAME PASSWORD\n\t"
             + "Example: " + COMMAND_WORD + " IamSudo sudo1234";
+
     public static final String MESSAGE_SUCCESS = "Logged in as : %s (%s)";
     public static final String MESSAGE_WRONG_PASSWORD = "Wrong password entered";
 
@@ -28,6 +29,13 @@ public class LoginCommand extends Command {
 
     private String userName;
     private String password;
+
+    /**
+     * Constructor used for Privileges
+     * Command constructed has no functionality
+     * */
+    public LoginCommand() {
+    }
 
     public LoginCommand(String[] arguments) throws IllegalValueException {
         if (arguments.length != REQUIRED_ARGUMENTS) {
@@ -38,11 +46,11 @@ public class LoginCommand extends Command {
         this.userName = arguments[0];
         this.password = arguments[1];
     }
-    /**
-     * Constructor used for Privileges
-     * Command constructed has no functionality
-     * */
-    public LoginCommand() {
+
+    private void validatePassword(Account account) throws Logic.WrongPasswordEnteredException {
+        if (!password.equals(account.getPassword())) {
+            throw new Logic.WrongPasswordEnteredException();
+        }
     }
 
     @Override
@@ -64,19 +72,13 @@ public class LoginCommand extends Command {
         }
     }
 
-    private void validatePassword(Account account) throws Logic.WrongPasswordEnteredException {
-        if (!password.equals(account.getPassword())) {
-            throw new Logic.WrongPasswordEnteredException();
-        }
+    @Override
+    public Category getCategory() {
+        return Category.ACCOUNT;
     }
 
     @Override
     public String getCommandUsageMessage() {
         return MESSAGE_USAGE;
-    }
-
-    @Override
-    public Category getCategory() {
-        return Category.ACCOUNT;
     }
 }

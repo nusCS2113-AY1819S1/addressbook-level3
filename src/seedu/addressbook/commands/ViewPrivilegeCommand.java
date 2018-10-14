@@ -10,6 +10,7 @@ import seedu.addressbook.data.person.ReadOnlyPerson;
 public class ViewPrivilegeCommand extends Command {
 
     public static final String COMMAND_WORD = "viewpri";
+
     public static final String MESSAGE_USAGE = COMMAND_WORD + ":\n" + "Shows your current privilege level.\n\t"
             + "Example: " + COMMAND_WORD;
 

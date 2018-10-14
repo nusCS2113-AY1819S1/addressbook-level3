@@ -6,9 +6,8 @@ import seedu.addressbook.data.person.ReadOnlyPerson;
 import seedu.addressbook.data.person.UniquePersonList.PersonNotFoundException;
 import seedu.addressbook.privilege.Privilege.SelfTargetingException;
 
-
 /**
- * Deletes a person identified using it's last displayed index from the address book.
+ * Deletes the account of a person identified using it's last displayed index from the address book.
  */
 public class DeleteAccountCommand extends Command {
 
@@ -32,6 +31,7 @@ public class DeleteAccountCommand extends Command {
      * Command constructed has no functionality
      * */
     public DeleteAccountCommand() {}
+
     // TODO: Prevent user from overrriding their logged-in account
     @Override
     public CommandResult execute() {

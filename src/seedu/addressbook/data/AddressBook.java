@@ -17,7 +17,6 @@ public class AddressBook {
     private final UniquePersonList allPersons;
     private String masterPassword;
 
-
     /**
      * Creates an empty address book.
      */
@@ -78,6 +77,7 @@ public class AddressBook {
     public Boolean containsPersonWithUsername(String username) {
         return allPersons.containsPersonWithUsername(username);
     }
+
     /**
      * Finds and returns the given person in the AddressBook
      *
@@ -86,7 +86,6 @@ public class AddressBook {
     public Person findPerson(ReadOnlyPerson person) throws PersonNotFoundException {
         return allPersons.find(person);
     }
-
 
     /**
      * Clears all persons from the address book.

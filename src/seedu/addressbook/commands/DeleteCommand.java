@@ -5,9 +5,8 @@ import seedu.addressbook.data.person.ReadOnlyPerson;
 import seedu.addressbook.data.person.UniquePersonList.PersonNotFoundException;
 import seedu.addressbook.privilege.Privilege;
 
-
 /**
- * Deletes a person identified using it's last displayed index from the address book.
+ * Deletes a person identified using its last displayed index from the address book.
  */
 public class DeleteCommand extends Command {
 
@@ -21,16 +20,15 @@ public class DeleteCommand extends Command {
     public static final String MESSAGE_DELETE_PERSON_SUCCESS = "Deleted Person: %1$s";
     public static final String MESSAGE_DELETING_SELF = "You cannot delete the account your are logged-in as!";
 
-
-    public DeleteCommand(int targetVisibleIndex) {
-        super(targetVisibleIndex);
-    }
-
     /**
      * Constructor used for Privileges
      * Command constructed has no functionality
      * */
     public DeleteCommand() {
+    }
+
+    public DeleteCommand(int targetVisibleIndex) {
+        super(targetVisibleIndex);
     }
 
     @Override
@@ -56,7 +54,7 @@ public class DeleteCommand extends Command {
 
     @Override
     public Category getCategory() {
-        return Category.DETAILS;
+        return Category.PERSON;
     }
 
     @Override

@@ -20,8 +20,6 @@ public class UniquePersonList implements Iterable<Person> {
 
     private final List<Person> internalList = new ArrayList<>();
 
-
-
     /**
      * Signals that an operation would have violated the 'no duplicates' property of the list.
      */
@@ -81,7 +79,6 @@ public class UniquePersonList implements Iterable<Person> {
         return Collections.unmodifiableList(internalList);
     }
 
-
     /**
      * Checks if the list contains an equivalent person as the given argument.
      */
@@ -135,24 +132,6 @@ public class UniquePersonList implements Iterable<Person> {
         internalList.clear();
     }
 
-    @Override
-    public Iterator<Person> iterator() {
-        return internalList.iterator();
-    }
-
-    @Override
-    public boolean equals(Object other) {
-        return other == this // short circuit if same object
-                || (other instanceof UniquePersonList // instanceof handles nulls
-                && this.internalList.equals((
-                        (UniquePersonList) other).internalList));
-    }
-
-    @Override
-    public int hashCode() {
-        return internalList.hashCode();
-    }
-
     /** Finds and returns the Person who has the given username in its Account
      * @param username
      * @return The Person who matches the username. This should be guaranteed to be unique.
@@ -179,5 +158,23 @@ public class UniquePersonList implements Iterable<Person> {
         } catch (PersonNotFoundException pne) {
             return false;
         }
+    }
+
+    @Override
+    public Iterator<Person> iterator() {
+        return internalList.iterator();
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof UniquePersonList // instanceof handles nulls
+                && this.internalList.equals((
+                (UniquePersonList) other).internalList));
+    }
+
+    @Override
+    public int hashCode() {
+        return internalList.hashCode();
     }
 }
