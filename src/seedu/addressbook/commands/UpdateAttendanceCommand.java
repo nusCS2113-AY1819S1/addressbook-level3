@@ -1,8 +1,5 @@
 package seedu.addressbook.commands;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
 import seedu.addressbook.common.Messages;
 import seedu.addressbook.data.person.Person;
 import seedu.addressbook.data.person.UniquePersonList;
@@ -15,12 +12,12 @@ public class UpdateAttendanceCommand extends Command {
     public static final String COMMAND_WORD = "attendance";
     public static final String MESSAGE_USAGE = COMMAND_WORD + ":\n"
             + "Updates the attendance of a student. \n"
-            + "Parameters: indexOfPerson d/dd-mm-yyy att/attendance \n"
+            + "Parameters: indexOfPerson d/dd-mm-yyyy att/attendance \n"
             + "Example: " + COMMAND_WORD + " " + "1 d/29-09-2018 att/1 \n"
             + "To input today's date, input d/0";
 
-    public static final String MESSAGE_SUCCESS = "Attendance updated : %1$s";
-    public static final String MESSAGE_DUPLICATE_EXAM = "Attendance has already been taken";
+    public static final String MESSAGE_SUCCESS = "Attendance updated";
+    public static final String MESSAGE_DUPLICATE_ATTENDANCE = "Attendance has already been taken";
 
     private boolean isPresent;
     private String date;
