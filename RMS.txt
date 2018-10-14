@@ -14,9 +14,38 @@
         <tagged>owesMoney</tagged>
         <tagged>friends</tagged>
     </persons>
+    <persons>
+        <name>add John Doe</name>
+        <phone isPrivate="false">98765432</phone>
+        <email isPrivate="false">johnd@gmail.com</email>
+        <address isPrivate="false">311, Clementi Ave 2, #02-25</address>
+        <tagged>owesMoney</tagged>
+        <tagged>friends</tagged>
+    </persons>
     <menus>
         <name>Pizza</name>
         <price isPrivate="false">10</price>
+    </menus>
+    <menus>
+        <name>fries</name>
+        <price isPrivate="false">500</price>
+    </menus>
+    <menus>
+        <name>cheesefries</name>
+        <price isPrivate="false">55</price>
+        <tagged>bestseller</tagged>
+    </menus>
+    <menus>
+        <name>cheese</name>
+        <price isPrivate="false">5454</price>
+    </menus>
+    <menus>
+        <name>cheesecheeseburger</name>
+        <price isPrivate="false">5</price>
+    </menus>
+    <menus>
+        <name>cheesechfries</name>
+        <price isPrivate="false">5</price>
     </menus>
     <members>
         <name>Kang Ming</name>
@@ -26,6 +55,18 @@
         <phone>93219416</phone>
         <email>email@email.com</email>
         <address>447</address>
+    </employees>
+    <employees>
+        <name>John Doe</name>
+        <phone>98765432</phone>
+        <email>johnd@gmail.com</email>
+        <address>311, Clementi Ave 2, #02-25</address>
+    </employees>
+    <employees>
+        <name>Alice Doe</name>
+        <phone>98765432</phone>
+        <email>johnd@gmail.com</email>
+        <address>311, Clementi Ave 2, #02-25</address>
     </employees>
     <orders>
         <customer>
