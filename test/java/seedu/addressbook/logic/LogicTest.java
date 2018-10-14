@@ -695,7 +695,7 @@ public class LogicTest {
     @Test
     public void executeUpdateAttendanceInvalidArgsFormat() throws Exception {
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, UpdateAttendanceCommand.MESSAGE_USAGE);
-        assertCommandBehavior("attendance 1 att/ ", expectedMessage);
+        assertCommandBehavior("attendance 1 d/29-09-1996 att/ ", expectedMessage);
         assertCommandBehavior("attendance 2", expectedMessage);
     }
 
@@ -710,43 +710,20 @@ public class LogicTest {
         List<Person> threePersons = helper.generatePersonList(p1, p2, p3);
         List<Person> threePersons_expected = helper.generatePersonList(p1_expected, p2, p3);
 
-        AddressBook expected = helper.generateAddressBook(threePersons_expected);
-        String currentDate = new SimpleDateFormat("dd-MM-yyyy").format(new Date());
-        p1_expected.updateAttendanceMethod(currentDate, "1");
+        AddressBook expected_book = helper.generateAddressBook(threePersons_expected);
+        String currentDate = "29-09-2018";
+        //new SimpleDateFormat("dd-MM-yyyy").format(new Date());
+        p1_expected.updateAttendanceMethod(currentDate, true);
 
         helper.addToAddressBook(addressBook, threePersons);
         logic.setLastShownList(threePersons);
 
-        assertCommandBehavior("attendance 1 att/1",
-                String.format(UpdateAttendanceCommand.MESSAGE_SUCCESS, 1),
-                expected,
+        assertCommandBehavior("attendance 1 d/29-09-2018 att/1",
+                String.format(UpdateAttendanceCommand.MESSAGE_SUCCESS + p1_expected.getName()),
+                expected_book,
                 false,
                 threePersons);
 
         assertEquals(p1.getAttendance(), p1_expected.getAttendance());
     }
-    /*
-    @Test
-    public void executeDeleteMissingInAddressBook() throws Exception {
-
-        TestDataHelper helper = new TestDataHelper();
-        Person p1 = helper.generatePerson(1, false);
-        Person p2 = helper.generatePerson(2, true);
-        Person p3 = helper.generatePerson(3, true);
-
-        List<Person> threePersons = helper.generatePersonList(p1, p2, p3);
-
-        AddressBook expected = helper.generateAddressBook(threePersons);
-        expected.removePerson(p2);
-
-        helper.addToAddressBook(addressBook, threePersons);
-        addressBook.removePerson(p2);
-        logic.setLastShownList(threePersons);
-
-        assertCommandBehavior("delete 2",
-                Messages.MESSAGE_PERSON_NOT_IN_ADDRESSBOOK,
-                expected,
-                false,
-                threePersons);
-    }*/
 }
