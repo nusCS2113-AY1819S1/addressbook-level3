@@ -13,11 +13,13 @@ public class Attendance implements Printable {
     /** Method to add attendance */
     public void addAttendance(String date, Boolean isPresent) {
         if ("0".equals(date)) { //PMD 3.3
-            date = new SimpleDateFormat("dd-MM-yyyy").format(new Date());
+            String today_date = new SimpleDateFormat("dd-MM-yyyy").format(new Date());
+            attendanceMap.put(today_date, isPresent);
+        } else {
+            // TODO: v1.3 Add in feature such that if(date == found){print MESSAGE_DUPLICATE_ATTENDANCE from update attendance command
+            // TODO: and ask user if want to replace attendance};
+            attendanceMap.put(date, isPresent);
         }
-        // TODO: v1.3 Add in feature such that if(date == found){print MESSAGE_DUPLICATE_ATTENDANCE from update attendance command
-        // TODO: and ask user if want to replace attendance};
-        attendanceMap.put(date, isPresent);
     }
 
     /** Method to reiterate person's attendance */
