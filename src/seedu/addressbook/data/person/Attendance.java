@@ -17,8 +17,8 @@ public class Attendance implements Printable {
     /** Method to add attendance */
     public void addAttendance(String date, Boolean isPresent) {
         if ("0".equals(date)) { //PMD 3.3
-            String today_date = new SimpleDateFormat("dd-MM-yyyy").format(new Date());
-            attendanceMap.put(today_date, isPresent);
+            String todayDate = new SimpleDateFormat("dd-MM-yyyy").format(new Date());
+            attendanceMap.put(todayDate, isPresent);
         } else {
             // TODO: v1.3 Add in feature such that if(date == found){print MESSAGE_DUPLICATE_ATTENDANCE from update
             // TODO: attendance command and ask user if want to replace attendance};
@@ -32,7 +32,9 @@ public class Attendance implements Printable {
         for (Map.Entry entry : attendanceMap.entrySet()) {
             output += entry.getKey() + " -> " + entry.getValue() + "\n";
         }
-        if ("".equals(output)) {output = "NIL";}
+        if ("".equals(output)) {
+            output = "NIL";
+        }
         return output;
     }
 

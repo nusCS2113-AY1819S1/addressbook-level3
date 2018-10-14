@@ -569,12 +569,12 @@ public class Parser {
         try {
             final int targetIndex = parseInt(matcher.group("targetIndex"));
             final Integer isPresent = parseInt(matcher.group("isPresent"));
-            final boolean isPresent_b = isPresent.equals(1);
+            final boolean isPresentBool = isPresent.equals(1);
 
             return new UpdateAttendanceCommand(
                     targetIndex,
                     matcher.group("date"),
-                    isPresent_b);
+                    isPresentBool);
         } catch (NumberFormatException nfe) { //do the most specific catch on top
             return new IncorrectCommand(nfe.getMessage());
         }
