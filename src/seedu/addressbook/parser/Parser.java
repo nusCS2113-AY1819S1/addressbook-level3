@@ -1,6 +1,5 @@
 package seedu.addressbook.parser;
 
-import static java.lang.Boolean.parseBoolean;
 import static java.lang.Integer.parseInt;
 import static seedu.addressbook.common.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 

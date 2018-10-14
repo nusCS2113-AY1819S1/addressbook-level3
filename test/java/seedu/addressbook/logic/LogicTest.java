@@ -752,4 +752,6 @@ public class LogicTest {
 
         assertEquals(p1.getAttendance(), p1_expected.getAttendance());
     }
+
+    //TODO include test for viewcommand success
 }
