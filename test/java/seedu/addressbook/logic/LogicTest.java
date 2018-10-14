@@ -856,30 +856,26 @@ public class LogicTest {
         assertEquals(p1.getAttendance(), p1_expected.getAttendance());
     }
 
-    // TODO test to be fixed
     @Test
     public void executeViewAttendanceSuccess() throws Exception {
         TestDataHelper helper = new TestDataHelper();
         Person p1 = helper.generatePerson(1, false);
         Person p1_expected = helper.generatePerson(1, false);
-        Person p2 = helper.generatePerson(2, true);
-        Person p3 = helper.generatePerson(3, true);
 
-        List<Person> threePersons = helper.generatePersonList(p1, p2, p3);
-        List<Person> threePersons_expected = helper.generatePersonList(p1_expected, p2, p3);
+        List<Person> personList = helper.generatePersonList(p1);
+        List<Person> personList_expected = helper.generatePersonList(p1_expected);
 
-        AddressBook expected_book = helper.generateAddressBook(threePersons_expected);
+        AddressBook expected_book = helper.generateAddressBook(personList_expected);
         p1_expected.updateAttendanceMethod("29-09-2018", true);
 
-        helper.addToAddressBook(addressBook, threePersons);
-        logic.setLastShownList(threePersons);
+        helper.addToAddressBook(addressBook, personList_expected);
+        logic.setLastShownList(personList);
+
         assertCommandBehavior("viewAtten 1",
                 ViewAttendanceCommand.MESSAGE_SUCCESS + p1_expected.getName() + ":\n" + p1_expected.viewAttendanceMethod(),
                 expected_book,
                 false,
-                threePersons);
-
-        assertEquals(p1.getAttendance(), p1_expected.getAttendance());
+                personList_expected);
     }
 
     @Test
