@@ -15,6 +15,8 @@ public class Attendance implements Printable {
         if (date.equals("0")){
             date = new SimpleDateFormat("dd-MM-yyyy").format(new Date());
         }
+        // TODO: v1.3 Add in feature such that if(date == found){print MESSAGE_DUPLICATE_ATTENDANCE from update attendance command
+        // TODO: and ask user if want to replace attendance};
         attendance_map.put(date, isPresent);
     }
 
