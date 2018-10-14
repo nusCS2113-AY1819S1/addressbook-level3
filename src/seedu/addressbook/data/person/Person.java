@@ -104,8 +104,8 @@ public class Person implements ReadOnlyPerson {
         return getAsTextShowAll();
     }
 
-    public void updateAttendanceMethod(String currentDate, String isPresent) {
-        attendance.addAttendance(currentDate, isPresent);
+    public void updateAttendanceMethod(String date, Boolean isPresent) {
+        attendance.addAttendance(date, isPresent);
     }
 
     public String viewAttendanceMethod() {
