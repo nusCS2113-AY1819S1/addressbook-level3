@@ -646,7 +646,7 @@ public class Parser {
         }
 
         try {
-            final int targetIndex = parseInt(matcher.group("targetIndex"));
+            final int targetIndex = parseInt(matcher.group("targetIndex").trim());
             return new EditExamCommand(targetIndex, changedDetails);
         } catch (NumberFormatException e) {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditExamCommand.MESSAGE_USAGE));
