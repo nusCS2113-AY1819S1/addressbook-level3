@@ -15,7 +15,6 @@ public class ViewAttendanceCommand extends Command {
             + "Example: " + COMMAND_WORD + " " + "1";
 
     public static final String MESSAGE_SUCCESS = "Attendance for student: \n";
-    public static final String MESSAGE_DUPLICATE_EXAM = "No such student";
 
     // Constructor
     public ViewAttendanceCommand(int targetIndex) {
@@ -27,7 +26,7 @@ public class ViewAttendanceCommand extends Command {
         try {
             Person person = addressBook.findPerson(getTargetPerson());
             final String output = person.viewAttendanceMethod();
-            return new CommandResult("Attendance of " + getTargetIndex() + ":\n" + output);
+            return new CommandResult("Attendance of " + person.getName() + ":\n" + output);
 
         } catch (IndexOutOfBoundsException ie) {
             return new CommandResult(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
