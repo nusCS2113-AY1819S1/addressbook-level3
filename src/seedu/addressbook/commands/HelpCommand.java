@@ -1,6 +1,10 @@
 package seedu.addressbook.commands;
 
 
+import seedu.addressbook.commands.member.*;
+import seedu.addressbook.commands.menu.*;
+import seedu.addressbook.commands.order.*;
+
 /**
  * Shows help instructions.
  */
@@ -12,18 +16,24 @@ public class HelpCommand extends Command {
             + "Example: " + COMMAND_WORD;
 
     public static final String MESSAGE_ALL_USAGES = AddCommand.MESSAGE_USAGE
-            //+ "\n" + AddMenu.MESSAGE_DUPLICATE_MENUITEM
             + "\n" + DeleteCommand.MESSAGE_USAGE
             + "\n" + ClearCommand.MESSAGE_USAGE
             + "\n" + FindCommand.MESSAGE_USAGE
             + "\n" + ListCommand.MESSAGE_USAGE
-            + "\n" + MemberListCommand.MESSAGE_USAGE
-            + "\n" + MenuListCommand.MESSAGE_USAGE
             + "\n" + ViewCommand.MESSAGE_USAGE
             + "\n" + ViewAllCommand.MESSAGE_USAGE
-            + "\n" + MenuViewAllCommand.MESSAGE_USAGE
             + "\n" + HelpCommand.MESSAGE_USAGE
+
+            + "\n" + MemberListCommand.MESSAGE_USAGE
+
+            + "\n" + MenuAddCommand.MESSAGE_USAGE
+            + "\n" + MenuListCommand.MESSAGE_USAGE
+            + "\n" + MenuViewAllCommand.MESSAGE_USAGE
+
+            + "\n" + OrderDeleteCommand.MESSAGE_USAGE
+            + "\n" + OrderClearCommand.MESSAGE_USAGE
             + "\n" + OrderListCommand.MESSAGE_USAGE
+
             + "\n" + ExitCommand.MESSAGE_USAGE;
 
     @Override

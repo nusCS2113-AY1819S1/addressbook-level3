@@ -3,27 +3,30 @@ package seedu.addressbook.data;
 import seedu.addressbook.data.member.Member;
 import seedu.addressbook.data.member.ReadOnlyMember;
 import seedu.addressbook.data.member.UniqueMemberList;
+import seedu.addressbook.data.member.UniqueMemberList.DuplicateMemberException;
+import seedu.addressbook.data.member.UniqueMemberList.MemberNotFoundException;
 import seedu.addressbook.data.menu.Menu;
 import seedu.addressbook.data.menu.ReadOnlyMenus;
 import seedu.addressbook.data.menu.UniqueMenuList;
 import seedu.addressbook.data.menu.UniqueMenuList.DuplicateMenuException;
+import seedu.addressbook.data.menu.UniqueMenuList.MenuNotFoundException;
 import seedu.addressbook.data.order.Order;
 import seedu.addressbook.data.order.ReadOnlyOrder;
 import seedu.addressbook.data.order.UniqueOrderList;
 import seedu.addressbook.data.order.UniqueOrderList.OrderNotFoundException;
 import seedu.addressbook.data.person.Person;
 import seedu.addressbook.data.person.ReadOnlyPerson;
+import seedu.addressbook.data.person.Employee;
 import seedu.addressbook.data.person.UniqueEmployeeList;
+import seedu.addressbook.data.person.UniqueEmployeeList.DuplicateEmployeeException;
 import seedu.addressbook.data.person.UniquePersonList;
 import seedu.addressbook.data.person.UniquePersonList.DuplicatePersonException;
 import seedu.addressbook.data.person.UniquePersonList.PersonNotFoundException;
-import seedu.addressbook.data.member.UniqueMemberList.DuplicateMemberException;
-import seedu.addressbook.data.member.UniqueMemberList.MemberNotFoundException;
 
 /**
  * Represents the entire address book. Contains the data of the address book.
  */
-public class RMS {
+public class Rms {
 
     private final UniquePersonList allPersons;
     private final UniqueEmployeeList allEmployees;
@@ -31,15 +34,15 @@ public class RMS {
     private final UniqueOrderList allOrders;
     private final UniqueMemberList allMembers;
 
-    public static RMS empty() {
-        return new RMS();
+    public static Rms empty() {
+        return new Rms();
     }
 
     /**
      * Creates an empty address book.
      */
     // added allEmployees = new UniqueEmployeeList();
-    public RMS() {
+    public Rms() {
 
         allPersons = new UniquePersonList();
         allEmployees = new UniqueEmployeeList();
@@ -54,7 +57,11 @@ public class RMS {
      * @param persons external changes to this will not affect this address book
      */
     // Construct address book with persons and employees
-    public RMS(UniquePersonList persons, UniqueMenuList menus, UniqueEmployeeList employees, UniqueOrderList orders, UniqueMemberList members) {
+    public Rms(UniquePersonList persons,
+               UniqueMenuList menus,
+               UniqueEmployeeList employees,
+               UniqueOrderList orders,
+               UniqueMemberList members) {
         this.allPersons = new UniquePersonList(persons);
         this.allEmployees = new UniqueEmployeeList(employees);
         this.allFoodItems = new UniqueMenuList(menus);
@@ -69,6 +76,16 @@ public class RMS {
      */
     public void addPerson(Person toAdd) throws DuplicatePersonException { allPersons.add(toAdd); }
 
+    /**
+     * Adds a person to the address book.
+     *
+     * @throws DuplicatePersonException if an equivalent person already exists.
+     */
+    public void addEmployee(Employee toAdd) throws DuplicateEmployeeException { allEmployees.add(toAdd); }
+
+    /**
+     * Adds a menu item to the menu list.
+     */
     public void addMenu(Menu toAdd) throws DuplicateMenuException { allFoodItems.add(toAdd); }
 
     /**
@@ -95,6 +112,9 @@ public class RMS {
         return allPersons.contains(key);
     }
 
+    /**
+     * Checks if an equivalent menu item exists in the address book.
+     */
     public boolean containsMenus(ReadOnlyMenus key) {
         return allFoodItems.contains(key);
     }
@@ -123,7 +143,12 @@ public class RMS {
         allPersons.remove(toRemove);
     }
 
-    public void removeMenuItem(ReadOnlyMenus toRemove) throws UniqueMenuList.MenuNotFoundException {
+    /**
+     * Removes the equivalent menu item from the menu.
+     *
+     * @throws MenuNotFoundException if no such Order could be found.
+     */
+    public void removeMenuItem(ReadOnlyMenus toRemove) throws MenuNotFoundException {
         allFoodItems.remove(toRemove);
     }
 
@@ -152,6 +177,9 @@ public class RMS {
         allPersons.clear();
     }
 
+    /**
+     * Clears all menu items from the menu.
+     */
     public void clearMenu() {
         allFoodItems.clear();
     }
@@ -166,7 +194,7 @@ public class RMS {
     /**
      * Clears all members from the address book.
      */
-    public void clearmembers() {
+    public void clearMembers() {
         allMembers.clear();
     }
 
@@ -178,28 +206,36 @@ public class RMS {
     }
 
     /**
-     * Defensively copied UniqueMemberList of all members in the address book at the time of the call.
+     * Defensively copied UniqueMemberList of all members in the member list at the time of the call.
      */
     public UniqueMemberList getAllMembers() {
         return new UniqueMemberList(allMembers);
     }
 
-    // this is a copy of getAllPersons for employees
+    /**
+     * Defensively copied UniqueEmployeeList of all employees in the employee list at the time of the call.
+     */
     public UniqueEmployeeList getAllEmployees() {
         return new UniqueEmployeeList(allEmployees);
     }
 
+    /**
+     * Defensively copied UniqueMenuList of all menu items in the menu at the time of the call.
+     */
     public UniqueMenuList getAllMenus() {
         return new UniqueMenuList(allFoodItems);
     }
 
+    /**
+     * Defensively copied UniqueOrderList of all orders in the employee list at the time of the call.
+     */
     public UniqueOrderList getAllOrders() { return new UniqueOrderList(allOrders); }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof RMS // instanceof handles nulls
-                && this.allPersons.equals(((RMS) other).allPersons));
+                || (other instanceof Rms // instanceof handles nulls
+                && this.allPersons.equals(((Rms) other).allPersons));
     }
 
     @Override

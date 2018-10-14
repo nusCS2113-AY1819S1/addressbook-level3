@@ -6,12 +6,12 @@ import javafx.fxml.FXML;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import seedu.addressbook.commands.ExitCommand;
+import seedu.addressbook.commands.CommandResult;
 import seedu.addressbook.data.member.ReadOnlyMember;
 import seedu.addressbook.data.menu.ReadOnlyMenus;
 import seedu.addressbook.data.order.ReadOnlyOrder;
-import seedu.addressbook.logic.Logic;
-import seedu.addressbook.commands.CommandResult;
 import seedu.addressbook.data.person.ReadOnlyPerson;
+import seedu.addressbook.logic.Logic;
 
 import java.util.List;
 import java.util.Optional;
@@ -99,7 +99,7 @@ public class MainWindow {
         display(result.feedbackToUser);
     }
 
-    public void displayRMSWelcomeMessage(String version, String orderListStorageFilePath) {
+    public void displayRmsWelcomeMessage(String version, String orderListStorageFilePath) {
         String orderListStorageFileInfo = String.format(MESSAGE_USING_ORDER_LIST_STORAGE_FILE,
                 orderListStorageFilePath);
         display(MESSAGE_WELCOME, version, MESSAGE_PROGRAM_LAUNCH_ARGS_USAGE, orderListStorageFileInfo);
@@ -134,7 +134,7 @@ public class MainWindow {
      * Displays the menu list in the output display area, formatted as an indexed list.
      */
     private void displayMenuResult(List<? extends ReadOnlyMenus> menus) {
-        display(new Formatter().formatMenu(menus));
+        display(new Formatter().formatMenuResult(menus));
     }
 
     /**

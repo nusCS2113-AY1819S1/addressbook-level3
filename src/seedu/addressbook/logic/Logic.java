@@ -3,10 +3,10 @@ package seedu.addressbook.logic;
 import seedu.addressbook.commands.Command;
 import seedu.addressbook.commands.CommandResult;
 import seedu.addressbook.data.member.ReadOnlyMember;
-import seedu.addressbook.data.RMS;
 import seedu.addressbook.data.menu.ReadOnlyMenus;
 import seedu.addressbook.data.order.ReadOnlyOrder;
 import seedu.addressbook.data.person.ReadOnlyPerson;
+import seedu.addressbook.data.Rms;
 import seedu.addressbook.parser.Parser;
 import seedu.addressbook.storage.StorageFile;
 
@@ -15,18 +15,18 @@ import java.util.List;
 import java.util.Optional;
 
 /**
- * Represents the main Logic of the RMS.
+ * Represents the main Logic of the Rms.
  */
 public class Logic {
 
-
     private StorageFile storage;
-    private RMS rms;
+    private Rms rms;
 
     /** The list of person shown to the user most recently.  */
     private List<? extends ReadOnlyPerson> lastShownList = Collections.emptyList();
 
-    /** The menu list shown to the user most recently*/
+
+    /** The list of menu shown to the user most recently.  */
     private List<? extends ReadOnlyMenus> lastShownMenuList = Collections.emptyList();
 
     /** The list of member shown to the user most recently.  */
@@ -40,7 +40,7 @@ public class Logic {
         setRms(storage.load());
     }
 
-    Logic(StorageFile storageFile, RMS rms){
+    Logic(StorageFile storageFile, Rms rms){
         setStorage(storageFile);
         setRms(rms);
     }
@@ -49,7 +49,7 @@ public class Logic {
         this.storage = storage;
     }
 
-    void setRms(RMS rms){
+    void setRms(Rms rms){
         this.rms = rms;
     }
 
@@ -71,12 +71,16 @@ public class Logic {
     public List<ReadOnlyPerson> getLastShownList() {
         return Collections.unmodifiableList(lastShownList);
     }
+
+    /**
+     * Unmodifiable view of the current last shown menu list.
+     */
     public List<ReadOnlyMenus> getLastShownMenuList() {
         return Collections.unmodifiableList(lastShownMenuList);
     }
 
     /**
-     * Unmodifiable view of the current last shown list.
+     * Unmodifiable view of the current last shown member list.
      */
     public List<ReadOnlyMember> getLastShownMemberList() {
         return Collections.unmodifiableList(lastShownMemberList);
@@ -101,7 +105,9 @@ public class Logic {
         lastShownOrderList = newList;
     }
 
-    protected void setLastShownMemberList(List<? extends ReadOnlyMember> newList) { lastShownMemberList = newList; }
+    protected void setLastShownMemberList(List<? extends ReadOnlyMember> newList) {
+        lastShownMemberList = newList;
+    }
 
     /**
      * Parses the user command, executes it, and returns the result.
@@ -111,7 +117,6 @@ public class Logic {
         Command command = new Parser().parseCommand(userCommandText);
         CommandResult result = execute(command);
         recordResult(result);
-        recordOrderResult(result);
         return result;
     }
 
@@ -132,17 +137,20 @@ public class Logic {
     /** Updates the {@link #lastShownList} if the result contains a list of Persons. */
     private void recordResult(CommandResult result) {
         final Optional<List<? extends ReadOnlyPerson>> personList = result.getRelevantPersons();
+        final Optional<List<? extends ReadOnlyMenus>> menuList = result.getRelevantMenus();
+        final Optional<List<? extends ReadOnlyOrder>> orderList = result.getRelevantOrders();
+        final Optional<List<? extends ReadOnlyMember>> memberList = result.getRelevantMember();
         if (personList.isPresent()) {
             lastShownList = personList.get();
         }
-    }
-
-// ADD METHOD TO RECORD MENU RESULT
-
-    private void recordOrderResult(CommandResult result) {
-        final Optional<List<? extends ReadOnlyOrder>> orderList = result.getRelevantOrders();
+        if (menuList.isPresent()) {
+            lastShownMenuList = menuList.get();
+        }
         if (orderList.isPresent()) {
             lastShownOrderList = orderList.get();
+        }
+        if (memberList.isPresent()) {
+            lastShownMemberList = memberList.get();
         }
     }
 }

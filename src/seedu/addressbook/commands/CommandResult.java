@@ -46,7 +46,7 @@ public class CommandResult {
         this.relevantMembers = null;
     }
 
-    /** Command result constructor used by child classes for RMS commands*/
+    /** Command result constructor used by child classes for Rms commands*/
     public CommandResult(String feedbackToUser,
                          List<? extends ReadOnlyPerson> relevantPersons,
                          List<? extends ReadOnlyMenus> relevantMenus,
@@ -60,25 +60,28 @@ public class CommandResult {
     }
 
     /**
-     * Returns list of persons relevant to the command command result, if any.
+     * Returns list of persons relevant to the command result, if any.
      */
     public Optional<List<? extends ReadOnlyPerson>> getRelevantPersons() {
         return Optional.ofNullable(relevantPersons);
     }
 
+    /**
+     * Returns list of menu items relevant to the command result, if any.
+     */
     public Optional<List<? extends ReadOnlyMenus>> getRelevantMenus() {
         return Optional.ofNullable(relevantMenus);
     }
 
     /**
-     * Returns list of orders relevant to the command command result, if any.
+     * Returns list of orders relevant to the command result, if any.
      */
     public Optional<List<? extends ReadOnlyOrder>> getRelevantOrders() {
         return Optional.ofNullable(relevantOrders);
     }
 
     /**
-     * Returns list of members relevant to the command command result, if any.
+     * Returns list of members relevant to the command result, if any.
      */
     public Optional<List<? extends ReadOnlyMember>> getRelevantMember() {
         return Optional.ofNullable(relevantMembers);

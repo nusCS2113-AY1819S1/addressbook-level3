@@ -11,7 +11,7 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 import org.junit.rules.TemporaryFolder;
 
-import seedu.addressbook.data.RMS;
+import seedu.addressbook.data.Rms;
 import seedu.addressbook.data.exception.IllegalValueException;
 import seedu.addressbook.data.person.Address;
 import seedu.addressbook.data.person.Email;
@@ -45,7 +45,7 @@ public class StorageFileTest {
 
     @Test
     public void load_invalidFormat_exceptionThrown() throws Exception {
-        // The file contains valid xml data, but does not match the RMS class
+        // The file contains valid xml data, but does not match the Rms class
         StorageFile storage = getStorage("InvalidData.txt");
         thrown.expect(StorageOperationException.class);
         storage.load();
@@ -53,12 +53,14 @@ public class StorageFileTest {
 
     @Test
     public void load_validFormat() throws Exception {
-        RMS actualAB = getStorage("ValidData.txt").load();
-        RMS expectedAB = getTestAddressBook();
+        Rms actualAB = getStorage("ValidData.txt").load();
+        Rms expectedAB = getTestAddressBook();
 
-        // ensure loaded RMS is properly constructed with test data
-        // TODO: overwrite equals method in RMS class and replace with equals method below
+        // ensure loaded Rms is properly constructed with test data
+        // overwrite equals method in Rms class and replace with equals method below
         assertEquals(actualAB.getAllPersons(), expectedAB.getAllPersons());
+        assertEquals(actualAB.getAllMenus(), expectedAB.getAllMenus());
+
     }
 
     @Test
@@ -70,7 +72,7 @@ public class StorageFileTest {
 
     @Test
     public void save_validAddressBook() throws Exception {
-        RMS ab = getTestAddressBook();
+        Rms ab = getTestAddressBook();
         StorageFile storage = getTempStorage();
         storage.save(ab);
 
@@ -94,8 +96,8 @@ public class StorageFileTest {
         return new StorageFile(testFolder.getRoot().getPath() + "/" + "temp.txt");
     }
 
-    private RMS getTestAddressBook() throws Exception {
-        RMS ab = new RMS();
+    private Rms getTestAddressBook() throws Exception {
+        Rms ab = new Rms();
         ab.addPerson(new Person(new Name("John Doe"),
                                 new Phone("98765432", false),
                                 new Email("johnd@gmail.com", false),
@@ -106,6 +108,7 @@ public class StorageFileTest {
                                 new Email("betsycrowe@gmail.com", false),
                                 new Address("Newgate Prison", true),
                                 new HashSet<>(Arrays.asList(new Tag("friend"), new Tag("criminal")))));
+       // ab.addMenu(new Menu(new Name("Pizza"), new Price("5"), Collections.emptySet()));
         return ab;
     }
 }

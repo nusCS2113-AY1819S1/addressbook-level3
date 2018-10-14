@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<RMS>
+<Rms>
     <persons>
         <name>Wei Ming</name>
         <phone isPrivate="false">93219416</phone>
@@ -44,8 +44,8 @@
         <price isPrivate="false">5</price>
     </menus>
     <menus>
-        <name>cheesechfries</name>
-        <price isPrivate="false">5</price>
+        <name>cheesebaconfries</name>
+        <price isPrivate="false">55</price>
     </menus>
     <members>
         <name>Kang Ming</name>
@@ -99,4 +99,4 @@
             <quantity>2</quantity>
         </dishItems>
     </orders>
-</RMS>
+</Rms>
