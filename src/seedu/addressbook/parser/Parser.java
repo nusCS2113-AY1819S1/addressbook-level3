@@ -453,10 +453,8 @@ public class Parser {
         }
         try {
             final int targetIndex = parseInt(matcher.group("targetIndex"));
-            final int isPresent = parseInt(matcher.group("isPresent"));
-            final boolean isPresent_b;
-            if ((matcher.group("isPresent")).equals("1")) isPresent_b = true;
-            else isPresent_b = false;
+            final Integer isPresent = parseInt(matcher.group("isPresent"));
+            final boolean isPresent_b = isPresent.equals(1);
 
             return new UpdateAttendanceCommand(
                     targetIndex,
