@@ -350,6 +350,7 @@ public class Parser {
 
     /**
      * Parses arguments in the context of the RaisePrivilege command.
+     *
      * @param args full command args string
      * @return the prepared command
      */
@@ -388,6 +389,7 @@ public class Parser {
             return new IncorrectCommand(ive.getMessage());
         }
     }
+
     /**
      * Parses arguments in the context of the createexam exam command.
      */
@@ -438,6 +440,7 @@ public class Parser {
             return new IncorrectCommand(ive.getMessage());
         }
     }
+
     /**
      * Parses arguments in the context of the update Attendance command.
      */
@@ -453,7 +456,7 @@ public class Parser {
             final int targetIndex = parseInt(matcher.group("targetIndex"));
             final int isPresent = parseInt(matcher.group("isPresent"));
             final boolean isPresent_b;
-            if((matcher.group("isPresent")).equals("1")) isPresent_b = true;
+            if ((matcher.group("isPresent")).equals("1")) isPresent_b = true;
             else isPresent_b = false;
 
             return new UpdateAttendanceCommand(
@@ -477,8 +480,11 @@ public class Parser {
                     ViewAttendanceCommand.MESSAGE_USAGE));
         }
 
-        return new ViewAttendanceCommand(
-                parseInt(matcher.group("targetIndex"))
-        );
+        try {
+            final int targetIndex = parseInt(matcher.group("targetIndex"));
+            return new ViewAttendanceCommand(targetIndex);
+        } catch (NumberFormatException nfe) { //do the most specific catch on top
+            return new IncorrectCommand(nfe.getMessage());
+        }
     }
 }
