@@ -37,4 +37,3 @@ public class Main extends Application implements Stoppable{
 }
 
 
-//testcommand
