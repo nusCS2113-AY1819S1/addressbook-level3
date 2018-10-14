@@ -78,8 +78,6 @@ public class Parser {
             case AddCommand.COMMAND_WORD:
                 return prepareAdd(arguments);
 
-            case MenuAddCommand.COMMAND_WORD:
-                return prepareAddMenu(arguments);
 
             case DeleteCommand.COMMAND_WORD:
                 return prepareDelete(arguments);
@@ -93,9 +91,6 @@ public class Parser {
             case ListCommand.COMMAND_WORD:
                 return new ListCommand();
 
-            case MenuListCommand.COMMAND_WORD:
-                return new MenuListCommand();
-
             case ViewCommand.COMMAND_WORD:
                 return prepareView(arguments);
 
@@ -108,11 +103,20 @@ public class Parser {
             case EmployeeAddCommand.COMMAND_WORD:
                 return prepareEmpAdd(arguments);
 
+            case MenuListCommand.COMMAND_WORD:
+                return new MenuListCommand();
+
+            case MenuAddCommand.COMMAND_WORD:
+                return prepareAddMenu(arguments);
+
             case MenuViewAllCommand.COMMAND_WORD:
                 return prepareViewAllMenu(arguments);
 
             case MenuDeleteCommand.COMMAND_WORD:
                 return prepareMenuDelete(arguments);
+
+            case MenuFindCommand.COMMAND_WORD:
+                return prepareMenuFind(arguments);
 
             case OrderDeleteCommand.COMMAND_WORD:
                 return prepareOrderDelete(arguments);
@@ -364,6 +368,26 @@ public class Parser {
         final String[] keywords = matcher.group("keywords").split("\\s+");
         final Set<String> keywordSet = new HashSet<>(Arrays.asList(keywords));
         return new FindCommand(keywordSet);
+    }
+
+
+    /**
+     * Parses arguments in the context of the find menu item command.
+     *
+     * @param args full command args string
+     * @return the prepared command
+     */
+    private Command prepareMenuFind(String args) {
+        final Matcher matcher = KEYWORDS_ARGS_FORMAT.matcher(args.trim());
+        if (!matcher.matches()) {
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    MenuFindCommand.MESSAGE_USAGE));
+        }
+
+        // keywords delimited by whitespace
+        final String[] keywords = matcher.group("keywords").split("\\s+");
+        final Set<String> keywordSet = new HashSet<>(Arrays.asList(keywords));
+        return new MenuFindCommand(keywordSet);
     }
 
 
