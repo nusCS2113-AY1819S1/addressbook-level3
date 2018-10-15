@@ -1,9 +1,12 @@
 package seedu.addressbook.parser;
 
 import static java.lang.Integer.parseInt;
+import static seedu.addressbook.common.Messages.MEESAGE_INVALID_DATE;
 import static seedu.addressbook.common.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.addressbook.common.Messages.MESSAGE_NO_ARGS_FOUND;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
@@ -570,6 +573,10 @@ public class Parser {
             final int targetIndex = parseInt(matcher.group("targetIndex"));
             final Integer isPresent = parseInt(matcher.group("isPresent"));
             final boolean isPresentBool = isPresent.equals(1);
+            if(!"0".equals(matcher.group("date"))) {
+                SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+                dateFormat.parse(matcher.group("date").trim());
+            }
 
             return new UpdateAttendanceCommand(
                     targetIndex,
@@ -577,6 +584,8 @@ public class Parser {
                     isPresentBool);
         } catch (NumberFormatException nfe) { //do the most specific catch on top
             return new IncorrectCommand(nfe.getMessage());
+        } catch (java.text.ParseException pe) {
+            return new IncorrectCommand(MEESAGE_INVALID_DATE);
         }
 
     }
