@@ -11,8 +11,8 @@ import seedu.addressbook.data.exception.IllegalValueException;
  */
 public class MenuName {
 
-    public static final String EXAMPLE = "John Doe";
-    public static final String MESSAGE_NAME_CONSTRAINTS = "Person names should be spaces or alphanumeric characters";
+    public static final String EXAMPLE = "Cheese Burger";
+    public static final String MESSAGE_NAME_CONSTRAINTS = "Menu Item names should be spaces or alphanumeric characters";
     public static final String NAME_VALIDATION_REGEX = "[\\p{Alnum} ]+";
 
     public final String fullName;

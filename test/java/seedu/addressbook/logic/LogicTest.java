@@ -7,9 +7,13 @@ import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
 import seedu.addressbook.commands.CommandResult;
 import seedu.addressbook.commands.*;
+import seedu.addressbook.commands.menu.MenuViewAllCommand;
 import seedu.addressbook.common.Messages;
 import seedu.addressbook.data.Rms;
+import seedu.addressbook.data.person.ReadOnlyPerson;
+import seedu.addressbook.data.menu.ReadOnlyMenus;
 import seedu.addressbook.data.person.*;
+import seedu.addressbook.data.menu.*;
 import seedu.addressbook.data.tag.Tag;
 import seedu.addressbook.storage.StorageFile;
 
@@ -45,6 +49,7 @@ public class LogicTest {
 
         //Confirm the last shown list is empty
         assertEquals(Collections.emptyList(), logic.getLastShownList());
+        assertEquals(Collections.emptyList(), logic.getLastShownMenuList());
     }
 
     @Test
@@ -86,9 +91,50 @@ public class LogicTest {
             assertEquals(lastShownList, r.getRelevantPersons().get());
         }
 
+
         //Confirm the state of data is as expected
         assertEquals(expectedRms, rms);
         assertEquals(lastShownList, logic.getLastShownList());
+        assertEquals(rms, saveFile.load());
+    }
+
+    /**
+     * Executes the menu command and confirms that the result message is correct.
+     * Both the 'address book' and the 'last shown menu list' are expected to be empty.
+     * @see #assertMenuCommandBehavior(String, String, Rms, boolean, List)
+     */
+    private void assertMenuCommandBehavior(String inputCommand, String expectedMessage) throws Exception {
+        assertMenuCommandBehavior(inputCommand, expectedMessage, Rms.empty(), false, Collections.emptyList());
+    }
+
+
+    /**
+     * Executes the menu command and confirms that the result message is correct and
+     * also confirms that the following three parts of the Logic object's state are as expected:<br>
+     *      - the internal address book data are same as those in the {@code expectedRms} <br>
+     *      - the internal 'last shown menu list' matches the {@code expectedLastList} <br>
+     *      - the storage file content matches data in {@code expectedRms} <br>
+     */
+    private void assertMenuCommandBehavior(String inputCommand,
+                                       String expectedMessage,
+                                       Rms expectedRms,
+                                       boolean isRelevantMenuItemsExpected,
+                                       List<? extends ReadOnlyMenus> lastShownMenuList) throws Exception {
+
+        //Execute the command
+        CommandResult r = logic.execute(inputCommand);
+
+        //Confirm the result contains the right data
+        assertEquals(expectedMessage, r.feedbackToUser);
+        assertEquals(r.getRelevantMenus().isPresent(), isRelevantMenuItemsExpected);
+        if(isRelevantMenuItemsExpected){
+            assertEquals(lastShownMenuList, r.getRelevantMenus().get());
+        }
+
+
+        //Confirm the state of data is as expected
+        assertEquals(expectedRms, rms);
+        assertEquals(lastShownMenuList, logic.getLastShownMenuList());
         assertEquals(rms, saveFile.load());
     }
 
@@ -200,6 +246,25 @@ public class LogicTest {
                 expectedList);
     }
 
+    //test for MenuListCommand
+
+    @Test
+    public void execute_list_showsAllMenuItems() throws Exception {
+        // prepare expectations
+       // TestDataHelper helper = new TestDataHelper();
+        Rms expectedRMS = new Rms();
+        List<? extends ReadOnlyMenus> expectedRMSList = expectedRMS.getAllMenus().immutableListView();
+
+        // prepare address book state
+        //helper.addToRMS(rms, expectedRMSList);
+
+        assertMenuCommandBehavior("listmenu",
+                Command.getMessageForMenuListShownSummary(expectedRMSList),
+                expectedRMS,
+                true,
+                expectedRMSList);
+    }
+
     @Test
     public void execute_view_invalidArgsFormat() throws Exception {
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, ViewCommand.MESSAGE_USAGE);
@@ -229,6 +294,7 @@ public class LogicTest {
         assertCommandBehavior(commandWord + " 3", expectedMessage, Rms.empty(), false, lastShownList);
 
     }
+
 
     @Test
     public void execute_view_onlyShowsNonPrivate() throws Exception {
@@ -280,6 +346,15 @@ public class LogicTest {
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, ViewAllCommand.MESSAGE_USAGE);
         assertCommandBehavior("viewall ", expectedMessage);
         assertCommandBehavior("viewall arg not number", expectedMessage);
+    }
+
+    //test for MenuViewAll Command testing for valid arguments
+
+    @Test
+    public void execute_MenuviewAll_invalidArgsFormat() throws Exception {
+        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, MenuViewAllCommand.MESSAGE_USAGE);
+        assertMenuCommandBehavior("viewallmenu ", expectedMessage);
+        assertMenuCommandBehavior("viewallmenu arg not number", expectedMessage);
     }
 
     @Test
@@ -472,6 +547,15 @@ public class LogicTest {
             return new Person(name, privatePhone, email, privateAddress, tags);
         }
 
+        Menu burger() throws Exception {
+            MenuName name = new MenuName("Cheese Burger");
+            Price price = new Price("5");
+            Tag tag1 = new Tag("tag1");
+            Tag tag2 = new Tag("tag2");
+            Set<Tag> tags = new HashSet<>(Arrays.asList(tag1, tag2));
+            return new Menu(name, price, tags);
+        }
+
         /**
          * Generates a valid person using the given seed.
          * Running this function with the same parameter values guarantees the returned person will have the same state.
@@ -486,6 +570,22 @@ public class LogicTest {
                     new Phone("" + Math.abs(seed), isAllFieldsPrivate),
                     new Email(seed + "@email", isAllFieldsPrivate),
                     new Address("House of " + seed, isAllFieldsPrivate),
+                    new HashSet<>(Arrays.asList(new Tag("tag" + Math.abs(seed)), new Tag("tag" + Math.abs(seed + 1))))
+            );
+        }
+
+        /**
+         * Generates a valid menu item using the given seed.
+         * Running this function with the same parameter values guarantees the returned menu item will have the same state.
+         * Each unique seed will generate a unique Person object.
+         *
+         * @param seed used to generate the person data field values
+         * @param isAllFieldsPrivate determines if private-able fields (phone, email, address) will be private
+         */
+        Menu generateMenuItem(int seed, boolean isAllFieldsPrivate) throws Exception {
+            return new Menu(
+                    new MenuName("Person " + seed),
+                    new Price("" + Math.abs(seed)),
                     new HashSet<>(Arrays.asList(new Tag("tag" + Math.abs(seed)), new Tag("tag" + Math.abs(seed + 1))))
             );
         }
@@ -529,6 +629,16 @@ public class LogicTest {
             return rms;
         }
 
+
+        /**
+         * Generates an Rms based on the list of Persons given.
+         */
+        Rms generateRMS(List<Menu> menus) throws Exception{
+            Rms rms = new Rms();
+            addToRMS(rms, menus);
+            return rms;
+        }
+
         /**
          * Adds auto-generated Person objects to the given Rms
          * @param rms The Rms to which the Persons will be added
@@ -549,6 +659,26 @@ public class LogicTest {
         }
 
         /**
+         * Adds auto-generated Menu objects to the given Rms
+         * @param rms The Rms to which the Menus will be added
+         * @param isPrivateStatuses flags to indicate if details of generated persons should be set to
+         *                          private.
+         */
+        /*void addToRMS(Rms rms, Boolean... isPrivateStatuses) throws Exception{
+            addToRMS(rms, generatePersonList(isPrivateStatuses));
+        }*/
+
+        /**
+         * Adds the given list of Menus to the given Rms
+         */
+        void addToRMS(Rms rms, List<Menu> menusToAdd) throws Exception{
+            for(Menu m: menusToAdd){
+                rms.addMenu(m);
+            }
+        }
+
+
+        /**
          * Creates a list of Persons based on the give Person objects.
          */
         List<Person> generatePersonList(Person... persons) throws Exception{
@@ -557,6 +687,17 @@ public class LogicTest {
                 personList.add(p);
             }
             return personList;
+        }
+
+        /**
+         * Creates a list of Menu Items based on the give Menu objects.
+         */
+        List<Menu> generateMenuList(Menu... menus) throws Exception{
+            List<Menu> menuList = new ArrayList<>();
+            for(Menu m: menus){
+                menuList.add(m);
+            }
+            return menuList;
         }
 
         /**
@@ -582,6 +723,18 @@ public class LogicTest {
                     new Phone("1", false),
                     new Email("1@email", false),
                     new Address("House of 1", false),
+                    Collections.singleton(new Tag("tag"))
+            );
+        }
+
+
+        /**
+         * Generates a Menu object with given name. Other fields will have some dummy values.
+         */
+        Menu generateMenuWithName(String name) throws Exception {
+            return new Menu(
+                    new MenuName(name),
+                    new Price("5"),
                     Collections.singleton(new Tag("tag"))
             );
         }

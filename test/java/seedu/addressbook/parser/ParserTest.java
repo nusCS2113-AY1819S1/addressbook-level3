@@ -291,7 +291,7 @@ public class ParserTest {
         final String[] inputs = {
                 "addmenu",
                 "addmenu ",
-                "add wrong args format",
+                "addmenu wrong args format",
                 // no price prefix
                 String.format("addmenu $s $s", Name.EXAMPLE, Price.EXAMPLE)
         };
@@ -326,8 +326,9 @@ public class ParserTest {
     }
 
     //Testing for valid Food Item Data parsed correctly
-
     /*
+
+
     @Test
     public void addmenuCommand_validFoodItemData_parsedCorrectly() {
         final Menu testMenu = generateTestMenu();
@@ -335,6 +336,9 @@ public class ParserTest {
         final MenuAddCommand result = parseAndAssertCommandType(input, MenuAddCommand.class);
         assertEquals(result.getMenu(), testMenu);
     }
+    */
+
+    /*
 
 
     @Test
