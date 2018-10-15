@@ -585,7 +585,8 @@ public class Parser {
         } catch (NumberFormatException nfe) { //do the most specific catch on top
             return new IncorrectCommand(nfe.getMessage());
         } catch (java.text.ParseException pe) {
-            return new IncorrectCommand(MEESAGE_INVALID_DATE);
+            return new IncorrectCommand(String.format(MEESAGE_INVALID_DATE,
+                    UpdateAttendanceCommand.MESSAGE_USAGE));
         }
 
     }
