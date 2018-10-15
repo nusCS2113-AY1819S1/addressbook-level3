@@ -125,8 +125,9 @@ public class Person implements ReadOnlyPerson {
         return getAsTextShowAll();
     }
 
-    public void updateAttendanceMethod(String date, Boolean isPresent) {
-        attendance.addAttendance(date, isPresent);
+    public boolean updateAttendanceMethod(String date, Boolean isPresent) {
+        boolean duplicateDate = attendance.addAttendance(date, isPresent);
+        return duplicateDate;
     }
 
     public String viewAttendanceMethod() {

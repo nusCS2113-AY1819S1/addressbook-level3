@@ -15,14 +15,17 @@ public class Attendance implements Printable {
     private Map<String, Boolean> attendanceMap = new HashMap<>();
 
     /** Method to add attendance */
-    public void addAttendance(String date, Boolean isPresent) {
+    public boolean addAttendance(String date, Boolean isPresent) {
+        String inputDate = date;
         if ("0".equals(date)) { //PMD 3.3
-            String todayDate = new SimpleDateFormat("dd-MM-yyyy").format(new Date());
-            attendanceMap.put(todayDate, isPresent);
-        } else {
-            // TODO: v1.3 Add in feature such that if(date == found){print MESSAGE_DUPLICATE_ATTENDANCE from update
-            // TODO: attendance command and ask user if want to replace attendance};
-            attendanceMap.put(date, isPresent);
+            inputDate = new SimpleDateFormat("dd-MM-yyyy").format(new Date());
+        }
+        // If there is a duplicate date
+        if(attendanceMap.containsKey(inputDate)){
+            return true;
+        }else{
+            attendanceMap.put(inputDate, isPresent);
+            return false;
         }
     }
 

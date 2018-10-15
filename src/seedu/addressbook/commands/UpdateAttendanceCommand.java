@@ -17,7 +17,8 @@ public class UpdateAttendanceCommand extends Command {
             + "To input today's date, input d/0";
 
     public static final String MESSAGE_SUCCESS = "Attendance updated for: ";
-    public static final String MESSAGE_DUPLICATE_ATTENDANCE = "Attendance has been taken for the date: ";
+    public static final String MESSAGE_DUPLICATE_ATTENDANCE = "Attendance has already been taken. New feature to" +
+            " include overwriting will be done in v1.3";
 
     private boolean isPresent;
     private String date;
@@ -33,9 +34,12 @@ public class UpdateAttendanceCommand extends Command {
     public CommandResult execute() {
         try {
             Person person = addressBook.findPerson(getTargetPerson());
-            person.updateAttendanceMethod(date, isPresent);
-            return new CommandResult(String.format(MESSAGE_SUCCESS) + person.getName());
-
+            boolean duplicateDate = person.updateAttendanceMethod(date, isPresent);
+            if(duplicateDate){
+                return new CommandResult(String.format((MESSAGE_DUPLICATE_ATTENDANCE)));
+            }else {
+                return new CommandResult(String.format(MESSAGE_SUCCESS) + person.getName());
+            }
         } catch (IndexOutOfBoundsException ie) {
             return new CommandResult(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
         } catch (UniquePersonList.PersonNotFoundException pnfe) {
