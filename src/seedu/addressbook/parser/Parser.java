@@ -47,7 +47,8 @@ public class Parser {
             Pattern.compile("(?<name>[^/]+)"
                     + "p/(?<phone>[^/]+)"
                     + "e/(?<email>[^/]+)"
-                    + "a/(?<address>[^/]+)");
+                    + "a/(?<address>[^/]+)"
+                    + "pos/(?<position>[^/]+)");
     /**
      * Signals that the user input could not be parsed.
      */
@@ -210,7 +211,9 @@ public class Parser {
 
                     matcher.group("email"),
 
-                    matcher.group("address")
+                    matcher.group("address"),
+
+                    matcher.group("position")
             );
         } catch (IllegalValueException ive) {
             return new IncorrectCommand(ive.getMessage());

@@ -8,6 +8,7 @@ import seedu.addressbook.data.employee.EmployeeName;
 import seedu.addressbook.data.employee.EmployeePhone;
 import seedu.addressbook.data.employee.EmployeeAddress;
 import seedu.addressbook.data.employee.EmployeeEmail;
+import seedu.addressbook.data.employee.EmployeePosition;
 import seedu.addressbook.data.employee.ReadOnlyEmployee;
 
 
@@ -23,6 +24,8 @@ public class AdaptedEmployee {
     private String email;
     @XmlElement(required = true)
     private String address;
+    @XmlElement(required = true)
+    private String position;
 
     /**
      * No-arg constructor for JAXB use.
@@ -39,6 +42,7 @@ public class AdaptedEmployee {
 
         address = source.getAddress().value;
 
+        position = source.getPosition().position;
     }
 
     /**
@@ -51,6 +55,7 @@ public class AdaptedEmployee {
         final EmployeePhone phone = new EmployeePhone(this.phone);
         final EmployeeEmail email = new EmployeeEmail(this.email);
         final EmployeeAddress address = new EmployeeAddress(this.address);
-        return new Employee(name, phone, email, address);
+        final EmployeePosition position = new EmployeePosition(this.position);
+        return new Employee(name, phone, email, address, position);
     }
 }

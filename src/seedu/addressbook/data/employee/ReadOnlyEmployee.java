@@ -10,6 +10,7 @@ public interface ReadOnlyEmployee {
     EmployeePhone getPhone();
     EmployeeEmail getEmail();
     EmployeeAddress getAddress();
+    EmployeePosition getPosition();
 
 
     /**
@@ -21,7 +22,8 @@ public interface ReadOnlyEmployee {
                 && other.getName().equals(this.getName()) // state checks here onwards
                 && other.getPhone().equals(this.getPhone())
                 && other.getEmail().equals(this.getEmail())
-                && other.getAddress().equals(this.getAddress()));
+                && other.getAddress().equals(this.getAddress())
+                && other.getPosition().equals(this.getPosition()));
     }
 
 
@@ -37,7 +39,9 @@ public interface ReadOnlyEmployee {
                 .append(" Email: ");
         builder.append(getEmail())
                 .append(" Address: ");
-        builder.append(getAddress());
+        builder.append(getAddress())
+                .append(" \nPosition: ");
+        builder.append(getPosition());
         return builder.toString();
     }
 
