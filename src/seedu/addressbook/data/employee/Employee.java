@@ -12,22 +12,24 @@ public class Employee implements ReadOnlyEmployee {
     private EmployeePhone phone;
     private EmployeeEmail email;
     private EmployeeAddress address;
+    private EmployeePosition position;
 
     /**
      * Assumption: Every field must be present and not null.
      */
-    public Employee(EmployeeName name,EmployeePhone phone, EmployeeEmail email, EmployeeAddress address){
+    public Employee(EmployeeName name,EmployeePhone phone, EmployeeEmail email, EmployeeAddress address, EmployeePosition position){
         this.name = name;
         this.phone = phone;
         this.email = email;
         this.address = address;
+        this.position = position;
     }
 
     /**
      * Copy constructor.
      */
     public Employee(ReadOnlyEmployee source) {
-        this(source.getName(), source.getPhone(), source.getEmail(), source.getAddress());
+        this(source.getName(), source.getPhone(), source.getEmail(), source.getAddress(), source.getPosition());
     }
 
     @Override
@@ -50,6 +52,11 @@ public class Employee implements ReadOnlyEmployee {
         return address;
     }
 
+    @Override
+    public EmployeePosition getPosition() {
+        return position;
+    }
+
     protected void setName(EmployeeName name) {
         this.name = name;
     }
@@ -66,6 +73,10 @@ public class Employee implements ReadOnlyEmployee {
         this.address = address;
     }
 
+    protected void setPosition(EmployeePosition position){
+        this.position = position;
+    }
+
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
@@ -76,7 +87,7 @@ public class Employee implements ReadOnlyEmployee {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, phone, email, address);
+        return Objects.hash(name, phone, email, address, position);
     }
 
     @Override
