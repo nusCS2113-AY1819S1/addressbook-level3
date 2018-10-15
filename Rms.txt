@@ -53,12 +53,6 @@
         <address>447</address>
     </employees>
     <employees>
-        <name>John Doe</name>
-        <phone>98765432</phone>
-        <email>johnd@gmail.com</email>
-        <address>311, Clementi Ave 2, #02-25</address>
-    </employees>
-    <employees>
         <name>Alice Doe</name>
         <phone>98765432</phone>
         <email>johnd@gmail.com</email>
