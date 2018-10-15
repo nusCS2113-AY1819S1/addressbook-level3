@@ -21,9 +21,9 @@ public class Attendance implements Printable {
             inputDate = new SimpleDateFormat("dd-MM-yyyy").format(new Date());
         }
         // If there is a duplicate date
-        if(attendanceMap.containsKey(inputDate)){
+        if (attendanceMap.containsKey(inputDate)) {
             return true;
-        }else{
+        } else {
             attendanceMap.put(inputDate, isPresent);
             return false;
         }

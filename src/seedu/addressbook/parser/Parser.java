@@ -573,7 +573,7 @@ public class Parser {
             final int targetIndex = parseInt(matcher.group("targetIndex"));
             final Integer isPresent = parseInt(matcher.group("isPresent"));
             final boolean isPresentBool = isPresent.equals(1);
-            if(!"0".equals(matcher.group("date"))) {
+            if (!"0".equals(matcher.group("date"))) {
                 SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
                 dateFormat.parse(matcher.group("date").trim());
             }

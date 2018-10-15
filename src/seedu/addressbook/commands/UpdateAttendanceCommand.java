@@ -17,8 +17,8 @@ public class UpdateAttendanceCommand extends Command {
             + "To input today's date, input d/0";
 
     public static final String MESSAGE_SUCCESS = "Attendance updated for: ";
-    public static final String MESSAGE_DUPLICATE_ATTENDANCE = "Attendance has already been taken. New feature to" +
-            " include overwriting will be done in v1.3";
+    public static final String MESSAGE_DUPLICATE_ATTENDANCE = "Attendance has already been taken. New feature to"
+            + " include overwriting will be done in v1.3";
 
     private boolean isPresent;
     private String date;
@@ -35,9 +35,9 @@ public class UpdateAttendanceCommand extends Command {
         try {
             Person person = addressBook.findPerson(getTargetPerson());
             boolean duplicateDate = person.updateAttendanceMethod(date, isPresent);
-            if(duplicateDate){
+            if (duplicateDate) {
                 return new CommandResult(String.format((MESSAGE_DUPLICATE_ATTENDANCE)));
-            }else {
+            } else {
                 return new CommandResult(String.format(MESSAGE_SUCCESS) + person.getName());
             }
         } catch (IndexOutOfBoundsException ie) {

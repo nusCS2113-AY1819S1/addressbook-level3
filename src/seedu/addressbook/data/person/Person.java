@@ -125,6 +125,7 @@ public class Person implements ReadOnlyPerson {
         return getAsTextShowAll();
     }
 
+    /** Has a boolean to check if the date is a duplicate **/
     public boolean updateAttendanceMethod(String date, Boolean isPresent) {
         boolean duplicateDate = attendance.addAttendance(date, isPresent);
         return duplicateDate;
