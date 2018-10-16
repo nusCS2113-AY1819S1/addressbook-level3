@@ -325,8 +325,9 @@ Examples:
 `attendance 1 d/29-09-2018 att/1` +
 Marks the attendance of the first person in the list as present for the date 29th September 2018.
 
-* 'list'  +
-'attendance 1 d/0 att/0' +
+
+* `list`  +
+`attendance 1 d/0 att/0` +
 Marks the attendance of the first person in the list as abesnt for Today's date.
 ****
 
