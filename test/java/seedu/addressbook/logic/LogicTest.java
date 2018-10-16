@@ -831,7 +831,7 @@ public class LogicTest {
         List<Person> threePersonsExpected = helper.generatePersonList(p1Expected, p2, p3);
 
         AddressBook expectedBook = helper.generateAddressBook(threePersonsExpected);
-        p1Expected.updateAttendanceMethod("29-09-2018", true);
+        p1Expected.updateAttendanceMethod("29-09-2018", true, false);
 
         helper.addToAddressBook(addressBook, threePersons);
         logic.setLastShownList(threePersons);
@@ -858,7 +858,7 @@ public class LogicTest {
 
         AddressBook expectedBook = helper.generateAddressBook(threePersonsExpected);
         String currentDate = new SimpleDateFormat("dd-MM-yyyy").format(new Date());
-        p1Expected.updateAttendanceMethod(currentDate, true);
+        p1Expected.updateAttendanceMethod(currentDate, true, false);
 
         helper.addToAddressBook(addressBook, threePersons);
         logic.setLastShownList(threePersons);
@@ -882,7 +882,7 @@ public class LogicTest {
         List<Person> personListExpected = helper.generatePersonList(p1Expected);
 
         AddressBook expectedBook = helper.generateAddressBook(personListExpected);
-        p1Expected.updateAttendanceMethod("29-09-2018", true);
+        p1Expected.updateAttendanceMethod("29-09-2018", true, false);
 
         helper.addToAddressBook(addressBook, personListExpected);
         logic.setLastShownList(personList);
