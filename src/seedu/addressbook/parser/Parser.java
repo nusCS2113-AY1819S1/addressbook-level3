@@ -1,9 +1,7 @@
 package seedu.addressbook.parser;
 
 import static java.lang.Integer.parseInt;
-import static seedu.addressbook.common.Messages.MEESAGE_INVALID_DATE;
-import static seedu.addressbook.common.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.addressbook.common.Messages.MESSAGE_NO_ARGS_FOUND;
+import static seedu.addressbook.common.Messages.*;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -585,7 +583,7 @@ public class Parser {
         } catch (NumberFormatException nfe) { //do the most specific catch on top
             return new IncorrectCommand(nfe.getMessage());
         } catch (java.text.ParseException pe) {
-            return new IncorrectCommand(String.format(MEESAGE_INVALID_DATE,
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_DATE,
                     UpdateAttendanceCommand.MESSAGE_USAGE));
         }
 

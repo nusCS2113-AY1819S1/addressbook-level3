@@ -1,10 +1,7 @@
 package seedu.addressbook.logic;
 
 import static junit.framework.TestCase.assertEquals;
-import static seedu.addressbook.common.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.addressbook.common.Messages.MESSAGE_NO_ARGS_FOUND;
-import static seedu.addressbook.common.Messages.MESSAGE_PERSON_NOT_IN_ADDRESSBOOK;
-import static seedu.addressbook.common.Messages.MESSAGE_WRONG_NUMBER_ARGUMENTS;
+import static seedu.addressbook.common.Messages.*;
 import static seedu.addressbook.logic.CommandAssertions.assertCommandBehavior;
 import static seedu.addressbook.logic.CommandAssertions.assertInvalidIndexBehaviorForCommand;
 import static seedu.addressbook.logic.CommandAssertions.assertInvalidIndexBehaviorForExamCommand;
@@ -20,7 +17,6 @@ import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
 
 import seedu.addressbook.TestDataHelper;
-//import seedu.addressbook.commands.AddAccountCommand;
 import seedu.addressbook.commands.AddAssignmentStatistics;
 import seedu.addressbook.commands.AddCommand;
 import seedu.addressbook.commands.AddExamCommand;
@@ -28,26 +24,18 @@ import seedu.addressbook.commands.AddFeesCommand;
 import seedu.addressbook.commands.ClearCommand;
 import seedu.addressbook.commands.ClearExamsCommand;
 import seedu.addressbook.commands.Command;
-//import seedu.addressbook.commands.DeleteAccountCommand;
 import seedu.addressbook.commands.DeleteCommand;
 import seedu.addressbook.commands.DeleteExamCommand;
 import seedu.addressbook.commands.EditExamCommand;
 import seedu.addressbook.commands.EditPasswordCommand;
-//import seedu.addressbook.commands.ExamsListCommand;
 import seedu.addressbook.commands.ExitCommand;
 import seedu.addressbook.commands.FindCommand;
 import seedu.addressbook.commands.HelpCommand;
-//import seedu.addressbook.commands.IncorrectCommand;
-//import seedu.addressbook.commands.ListCommand;
-//import seedu.addressbook.commands.LoginCommand;
-//import seedu.addressbook.commands.LogoutCommand;
-//import seedu.addressbook.commands.RaisePrivilegeCommand;
 import seedu.addressbook.commands.UpdateAttendanceCommand;
 import seedu.addressbook.commands.ViewAllCommand;
 import seedu.addressbook.commands.ViewAttendanceCommand;
 import seedu.addressbook.commands.ViewCommand;
 import seedu.addressbook.commands.ViewFeesCommand;
-//import seedu.addressbook.commands.ViewPrivilegeCommand;
 import seedu.addressbook.commands.ViewSelfCommand;
 import seedu.addressbook.common.Messages;
 import seedu.addressbook.data.AddressBook;
@@ -810,6 +798,12 @@ public class LogicTest {
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, UpdateAttendanceCommand.MESSAGE_USAGE);
         assertCommandBehavior("attendance 1 d/29-09-1996 att/ ", expectedMessage);
         assertCommandBehavior("attendance 2", expectedMessage);
+    }
+
+    @Test
+    public void executeUpdateAttendanceInvalidDateFormat() throws Exception {
+        String expectedMessage = String.format(MESSAGE_INVALID_DATE, UpdateAttendanceCommand.MESSAGE_USAGE);
+        assertCommandBehavior("attendance 1 d/123-123-123 att/1 ", expectedMessage);
     }
 
     @Test
