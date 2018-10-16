@@ -803,7 +803,20 @@ public class LogicTest {
     @Test
     public void executeUpdateAttendanceInvalidDateFormat() throws Exception {
         String expectedMessage = String.format(MESSAGE_INVALID_DATE, UpdateAttendanceCommand.MESSAGE_USAGE);
-        assertCommandBehavior("attendance 1 d/123-123-123 att/1 ", expectedMessage);
+
+        TestDataHelper helper = new TestDataHelper();
+        Person p1 = helper.generatePerson(1, false);
+        List<Person> personList = helper.generatePersonList(p1);
+
+        AddressBook expectedBook = helper.generateAddressBook(personList);
+        helper.addToAddressBook(addressBook, personList);
+        logic.setLastShownList(personList);
+
+        assertCommandBehavior("attendance 1 d/123123-123 att/1 ",
+                expectedMessage,
+                expectedBook,
+                false,
+                personList);
     }
 
     @Test
