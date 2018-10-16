@@ -110,6 +110,9 @@ public class Parser {
             case MenuViewAllCommand.COMMAND_WORD:
                 return prepareViewAllMenu(arguments);
 
+            case MenuDeleteCommand.COMMAND_WORD:
+                return prepareMenuDelete(arguments);
+
             case OrderDeleteCommand.COMMAND_WORD:
                 return prepareOrderDelete(arguments);
 
@@ -200,15 +203,12 @@ public class Parser {
                     matcher.group("name"),
 
                     matcher.group("phone"),
-                    isPrivatePrefixPresent(matcher.group("isPhonePrivate")),
 
                     matcher.group("email"),
-                    isPrivatePrefixPresent(matcher.group("isEmailPrivate")),
 
                     matcher.group("address"),
-                    isPrivatePrefixPresent(matcher.group("isAddressPrivate")),
 
-                    getTagsFromArgs(matcher.group("tagArguments"))
+                    matcher.group("position")
             );
         } catch (IllegalValueException ive) {
             return new IncorrectCommand(ive.getMessage());
@@ -249,6 +249,22 @@ public class Parser {
             return new DeleteCommand(targetIndex);
         } catch (ParseException | NumberFormatException e) {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
+        }
+    }
+
+
+    /**
+     * Parses arguments in the context of the delete menu item command.
+     *
+     * @param args full command args string
+     * @return the prepared command
+     */
+    private Command prepareMenuDelete(String args) {
+        try {
+            final int targetIndex = parseArgsAsDisplayedIndex(args);
+            return new MenuDeleteCommand(targetIndex);
+        } catch (ParseException | NumberFormatException e) {
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, MenuDeleteCommand.MESSAGE_USAGE));
         }
     }
 
