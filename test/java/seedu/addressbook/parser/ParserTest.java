@@ -326,6 +326,7 @@ public class ParserTest {
     }
 
     //Testing for valid Food Item Data parsed correctly
+
     /*
 
 
@@ -336,7 +337,7 @@ public class ParserTest {
         final MenuAddCommand result = parseAndAssertCommandType(input, MenuAddCommand.class);
         assertEquals(result.getMenu(), testMenu);
     }
-    */
+
 
     /*
 
