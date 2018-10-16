@@ -44,7 +44,7 @@
         <price isPrivate="false">55</price>
     </menus>
     <menus>
-        <name>cheese burger</name>
+        <name>cheesy cheese burger</name>
         <price isPrivate="false">5</price>
     </menus>
     <members>

@@ -113,6 +113,9 @@ public class Parser {
             case MenuDeleteCommand.COMMAND_WORD:
                 return prepareMenuDelete(arguments);
 
+            case MenuFindCommand.COMMAND_WORD:
+                return prepareMenuFind(arguments);
+
             case OrderDeleteCommand.COMMAND_WORD:
                 return prepareOrderDelete(arguments);
 
@@ -361,6 +364,25 @@ public class Parser {
         final String[] keywords = matcher.group("keywords").split("\\s+");
         final Set<String> keywordSet = new HashSet<>(Arrays.asList(keywords));
         return new FindCommand(keywordSet);
+    }
+
+    /**
+     * Parses arguments in the context of the find menu command.
+     *
+     * @param args full command args string
+     * @return the prepared command
+     */
+    private Command prepareMenuFind(String args) {
+        final Matcher matcher = KEYWORDS_ARGS_FORMAT.matcher(args.trim());
+        if (!matcher.matches()) {
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    MenuFindCommand.MESSAGE_USAGE));
+        }
+
+        // keywords delimited by whitespace
+        final String[] keywords = matcher.group("keywords").split("\\s+");
+        final Set<String> keywordSet = new HashSet<>(Arrays.asList(keywords));
+        return new MenuFindCommand(keywordSet);
     }
 
 
