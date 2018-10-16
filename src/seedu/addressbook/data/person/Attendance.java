@@ -15,13 +15,16 @@ public class Attendance implements Printable {
     private Map<String, Boolean> attendanceMap = new HashMap<>();
 
     /** Method to add attendance */
-    public boolean addAttendance(String date, Boolean isPresent) {
+    public boolean addAttendance(String date, Boolean isPresent, Boolean overWrite) {
         String inputDate = date;
         if ("0".equals(date)) { //PMD 3.3
             inputDate = new SimpleDateFormat("dd-MM-yyyy").format(new Date());
         }
         // If there is a duplicate date
-        if (attendanceMap.containsKey(inputDate)) {
+        if (attendanceMap.containsKey(inputDate) && overWrite) {
+            attendanceMap.put(inputDate, isPresent);
+            return true;
+        } else if (attendanceMap.containsKey(inputDate) && !overWrite) {
             return true;
         } else {
             attendanceMap.put(inputDate, isPresent);
@@ -52,5 +55,7 @@ public class Attendance implements Printable {
                 || (other instanceof Attendance // instanceof handles nulls
                 && this.attendanceMap.equals(((Attendance) other).attendanceMap)); // state check
     }
+
+    //TODO store the attendance somewhere (perhaps attendance book?)
 }
 

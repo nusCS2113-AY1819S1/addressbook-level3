@@ -37,6 +37,7 @@ import seedu.addressbook.commands.ListCommand;
 import seedu.addressbook.commands.LoginCommand;
 import seedu.addressbook.commands.LogoutCommand;
 import seedu.addressbook.commands.RaisePrivilegeCommand;
+import seedu.addressbook.commands.ReplaceAttendanceCommand;
 import seedu.addressbook.commands.UpdateAttendanceCommand;
 import seedu.addressbook.commands.ViewAllCommand;
 import seedu.addressbook.commands.ViewAttendanceCommand;
@@ -193,6 +194,9 @@ public class Parser {
 
         case UpdateAttendanceCommand.COMMAND_WORD:
             return prepareUpdateAttendance(arguments);
+
+        case ReplaceAttendanceCommand.COMMAND_WORD:
+            return prepareReplaceAttendance(arguments);
 
         case ViewAttendanceCommand.COMMAND_WORD:
             return prepareViewAttendance(arguments);
@@ -577,6 +581,39 @@ public class Parser {
             }
 
             return new UpdateAttendanceCommand(
+                    targetIndex,
+                    matcher.group("date"),
+                    isPresentBool);
+        } catch (NumberFormatException nfe) { //do the most specific catch on top
+            return new IncorrectCommand(nfe.getMessage());
+        } catch (java.text.ParseException pe) {
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_DATE,
+                    UpdateAttendanceCommand.MESSAGE_USAGE));
+        }
+
+    }
+
+    /**
+     * Parses arguments in the context of the update Attendance command.
+     */
+    private Command prepareReplaceAttendance(String args) {
+
+        final Matcher matcher = ATTENDANCE_ARGS_FORMAT.matcher(args.trim());
+        // Validate arg string format
+        if (!matcher.matches()) {
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    UpdateAttendanceCommand.MESSAGE_USAGE));
+        }
+        try {
+            final int targetIndex = parseInt(matcher.group("targetIndex"));
+            final Integer isPresent = parseInt(matcher.group("isPresent"));
+            final boolean isPresentBool = isPresent.equals(1);
+            if (!"0".equals(matcher.group("date"))) {
+                SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+                dateFormat.parse(matcher.group("date").trim());
+            }
+
+            return new ReplaceAttendanceCommand(
                     targetIndex,
                     matcher.group("date"),
                     isPresentBool);

@@ -126,8 +126,8 @@ public class Person implements ReadOnlyPerson {
     }
 
     /** Has a boolean to check if the date is a duplicate **/
-    public boolean updateAttendanceMethod(String date, Boolean isPresent) {
-        boolean duplicateDate = attendance.addAttendance(date, isPresent);
+    public boolean updateAttendanceMethod(String date, Boolean isPresent, Boolean overWrite) {
+        boolean duplicateDate = attendance.addAttendance(date, isPresent, overWrite);
         return duplicateDate;
     }
 
@@ -137,6 +137,12 @@ public class Person implements ReadOnlyPerson {
 
     public Attendance getAttendance() {
         return attendance;
+    }
+
+    /** Replaces the attendance if there is already a duplicate **/
+    public boolean replaceAttendanceMethod(String date, Boolean isPresent, Boolean overWrite) {
+        boolean noDuplicateDate = !attendance.addAttendance(date, isPresent, overWrite);
+        return noDuplicateDate;
     }
 
 }
