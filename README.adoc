@@ -16,19 +16,19 @@ image::NewUI.png[]
 
 == About Us
 
-image::nichpang1.jpg[]
+image::nichpang1.png[]
 
 Nicholas Pang Wey Shern
 
-image::ongjiajian.JPG[]
+image::ongjiajian.png[]
 
 Ong Jia Jian
 
-image::c-e-ooi.jpg[]
+image::c-e-ooi.png[]
 
 Ooi Xi Yi
 
-image::keithtqs.jpg[]
+image::keithtqs.png[]
 
 Keith Tan Qisheng
 
