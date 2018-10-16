@@ -895,6 +895,8 @@ public class LogicTest {
                 personListExpected);
     }
 
+    //TODO add in test for replace attendance 
+
     @Test
     public void executeClearExamsSuccess() throws Exception {
         TestDataHelper helper = new TestDataHelper();
