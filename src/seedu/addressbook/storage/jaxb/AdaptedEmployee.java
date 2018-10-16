@@ -3,18 +3,18 @@ package seedu.addressbook.storage.jaxb;
 import javax.xml.bind.annotation.XmlElement;
 
 import seedu.addressbook.data.exception.IllegalValueException;
-import seedu.addressbook.data.person.Address;
-import seedu.addressbook.data.person.Email;
-import seedu.addressbook.data.person.Employee;
-import seedu.addressbook.data.person.Name;
-import seedu.addressbook.data.person.Phone;
-import seedu.addressbook.data.person.ReadOnlyPerson;
+import seedu.addressbook.data.employee.Employee;
+import seedu.addressbook.data.employee.EmployeeName;
+import seedu.addressbook.data.employee.EmployeePhone;
+import seedu.addressbook.data.employee.EmployeeAddress;
+import seedu.addressbook.data.employee.EmployeeEmail;
+import seedu.addressbook.data.employee.EmployeePosition;
+import seedu.addressbook.data.employee.ReadOnlyEmployee;
 
 
 
 
 public class AdaptedEmployee {
-
 
     @XmlElement(required = true)
     private String name;
@@ -24,11 +24,15 @@ public class AdaptedEmployee {
     private String email;
     @XmlElement(required = true)
     private String address;
+    @XmlElement(required = true)
+    private String position;
 
+    /**
+     * No-arg constructor for JAXB use.
+     */
+    public AdaptedEmployee() {}
 
-    public AdaptedEmployee(){}
-
-    public AdaptedEmployee(ReadOnlyPerson source) {
+    public AdaptedEmployee(ReadOnlyEmployee source) {
 
         name = source.getName().fullName;
 
@@ -38,15 +42,20 @@ public class AdaptedEmployee {
 
         address = source.getAddress().value;
 
+        position = source.getPosition().position;
     }
 
-
-    // copy of above but for employee instead
+    /**
+     * Converts this jaxb-friendly adapted employee object into the Employee object.
+     *
+     * @throws IllegalValueException if there were any data constraints violated in the adapted employee
+     */
     public Employee toModelType() throws IllegalValueException {
-        final Name name = new Name(this.name);
-        final Phone phone = new Phone(this.phone, false);
-        final Email email = new Email(this.email, false);
-        final Address address = new Address(this.address, false);
-        return new Employee(name, phone, email, address);
+        final EmployeeName name = new EmployeeName(this.name);
+        final EmployeePhone phone = new EmployeePhone(this.phone);
+        final EmployeeEmail email = new EmployeeEmail(this.email);
+        final EmployeeAddress address = new EmployeeAddress(this.address);
+        final EmployeePosition position = new EmployeePosition(this.position);
+        return new Employee(name, phone, email, address, position);
     }
 }

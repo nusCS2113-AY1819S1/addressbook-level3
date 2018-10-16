@@ -4,6 +4,8 @@ package seedu.addressbook.commands;
 import seedu.addressbook.commands.member.*;
 import seedu.addressbook.commands.menu.*;
 import seedu.addressbook.commands.order.*;
+import seedu.addressbook.commands.employee.*;
+
 
 /**
  * Shows help instructions.
@@ -24,6 +26,9 @@ public class HelpCommand extends Command {
             + "\n" + ViewAllCommand.MESSAGE_USAGE
             + "\n" + HelpCommand.MESSAGE_USAGE
 
+            + "\n" + EmployeeListCommand.MESSAGE_USAGE
+            + "\n" + EmployeeAddCommand.MESSAGE_USAGE
+
             + "\n" + MemberListCommand.MESSAGE_USAGE
 
             + "\n" + MenuAddCommand.MESSAGE_USAGE
@@ -35,6 +40,7 @@ public class HelpCommand extends Command {
             + "\n" + OrderDeleteCommand.MESSAGE_USAGE
             + "\n" + OrderClearCommand.MESSAGE_USAGE
             + "\n" + OrderListCommand.MESSAGE_USAGE
+
 
             + "\n" + ExitCommand.MESSAGE_USAGE;
 
