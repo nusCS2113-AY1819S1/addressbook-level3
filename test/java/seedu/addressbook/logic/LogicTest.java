@@ -7,6 +7,7 @@ import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
 import seedu.addressbook.commands.CommandResult;
 import seedu.addressbook.commands.*;
+import seedu.addressbook.commands.menu.MenuViewAllCommand;
 import seedu.addressbook.common.Messages;
 import seedu.addressbook.data.Rms;
 import seedu.addressbook.data.person.ReadOnlyPerson;
@@ -245,6 +246,8 @@ public class LogicTest {
                 expectedList);
     }
 
+    //test for MenuListCommand
+
     @Test
     public void execute_list_showsAllMenuItems() throws Exception {
         // prepare expectations
@@ -291,6 +294,7 @@ public class LogicTest {
         assertCommandBehavior(commandWord + " 3", expectedMessage, Rms.empty(), false, lastShownList);
 
     }
+
 
     @Test
     public void execute_view_onlyShowsNonPrivate() throws Exception {
@@ -342,6 +346,15 @@ public class LogicTest {
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, ViewAllCommand.MESSAGE_USAGE);
         assertCommandBehavior("viewall ", expectedMessage);
         assertCommandBehavior("viewall arg not number", expectedMessage);
+    }
+
+    //test for MenuViewAll Command testing for valid arguments
+
+    @Test
+    public void execute_MenuviewAll_invalidArgsFormat() throws Exception {
+        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, MenuViewAllCommand.MESSAGE_USAGE);
+        assertMenuCommandBehavior("viewallmenu ", expectedMessage);
+        assertMenuCommandBehavior("viewallmenu arg not number", expectedMessage);
     }
 
     @Test
