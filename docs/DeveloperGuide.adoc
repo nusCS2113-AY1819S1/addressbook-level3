@@ -38,6 +38,7 @@ image::mainClassDiagram.png[]
 This section describes some noteworthy details on how certain features are implemented.
 
 == 3.1  State control (undo/redo)
+The state control feature allows the user to manipulate the different states of the Health Booklet in the current session with the undo and redo command. This section will describe the implementation of this feature.
 
 == 3.1.1  Current implementation
 
