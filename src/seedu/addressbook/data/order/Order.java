@@ -26,7 +26,16 @@ public class Order implements ReadOnlyOrder {
     private final Map<Menu, Integer> dishItems = new HashMap<>();
 
     /**
-     * Constructor for new order.
+     * Default constructor used for drafting new order
+     */
+    public Order() {
+        this.customer = null;
+        this.date = null;
+        this.price = 0;
+    }
+
+    /**
+     * Constructor for new order to be added to the order list.
      */
     public Order(Member customer, Map<Menu, Integer> dishItems) {
         this.customer = customer;
@@ -64,12 +73,15 @@ public class Order implements ReadOnlyOrder {
 
     @Override
     public Member getCustomer() {
-        return customer;
+        return new Member(customer);
     }
 
+    /**
+     * Defensively returning the copy of the order's date
+     */
     @Override
     public Date getDate() {
-        return date;
+        return new Date(date.getTime());
     }
 
     @Override
@@ -80,6 +92,10 @@ public class Order implements ReadOnlyOrder {
     @Override
     public Map<Menu, Integer> getDishItems() {
         return new HashMap<>(dishItems);
+    }
+
+    public void setCustomer(Member customer) {
+        this.customer = new Member(customer);
     }
 
     /**
