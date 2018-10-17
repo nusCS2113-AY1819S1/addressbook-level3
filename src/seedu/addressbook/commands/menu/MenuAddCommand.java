@@ -17,8 +17,7 @@ public class MenuAddCommand extends Command {
     public static final String COMMAND_WORD = "addmenu";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ":\n" + "Adds a food item to the Rms. "
-            + "Price details can be marked private by prepending 'p' to the prefix.\n\t"
-            + "Parameters: NAME [p]p/PRICE [p]  [t/TAG]...\n\t"
+            + "Parameters: NAME p/PRICE   [t/TAG]...\n\t"
             + "Example: " + COMMAND_WORD
             + " Cheese Burger p/5 t/newAddition t/hotSeller";
 

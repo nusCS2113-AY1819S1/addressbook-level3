@@ -30,6 +30,13 @@ public class Parser {
                     + " (?<isAddressPrivate>p?)a/(?<address>[^/]+)"
                     + "(?<tagArguments>(?: t/[^/]+)*)"); // variable number of tags
 
+    public static final Pattern EMPLOYEE_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
+            Pattern.compile("(?<name>[^/]+)"
+                    + "p/(?<phone>[^/]+)"
+                    + "e/(?<email>[^/]+)"
+                    + "a/(?<address>[^/]+)"
+                    + "pos/(?<position>[^/]+)");
+
     public static final Pattern MENU_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
             Pattern.compile("(?<name>[^/]+)"
                     + " p/(?<price>[^/]+)"
@@ -43,12 +50,7 @@ public class Parser {
                     + " (?<isPointsPrivate>p?)pt/(?<points>[^/]+)"
                     + "(?<tagArguments>(?: t/[^/]+)*)"); // variable number of tags
 
-    public static final Pattern EMPLOYEE_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
-            Pattern.compile("(?<name>[^/]+)"
-                    + "p/(?<phone>[^/]+)"
-                    + "e/(?<email>[^/]+)"
-                    + "a/(?<address>[^/]+)"
-                    + "pos/(?<position>[^/]+)");
+
     /**
      * Signals that the user input could not be parsed.
      */
@@ -82,6 +84,9 @@ public class Parser {
             case AddCommand.COMMAND_WORD:
                 return prepareAdd(arguments);
 
+            case MenuAddCommand.COMMAND_WORD:
+                return prepareAddMenu(arguments);
+
             case DeleteCommand.COMMAND_WORD:
                 return prepareDelete(arguments);
 
@@ -93,6 +98,9 @@ public class Parser {
 
             case ListCommand.COMMAND_WORD:
                 return new ListCommand();
+
+            case MenuListCommand.COMMAND_WORD:
+                return new MenuListCommand();
 
             case ViewCommand.COMMAND_WORD:
                 return prepareView(arguments);
@@ -109,17 +117,14 @@ public class Parser {
             case EmployeeDeleteCommand.COMMAND_WORD:
                 return prepareEmployeeDelete(arguments);
 
-            case MemberListCommand.COMMAND_WORD:
-                return new MemberListCommand();
-
-            case MenuListCommand.COMMAND_WORD:
-                return new MenuListCommand();
-
-            case MenuAddCommand.COMMAND_WORD:
-                return prepareAddMenu(arguments);
-
             case MenuViewAllCommand.COMMAND_WORD:
                 return prepareViewAllMenu(arguments);
+
+            case MenuDeleteCommand.COMMAND_WORD:
+                return prepareMenuDelete(arguments);
+
+            case MenuFindCommand.COMMAND_WORD:
+                return prepareMenuFind(arguments);
 
             case OrderDeleteCommand.COMMAND_WORD:
                 return prepareOrderDelete(arguments);
@@ -132,6 +137,9 @@ public class Parser {
 
             case ExitCommand.COMMAND_WORD:
                 return new ExitCommand();
+
+            case MemberListCommand.COMMAND_WORD:
+                return new MemberListCommand();
 
             case HelpCommand.COMMAND_WORD: // Fallthrough
             default:
@@ -234,7 +242,7 @@ public class Parser {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EmployeeDeleteCommand.MESSAGE_USAGE));
         }
     }
-
+    
     /**
      * Checks whether the private prefix of a contact detail in the add command's arguments string is present.
      */
@@ -269,6 +277,22 @@ public class Parser {
             return new DeleteCommand(targetIndex);
         } catch (ParseException | NumberFormatException e) {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
+        }
+    }
+
+
+    /**
+     * Parses arguments in the context of the delete menu item command.
+     *
+     * @param args full command args string
+     * @return the prepared command
+     */
+    private Command prepareMenuDelete(String args) {
+        try {
+            final int targetIndex = parseArgsAsDisplayedIndex(args);
+            return new MenuDeleteCommand(targetIndex);
+        } catch (ParseException | NumberFormatException e) {
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, MenuDeleteCommand.MESSAGE_USAGE));
         }
     }
 
@@ -365,6 +389,25 @@ public class Parser {
         final String[] keywords = matcher.group("keywords").split("\\s+");
         final Set<String> keywordSet = new HashSet<>(Arrays.asList(keywords));
         return new FindCommand(keywordSet);
+    }
+
+    /**
+     * Parses arguments in the context of the find menu command.
+     *
+     * @param args full command args string
+     * @return the prepared command
+     */
+    private Command prepareMenuFind(String args) {
+        final Matcher matcher = KEYWORDS_ARGS_FORMAT.matcher(args.trim());
+        if (!matcher.matches()) {
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    MenuFindCommand.MESSAGE_USAGE));
+        }
+
+        // keywords delimited by whitespace
+        final String[] keywords = matcher.group("keywords").split("\\s+");
+        final Set<String> keywordSet = new HashSet<>(Arrays.asList(keywords));
+        return new MenuFindCommand(keywordSet);
     }
 
 
