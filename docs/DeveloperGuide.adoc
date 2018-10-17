@@ -45,14 +45,14 @@ The state control mechanism is managed by the CommandHistory class. It stores th
 
 *The following core methods are in place to assist in the mechanism:*
 
-* saveInitialState()-?Saves the initial state of the Health Booklet state on start-up in addressBookStates. +
-* addCurrentState()-?Saves the current Health Booklet state in addressBookStates and move the stateIterator forward. +
-* undoLast()-?Restores the previous Health Booklet state from addressBookStates. +
-* redoLast()-?Restores a previously undone Health Booklet state from addressBookStates. +
-* truncateOldPath()- Remove Health Booklet states from addressBookStates following a change made after undo-ing. (will be discussed in more details below) +
-* checkForAction()- Check whether the truncateOldPath() method needs to be called before calling addCurrentState(). +
+* `saveInitialState()`- Saves the initial state of the Health Booklet state on start-up in addressBookStates. +
+* `addCurrentState()`- Saves the current Health Booklet state in addressBookStates and move the stateIterator forward. +
+* `undoLast()`- Restores the previous Health Booklet state from addressBookStates. +
+* `redoLast()`- Restores a previously undone Health Booklet state from addressBookStates. +
+* `truncateOldPath()`- Remove Health Booklet states from addressBookStates following a change made after undo-ing. (will be discussed in more details below) +
+* `checkForAction()`- Check whether the truncateOldPath() method needs to be called before calling addCurrentState(). +
 
-Below is an example usage scenario and the behaviours of the component at a given time:
+*Below is an example usage scenario and the behaviours of the component at a given time:*
 
 == 3.1.2  Reason for this implementation
 Storing the different states of the Health Booklet is relatively easy to implement and it is less prone to errors. However, a drawback for this implementation is the high memory usage required which might cause performance issues.
