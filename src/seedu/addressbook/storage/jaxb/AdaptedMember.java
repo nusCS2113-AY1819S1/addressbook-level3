@@ -3,6 +3,7 @@ package seedu.addressbook.storage.jaxb;
 import seedu.addressbook.common.Utils;
 import seedu.addressbook.data.exception.IllegalValueException;
 import seedu.addressbook.data.member.Member;
+import seedu.addressbook.data.member.Points;
 import seedu.addressbook.data.member.ReadOnlyMember;
 import seedu.addressbook.data.person.*;
 import seedu.addressbook.data.tag.Tag;
@@ -29,6 +30,9 @@ public class AdaptedMember {
 
     @XmlElement(required = true)
     private String name;
+
+    @XmlElement(required = true)
+    private String points;
 //    @XmlElement(required = true)
 //    private AdaptedContactDetail phone;
 //    @XmlElement(required = true)
@@ -52,6 +56,7 @@ public class AdaptedMember {
      */
     public AdaptedMember(ReadOnlyMember source) {
         name = source.getName().fullName;
+        points = source.getPoints().value;
 
 //        phone = new AdaptedContactDetail();
 //        phone.isPrivate = source.getPhone().isPrivate();
@@ -101,9 +106,10 @@ public class AdaptedMember {
 //            tags.add(tag.toModelType());
 //        }
         final Name name = new Name(this.name);
+        final Points points = new Points();
 //        final Phone phone = new Phone(this.phone.value, this.phone.isPrivate);
 //        final Email email = new Email(this.email.value, this.email.isPrivate);
 //        final Address address = new Address(this.address.value, this.address.isPrivate);
-        return new Member(name);
+        return new Member(name, points);
     }
 }
