@@ -34,6 +34,29 @@
 
 image::mainClassDiagram.png[]
 
+== 3. Implementation
+This section describes some noteworthy details on how certain features are implemented.
+
+== 3.1  State control (undo/redo)
+
+== 3.1.1  Current implementation
+
+The state control mechanism is managed by the CommandHistory class. It stores the various states of the Health Booklet in an arraylist addressBookStates with the stateIterator pointing to the latest state in the addressBookStates. The following core methods are in place to assist in the mechanism:
+* saveInitialState()??Saves the initial state of the Health Booklet state on start-up in addressBookStates.
+* addCurrentState()??Saves the current Health Booklet state in addressBookStates and move the stateIterator forward.
+* undoLast()??Restores the previous Health Booklet state from addressBookStates.
+* redoLast()???Restores a previously undone Health Booklet state from addressBookStates.
+* truncateOldPath()??Remove Health Booklet states from addressBookStates following a change made after undo-ing. (will be discussed in more details below)
+* checkForAction()??Check whether the truncateOldPath() method needs to be called before calling addCurrentState().
+
+Below is an example usage scenario and the behaviours of the component at a given time:
+
+== 3.1.2  Reason for this implementation
+Storing the different states of the Health Booklet is relatively easy to implement and it is less prone to errors. However, a drawback for this implementation is the high memory usage required which might cause performance issues.
+
+== 3.1.3  Alternative consideration
+An alternative to the current implementation is to save the list of commands executed in the arraylist instead of the whole Health Booklet and reverse them when attempting to undo. However, this requires implemented class to know how to reverse each command. For example, undo-ing a `delete` command requires the class to perform `add` and the class has to remember all the arguments required to create the same person that was deleted.
+
 == Testing
 
 * In IntelliJ, right-click on the `test` folder and choose `Run 'All Tests'`
