@@ -1,9 +1,14 @@
 package seedu.addressbook.data.person;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Iterator;
+import java.util.List;
+
 import seedu.addressbook.common.Utils;
 import seedu.addressbook.data.exception.DuplicateDataException;
-
-import java.util.*;
 
 /**
  * A list of persons. Does not allow null elements or duplicates.
@@ -12,6 +17,8 @@ import java.util.*;
  * @see Utils#elementsAreUnique(Collection)
  */
 public class UniquePersonList implements Iterable<Person> {
+
+    private final List<Person> internalList = new ArrayList<>();
 
     /**
      * Signals that an operation would have violated the 'no duplicates' property of the list.
@@ -27,8 +34,6 @@ public class UniquePersonList implements Iterable<Person> {
      * there is no such matching person in the list.
      */
     public static class PersonNotFoundException extends Exception {}
-
-    private final List<Person> internalList = new ArrayList<>();
 
     /**
      * Constructs empty person list.
@@ -74,7 +79,6 @@ public class UniquePersonList implements Iterable<Person> {
         return Collections.unmodifiableList(internalList);
     }
 
-
     /**
      * Checks if the list contains an equivalent person as the given argument.
      */
@@ -92,6 +96,21 @@ public class UniquePersonList implements Iterable<Person> {
             throw new DuplicatePersonException();
         }
         internalList.add(toAdd);
+    }
+
+    /**
+     * Finds the equivalent person from the list.
+     *
+     * @throws PersonNotFoundException if no such person could be found in the list.
+     */
+    public Person find(ReadOnlyPerson person) throws PersonNotFoundException {
+        //TODO: Fix potato
+        for (Person p: internalList) {
+            if (p.equals(person)) {
+                return p;
+            }
+        }
+        throw new PersonNotFoundException();
     }
 
     /**
@@ -113,6 +132,34 @@ public class UniquePersonList implements Iterable<Person> {
         internalList.clear();
     }
 
+    /** Finds and returns the Person who has the given username in its Account
+     * @param username
+     * @return The Person who matches the username. This should be guaranteed to be unique.
+     * @throws PersonNotFoundException
+     */
+    public Person findPersonByUsername(String username) throws PersonNotFoundException {
+        //TODO: Fix potato
+        for (Person p: internalList) {
+            if (p.getAccount().isPresent() && p.getAccount().get().getUsername().equals(username)) {
+                return p;
+            }
+        }
+        throw new PersonNotFoundException();
+    }
+
+    /**Checks if UniquePersonList holds a Person who has given username in its Account
+     * @param username
+     * @return true if such a Person exists. False otherwise
+     */
+    public Boolean containsPersonWithUsername(String username) {
+        try {
+            findPersonByUsername(username);
+            return true;
+        } catch (PersonNotFoundException pne) {
+            return false;
+        }
+    }
+
     @Override
     public Iterator<Person> iterator() {
         return internalList.iterator();
@@ -122,13 +169,12 @@ public class UniquePersonList implements Iterable<Person> {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof UniquePersonList // instanceof handles nulls
-                && this.internalList.equals(
-                        ((UniquePersonList) other).internalList));
+                && this.internalList.equals((
+                (UniquePersonList) other).internalList));
     }
 
     @Override
     public int hashCode() {
         return internalList.hashCode();
     }
-
 }

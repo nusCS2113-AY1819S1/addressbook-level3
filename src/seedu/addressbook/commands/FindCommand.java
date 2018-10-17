@@ -1,8 +1,12 @@
 package seedu.addressbook.commands;
 
-import seedu.addressbook.data.person.ReadOnlyPerson;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
-import java.util.*;
+import seedu.addressbook.data.person.ReadOnlyPerson;
 
 /**
  * Finds and lists all persons in address book whose name contains any of the argument keywords.
@@ -21,6 +25,14 @@ public class FindCommand extends Command {
 
     public FindCommand(Set<String> keywords) {
         this.keywords = keywords;
+    }
+
+    /**
+     * Constructor used for Privileges
+     * Command constructed has no functionality
+     * */
+    public FindCommand() {
+        this.keywords = new HashSet<>();
     }
 
     /**
@@ -53,4 +65,13 @@ public class FindCommand extends Command {
         return matchedPersons;
     }
 
+    @Override
+    public Category getCategory() {
+        return Category.PERSON;
+    }
+
+    @Override
+    public String getCommandUsageMessage() {
+        return MESSAGE_USAGE;
+    }
 }

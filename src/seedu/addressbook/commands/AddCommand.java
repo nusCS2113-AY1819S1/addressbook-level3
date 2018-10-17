@@ -1,11 +1,17 @@
 package seedu.addressbook.commands;
 
-import seedu.addressbook.data.exception.IllegalValueException;
-import seedu.addressbook.data.person.*;
-import seedu.addressbook.data.tag.Tag;
-
 import java.util.HashSet;
 import java.util.Set;
+
+import seedu.addressbook.data.exception.IllegalValueException;
+import seedu.addressbook.data.person.Address;
+import seedu.addressbook.data.person.Email;
+import seedu.addressbook.data.person.Name;
+import seedu.addressbook.data.person.Person;
+import seedu.addressbook.data.person.Phone;
+import seedu.addressbook.data.person.ReadOnlyPerson;
+import seedu.addressbook.data.person.UniquePersonList;
+import seedu.addressbook.data.tag.Tag;
 
 /**
  * Adds a person to the address book.
@@ -16,7 +22,7 @@ public class AddCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ":\n" + "Adds a person to the address book. "
             + "Contact details can be marked private by prepending 'p' to the prefix.\n\t"
-            + "Parameters: NAME [p]p/PHONE [p]e/EMAIL [p]a/ADDRESS  [t/TAG]...\n\t"
+            + "Parameters: NAME [p]p/PHONE [p]e/EMAIL [p]a/ADDRESS [t/TAG]...\n\t"
             + "Example: " + COMMAND_WORD
             + " John Doe p/98765432 e/johnd@gmail.com a/311, Clementi Ave 2, #02-25 t/friends t/owesMoney";
 
@@ -24,6 +30,14 @@ public class AddCommand extends Command {
     public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the address book";
 
     private final Person toAdd;
+
+    /**
+     * Constructor used for Privileges
+     * Command constructed has no functionality
+     * */
+    public AddCommand() {
+        this.toAdd = null;
+    }
 
     /**
      * Convenience constructor using raw values.
@@ -66,4 +80,18 @@ public class AddCommand extends Command {
         }
     }
 
+    @Override
+    public boolean isMutating() {
+        return true;
+    }
+
+    @Override
+    public Category getCategory() {
+        return Category.PERSON;
+    }
+
+    @Override
+    public String getCommandUsageMessage() {
+        return MESSAGE_USAGE;
+    }
 }

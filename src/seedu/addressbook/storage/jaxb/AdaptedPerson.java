@@ -1,30 +1,30 @@
 package seedu.addressbook.storage.jaxb;
 
-import seedu.addressbook.common.Utils;
-import seedu.addressbook.data.exception.IllegalValueException;
-import seedu.addressbook.data.person.*;
-import seedu.addressbook.data.tag.Tag;
-
-import javax.xml.bind.annotation.XmlAttribute;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlValue;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlValue;
+
+import seedu.addressbook.common.Utils;
+import seedu.addressbook.data.account.Account;
+import seedu.addressbook.data.exception.IllegalValueException;
+import seedu.addressbook.data.person.Address;
+import seedu.addressbook.data.person.Email;
+import seedu.addressbook.data.person.Fees;
+import seedu.addressbook.data.person.Name;
+import seedu.addressbook.data.person.Person;
+import seedu.addressbook.data.person.Phone;
+import seedu.addressbook.data.person.ReadOnlyPerson;
+import seedu.addressbook.data.tag.Tag;
+
 
 /**
  * JAXB-friendly adapted person data holder class.
  */
 public class AdaptedPerson {
-
-    private static class AdaptedContactDetail {
-        @XmlValue
-        public String value;
-        @XmlAttribute(required = true)
-        public boolean isPrivate;
-    }
-
     @XmlElement(required = true)
     private String name;
     @XmlElement(required = true)
@@ -33,9 +33,24 @@ public class AdaptedPerson {
     private AdaptedContactDetail email;
     @XmlElement(required = true)
     private AdaptedContactDetail address;
+    @XmlElement(required = true)
+    private AdaptedContactDetail fees;
 
     @XmlElement
     private List<AdaptedTag> tagged = new ArrayList<>();
+
+    @XmlElement
+    private AdaptedAccount account;
+    /**
+     * JAXB-friendly adapted contact detail data holder class.
+     */
+    private static class AdaptedContactDetail {
+        @XmlValue
+        private String value;
+        @XmlAttribute(required = true)
+        private boolean isPrivate;
+
+    }
 
     /**
      * No-arg constructor for JAXB use.
@@ -63,9 +78,16 @@ public class AdaptedPerson {
         address.isPrivate = source.getAddress().isPrivate();
         address.value = source.getAddress().value;
 
+        fees = new AdaptedContactDetail();
+        fees.isPrivate = source.getFees().isPrivate();
+        fees.value = source.getFees().value;
+
         tagged = new ArrayList<>();
         for (Tag tag : source.getTags()) {
             tagged.add(new AdaptedTag(tag));
+        }
+        if (source.getAccount().isPresent()) {
+            account = new AdaptedAccount(source.getAccount().get());
         }
     }
 
@@ -83,9 +105,14 @@ public class AdaptedPerson {
                 return true;
             }
         }
+
+        if (account != null && account.isAnyRequiredFieldMissing()) {
+            return true;
+        }
+
         // second call only happens if phone/email/address are all not null
-        return Utils.isAnyNull(name, phone, email, address)
-                || Utils.isAnyNull(phone.value, email.value, address.value);
+        return Utils.isAnyNull(name, phone, email, address, fees)
+                || Utils.isAnyNull(phone.value, email.value, address.value, fees.value);
     }
 
     /**
@@ -102,6 +129,17 @@ public class AdaptedPerson {
         final Phone phone = new Phone(this.phone.value, this.phone.isPrivate);
         final Email email = new Email(this.email.value, this.email.isPrivate);
         final Address address = new Address(this.address.value, this.address.isPrivate);
-        return new Person(name, phone, email, address, tags);
+        final Fees fees = new Fees(this.fees.value);
+
+        if (this.account == null) {
+            final Person person = new Person(name, phone, email, address, tags);
+            person.setFees(fees);
+            return new Person(name, phone, email, address, tags);
+        } else {
+            final Account account = this.account.toModelType();
+            final Person person = new Person(name, phone, email, address, tags, account);
+            person.setFees(fees);
+            return new Person(name, phone, email, address, tags, account);
+        }
     }
 }

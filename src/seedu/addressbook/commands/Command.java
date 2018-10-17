@@ -1,19 +1,38 @@
 package seedu.addressbook.commands;
 
-import seedu.addressbook.common.Messages;
-import seedu.addressbook.data.AddressBook;
-import seedu.addressbook.data.person.ReadOnlyPerson;
+import static seedu.addressbook.ui.Gui.DISPLAYED_INDEX_OFFSET;
 
 import java.util.List;
 
-import static seedu.addressbook.ui.Gui.DISPLAYED_INDEX_OFFSET;
+import seedu.addressbook.common.Messages;
+import seedu.addressbook.data.AddressBook;
+import seedu.addressbook.data.ExamBook;
+import seedu.addressbook.data.StatisticsBook;
+import seedu.addressbook.data.person.ReadOnlyExam;
+import seedu.addressbook.data.person.ReadOnlyPerson;
+import seedu.addressbook.privilege.Privilege;
 
 /**
  * Represents an executable command.
  */
 public abstract class Command {
+    /**
+     * Enum used to indicate which category the command belongs to
+     * */
+    public enum Category {
+        PERSON,
+        PRIVILEGE,
+        GENERAL,
+        ACCOUNT,
+        EXAM
+    }
+
+    protected static Privilege privilege;
     protected AddressBook addressBook;
+    protected ExamBook examBook;
+    protected StatisticsBook statisticsBook;
     protected List<? extends ReadOnlyPerson> relevantPersons;
+    protected List<? extends ReadOnlyExam> relevantExams;
     private int targetIndex = -1;
 
     /**
@@ -37,21 +56,37 @@ public abstract class Command {
     }
 
     /**
-     * Executes the command and returns the result.
+     * Constructs a feedback message to summarise an operation that displayed a listing of exams.
+     *
+     * @param examsDisplayed used to generate summary
+     * @return summary message for exams displayed
      */
-    public CommandResult execute(){
-        throw new UnsupportedOperationException("This method should be implement in child classes");
+    public static String getMessageForExamListShownSummary(List<? extends ReadOnlyExam> examsDisplayed) {
+        return String.format(Messages.MESSAGE_EXAMS_LISTED_OVERVIEW, examsDisplayed.size());
     }
 
-    //Note: it is better to make the execute() method abstract, by replacing the above method with the line below:
-    //public abstract CommandResult execute();
+    /**
+     * Executes the command and returns the result.
+     */
+    public abstract CommandResult execute();
 
     /**
      * Supplies the data the command will operate on.
      */
-    public void setData(AddressBook addressBook, List<? extends ReadOnlyPerson> relevantPersons) {
+    public void setData(AddressBook addressBook, StatisticsBook statisticsBook, List<? extends ReadOnlyPerson>
+            relevantPersons, Privilege privilege) {
         this.addressBook = addressBook;
+        this.statisticsBook = statisticsBook;
         this.relevantPersons = relevantPersons;
+        this.privilege = privilege;
+    }
+
+    public void setData(AddressBook addressBook, List<? extends ReadOnlyPerson> relevantPersons,
+                        List<? extends ReadOnlyExam> relevantExams, Privilege privilege,
+                        ExamBook exambook, StatisticsBook statisticsBook) {
+        setData(addressBook, statisticsBook, relevantPersons, privilege);
+        this.examBook = exambook;
+        this.relevantExams = relevantExams;
     }
 
     /**
@@ -70,4 +105,31 @@ public abstract class Command {
     public void setTargetIndex(int targetIndex) {
         this.targetIndex = targetIndex;
     }
+
+    //TODO: Fix potato code
+    public Category getCategory() {
+        return Category.GENERAL;
+    }
+
+    /**
+     * Checks if the command can potentially change the data to be stored
+     */
+    public boolean isMutating() {
+        return false;
+    }
+
+    /**
+     * Returns the usage message to be used to construct HelpCommand's message
+     */
+    public abstract String getCommandUsageMessage();
+
+    /**
+     * Extracts the the target exams in the last shown list from the given arguments.
+     *
+     * @throws IndexOutOfBoundsException if the target index is out of bounds of the last viewed listing
+     */
+    public ReadOnlyExam getTargetExam() throws IndexOutOfBoundsException {
+        return relevantExams.get(getTargetIndex() - DISPLAYED_INDEX_OFFSET);
+    }
+
 }

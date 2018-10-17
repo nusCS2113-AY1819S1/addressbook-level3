@@ -3,7 +3,6 @@ package seedu.addressbook.commands;
 import seedu.addressbook.common.Messages;
 import seedu.addressbook.data.person.ReadOnlyPerson;
 
-
 /**
  * Shows all details of the person identified using the last displayed index.
  * Private contact details are shown.
@@ -19,11 +18,16 @@ public class ViewAllCommand extends Command {
 
     public static final String MESSAGE_VIEW_PERSON_DETAILS = "Viewing person: %1$s";
 
-
     public ViewAllCommand(int targetVisibleIndex) {
         super(targetVisibleIndex);
     }
 
+    /**
+     * Constructor used for Privileges
+     * Command constructed has no functionality
+     * */
+    public ViewAllCommand() {
+    }
 
     @Override
     public CommandResult execute() {
@@ -36,5 +40,15 @@ public class ViewAllCommand extends Command {
         } catch (IndexOutOfBoundsException ie) {
             return new CommandResult(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
         }
+    }
+
+    @Override
+    public Category getCategory() {
+        return Category.PERSON;
+    }
+
+    @Override
+    public String getCommandUsageMessage() {
+        return MESSAGE_USAGE;
     }
 }

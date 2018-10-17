@@ -3,6 +3,9 @@
 
 # Default data file
 addressbook.txt
+backup_data.txt
+exams.txt
+statistics.txt
 
 # Package Files #
 *.jar
@@ -13,7 +16,6 @@ addressbook.txt
 .idea/
 *.iml
 out/
-test/data/
 /bin/
 /data/
 publish.sh

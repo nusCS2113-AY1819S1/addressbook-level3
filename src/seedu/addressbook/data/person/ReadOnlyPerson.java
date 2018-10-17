@@ -1,8 +1,11 @@
 package seedu.addressbook.data.person;
 
+import java.util.Optional;
 import java.util.Set;
 
+import seedu.addressbook.data.account.Account;
 import seedu.addressbook.data.tag.Tag;
+import seedu.addressbook.ui.Formatter;
 
 /**
  * A read-only immutable interface for a Person in the addressbook.
@@ -14,7 +17,8 @@ public interface ReadOnlyPerson {
     Phone getPhone();
     Email getEmail();
     Address getAddress();
-
+    Optional<Account> getAccount();
+    Fees getFees();
     /**
      * The returned {@code Set} is a deep copy of the internal {@code Set},
      * changes on the returned list will not affect the person's internal tags.
@@ -22,7 +26,8 @@ public interface ReadOnlyPerson {
     Set<Tag> getTags();
 
     /**
-     * Returns true if the values inside this object is same as those of the other (Note: interfaces cannot override .equals)
+     * Returns true if the values inside this object is same as those of the other
+     * (Note: interfaces cannot override .equals)
      */
     default boolean isSameStateAs(ReadOnlyPerson other) {
         return other == this // short circuit if same object
@@ -30,7 +35,8 @@ public interface ReadOnlyPerson {
                 && other.getName().equals(this.getName()) // state checks here onwards
                 && other.getPhone().equals(this.getPhone())
                 && other.getEmail().equals(this.getEmail())
-                && other.getAddress().equals(this.getAddress()));
+                && other.getAddress().equals(this.getAddress())
+                && other.getAccount().equals(this.getAccount()));
     }
 
     /**
@@ -38,27 +44,19 @@ public interface ReadOnlyPerson {
      */
     default String getAsTextShowAll() {
         final StringBuilder builder = new StringBuilder();
-        final String detailIsPrivate = "(private) ";
-        builder.append(getName())
-                .append(" Phone: ");
-        if (getPhone().isPrivate()) {
-            builder.append(detailIsPrivate);
-        }
-        builder.append(getPhone())
-                .append(" Email: ");
-        if (getEmail().isPrivate()) {
-            builder.append(detailIsPrivate);
-        }
-        builder.append(getEmail())
-                .append(" Address: ");
-        if (getAddress().isPrivate()) {
-            builder.append(detailIsPrivate);
-        }
-        builder.append(getAddress())
+        final String stringChain = Formatter.getPrintableString(
+                true,
+                getName(),
+                getPhone(),
+                getEmail(),
+                getAddress(),
+                getFees());
+        builder.append(stringChain)
                 .append(" Tags: ");
         for (Tag tag : getTags()) {
             builder.append(tag);
         }
+        getAccount().ifPresent(a -> builder.append(" User Type:" + a.getPrintableString(true)));
         return builder.toString();
     }
 
@@ -67,20 +65,33 @@ public interface ReadOnlyPerson {
      */
     default String getAsTextHidePrivate() {
         final StringBuilder builder = new StringBuilder();
-        builder.append(getName());
-        if (!getPhone().isPrivate()) {
-            builder.append(" Phone: ").append(getPhone());
-        }
-        if (!getEmail().isPrivate()) {
-            builder.append(" Email: ").append(getEmail());
-        }
-        if (!getAddress().isPrivate()) {
-            builder.append(" Address: ").append(getAddress());
-        }
-        builder.append(" Tags: ");
+        final String stringChain = Formatter.getPrintableString(
+                false,
+                getName(),
+                getPhone(),
+                getEmail(),
+                getAddress(),
+                getFees());
+        builder.append(stringChain)
+                .append(" Tags: ");
         for (Tag tag : getTags()) {
             builder.append(tag);
         }
+
+        getAccount().ifPresent(a -> builder.append(" User Type:" + a.getPrintableString(true)));
+        return builder.toString();
+    }
+
+    /**
+     * Formats the person as text, showing name and fees.
+     */
+    default String getAsTextShowFee() {
+        final StringBuilder builder = new StringBuilder();
+        final String stringChain = Formatter.getPrintableString(
+                true,
+                getName(),
+                getFees());
+        builder.append(stringChain);
         return builder.toString();
     }
 }

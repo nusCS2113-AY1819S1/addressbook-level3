@@ -1,0 +1,59 @@
+= About Us
+:site-section: AboutUs
+:relfileprefix: team/
+:imagesDir: images
+:stylesDir: stylesheets
+
+We are a team based in the http://www.comp.nus.edu.sg[School of Computing, National University of Singapore].
+
+== Project Team
+
+=== Ng Tek In
+image::0wn463.png[width="150", align="left"]
+{empty}[https://github.com/0wn463[github]]
+
+Role: Team Lead +
+Responsibilities: Managing Pull Requests +
+Feature: Privilege
+
+'''
+
+=== Mick Lee
+image::micklwl.png[width="150", align="left"]
+{empty}[http://github.com/micklwl[github]]
+
+Role: Bug catcher +
+Responsibilities: Managing subjects + exams +
+Feature: Exams and Examlist
+
+'''
+
+=== Meghana Narayanan
+image::meg1456.png[width="150", align="left"]
+{empty}[https://github.com/meg1456[github]]
+
+Role: Deliverables and Deadlines In-charge +
+Responsibilities: Ensuring work is completed on time +
+Feature: Tests and Grades
+
+'''
+
+=== Neow Bo Kai
+image::meisbokai.png[width="150", align="left"]
+{empty}[https://github.com/meisbokai[github]]
+
+Role: Developer + Code Quality Check +
+Responsibilities: Code Quality +
+Feature: Attendance
+
+'''
+
+=== Lucas Lim
+image::lucdx.png[width="150", align="left"]
+{empty}[https://github.com/lucdx[github]]
+
+Role: Documentation and Scribe +
+Responsibilities: Coherent documents +
+Feature: Fees
+
+'''

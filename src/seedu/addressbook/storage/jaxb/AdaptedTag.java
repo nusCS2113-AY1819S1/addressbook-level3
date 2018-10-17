@@ -1,10 +1,11 @@
 package seedu.addressbook.storage.jaxb;
 
+import javax.xml.bind.annotation.XmlValue;
+
 import seedu.addressbook.common.Utils;
 import seedu.addressbook.data.exception.IllegalValueException;
 import seedu.addressbook.data.tag.Tag;
 
-import javax.xml.bind.annotation.XmlValue;
 
 /**
  * JAXB-friendly adapted tag data holder class.
@@ -12,7 +13,7 @@ import javax.xml.bind.annotation.XmlValue;
 public class AdaptedTag {
 
     @XmlValue
-    public String tagName;
+    private String tagName;
 
     /**
      * No-arg constructor for JAXB use.

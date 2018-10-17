@@ -1,9 +1,11 @@
 package seedu.addressbook.ui;
 
-import seedu.addressbook.data.person.ReadOnlyPerson;
-
 import java.util.ArrayList;
 import java.util.List;
+
+import seedu.addressbook.data.person.Printable;
+import seedu.addressbook.data.person.ReadOnlyExam;
+import seedu.addressbook.data.person.ReadOnlyPerson;
 
 /**
  * Used for formatting text for display. e.g. for adding text decorations.
@@ -63,4 +65,35 @@ public class Formatter {
         return String.format(MESSAGE_INDEXED_LIST_ITEM, visibleIndex, listItem);
     }
 
+    /**
+     * Returns a concatenated version of the printable strings of each object.
+     */
+    public static String getPrintableString(boolean showPrivate, Printable... printables) {
+        String stringChain = "";
+        for (Printable i: printables) {
+            stringChain += i.getPrintableString(showPrivate) + " ";
+        }
+        return stringChain;
+    }
+
+    public static String getPrintableField(boolean showPrivate, boolean isPrivate, String fieldLabel, String value) {
+        if (isPrivate) {
+            if (showPrivate) {
+                return String.format("{private %s: %s}", fieldLabel, value);
+            } else {
+                return "";
+            }
+        }
+        return String.format("%s: %s", fieldLabel, value);
+    }
+
+    /** Formats the given list of exams for displaying to the admin user. */
+    public String formatExam(List<? extends ReadOnlyExam> exams) {
+        final List<String> formattedExams = new ArrayList<>();
+        for (ReadOnlyExam exam : exams) {
+            formattedExams.add(exam.getAsTextShowAll());
+
+        }
+        return format(asIndexedList(formattedExams));
+    }
 }

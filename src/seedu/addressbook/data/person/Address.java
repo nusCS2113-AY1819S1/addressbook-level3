@@ -1,16 +1,18 @@
 package seedu.addressbook.data.person;
 
 import seedu.addressbook.data.exception.IllegalValueException;
+import seedu.addressbook.ui.Formatter;
 
 /**
  * Represents a Person's address in the address book.
  * Guarantees: immutable; is valid as declared in {@link #isValidAddress(String)}
  */
-public class Address {
+public class Address implements Printable {
 
     public static final String EXAMPLE = "123, some street";
-    public static final String MESSAGE_ADDRESS_CONSTRAINTS = "Person addresses can be in any format";
-    public static final String ADDRESS_VALIDATION_REGEX = ".+";
+    public static final String MESSAGE_ADDRESS_CONSTRAINTS = "Person address cannot contain $";
+    public static final String ADDRESS_VALIDATION_REGEX = "^((?!\\$).)*$";
+    private static final String FIELD_NAME = "Address";
 
     public final String value;
     private boolean isPrivate;
@@ -35,6 +37,10 @@ public class Address {
         return test.matches(ADDRESS_VALIDATION_REGEX);
     }
 
+    public boolean isPrivate() {
+        return isPrivate;
+    }
+
     @Override
     public String toString() {
         return value;
@@ -52,7 +58,8 @@ public class Address {
         return value.hashCode();
     }
 
-    public boolean isPrivate() {
-        return isPrivate;
+    @Override
+    public String getPrintableString(boolean showPrivate) {
+        return Formatter.getPrintableField(showPrivate, isPrivate, FIELD_NAME, value);
     }
 }

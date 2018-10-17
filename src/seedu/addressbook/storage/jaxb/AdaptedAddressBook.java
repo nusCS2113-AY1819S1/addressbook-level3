@@ -1,14 +1,16 @@
 package seedu.addressbook.storage.jaxb;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+
 import seedu.addressbook.data.AddressBook;
 import seedu.addressbook.data.exception.IllegalValueException;
 import seedu.addressbook.data.person.Person;
 import seedu.addressbook.data.person.UniquePersonList;
 
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * JAXB-friendly adapted address book data holder class.
@@ -19,11 +21,14 @@ public class AdaptedAddressBook {
     @XmlElement
     private List<AdaptedPerson> persons = new ArrayList<>();
 
+
+    @XmlElement(defaultValue = "default_pw")
+    private AdaptedPassword password = new AdaptedPassword();
+
     /**
      * No-arg constructor for JAXB use.
      */
     public AdaptedAddressBook() {}
-
     /**
      * Converts a given AddressBook into this class for JAXB use.
      *
@@ -32,6 +37,7 @@ public class AdaptedAddressBook {
     public AdaptedAddressBook(AddressBook source) {
         persons = new ArrayList<>();
         source.getAllPersons().forEach(person -> persons.add(new AdaptedPerson(person)));
+        password = new AdaptedPassword(source.getMasterPassword());
     }
 
 
@@ -44,7 +50,9 @@ public class AdaptedAddressBook {
      * so we check for that.
      */
     public boolean isAnyRequiredFieldMissing() {
-        return persons.stream().anyMatch(AdaptedPerson::isAnyRequiredFieldMissing);
+
+        return persons.stream().anyMatch(AdaptedPerson::isAnyRequiredFieldMissing)
+                || password.isAnyRequiredFieldMissing();
     }
 
 
@@ -57,6 +65,7 @@ public class AdaptedAddressBook {
         for (AdaptedPerson person : persons) {
             personList.add(person.toModelType());
         }
-        return new AddressBook(new UniquePersonList(personList));
+        final String masterPassword = password.getPassword();
+        return new AddressBook(new UniquePersonList(personList), masterPassword);
     }
 }
