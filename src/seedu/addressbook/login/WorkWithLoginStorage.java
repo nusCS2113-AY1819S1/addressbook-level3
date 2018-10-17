@@ -23,7 +23,7 @@ public class WorkWithLoginStorage {
                     if(debug)System.out.println("user correct");
                     password = sc.next();
                     if(debug)System.out.println("password = " + password + "2");
-                    if(hashing.main(pass).equals(password)){
+                    if(Hashing.main(pass).equals(password)){
                         return true;
                     }else{
                         return false;
