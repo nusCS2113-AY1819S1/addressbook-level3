@@ -5,10 +5,10 @@ import javafx.application.Platform;
 
 import javafx.stage.Stage;
 import seedu.addressbook.logic.Logic;
+import seedu.addressbook.login.WorkWithLoginStorage;
 import seedu.addressbook.ui.Gui;
 import seedu.addressbook.ui.Stoppable;
-import seedu.addressbook.login.login;
-
+import seedu.addressbook.login.Login;
 /**
  * Main entry point to the application.
  */
@@ -32,7 +32,7 @@ public class Main extends Application implements Stoppable{
     }
 
     public static void main(String[] args) {
-        if(login.main()) {
+        if(Login.main()) {
             launch(args);
         }else{
             System.exit(0);

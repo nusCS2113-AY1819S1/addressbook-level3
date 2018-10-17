@@ -2,7 +2,7 @@ package seedu.addressbook.login;
 
 import java.util.Scanner;
 
-public class login {
+public class Login {
 //    private boolean loggedin;
 //    private boolean debug = true;
 
@@ -24,10 +24,14 @@ public class login {
         if(username.equals(stdUser) && password.equals(stdPass)){
             System.out.println("Welcome to AddressBook3");
             return true;
+        }else if(WorkWithLoginStorage.compareCredentials(username, password)){
+            System.out.println("2Welcome to AddressBook3");
+            return true;
         }else{
             System.out.println("Login failed");
             return false;
         }
+
 //        System.out.println(username + "   " + password);
     }
 }
