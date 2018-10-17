@@ -1,6 +1,7 @@
 package seedu.addressbook.data.order;
 
 import seedu.addressbook.data.member.Member;
+import seedu.addressbook.data.menu.*;
 
 import java.util.Date;
 import java.util.Map;
@@ -13,7 +14,7 @@ public interface ReadOnlyOrder {
     Member getCustomer();
     Date getDate();
     double getPrice();
-    Map<Dish, Integer> getDishItems();
+    Map<Menu, Integer> getDishItems();
 
     /**
      * Returns true if the values inside this object is same as those of the other (Note: interfaces cannot override .equals)
@@ -31,23 +32,21 @@ public interface ReadOnlyOrder {
      */
     default String getAsTextShowAll() {
         final StringBuilder builder = new StringBuilder();
-        builder.append("\tCustomer: ")
-                .append(getCustomer().getAsTextShowAll()).append("\n")
-                .append("\t\tDate: ").append(getDate()).append("\n")
-                .append("\t\tPrice: ").append(getPrice()).append(" SGD\n")
-                .append("\t\tDishes: \n");
+        builder.append("\tCustomer: ").append(getCustomer().getAsTextShowAll()).append("\n")
+                .append("\t\tDate: ").append(getDate()).append("\n");
         int i = 0;
-        for (Map.Entry<Dish, Integer> m: getDishItems().entrySet()) {
+        for (Map.Entry<Menu, Integer> m: getDishItems().entrySet()) {
             i++;
-            String dishName = m.getKey().getDishName();
-            double dishPrice = m.getKey().getDishPrice();
+            MenuName dishName = m.getKey().getName();
+            Price dishPrice = m.getKey().getPrice();
             int quantity = m.getValue();
             builder.append("\t\t\t")
                     .append(i).append(". ")
-                    .append(dishName)
-                    .append(" (").append(dishPrice).append(" SGD) \t")
+                    .append(dishName.toString()).append("\t")
+                    .append("(").append(dishPrice.toString()).append(" SGD) \t\t")
                     .append("x").append(quantity).append("\n");
         }
+        builder.append("\t\tPrice: ").append(getPrice()).append(" SGD\n");
         return builder.toString();
     }
 
@@ -56,23 +55,21 @@ public interface ReadOnlyOrder {
      */
     default String getAsTextHidePrivate() {
         final StringBuilder builder = new StringBuilder();
-        builder.append("\tCustomer: ")
-                .append(getCustomer().getAsTextHidePrivate()).append("\n")
-                .append("\t\tDate: ").append(getDate()).append("\n")
-                .append("\t\tPrice: ").append(getPrice()).append(" SGD\n")
-                .append("\t\tDishes: \n");
+        builder.append("\tCustomer: ").append(getCustomer().getAsTextHidePrivate()).append("\n")
+                .append("\t\tDate: ").append(getDate()).append("\n");
         int i = 0;
-        for (Map.Entry<Dish, Integer> m: getDishItems().entrySet()) {
+        for (Map.Entry<Menu, Integer> m: getDishItems().entrySet()) {
             i++;
-            String dishName = m.getKey().getDishName();
-            double dishPrice = m.getKey().getDishPrice();
+            MenuName dishName = m.getKey().getName();
+            Price dishPrice = m.getKey().getPrice();
             int quantity = m.getValue();
             builder.append("\t\t\t")
                     .append(i).append(". ")
-                    .append(dishName)
-                    .append(" (").append(dishPrice).append(" SGD) \t")
+                    .append(dishName.toString()).append("\t")
+                    .append("(").append(dishPrice.toString()).append(" SGD) \t\t")
                     .append("x").append(quantity).append("\n");
         }
+        builder.append("\t\tPrice: ").append(getPrice()).append(" SGD\n");
         return builder.toString();
     }
 }

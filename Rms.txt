@@ -65,24 +65,24 @@
         <price>16.0</price>
         <dishItems>
             <dish>
-                <dishName>coke</dishName>
-                <dishPrice>2.0</dishPrice>
-            </dish>
-            <quantity>1</quantity>
-        </dishItems>
-        <dishItems>
-            <dish>
-                <dishName>salad</dishName>
-                <dishPrice>4.0</dishPrice>
-            </dish>
-            <quantity>1</quantity>
-        </dishItems>
-        <dishItems>
-            <dish>
-                <dishName>chicken</dishName>
-                <dishPrice>5.0</dishPrice>
+                <name>chicken</name>
+                <price isPrivate="false">5</price>
             </dish>
             <quantity>2</quantity>
+        </dishItems>
+        <dishItems>
+            <dish>
+                <name>coke</name>
+                <price isPrivate="false">2</price>
+            </dish>
+            <quantity>1</quantity>
+        </dishItems>
+        <dishItems>
+            <dish>
+                <name>salad</name>
+                <price isPrivate="false">4</price>
+            </dish>
+            <quantity>1</quantity>
         </dishItems>
     </orders>
 </Rms>

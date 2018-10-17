@@ -1,6 +1,7 @@
 package seedu.addressbook.data.order;
 
 import seedu.addressbook.data.member.Member;
+import seedu.addressbook.data.menu.Menu;
 
 import java.util.Date;
 import java.util.HashMap;
@@ -22,12 +23,12 @@ public class Order implements ReadOnlyOrder {
      *
      * Use {@code entrySet()} to create a Set for iteration.
      */
-    private final Map<Dish, Integer> dishItems = new HashMap<>();
+    private final Map<Menu, Integer> dishItems = new HashMap<>();
 
     /**
      * Constructor for new order.
      */
-    public Order(Member customer, Map<Dish, Integer> dishItems) {
+    public Order(Member customer, Map<Menu, Integer> dishItems) {
         this.customer = customer;
         this.dishItems.putAll(dishItems);
         this.price = calculatePrice();
@@ -37,7 +38,7 @@ public class Order implements ReadOnlyOrder {
     /**
      * Constructor for edited order to keep the original ordered date.
      */
-    public Order(Member customer, Date date, Map<Dish, Integer> dishItems) {
+    public Order(Member customer, Date date, Map<Menu, Integer> dishItems) {
         this.customer = customer;
         this.dishItems.putAll(dishItems);
         this.price = calculatePrice();
@@ -47,7 +48,7 @@ public class Order implements ReadOnlyOrder {
     /**
      * Full constructor.
      */
-    public Order(Member customer, Date date, double price, Map<Dish, Integer> dishItems) {
+    public Order(Member customer, Date date, double price, Map<Menu, Integer> dishItems) {
         this.customer = customer;
         this.dishItems.putAll(dishItems);
         this.price = price;
@@ -77,14 +78,14 @@ public class Order implements ReadOnlyOrder {
     }
 
     @Override
-    public Map<Dish, Integer> getDishItems() {
+    public Map<Menu, Integer> getDishItems() {
         return new HashMap<>(dishItems);
     }
 
     /**
      * Replaces the list of dish items with the dish items in {@code replacement}.
      */
-    public void setDishItems(Map<Dish, Integer> replacement) {
+    public void setDishItems(Map<Menu, Integer> replacement) {
         dishItems.clear();
         dishItems.putAll(replacement);
         price = calculatePrice();
@@ -92,15 +93,15 @@ public class Order implements ReadOnlyOrder {
 
     public double calculatePrice() {
         double result = 0;
-        for (Map.Entry<Dish, Integer> m: getDishItems().entrySet()) {
-            double dishPrice = m.getKey().getDishPrice();
+        for (Map.Entry<Menu, Integer> m: getDishItems().entrySet()) {
+            double dishPrice = Double.parseDouble(m.getKey().getPrice().value);
             int dishQuantity = m.getValue();
             result += (dishPrice * dishQuantity);
         }
         return result;
     }
 
-    public int getDishQuantity(Dish dish) {
+    public int getDishQuantity(Menu dish) {
         if (dishItems.containsKey(dish)) {
             return dishItems.get(dish);
         } else {
@@ -109,7 +110,7 @@ public class Order implements ReadOnlyOrder {
 
     }
 
-    public void changeDishQuantity(Dish dish, int quantity) {
+    public void changeDishQuantity(Menu dish, int quantity) {
         dishItems.remove(dish);
         dishItems.put(dish, quantity);
     }

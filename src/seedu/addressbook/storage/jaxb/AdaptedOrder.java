@@ -3,7 +3,7 @@ package seedu.addressbook.storage.jaxb;
 import seedu.addressbook.common.Utils;
 import seedu.addressbook.data.exception.IllegalValueException;
 import seedu.addressbook.data.member.Member;
-import seedu.addressbook.data.order.Dish;
+import seedu.addressbook.data.menu.Menu;
 import seedu.addressbook.data.order.Order;
 import seedu.addressbook.data.order.ReadOnlyOrder;
 
@@ -14,7 +14,7 @@ public class AdaptedOrder {
 
     private static class AdaptedDishItem {
         @XmlElement
-        public AdaptedDish dish;
+        public AdaptedMenu dish;
         @XmlElement
         public int quantity;
     }
@@ -45,9 +45,9 @@ public class AdaptedOrder {
         price = source.getPrice();
 
         dishItems = new ArrayList<>();
-        for (Map.Entry<Dish, Integer> m: source.getDishItems().entrySet()) {
+        for (Map.Entry<Menu, Integer> m: source.getDishItems().entrySet()) {
             AdaptedDishItem dishItem = new AdaptedDishItem();
-            dishItem.dish = new AdaptedDish(m.getKey());
+            dishItem.dish = new AdaptedMenu(m.getKey());
             dishItem.quantity = m.getValue();
             dishItems.add(dishItem);
         }
@@ -76,7 +76,7 @@ public class AdaptedOrder {
      * @throws IllegalValueException if there were any data constraints violated in the adapted order
      */
     public Order toModelType() throws IllegalValueException {
-        final Map<Dish, Integer> dishItems = new HashMap<>();
+        final Map<Menu, Integer> dishItems = new HashMap<>();
         for (AdaptedDishItem dishItem : this.dishItems) {
             dishItems.put(dishItem.dish.toModelType(), dishItem.quantity);
         }
