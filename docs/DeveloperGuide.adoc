@@ -54,25 +54,25 @@ The state control mechanism is managed by the CommandHistory class. It stores th
 
 *Below is an example usage scenario and the behaviours of the component at a given time:*
 
-1. On start-up:
+*1. On start-up:*
 
 CommandHistory will be initialised with the initial state of the Health Booklet with `*saveInitialState()*` and the `*stateIterator*` will be initialised to 0.
 
-2. User executes a command that make changes to the Health Booklet (e.g add John Doe...):
+*2. User executes a command that make changes to the Health Booklet (e.g add John Doe...):*
 
-The `add` command calls `CommandHistory.checkForAction()` which will determine whether this command was made following an `undo` command and therefore requires `truncateOldPath()` to be called (in this case it won't be called). After which the `addCurrentState()` method will be called, which moves the `stateIterator` forward from 0 to 1 and saves the current Health Booklet state in `addressBookStates` arraylist.
+The `add` command calls `*CommandHistory.checkForAction()*` which will determine whether this command was made following an `undo` command and therefore requires `*truncateOldPath()*` to be called (in this case it won't be called). After which the `*addCurrentState()*` method will be called, which moves the `*stateIterator*` forward from 0 to 1 and saves the current Health Booklet state in `*addressBookStates*` arraylist.
 
-Note: `CommandHistory.checkForAction()` will only be called if the command has been executed successfully. If it fails its execution, the Health Booklet state will not be saved into the `addressBookStates`.
+Note: `*CommandHistory.checkForAction()*` will only be called if the command has been executed successfully. If it fails its execution, the Health Booklet state will not be saved into the `*addressBookStates*`.
 
-3. User wants to undo the change they just made and executes the `undo` command:
+*3. User wants to undo the change they just made and executes the `undo` command:*
 
-The undo command calls `CommandHistory.undoLast()` which will move the `stateIterator` from 1 to 0 and restores the Health Booklet state stored in `addressBookStates[0]`.
+The undo command calls `*CommandHistory.undoLast()*` which will move the `*stateIterator*` from 1 to 0 and restores the Health Booklet state stored in `*addressBookStates[0]*`.
 
-Note: If the user execute `undo` command when the `stateIterator` is at 0, the `undoLast()` method will throw a `HistoryOutOfBoundException()` which will be caught in the UndoCommand class and will display an error to the user instead.
+Note: If the user execute `undo` command when the `*stateIterator*` is at 0, the `*undoLast()*` method will throw a `*HistoryOutOfBoundException()*` which will be caught in the UndoCommand class and will display an error to the user instead.
 
-4. User executes another command that make changes to the Health Booklet after the undo (e.g delete 1):
+*4. User executes another command that make changes to the Health Booklet after the undo (e.g delete 1):*
 
-The `delete` command calls `CommandHistory.checkForAction()` which determines that this command was made following an `undo` command and therefore requires `truncateOldPath()`?to be called. In this case, all states saved in the `addressBookStates` after index 0 will be cleared and will be unable to redone. After which the `addCurrentState()` method will be called, which moves the `stateIterator` forward from 0 to 1 and saves the current Health Booklet state in `addressBookStates` arraylist.
+The `delete` command calls `*CommandHistory.checkForAction()*` which determines that this command was made following an `undo` command and therefore requires `*truncateOldPath()*` to be called. In this case, all states saved in the `*addressBookStates*` after index 0 will be cleared and will be unable to redone. After which the `*addCurrentState()*` method will be called, which moves the `*stateIterator*` forward from 0 to 1 and saves the current Health Booklet state in `*addressBookStates*` arraylist.
 
 
 == 3.1.2  Reason for this implementation
