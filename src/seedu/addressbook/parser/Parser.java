@@ -28,7 +28,7 @@ public class Parser {
                     + "(?<scheduleArguments>(?: d/[^/]+)*)" //Check this
                     + "(?<tagArguments>(?: t/[^/]+)*)"); // variable number of tags
 
-
+    public static final Pattern PERSON_INDEX_ARGS_FORMAT2 = Pattern.compile("(?<targetIndex>[^ ]+)" + " (?<targetIndex2>.+)");
     /**
      * Signals that the user input could not be parsed.
      */
@@ -91,6 +91,9 @@ public class Parser {
 
             case HistoryCommand.COMMAND_WORD:
                 return new HistoryCommand();
+
+            case LinkCommand.COMMAND_WORD:
+                return prepareLink(arguments);
 
             case HelpCommand.COMMAND_WORD: // Fallthrough
             default:
@@ -256,5 +259,19 @@ public class Parser {
         return new FindCommand(keywordSet);
     }
 
-
+    private Command prepareLink(String args) {
+        final Matcher matcher = PERSON_INDEX_ARGS_FORMAT2.matcher(args.trim());
+        if (!matcher.matches()) {
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    LinkCommand.MESSAGE_USAGE));
+        }
+        try {
+            final int targetIndex = Integer.parseInt(matcher.group("targetIndex"));
+            final int targetIndex2 = Integer.parseInt(matcher.group("targetIndex2"));
+            return new LinkCommand(targetIndex, targetIndex2);
+        } catch (NumberFormatException e) {
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    LinkCommand.MESSAGE_USAGE));
+        }
+    }
 }

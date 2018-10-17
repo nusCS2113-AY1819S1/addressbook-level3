@@ -27,22 +27,22 @@ Features
 
 == About Us
 
-image::nichpang1.jpg[]
+image::nichpang1.png[]
 
 Nicholas Pang Wey Shern
 State Control
 
-image::ongjiajian.JPG[]
+image::ongjiajian.png[]
 
 Ong Jia Jian
 Authentication
 
-image::c-e-ooi.jpg[]
+image::c-e-ooi.png[]
 
 Ooi Xi Yi
 Scheduling
 
-image::keithtqs.jpg[]
+image::keithtqs.png[]
 
 Keith Tan Qisheng
 Communication
