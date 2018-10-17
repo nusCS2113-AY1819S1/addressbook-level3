@@ -1,6 +1,6 @@
 package seedu.addressbook.data.order;
 
-import seedu.addressbook.data.person.*;
+import seedu.addressbook.data.member.Member;
 
 import java.util.Date;
 import java.util.Map;
@@ -10,7 +10,7 @@ import java.util.Map;
  */
 public interface ReadOnlyOrder {
 
-    Person getCustomer();
+    Member getCustomer();
     Date getDate();
     double getPrice();
     Map<Dish, Integer> getDishItems();

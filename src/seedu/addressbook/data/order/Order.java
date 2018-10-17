@@ -1,6 +1,6 @@
 package seedu.addressbook.data.order;
 
-import seedu.addressbook.data.person.*;
+import seedu.addressbook.data.member.Member;
 
 import java.util.Date;
 import java.util.HashMap;
@@ -13,7 +13,7 @@ import java.util.Objects;
 
 public class Order implements ReadOnlyOrder {
 
-    private Person customer;
+    private Member customer;
     private Date date;
     private double price;
 
@@ -27,27 +27,27 @@ public class Order implements ReadOnlyOrder {
     /**
      * Constructor for new order.
      */
-    public Order(Person customer, Map<Dish, Integer> dishItems) {
+    public Order(Member customer, Map<Dish, Integer> dishItems) {
         this.customer = customer;
         this.dishItems.putAll(dishItems);
-        this.price = calculatePrice(dishItems);
+        this.price = calculatePrice();
         this.date = new Date();
     }
 
     /**
      * Constructor for edited order to keep the original ordered date.
      */
-    public Order(Person customer, Date date, Map<Dish, Integer> dishItems) {
+    public Order(Member customer, Date date, Map<Dish, Integer> dishItems) {
         this.customer = customer;
         this.dishItems.putAll(dishItems);
-        this.price = calculatePrice(dishItems);
+        this.price = calculatePrice();
         this.date = date;
     }
 
     /**
      * Full constructor.
      */
-    public Order(Person customer, Date date, double price, Map<Dish, Integer> dishItems) {
+    public Order(Member customer, Date date, double price, Map<Dish, Integer> dishItems) {
         this.customer = customer;
         this.dishItems.putAll(dishItems);
         this.price = price;
@@ -62,7 +62,7 @@ public class Order implements ReadOnlyOrder {
     }
 
     @Override
-    public Person getCustomer() {
+    public Member getCustomer() {
         return customer;
     }
 
@@ -87,10 +87,10 @@ public class Order implements ReadOnlyOrder {
     public void setDishItems(Map<Dish, Integer> replacement) {
         dishItems.clear();
         dishItems.putAll(replacement);
-        price = calculatePrice(dishItems);
+        price = calculatePrice();
     }
 
-    public double calculatePrice(Map<Dish, Integer> dishItems) {
+    public double calculatePrice() {
         double result = 0;
         for (Map.Entry<Dish, Integer> m: getDishItems().entrySet()) {
             double dishPrice = m.getKey().getDishPrice();

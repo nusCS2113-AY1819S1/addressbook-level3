@@ -60,9 +60,6 @@
     <orders>
         <customer>
             <name>Pham</name>
-            <phone isPrivate="false">83715248</phone>
-            <email isPrivate="false">px1099@gmail.com</email>
-            <address isPrivate="false">PGP</address>
         </customer>
         <date>3600000</date>
         <price>16.0</price>
