@@ -2,6 +2,7 @@ package seedu.addressbook.login;
 
 import java.io.*;
 import java.util.Scanner;
+import seedu.addressbook.login.hashing;
 
 public class WorkWithLoginStorage {
     private static boolean debug = false;
@@ -23,7 +24,7 @@ public class WorkWithLoginStorage {
                     if(debug)System.out.println("user correct");
                     password = sc.next();
                     if(debug)System.out.println("password = " + password + "2");
-                    if(Hashing.main(pass).equals(password)){
+                    if(hashing.main(pass).equals(password)){
                         return true;
                     }else{
                         return false;

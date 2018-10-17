@@ -2,7 +2,7 @@ package seedu.addressbook.login;
 
 import java.util.Scanner;
 
-public class Login {
+public class login {
 //    private boolean loggedin;
 //    private boolean debug = true;
 

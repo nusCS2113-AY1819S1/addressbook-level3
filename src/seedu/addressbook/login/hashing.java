@@ -4,7 +4,7 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 
-public class Hashing {
+public class hashing {
 
     private static String hashAlgo = "SHA-512";
 
