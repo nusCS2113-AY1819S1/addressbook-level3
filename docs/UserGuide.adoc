@@ -152,7 +152,7 @@ Views all details of the 1st person in the results of the `find` command.
 
 === View your own details : `viewself`
 
-Displays the all the details of the user, provided the user is logged in. +
+Displays the all the details (including private details) of the user, provided the user is logged in. +
 Format: `viewself`
 
 === Clearing all entries : `clear`
@@ -246,7 +246,10 @@ Changes the master password. Requires the current master password and Admin priv
 Format: `editpw OLD_PASSWORD NEW_PASSWORD`
 
 Changes the master password to `NEW_PASSWORD`, if the provided `OLD_PASSWORD` is correct. +
-Default master password is "default_pw".
+[NOTE]
+====
+The default master password is "default_pw".
+====
 
 ****
 Examples:
@@ -261,9 +264,13 @@ Below are the commands that deals with accounts:
 === Add an account to a person: `addacc`
 Adds an account to the target person. +
 Format: `addacc INDEX USERNAME PASSWORD USER_TYPE` +
+
 Creates an account for the person with INDEX as specified by the last shown list. +
 USERNAME and PASSWORD will be used for logging in. +
+[NOTE]
+====
 USER_TYPE can be of type "Basic", "Tutor" or "Admin".
+====
 
 ****
 Examples:
