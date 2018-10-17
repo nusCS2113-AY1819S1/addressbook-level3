@@ -42,7 +42,7 @@ The state control feature allows the user to manipulate the different states of 
 
 == 3.1.1  Current implementation
 
-The state control mechanism is managed by the CommandHistory class. It stores the various states of the Health Booklet in an arraylist addressBookStates with the stateIterator pointing to the latest state in the addressBookStates.
+The state control mechanism is managed by the CommandHistory class. It stores the various states of the Health Booklet in an arraylist `*addressBookStates*` with the `*stateIterator*` pointing to the latest state in the `*addressBookStates*`.
 
 *The following core methods are in place to assist in the mechanism:*
 
