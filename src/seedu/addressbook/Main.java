@@ -5,7 +5,6 @@ import javafx.application.Platform;
 
 import javafx.stage.Stage;
 import seedu.addressbook.logic.Logic;
-import seedu.addressbook.login.WorkWithLoginStorage;
 import seedu.addressbook.ui.Gui;
 import seedu.addressbook.ui.Stoppable;
 import seedu.addressbook.login.Login;
