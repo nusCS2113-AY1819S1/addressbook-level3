@@ -5,6 +5,10 @@ import seedu.addressbook.commands.employee.*;
 import seedu.addressbook.commands.member.*;
 import seedu.addressbook.commands.menu.*;
 import seedu.addressbook.commands.order.*;
+import seedu.addressbook.commands.statistics.StatsMemberCommand;
+import seedu.addressbook.commands.statistics.StatsMenuCommand;
+import seedu.addressbook.commands.statistics.StatsOrderCommand;
+import seedu.addressbook.commands.statistics.StatsEmployeeCommand;
 import seedu.addressbook.data.exception.IllegalValueException;
 
 import java.util.*;
@@ -134,6 +138,18 @@ public class Parser {
 
             case OrderListCommand.COMMAND_WORD:
                 return new OrderListCommand();
+
+            case StatsEmployeeCommand.COMMAND_WORD:
+                return new StatsEmployeeCommand();
+
+            case StatsMemberCommand.COMMAND_WORD:
+                return new StatsMemberCommand();
+
+            case StatsMenuCommand.COMMAND_WORD:
+                return new StatsMenuCommand();
+
+            case StatsOrderCommand.COMMAND_WORD:
+                return new StatsOrderCommand();
 
             case ExitCommand.COMMAND_WORD:
                 return new ExitCommand();
