@@ -25,7 +25,7 @@ public class Parser {
                     + " (?<isEmailPrivate>p?)e/(?<email>[^/]+)"
                     + " (?<isAddressPrivate>p?)a/(?<address>[^/]+)"
                     + " (?<isTitlePrivate>p?)s/(?<title>[^/]+)"
-                    + " (?<isSchedulePrivate>p?)d/(?<schedule>[^/]+)"
+                    + "(?<scheduleArguments>(?: d/[^/]+)*)" //Check this
                     + "(?<tagArguments>(?: t/[^/]+)*)"); // variable number of tags
 
 
@@ -126,8 +126,7 @@ public class Parser {
                     matcher.group("title"),
                     isPrivatePrefixPresent(matcher.group("isTitlePrivate")),
 
-                    matcher.group("schedule"),
-                    isPrivatePrefixPresent(matcher.group("isSchedulePrivate")),
+                    getScheduleFromArgs(matcher.group("scheduleArguments")),
 
                     getTagsFromArgs(matcher.group("tagArguments"))
             );
@@ -141,6 +140,20 @@ public class Parser {
      */
     private static boolean isPrivatePrefixPresent(String matchedPrefix) {
         return matchedPrefix.equals("p");
+    }
+
+    /**
+     * Extracts the new person's schedule from the add command's tag arguments string.
+     * Merges duplicate tag strings.
+     */
+    private static Set<String> getScheduleFromArgs(String scheduleArguments) throws IllegalValueException {
+        // no schedule
+        if (scheduleArguments.isEmpty()) {
+            return Collections.emptySet();
+        }
+        // replace first delimiter prefix, then split
+        final Collection<String> scheduleStrings = Arrays.asList(scheduleArguments.replaceFirst(" d/", "").split(" d/"));
+        return new HashSet<>(scheduleStrings);
     }
 
     /**

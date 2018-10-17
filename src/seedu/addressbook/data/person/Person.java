@@ -17,19 +17,20 @@ public class Person implements ReadOnlyPerson {
     private Email email;
     private Address address;
     private Title title;
-    private Schedule schedule;
+
+    private Set<Schedule> schedules = new HashSet<>();
 
     private final Set<Tag> tags = new HashSet<>();
     /**
      * Assumption: Every field must be present and not null.
      */
-    public Person(Name name, Phone phone, Email email, Address address, Title title, Schedule schedule, Set<Tag> tags) {
+    public Person(Name name, Phone phone, Email email, Address address, Title title, Set<Schedule> schedules, Set<Tag> tags) {
         this.name = name;
         this.phone = phone;
         this.email = email;
         this.address = address;
         this.title = title;
-        this.schedule = schedule;
+        this.schedules.addAll(schedules);
         this.tags.addAll(tags);
     }
 
@@ -37,7 +38,7 @@ public class Person implements ReadOnlyPerson {
      * Copy constructor.
      */
     public Person(ReadOnlyPerson source) {
-        this(source.getName(), source.getPhone(), source.getEmail(), source.getAddress(), source.getTitle(), source.getSchedule(), source.getTags());
+        this(source.getName(), source.getPhone(), source.getEmail(), source.getAddress(), source.getTitle(), source.getSchedules(), source.getTags());
     }
 
     @Override
@@ -64,11 +65,20 @@ public class Person implements ReadOnlyPerson {
     public Title getTitle() { return title; }
 
     @Override
-    public Schedule getSchedule() { return schedule; }
+    public Set<Schedule> getSchedules() { return new HashSet<>(schedules); }
 
     @Override
     public Set<Tag> getTags() {
         return new HashSet<>(tags);
+    }
+
+
+    /**
+     * Replaces this person's schedule with the schedule in {@code replacement}.
+     */
+    public void setSchedule(Set<Schedule> replacement) {
+        schedules.clear();
+        schedules.addAll(replacement);
     }
 
     /**
@@ -89,7 +99,7 @@ public class Person implements ReadOnlyPerson {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, phone, email, address, title, schedule, tags);
+        return Objects.hash(name, phone, email, address, title, schedules, tags);
     }
 
     @Override

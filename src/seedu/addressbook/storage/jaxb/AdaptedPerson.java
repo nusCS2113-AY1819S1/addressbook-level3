@@ -36,8 +36,8 @@ public class AdaptedPerson {
     @XmlElement(required = true)
     private AdaptedContactDetail title;
 
-    @XmlElement(required = true)
-    private AdaptedContactDetail schedule;
+    @XmlElement
+    private List<AdaptedSchedule> scheduled = new ArrayList<>();
 
     @XmlElement
     private List<AdaptedTag> tagged = new ArrayList<>();
@@ -72,9 +72,10 @@ public class AdaptedPerson {
         title.isPrivate = source.getTitle().isPrivate();
         title.value = source.getTitle().value;
 
-        schedule = new AdaptedContactDetail();
-        schedule.isPrivate = source.getSchedule().isPrivate();
-        schedule.value = source.getSchedule().value;
+        scheduled = new ArrayList<>();
+        for (Schedule schedule : source.getSchedules()) {
+            scheduled.add(new AdaptedSchedule(schedule));
+        }
 
         tagged = new ArrayList<>();
         for (Tag tag : source.getTags()) {
@@ -91,14 +92,19 @@ public class AdaptedPerson {
      * so we check for that.
      */
     public boolean isAnyRequiredFieldMissing() {
+        for (AdaptedSchedule schedule : scheduled) {
+            if (schedule.isAnyRequiredFieldMissing()) {
+                return true;
+            }
+        }
         for (AdaptedTag tag : tagged) {
             if (tag.isAnyRequiredFieldMissing()) {
                 return true;
             }
         }
         // second call only happens if phone/email/address are all not null
-        return Utils.isAnyNull(name, phone, email, address, title, schedule)
-                || Utils.isAnyNull(phone.value, email.value, address.value, title.value, schedule.value);
+        return Utils.isAnyNull(name, phone, email, address, title)
+                || Utils.isAnyNull(phone.value, email.value, address.value, title.value);
     }
 
     /**
@@ -107,6 +113,10 @@ public class AdaptedPerson {
      * @throws IllegalValueException if there were any data constraints violated in the adapted person
      */
     public Person toModelType() throws IllegalValueException {
+        final Set<Schedule> schedules = new HashSet<>();
+        for (AdaptedSchedule schedule : scheduled) {
+            schedules.add(schedule.toModelType());
+        }
         final Set<Tag> tags = new HashSet<>();
         for (AdaptedTag tag : tagged) {
             tags.add(tag.toModelType());
@@ -116,7 +126,6 @@ public class AdaptedPerson {
         final Email email = new Email(this.email.value, this.email.isPrivate);
         final Address address = new Address(this.address.value, this.address.isPrivate);
         final Title title = new Title(this.title.value, this.title.isPrivate);
-        final Schedule schedule = new Schedule(this.schedule.value, this.schedule.isPrivate);
-        return new Person(name, phone, email, address, title, schedule, tags);
+        return new Person(name, phone, email, address, title, schedules, tags);
     }
 }

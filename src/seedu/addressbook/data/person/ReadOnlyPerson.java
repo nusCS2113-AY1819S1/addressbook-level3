@@ -15,7 +15,7 @@ public interface ReadOnlyPerson {
     Email getEmail();
     Address getAddress();
     Title getTitle();
-    Schedule getSchedule();
+    Set<Schedule> getSchedules();
 
     /**
      * The returned {@code Set} is a deep copy of the internal {@code Set},
@@ -65,11 +65,14 @@ public interface ReadOnlyPerson {
         }
         builder.append(getTitle())
                 .append(" Schedule: ");
-        if (getSchedule().isPrivate()) {
+        /*if (getSchedule().isPrivate()) {
             builder.append(detailIsPrivate);
         }
-        builder.append(getSchedule())
-                .append(" Tags: ");
+        builder.append(getSchedule())*/
+        for(Schedule schedule : getSchedules()){
+            builder.append(schedule);
+        }
+        builder.append(" Tags: ");
         for (Tag tag : getTags()) {
             builder.append(tag);
         }
@@ -94,8 +97,12 @@ public interface ReadOnlyPerson {
         if (!getTitle().isPrivate()) {
             builder.append(" Title: ").append(getTitle());
         }
-        if (!getSchedule().isPrivate()) {
+        /*if (!getSchedule().isPrivate()) {
             builder.append(" Schedule: ").append(getSchedule());
+        }*/
+        builder.append(" Schedule: ");
+        for(Schedule schedule : getSchedules()){
+            builder.append(schedule);
         }
         builder.append(" Tags: ");
         for (Tag tag : getTags()) {
