@@ -1,5 +1,8 @@
 package seedu.addressbook.data.order;
 
+import seedu.addressbook.common.Utils;
+import seedu.addressbook.data.exception.DuplicateDataException;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -8,9 +11,21 @@ import java.util.Iterator;
 import java.util.List;
 
 /**
- * A list of orders.
+ * A list of orders. Does not allow null element or duplicates.
+ *
+ * @see Order#equals(Object)
+ * @see Utils#elementsAreUnique(Collection)
  */
 public class UniqueOrderList implements Iterable<Order> {
+
+    /**
+     * Signals that an operation would have violated the 'no duplicates' property of the list.
+     */
+    public static class DuplicateOrderException extends DuplicateDataException {
+        protected DuplicateOrderException() {
+            super("Operation would result in duplicate orders");
+        }
+    }
 
     /**
      * Signals that an operation targeting a specified order in the list would fail because
@@ -20,6 +35,8 @@ public class UniqueOrderList implements Iterable<Order> {
 
     private final List<Order> internalList = new ArrayList<>();
 
+    private Order draftOrder = new Order();
+
     /**
      * Constructs empty order list.
      */
@@ -28,15 +45,23 @@ public class UniqueOrderList implements Iterable<Order> {
     /**
      * Constructs an order list with the given orders.
      */
-    public UniqueOrderList(Order... orders) {
+    public UniqueOrderList(Order... orders) throws DuplicateOrderException {
         final List<Order> initialTags = Arrays.asList(orders);
+        if (!Utils.elementsAreUnique(initialTags)) {
+            throw new DuplicateOrderException();
+        }
         internalList.addAll(initialTags);
     }
 
     /**
      * Constructs a list from the items in the given collection.
+     * @param orders a collection of persons
+     * @throws DuplicateOrderException if the {@code persons} contains duplicate persons
      */
-    public UniqueOrderList(Collection<Order> orders) {
+    public UniqueOrderList(Collection<Order> orders) throws DuplicateOrderException {
+        if (!Utils.elementsAreUnique(orders)) {
+            throw new DuplicateOrderException();
+        }
         internalList.addAll(orders);
     }
 
@@ -66,8 +91,13 @@ public class UniqueOrderList implements Iterable<Order> {
 
     /**
      * Adds an order to the list.
+     *
+     * @throws DuplicateOrderException if the person to add is a duplicate of an existing person in the list.
      */
-    public void add(Order toAdd) {
+    public void add(Order toAdd) throws DuplicateOrderException {
+        if (contains(toAdd)) {
+            throw new DuplicateOrderException();
+        }
         internalList.add(toAdd);
     }
 

@@ -13,6 +13,7 @@ import seedu.addressbook.data.menu.UniqueMenuList.MenuNotFoundException;
 import seedu.addressbook.data.order.Order;
 import seedu.addressbook.data.order.ReadOnlyOrder;
 import seedu.addressbook.data.order.UniqueOrderList;
+import seedu.addressbook.data.order.UniqueOrderList.DuplicateOrderException;
 import seedu.addressbook.data.order.UniqueOrderList.OrderNotFoundException;
 import seedu.addressbook.data.person.Person;
 import seedu.addressbook.data.person.ReadOnlyPerson;
@@ -87,13 +88,17 @@ public class Rms {
 
     /**
      * Adds a menu item to the menu list.
+     *
+     * @throws DuplicateMenuException if an equivalent person already exists.
      */
     public void addMenu(Menu toAdd) throws DuplicateMenuException { allFoodItems.add(toAdd); }
 
     /**
      * Adds an order to the order list.
+     *
+     * @throws DuplicateOrderException if an equivalent person already exists.
      */
-    public void addOrder(Order toAdd) {
+    public void addOrder(Order toAdd) throws DuplicateOrderException {
         allOrders.add(toAdd);
     }
 
