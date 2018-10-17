@@ -41,8 +41,10 @@ This section describes some noteworthy details on how certain features are imple
 
 == 3.1.1  Current implementation
 
-The state control mechanism is managed by the CommandHistory class. It stores the various states of the Health Booklet in an arraylist addressBookStates with the stateIterator pointing to the latest state in the addressBookStates. 
+The state control mechanism is managed by the CommandHistory class. It stores the various states of the Health Booklet in an arraylist addressBookStates with the stateIterator pointing to the latest state in the addressBookStates.
+
 *The following core methods are in place to assist in the mechanism:*
+
 * saveInitialState()-?Saves the initial state of the Health Booklet state on start-up in addressBookStates. +
 * addCurrentState()-?Saves the current Health Booklet state in addressBookStates and move the stateIterator forward. +
 * undoLast()-?Restores the previous Health Booklet state from addressBookStates. +
