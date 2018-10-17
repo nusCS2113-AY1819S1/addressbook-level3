@@ -49,6 +49,7 @@
     </menus>
     <members>
         <name>Kang Ming</name>
+        <points>0</points>
     </members>
     <employees>
         <name>Peter Lee</name>
