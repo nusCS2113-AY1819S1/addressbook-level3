@@ -1,5 +1,7 @@
 = User Guide
 :site-section: UserGuide
+:toc:
+:toc-title: An Overview of the User Guide:
 :imagesDir: images
 :stylesDir: stylesheets
 ifdef::env-github[]
@@ -7,10 +9,15 @@ ifdef::env-github[]
 :note-caption: :information_source:
 endif::[]
 
-This product is not meant for end-users and therefore there is no user-friendly installer.
-Please refer to the <<DeveloperGuide#setting-up, Setting up>> section to learn how to set up the project.
+== 1 Introduction
+The Health Booklet v1.2 allows healthcare professionals to keep track of patients’ details, arrange their schedule based on their patients’ appointments and communicate efficiently between colleagues.
 
-== Starting the program
+== 2 About
+This user guide provides an overview for hospital staff on the usage of Health Booklet once Health Booklet is set up.
+
+However, setting up this Health Booklet requires basic familiarity with integrated developer environment (IDE) as there is no user-friendly installer. Please seek help from the technician staff or refer to the <<DeveloperGuide#setting-up, Setting up>> section to learn how to set up the project.
+
+== 3 Starting the program
 
 . Find the project pane (usually located at the left side)
 . Open up `src/seedu.addressbook` folder
@@ -22,7 +29,9 @@ Please refer to the <<DeveloperGuide#setting-up, Setting up>> section to learn h
 +
 image::Ui.png[]
 
-== Viewing help : `help`
+== 4 Features of the Health Booklet
+
+=== 4.1 Viewing help : `help`
 
 Format: `help`
 
@@ -31,53 +40,53 @@ Format: `help`
 Help is also shown if you enter an incorrect command e.g. `abcd`
 ====
 
-== Adding a person: `add`
+=== 4.2 Adding a person: `add`
 
-Adds a person to the address book. +
-Format: `add NAME [p]p/PHONE_NUMBER [p]e/EMAIL [p]a/ADDRESS [p]s/TITLE [p]d/DD-MM-YYYY [t/TAG]...`
+Adds a person to the Health Booklet. +
+Format: `add NAME [p]p/PHONE_NUMBER [p]e/EMAIL [p]a/ADDRESS [p]s/TITLE [d/DD-MM-YYYY]... [t/TAG]...`
 
 ****
 Words in `UPPER_CASE` are the parameters, items in `SQUARE_BRACKETS` are optional,
 items with `...` after them can have multiple instances. Order of parameters are fixed.
 
-Put a `p` before the phone / email / address / title / schedule prefixes to mark it as `private`. `private` details can only
+Put a `p` before the phone / email / address / title prefixes to mark it as `private`. `private` details can only
 be seen using the `viewall` command.
 
-Persons can have any number of tags (including 0)
+Persons can have any number of schedule and tags (including 0)
 ****
 
 Examples:
 
-* `add John Doe p/98765432 e/johnd@gmail.com a/John street, block 123, #01-01` s/Doctor d/09-11-2018
-* `add Betsy Crowe pp/1234567 e/betsycrowe@gmail.com pa/Newgate Prison s/Patient d/04-10-2018 t/criminal t/friend`
+* `add John Doe p/98765432 e/johnd@gmail.com a/John street, block 123, #01-01` s/Doctor
+* `add Betsy Crowe pp/1234567 e/betsycrowe@gmail.com pa/Newgate Prison s/Patient d/04-10-2018 d/09-11-2018 t/criminal t/friend`
 
-== Listing all persons : `list`
+=== 4.3 Listing all persons : `list`
 
-Shows a list of all persons in the address book. +
+Shows a list of all persons in the Health Booklet. +
 Format: `list`
 
-== Finding all persons containing any keyword in their name: `find`
+=== 4.4 Finding all persons containing any keyword in their name: `find`
 
 Finds persons whose names contain any of the given keywords. +
 Format: `find KEYWORD [MORE_KEYWORDS]`
 
 [NOTE]
 ====
-The search is case sensitive, the order of the keywords does not matter, only the name is searched,
-and persons matching at least one keyword will be returned (i.e. `OR` search).
+The search is case insensitive and the order of the keywords does not matter. Only the name searched,
+and persons matching at least one keyword will be returned(i.e. `OR` search).
 ====
 
 Examples:
 
 * `find John` +
-Returns `John Doe` but not `john`.
+Returns `John Doe` and `john`.
 
 * `find Betsy Tim John` +
 Returns Any person having names `Betsy`, `Tim`, or `John`.
 
-== Deleting a person : `delete`
+=== 4.5 Deleting a person : `delete`
 
-Deletes the specified person from the address book. Irreversible. +
+Deletes the specified person from the Health Booklet. Reversible within the session using the undo command (section 4.6). +
 Format: `delete INDEX`
 
 ****
@@ -85,17 +94,59 @@ Deletes the person at the specified `INDEX`.
 The index refers to the index number shown in the most recent listing.
 ****
 
+[NOTE]
+====
+Delete is based on the index of the latest listing. Hence, there is a need to list or find at least once
+in the session for delete can have an index reference to delete.
+====
+
 Examples:
 
 * `list` +
 `delete 2` +
-Deletes the 2nd person in the address book.
+Deletes the 2nd person in the Health Booklet.
 
 * `find Betsy` +
 `delete 1` +
 Deletes the 1st person in the results of the `find` command.
 
-== View non-private details of a person : `view`
+=== 4.6 Undo/Redo : `undo` , `redo`
+
+`Undo` reverts the last command made. `Redo` reverts specifically the last undo command made when applicable. +
+Format: `undo` +
+Format: `redo`
+
+****
+Commands are undo-able if they are made within the browsing session.
+Commands are redo-able if undo are made without other commands called.
+This two commands are especially useful when an erroneous command, such as delete, is made which causes change to the data.
+****
+
+[NOTE]
+====
+Redo commands are only available after undo command(s) are made.
+However, once a change is made after an undo, a redo to previous changes that are undone is no longer possible.
+====
+
+Examples:
+
+* `list` +
+`delete 2` +
+Deletes the 2nd person in the Health Booklet. +
+`undo` +
+Undo the deletion of the deleted person. +
+`redo` +
+Redo the deletion of 2nd person in the Health Booklet.
+
+* `find Betsy` +
+`delete 1` +
+Deletes the 1st person in the results of the `find` command. +
+`undo` +
+Undo the deletion of the deleted person. +
+`redo` +
+Redo the deletion of 1st person in the results of the `find` command.
+
+=== 4.7 View non-private details of a person : `view`
 
 Displays the non-private details of the specified person. +
 Format: `view INDEX`
@@ -104,6 +155,11 @@ Format: `view INDEX`
 Views the person at the specified `INDEX`.
 The index refers to the index number shown in the most recent listing.
 ****
+
+[NOTE]
+====
+Similar to delete, it requires list or find command to be called at least once in the session for an index reference to view.
+====
 
 Examples:
 
@@ -115,7 +171,7 @@ Views the 2nd person in the address book.
 `view 1` +
 Views the 1st person in the results of the `find` command.
 
-== View all details of a person : `viewall`
+=== 4.8 View all details of a person : `viewall`
 
 Displays all details (including private details) of the specified person. +
 Format: `viewall INDEX`
@@ -125,56 +181,55 @@ Views all details of the person at the specified `INDEX`.
 The index refers to the index number shown in the most recent listing.
 ****
 
+[NOTE]
+====
+Similar to view and delete, it requires list or find command to be called at least once in the session for an index reference to viewall.
+====
+
 Examples:
 
 * `list` +
 `viewall 2` +
-Views all details of the 2nd person in the address book.
+Views all details of the 2nd person in the Health Booklet.
 
 * `find Betsy` +
 `viewall 1` +
 Views all details of the 1st person in the results of the `find` command.
 
-== Clearing all entries : `clear`
+=== 4.9 Clearing all entries : `clear`
 
 Clears all entries from the address book. +
 Format: `clear`
 
-== Undo/Redo : `undo` , `redo`
-
-Undo/Redo last undo-able command. +
-Format: `undo` or `redo`
-
-Examples:
-
-* `list` +
-`delete 2` +
-Deletes the 2nd person in the address book. +
-`undo` +
-Undo the deletion of the deleted person. +
-`redo` +
-Redo the deletion of 2nd person in the addressbook.
-
-* `find Betsy` +
-`delete 1` +
-Deletes the 1st person in the results of the `find` command. +
-`undo` +
-Undo the deletion of the deleted person. +
-`redo` +
-Redo the deletion of 1st person in the results of the `find` command.
-
-== Listing all executed commands : `history`
+=== 4.10 Listing all executed commands : `history`
 
 Shows a list of all executed commands in the current session. +
 Format: `history`
 
-== Exiting the program : `exit`
+=== 4.11 Exiting the program : `exit`
 
 Exits the program. +
 Format: `exit`
 
-== Saving the data
+=== 4.12 Saving the data
 
-Address book data are saved in the hard disk automatically after any command that changes the data.
+Health Booklet data are saved in the hard disk automatically after any command that changes the data. As such, there is no need to save the data manually. These data are saved in a file called addressbook.txt in the project root folder.
 
-There is no need to save manually. Address book data are saved in a file called `addressbook.txt` in the project root folder.
+However, the history of commands made are only available within the browsing session and would no longer be available after the exit or the program is closed. Undo and Redo commands are also only applicable within the browsing session.
+
+== 5 A Compact Summary/ “Cheatsheet”
+
+* `help` : Shows the help screen
+* `add` : Adds a person into the Health Booklet
+* `list` : Shows a list of all persons in the Heath Booklet.
+* `find` : Finds persons whose names contain any of the given keywords
+* `delete` : Delete a person in the Health Booklet
+* `undo` : Undo a change made previously
+* `redo` : Redo a change that was undone
+* `view` : View the information of a person in the Health Booklet
+* `viewall` : View all information of a person in the Health Booklet
+* `clear` : Clear all entries in the Health Booklet
+* `history` : Shows a list of all executed commands
+* `association` : Coming soon in v1.3
+* `exit` : Exits the program
+
