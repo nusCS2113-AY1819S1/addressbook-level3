@@ -24,7 +24,7 @@ However, setting up this Health Booklet requires basic familiarity with integrat
 . Right click on `Main`
 . Click `Run Main.main()`
 . Enter your Username and Password according to the prompts
-. Upon successful login, `Welcome to AddressBook3` will appear, program will exit upon login failure
+. Upon successful login, `Welcome to Health Booklet` will appear, program will exit upon login failure
 . The GUI should appear in a few seconds
 +
 image::Ui.png[]
@@ -165,7 +165,7 @@ Examples:
 
 * `list` +
 `view 2` +
-Views the 2nd person in the address book.
+Views the 2nd person in the Health Booklet.
 
 * `find Betsy` +
 `view 1` +
@@ -198,7 +198,7 @@ Views all details of the 1st person in the results of the `find` command.
 
 === 4.9 Clearing all entries : `clear`
 
-Clears all entries from the address book. +
+Clears all entries from the Health Booklet. +
 Format: `clear`
 
 === 4.10 Listing all executed commands : `history`
