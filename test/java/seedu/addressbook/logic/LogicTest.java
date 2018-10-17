@@ -1,7 +1,11 @@
 package seedu.addressbook.logic;
 
 import static junit.framework.TestCase.assertEquals;
-import static seedu.addressbook.common.Messages.*;
+import static seedu.addressbook.common.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.addressbook.common.Messages.MESSAGE_INVALID_DATE;
+import static seedu.addressbook.common.Messages.MESSAGE_NO_ARGS_FOUND;
+import static seedu.addressbook.common.Messages.MESSAGE_PERSON_NOT_IN_ADDRESSBOOK;
+import static seedu.addressbook.common.Messages.MESSAGE_WRONG_NUMBER_ARGUMENTS;
 import static seedu.addressbook.logic.CommandAssertions.assertCommandBehavior;
 import static seedu.addressbook.logic.CommandAssertions.assertInvalidIndexBehaviorForCommand;
 import static seedu.addressbook.logic.CommandAssertions.assertInvalidIndexBehaviorForExamCommand;
@@ -894,9 +898,7 @@ public class LogicTest {
                 false,
                 personListExpected);
     }
-
-    //TODO add in test for replace attendance 
-
+    //TODO add in test for replace attendance
     @Test
     public void executeClearExamsSuccess() throws Exception {
         TestDataHelper helper = new TestDataHelper();

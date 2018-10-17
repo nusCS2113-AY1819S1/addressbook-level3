@@ -1,7 +1,9 @@
 package seedu.addressbook.parser;
 
 import static java.lang.Integer.parseInt;
-import static seedu.addressbook.common.Messages.*;
+import static seedu.addressbook.common.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.addressbook.common.Messages.MESSAGE_INVALID_DATE;
+import static seedu.addressbook.common.Messages.MESSAGE_NO_ARGS_FOUND;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -375,7 +377,7 @@ public class Parser {
     /**
      * Parse the given arguments string as a float
 
-    private float parseArgsAsFloat(String args) throws ParseException, NumberFormatException {
+     private float parseArgsAsFloat(String args) throws ParseException, NumberFormatException {
         final Matcher matcher = PERSON_INDEX_ARGS_FORMAT.matcher(args.trim());
         if (!matcher.matches()) {
             throw new ParseException("Could not find float number to parse");

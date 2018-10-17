@@ -34,8 +34,8 @@ public class ReplaceAttendanceCommand extends Command {
     public CommandResult execute() {
         try {
             Person person = addressBook.findPerson(getTargetPerson());
-            boolean NoDuplicateDate = person.replaceAttendanceMethod(date, isPresent, false);
-            if (NoDuplicateDate) {
+            boolean noDuplicateDate = person.replaceAttendanceMethod(date, isPresent, false);
+            if (noDuplicateDate) {
                 return new CommandResult(String.format((MESSAGE_NO_DUPLICATE_ATTENDANCE)));
             } else {
                 return new CommandResult(String.format(MESSAGE_SUCCESS) + person.getName());
