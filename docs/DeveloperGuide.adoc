@@ -127,6 +127,16 @@ In future versions, the following details would be slowly incremented to ensure 
 . A command to view all or list the appointments in a chronological order following the reference date.
 . A doctor can view their respective patients appointment
 
+==== 4.4 Instant Messaging
+Once fully implemented, users will be able to chat over the internet using a separate chat client.
+
+Instant messaging is implemented using a Swing-based client for the chat server.
+Graphically it is a frame with a text field for entering messages and a text area to see the whole dialog.
+The client follows the Chat Protocol which is as follows.
+
+When the server sends "SUBMITNAME" the client replies with the desired screen name.  The server will keep sending "SUBMITNAME" requests as long as the client submits screen names that are already in use.
+When the server sends a line beginning with "NAMEACCEPTED" the client is now allowed to startsending the server arbitrary strings to be broadcast to all chatters connected to the server.
+When the server sends a line beginning with "MESSAGE " then all characters following this string should be displayed in its message area.
 
 == 5.Testing
 Testing the Health Booklet is important as it verifies that the Health Booklet is functioning and up-to-date. This can be done so by going into IntelliJ, right-click on the test folder and choose Run 'All Tests'.
