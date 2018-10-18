@@ -30,6 +30,7 @@ public class HelpCommand extends Command {
             + "\n" + EmployeeAddCommand.MESSAGE_USAGE
 
             + "\n" + MemberListCommand.MESSAGE_USAGE
+            + "\n" + MemberAddCommand.MESSAGE_USAGE
 
             + "\n" + MenuAddCommand.MESSAGE_USAGE
             + "\n" + MenuDeleteCommand.MESSAGE_USAGE

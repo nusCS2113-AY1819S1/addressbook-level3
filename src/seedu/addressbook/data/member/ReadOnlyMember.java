@@ -1,12 +1,7 @@
 package seedu.addressbook.data.member;
 
-import seedu.addressbook.data.person.Address;
-import seedu.addressbook.data.person.Email;
 import seedu.addressbook.data.person.Name;
-import seedu.addressbook.data.person.Phone;
-import seedu.addressbook.data.tag.Tag;
 
-import java.util.Set;
 
 /**
  * A read-only immutable interface for a Person in the addressbook.
@@ -15,6 +10,7 @@ import java.util.Set;
 public interface ReadOnlyMember {
 
     Name getName();
+    Points getPoints();
 //    Phone getPhone();
 //    Email getEmail();
 //    Address getAddress();
@@ -32,9 +28,7 @@ public interface ReadOnlyMember {
         return other == this // short circuit if same object
                 || (other != null // this is first to avoid NPE below
                 && other.getName().equals(this.getName())); // state checks here onwards
-//                && other.getPhone().equals(this.getPhone())
-//                && other.getEmail().equals(this.getEmail())
-//                && other.getAddress().equals(this.getAddress()));
+//
     }
 
     /**
@@ -43,7 +37,9 @@ public interface ReadOnlyMember {
     default String getAsTextShowAll() {
         final StringBuilder builder = new StringBuilder();
         final String detailIsPrivate = "(private) ";
-        builder.append(getName());
+        builder.append(getName())
+                .append(" Points: ");
+        builder.append(getPoints());
 //                .append(" Phone: ");
 //        if (getPhone().isPrivate()) {
 //            builder.append(detailIsPrivate);
@@ -72,6 +68,7 @@ public interface ReadOnlyMember {
     default String getAsTextHidePrivate() {
         final StringBuilder builder = new StringBuilder();
         builder.append(getName());
+        builder.append(" Points: ").append(getPoints());
 //        if (!getPhone().isPrivate()) {
 //            builder.append(" Phone: ").append(getPhone());
 //        }

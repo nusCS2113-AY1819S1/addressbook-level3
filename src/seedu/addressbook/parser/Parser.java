@@ -5,6 +5,10 @@ import seedu.addressbook.commands.employee.*;
 import seedu.addressbook.commands.member.*;
 import seedu.addressbook.commands.menu.*;
 import seedu.addressbook.commands.order.*;
+import seedu.addressbook.commands.statistics.StatsMemberCommand;
+import seedu.addressbook.commands.statistics.StatsMenuCommand;
+import seedu.addressbook.commands.statistics.StatsOrderCommand;
+import seedu.addressbook.commands.statistics.StatsEmployeeCommand;
 import seedu.addressbook.data.exception.IllegalValueException;
 
 import java.util.*;
@@ -30,20 +34,23 @@ public class Parser {
                     + " (?<isAddressPrivate>p?)a/(?<address>[^/]+)"
                     + "(?<tagArguments>(?: t/[^/]+)*)"); // variable number of tags
 
+    public static final Pattern EMPLOYEE_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
+            Pattern.compile("(?<name>[^/]+)"
+                    + "p/(?<phone>[^/]+)"
+                    + "e/(?<email>[^/]+)"
+                    + "a/(?<address>[^/]+)"
+                    + "pos/(?<position>[^/]+)");
+
+    public static final Pattern MEMBER_DATA_ARGS_FORMAT =
+            Pattern.compile("(?<name>[^/]+)"); // variable number of tags
+
     public static final Pattern MENU_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
             Pattern.compile("(?<name>[^/]+)"
                     + " p/(?<price>[^/]+)"
                     + "(?<tagArguments>(?: t/[^/]+)*)"); // variable number of tags
 
-    public static final Pattern MEMBER_DATA_ARGS_FORMAT =
-            Pattern.compile("(?<name>[^/]+)"
-                    + " (?<isPhonePrivate>p?)p/(?<phone>[^/]+)"
-                    + " (?<isEmailPrivate>p?)e/(?<email>[^/]+)"
-                    + " (?<isAddressPrivate>p?)a/(?<address>[^/]+)"
-                    + " (?<isPointsPrivate>p?)pt/(?<points>[^/]+)"
-                    + "(?<tagArguments>(?: t/[^/]+)*)"); // variable number of tags
-
     public static final Pattern ORDER_DISH_ARGS_FORMAT = Pattern.compile("i/(?<targetIndex>.+)\\s+q/(?<quantity>.+)");
+
 
     /**
      * Signals that the user input could not be parsed.
@@ -78,8 +85,8 @@ public class Parser {
             case AddCommand.COMMAND_WORD:
                 return prepareAdd(arguments);
 
-            case MenuAddCommand.COMMAND_WORD:
-                return prepareAddMenu(arguments);
+            case MemberAddCommand.COMMAND_WORD:
+                return prepareAddMember(arguments);
 
             case DeleteCommand.COMMAND_WORD:
                 return prepareDelete(arguments);
@@ -93,9 +100,6 @@ public class Parser {
             case ListCommand.COMMAND_WORD:
                 return new ListCommand();
 
-            case MenuListCommand.COMMAND_WORD:
-                return new MenuListCommand();
-
             case ViewCommand.COMMAND_WORD:
                 return prepareView(arguments);
 
@@ -106,7 +110,16 @@ public class Parser {
                 return new EmployeeListCommand();
 
             case EmployeeAddCommand.COMMAND_WORD:
-                return prepareEmpAdd(arguments);
+                return prepareEmployeeAdd(arguments);
+
+            case EmployeeDeleteCommand.COMMAND_WORD:
+                return prepareEmployeeDelete(arguments);
+
+            case MenuAddCommand.COMMAND_WORD:
+                return prepareAddMenu(arguments);
+
+            case MenuListCommand.COMMAND_WORD:
+                return new MenuListCommand();
 
             case MenuViewAllCommand.COMMAND_WORD:
                 return prepareViewAllMenu(arguments);
@@ -140,6 +153,18 @@ public class Parser {
 
             case DraftOrderConfirmCommand.COMMAND_WORD:
                 return new DraftOrderConfirmCommand();
+
+            case StatsEmployeeCommand.COMMAND_WORD:
+                return new StatsEmployeeCommand();
+
+            case StatsMemberCommand.COMMAND_WORD:
+                return new StatsMemberCommand();
+
+            case StatsMenuCommand.COMMAND_WORD:
+                return new StatsMenuCommand();
+
+            case StatsOrderCommand.COMMAND_WORD:
+                return new StatsOrderCommand();
 
             case ExitCommand.COMMAND_WORD:
                 return new ExitCommand();
@@ -185,20 +210,21 @@ public class Parser {
         }
     }
 
-    private Command prepareAddMenu(String args){
-        final Matcher matcher = MENU_DATA_ARGS_FORMAT.matcher(args.trim());
+    /**
+     * Parses arguments in the context of the add member command.
+     * @param args full command args string
+     * @return the prepared command
+     */
+
+    private Command prepareAddMember(String args){
+        final Matcher matcher = MEMBER_DATA_ARGS_FORMAT.matcher(args.trim());
         // Validate arg string format
         if (!matcher.matches()) {
-            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, MenuAddCommand.MESSAGE_USAGE));
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, MemberAddCommand.MESSAGE_USAGE));
         }
         try {
-            return new MenuAddCommand(
-                    matcher.group("name"),
-
-                    matcher.group("price"),
-                    //isPrivatePrefixPresent(matcher.group("isPricePrivate")),
-
-                    getTagsFromArgs(matcher.group("tagArguments"))
+            return new MemberAddCommand(
+                    matcher.group("name")
             );
         } catch (IllegalValueException ive) {
             return new IncorrectCommand(ive.getMessage());
@@ -211,8 +237,8 @@ public class Parser {
      * @param args full command args string
      * @return the prepared command
      */
-    private Command prepareEmpAdd(String args){
-        final Matcher matcher = PERSON_DATA_ARGS_FORMAT.matcher(args.trim());
+    private Command prepareEmployeeAdd(String args){
+        final Matcher matcher = EMPLOYEE_DATA_ARGS_FORMAT.matcher(args.trim());
         // Validate arg string format
         if (!matcher.matches()) {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EmployeeAddCommand.MESSAGE_USAGE));
@@ -234,6 +260,48 @@ public class Parser {
         }
     }
 
+    /**
+     * Parses arguments in the context of the add menu command.
+     *
+     * @param args full command args string
+     * @return the prepared command
+     */
+    private Command prepareAddMenu(String args){
+        final Matcher matcher = MENU_DATA_ARGS_FORMAT.matcher(args.trim());
+        // Validate arg string format
+        if (!matcher.matches()) {
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, MenuAddCommand.MESSAGE_USAGE));
+        }
+        try {
+            return new MenuAddCommand(
+                    matcher.group("name"),
+
+                    matcher.group("price"),
+                    //isPrivatePrefixPresent(matcher.group("isPricePrivate")),
+
+                    getTagsFromArgs(matcher.group("tagArguments"))
+            );
+        } catch (IllegalValueException ive) {
+            return new IncorrectCommand(ive.getMessage());
+        }
+    }
+
+
+    /**
+     * Parses arguments in the context of the delete employee command.
+     *
+     * @param args full command args string
+     * @return the prepared command
+     */
+    private Command prepareEmployeeDelete(String args) {
+        try {
+            final int targetIndex = parseArgsAsDisplayedIndex(args);
+            return new EmployeeDeleteCommand(targetIndex);
+        } catch (ParseException | NumberFormatException e) {
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EmployeeDeleteCommand.MESSAGE_USAGE));
+        }
+    }
+    
     /**
      * Checks whether the private prefix of a contact detail in the add command's arguments string is present.
      */

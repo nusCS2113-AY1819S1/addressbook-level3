@@ -1,30 +1,22 @@
-package seedu.addressbook.commands.menu;
+package seedu.addressbook.commands.statistics;
 
 import seedu.addressbook.commands.CommandResult;
-import seedu.addressbook.data.menu.Menu;
-import seedu.addressbook.data.menu.MenuName;
-import seedu.addressbook.data.menu.ReadOnlyMenus;
-import seedu.addressbook.data.menu.UniqueMenuList;
+import seedu.addressbook.data.statistics.ReadOnlyStats;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Represents the result of a command execution.
  */
-public class MenuCommandResult extends CommandResult {
-   // private final List<Menu> internalList = new ArrayList<>();
-
+public class StatsCommandResult extends CommandResult {
 
     /** The feedback message to be shown to the user. Contains a description of the execution result */
     //public final String feedbackToUser;
 
 
-    public MenuCommandResult(String feedbackToUser) {
+    public StatsCommandResult(String feedbackToUser) {
         super(feedbackToUser);
     }
-
-
 
     /*public MenuCommandResult(String feedbackToUser, List<? extends ReadOnlyMenus> relevantMenus) {
         this.feedbackToUser = feedbackToUser;
@@ -33,10 +25,7 @@ public class MenuCommandResult extends CommandResult {
     /**
      * Returns list of menu items relevant to the command command result_menu, if any.
      */
-
-
-
-    public MenuCommandResult(String feedbackToUser, List<? extends ReadOnlyMenus> relevantMenus){
-        super(feedbackToUser, null, relevantMenus, null, null, null);
-    }
+//    public StatsCommandResult(String feedbackToUser, List<? extends ReadOnlyMenus> relevantMenus){
+//        super(feedbackToUser, null, relevantMenus, null, null, null);
+//    }
 }

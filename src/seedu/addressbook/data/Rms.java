@@ -33,9 +33,9 @@ public class Rms {
 
     private final UniquePersonList allPersons;
     private final UniqueEmployeeList allEmployees;
+    private final UniqueMemberList allMembers;
     private final UniqueMenuList allFoodItems;
     private final UniqueOrderList allOrders;
-    private final UniqueMemberList allMembers;
 
     private Order draftOrder = new Order();
 
@@ -49,9 +49,9 @@ public class Rms {
     public Rms() {
         allPersons = new UniquePersonList();
         allEmployees = new UniqueEmployeeList();
+        allMembers = new UniqueMemberList();
         allFoodItems = new UniqueMenuList();
         allOrders = new UniqueOrderList();
-        allMembers = new UniqueMemberList();
     }
 
     /**
@@ -66,9 +66,9 @@ public class Rms {
                UniqueMemberList members) {
         this.allPersons = new UniquePersonList(persons);
         this.allEmployees = new UniqueEmployeeList(employees);
+        this.allMembers = new UniqueMemberList(members);
         this.allFoodItems = new UniqueMenuList(menus);
         this.allOrders = new UniqueOrderList(orders);
-        this.allMembers = new UniqueMemberList(members);
     }
 
     /**
@@ -85,10 +85,21 @@ public class Rms {
      */
     public void addEmployee(Employee toAdd) throws DuplicateEmployeeException { allEmployees.add(toAdd); }
 
+
+    /**
+     * Adds a member to the address book.
+     *
+     * @throws DuplicateMemberException if an equivalent member already exists.
+     */
+
+    public void addMember(Member toAdd) throws DuplicateMemberException {
+        allMembers.add(toAdd);
+    }
+
     /**
      * Adds a menu item to the menu list.
      *
-     * @throws DuplicateMenuException if an equivalent person already exists.
+     * @throws DuplicateMenuException if an equivalent menu item already exists.
      */
     public void addMenu(Menu toAdd) throws DuplicateMenuException { allFoodItems.add(toAdd); }
 
@@ -99,16 +110,6 @@ public class Rms {
      */
     public void addOrder(Order toAdd) throws DuplicateOrderException {
         allOrders.add(toAdd);
-    }
-
-    /**
-     * Adds a member to the address book.
-     *
-     * @throws DuplicateMemberException if an equivalent member already exists.
-     */
-
-    public void addMember(Member toAdd) throws DuplicateMemberException {
-        allMembers.add(toAdd);
     }
 
     /**
@@ -201,20 +202,6 @@ public class Rms {
     }
 
     /**
-     * Clears all menu items from the menu.
-     */
-    public void clearMenu() {
-        allFoodItems.clear();
-    }
-
-    /**
-     * Clears all orders from the order list.
-     */
-    public void clearOrderList() {
-        allOrders.clear();
-    }
-
-    /**
      * Clears all members from the address book.
      */
     public void clearMembers() {
@@ -226,6 +213,20 @@ public class Rms {
      */
     public void clearEmployee() {
         allEmployees.clear();
+    }
+
+    /**
+     * Clears all menu items from the menu.
+     */
+    public void clearMenu() {
+        allFoodItems.clear();
+    }
+
+    /**
+     * Clears all orders from the order list.
+     */
+    public void clearOrderList() {
+        allOrders.clear();
     }
 
     /**
