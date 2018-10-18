@@ -32,11 +32,11 @@ import javax.swing.JTextField;
 
 public class ChatClient {
 
-    BufferedReader in;
-    PrintWriter out;
-    JFrame frame = new JFrame("Chatter");
-    JTextField textField = new JTextField(40);
-    JTextArea messageArea = new JTextArea(8, 40);
+    private BufferedReader in;
+    private PrintWriter out;
+    private JFrame frame = new JFrame("Chatter");
+    private JTextField textField = new JTextField(40);
+    private JTextArea messageArea = new JTextArea(8, 40);
 
      /* Constructs the client by laying out the GUI and registering a
      * listener with the textfield so that pressing Return in the

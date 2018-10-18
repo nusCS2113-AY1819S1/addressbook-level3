@@ -1,6 +1,6 @@
 package seedu.addressbook.commands;
 
-import seedu.addressbook.communications.ChatClient;
+//import seedu.addressbook.communications.ChatClient;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
