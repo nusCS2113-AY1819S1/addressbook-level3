@@ -138,6 +138,8 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |===========================================================================================================================================
 |Priority |As a ... |I want to ... |So that I can...
 |`* * *` |new user |see usage instructions |refer to instructions when I forget how to use the App
+|`* * *` |user |my account to only be accessed by me |ensure my information and schedule is only edited by myself
+|`* * *` |user |To be able to update or recover my password |Access my account even if I forgot my password and keep my credentials secure
 |`* * *` |user |add a new person |
 |`* * *` |user |delete a person |remove entries that I no longer need
 |`* * *` |user |find a person by name |locate details of persons without having to go through the entire list
@@ -152,14 +154,43 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 (For all use cases below, the *System* is the `Health Booklet` and the *Actor* is the `user`, unless specified otherwise)
 
-=== Use case: Login
+=== Use case: UC01 - Login
 
 *MSS*
 
 . User opens up Health Booklet
-. Health Booklet prompts for Username and Password
+. Health Booklet prompts for user to enter Username and Password
 . User keys in Username and Password
-. On successful login, program continues. On failed login, program exits
+. Login is successful, program continues.
+. Use case ends.
++
+Extensions
+. 3a. Given set of Username and Password do not match any records
+. 3a1 Health Booklet requests for Username and Password again
+. 3a2 User keys in Username and Password
+. 3a3 Correct Username and Password is entered, use case resumes from step 4
+. Steps 3a1 - 3a2 are repeated for a maximum of two times or until a matching set of Username and Password is entered
+. If Username and Password still incorrect, program terminates
++
+Use case ends.
+
+=== Use case: UC02 - Determine Access Level
+
+*MSS*
+
+. User logs in to Health Booklet (UC01)
+. Health Booklet will look up the corresponding access level of User
+. Based on the designated access level of the User, various viewing and editing rights will be handed to User
++
+Use case ends.
+
+=== Use case: UC03 - Information Confidentiality
+
+*MSS*
+
+. User logs in to Health Booklet (UC01)
+. Health Booklet determines access level of User (UC02)
+. Health Booklet will display information that User has access to and hide information that is beyond User’s access level
 +
 Use case ends.
 
