@@ -1,14 +1,13 @@
 package seedu.addressbook.commands.order;
 
-
 import seedu.addressbook.commands.Command;
 import seedu.addressbook.commands.CommandResult;
 import seedu.addressbook.common.Messages;
 import seedu.addressbook.data.member.ReadOnlyMember;
-import seedu.addressbook.data.menu.ReadOnlyMenus;
 
 /**
- * Add a customer to the draft order using the index of last displayed menu.
+ * Edit the customer field of the draft order.
+ * The customer is retrieved with the index of last displayed member list.
  */
 public class DraftOrderEditCustomerCommand extends Command {
 
@@ -20,7 +19,7 @@ public class DraftOrderEditCustomerCommand extends Command {
             + "Parameters: INDEX\n\t"
             + "Example: " + COMMAND_WORD + " 1";
 
-    public static final String MESSAGE_EDIT_CUSTOMER_SUCCESS = "Customer successfully edited in the draft order.";
+    public static final String MESSAGE_EDIT_CUSTOMER_SUCCESS = "Customer is edited in the draft order.";
 
     public DraftOrderEditCustomerCommand(int targetVisibleIndex) {
         super(targetVisibleIndex);

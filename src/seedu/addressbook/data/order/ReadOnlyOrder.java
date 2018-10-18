@@ -93,9 +93,9 @@ public interface ReadOnlyOrder {
         builder.append("\n\t\tDishes: ");
         if (hasDishItems()) {
             int i = 0;
-            builder.append("\n");
             for (Map.Entry<Menu, Integer> m: getDishItems().entrySet()) {
                 i++;
+                builder.append("\n");
                 MenuName dishName = m.getKey().getName();
                 Price dishPrice = m.getKey().getPrice();
                 int quantity = m.getValue();

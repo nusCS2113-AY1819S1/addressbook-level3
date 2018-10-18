@@ -43,6 +43,7 @@ public class Parser {
                     + " (?<isPointsPrivate>p?)pt/(?<points>[^/]+)"
                     + "(?<tagArguments>(?: t/[^/]+)*)"); // variable number of tags
 
+    public static final Pattern ORDER_DISH_ARGS_FORMAT = Pattern.compile("i/(?<targetIndex>.+)\\s+q/(?<quantity>.+)");
 
     /**
      * Signals that the user input could not be parsed.
@@ -130,6 +131,9 @@ public class Parser {
 
             case DraftOrderEditCustomerCommand.COMMAND_WORD:
                 return prepareDraftOrderEditCustomer(arguments);
+
+            case DraftOrderEditDishCommand.COMMAND_WORD:
+                return prepareDraftOrderEditDish(arguments);
 
             case ExitCommand.COMMAND_WORD:
                 return new ExitCommand();
@@ -336,22 +340,6 @@ public class Parser {
                     MenuViewAllCommand.MESSAGE_USAGE));
         }
     }
-    /**
-     * Parses the given arguments string as a single index number.
-     *
-     * @param args arguments string to parse as index number
-     * @return the parsed index number
-     * @throws ParseException if no region of the args string could be found for the index
-     * @throws NumberFormatException the args string region is not a valid number
-     */
-    private int parseArgsAsDisplayedIndex(String args) throws ParseException, NumberFormatException {
-        final Matcher matcher = INDEX_ARGS_FORMAT.matcher(args.trim());
-        if (!matcher.matches()) {
-            throw new ParseException("Could not find index number to parse");
-        }
-        return Integer.parseInt(matcher.group("targetIndex"));
-    }
-
 
     /**
      * Parses arguments in the context of the find person command.
@@ -398,7 +386,6 @@ public class Parser {
      * @return the prepared command
      */
     private Command prepareDraftOrderEditCustomer(String args) {
-
         try {
             final int targetIndex = parseArgsAsDisplayedIndex(args);
             return new DraftOrderEditCustomerCommand(targetIndex);
@@ -406,6 +393,38 @@ public class Parser {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     DraftOrderEditCustomerCommand.MESSAGE_USAGE));
         }
+    }
+
+    private Command prepareDraftOrderEditDish(String args) {
+        try {
+            final Matcher matcher = ORDER_DISH_ARGS_FORMAT.matcher(args.trim());
+            // Validate arg string format
+            if (!matcher.matches()) {
+                throw new ParseException("Could not find index number and quantity to parse");
+            }
+            final int targetIndex = Integer.parseInt(matcher.group("targetIndex"));
+            final int quantity = Integer.parseInt(matcher.group("quantity"));
+            return new DraftOrderEditDishCommand(targetIndex, quantity);
+        } catch (ParseException | NumberFormatException e) {
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    DraftOrderEditDishCommand.MESSAGE_USAGE));
+        }
+    }
+
+    /**
+     * Parses the given arguments string as a single index number.
+     *
+     * @param args arguments string to parse as index number
+     * @return the parsed index number
+     * @throws ParseException if no region of the args string could be found for the index
+     * @throws NumberFormatException the args string region is not a valid number
+     */
+    private int parseArgsAsDisplayedIndex(String args) throws ParseException, NumberFormatException {
+        final Matcher matcher = INDEX_ARGS_FORMAT.matcher(args.trim());
+        if (!matcher.matches()) {
+            throw new ParseException("Could not find index number to parse");
+        }
+        return Integer.parseInt(matcher.group("targetIndex"));
     }
 
 }
