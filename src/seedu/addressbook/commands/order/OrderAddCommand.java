@@ -20,7 +20,8 @@ public class OrderAddCommand extends Command {
 
     public static final String MESSAGE_ALL_ORDER_DRAFT_COMMANDS_USAGES = OrderAddCommand.MESSAGE_USAGE
             + "\n" + DraftOrderEditCustomerCommand.MESSAGE_USAGE
-            + "\n" + DraftOrderEditDishCommand.MESSAGE_USAGE;
+            + "\n" + DraftOrderEditDishCommand.MESSAGE_USAGE
+            + "\n" + DraftOrderClearCommand.MESSAGE_USAGE;
 
     @Override
     public CommandResult execute() {

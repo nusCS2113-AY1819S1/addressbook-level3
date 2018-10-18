@@ -19,7 +19,7 @@ public class DraftOrderEditDishCommand extends Command {
             + "Parameters: i/INDEX q/QUANTITY\n\t"
             + "Example: " + COMMAND_WORD + " i/3 q/4";
 
-    public static final String MESSAGE_EDIT_DISH_SUCCESS = "The dish is edited in the draft order.";
+    public static final String MESSAGE_SUCCESS = "The dish is edited in the draft order.";
 
     public static final String MESSAGE_INVALID_QUANTITY = "The quantity entered is invalid.";
 
@@ -41,7 +41,7 @@ public class DraftOrderEditDishCommand extends Command {
             String message;
             if (quantity >= 0) {
                 rms.editDraftOrderDishItem(target, quantity);
-                message = MESSAGE_EDIT_DISH_SUCCESS + "\n" + getDraftOrderAsString();
+                message = MESSAGE_SUCCESS + "\n" + getDraftOrderAsString();
             } else {
                 message = MESSAGE_INVALID_QUANTITY + "\n" + getDraftOrderAsString();
             }

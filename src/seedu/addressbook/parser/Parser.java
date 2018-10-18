@@ -135,6 +135,9 @@ public class Parser {
             case DraftOrderEditDishCommand.COMMAND_WORD:
                 return prepareDraftOrderEditDish(arguments);
 
+            case DraftOrderClearCommand.COMMAND_WORD:
+                return new DraftOrderClearCommand();
+
             case ExitCommand.COMMAND_WORD:
                 return new ExitCommand();
 
