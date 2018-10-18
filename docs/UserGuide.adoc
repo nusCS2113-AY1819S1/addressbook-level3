@@ -24,7 +24,7 @@ However, setting up this Health Booklet requires basic familiarity with integrat
 . Right click on `Main`
 . Click `Run Main.main()`
 . Enter your Username and Password according to the prompts
-. Upon successful login, `Welcome to Health Booklet` will appear, program will exit upon login failure
+. Upon successful login, `Welcome to Health Booklet` will appear, program will exit upon login failure, i.e. 3 incorrect username/password tries
 . The GUI should appear in a few seconds
 +
 image::Ui.png[]
@@ -232,4 +232,12 @@ However, the history of commands made are only available within the browsing ses
 * `history` : Shows a list of all executed commands
 * `association` : Coming soon in v1.3
 * `exit` : Exits the program
+
+== 6 Troubleshooting/FAQ
+
+[width="100%",cols="32%,<33%,<35%",options="header",]
+|===========================================================================================================================================
+|Error Message |Probable Reason |Remedy
+|At Login: Maximum login attempts attempted. Please try again later |You have attempted to login unsuccessfully in successive tries |Please wait for 5 mins before trying again. If urgent access is needed, please contact the system administrator for your hospital
+|===========================================================================================================================================
 

@@ -91,6 +91,20 @@ Storing the different states of the Health Booklet is relatively easy to impleme
 ==== 4.1.3  Alternative consideration
 An alternative to the current implementation is to save the list of commands executed in the arraylist instead of the whole Health Booklet and reverse them when attempting to undo. However, this requires implemented class to know how to reverse each command. For example, undo-ing a `delete` command requires the class to perform `add` and the class has to remember all the arguments required to create the same person that was deleted.
 
+=== 4.2 Login System
+Securely logs user on to Health Booklet
+
+==== 4.2.1 Current Implementation
+Login is implemented before the main GUI launches. Upon the launch of Health Booklet, Health Booklet prompts for two input from the User, username and password. Health Booklet then compares the given pair of inputs with loginstorage.txt.
+
+loginstorage.txt stores the username of all users and the hashes of their passwords. Health Booklet iterates through loginstorage.txt to find the matching username, and the corresponding hashed password. The password entered is hashed using Java’s SHA-512 hashing algorithm. The result is then matched with the hash stored in loginstorage.txt, if both matches then login is successful and user is allowed into Health Booklet. If they do not match, then the program is terminated.
+
+==== 4.2.2 Reason for this implementation
+There is no need to open the GUI, if User fails to log in, thus login is implemented before the GUI launches.
+To ensure a secure Health Booklet, user login profiles must be stored securely. Storing the hash result instead of the password ensures that should loginstorage.txt be compromised, the actual passwords are still unknown to the perpetrators.
+
+==== 4.2.3 Alternative consideration
+Java Authentication and Authorisation System (JAAS) was also considered when deciding on how to implement Health Booklet’s login system. However, using JAAS is more restrictive than the current implementation which allows for easy change in hashing algorithms used and different security features in the future. JAAS is also harder to implement and as Health Booklet is currently targeted at about 1000 users, there is no need to use JAAS.
 
 
 === 4.3 Scheduling
@@ -126,6 +140,8 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |===========================================================================================================================================
 |Priority |As a ... |I want to ... |So that I can...
 |`* * *` |new user |see usage instructions |refer to instructions when I forget how to use the App
+|`* * *` |user |my account to only be accessed by me |ensure my information and schedule is only edited by myself
+|`* * *` |user |To be able to update or recover my password |Access my account even if I forgot my password and keep my credentials secure
 |`* * *` |user |add a new person |
 |`* * *` |user |delete a person |remove entries that I no longer need
 |`* * *` |user |find a person by name |locate details of persons without having to go through the entire list
@@ -140,14 +156,44 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 (For all use cases below, the *System* is the `Health Booklet` and the *Actor* is the `user`, unless specified otherwise)
 
-=== Use case: Login
+=== Use case: UC01 - Login
 
 *MSS*
 
 . User opens up Health Booklet
-. Health Booklet prompts for Username and Password
+. Health Booklet prompts for user to enter Username and Password
 . User keys in Username and Password
-. On successful login, program continues. On failed login, program exits
+. Login is successful, program continues.
+. Use case ends.
+
+*Extensions*
+
+* 3a. Given set of Username and Password do not match any records
+** 3a1 Health Booklet requests for Username and Password again
+** 3a2 User keys in Username and Password
+** 3a3 Correct Username and Password is entered, use case resumes from step 4
+** Steps 3a1 - 3a2 are repeated for a maximum of two times or until a matching set of Username and Password is entered
+** If Username and Password still incorrect, program terminates
++
+Use case ends.
+
+=== Use case: UC02 - Determine Access Level
+
+*MSS*
+
+. User logs in to Health Booklet (UC01)
+. Health Booklet will look up the corresponding access level of User
+. Based on the designated access level of the User, various viewing and editing rights will be handed to User
++
+Use case ends.
+
+=== Use case: UC03 - Information Confidentiality
+
+*MSS*
+
+. User logs in to Health Booklet (UC01)
+. Health Booklet determines access level of User (UC02)
+. Health Booklet will display information that User has access to and hide information that is beyond User’s access level
 +
 Use case ends.
 
