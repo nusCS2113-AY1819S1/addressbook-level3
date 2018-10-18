@@ -29,6 +29,24 @@ Restaurant Management System is to help provide restaurants
 
 *[Coming Soon]*
 
+.  Ensure you have Java version `9` or later installed in your Computer.
+.  Copy the file to the folder you want to use as the home folder for your Restaurant Management System.
+.  Import the file into Intellij.
+.  Find the project pane (usually located at the left side).
+.  Open up src/seedu.addressbook folder.
+.  Right Click on `Main`.
+.  Click `Run Main.main()`.
+.  The GUI should appear in a few seconds.
++
+image::Ui.png[]
++
+.  Type the command in the command box and press kbd:[Enter] to execute it.
+.  Some example commands you can try:
+
+* *`listmenu`* : lists all menu items
+* **`addmember`**`n/John Doe p/98765432 e/johnd@example.com d/10182017` : adds a member named `John Doe` to the Restaurant Management System.
+* **`deleteorder`**`3` : deletes the 3rd order shown in the current list
+* *`exit`* : exits the app
 .  Refer to <<Features>> for details of each command.
 
 [[Features]]
