@@ -343,15 +343,15 @@ There is no need to save manually.
 
 *List All Order* : `listorder`
 
-*Add Order Commants*: `addOrder`
+*Display Add Order Commands*: `addOrder`
 
-*Change draft customer*: `editdraftcustomer INDEX`
+*Change Draft Customer*: `editdraftcustomer INDEX`
 
-*Edit dishes in draft order*: `editdraftdish i/INDEX q/QUANTITY`
+*Edit Dishes In Draft Order*: `editdraftdish i/INDEX q/QUANTITY`
 
-*Clear the customer draft*: `cleardraft`
+*Clear The Customer Draft*: `cleardraft`
 
-*Confirm and add order*: `confirmorder`
+*Confirm And Add Order*: `confirmdraft`
 
 === Employees
 
