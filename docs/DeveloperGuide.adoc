@@ -93,11 +93,14 @@ An alternative to the current implementation is to save the list of commands exe
 
 === 4.2 Login System
 Securely logs user on to Health Booklet
+
 ==== 4.2.1 Current Implementation
 Login is implemented before the main GUI launches. Upon the launch of Health Booklet, Health Booklet prompts for two input from the User, username and password. Health Booklet then compares the given pair of inputs with loginstorage.txt.
 loginstorage.txt stores the username of all users and the hashes of their passwords. Health Booklet iterates through loginstorage.txt to find the matching username, and the corresponding hashed password. The password entered is hashed using Java’s SHA-512 hashing algorithm. The result is then matched with the hash stored in loginstorage.txt, if both matches then login is successful and user is allowed into Health Booklet. If they do not match, then the program is terminated.
+
 ==== 4.2.2 Reason for this implementation
 To ensure a secure Health Booklet, user login profiles must be stored securely. Storing the hash result instead of the password ensures that should loginstorage.txt be compromised, the actual passwords are still unknown to the perpetrators.
+
 ==== 4.2.3 Alternative consideration
 Java Authentication and Authorisation System (JAAS) was also considered when deciding on how to implement Health Booklet’s login system. However, using JAAS is more restrictive than the current implementation which allows for easy change in hashing algorithms used and different security features in the future. JAAS is also harder to implement and as Health Booklet is currently targeted at about 1000 users, there is no need to use JAAS.
 
