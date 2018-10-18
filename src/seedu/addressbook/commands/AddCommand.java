@@ -16,7 +16,7 @@ public class AddCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ":\n" + "Adds a person to the address book. "
             + "Contact details can be marked private by prepending 'p' to the prefix.\n\t"
-            + "Parameters: NAME [p]p/PHONE [p]e/EMAIL [p]a/ADDRESS [p]s/TITLE [p]d/SCHEDULE [t/TAG]...\n\t"
+            + "Parameters: NAME [p]p/PHONE [p]e/EMAIL [p]a/ADDRESS [p]s/TITLE [d/SCHEDULE]... [t/TAG]...\n\t"
             + "Example: " + COMMAND_WORD
             + " John Doe p/98765432 e/johnd@gmail.com a/311, Clementi Ave 2, #02-25 s/Doctor d/31-10-2018 t/friends t/owesMoney";
 
@@ -35,8 +35,13 @@ public class AddCommand extends Command {
                       String email, boolean isEmailPrivate,
                       String address, boolean isAddressPrivate,
                       String title, boolean isTitlePrivate,
-                      String schedule, boolean isSchedulePrivate,
+                      Set<String> schedule,
                       Set<String> tags) throws IllegalValueException {
+
+        final Set<Schedule> scheduleSet = new HashSet<>();
+        for (String scheduleDate : schedule) {
+            scheduleSet.add(new Schedule(scheduleDate));
+        }
         final Set<Tag> tagSet = new HashSet<>();
         for (String tagName : tags) {
             tagSet.add(new Tag(tagName));
@@ -47,7 +52,7 @@ public class AddCommand extends Command {
                 new Email(email, isEmailPrivate),
                 new Address(address, isAddressPrivate),
                 new Title(title, isTitlePrivate),
-                new Schedule(schedule, isSchedulePrivate),
+                scheduleSet,
                 tagSet
         );
     }

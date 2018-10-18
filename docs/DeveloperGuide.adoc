@@ -1,12 +1,18 @@
 = Developer Guide
 :site-section: DeveloperGuide
 :toc:
-:toc-title:
+:toc-title: An Overview of the Developer Guide:
 :imagesDir: images
 :stylesDir: stylesheets
 :experimental:
 
-== Setting up
+== 1 Introduction
+The Health Booklet v1.2 is an application that function as an advance logbook for in healthcare settings. It allows healthcare professionals to keep track of patients’ details, arrange their schedule based on their patients’ appointments and communicate efficiently between colleagues through instant messaging.
+
+This Developer Guide is intended for users with basic technical background as it details the setting up of our application, the design of our software architecture, describe the implementation of our key features, and the testing involved in our software. Appendix includes user stories and use case for reference.
+
+
+== 2 Setting up
 
 === Prerequisites
 
@@ -30,17 +36,19 @@
 .. Due to an ongoing https://youtrack.jetbrains.com/issue/IDEA-189060[issue] with some of the newer versions of IntelliJ, code errors may be detected even if the project can be built and run successfully
 .. To resolve this, place your cursor over any of the code section highlighted in red. Press kbd:[ALT + ENTER], and select `Add '--add-modules=java.xml.bind' to module compiler options`
 
-== Design
+
+== 3 Design
 
 image::mainClassDiagram.png[]
 
-== 3. Implementation
+
+== 4. Implementation
 This section describes some noteworthy details on how certain features are implemented.
 
-== 3.1  State control (undo/redo)
+=== 4.1  State control (undo/redo)
 The state control feature allows the user to manipulate the different states of the Health Booklet in the current session with the undo and redo command. This section will describe the implementation of this feature.
 
-== 3.1.1  Current implementation
+==== 4.1.1  Current implementation
 
 The state control mechanism is managed by the CommandHistory class. It stores the various states of the Health Booklet in an arraylist `*addressBookStates*` with the `*stateIterator*` pointing to the latest state in the `*addressBookStates*`.
 
@@ -77,15 +85,37 @@ Note: If the user execute `undo` command when the `*stateIterator*` is at 0, the
 
 The `delete` command calls `*CommandHistory.checkForAction()*` which determines that this command was made following an `undo` command and therefore requires `*truncateOldPath()*` to be called. In this case, all states saved in the `*addressBookStates*` after index 0 will be cleared and will be unable to redone. After which the `*addCurrentState()*` method will be called, which moves the `*stateIterator*` forward from 0 to 1 and saves the current Health Booklet state in `*addressBookStates*` arraylist.
 
-== 3.1.2  Reason for this implementation
+==== 4.1.2  Reason for this implementation
 Storing the different states of the Health Booklet is relatively easy to implement and it is less prone to errors. However, a drawback for this implementation is the high memory usage required which might cause performance issues.
 
-== 3.1.3  Alternative consideration
+==== 4.1.3  Alternative consideration
 An alternative to the current implementation is to save the list of commands executed in the arraylist instead of the whole Health Booklet and reverse them when attempting to undo. However, this requires implemented class to know how to reverse each command. For example, undo-ing a `delete` command requires the class to perform `add` and the class has to remember all the arguments required to create the same person that was deleted.
 
-== Testing
 
-* In IntelliJ, right-click on the `test` folder and choose `Run 'All Tests'`
+
+=== 4.3 Scheduling
+Scheduling allows appointment to be stored in Health Booklet.
+
+==== 4.3.1 Current Implementation
+The schedule feature currently accepts dates from the users as an input category under the add command. Input must be in the format DD-MM-YYYY for it to be accepted as a proper schedule input. For each person added, multiple schedule dates can be added and it is also not a compulsory field to fill.
+
+This is achieved by setting up a schedule class which sets a regular expression (regex) that only accept valid dates in the DD-MM-YYYY format. Non-existent dates such as 30-02-2019 or 28-28-2019 would not be accepted.
+
+Subsequently, a hashset of schedule act as an attribute for person class. Everytime the add command is used to add a valid person, a person object is created with the set of schedule as part of the attribute of the person. As such, there can be multiple appointment dates added together with the person. The schedule is identified using the ‘d/’ mark.
+
+==== 4.3.2 Reason for Implementation
+Due to the large number of patients the doctors care for, it is at times hard to keep track of the numerous appointments made by their patients. As such, a scheduling feature would record the appointment date so that they can keep track of the numerous appointments they have for the day.
+
+==== 4.3.3 Future/Alternative Implementation
+In future versions, the following details would be slowly incremented to ensure a smooth user experience while using the scheduling feature of Health Booklet.
+.Edit the appointment dates only.
+.A command to view all or list the appointments in a chronological order following the reference date.
+.A doctor can view their respective patients appointment
+
+
+== 5.Testing
+Testing the Health Booklet is important as it verifies that the Health Booklet is functioning and up-to-date. This can be done so by going into IntelliJ, right-click on the test folder and choose Run 'All Tests'.
+
 
 [appendix]
 == User Stories

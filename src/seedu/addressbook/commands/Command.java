@@ -17,12 +17,18 @@ public abstract class Command {
     protected CommandHistory commandHistory;
     protected List<? extends ReadOnlyPerson> relevantPersons;
     private int targetIndex = -1;
+    private int targetIndex2 = -1;
 
     /**
      * @param targetIndex last visible listing index of the target person
      */
     public Command(int targetIndex) {
         this.setTargetIndex(targetIndex);
+    }
+
+    public Command(int targetIndex, int targetIndex2) {
+        this.setTargetIndex(targetIndex);
+        this.setTargetIndex2(targetIndex2);
     }
 
     protected Command() {
@@ -72,5 +78,22 @@ public abstract class Command {
 
     public void setTargetIndex(int targetIndex) {
         this.targetIndex = targetIndex;
+    }
+
+    /**
+     * Extracts the the target person in the last shown list from the given arguments.
+     *
+     * @throws IndexOutOfBoundsException if the target index is out of bounds of the last viewed listing
+     */
+    protected ReadOnlyPerson getTargetPerson2() throws IndexOutOfBoundsException {
+        return relevantPersons.get(getTargetIndex2() - DISPLAYED_INDEX_OFFSET);
+    }
+
+    public int getTargetIndex2() {
+        return targetIndex2;
+    }
+
+    public void setTargetIndex2(int targetIndex2) {
+        this.targetIndex2 = targetIndex2;
     }
 }
