@@ -11,6 +11,8 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Represents an Order in the ordering list.
@@ -20,6 +22,7 @@ public class Order implements ReadOnlyOrder {
 
     public static final String EMPTY_NAME_STRING = "gAksDZgOjsIPyVmMIuUE";
     public static final Member EMPTY_CUSTOMER = getNewEmptyCustomer();
+    private static final Logger LOGGER = Logger.getLogger( Order.class.getName() );
 
     private Member customer;
     private Date date;
@@ -104,8 +107,8 @@ public class Order implements ReadOnlyOrder {
     private static Member getNewEmptyCustomer() {
         try {
             return new Member(new Name(EMPTY_NAME_STRING));
-        } catch (IllegalValueException e) {
-            System.out.println("EMPTY_NAME_STRING is invalid");
+        } catch (IllegalValueException ie) {
+            LOGGER.log(Level.SEVERE,"Order.EMPTY_NAME_STRING is invalid", ie);
             return null;
         }
     }
