@@ -18,7 +18,8 @@ public class OrderAddCommand extends Command {
 
     public static final String MESSAGE_ALL_ORDER_DRAFT_COMMANDS = "List of commands used for drafting a new order:";
 
-    public static final String MESSAGE_ALL_ORDER_DRAFT_COMMANDS_USAGES = OrderAddCommand.MESSAGE_USAGE;
+    public static final String MESSAGE_ALL_ORDER_DRAFT_COMMANDS_USAGES = OrderAddCommand.MESSAGE_USAGE
+            + "\n" + DraftOrderEditCustomerCommand.MESSAGE_USAGE;
 
     @Override
     public CommandResult execute() {

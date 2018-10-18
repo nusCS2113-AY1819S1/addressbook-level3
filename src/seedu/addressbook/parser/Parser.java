@@ -128,6 +128,9 @@ public class Parser {
             case OrderListCommand.COMMAND_WORD:
                 return new OrderListCommand();
 
+            case DraftOrderEditCustomerCommand.COMMAND_WORD:
+                return prepareDraftOrderEditCustomer(arguments);
+
             case ExitCommand.COMMAND_WORD:
                 return new ExitCommand();
 
@@ -388,5 +391,21 @@ public class Parser {
         return new MenuFindCommand(keywordSet);
     }
 
+    /**
+     * Parses arguments in the context of the edit draft order customer command.
+     *
+     * @param args full command args string
+     * @return the prepared command
+     */
+    private Command prepareDraftOrderEditCustomer(String args) {
+
+        try {
+            final int targetIndex = parseArgsAsDisplayedIndex(args);
+            return new DraftOrderEditCustomerCommand(targetIndex);
+        } catch (ParseException | NumberFormatException e) {
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    DraftOrderEditCustomerCommand.MESSAGE_USAGE));
+        }
+    }
 
 }
