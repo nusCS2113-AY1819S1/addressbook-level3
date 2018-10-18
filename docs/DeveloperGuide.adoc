@@ -163,14 +163,14 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 . User keys in Username and Password
 . Login is successful, program continues.
 . Use case ends.
-+
-Extensions
-. 3a. Given set of Username and Password do not match any records
-. 3a1 Health Booklet requests for Username and Password again
-. 3a2 User keys in Username and Password
-. 3a3 Correct Username and Password is entered, use case resumes from step 4
-. Steps 3a1 - 3a2 are repeated for a maximum of two times or until a matching set of Username and Password is entered
-. If Username and Password still incorrect, program terminates
+
+*Extensions*
+* 3a. Given set of Username and Password do not match any records
+** 3a1 Health Booklet requests for Username and Password again
+** 3a2 User keys in Username and Password
+** 3a3 Correct Username and Password is entered, use case resumes from step 4
+** Steps 3a1 - 3a2 are repeated for a maximum of two times or until a matching set of Username and Password is entered
+** If Username and Password still incorrect, program terminates
 +
 Use case ends.
 
