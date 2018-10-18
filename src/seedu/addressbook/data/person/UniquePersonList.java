@@ -9,6 +9,7 @@ import java.util.List;
 
 import seedu.addressbook.common.Utils;
 import seedu.addressbook.data.exception.DuplicateDataException;
+import seedu.addressbook.ui.Formatter;
 
 /**
  * A list of persons. Does not allow null elements or duplicates.
@@ -123,6 +124,25 @@ public class UniquePersonList implements Iterable<Person> {
         if (!personFoundAndDeleted) {
             throw new PersonNotFoundException();
         }
+    }
+
+    /**
+     * loops through list and appends data to string person.
+     *
+     * @throws PersonNotFoundException if no such person could be found in the list.
+     */
+    public String loopFees(ReadOnlyPerson person) throws PersonNotFoundException {
+        //TODO: Fix potato
+        final StringBuilder builder = new StringBuilder();
+        for (Person p: internalList) {
+            final String stringChain = Formatter.getPrintableString(
+                    true,
+                    p.getName(),
+                    p.getFees());
+            builder.append(stringChain);
+            builder.append("\n");
+        }
+        return builder.toString();
     }
 
     /**

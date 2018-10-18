@@ -81,6 +81,7 @@ public class CommandResult {
         this.relevantPersons = null;
     }
 
+
     /**
      * Returns list of persons relevant to the command command result, if any.
      */

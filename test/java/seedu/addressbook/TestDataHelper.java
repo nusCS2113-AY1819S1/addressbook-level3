@@ -59,7 +59,8 @@ public class TestDataHelper {
     /** Test fees for testing**/
     public Fees fees () throws Exception {
         String test = "123.45";
-        return new Fees(test);
+        String testdate = "01-01-2018";
+        return new Fees(test, testdate);
     }
 
     /** Test exam for testing**/
@@ -209,6 +210,7 @@ public class TestDataHelper {
         cmd.add("addfees");
         cmd.add(" 2");
         cmd.add(" 123.45");
+        cmd.add(" 01-01-2018");
         return cmd.toString();
     }
 

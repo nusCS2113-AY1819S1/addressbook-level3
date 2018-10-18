@@ -35,6 +35,8 @@ public class AdaptedPerson {
     private AdaptedContactDetail address;
     @XmlElement(required = true)
     private AdaptedContactDetail fees;
+    @XmlElement(required = true)
+    private String duedate;
 
     @XmlElement
     private List<AdaptedTag> tagged = new ArrayList<>();
@@ -81,6 +83,8 @@ public class AdaptedPerson {
         fees = new AdaptedContactDetail();
         fees.isPrivate = source.getFees().isPrivate();
         fees.value = source.getFees().value;
+
+        duedate = source.getFees().duedate;
 
         tagged = new ArrayList<>();
         for (Tag tag : source.getTags()) {
@@ -129,7 +133,7 @@ public class AdaptedPerson {
         final Phone phone = new Phone(this.phone.value, this.phone.isPrivate);
         final Email email = new Email(this.email.value, this.email.isPrivate);
         final Address address = new Address(this.address.value, this.address.isPrivate);
-        final Fees fees = new Fees(this.fees.value);
+        final Fees fees = new Fees(this.fees.value, this.duedate);
 
         if (this.account == null) {
             final Person person = new Person(name, phone, email, address, tags);

@@ -115,6 +115,13 @@ public class AddressBook {
     }
 
     /**
+     * Loops throough the list
+     */
+    public String loopFeesPerson(ReadOnlyPerson person) throws PersonNotFoundException {
+        return allPersons.loopFees(person);
+    }
+
+    /**
      * Clears all persons from the address book.
      */
     public void clear() {

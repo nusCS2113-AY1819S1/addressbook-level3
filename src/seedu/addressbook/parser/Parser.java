@@ -5,7 +5,6 @@ import static seedu.addressbook.common.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.addressbook.common.Messages.MESSAGE_INVALID_DATE;
 import static seedu.addressbook.common.Messages.MESSAGE_NO_ARGS_FOUND;
 
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Collection;
@@ -39,6 +38,7 @@ import seedu.addressbook.commands.HelpCommand;
 import seedu.addressbook.commands.IncorrectCommand;
 import seedu.addressbook.commands.ListAssessmentCommand;
 import seedu.addressbook.commands.ListCommand;
+import seedu.addressbook.commands.ListFeesCommand;
 import seedu.addressbook.commands.LoginCommand;
 import seedu.addressbook.commands.LogoutCommand;
 import seedu.addressbook.commands.RaisePrivilegeCommand;
@@ -82,7 +82,8 @@ public class Parser {
 
     public static final Pattern FEES_DATA_ARGS_FORMAT =
             Pattern.compile("(?<index>[^/]+)"
-                    + " (?<fees>[^/]+)");
+                    + " (?<fees>[^/]+)"
+                    + " (?<date>[^/]+)");
 
     public static final Pattern STATISTICS_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
             Pattern.compile("(?<subjectName>[^/]+)"
@@ -212,6 +213,9 @@ public class Parser {
         case ExamsListCommand.COMMAND_WORD:
             return new ExamsListCommand();
 
+        case ListFeesCommand.COMMAND_WORD:
+            return prepareFeesList();
+
         case DeleteExamCommand.COMMAND_WORD:
             return prepareDeleteExam(arguments);
 
@@ -299,13 +303,14 @@ public class Parser {
         final Matcher matcher = FEES_DATA_ARGS_FORMAT.matcher(args.trim());
         // Validate arg string format
         if (!matcher.matches()) {
-            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddFeesCommand.MESSAGE_USAGE));
         }
         try {
             final int targetIndex = parseArgsAsDisplayedIndex(matcher.group("index"));
             return new AddFeesCommand(
                     targetIndex,
-                    matcher.group("fees")
+                    matcher.group("fees"),
+                    matcher.group("date")
             );
         } catch (IllegalValueException ive) {
             return new IncorrectCommand(ive.getMessage());
@@ -342,6 +347,18 @@ public class Parser {
     }
 
     /**
+     * Prepare arguments in the context of feeslist command
+     */
+    private Command prepareFeesList() {
+        try {
+            return new ListFeesCommand(parseArgsAsDisplayedIndex("1"));
+        } catch (ParseException | NumberFormatException e) {
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    ViewAllCommand.MESSAGE_USAGE));
+        }
+    }
+
+    /**
      * Parses arguments in the context of the view command.
      *
      * @param args full command args string
@@ -372,6 +389,7 @@ public class Parser {
                     ViewAllCommand.MESSAGE_USAGE));
         }
     }
+
 
     /**
      * Parses the given arguments string as a single index number.
