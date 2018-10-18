@@ -12,6 +12,7 @@ import seedu.addressbook.data.exception.IllegalValueException;
 public class Schedule {
 
     public static final String EXAMPLE = "31-01-2018";
+    public static final String EXAMPLE2 = "31-12-2018";
     public static final String MESSAGE_SCHEDULE_CONSTRAINTS = "The day of appointment should be written in the form of DD-MM-YYYY";
     public static final String SCHEDULE_VALIDATION_REGEX = "(((0[1-9]|[1-2][0-9]|3[0-1])-(0[13578]|(10|12)))|((0[1-9]|[1-2][0-9])-02)|((0[1-9]|[1-2][0-9]|30)-(0[469]|11)))-[0-9]{4}";
 
@@ -21,15 +22,14 @@ public class Schedule {
             //"^( ((0[1-9]|[1-2][0-9]|3[0-1])-(0[13578]|(10|12))) | ((0[1-9]|[1-2][0-9])-(02)) | ((0[1-9]|[1-2][0-9]|30)-(0[469]|11)) )([- /.])[0-9]{4}$";
 
     public final String value;
-    private boolean isPrivate;
 
     /**
      * Validates given appointment date.
      *
      * @throws IllegalValueException if given phone string is invalid.
      */
-    public Schedule(String schedule, boolean isPrivate) throws IllegalValueException {
-        this.isPrivate = isPrivate;
+    public Schedule(String schedule) throws IllegalValueException {
+
         schedule = schedule.trim();
         if (!isValidSchedule(schedule)) {
             throw new IllegalValueException(MESSAGE_SCHEDULE_CONSTRAINTS);
@@ -53,7 +53,7 @@ public class Schedule {
 
     @Override
     public String toString() {
-        return value;
+        return value + " ";
     }
 
     @Override
@@ -68,7 +68,7 @@ public class Schedule {
         return value.hashCode();
     }
 
-    public boolean isPrivate() {
-        return isPrivate;
-    }
+    //public boolean isPrivate() {
+    //    return isPrivate;
+    //}
 }
