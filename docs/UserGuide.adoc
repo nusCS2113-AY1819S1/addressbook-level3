@@ -156,50 +156,48 @@ Returns Double Cheese Burger, Veggie Burger, Coke, Coke Zero, Fries, Curly Fries
 
 
 === Order
-==== List Orders
-
-Shows a list of all the current orders. +
-
-Each order include details of: customer, ordered time, total price and the list of dish items and quantities ordered +
-
-Only the non-private data of customer will be showed. +
-
-Format: `listorder`
-
-==== View Order
-
-(To be implemented) +
-Shows the details of a specified order. +
-Format: view INDEX
-
-* Edit the order at a specific index
-
 
 ==== Add Order
 
-(To be implemented) +
-Adds a new order to the list of current orders and display the list. +
-Format: add ORDERFORMAT
+To add new order to the order list, a draft must be completed before adding it to the order list. +
 
+To do so, the draft's customer information and order dishes list must be completed and then confirmed.
 
-==== Update Order
+===== Display List Of Commands For Adding New Order
 
-(To be implemented) +
-Shows options that you can use to update orders. +
-Format: update
+Display the current draft and the list of order draft commands used for adding a new order
 
-* Shows the list of commands the user can use (add, edit, delete)
+Format: `addorder`
 
+===== Edit The Customer Of The Draft
 
-==== Edit Order
+Edit the customer field of the draft order. +
 
-(To be implemented) +
-Edit details of an order. +
-Format: edit INDEX
+The customer is retrieved with the index of last displayed member list.
 
+Format: `editdraftcustomer INDEX`
 
-* Edit the order at a specific index
+===== Edit A Dish Item Of The Draft
 
+Edit the quantity of a dish item of the draft order. +
+
+The dish item is retrieved with the index of last displayed menu. +
+
+ * If the quantity is set to 0, then the dish will be removed for the order. +
+
+Format: `editdraftdish i/INDEX q/QUANTITY`
+
+===== Clear Draft
+
+Clear the draft order, which include both customer and dishList of the class; +
+
+Format: `cleardraft`
+
+===== ConfirmDraft
+
+Confirm the draft and add it to the order list
+
+Format: `confirmdraft`
 
 ==== Delete Order
 
@@ -209,23 +207,21 @@ The deleted order is specified by the index of that order on the last displayed 
 
 Format: `deleteorder INDEX`
 
-
 ==== Clear Order
 
 Clear the entire order list. +
 
 Format: `clearorder`
 
+==== List Orders
 
-==== Find Order
+Shows a list of all the current orders. +
 
-(To be implemented) +
-Find an order by certain parameters. +
-Format: find KEYWORD [MORE_KEYWORDS]
+Each order include details of: customer, ordered time, total price and the list of dish items and quantities ordered +
 
-* The search is case-insensitive
-* The order of keywords do not matter
-* Only the name of the order will be searched
+Only the non-private data of customer will be showed. +
+
+Format: `listorder`
 
 === Members
 
@@ -341,21 +337,21 @@ There is no need to save manually.
 
 === Order
 
-*List All Order* : `listorder`
-
-*View Order* : `view INDEX`
-
-*Add Order* : `add ORDERNAME`
-
-*Update Order* : `update`
-
-*Edit Order* : `edit INDEX`
-
 *Delete Order* : `deleteorder INDEX`
 
 *Clear Order* : `clearorder`
 
-*Find Order* : `find KEYWORD [MORE_KEYWORDS]`
+*List All Order* : `listorder`
+
+*Add Order Commants*: `addOrder`
+
+*Change draft customer*: `editdraftcustomer INDEX`
+
+*Edit dishes in draft order*: `editdraftdish i/INDEX q/QUANTITY`
+
+*Clear the customer draft*: `cleardraft`
+
+*Confirm and add order*: `confirmorder`
 
 === Employees
 
@@ -380,6 +376,7 @@ There is no need to save manually.
 *Delete Member* : `deletemember NAME`
 
 *Find Member* : `findmember NAME`
+
 
 === Statistics
 
