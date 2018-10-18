@@ -2,6 +2,7 @@ package seedu.addressbook.data.order;
 
 import seedu.addressbook.data.exception.IllegalValueException;
 import seedu.addressbook.data.member.Member;
+import seedu.addressbook.data.member.Points;
 import seedu.addressbook.data.member.ReadOnlyMember;
 import seedu.addressbook.data.menu.Menu;
 import seedu.addressbook.data.menu.ReadOnlyMenus;
@@ -106,7 +107,7 @@ public class Order implements ReadOnlyOrder {
 
     private static Member getNewEmptyCustomer() {
         try {
-            return new Member(new Name(EMPTY_NAME_STRING));
+            return new Member(new Name(EMPTY_NAME_STRING), new Points());
         } catch (IllegalValueException ie) {
             LOGGER.log(Level.SEVERE,"Order.EMPTY_NAME_STRING is invalid", ie);
             return null;
