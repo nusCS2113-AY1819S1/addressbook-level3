@@ -116,6 +116,9 @@ public class Parser {
             case MenuFindCommand.COMMAND_WORD:
                 return prepareMenuFind(arguments);
 
+            case OrderAddCommand.COMMAND_WORD:
+                return new OrderAddCommand();
+
             case OrderDeleteCommand.COMMAND_WORD:
                 return prepareOrderDelete(arguments);
 
