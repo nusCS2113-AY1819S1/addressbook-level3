@@ -1,7 +1,9 @@
 package seedu.addressbook.data.order;
 
+import seedu.addressbook.data.exception.IllegalValueException;
 import seedu.addressbook.data.member.Member;
 import seedu.addressbook.data.menu.Menu;
+import seedu.addressbook.data.person.Name;
 
 import java.util.Date;
 import java.util.HashMap;
@@ -13,6 +15,9 @@ import java.util.Objects;
  */
 
 public class Order implements ReadOnlyOrder {
+
+    public static final String EMPTY_NAME_STRING = "gAksDZgOjsIPyVmMIuUE";
+    public static final Member EMPTY_CUSTOMER = getNewEmptyCustomer();
 
     private Member customer;
     private Date date;
@@ -26,11 +31,11 @@ public class Order implements ReadOnlyOrder {
     private final Map<Menu, Integer> dishItems = new HashMap<>();
 
     /**
-     * Default constructor used for drafting new order
+     * Constructor used for drafting new order. Uses empty customer instead of null.
      */
     public Order() {
-        this.customer = null;
-        this.date = null;
+        this.customer = getNewEmptyCustomer();
+        this.date = new Date();
         this.price = 0;
     }
 
@@ -94,6 +99,15 @@ public class Order implements ReadOnlyOrder {
         return new HashMap<>(dishItems);
     }
 
+    private static Member getNewEmptyCustomer() {
+        try {
+            return new Member(new Name(EMPTY_NAME_STRING));
+        } catch (IllegalValueException e) {
+            System.out.println("EMPTY_NAME_STRING is invalid");
+            return null;
+        }
+    }
+
     public void setCustomer(Member customer) {
         this.customer = new Member(customer);
     }
@@ -129,7 +143,6 @@ public class Order implements ReadOnlyOrder {
         } else {
             return 0;
         }
-
     }
 
     /**
@@ -146,7 +159,7 @@ public class Order implements ReadOnlyOrder {
 
     @Override
     public boolean hasCustomerField() {
-        return customer != null;
+        return !(customer.equals(EMPTY_CUSTOMER));
     }
 
     @Override

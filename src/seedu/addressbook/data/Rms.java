@@ -46,9 +46,7 @@ public class Rms {
     /**
      * Creates an empty address book.
      */
-    // added allEmployees = new UniqueEmployeeList();
     public Rms() {
-
         allPersons = new UniquePersonList();
         allEmployees = new UniqueEmployeeList();
         allFoodItems = new UniqueMenuList();
@@ -61,7 +59,6 @@ public class Rms {
      *
      * @param persons external changes to this will not affect this address book
      */
-    // Construct address book with persons and employees
     public Rms(UniquePersonList persons,
                UniqueMenuList menus,
                UniqueEmployeeList employees,
@@ -262,16 +259,22 @@ public class Rms {
     /**
      * Defensively copied UniqueOrderList of all orders in the employee list at the time of the call.
      */
-    public UniqueOrderList getAllOrders() { return new UniqueOrderList(allOrders); }
+    public UniqueOrderList getAllOrders() {
+        return new UniqueOrderList(allOrders);
+    }
 
-    public void setCustomerOfDraftOrder(Member customer) {
+    public ReadOnlyOrder getDraftOrder() {
+        return new Order(draftOrder);
+    }
+
+    public void editDraftOrderCustomer(Member customer) {
         draftOrder.setCustomer(customer);
     }
 
     /**
      * Adjust the dish and its quantity in the draft order to add, remove or edit dish items in the draft.
      */
-    public void draftDishItem(Menu dish, int quantity) {
+    public void editDraftOrderDishItem(Menu dish, int quantity) {
         draftOrder.changeDishQuantity(dish, quantity);
     }
 

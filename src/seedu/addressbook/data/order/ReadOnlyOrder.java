@@ -37,10 +37,11 @@ public interface ReadOnlyOrder {
     default String getAsTextShowAll() {
         final StringBuilder builder = new StringBuilder();
         builder.append("\tCustomer: ").append(getCustomer().getAsTextShowAll()).append("\n")
-                .append("\t\tDate: ").append(getDate()).append("\n");
+                .append("\t\tDate: ").append(getDate());
         int i = 0;
         for (Map.Entry<Menu, Integer> m: getDishItems().entrySet()) {
             i++;
+            builder.append("\n");
             MenuName dishName = m.getKey().getName();
             Price dishPrice = m.getKey().getPrice();
             int quantity = m.getValue();
@@ -48,9 +49,9 @@ public interface ReadOnlyOrder {
                     .append(i).append(". ")
                     .append(dishName.toString()).append("\t")
                     .append("(").append(dishPrice.toString()).append(" SGD) \t\t")
-                    .append("x").append(quantity).append("\n");
+                    .append("x").append(quantity);
         }
-        builder.append("\t\tPrice: ").append(getPrice()).append(" SGD\n");
+        builder.append("\n\t\tPrice: ").append(getPrice()).append(" SGD");
         return builder.toString();
     }
 
@@ -60,10 +61,11 @@ public interface ReadOnlyOrder {
     default String getAsTextHidePrivate() {
         final StringBuilder builder = new StringBuilder();
         builder.append("\tCustomer: ").append(getCustomer().getAsTextHidePrivate()).append("\n")
-                .append("\t\tDate: ").append(getDate()).append("\n");
+                .append("\t\tDate: ").append(getDate());
         int i = 0;
         for (Map.Entry<Menu, Integer> m: getDishItems().entrySet()) {
             i++;
+            builder.append("\n");
             MenuName dishName = m.getKey().getName();
             Price dishPrice = m.getKey().getPrice();
             int quantity = m.getValue();
@@ -71,9 +73,41 @@ public interface ReadOnlyOrder {
                     .append(i).append(". ")
                     .append(dishName.toString()).append("\t")
                     .append("(").append(dishPrice.toString()).append(" SGD) \t\t")
-                    .append("x").append(quantity).append("\n");
+                    .append("x").append(quantity);
         }
-        builder.append("\t\tPrice: ").append(getPrice()).append(" SGD\n");
+        builder.append("\n\t\tPrice: ").append(getPrice()).append(" SGD");
+        return builder.toString();
+    }
+
+    /**
+     * Formats an draft order as text. Null fields are shown as empty.
+     */
+    default String getDraftDetailsAsText() {
+        final StringBuilder builder = new StringBuilder();
+        builder.append("\t\tCustomer: ");
+        if (hasCustomerField()) {
+            builder.append(getCustomer().getAsTextShowAll());
+        } else {
+            builder.append("<empty>");
+        }
+        builder.append("\n\t\tDishes: ");
+        if (hasDishItems()) {
+            int i = 0;
+            builder.append("\n");
+            for (Map.Entry<Menu, Integer> m: getDishItems().entrySet()) {
+                i++;
+                MenuName dishName = m.getKey().getName();
+                Price dishPrice = m.getKey().getPrice();
+                int quantity = m.getValue();
+                builder.append("\t\t\t")
+                        .append(i).append(". ")
+                        .append(dishName.toString()).append("\t")
+                        .append("(").append(dishPrice.toString()).append(" SGD) \t\t")
+                        .append("x").append(quantity);
+            }
+        } else {
+            builder.append("<empty>");
+        }
         return builder.toString();
     }
 }
