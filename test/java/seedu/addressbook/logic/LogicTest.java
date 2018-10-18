@@ -631,7 +631,7 @@ public class LogicTest {
 
 
         /**
-         * Generates an Rms based on the list of Persons given.
+         * Generates an Rms based on the list of Menu Items given.
          */
         Rms generateRMS(List<Menu> menus) throws Exception{
             Rms rms = new Rms();
