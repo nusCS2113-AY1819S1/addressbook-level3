@@ -233,3 +233,11 @@ However, the history of commands made are only available within the browsing ses
 * `association` : Coming soon in v1.3
 * `exit` : Exits the program
 
+== 6 Troubleshooting/FAQ
+
+[width="100%",cols="32%,<33%,<35%",options="header",]
+|===========================================================================================================================================
+|Priority |As a ... |I want to ...
+|`* * *` |new user |see usage instructions 
+|===========================================================================================================================================
+
