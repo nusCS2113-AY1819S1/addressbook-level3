@@ -1,6 +1,5 @@
 package seedu.addressbook.login;
 
-import java.sql.SQLOutput;
 import java.util.Scanner;
 
 public class login {

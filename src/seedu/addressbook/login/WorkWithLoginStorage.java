@@ -29,19 +29,15 @@ public class WorkWithLoginStorage {
             if(debug) System.out.println("user correct");
             retrieveStoredHash();
             if(debug)System.out.println("password = " + PASSWORD + "2");
-            if(hashing.main(pass).equals(PASSWORD)){
-                return true;
-            }else{
-                return false;
-            }
+            return hashing.main(pass).equals(PASSWORD);
         }else {
             return false;
         }
     }
 
-    private static void editLogin(String username){
-        //to be implemented
-    }
+//    private static void editLogin(String username){
+//        //to be implemented
+//    }
 
     public static void deleteLogin(String username){
         try{
@@ -80,19 +76,15 @@ public class WorkWithLoginStorage {
     }
 
     private static boolean matchUsername(String username){
-        if(USERNAME.equals(username)) {
-            return true;
-        }else{
-            return false;
-        }
+        return USERNAME.equals(username);
     }
 
     private static void retrieveStoredHash() {
         PASSWORD = sc.next();
     }
 
-    public static void retrieveSalt(){
-        //to be implemented
-    }
+//    public static void retrieveSalt(){
+//        //to be implemented
+//    }
 
 }
