@@ -90,6 +90,16 @@ public abstract class Command {
     }
 
     /**
+     * Constructs a string from the current status of the draft order.
+     *
+     * @return draft order details
+     */
+    protected String getDraftOrderAsString() {
+        final ReadOnlyOrder draftOrder = rms.getDraftOrder();
+        return Messages.MESSAGE_DRAFT_ORDER_DETAILS + "\n" + draftOrder.getDraftDetailsAsText();
+    }
+
+    /**
      * Executes the command and returns the result.
      */
     public abstract CommandResult execute();

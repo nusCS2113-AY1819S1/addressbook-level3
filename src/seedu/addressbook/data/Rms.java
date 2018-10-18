@@ -267,14 +267,14 @@ public class Rms {
         return new Order(draftOrder);
     }
 
-    public void editDraftOrderCustomer(Member customer) {
+    public void editDraftOrderCustomer(ReadOnlyMember customer) {
         draftOrder.setCustomer(customer);
     }
 
     /**
      * Adjust the dish and its quantity in the draft order to add, remove or edit dish items in the draft.
      */
-    public void editDraftOrderDishItem(Menu dish, int quantity) {
+    public void editDraftOrderDishItem(ReadOnlyMenus dish, int quantity) {
         draftOrder.changeDishQuantity(dish, quantity);
     }
 

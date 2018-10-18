@@ -16,8 +16,6 @@ public class OrderAddCommand extends Command {
             + "Shows the details of the current draft order and the new order drafting instructions.\n\t"
             + "Example: " + COMMAND_WORD;
 
-    public static final String MESSAGE_DRAFT_ORDER_DETAILS = "Viewing current draft order: ";
-
     public static final String MESSAGE_ALL_ORDER_DRAFT_COMMANDS = "List of commands used for drafting a new order:";
 
     public static final String MESSAGE_ALL_ORDER_DRAFT_COMMANDS_USAGES = OrderAddCommand.MESSAGE_USAGE;
@@ -25,10 +23,10 @@ public class OrderAddCommand extends Command {
     @Override
     public CommandResult execute() {
         final ReadOnlyOrder draftOrder = rms.getDraftOrder();
-        String MESSAGE = MESSAGE_DRAFT_ORDER_DETAILS
-                        + "\n" + draftOrder.getDraftDetailsAsText()
+        String message = getDraftOrderAsString()
                         + "\n\n" + MESSAGE_ALL_ORDER_DRAFT_COMMANDS
                         + "\n" + MESSAGE_ALL_ORDER_DRAFT_COMMANDS_USAGES;
-        return new CommandResult(MESSAGE);
+        return new CommandResult(message);
     }
+
 }

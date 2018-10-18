@@ -2,7 +2,9 @@ package seedu.addressbook.data.order;
 
 import seedu.addressbook.data.exception.IllegalValueException;
 import seedu.addressbook.data.member.Member;
+import seedu.addressbook.data.member.ReadOnlyMember;
 import seedu.addressbook.data.menu.Menu;
+import seedu.addressbook.data.menu.ReadOnlyMenus;
 import seedu.addressbook.data.person.Name;
 
 import java.util.Date;
@@ -108,7 +110,7 @@ public class Order implements ReadOnlyOrder {
         }
     }
 
-    public void setCustomer(Member customer) {
+    public void setCustomer(ReadOnlyMember customer) {
         this.customer = new Member(customer);
     }
 
@@ -149,7 +151,8 @@ public class Order implements ReadOnlyOrder {
      * Change the quantity of a dish in an order.
      * Used to add, remove and edit dishes in an order.
      */
-    public void changeDishQuantity(Menu dish, int quantity) {
+    public void changeDishQuantity(ReadOnlyMenus readOnlyDish, int quantity) {
+        Menu dish = new Menu(readOnlyDish);
         if (quantity == 0) {
             dishItems.remove(dish);
         } else if (quantity > 0) {
