@@ -10,8 +10,6 @@ public class hashing {
 
     public static String main(String password){
         try {
-//            System.out.println("hashpassword is " + password);
-//            System.out.println("Hash = " + getHash(password, hashAlgo));
             return getHash(password, hashAlgo);
         }catch (Exception b){
             System.out.println("sometihing");
@@ -21,16 +19,13 @@ public class hashing {
 
     private static String getHash(String password,String hashAlgo) {
         try {
-//            System.out.println("hashpassword is " + password);
             MessageDigest digest = MessageDigest.getInstance(hashAlgo);
             digest.reset();
             byte[] hash = digest.digest(password.getBytes());
-//            System.out.println("hashing" + hash);
             return bytesToStringHex(hash);
         } catch (NoSuchAlgorithmException a) {
             System.out.println("nosuchalgo found");
         }
-//        System.out.println("abc");
         return "abc";
     }
 
@@ -40,9 +35,10 @@ public class hashing {
         random.nextBytes(bytes);
         return bytes;
     }
+
     private final static char[] hexArray = "0123456789ABCDEF".toCharArray();
 
-    public static String bytesToStringHex(byte[] bytes) {
+    private static String bytesToStringHex(byte[] bytes) {
         char[] hexChars = new char[bytes.length * 2];
         for(int j=0; j<bytes.length; j++){
             int v = bytes[j] & 0xFF;
