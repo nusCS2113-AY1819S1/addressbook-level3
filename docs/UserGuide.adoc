@@ -18,16 +18,31 @@ By: `CS2113-AY1819S1-F09-2`      Since: `Aug 2018`      Licence: `MIT`
 
 == Introduction
 
-Food Management System is to help provide restaurants
- with a more efficient way to manage their restaurants.
-  It has various amount of features that can improve
-   productivity of the different staff members in the
-    restaurant.
+Restaurant Management System aims to help restaurants run in a faster and more efficient way.
+It can help restaurants manage their menus, orders, employees and customers with membership.
+It can also provide statistics for restaurant managers to check how their restaurant is doing.
+The purpose of the user guide is to help users that are new to the system have an easier time getting
+accustomed to how the system works.
     Jump to the <<Quick Start>> to get started.
 
 == Quick Start
 
-*[Coming Soon]*
+. Ensure you have Java version 9 or later installed in your Computer.
+
+. Download the latest Rms.jar.
+
+. Copy the file to the folder you want to use as the home folder for your Restaurant Management System.
+
+. Double-click the file to start the app. The CLI should appear in a few seconds.
+
+. Type the command in the command box and press kbd:[Enter] +
+eg. typing *`help`* shows a list of available commands provided by the system
+
+. Some examples commands that you may try:
+* *`listemp`* : lists all employees
+* *`addmenu Cheese Burger p/5 t/newAddition t/hotSeller`* : adds a Cheese Burger item to the menu in the system
+* *`clearorder`* : clears everything in the order list
+* *`exit`* : exits the application
 
 .  Refer to <<Features>> for details of each command.
 
@@ -222,56 +237,62 @@ Format: find NAME
 ==== View Employees
 
 Show a list of all the employees on the RMS. +
-Format: view
+Format: `listemp`
 
 ==== Add Employee
 
 Adds a new employee to the RMS. +
-Format: add n/NAME p/PHONE_NUMBER pos/POSITION
+Format: `addemp n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS pos/POSITION`
 
 Examples: +
-add n/Joe Bob p/91234567 pos/Chef
+ `addemp Peter Lee p/91234567 e/PeterLee89@rms.com a/Clementi Ave 2, Blk 543 #13-12 pos/Cashier`
 
 ==== Edit Employee
 
 Edit details of an employee. +
-Format: edit NAME [p/PHONE_NUMBER] [pos/POSITION]
+Format: `editemp INDEX [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [pos/POSITION]`
 
-* Edits the person with the given NAME.
+* Edits the employee at the specified `INDEX`.
 * Parameters in square brackets are optional.
 * At least one of the optional parameters must be provided.
 * Existing values will be updated to the input values.
 
 Examples: +
-edit Joe Bob pos/Cashier +
+`edit Joe Bob pos/Cashier` +
 Edits the value of Joe Bob to Cashier
 
 === Delete Employee
 
 Delete and employee. +
-Format: delete NAME
+Format: delemp INDEX
+
+* Deletes the employee at the specified `INDEX`.
+* The index refers to the index number shown in the displayed employee list.
+* The index must be a positive integer `1, 2, 3 ...`
 
 Examples: +
-delete Joe Bob +
-Deletes Joe Bob.
+
+* `listemp` +
+* `delemp 1` +
+Deletes the 1st employee in the employee list.
 
 ==== Calculate Wages
 
 Calculates the wage of an employee. +
-Format calcwage NAME
+`Format calcwage NAME`
 
 Examples: +
-calcwage Joe Bob
+`calcwage Joe Bob`
 
 === Statistics
 
-=== View Order Statistics
+==== View Order Statistics
 
 Display the order statistics overview +
 Format: vieworderstats
 
 
-=== View Member Statistics
+==== View Member Statistics
 
 Display the member statistics overview +
 Format: viewmemberstats
