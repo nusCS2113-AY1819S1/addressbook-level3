@@ -13,7 +13,7 @@ endif::[]
 The Health Booklet v1.2 allows healthcare professionals to keep track of patients’ details, arrange their schedule based on their patients’ appointments and communicate efficiently between colleagues.
 
 == 2 About
-This user guide provides an overview for hospital staff on the usage of Health Booklet once Health Booklet is set up.
+This user guide provides an overview for healthcare professionals on the usage of Health Booklet once Health Booklet is set up.
 
 However, setting up this Health Booklet requires basic familiarity with integrated developer environment (IDE) as there is no user-friendly installer. Please seek help from the technician staff or refer to the <<DeveloperGuide#setting-up, Setting up>> section to learn how to set up the project.
 
@@ -52,7 +52,7 @@ items with `...` after them can have multiple instances. Order of parameters are
 Put a `p` before the phone / email / address / title prefixes to mark it as `private`. `private` details can only
 be seen using the `viewall` command.
 
-Persons can have any number of schedule and tags (including 0)
+Persons can have any number of schedule dates and tags (including 0)
 ****
 
 Examples:
