@@ -13,6 +13,7 @@ import seedu.addressbook.data.menu.UniqueMenuList.MenuNotFoundException;
 import seedu.addressbook.data.order.Order;
 import seedu.addressbook.data.order.ReadOnlyOrder;
 import seedu.addressbook.data.order.UniqueOrderList;
+import seedu.addressbook.data.order.UniqueOrderList.DuplicateOrderException;
 import seedu.addressbook.data.order.UniqueOrderList.OrderNotFoundException;
 import seedu.addressbook.data.person.Person;
 import seedu.addressbook.data.person.ReadOnlyPerson;
@@ -36,6 +37,8 @@ public class Rms {
     private final UniqueMenuList allFoodItems;
     private final UniqueOrderList allOrders;
 
+    private Order draftOrder = new Order();
+
     public static Rms empty() {
         return new Rms();
     }
@@ -43,9 +46,7 @@ public class Rms {
     /**
      * Creates an empty address book.
      */
-    // added allEmployees = new UniqueEmployeeList();
     public Rms() {
-
         allPersons = new UniquePersonList();
         allEmployees = new UniqueEmployeeList();
         allMembers = new UniqueMemberList();
@@ -58,7 +59,6 @@ public class Rms {
      *
      * @param persons external changes to this will not affect this address book
      */
-    // Construct address book with persons and employees
     public Rms(UniquePersonList persons,
                UniqueMenuList menus,
                UniqueEmployeeList employees,
@@ -99,14 +99,16 @@ public class Rms {
     /**
      * Adds a menu item to the menu list.
      *
-     * @throws DuplicateMenuException if an equivalent member already exists.
+     * @throws DuplicateMenuException if an equivalent menu item already exists.
      */
     public void addMenu(Menu toAdd) throws DuplicateMenuException { allFoodItems.add(toAdd); }
 
     /**
      * Adds an order to the order list.
+     *
+     * @throws DuplicateOrderException if an equivalent person already exists.
      */
-    public void addOrder(Order toAdd) {
+    public void addOrder(Order toAdd) throws DuplicateOrderException {
         allOrders.add(toAdd);
     }
 
@@ -258,7 +260,28 @@ public class Rms {
     /**
      * Defensively copied UniqueOrderList of all orders in the employee list at the time of the call.
      */
-    public UniqueOrderList getAllOrders() { return new UniqueOrderList(allOrders); }
+    public UniqueOrderList getAllOrders() {
+        return new UniqueOrderList(allOrders);
+    }
+
+    public ReadOnlyOrder getDraftOrder() {
+        return new Order(draftOrder);
+    }
+
+    public void editDraftOrderCustomer(ReadOnlyMember customer) {
+        draftOrder.setCustomer(customer);
+    }
+
+    /**
+     * Adjust the dish and its quantity in the draft order to add, remove or edit dish items in the draft.
+     */
+    public void editDraftOrderDishItem(ReadOnlyMenus dish, int quantity) {
+        draftOrder.changeDishQuantity(dish, quantity);
+    }
+
+    public void clearDraftOrder() {
+        draftOrder = new Order();
+    }
 
     @Override
     public boolean equals(Object other) {
