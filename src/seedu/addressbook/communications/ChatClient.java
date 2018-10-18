@@ -32,7 +32,6 @@ import javax.swing.JTextField;
 
 public class ChatClient {
 
-    private BufferedReader in;
     private PrintWriter out;
     private JFrame frame = new JFrame("Chatter");
     private JTextField textField = new JTextField(40);
@@ -90,7 +89,7 @@ public class ChatClient {
     /* Connects to the server then enters the processing loop.
      */
     private void run() throws IOException {
-
+        private BufferedReader in;
         // Make connection and initialize streams
         String serverAddress = getServerAddress();
         Socket socket = new Socket(serverAddress, 9001);
