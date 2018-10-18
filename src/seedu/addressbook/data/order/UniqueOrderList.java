@@ -35,8 +35,6 @@ public class UniqueOrderList implements Iterable<Order> {
 
     private final List<Order> internalList = new ArrayList<>();
 
-    private Order draftOrder = new Order();
-
     /**
      * Constructs empty order list.
      */

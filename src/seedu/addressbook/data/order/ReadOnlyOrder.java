@@ -16,6 +16,10 @@ public interface ReadOnlyOrder {
     double getPrice();
     Map<Menu, Integer> getDishItems();
 
+    boolean hasCustomerField();
+    boolean hasDishItems();
+    boolean hasAllRequiredField();
+
     /**
      * Returns true if the values inside this object is same as those of the other (Note: interfaces cannot override .equals)
      */

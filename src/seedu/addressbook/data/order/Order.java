@@ -107,6 +107,9 @@ public class Order implements ReadOnlyOrder {
         price = calculatePrice();
     }
 
+    /**
+     * Calculate and return the total price of an order.
+     */
     public double calculatePrice() {
         double result = 0;
         for (Map.Entry<Menu, Integer> m: getDishItems().entrySet()) {
@@ -117,6 +120,9 @@ public class Order implements ReadOnlyOrder {
         return result;
     }
 
+    /**
+     * Get the number of a certain dish item in an order.
+     */
     public int getDishQuantity(Menu dish) {
         if (dishItems.containsKey(dish)) {
             return dishItems.get(dish);
@@ -126,9 +132,31 @@ public class Order implements ReadOnlyOrder {
 
     }
 
+    /**
+     * Change the quantity of a dish in an order.
+     * Used to add, remove and edit dishes in an order.
+     */
     public void changeDishQuantity(Menu dish, int quantity) {
-        dishItems.remove(dish);
-        dishItems.put(dish, quantity);
+        if (quantity == 0) {
+            dishItems.remove(dish);
+        } else if (quantity > 0) {
+            dishItems.put(dish, quantity);
+        }
+    }
+
+    @Override
+    public boolean hasCustomerField() {
+        return customer != null;
+    }
+
+    @Override
+    public boolean hasDishItems() {
+        return !(dishItems.isEmpty());
+    }
+
+    @Override
+    public boolean hasAllRequiredField() {
+        return hasCustomerField() && hasDishItems();
     }
 
     @Override

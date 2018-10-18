@@ -37,6 +37,8 @@ public class Rms {
     private final UniqueOrderList allOrders;
     private final UniqueMemberList allMembers;
 
+    private Order draftOrder = new Order();
+
     public static Rms empty() {
         return new Rms();
     }
@@ -261,6 +263,21 @@ public class Rms {
      * Defensively copied UniqueOrderList of all orders in the employee list at the time of the call.
      */
     public UniqueOrderList getAllOrders() { return new UniqueOrderList(allOrders); }
+
+    public void setCustomerOfDraftOrder(Member customer) {
+        draftOrder.setCustomer(customer);
+    }
+
+    /**
+     * Adjust the dish and its quantity in the draft order to add, remove or edit dish items in the draft.
+     */
+    public void draftDishItem(Menu dish, int quantity) {
+        draftOrder.changeDishQuantity(dish, quantity);
+    }
+
+    public void clearDraftOrder() {
+        draftOrder = new Order();
+    }
 
     @Override
     public boolean equals(Object other) {
