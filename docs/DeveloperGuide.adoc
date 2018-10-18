@@ -94,23 +94,24 @@ An alternative to the current implementation is to save the list of commands exe
 
 
 === 4.3 Scheduling
-Scheduling allows appointment to be stored in Health Booklet.
+Scheduling allows appointment to be stored in Health Booklet. The Health Booklet recognise a schedule date with the tag 'd/'.
 
 ==== 4.3.1 Current Implementation
-The schedule feature currently accepts dates from the users as an input category under the add command. Input must be in the format DD-MM-YYYY for it to be accepted as a proper schedule input. For each person added, multiple schedule dates can be added and it is also not a compulsory field to fill.
+The schedule feature currently accepts dates from the users as an input category under the add command. Input must be in the format DD-MM-YYYY for it to be accepted as a proper schedule date input. For each person added, multiple schedule dates can be added and it is also not a compulsory field to fill.
 
 This is achieved by setting up a schedule class which sets a regular expression (regex) that only accept valid dates in the DD-MM-YYYY format. Non-existent dates such as 30-02-2019 or 28-28-2019 would not be accepted.
 
-Subsequently, a hashset of schedule act as an attribute for person class. Everytime the add command is used to add a valid person, a person object is created with the set of schedule as part of the attribute of the person. As such, there can be multiple appointment dates added together with the person. The schedule is identified using the ‘d/’ mark.
+Subsequently, a hashset of schedule act as an attribute for person class. Every time the add command is used to add a valid person, a person object is created with the set of schedule as part of the attribute of the person. As such, there can be multiple appointment dates added together with the person. The schedule is identified using the ‘d/’ mark.
 
 ==== 4.3.2 Reason for Implementation
 Due to the large number of patients the doctors care for, it is at times hard to keep track of the numerous appointments made by their patients. As such, a scheduling feature would record the appointment date so that they can keep track of the numerous appointments they have for the day.
 
 ==== 4.3.3 Future/Alternative Implementation
 In future versions, the following details would be slowly incremented to ensure a smooth user experience while using the scheduling feature of Health Booklet.
-.Edit the appointment dates only.
-.A command to view all or list the appointments in a chronological order following the reference date.
-.A doctor can view their respective patients appointment
+
+. Edit the appointment dates only.
+. A command to view all or list the appointments in a chronological order following the reference date.
+. A doctor can view their respective patients appointment
 
 
 == 5.Testing
