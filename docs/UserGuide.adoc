@@ -200,7 +200,12 @@ Format: find KEYWORD [MORE_KEYWORDS]
 ==== Add Member
 
 Add a new member to the RMS +
-Format: add NAME p/PHONE_NUMBER e/EMAIL_ADDRESS d/DATE_JOINED
+Format: addmember NAME
+
+==== List Member
+
+Shows a list of all the members in the RMS. Displays the NAME and POINTS of each member. +
+Format: listmembers
 
 ==== Edit Member
 
@@ -278,7 +283,7 @@ Format: viewmemberstats
 
 === Saving the data
 
-Address book data are saved in the hard disk automatically after any command that changes the data. +
+Data from the Restaurant Management System are saved in the hard disk automatically after any command that changes the data. +
 There is no need to save manually.
 
 == FAQ
@@ -334,13 +339,15 @@ There is no need to save manually.
 
 === Members
 
-*Add Member* : `add NAME p/PHONE_NUMBER e/EMAIL_ADDRESS d/DATE_JOINED`
+*Add Member* : `addmember NAME`
 
-*Edit Member* : `edit NAME [p/PHONE_NUMBER] [e/EMAIL_ADDRESS][d/DATE_JOINED][pt/POINTS]`
+*List Member* : `listmembers`
 
-*Delete Member* : `delete NAME`
+*Edit Member* : `editmember NAME`
 
-*Find Member* : `find NAME`
+*Delete Member* : `deletemember NAME`
+
+*Find Member* : `findmember NAME`
 
 === Statistics
 
