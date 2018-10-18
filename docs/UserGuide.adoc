@@ -24,7 +24,7 @@ However, setting up this Health Booklet requires basic familiarity with integrat
 . Right click on `Main`
 . Click `Run Main.main()`
 . Enter your Username and Password according to the prompts
-. Upon successful login, `Welcome to Health Booklet` will appear, program will exit upon login failure
+. Upon successful login, `Welcome to Health Booklet` will appear, program will exit upon login failure, i.e. 3 incorrect username/password tries
 . The GUI should appear in a few seconds
 +
 image::Ui.png[]
