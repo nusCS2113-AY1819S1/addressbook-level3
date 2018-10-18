@@ -85,4 +85,32 @@
             <quantity>1</quantity>
         </dishItems>
     </orders>
+    <orders>
+        <customer>
+            <name>Kang Ming</name>
+        </customer>
+        <date>1539864408503</date>
+        <price>3155.0</price>
+        <dishItems>
+            <dish>
+                <name>Pizza</name>
+                <price isPrivate="false">10</price>
+            </dish>
+            <quantity>10</quantity>
+        </dishItems>
+        <dishItems>
+            <dish>
+                <name>cheesebaconfries</name>
+                <price isPrivate="false">55</price>
+            </dish>
+            <quantity>1</quantity>
+        </dishItems>
+        <dishItems>
+            <dish>
+                <name>fries</name>
+                <price isPrivate="false">500</price>
+            </dish>
+            <quantity>6</quantity>
+        </dishItems>
+    </orders>
 </Rms>

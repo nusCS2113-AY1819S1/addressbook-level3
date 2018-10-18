@@ -44,6 +44,7 @@ public class HelpCommand extends Command {
             + "\n" + DraftOrderEditCustomerCommand.MESSAGE_USAGE
             + "\n" + DraftOrderEditDishCommand.MESSAGE_USAGE
             + "\n" + DraftOrderClearCommand.MESSAGE_USAGE
+            + "\n" + DraftOrderConfirmCommand.MESSAGE_USAGE
 
             + "\n" + ExitCommand.MESSAGE_USAGE;
 

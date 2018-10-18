@@ -48,10 +48,10 @@ public interface ReadOnlyOrder {
             builder.append("\t\t\t")
                     .append(i).append(". ")
                     .append(dishName.toString()).append("\t")
-                    .append("(").append(dishPrice.toString()).append(" SGD) \t\t")
+                    .append("($").append(dishPrice.toString()).append(") \t\t")
                     .append("x").append(quantity);
         }
-        builder.append("\n\t\tPrice: ").append(getPrice()).append(" SGD");
+        builder.append("\n\t\tPrice: $").append(getPrice());
         return builder.toString();
     }
 
@@ -72,10 +72,10 @@ public interface ReadOnlyOrder {
             builder.append("\t\t\t")
                     .append(i).append(". ")
                     .append(dishName.toString()).append("\t")
-                    .append("(").append(dishPrice.toString()).append(" SGD) \t\t")
+                    .append("($").append(dishPrice.toString()).append(") \t\t")
                     .append("x").append(quantity);
         }
-        builder.append("\n\t\tPrice: ").append(getPrice()).append(" SGD");
+        builder.append("\n\t\tPrice: $").append(getPrice());
         return builder.toString();
     }
 
@@ -102,7 +102,7 @@ public interface ReadOnlyOrder {
                 builder.append("\t\t\t")
                         .append(i).append(". ")
                         .append(dishName.toString()).append("\t")
-                        .append("(").append(dishPrice.toString()).append(" SGD) \t\t")
+                        .append("($").append(dishPrice.toString()).append(") \t\t")
                         .append("x").append(quantity);
             }
         } else {

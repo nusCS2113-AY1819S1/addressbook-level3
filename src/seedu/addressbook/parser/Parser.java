@@ -138,6 +138,9 @@ public class Parser {
             case DraftOrderClearCommand.COMMAND_WORD:
                 return new DraftOrderClearCommand();
 
+            case DraftOrderConfirmCommand.COMMAND_WORD:
+                return new DraftOrderConfirmCommand();
+
             case ExitCommand.COMMAND_WORD:
                 return new ExitCommand();
 
