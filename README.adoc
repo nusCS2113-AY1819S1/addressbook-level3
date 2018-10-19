@@ -3,7 +3,6 @@ ifdef::env-github,env-browser[:relfileprefix: docs/]
 ifdef::env-github,env-browser[:imagesDir: docs/images]
 
 https://travis-ci.com/CS2113-AY1819S1-F10-2/main[image:https://travis-ci.com/CS2113-AY1819S1-F10-2/main.svg?branch=master[Build Status]]
-https://www.codacy.com/app/se-edu/addressbook-level3?utm_source=github.com&utm_medium=referral&utm_content=se-edu/addressbook-level3&utm_campaign=Badge_Grade[image:https://api.codacy.com/project/badge/Grade/d4a0954383444a8db8cb26e5f5b7302c[Codacy Badge]]
 https://www.codacy.com/app/C-E-OOI/main?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=CS2113-AY1819S1-F10-2/main&amp;utm_campaign=Badge_Grade[image:https://api.codacy.com/project/badge/Grade/88e1de3c8a33415eb7acb3963e14f733[Codacy Badge]]
 
 image::NewUI.png[]
