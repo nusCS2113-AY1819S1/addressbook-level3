@@ -26,9 +26,6 @@ Restaurant Management System is to help provide restaurants
     Jump to the <<Quick Start>> to get started.
 
 == Quick Start
-
-. Ensure you have Java version 9 or later installed in your Computer.
-
 .  Ensure you have Java version `9` or later installed in your Computer.
 .  Copy the file to the folder you want to use as the home folder for your Restaurant Management System.
 .  Import the file into Intellij.
