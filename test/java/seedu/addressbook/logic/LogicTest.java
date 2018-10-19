@@ -10,8 +10,6 @@ import seedu.addressbook.commands.*;
 import seedu.addressbook.commands.employee.*;
 import seedu.addressbook.commands.member.MemberAddCommand;
 import seedu.addressbook.commands.menu.*;
-import seedu.addressbook.commands.menu.MenuAddCommand;
-import seedu.addressbook.commands.menu.MenuCommandResult;
 import seedu.addressbook.common.Messages;
 import seedu.addressbook.data.Rms;
 import seedu.addressbook.data.member.Member;
