@@ -18,32 +18,35 @@ By: `CS2113-AY1819S1-F09-2`      Since: `Aug 2018`      Licence: `MIT`
 
 == Introduction
 
-Restaurant Management System aims to help restaurants run in a faster and more efficient way.
-It can help restaurants manage their menus, orders, employees and customers with membership.
-It can also provide statistics for restaurant managers to check how their restaurant is doing.
-The purpose of the user guide is to help users that are new to the system have an easier time getting
-accustomed to how the system works.
+Restaurant Management System is to help provide restaurants
+ with a more efficient way to manage their restaurants.
+  It has various amount of features that can improve
+   productivity of the different staff members in the
+    restaurant.
     Jump to the <<Quick Start>> to get started.
 
 == Quick Start
 
 . Ensure you have Java version 9 or later installed in your Computer.
 
-. Download the latest Rms.jar.
+.  Ensure you have Java version `9` or later installed in your Computer.
+.  Copy the file to the folder you want to use as the home folder for your Restaurant Management System.
+.  Import the file into Intellij.
+.  Find the project pane (usually located at the left side).
+.  Open up src/seedu.addressbook folder.
+.  Right Click on `Main`.
+.  Click `Run Main.main()`.
+.  The GUI should appear in a few seconds.
++
+image::Ui.png[]
++
+.  Type the command in the command box and press kbd:[Enter] to execute it.
+.  Some example commands you can try:
 
-. Copy the file to the folder you want to use as the home folder for your Restaurant Management System.
-
-. Double-click the file to start the app. The CLI should appear in a few seconds.
-
-. Type the command in the command box and press kbd:[Enter] +
-eg. typing *`help`* shows a list of available commands provided by the system
-
-. Some examples commands that you may try:
-* *`listemp`* : lists all employees
-* *`addmenu Cheese Burger p/5 t/newAddition t/hotSeller`* : adds a Cheese Burger item to the menu in the system
-* *`clearorder`* : clears everything in the order list
-* *`exit`* : exits the application
-
+* *`listmenu`* : lists all menu items
+* **`addmember`**`n/John Doe p/98765432 e/johnd@example.com d/10182017` : adds a member named `John Doe` to the Restaurant Management System.
+* **`deleteorder`**`3` : deletes the 3rd order shown in the current list
+* *`exit`* : exits the app
 .  Refer to <<Features>> for details of each command.
 
 [[Features]]
@@ -73,62 +76,52 @@ When the application is first started, users have to choose
 ====
 
 === Menu
-==== View Menu
 
-View all items inside the menu +
-Format: view
+==== List Menu
+
+Shows a list of all the menu items. +
+
+Each menu item include details of: menu item, price and any relevant tags. +
+
+Format: `listmenu`
+
+==== View All Menu
+
+Shows the detail of the a menu item with a particular index. +
+Format: `viewallmenu INDEX`
 
 * List the current food items in the menu
 
-==== Find Menu
+==== Add Menu Item
 
-Finds the food item(s) related to the keywords typed in by the user. +
-Format: find KEYWORD [MORE KEYWORDS]
+Add a new item to the menu. +
+Format: `addmenu NAME p/PRICE [t/TAG]`
 
-* A list of menu items with names related to the keyword(s) will be displayed.
-* The command is case insensitive.
-* Order of keywords do not matter.
-
-Example: +
-find Burger COKE fries +
-Returns Double Cheese Burger, Veggie Burger, Coke, Coke Zero, Fries, Curly Fries
-
-==== Update Menu
-
-Shows options that you can use to update the menu. +
-Format: update
-
-* Update Menu will show user what he/ she can do to update menu.
-* Menu is updated by adding, editing or deleting food items from menu list.
-
-==== Add Item
-
-Add a new item to the menu and sorts the menu. +
-Format: add NAME p/PRICE [t/TAG]
-
-* Adds the new food item into the menu list
+* Adds the new menu item into the menu list
 
 Example: +
 add Cheese Fries p/3.50 t/New item +
 System adds Cheese Fries to the existing menu.
-
-==== Edit Item
-
-Edit an item on the menu +
-Format: edit INDEX [n/NAME] [p/PRICE] [t/TAG]
-
-* Edits the name, price and tag of food item in that particular index (User able to edit either one or all three attributes of the particular food item)
-
-Example: +
-edit 3 Cheese Fries with bacon p/5.00 t/Limited Offer +
-System updates Cheese Fries, which is in index 3, to Cheese Fries with bacon and changes the price from $3.50 to $5.00
+//
+//
+//==== Edit Menu Item
+//
+//Edit a menu item on the menu +
+//Format: `editmenu INDEX [n/NAME] //[p/PRICE] [t/TAG]`
+//
+//* Edits the name, price and tag of //food item in that particular index //(User able to edit either one or all //three attributes of the particular //food item)
+//
+//Example: +
+//edit 3 Cheese Fries with bacon p/5.00 //t/Limited Offer +
+//System updates Cheese Fries, which is //in index 3, to Cheese Fries with //bacon and changes the price from //$3.50 to $5.00
+//
 
 ==== Delete Item
 
 Delete an item on the menu +
-Format: delete INDEX
+Format: `deletemenu INDEX`
 
-* Deletes the food item in that particular index
+* Deletes the menu item in that particular index
 
 Example: +
 view menu +
@@ -138,7 +131,88 @@ find Cheese Fries +
 Delete 3 +
 System deletes Cheese Fries in index 3 from the menu.
 
+==== Find Menu
+
+Finds the menu item(s) related to the keywords typed in by the user. +
+Format: `findmenu KEYWORD [MORE KEYWORDS]`
+
+* A list of menu items with names related to the keyword(s) will be displayed.
+* The command is case insensitive.
+* Order of keywords do not matter.
+
+Example: +
+find Burger COKE fries +
+Returns Double Cheese Burger, Veggie Burger, Coke, Coke Zero, Fries, Curly Fries
+
+//==== Update Menu
+//
+//Shows options that you can use to update the menu. +
+//Format: update
+//
+//* Update Menu will show user what he/ she can do to update menu.
+//* Menu is updated by adding, editing or deleting food items from menu list.
+
+
+
+
 === Order
+
+==== Add Order
+
+To add new order to the order list, a draft must be completed before adding it to the order list. +
+
+To do so, the draft's customer information and order dishes list must be completed and then confirmed.
+
+===== Display List Of Commands For Adding New Order
+
+Display the current draft and the list of order draft commands used for adding a new order
+
+Format: `addorder`
+
+===== Edit The Customer Of The Draft
+
+Edit the customer field of the draft order. +
+
+The customer is retrieved with the index of last displayed member list.
+
+Format: `editdraftcustomer INDEX`
+
+===== Edit A Dish Item Of The Draft
+
+Edit the quantity of a dish item of the draft order. +
+
+The dish item is retrieved with the index of last displayed menu. +
+
+ * If the quantity is set to 0, then the dish will be removed for the order. +
+
+Format: `editdraftdish i/INDEX q/QUANTITY`
+
+===== Clear Draft
+
+Clear the draft order, which include both customer and dishList of the class; +
+
+Format: `cleardraft`
+
+===== ConfirmDraft
+
+Confirm the draft and add it to the order list
+
+Format: `confirmdraft`
+
+==== Delete Order
+
+Delete an order. +
+
+The deleted order is specified by the index of that order on the last displayed order list. +
+
+Format: `deleteorder INDEX`
+
+==== Clear Order
+
+Clear the entire order list. +
+
+Format: `clearorder`
+
 ==== List Orders
 
 Shows a list of all the current orders. +
@@ -149,73 +223,17 @@ Only the non-private data of customer will be showed. +
 
 Format: `listorder`
 
-==== View Order
-
-(To be implemented) +
-Shows the details of a specified order. +
-Format: view INDEX
-
-* Edit the order at a specific index
-
-
-==== Add Order
-
-(To be implemented) +
-Adds a new order to the list of current orders and display the list. +
-Format: add ORDERFORMAT
-
-
-==== Update Order
-
-(To be implemented) +
-Shows options that you can use to update orders. +
-Format: update
-
-* Shows the list of commands the user can use (add, edit, delete)
-
-
-==== Edit Order
-
-(To be implemented) +
-Edit details of an order. +
-Format: edit INDEX
-
-
-* Edit the order at a specific index
-
-
-==== Delete Order
-
-Delete an order. +
-
-The deleted order is specified by the index of that order on the last displayed order list. +
-
-Format: `deleteorder INDEX`
-
-
-==== Clear Order
-
-Clear the entire order list. +
-
-Format: `clearorder`
-
-
-==== Find Order
-
-(To be implemented) +
-Find an order by certain parameters. +
-Format: find KEYWORD [MORE_KEYWORDS]
-
-* The search is case-insensitive
-* The order of keywords do not matter
-* Only the name of the order will be searched
-
 === Members
 
 ==== Add Member
 
 Add a new member to the RMS +
-Format: add NAME p/PHONE_NUMBER e/EMAIL_ADDRESS d/DATE_JOINED
+Format: addmember NAME
+
+==== List Member
+
+Shows a list of all the members in the RMS. Displays the NAME and POINTS of each member. +
+Format: listmembers
 
 ==== Edit Member
 
@@ -299,7 +317,7 @@ Format: viewmemberstats
 
 === Saving the data
 
-Address book data are saved in the hard disk automatically after any command that changes the data. +
+Data from the Restaurant Management System are saved in the hard disk automatically after any command that changes the data. +
 There is no need to save manually.
 
 == FAQ
@@ -311,35 +329,35 @@ There is no need to save manually.
 
 === Menu
 
-*View Menu* : `view`
+*View Menu* : `viewmenu`
 
-*Find Menu* : `find KEYWORD [MORE KEYWORDS]`
+*Find Menu* : `findmenu KEYWORD [MORE KEYWORDS]`
+//
+//*Update Menu* : `update`
 
-*Update Menu* : `update`
+*Add Item* : `addmenu NAME p/PRICE [t/TAG]`
 
-*Add Item* : `add NAME p/PRICE [t/TAG]`
+*Edit Item* : `editmenu INDEX [n/NAME] [p/PRICE] [t/TAG]`
 
-*Edit Item* : `edit INDEX [n/NAME] [p/PRICE] [t/TAG]`
-
-*Delete Item* : `delete INDEX`
+*Delete Item* : `deletemenu INDEX`
 
 === Order
-
-*List All Order* : `listorder`
-
-*View Order* : `view INDEX`
-
-*Add Order* : `add ORDERNAME`
-
-*Update Order* : `update`
-
-*Edit Order* : `edit INDEX`
 
 *Delete Order* : `deleteorder INDEX`
 
 *Clear Order* : `clearorder`
 
-*Find Order* : `find KEYWORD [MORE_KEYWORDS]`
+*List All Order* : `listorder`
+
+*Display Add Order Commands*: `addOrder`
+
+*Change Draft Customer*: `editdraftcustomer INDEX`
+
+*Edit Dishes In Draft Order*: `editdraftdish i/INDEX q/QUANTITY`
+
+*Clear The Customer Draft*: `cleardraft`
+
+*Confirm And Add Order*: `confirmdraft`
 
 === Employees
 
@@ -355,13 +373,16 @@ There is no need to save manually.
 
 === Members
 
-*Add Member* : `add NAME p/PHONE_NUMBER e/EMAIL_ADDRESS d/DATE_JOINED`
+*Add Member* : `addmember NAME`
 
-*Edit Member* : `edit NAME [p/PHONE_NUMBER] [e/EMAIL_ADDRESS][d/DATE_JOINED][pt/POINTS]`
+*List Member* : `listmembers`
 
-*Delete Member* : `delete NAME`
+*Edit Member* : `editmember NAME`
 
-*Find Member* : `find NAME`
+*Delete Member* : `deletemember NAME`
+
+*Find Member* : `findmember NAME`
+
 
 === Statistics
 
