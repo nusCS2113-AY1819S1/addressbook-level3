@@ -39,10 +39,6 @@
         <name>cheese</name>
         <price isPrivate="false">5454</price>
     </menus>
-    <menus>
-        <name>cheesebaconfries</name>
-        <price isPrivate="false">55</price>
-    </menus>
     <members>
         <name>Kang Ming</name>
         <points>0</points>

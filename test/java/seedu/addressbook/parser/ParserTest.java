@@ -332,7 +332,7 @@ public class ParserTest {
         }
     }
 
-    /*
+
 
     //Testing for valid Food Item Data parsed correctly
 
