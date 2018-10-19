@@ -26,9 +26,6 @@ Restaurant Management System is to help provide restaurants
     Jump to the <<Quick Start>> to get started.
 
 == Quick Start
-
-*[Coming Soon]*
-
 .  Ensure you have Java version `9` or later installed in your Computer.
 .  Copy the file to the folder you want to use as the home folder for your Restaurant Management System.
 .  Import the file into Intellij.
@@ -156,6 +153,63 @@ Returns Double Cheese Burger, Veggie Burger, Coke, Coke Zero, Fries, Curly Fries
 
 
 === Order
+
+==== Add Order
+
+To add new order to the order list, a draft must be completed before adding it to the order list. +
+
+To do so, the draft's customer information and order dishes list must be completed and then confirmed.
+
+===== Display List Of Commands For Adding New Order
+
+Display the current draft and the list of order draft commands used for adding a new order
+
+Format: `addorder`
+
+===== Edit The Customer Of The Draft
+
+Edit the customer field of the draft order. +
+
+The customer is retrieved with the index of last displayed member list.
+
+Format: `editdraftcustomer INDEX`
+
+===== Edit A Dish Item Of The Draft
+
+Edit the quantity of a dish item of the draft order. +
+
+The dish item is retrieved with the index of last displayed menu. +
+
+ * If the quantity is set to 0, then the dish will be removed for the order. +
+
+Format: `editdraftdish i/INDEX q/QUANTITY`
+
+===== Clear Draft
+
+Clear the draft order, which include both customer and dishList of the class; +
+
+Format: `cleardraft`
+
+===== ConfirmDraft
+
+Confirm the draft and add it to the order list
+
+Format: `confirmdraft`
+
+==== Delete Order
+
+Delete an order. +
+
+The deleted order is specified by the index of that order on the last displayed order list. +
+
+Format: `deleteorder INDEX`
+
+==== Clear Order
+
+Clear the entire order list. +
+
+Format: `clearorder`
+
 ==== List Orders
 
 Shows a list of all the current orders. +
@@ -166,73 +220,17 @@ Only the non-private data of customer will be showed. +
 
 Format: `listorder`
 
-==== View Order
-
-(To be implemented) +
-Shows the details of a specified order. +
-Format: view INDEX
-
-* Edit the order at a specific index
-
-
-==== Add Order
-
-(To be implemented) +
-Adds a new order to the list of current orders and display the list. +
-Format: add ORDERFORMAT
-
-
-==== Update Order
-
-(To be implemented) +
-Shows options that you can use to update orders. +
-Format: update
-
-* Shows the list of commands the user can use (add, edit, delete)
-
-
-==== Edit Order
-
-(To be implemented) +
-Edit details of an order. +
-Format: edit INDEX
-
-
-* Edit the order at a specific index
-
-
-==== Delete Order
-
-Delete an order. +
-
-The deleted order is specified by the index of that order on the last displayed order list. +
-
-Format: `deleteorder INDEX`
-
-
-==== Clear Order
-
-Clear the entire order list. +
-
-Format: `clearorder`
-
-
-==== Find Order
-
-(To be implemented) +
-Find an order by certain parameters. +
-Format: find KEYWORD [MORE_KEYWORDS]
-
-* The search is case-insensitive
-* The order of keywords do not matter
-* Only the name of the order will be searched
-
 === Members
 
 ==== Add Member
 
 Add a new member to the RMS +
-Format: add NAME p/PHONE_NUMBER e/EMAIL_ADDRESS d/DATE_JOINED
+Format: addmember NAME
+
+==== List Member
+
+Shows a list of all the members in the RMS. Displays the NAME and POINTS of each member. +
+Format: listmembers
 
 ==== Edit Member
 
@@ -254,63 +252,69 @@ Format: find NAME
 ==== View Employees
 
 Show a list of all the employees on the RMS. +
-Format: view
+Format: `listemp`
 
 ==== Add Employee
 
 Adds a new employee to the RMS. +
-Format: add n/NAME p/PHONE_NUMBER pos/POSITION
+Format: `addemp n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS pos/POSITION`
 
 Examples: +
-add n/Joe Bob p/91234567 pos/Chef
+ `addemp Peter Lee p/91234567 e/PeterLee89@rms.com a/Clementi Ave 2, Blk 543 #13-12 pos/Cashier`
 
 ==== Edit Employee
 
 Edit details of an employee. +
-Format: edit NAME [p/PHONE_NUMBER] [pos/POSITION]
+Format: `editemp INDEX [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [pos/POSITION]`
 
-* Edits the person with the given NAME.
+* Edits the employee at the specified `INDEX`.
 * Parameters in square brackets are optional.
 * At least one of the optional parameters must be provided.
 * Existing values will be updated to the input values.
 
 Examples: +
-edit Joe Bob pos/Cashier +
+`edit Joe Bob pos/Cashier` +
 Edits the value of Joe Bob to Cashier
 
 === Delete Employee
 
 Delete and employee. +
-Format: delete NAME
+Format: delemp INDEX
+
+* Deletes the employee at the specified `INDEX`.
+* The index refers to the index number shown in the displayed employee list.
+* The index must be a positive integer `1, 2, 3 ...`
 
 Examples: +
-delete Joe Bob +
-Deletes Joe Bob.
+
+* `listemp` +
+* `delemp 1` +
+Deletes the 1st employee in the employee list.
 
 ==== Calculate Wages
 
 Calculates the wage of an employee. +
-Format calcwage NAME
+`Format calcwage NAME`
 
 Examples: +
-calcwage Joe Bob
+`calcwage Joe Bob`
 
 === Statistics
 
-=== View Order Statistics
+==== View Order Statistics
 
 Display the order statistics overview +
 Format: vieworderstats
 
 
-=== View Member Statistics
+==== View Member Statistics
 
 Display the member statistics overview +
 Format: viewmemberstats
 
 === Saving the data
 
-Address book data are saved in the hard disk automatically after any command that changes the data. +
+Data from the Restaurant Management System are saved in the hard disk automatically after any command that changes the data. +
 There is no need to save manually.
 
 == FAQ
@@ -336,21 +340,21 @@ There is no need to save manually.
 
 === Order
 
-*List All Order* : `listorder`
-
-*View Order* : `view INDEX`
-
-*Add Order* : `add ORDERNAME`
-
-*Update Order* : `update`
-
-*Edit Order* : `edit INDEX`
-
 *Delete Order* : `deleteorder INDEX`
 
 *Clear Order* : `clearorder`
 
-*Find Order* : `find KEYWORD [MORE_KEYWORDS]`
+*List All Order* : `listorder`
+
+*Display Add Order Commands*: `addOrder`
+
+*Change Draft Customer*: `editdraftcustomer INDEX`
+
+*Edit Dishes In Draft Order*: `editdraftdish i/INDEX q/QUANTITY`
+
+*Clear The Customer Draft*: `cleardraft`
+
+*Confirm And Add Order*: `confirmdraft`
 
 === Employees
 
@@ -366,13 +370,16 @@ There is no need to save manually.
 
 === Members
 
-*Add Member* : `add NAME p/PHONE_NUMBER e/EMAIL_ADDRESS d/DATE_JOINED`
+*Add Member* : `addmember NAME`
 
-*Edit Member* : `edit NAME [p/PHONE_NUMBER] [e/EMAIL_ADDRESS][d/DATE_JOINED][pt/POINTS]`
+*List Member* : `listmembers`
 
-*Delete Member* : `delete NAME`
+*Edit Member* : `editmember NAME`
 
-*Find Member* : `find NAME`
+*Delete Member* : `deletemember NAME`
+
+*Find Member* : `findmember NAME`
+
 
 === Statistics
 

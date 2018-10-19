@@ -851,30 +851,24 @@ Actor: Manager and Cashier
 
 1.  User chooses to view the menu list
 2.  FMS shows the list of items in the menu
-3.  Customer informs the cashier the menu item they wish to order
-4.  User searches for the INDEX of that food item
-5.  User selects INDEX of the particular item
-6.  FMS selects the menu item of that particular index
+3.  User informs the menu item and the quantity they wish to order
+4.  FMS put that item and its quantity in the order
+5.  Repeat step 1 to 4 until user confirm the order
+6.  FMS acknowledge the order and add it to the system
 +
 Use case ends.
 
 *Extensions*
 
 [none]
-* 1a. Menu list too long or does not have what the customer exactly wants
+* 2a. Menu list too long or does not have what the customer exactly wants
 +
 [none]
-** 1a1. User enters the find command and searches for the item customer is looking for
+** 2a1. User enters the find command and searches for the item customer is looking for
 +
-1a2. FMS returns the list of items that match at least one keyword the user entered
+2a2. FMS returns the list of items searched by the command the user entered
 +
-1a3. User finds the exact item customer is looking for
-+
-1a4. User selects the index of that particular item
-+
-1a5. FMS selects the food item of that particular index
-+
-Use case ends.
+Return to step 3.
 
 [discrete]
 === Use case: Update Menu

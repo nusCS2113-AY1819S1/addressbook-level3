@@ -53,32 +53,57 @@
     <orders>
         <customer>
             <name>Pham</name>
-            <phone isPrivate="false">83715248</phone>
-            <email isPrivate="false">px1099@gmail.com</email>
-            <address isPrivate="false">PGP</address>
         </customer>
-        <date>3600000</date>
+        <date>1500000000000</date>
         <price>16.0</price>
         <dishItems>
             <dish>
-                <dishName>coke</dishName>
-                <dishPrice>2.0</dishPrice>
-            </dish>
-            <quantity>1</quantity>
-        </dishItems>
-        <dishItems>
-            <dish>
-                <dishName>salad</dishName>
-                <dishPrice>4.0</dishPrice>
-            </dish>
-            <quantity>1</quantity>
-        </dishItems>
-        <dishItems>
-            <dish>
-                <dishName>chicken</dishName>
-                <dishPrice>5.0</dishPrice>
+                <name>chicken</name>
+                <price isPrivate="false">5</price>
             </dish>
             <quantity>2</quantity>
+        </dishItems>
+        <dishItems>
+            <dish>
+                <name>coke</name>
+                <price isPrivate="false">2</price>
+            </dish>
+            <quantity>1</quantity>
+        </dishItems>
+        <dishItems>
+            <dish>
+                <name>salad</name>
+                <price isPrivate="false">4</price>
+            </dish>
+            <quantity>1</quantity>
+        </dishItems>
+    </orders>
+    <orders>
+        <customer>
+            <name>Kang Ming</name>
+        </customer>
+        <date>1539864408503</date>
+        <price>3155.0</price>
+        <dishItems>
+            <dish>
+                <name>Pizza</name>
+                <price isPrivate="false">10</price>
+            </dish>
+            <quantity>10</quantity>
+        </dishItems>
+        <dishItems>
+            <dish>
+                <name>cheesebaconfries</name>
+                <price isPrivate="false">55</price>
+            </dish>
+            <quantity>1</quantity>
+        </dishItems>
+        <dishItems>
+            <dish>
+                <name>fries</name>
+                <price isPrivate="false">500</price>
+            </dish>
+            <quantity>6</quantity>
         </dishItems>
     </orders>
 </Rms>
