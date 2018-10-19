@@ -6,18 +6,20 @@ import java.util.Objects;
 
 public class Member implements ReadOnlyMember {
     private Name name;
+    private Points points;
 
     public Member() {}
 
-    public Member(Name name) {
+    public Member(Name name, Points points) {
         this.name = name;
+        this.points = points;
     }
 
     /**
      * Copy constructor.
      */
     public Member(ReadOnlyMember source) {
-        this(source.getName());
+        this(source.getName(), source.getPoints());
     }
 
     @Override
@@ -25,6 +27,8 @@ public class Member implements ReadOnlyMember {
         return name;
     }
 
+    @Override
+    public Points getPoints() { return points; }
 
     protected void setName(Name name) {
         this.name = name;

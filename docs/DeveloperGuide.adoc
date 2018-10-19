@@ -797,19 +797,19 @@ Having both Travis and AppVeyor ensures your App works on both Unix-based platfo
 //
 //See this https://github.com/se-edu/addressbook-level4/pull/599[PR] for the step-by-step solution.
 //
-//[appendix]
-//== Product Scope
-//
-//*Target user profile*:
-//
-//* has a need to manage a significant number of contacts
-//* prefer desktop apps over other types
-//* can type fast
-//* prefers typing over mouse input
-//* is reasonably comfortable using CLI apps
-//
-//*Value proposition*: manage contacts faster than a typical mouse/GUI driven app
-//
+[appendix]
+== Product Scope
+
+*Target user profile*:
+
+* has a need to manage a restaurant with high volume of orders
+* prefer desktop apps over other types
+* can type fast
+* prefers typing over mouse input
+* is reasonably comfortable using CLI apps
+
+*Value proposition*: manage restaurant faster than a typical mouse/GUI driven app
+
 [appendix]
 == User Stories
 
@@ -834,9 +834,10 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* * *` |Chef |update the order status  |let the customers know that their orders are ready
 |=======================================================================
-//
-//_{More to be added}_
-//
+
+
+_{More to be added}_
+
 [appendix]
 == Use Cases
 

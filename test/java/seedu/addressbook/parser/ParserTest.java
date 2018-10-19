@@ -3,6 +3,7 @@ package seedu.addressbook.parser;
 import org.junit.Before;
 import org.junit.Test;
 import seedu.addressbook.commands.*;
+import seedu.addressbook.commands.member.MemberListCommand;
 import seedu.addressbook.commands.menu.*;
 import seedu.addressbook.data.exception.IllegalValueException;
 import seedu.addressbook.data.menu.*;
@@ -64,6 +65,12 @@ public class ParserTest {
     public void MenulistCommand_parsedCorrectly() {
         final String input = "listmenu";
         parseAndAssertCommandType(input, MenuListCommand.class);
+    }
+
+    @Test
+    public void MemberlistCommand_parsedCorrectly() {
+        final String input = "listmembers";
+        parseAndAssertCommandType(input, MemberListCommand.class);
     }
 
     @Test
@@ -374,6 +381,29 @@ public class ParserTest {
             addmenuCommand += " t/" + tag.tagName;
         }
         return addmenuCommand;
+    }
+
+    /**
+     * Test add member command
+     */
+
+    @Test
+    public void MemberAddCommand_invalidMemberDataInArgs() {
+        final String invalidName = "[]\\[;]";
+        final String validName = Name.EXAMPLE;
+
+        // address can be any string, so no invalid address
+        final String MemberAddCommandFormatString = "addmember p/";
+
+        // test each incorrect person data field argument individually
+        // add subsequent tests below when more fields are added...
+        final String[] inputs = {
+                // invalid name
+                String.format(MemberAddCommandFormatString, invalidName)
+        };
+        for (String input : inputs) {
+            parseAndAssertCommandType(input, IncorrectCommand.class);
+        }
     }
 
     /**
