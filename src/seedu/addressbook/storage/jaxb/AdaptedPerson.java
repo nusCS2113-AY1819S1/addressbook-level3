@@ -3,6 +3,7 @@ package seedu.addressbook.storage.jaxb;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
@@ -134,8 +135,9 @@ public class AdaptedPerson {
         final Email email = new Email(this.email.value, this.email.isPrivate);
         final Address address = new Address(this.address.value, this.address.isPrivate);
         final Fees fees = new Fees(this.fees.value, this.duedate);
+        Optional<AdaptedAccount> optAccount = Optional.ofNullable(account);
 
-        if (this.account == null) {
+        if (!optAccount.isPresent()) {
             final Person person = new Person(name, phone, email, address, tags);
             person.setFees(fees);
             return new Person(name, phone, email, address, tags);
@@ -143,6 +145,7 @@ public class AdaptedPerson {
             final Account account = this.account.toModelType();
             final Person person = new Person(name, phone, email, address, tags, account);
             person.setFees(fees);
+            account.setPrivilegePerson(person);
             return new Person(name, phone, email, address, tags, account);
         }
     }

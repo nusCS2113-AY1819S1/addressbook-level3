@@ -153,9 +153,9 @@ public class UniquePersonList implements Iterable<Person> {
     }
 
     /** Finds and returns the Person who has the given username in its Account
-     * @param username
+     * @param username to be matched to a person.
      * @return The Person who matches the username. This should be guaranteed to be unique.
-     * @throws PersonNotFoundException
+     * @throws PersonNotFoundException Person cannot be found with the given username in internalList
      */
     public Person findPersonByUsername(String username) throws PersonNotFoundException {
         //TODO: Fix potato
@@ -168,7 +168,7 @@ public class UniquePersonList implements Iterable<Person> {
     }
 
     /**Checks if UniquePersonList holds a Person who has given username in its Account
-     * @param username
+     * @param username of the person to be associated with.
      * @return true if such a Person exists. False otherwise
      */
     public Boolean containsPersonWithUsername(String username) {

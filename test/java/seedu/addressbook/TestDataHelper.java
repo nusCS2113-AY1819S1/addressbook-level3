@@ -358,11 +358,7 @@ public class TestDataHelper {
      * Creates a list of Persons based on the give Person objects.
      */
     public List<Person> generatePersonList(Person... persons) {
-        List<Person> personList = new ArrayList<>();
-        for (Person p: persons) {
-            personList.add(p);
-        }
-        return personList;
+        return new ArrayList<>(Arrays.asList(persons));
     }
 
     /**

@@ -231,7 +231,7 @@ public class ParserTest {
         final String invalidTagArg = "t/invalid_-[.tag";
 
         // address can be any string, so no invalid address
-        final String addCommandFormatString = "add $s $s $s a/" + Address.EXAMPLE;
+        final String addCommandFormatString = "add %s %s %s a/" + Address.EXAMPLE;
 
         // test each incorrect person data field argument individually
         final String[] inputs = {
@@ -264,13 +264,13 @@ public class ParserTest {
     @Test
     public void addCommand_duplicateTags_merged() throws IllegalValueException {
         final Person testPerson = generateTestPerson();
-        String input = convertPersonToAddCommandString(testPerson);
+        StringBuilder input = new StringBuilder(convertPersonToAddCommandString(testPerson));
         for (Tag tag : testPerson.getTags()) {
             // create duplicates by doubling each tag
-            input += " t/" + tag.tagName;
+            input.append(" t/").append(tag.tagName);
         }
 
-        final AddCommand result = parseAndAssertCommandType(input, AddCommand.class);
+        final AddCommand result = parseAndAssertCommandType(input.toString(), AddCommand.class);
         assertEquals(result.getPerson(), testPerson);
     }
 
@@ -483,11 +483,12 @@ public class ParserTest {
         String emailField = helper.getPrefix(person.getEmail()) + person.getEmail();
         String addressField = helper.getPrefix(person.getAddress()) + person.getAddress();
 
-        String addCommand = "add " + person.getName().fullName + phoneField + emailField + addressField;
+        StringBuilder addCommand =
+                new StringBuilder("add " + person.getName().fullName + phoneField + emailField + addressField);
         for (Tag tag : person.getTags()) {
-            addCommand += " t/" + tag.tagName;
+            addCommand.append(" t/").append(tag.tagName);
         }
-        return addCommand;
+        return addCommand.toString();
     }
 
     /** **/

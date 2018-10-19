@@ -1,6 +1,7 @@
 package seedu.addressbook.parser;
 
 import static java.lang.Integer.parseInt;
+import static seedu.addressbook.common.Messages.MESSAGE_COMMAND_NOT_FOUND;
 import static seedu.addressbook.common.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.addressbook.common.Messages.MESSAGE_INVALID_DATE;
 import static seedu.addressbook.common.Messages.MESSAGE_NO_ARGS_FOUND;
@@ -43,6 +44,7 @@ import seedu.addressbook.commands.LoginCommand;
 import seedu.addressbook.commands.LogoutCommand;
 import seedu.addressbook.commands.RaisePrivilegeCommand;
 import seedu.addressbook.commands.ReplaceAttendanceCommand;
+import seedu.addressbook.commands.SetPermanentAdminCommand;
 import seedu.addressbook.commands.UpdateAttendanceCommand;
 import seedu.addressbook.commands.ViewAllCommand;
 import seedu.addressbook.commands.ViewAttendanceCommand;
@@ -58,6 +60,8 @@ import seedu.addressbook.data.exception.IllegalValueException;
 public class Parser {
 
     public static final Pattern PERSON_INDEX_ARGS_FORMAT = Pattern.compile("(?<targetIndex>.+)");
+
+    public static final Pattern BOOLEAN_ARGS_FORMAT = Pattern.compile("(?<boolean>.+)");
 
     public static final Pattern KEYWORDS_ARGS_FORMAT =
             Pattern.compile("(?<keywords>\\S+(?:\\s+\\S+)*)"); // one or more keywords separated by whitespace
@@ -177,6 +181,9 @@ public class Parser {
         case RaisePrivilegeCommand.COMMAND_WORD:
             return prepareRaisePrivilege(arguments);
 
+        case SetPermanentAdminCommand.COMMAND_WORD:
+            return prepareSetPermAdmin(arguments);
+
         case EditPasswordCommand.COMMAND_WORD:
             return prepareChangePassword(arguments);
 
@@ -235,8 +242,9 @@ public class Parser {
             return new ListAssessmentCommand();
 
         case HelpCommand.COMMAND_WORD: // Fallthrough
-        default:
             return new HelpCommand();
+        default:
+            return new HelpCommand(MESSAGE_COMMAND_NOT_FOUND);
         }
     }
 
@@ -283,7 +291,7 @@ public class Parser {
      * Extracts the new person's tags from the add command's tag arguments string.
      * Merges duplicate tag strings.
      */
-    private static Set<String> getTagsFromArgs(String tagArguments) throws IllegalValueException {
+    private static Set<String> getTagsFromArgs(String tagArguments) {
         // no tags
         if (tagArguments.isEmpty()) {
             return Collections.emptySet();
@@ -453,6 +461,29 @@ public class Parser {
         final String password = matcher.group("keywords");
 
         return new RaisePrivilegeCommand(password);
+    }
+
+    /**
+     * Parses arguments in the context of the RaisePrivilege command.
+     * @param args full command args string
+     * @return the prepared command
+     */
+    private Command prepareSetPermAdmin(String args) {
+        final Matcher matcher = BOOLEAN_ARGS_FORMAT.matcher(args.trim());
+        if (!matcher.matches()) {
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    SetPermanentAdminCommand.MESSAGE_USAGE));
+        }
+
+        final String booleanString = matcher.group("boolean").toLowerCase();
+        final boolean isPerm;
+        if (!"true".equals(booleanString) && !"false".equals(booleanString)) {
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    SetPermanentAdminCommand.MESSAGE_USAGE));
+        }
+        isPerm = "true".equals(booleanString);
+
+        return new SetPermanentAdminCommand(isPerm);
     }
 
     /**
