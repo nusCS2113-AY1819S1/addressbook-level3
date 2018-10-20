@@ -1,23 +1,30 @@
 package seedu.addressbook.data.member;
 
-import seedu.addressbook.data.person.Name;
 
+import java.util.Calendar;
+import java.util.Date;
 import java.util.Objects;
 
 public class Member implements ReadOnlyMember {
     private MemberName name;
     private Points points;
+    private Date date;
 
     public Member() {}
 
     public Member(MemberName name, Points points) {
         this.name = name;
         this.points = points;
+        this.date = new Date();
     }
 
     /**
      * Copy constructor.
      */
+//    public Member(ReadOnlyMember source) {
+//        this(source.getName(), source.getPoints());
+//    }
+
     public Member(ReadOnlyMember source) {
         this(source.getName(), source.getPoints());
     }
@@ -30,6 +37,9 @@ public class Member implements ReadOnlyMember {
     @Override
     public Points getPoints() { return points; }
 
+    public Date getDate() {
+        return date;
+    }
     protected void setName(MemberName name) {
         this.name = name;
     }

@@ -2,6 +2,8 @@ package seedu.addressbook.data.member;
 
 import seedu.addressbook.data.person.Name;
 
+import java.util.Date;
+
 
 /**
  * A read-only immutable interface for a Person in the addressbook.
@@ -11,6 +13,7 @@ public interface ReadOnlyMember {
 
     MemberName getName();
     Points getPoints();
+    Date getDate();
 //    Phone getPhone();
 //    Email getEmail();
 //    Address getAddress();
@@ -39,7 +42,9 @@ public interface ReadOnlyMember {
         final String detailIsPrivate = "(private) ";
         builder.append(getName())
                 .append(" Points: ");
-        builder.append(getPoints());
+        builder.append(getPoints())
+                .append(" Date: ");
+        builder.append(getDate());
 //                .append(" Phone: ");
 //        if (getPhone().isPrivate()) {
 //            builder.append(detailIsPrivate);
@@ -69,6 +74,7 @@ public interface ReadOnlyMember {
         final StringBuilder builder = new StringBuilder();
         builder.append(getName());
         builder.append(" Points: ").append(getPoints());
+        builder.append(" Date: ").append(getDate());
 //        if (!getPhone().isPrivate()) {
 //            builder.append(" Phone: ").append(getPhone());
 //        }
