@@ -31,7 +31,7 @@ public class DraftOrderEditCustomerCommand extends Command {
         try {
             final ReadOnlyMember target = getTargetMember();
             if (!rms.containsMember(target)) {
-                return new CommandResult(Messages.MESSAGE_MEMBER_NOT_IN_ADDRESSBOOK);
+                return new CommandResult(Messages.MESSAGE_PERSON_NOT_IN_ADDRESSBOOK);
             }
             rms.editDraftOrderCustomer(target);
             String message = MESSAGE_SUCCESS + "\n" + getDraftOrderAsString();
