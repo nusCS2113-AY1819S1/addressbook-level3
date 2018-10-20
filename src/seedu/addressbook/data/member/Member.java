@@ -2,8 +2,6 @@ package seedu.addressbook.data.member;
 
 
 import seedu.addressbook.data.exception.IllegalValueException;
-
-import java.util.Calendar;
 import java.util.Date;
 import java.util.Objects;
 
@@ -48,6 +46,10 @@ public class Member implements ReadOnlyMember {
 
     @Override
     public Points getPoints() { return points; }
+
+    public Points updatePoints(double price) {
+        return this.points.updatePoints(price);
+    }
 
     public Date getDate() {
         return date;

@@ -6,14 +6,16 @@ import java.util.Date;
 
 
 /**
- * A read-only immutable interface for a Person in the addressbook.
+ * A read-only immutable interface for a Member in the Restaurant Management System.
  * Implementations should guarantee: details are present and not null, field values are validated.
  */
 public interface ReadOnlyMember {
 
     MemberName getName();
     Points getPoints();
+    Points updatePoints(double price);
     Date getDate();
+
 //    Phone getPhone();
 //    Email getEmail();
 //    Address getAddress();
