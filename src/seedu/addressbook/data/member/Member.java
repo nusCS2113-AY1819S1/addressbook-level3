@@ -12,9 +12,9 @@ public class Member implements ReadOnlyMember {
 
     public Member() {}
 
-    public Member(MemberName name, Points points) {
+    public Member(MemberName name) {
         this.name = name;
-        this.points = points;
+        this.points = new Points();
         this.date = new Date();
     }
 
@@ -26,7 +26,7 @@ public class Member implements ReadOnlyMember {
 //    }
 
     public Member(ReadOnlyMember source) {
-        this(source.getName(), source.getPoints());
+        this(source.getName());
     }
 
     @Override

@@ -107,10 +107,10 @@ public class AdaptedMember {
 //            tags.add(tag.toModelType());
 //        }
         final MemberName name = new MemberName(this.name);
-        final Points points = new Points();
+//        final Points points = new Points();
 //        final Phone phone = new Phone(this.phone.value, this.phone.isPrivate);
 //        final Email email = new Email(this.email.value, this.email.isPrivate);
 //        final Address address = new Address(this.address.value, this.address.isPrivate);
-        return new Member(name, points);
+        return new Member(name);
     }
 }

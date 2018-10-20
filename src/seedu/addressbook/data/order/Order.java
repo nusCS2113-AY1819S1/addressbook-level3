@@ -108,7 +108,7 @@ public class Order implements ReadOnlyOrder {
 
     private static Member getNewEmptyCustomer() {
         try {
-            return new Member(new MemberName(EMPTY_NAME_STRING), new Points());
+            return new Member(new MemberName(EMPTY_NAME_STRING));
         } catch (IllegalValueException ie) {
             LOGGER.log(Level.SEVERE,"Order.EMPTY_NAME_STRING is invalid", ie);
             return null;

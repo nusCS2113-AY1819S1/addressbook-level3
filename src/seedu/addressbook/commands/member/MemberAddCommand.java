@@ -30,8 +30,7 @@ public class MemberAddCommand extends Command {
      */
     public MemberAddCommand(String name) throws IllegalValueException {
         this.toAdd = new Member(
-                new MemberName(name),
-                new Points()
+                new MemberName(name)
         );
     }
 
