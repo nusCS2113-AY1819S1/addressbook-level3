@@ -894,8 +894,7 @@ public class LogicTest {
 
         Member eve() throws Exception {
             MemberName name = new MemberName("Eve");
-            Points points = new Points();
-            return new Member(name, points);
+            return new Member(name);
         }
 
         Menu burger() throws Exception {
@@ -951,8 +950,7 @@ public class LogicTest {
          */
         Member generateMember(int seed) throws Exception {
             return new Member(
-                    new MemberName("Member " + seed),
-                    new Points()
+                    new MemberName("Member " + seed)
             );
         }
         /**
