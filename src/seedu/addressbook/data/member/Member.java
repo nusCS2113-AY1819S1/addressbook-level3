@@ -1,6 +1,8 @@
 package seedu.addressbook.data.member;
 
 
+import seedu.addressbook.data.exception.IllegalValueException;
+
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Objects;
@@ -10,7 +12,17 @@ public class Member implements ReadOnlyMember {
     private Points points;
     private Date date;
 
-    public Member() {}
+    public final String EMPTY_NAME_STRING = "EMPTY";
+
+    public Member() {
+        try {
+            this.name = new MemberName(EMPTY_NAME_STRING);
+        } catch (IllegalValueException ie) {
+            this.name = null;
+        }
+        this.points = new Points();
+        this.date = new Date();
+    }
 
     public Member(MemberName name) {
         this.name = name;

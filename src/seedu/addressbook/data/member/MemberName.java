@@ -17,6 +17,7 @@ public class MemberName {
     public static final String MESSAGE_NAME_CONSTRAINTS = "Member names should be spaces or alphanumeric characters";
     public static final String NAME_VALIDATION_REGEX = "[\\p{Alnum} ]+";
 
+
     public final String value;
 
     /**
