@@ -9,7 +9,7 @@ import seedu.addressbook.data.person.Name;
  */
 public interface ReadOnlyMember {
 
-    Name getName();
+    MemberName getName();
     Points getPoints();
 //    Phone getPhone();
 //    Email getEmail();

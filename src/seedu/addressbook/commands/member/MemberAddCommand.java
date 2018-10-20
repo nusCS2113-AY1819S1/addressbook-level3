@@ -3,15 +3,7 @@ package seedu.addressbook.commands.member;
 import seedu.addressbook.commands.Command;
 import seedu.addressbook.commands.CommandResult;
 import seedu.addressbook.data.exception.IllegalValueException;
-import seedu.addressbook.data.member.Member;
-import seedu.addressbook.data.member.Points;
-import seedu.addressbook.data.member.ReadOnlyMember;
-import seedu.addressbook.data.member.UniqueMemberList;
-import seedu.addressbook.data.person.*;
-import seedu.addressbook.data.tag.Tag;
-
-import java.util.HashSet;
-import java.util.Set;
+import seedu.addressbook.data.member.*;
 
 /**
  * Adds a person to the address book.
@@ -38,7 +30,7 @@ public class MemberAddCommand extends Command {
      */
     public MemberAddCommand(String name) throws IllegalValueException {
         this.toAdd = new Member(
-                new Name(name),
+                new MemberName(name),
                 new Points()
         );
     }

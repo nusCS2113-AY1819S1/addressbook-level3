@@ -5,12 +5,12 @@ import seedu.addressbook.data.person.Name;
 import java.util.Objects;
 
 public class Member implements ReadOnlyMember {
-    private Name name;
+    private MemberName name;
     private Points points;
 
     public Member() {}
 
-    public Member(Name name, Points points) {
+    public Member(MemberName name, Points points) {
         this.name = name;
         this.points = points;
     }
@@ -23,14 +23,14 @@ public class Member implements ReadOnlyMember {
     }
 
     @Override
-    public Name getName() {
+    public MemberName getName() {
         return name;
     }
 
     @Override
     public Points getPoints() { return points; }
 
-    protected void setName(Name name) {
+    protected void setName(MemberName name) {
         this.name = name;
     }
 
