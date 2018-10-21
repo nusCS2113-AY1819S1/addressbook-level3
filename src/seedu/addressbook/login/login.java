@@ -6,13 +6,13 @@ public class login {
 //    private boolean loggedin;
 //    private boolean debug = true;
     private static int tries = 0;
-    private static String stdUser = "Username";
-    private static String stdPass = "Password";
+    private static final String stdUser = "Username";
+    private static final String stdPass = "Password";
     private static String username;
     private static String password;
     private static Scanner sc = new Scanner(System.in);
 
-    public static void getLogin(){
+    private static void inputLogin(){
         System.out.print("Username: ");
         username = sc.next();
         System.out.print("Password: ");
@@ -21,7 +21,7 @@ public class login {
 
     public static boolean main(){
         for(tries=0; tries<3; tries++){
-            getLogin();
+            inputLogin();
             if(username.equals(stdUser) && password.equals(stdPass)){
                 System.out.println("Welcome to AddressBook3");
                 return true;

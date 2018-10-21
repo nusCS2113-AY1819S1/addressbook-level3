@@ -4,11 +4,13 @@ import javafx.application.Application;
 import javafx.application.Platform;
 
 import javafx.stage.Stage;
+import seedu.addressbook.data.exception.IllegalValueException;
 import seedu.addressbook.logic.Logic;
 import seedu.addressbook.ui.Gui;
 import seedu.addressbook.ui.Stoppable;
 import seedu.addressbook.login.login;
-//import seedu.addressbook.login.WorkWithLoginStorage;
+import seedu.addressbook.login.Credentials;
+
 /**
  * Main entry point to the application.
  */
@@ -33,6 +35,12 @@ public class Main extends Application implements Stoppable{
 
     public static void main(String[] args) {
         if(login.main()) {
+//            try {
+//                Credentials test = new Credentials("s9672013J", "!Lalala123") ;
+//                launch(args);
+//            } catch (IllegalValueException e){
+//                System.out.println(e);
+//            }
             launch(args);
         }else{
             System.exit(0);
