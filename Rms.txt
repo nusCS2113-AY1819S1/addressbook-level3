@@ -53,6 +53,7 @@
     <orders>
         <customer>
             <name>Pham</name>
+            <points>0</points>
         </customer>
         <date>1500000000000</date>
         <price>16.0</price>
@@ -81,6 +82,7 @@
     <orders>
         <customer>
             <name>Kang Ming</name>
+            <points>0</points>
         </customer>
         <date>1539864408503</date>
         <price>3155.0</price>
