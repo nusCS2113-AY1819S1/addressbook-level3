@@ -28,6 +28,7 @@ public class EmployeeAddCommand extends Command {
             + " Peter Lee p/91234567 e/PeterLee89@rms.com a/Clementi Ave 2, Blk 543 #13-12 pos/Cashier";
 
     public static final String MESSAGE_SUCCESS = "New employee added: %1$s";
+    public static final String MESSAGE_DUPLICATE_EMPLOYEE = "This employee already exists in the Rms";
 
     private final Employee toAdd;
 
@@ -64,7 +65,7 @@ public class EmployeeAddCommand extends Command {
             rms.addEmployee(toAdd);
             return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
         } catch (UniqueEmployeeList.DuplicateEmployeeException dee) {
-            return new CommandResult(Messages.MESSAGE_DUPLICATE_EMPLOYEE);
+            return new CommandResult(MESSAGE_DUPLICATE_EMPLOYEE);
         }
     }
 }
