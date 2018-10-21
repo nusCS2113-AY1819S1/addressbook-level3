@@ -13,6 +13,7 @@ public class Messages {
     public static final String MESSAGE_INVALID_EMPLOYEE_DISPLAYED_INDEX = "The employee index provided is invalid";
     public static final String MESSAGE_EMPLOYEE_NOT_IN_RMS = "Employee could not be found in Rms";
     public static final String MESSAGE_EMPLOYEES_LISTED_OVERVIEW = "%1$d employees listed!";
+    public static final String MESSAGE_DUPLICATE_EMPLOYEE = "This employee already exists in the Rms";
 
     public static final String MESSAGE_MEMBERS_LISTED_OVERVIEW = "%1$d members listed!";
 

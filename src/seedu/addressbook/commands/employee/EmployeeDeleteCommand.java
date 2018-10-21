@@ -2,11 +2,13 @@ package seedu.addressbook.commands.employee;
 
 import seedu.addressbook.commands.Command;
 import seedu.addressbook.commands.CommandResult;
-import seedu.addressbook.common.Messages;
 import seedu.addressbook.data.employee.ReadOnlyEmployee;
 import seedu.addressbook.data.employee.UniqueEmployeeList.EmployeeNotFoundException;
+
+import seedu.addressbook.common.Messages;
+
 /**
- * Deletes an employee identified using it's last displayed index from the address book.
+ * Deletes an employee identified using it's last displayed index from the Rms.
  */
 public class EmployeeDeleteCommand extends Command{
 
@@ -14,7 +16,7 @@ public class EmployeeDeleteCommand extends Command{
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ":\n"
             + "Deletes the employee identified by the index number used in the last employee listing.\n\t"
-            + "Parameters: INDEX\n\t"
+            + "Parameters: INDEX (must be a positive integer)\n\t"
             + "Example: " + COMMAND_WORD + " 1";
 
     public static final String MESSAGE_DELETE_EMPLOYEE_SUCCESS = "Deleted Employee: %1$s";

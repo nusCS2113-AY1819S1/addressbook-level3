@@ -7,8 +7,9 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
-import seedu.addressbook.common.Utils;
 import seedu.addressbook.data.exception.DuplicateDataException;
+
+import seedu.addressbook.common.Utils;
 
 /**
  * A list of employees. Does not allow null elements or duplicates.
@@ -97,13 +98,26 @@ public class UniqueEmployeeList implements Iterable<Employee>{
     /**
      * Removes the equivalent employee from the list.
      *
-     * @throws EmployeeNotFoundException if no such person could be found in the list.
+     * @throws EmployeeNotFoundException if no such employee could be found in the list.
      */
     public void remove(ReadOnlyEmployee toRemove) throws EmployeeNotFoundException {
         final boolean employeeFoundAndDeleted = employeeInternalList.remove(toRemove);
         if (!employeeFoundAndDeleted) {
             throw new EmployeeNotFoundException();
         }
+    }
+
+    /**
+     * Removes the equivalent employee from the list.
+     *
+     * @throws EmployeeNotFoundException if no such employee could be found in the list.
+     */
+    public void edit(ReadOnlyEmployee toRemove, Employee toReplace) throws EmployeeNotFoundException {
+        final boolean employeeFoundAndDeleted = employeeInternalList.remove(toRemove);
+        if (!employeeFoundAndDeleted) {
+            throw new EmployeeNotFoundException();
+        }
+            employeeInternalList.add(toReplace);
     }
 
     /**

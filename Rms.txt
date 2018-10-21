@@ -49,14 +49,15 @@
     </members>
     <employees>
         <name>Peter Lee</name>
-        <phone>91234567</phone>
-        <email>PeterLee89@rms.com</email>
-        <address>Clementi Ave 2, Blk 543 #13-12 </address>
-        <position>Cashier</position>
+        <phone>98765432</phone>
+        <email>test@test.com</email>
+        <address>testing</address>
+        <position>nice</position>
     </employees>
     <orders>
         <customer>
             <name>Pham</name>
+            <points>0</points>
         </customer>
         <date>1500000000000</date>
         <price>16.0</price>
@@ -85,6 +86,7 @@
     <orders>
         <customer>
             <name>Kang Ming</name>
+            <points>0</points>
         </customer>
         <date>1539864408503</date>
         <price>3155.0</price>
