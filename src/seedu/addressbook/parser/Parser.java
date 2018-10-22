@@ -47,6 +47,7 @@ public class Parser {
     public static final Pattern MENU_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
             Pattern.compile("(?<name>[^/]+)"
                     + " p/(?<price>[^/]+)"
+                    + "type/(?<type>[^/]+)"
                     + "(?<tagArguments>(?: t/[^/]+)*)"); // variable number of tags
 
     public static final Pattern ORDER_DISH_ARGS_FORMAT = Pattern.compile("i/(?<targetIndex>.+)\\s+q/(?<quantity>.+)");
@@ -278,6 +279,8 @@ public class Parser {
 
                     matcher.group("price"),
                     //isPrivatePrefixPresent(matcher.group("isPricePrivate")),
+
+                    matcher.group("type"),
 
                     getTagsFromArgs(matcher.group("tagArguments"))
             );
