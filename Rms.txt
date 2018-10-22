@@ -24,17 +24,22 @@
     </persons>
     <menus>
         <name>Pizza</name>
-        <price isPrivate="false">10</price>
+        <price isPrivate="false">$10.00</price>
         <type isPrivate="false">burger</type>
     </menus>
     <menus>
         <name>burger</name>
-        <price isPrivate="false">500</price>
+        <price isPrivate="false">$5.00</price>
         <type isPrivate="false">burger</type>
     </menus>
     <menus>
         <name>cheesefries</name>
-        <price isPrivate="false">5</price>
+        <price isPrivate="false">$5</price>
+        <type isPrivate="false">sides</type>
+    </menus>
+    <menus>
+        <name>fries</name>
+        <price isPrivate="false">$5.00</price>
         <type isPrivate="false">sides</type>
     </menus>
     <members>
