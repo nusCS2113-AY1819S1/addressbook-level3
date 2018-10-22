@@ -1,8 +1,14 @@
 package seedu.addressbook.common;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Comparator;
 import java.util.HashSet;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.Set;
+import java.util.TreeMap;
 
 /**
  * Utility methods
@@ -39,4 +45,12 @@ public class Utils {
         sb.append("\n");
         return sb;
     }
+
+    public static <K, V extends Comparable<? super V>> List<Map.Entry <K, V>> sortByValue(Map<K, V> map) {
+        List<Map.Entry<K, V>> list = new ArrayList<>(map.entrySet());
+        list.sort(Map.Entry.comparingByValue());
+
+        return list;
+    }
+
 }
