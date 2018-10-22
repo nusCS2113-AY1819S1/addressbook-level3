@@ -37,11 +37,6 @@
         <price isPrivate="false">$5</price>
         <type isPrivate="false">sides</type>
     </menus>
-    <menus>
-        <name>fries</name>
-        <price isPrivate="false">$5.00</price>
-        <type isPrivate="false">sides</type>
-    </menus>
     <members>
         <name>Kang Ming</name>
         <points>0</points>

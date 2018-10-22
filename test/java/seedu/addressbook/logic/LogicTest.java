@@ -438,6 +438,27 @@ public class LogicTest {
                 Collections.emptyList());
     }
 
+    @Test
+    public void execute_addmenuDuplicate_notAllowed() throws Exception {
+        // setup expectations
+        TestDataHelper helper = new TestDataHelper();
+        Menu toBeAdded = helper.burger();
+        Rms expectedAB = new Rms();
+        expectedAB.addMenu(toBeAdded);
+
+        // setup starting state
+        rms.addMenu(toBeAdded); // menu already in internal RMS
+
+        // execute command and verify result
+        assertMenuCommandBehavior(
+                helper.generateMenuAddCommand(toBeAdded),
+                MenuAddCommand.MESSAGE_DUPLICATE_MENU_ITEM,
+                expectedAB,
+                false,
+                Collections.emptyList());
+
+    }
+
 
     @Test
     public void execute_list_showsAllPersons() throws Exception {
@@ -566,6 +587,27 @@ public class LogicTest {
         assertEmployeeCommandBehavior(commandWord + " -1", expectedMessage, Rms.empty(), false, lastShownList);
         assertEmployeeCommandBehavior(commandWord + " 0", expectedMessage, Rms.empty(), false, lastShownList);
         assertEmployeeCommandBehavior(commandWord + " 3", expectedMessage, Rms.empty(), false, lastShownList);
+    }
+
+    /**
+     * Confirms the 'invalid argument index number behaviour' for the given command
+     * targeting a single menu item in the last shown menu list, using visible index.
+     * @param commandWord to test assuming it targets a single menu item in the last shown menu list based on visible index.
+     */
+    private void assertInvalidIndexBehaviorForMenuCommand(String commandWord) throws Exception {
+        String expectedMessage = Messages.MESSAGE_INVALID_MENU_ITEM_DISPLAYED_INDEX;
+        TestDataHelper helper = new TestDataHelper();
+
+        Menu e1 = helper.generateMenuItem(1);
+        Menu e2 = helper.generateMenuItem(2);
+        List<Menu> lastShownMenuList = helper.generateMenuList(e1, e2);
+
+        logic.setLastShownMenuList(lastShownMenuList);
+
+        assertMenuCommandBehavior(commandWord + " -1", expectedMessage, Rms.empty(), false, lastShownMenuList);
+        assertMenuCommandBehavior(commandWord + " 0", expectedMessage, Rms.empty(), false, lastShownMenuList);
+        assertMenuCommandBehavior(commandWord + " 3", expectedMessage, Rms.empty(), false, lastShownMenuList);
+
     }
 
     @Test
@@ -708,6 +750,11 @@ public class LogicTest {
     public void execute_delemp_invalidIndex() throws Exception {
         assertInvalidIndexBehaviorForEmployeeCommand("delemp");
     }
+
+    /*@Test
+    public void execute_deletemenu_invalidIndex() throws Exception {
+        assertInvalidIndexBehaviorForMenuCommand("deletemenu");
+    }*/
 
 
     @Test
@@ -964,10 +1011,9 @@ public class LogicTest {
          * Running this function with the same parameter values guarantees the returned menu item will have the same state.
          * Each unique seed will generate a unique Person object.
          *
-         * @param seed used to generate the person data field values
-         * @param isAllFieldsPrivate determines if private-able fields (phone, email, address) will be private
+         * @param seed used to generate the menu item data field values
          */
-        Menu generateMenuItem(int seed, boolean isAllFieldsPrivate) throws Exception {
+        Menu generateMenuItem(int seed) throws Exception {
             return new Menu(
                     new MenuName("Person " + seed),
                     new Price("" + Math.abs(seed)),
