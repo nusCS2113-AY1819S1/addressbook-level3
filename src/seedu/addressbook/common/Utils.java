@@ -34,4 +34,9 @@ public class Utils {
         }
         return true;
     }
+
+    public static StringBuilder appendNewLine(StringBuilder sb) {
+        sb.append("\n");
+        return sb;
+    }
 }

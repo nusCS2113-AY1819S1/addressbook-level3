@@ -7,6 +7,8 @@ import java.util.Map;
 
 import seedu.addressbook.commands.Command;
 import seedu.addressbook.commands.CommandResult;
+import seedu.addressbook.common.Messages;
+import seedu.addressbook.common.Utils;
 import seedu.addressbook.data.member.ReadOnlyMember;
 import seedu.addressbook.data.statistics.MemberDateTable;
 
@@ -24,10 +26,10 @@ public class StatsMemberCommand extends Command {
 
     @Override
     public CommandResult execute() {
-        return new StatsCommandResult(getMemberStats());
+        return new StatsCommandResult(getOverviewStats());
     }
 
-    private String getMemberStats() {
+    private String getOverviewStats() {
         StringBuilder res = new StringBuilder();
         List<ReadOnlyMember> allMembers = rms.getAllMembers().immutableListView();
 
@@ -40,20 +42,16 @@ public class StatsMemberCommand extends Command {
             dateTable.addData(temp);
         }
         res.append("Number of members: " + allMembers.size());
-        appendNewLine(res);
-        appendNewLine(res);
+        Utils.appendNewLine(res);
+        Utils.appendNewLine(res);
         res.append("New members this year: " + dateTable.getYearCount(new Date()));
-        appendNewLine(res);
-        appendNewLine(res);
+        Utils.appendNewLine(res);
+        Utils.appendNewLine(res);
         res.append("New members this month: " + dateTable.getMonthCount(new Date()));
-        appendNewLine(res);
-        appendNewLine(res);
+        Utils.appendNewLine(res);
+        Utils.appendNewLine(res);
         res.append("New members today: " + dateTable.getDayCount(new Date()));
         return res.toString();
     }
 
-    private StringBuilder appendNewLine(StringBuilder sb) {
-        sb.append("\n");
-        return sb;
-    }
 }
