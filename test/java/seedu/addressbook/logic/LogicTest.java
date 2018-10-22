@@ -285,7 +285,9 @@ public class LogicTest {
         assertMenuCommandBehavior(
                 "addmenu wrong args wrong args", expectedMessage);
         assertMenuCommandBehavior(
-                "addmenu Valid Name 12345", expectedMessage);
+                "addmenu Valid Name $12345", expectedMessage);
+        assertMenuCommandBehavior(
+                "addmenu Valid Name p/$12345 butNoTypePrefix", expectedMessage);
     }
 
     @Test
@@ -317,11 +319,13 @@ public class LogicTest {
     @Test
     public void execute_addmenu_invalidMenuData() throws Exception {
         assertMenuCommandBehavior(
-                "addmenu []\\[;] p/12345", MenuName.MESSAGE_NAME_CONSTRAINTS);
+                "addmenu []\\[;] p/$12345 type/valid, type", MenuName.MESSAGE_NAME_CONSTRAINTS);
         assertMenuCommandBehavior(
-                "addmenu Valid Name p/not_numbers", Price.MESSAGE_PRICE_CONSTRAINTS);
+                "addmenu Valid Name p/not_numbers type/valid, type", Price.MESSAGE_PRICE_CONSTRAINTS);
         assertMenuCommandBehavior(
-                "addmenu Valid Name p/12345 t/invalid_-[.tag", Tag.MESSAGE_TAG_CONSTRAINTS);
+                "addmenu Valid Name p/$12345 type/@#%&", Type.MESSAGE_TYPE_CONSTRAINTS);
+        assertMenuCommandBehavior(
+                "addmenu Valid Name p/$12345 type/valid, type t/invalid_-[.tag", Tag.MESSAGE_TAG_CONSTRAINTS);
 
     }
 
@@ -899,11 +903,12 @@ public class LogicTest {
 
         Menu burger() throws Exception {
             MenuName name = new MenuName("Cheese Burger");
-            Price price = new Price("5");
+            Price price = new Price("$5.00");
+            Type type = new Type("Burger");
             Tag tag1 = new Tag("tag1");
             Tag tag2 = new Tag("tag2");
             Set<Tag> tags = new HashSet<>(Arrays.asList(tag1, tag2));
-            return new Menu(name, price, tags);
+            return new Menu(name, price, type, tags);
         }
 
         /**
@@ -966,6 +971,7 @@ public class LogicTest {
             return new Menu(
                     new MenuName("Person " + seed),
                     new Price("" + Math.abs(seed)),
+                    new Type(("Type " + seed)),
                     new HashSet<>(Arrays.asList(new Tag("tag" + Math.abs(seed)), new Tag("tag" + Math.abs(seed + 1))))
             );
         }
@@ -1023,6 +1029,7 @@ public class LogicTest {
 
             cmd.add(m.getName().toString());
             cmd.add(("p/") + m.getPrice());
+            cmd.add(("type/") + m.getType());
 
             Set<Tag> tags = m.getTags();
             for(Tag t: tags){
@@ -1213,7 +1220,8 @@ public class LogicTest {
         Menu generateMenuWithName(String name) throws Exception {
             return new Menu(
                     new MenuName(name),
-                    new Price("5"),
+                    new Price("$5.00"),
+                    new Type("Burger"),
                     Collections.singleton(new Tag("tag"))
             );
         }

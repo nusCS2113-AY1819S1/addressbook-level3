@@ -366,6 +366,7 @@ public class ParserTest {
             return new Menu(
                     new MenuName(MenuName.EXAMPLE),
                     new Price(Price.EXAMPLE),
+                    new Type(Type.EXAMPLE),
                     new HashSet<>(Arrays.asList(new Tag("tag1"), new Tag("tag2"), new Tag("tag3")))
             );
         } catch (IllegalValueException ive) {
@@ -376,7 +377,8 @@ public class ParserTest {
     private static String convertMenuToAddCommandString(ReadOnlyMenus menu) {
         String addmenuCommand = "addmenu "
                 + menu.getName().fullName
-                + " p/" + menu.getPrice().value;
+                + " p/" + menu.getPrice().value
+                + " type/" + menu.getType().value;
         for (Tag tag : menu.getTags()) {
             addmenuCommand += " t/" + tag.tagName;
         }
