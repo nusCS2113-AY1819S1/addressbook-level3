@@ -37,6 +37,11 @@
         <price isPrivate="false">$5</price>
         <type isPrivate="false">sides</type>
     </menus>
+    <menus>
+        <name>cheese burger</name>
+        <price isPrivate="false">$5.00</price>
+        <type isPrivate="false">burger</type>
+    </menus>
     <members>
         <name>Kang Ming</name>
         <points>0</points>

@@ -30,6 +30,22 @@ public class Price {
         this.value = price;
     }
 
+    public double convertPricetoDouble(String result){
+        result = this.value;
+        String doublevalue = result.substring(1);
+        double priceIndouble = Double.parseDouble(doublevalue);
+
+        return priceIndouble;
+    }
+
+    public String convertPricetoString(double priceIndouble){
+        String valueAsString = Double.toString(priceIndouble);
+        String valueAsPrice = "$" + valueAsString;
+
+        return valueAsPrice;
+    }
+
+
     /**
      * Checks if a given string is a valid menu item price.
      */
