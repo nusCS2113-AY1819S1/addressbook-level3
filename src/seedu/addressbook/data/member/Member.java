@@ -30,7 +30,7 @@ public class Member implements ReadOnlyMember {
         this.date = new Date();
     }
 
-    private Member(MemberName name, Points points, Date date) {
+    public Member(MemberName name, Points points, Date date) {
         this.name = name;
         this.points = points;
         this.date = date;

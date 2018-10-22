@@ -10,6 +10,9 @@ public class Points {
         this.value = 0;
     }
 
+    public Points(int points){
+        this.value = points;
+    }
     /**
      * Converts the price into points and adds in to the existing points for the member
      * @param price of the order being made
