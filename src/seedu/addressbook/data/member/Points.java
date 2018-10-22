@@ -3,12 +3,11 @@ package seedu.addressbook.data.member;
 import java.awt.*;
 
 public class Points {
-    private String points;
 
-    public String value;
+    private int value;
+
     public Points(){
-        this.points = "0";
-        this.value = this.points;
+        this.value = 0;
     }
 
     /**
@@ -17,27 +16,29 @@ public class Points {
      * @return updated points
      */
     protected Points updatePoints(double price) {
-        double value = Double.parseDouble(this.value);
-        double result = value + price;
-        this.value = Double.toString(result);
+        this.value = ((int)price) / 10;
         return this;
+    }
+
+    public int getPoints() {
+        return this.value;
     }
 
     @Override
     public String toString() {
-        return value;
+        return Integer.toString(value);
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof Points // instanceof handles nulls
-                && this.value.equals(((Points) other).value)); // state check
+                && this.toString().equals(((Points) other).value)); // state check
     }
 
     @Override
     public int hashCode() {
-        return value.hashCode();
+        return toString().hashCode();
     }
 
 //    public boolean isPrivate() {

@@ -57,7 +57,7 @@ public class AdaptedMember {
      */
     public AdaptedMember(ReadOnlyMember source) {
         name = source.getName().value;
-        points = source.getPoints().value;
+        points = source.getPoints().toString();
 
 //        phone = new AdaptedContactDetail();
 //        phone.isPrivate = source.getPhone().isPrivate();
