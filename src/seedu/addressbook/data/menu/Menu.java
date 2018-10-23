@@ -75,12 +75,12 @@ public class Menu implements ReadOnlyMenus {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, price, type, tags);
+        return Objects.hash(name);
     }
 
     @Override
     public String toString() {
-        return getAsTextShowAll();
+        return this.name.fullName;
     }
 
 }

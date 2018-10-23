@@ -21,8 +21,6 @@ public class AdaptedMenu {
     private static class AdaptedMenuItemDetail {
         @XmlValue
         public String value;
-        @XmlAttribute(required = true)
-        public boolean isPrivate;
     }
 
     @XmlElement(required = true)

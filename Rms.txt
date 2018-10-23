@@ -24,33 +24,33 @@
     </persons>
     <menus>
         <name>Pizza</name>
-        <price isPrivate="false">$10.00</price>
-        <type isPrivate="false">burger</type>
+        <price>$10.00</price>
+        <type>burger</type>
     </menus>
     <menus>
         <name>burger</name>
-        <price isPrivate="false">$5.00</price>
-        <type isPrivate="false">burger</type>
+        <price>$5.00</price>
+        <type>burger</type>
     </menus>
     <menus>
         <name>cheesefries</name>
-        <price isPrivate="false">$5</price>
-        <type isPrivate="false">sides</type>
+        <price>$5</price>
+        <type>sides</type>
     </menus>
     <menus>
         <name>cheese burger</name>
-        <price isPrivate="false">$5.00</price>
-        <type isPrivate="false">burger</type>
-    </menus>
-    <menus>
-        <name>coke zero</name>
-        <price isPrivate="false">$5.00</price>
-        <type isPrivate="false">carbohydrate drinks</type>
+        <price>$5.00</price>
+        <type>burger</type>
     </menus>
     <menus>
         <name>cheese fries</name>
-        <price isPrivate="false">$0.60</price>
-        <type isPrivate="false">sides</type>
+        <price>$0.60</price>
+        <type>sides</type>
+    </menus>
+    <menus>
+        <name>sprite</name>
+        <price>$5.00</price>
+        <type>drinks</type>
     </menus>
     <members>
         <name>Kang Ming</name>

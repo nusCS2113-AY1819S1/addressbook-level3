@@ -26,9 +26,7 @@ public interface ReadOnlyMenus {
     default boolean isSameStateAs(ReadOnlyMenus other) {
         return other == this // short circuit if same object
                 || (other != null // this is first to avoid NPE below
-                && other.getName().equals(this.getName()) // state checks here onwards
-                && other.getPrice().equals(this.getPrice())
-                && other.getType().equals(this.getType()));
+                && other.getName().equals(this.getName()));
     }
 
     /**
@@ -45,6 +43,17 @@ public interface ReadOnlyMenus {
         for (Tag tag : getTags()) {
             builder.append(tag);
         }
+        return builder.toString();
+    }
+
+    /**
+     * Formats the menu name and price as text, showing all relevant details.
+     */
+    default String getAsTextShowMenuAndPrice() {
+        final StringBuilder builder = new StringBuilder();
+        builder.append(getName())
+                .append(" Price: ");
+        builder.append(getPrice());
         return builder.toString();
     }
 

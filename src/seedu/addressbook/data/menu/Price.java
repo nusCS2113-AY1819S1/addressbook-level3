@@ -11,7 +11,7 @@ public class Price {
 
     public static final String EXAMPLE = "$4.40";
     public static final String MESSAGE_PRICE_CONSTRAINTS = "Price should be in SGD and in dollars and cents";
-    public static final String PHONE_VALIDATION_REGEX = "\\$[1-9][0-9]*(\\.[0-9]{2})?|\\$0?\\.[0-9][0-9]";//"^\\$\\d+([.][0-9]+)?$";
+    public static final String PRICE_VALIDATION_REGEX = "\\$[1-9][0-9]*(\\.[0-9]{2})?|\\$0?\\.[0-9]{2}|\\$0";//"^\\$\\d+([.][0-9]+)?$";
 
     public final String value;
     //private boolean isPrivate;
@@ -30,14 +30,14 @@ public class Price {
         this.value = price;
     }
 
-    public double convertPricetoDouble(String result){
-        String doublevalue = result.substring(1);
+    public double convertValueOfPricetoDouble(){
+        String doublevalue = this.value.substring(1);
         double priceIndouble = Double.parseDouble(doublevalue);
 
         return priceIndouble;
     }
 
-    public String convertPricetoString(double priceIndouble){
+    public static String convertPricetoString(double priceIndouble){
         String valueAsString = Double.toString(priceIndouble);
         String valueAsPrice = "$" + valueAsString;
 
@@ -49,7 +49,7 @@ public class Price {
      * Checks if a given string is a valid menu item price.
      */
     public static boolean isValidPhone(String test) {
-        return test.matches(PHONE_VALIDATION_REGEX);
+        return test.matches(PRICE_VALIDATION_REGEX);
     }
 
     @Override
