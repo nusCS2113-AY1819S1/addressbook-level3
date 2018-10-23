@@ -27,6 +27,9 @@ public class Parser {
     public static final Pattern KEYWORDS_ARGS_FORMAT =
             Pattern.compile("(?<keywords>\\S+(?:\\s+\\S+)*)"); // one or more keywords separated by whitespace
 
+    public static final Pattern ITEMWORD_ARGS_FORMAT = Pattern.compile("(?<type>[^/]+)"); //one keyword only
+
+
     public static final Pattern PERSON_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
             Pattern.compile("(?<name>[^/]+)"
                     + " (?<isPhonePrivate>p?)p/(?<phone>[^/]+)"
@@ -121,6 +124,10 @@ public class Parser {
 
             case MenuListCommand.COMMAND_WORD:
                 return new MenuListCommand();
+
+            case MenuListByTypeCommand.COMMAND_WORD:
+                return prepareMenuListByType(arguments);
+
 
             case MenuViewAllCommand.COMMAND_WORD:
                 return prepareViewAllMenu(arguments);
@@ -506,6 +513,19 @@ public class Parser {
             throw new ParseException("Could not find index number to parse");
         }
         return Integer.parseInt(matcher.group("targetIndex"));
+    }
+
+    private Command prepareMenuListByType(String args) {
+        final Matcher matcher = ITEMWORD_ARGS_FORMAT.matcher(args.trim());
+        if (!matcher.matches()) {
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    MenuListByTypeCommand.MESSAGE_USAGE));
+        }
+
+        // keywords delimited by whitespace
+        //final String[] keywords = matcher.group("keywords").split("\\s+");
+        //final String itemword = matcher.group("itemword");
+        return new MenuListByTypeCommand(matcher.group("type"));
     }
 
 }

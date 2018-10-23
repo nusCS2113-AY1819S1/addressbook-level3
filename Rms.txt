@@ -42,6 +42,16 @@
         <price isPrivate="false">$5.00</price>
         <type isPrivate="false">burger</type>
     </menus>
+    <menus>
+        <name>coke zero</name>
+        <price isPrivate="false">$5.00</price>
+        <type isPrivate="false">carbohydrate drinks</type>
+    </menus>
+    <menus>
+        <name>cheese fries</name>
+        <price isPrivate="false">$0.60</price>
+        <type isPrivate="false">sides</type>
+    </menus>
     <members>
         <name>Kang Ming</name>
         <points>0</points>

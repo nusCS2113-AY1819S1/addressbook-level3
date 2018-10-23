@@ -31,7 +31,6 @@ public class Price {
     }
 
     public double convertPricetoDouble(String result){
-        result = this.value;
         String doublevalue = result.substring(1);
         double priceIndouble = Double.parseDouble(doublevalue);
 

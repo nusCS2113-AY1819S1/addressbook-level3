@@ -17,10 +17,14 @@ public class MenuListCommand extends Command {
             + "Displays all menu items in the Rms system as a list with index numbers.\n\t"
             + "Example: " + COMMAND_WORD;
 
+    public static boolean executeMenu;
+
 
     @Override
     public CommandResult execute() {
+        executeMenu = true;
         List<ReadOnlyMenus> allMenus = rms.getAllMenus().immutableListView();
         return new MenuCommandResult(getMessageForMenuListShownSummary(allMenus), allMenus);
     }
 }
+//added a random command
