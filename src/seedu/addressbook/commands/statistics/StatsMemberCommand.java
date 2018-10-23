@@ -41,15 +41,9 @@ public class StatsMemberCommand extends Command {
             // ==========================================
             dateTable.addData(temp);
         }
-        res.append("Number of members: " + allMembers.size());
-        Utils.appendNewLine(res);
-        Utils.appendNewLine(res);
-        res.append("New members this year: " + dateTable.getYearCount(new Date()));
-        Utils.appendNewLine(res);
-        Utils.appendNewLine(res);
-        res.append("New members this month: " + dateTable.getMonthCount(new Date()));
-        Utils.appendNewLine(res);
-        Utils.appendNewLine(res);
+        res.append("Number of members: " + allMembers.size() + "\n\n");
+        res.append("New members this year: " + dateTable.getYearCount(new Date()) + "\n\n");
+        res.append("New members this month: " + dateTable.getMonthCount(new Date()) + "\n\n");
         res.append("New members today: " + dateTable.getDayCount(new Date()));
         return res.toString();
     }

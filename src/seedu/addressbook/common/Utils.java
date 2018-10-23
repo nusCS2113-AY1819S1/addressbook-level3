@@ -2,13 +2,10 @@ package seedu.addressbook.common;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Comparator;
 import java.util.HashSet;
-import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.TreeMap;
 
 /**
  * Utility methods
@@ -39,11 +36,6 @@ public class Utils {
             }
         }
         return true;
-    }
-
-    public static StringBuilder appendNewLine(StringBuilder sb) {
-        sb.append("\n");
-        return sb;
     }
 
     public static <K, V extends Comparable<? super V>> List<Map.Entry <K, V>> sortByValue(Map<K, V> map) {

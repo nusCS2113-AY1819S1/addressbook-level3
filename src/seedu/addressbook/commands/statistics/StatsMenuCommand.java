@@ -54,8 +54,7 @@ public class StatsMenuCommand extends Command {
             ReadOnlyMenus menu = sortedMenu.get(i).getKey();
             Integer quantity = sortedMenu.get(i).getValue();
             sb.append(menu.getName());
-            sb.append(" sold " + quantity);
-            Utils.appendNewLine(sb);
+            sb.append(" sold " + quantity + "\n");
         }
         return sb.toString();
     }
