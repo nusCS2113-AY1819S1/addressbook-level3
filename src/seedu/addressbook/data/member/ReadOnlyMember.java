@@ -16,10 +16,6 @@ public interface ReadOnlyMember {
     Points updatePoints(double price);
     Date getDate();
 
-//    Phone getPhone();
-//    Email getEmail();
-//    Address getAddress();
-
     /**
      * The returned {@code Set} is a deep copy of the internal {@code Set},
      * changes on the returned list will not affect the person's internal tags.

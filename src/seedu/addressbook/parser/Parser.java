@@ -85,9 +85,6 @@ public class Parser {
             case AddCommand.COMMAND_WORD:
                 return prepareAdd(arguments);
 
-            case MemberAddCommand.COMMAND_WORD:
-                return prepareAddMember(arguments);
-
             case DeleteCommand.COMMAND_WORD:
                 return prepareDelete(arguments);
 
@@ -114,6 +111,15 @@ public class Parser {
 
             case EmployeeDeleteCommand.COMMAND_WORD:
                 return prepareEmployeeDelete(arguments);
+
+            case MemberListCommand.COMMAND_WORD:
+                return new MemberListCommand();
+
+            case MemberAddCommand.COMMAND_WORD:
+                return prepareAddMember(arguments);
+
+            case MemberDeleteCommand.COMMAND_WORD:
+                return prepareMemberDelete(arguments);
 
             case MenuAddCommand.COMMAND_WORD:
                 return prepareAddMenu(arguments);
@@ -168,9 +174,6 @@ public class Parser {
 
             case ExitCommand.COMMAND_WORD:
                 return new ExitCommand();
-
-            case MemberListCommand.COMMAND_WORD:
-                return new MemberListCommand();
 
             case HelpCommand.COMMAND_WORD: // Fallthrough
             default:
@@ -301,7 +304,22 @@ public class Parser {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EmployeeDeleteCommand.MESSAGE_USAGE));
         }
     }
-    
+
+
+    /**
+     * Parses arguments in the context of the delete member command.
+     *
+     * @param args full command args string
+     * @return the prepared command
+     */
+    private Command prepareMemberDelete(String args) {
+        try {
+            final int targetIndex = parseArgsAsDisplayedIndex(args);
+            return new MemberDeleteCommand(targetIndex);
+        } catch (ParseException | NumberFormatException e) {
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, MemberDeleteCommand.MESSAGE_USAGE));
+        }
+    }
     /**
      * Checks whether the private prefix of a contact detail in the add command's arguments string is present.
      */

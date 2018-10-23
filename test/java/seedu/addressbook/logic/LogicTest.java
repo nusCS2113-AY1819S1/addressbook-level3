@@ -9,6 +9,7 @@ import seedu.addressbook.commands.CommandResult;
 import seedu.addressbook.commands.*;
 import seedu.addressbook.commands.employee.*;
 import seedu.addressbook.commands.member.MemberAddCommand;
+import seedu.addressbook.commands.member.MemberDeleteCommand;
 import seedu.addressbook.commands.menu.*;
 import seedu.addressbook.common.Messages;
 import seedu.addressbook.data.Rms;
@@ -316,6 +317,12 @@ public class LogicTest {
     }
 
     @Test
+    public void execute_addmember_invalidMemberData() throws Exception {
+        assertMemberCommandBehavior(
+                "addmember []\\[;]", MemberName.MESSAGE_NAME_CONSTRAINTS);
+    }
+
+    @Test
     public void execute_addmenu_invalidMenuData() throws Exception {
         assertMenuCommandBehavior(
                 "addmenu []\\[;] p/12345", MenuName.MESSAGE_NAME_CONSTRAINTS);
@@ -377,6 +384,16 @@ public class LogicTest {
 
     }
 
+//    @Test
+//    public void updateMemberPoints() throws Exception {
+//        TestDataHelper helper = new TestDataHelper();
+//        Member toBeAdded = helper.eve();
+//        Rms expectedAB = new Rms();
+//        expectedAB.addMember(toBeAdded);
+//        toBeAdded.updatePoints(50);
+//
+//    }
+
     @Test
     public void execute_addmenu_successful() throws Exception {
         // setup expectations
@@ -430,6 +447,26 @@ public class LogicTest {
         assertEmployeeCommandBehavior(
                 helper.generateAddEmpCommand(toBeAdded),
                 EmployeeAddCommand.MESSAGE_DUPLICATE_EMPLOYEE,
+                expectedAB,
+                false,
+                Collections.emptyList());
+    }
+
+    @Test
+    public void execute_addmemberDuplicate_notAllowed() throws Exception {
+        // setup expectations
+        TestDataHelper helper = new TestDataHelper();
+        Member toBeAdded = helper.eve();
+        Rms expectedAB = new Rms();
+        expectedAB.addMember(toBeAdded);
+
+        // setup starting state
+        logic.execute(helper.generateAddMemberCommand(toBeAdded)); //employee already in Rms
+
+        // execute command and verify result
+        assertEmployeeCommandBehavior(
+                helper.generateAddMemberCommand(toBeAdded),
+                MemberAddCommand.MESSAGE_DUPLICATE_MEMBER,
                 expectedAB,
                 false,
                 Collections.emptyList());
@@ -565,6 +602,26 @@ public class LogicTest {
         assertEmployeeCommandBehavior(commandWord + " 3", expectedMessage, Rms.empty(), false, lastShownList);
     }
 
+    /**
+     * Confirms the 'invalid argument index number behaviour' for the given command
+     * targeting a single member in the last shown list, using visible index.
+     * @param commandWord to test assuming it targets a single employee in the last shown list based on visible index.
+     */
+    private void assertInvalidIndexBehaviorForMemberCommand(String commandWord) throws Exception {
+        String expectedMessage = Messages.MESSAGE_INVALID_MEMBER_DISPLAYED_INDEX;
+        TestDataHelper helper = new TestDataHelper();
+
+        Member m1 = helper.generateMember(1);
+        Member m2 = helper.generateMember(2);
+        List<Member> lastShownList = helper.generateMemberList(m1, m2);
+
+        logic.setLastShownMemberList(lastShownList);
+
+        assertMemberCommandBehavior(commandWord + " -1", expectedMessage, Rms.empty(), false, lastShownList);
+        assertMemberCommandBehavior(commandWord + " 0", expectedMessage, Rms.empty(), false, lastShownList);
+        assertMemberCommandBehavior(commandWord + " 3", expectedMessage, Rms.empty(), false, lastShownList);
+    }
+
     @Test
     public void execute_view_onlyShowsNonPrivate() throws Exception {
 
@@ -689,6 +746,13 @@ public class LogicTest {
     }
 
     @Test
+    public void execute_delmember_invalidArgsFormat() throws Exception {
+        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, MemberDeleteCommand.MESSAGE_USAGE);
+        assertMemberCommandBehavior("delmember ", expectedMessage);
+        assertMemberCommandBehavior("delmember arg not number", expectedMessage);
+    }
+
+    @Test
     public void execute_deletemenu_invalidArgsFormat() throws Exception {
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, MenuDeleteCommand.MESSAGE_USAGE);
         assertMenuCommandBehavior("deletemenu ", expectedMessage);
@@ -704,6 +768,11 @@ public class LogicTest {
     @Test
     public void execute_delemp_invalidIndex() throws Exception {
         assertInvalidIndexBehaviorForEmployeeCommand("delemp");
+    }
+
+    @Test
+    public void execute_delmember_invalidIndex() throws Exception {
+        assertInvalidIndexBehaviorForMemberCommand("delmember");
     }
 
 
@@ -754,6 +823,29 @@ public class LogicTest {
     }
 
     @Test
+    public void execute_delmember_removesCorrectMember() throws Exception {
+        TestDataHelper helper = new TestDataHelper();
+        Member m1 = helper.generateMember(1);
+        Member m2 = helper.generateMember(2);
+        Member m3 = helper.generateMember(3);
+
+        List<Member> threeMembers = helper.generateMemberList(m1, m2, m3);
+
+        Rms expectedRms = helper.generateRmsMember(threeMembers);
+        expectedRms.removeMember(m2);
+
+
+        helper.addMembersToRms(rms, threeMembers);
+        logic.setLastShownMemberList(threeMembers);
+
+        assertMemberCommandBehavior("delmember 2",
+                String.format(MemberDeleteCommand.MESSAGE_DELETE_MEMBER_SUCCESS, m2),
+                expectedRms,
+                false,
+                threeMembers);
+    }
+
+    @Test
     public void execute_delete_missingInAddressBook() throws Exception {
 
         TestDataHelper helper = new TestDataHelper();
@@ -799,6 +891,30 @@ public class LogicTest {
                 expectedRms,
                 false,
                 threeEmployees);
+    }
+
+    @Test
+    public void execute_delmember_missingInRms() throws Exception {
+        TestDataHelper helper = new TestDataHelper();
+        Member m1 = helper.generateMember(1);
+        Member m2 = helper.generateMember(2);
+        Member m3 = helper.generateMember(3);
+
+        List<Member> threeMembers = helper.generateMemberList(m1, m2, m3);
+
+        Rms expectedRms = helper.generateRmsMember(threeMembers);
+        expectedRms.removeMember(m2);
+
+
+        helper.addMembersToRms(rms, threeMembers);
+        rms.removeMember(m2);
+        logic.setLastShownMemberList(threeMembers);
+
+        assertMemberCommandBehavior("delmember 2",
+                Messages.MESSAGE_MEMBER_NOT_IN_RMS,
+                expectedRms,
+                false,
+                threeMembers);
     }
 
     @Test
@@ -1158,7 +1274,7 @@ public class LogicTest {
         }
 
         /**
-         * Creates a list of Members based on the give Employee objects.
+         * Creates a list of Members based on the give Member objects.
          */
         List<Member> generateMemberList(Member... members) throws Exception{
             List<Member> memberList = new ArrayList<>();
@@ -1203,6 +1319,15 @@ public class LogicTest {
                     new Email("1@email", false),
                     new Address("House of 1", false),
                     Collections.singleton(new Tag("tag"))
+            );
+        }
+
+        /**
+         * Generates a Member object with given name. Other fields will have some dummy values.
+         */
+        Member generateMemberWithName(String name) throws Exception {
+            return new Member(
+                    new MemberName(name)
             );
         }
 
