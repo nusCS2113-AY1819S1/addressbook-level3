@@ -5,7 +5,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class MemberDateTable {
-    private Map<Integer, Year> yearMap;
+    private Map<Integer, YearMember> yearMap;
 
     public MemberDateTable() {
         yearMap = new HashMap<>();
@@ -13,7 +13,7 @@ public class MemberDateTable {
 
     public void addData(Date date) {
         if (!yearMap.containsKey(date.getYear())) {
-            Year newYear = new Year(date.getYear());
+            YearMember newYear = new YearMember(date.getYear());
             yearMap.put(date.getYear(), newYear.addData(date));
         } else {
             yearMap.put(date.getYear(), yearMap.get(date.getYear()).addData(date));
@@ -37,55 +37,55 @@ public class MemberDateTable {
     }
 }
 
-class Year {
+class YearMember {
     int yearNo, count;
-    Map<Integer, Month> monthMap;
+    Map<Integer, MonthMember> monthMap;
 
-    public Year(int yearNo) {
+    public YearMember(int yearNo) {
         this.yearNo = yearNo;
         this.count = 0;
         this.monthMap = new HashMap<>();
         for (int i = 1; i <= 12; i++) {
-            monthMap.put(i, new Month(i));
+            monthMap.put(i, new MonthMember(i));
         }
     }
 
-    public Year addData(Date date) {
+    public YearMember addData(Date date) {
         count++;
         monthMap.put(date.getMonth(), monthMap.get(date.getMonth()).addData(date));
         return this;
     }
 }
 
-class Month {
+class MonthMember {
     int monthNo, count;
-    Map<Integer, Day> dayMap;
+    Map<Integer, DayMember> dayMap;
 
-    public Month(int monthNo) {
+    public MonthMember(int monthNo) {
         this.monthNo = monthNo;
         this.count = 0;
         this.dayMap = new HashMap<>();
         for (int i = 1; i <= 31; i++) {
-            dayMap.put(i, new Day(i));
+            dayMap.put(i, new DayMember(i));
         }
     }
 
-    public Month addData(Date date) {
+    public MonthMember addData(Date date) {
         count++;
         dayMap.put(date.getDay(), dayMap.get(date.getDay()).addData());
         return this;
     }
 }
 
-class Day {
+class DayMember {
     int dayNo, count;
 
-    public Day(int dayNo) {
+    public DayMember(int dayNo) {
         this.dayNo = dayNo;
         this.count = 0;
     }
 
-    public Day addData() {
+    public DayMember addData() {
         count++;
         return this;
     }
