@@ -40,19 +40,28 @@ public class OrderDateTable {
     }
 
     public int getMonthCount(Date date) {
-        return yearMap.get(date.getYear()).monthMap.get(date.getMonth()).count;
+        if (yearMap.containsKey(date.getYear()))
+            return yearMap.get(date.getYear()).monthMap.get(date.getMonth()).count;
+        else return 0;
     }
 
     public Double getMonthRevenue(Date date) {
-        return yearMap.get(date.getYear()).monthMap.get(date.getMonth()).totalRevenue;
+        if (yearMap.containsKey(date.getYear()))
+            return yearMap.get(date.getYear()).monthMap.get(date.getMonth()).totalRevenue;
+        else return 0.0;
     }
 
     public int getDayCount(Date date) {
-        return yearMap.get(date.getYear()).monthMap.get(date.getMonth()).dayMap.get(date.getDay()).count;
+        if (yearMap.containsKey(date.getYear()))
+            return yearMap.get(date.getYear()).monthMap.get(date.getMonth()).dayMap.get(date.getDay()).count;
+        else
+            return 0;
     }
 
     public Double getDayRevenue(Date date) {
-        return yearMap.get(date.getYear()).monthMap.get(date.getMonth()).dayMap.get(date.getDay()).totalRevenue;
+        if (yearMap.containsKey(date.getYear()))
+            return yearMap.get(date.getYear()).monthMap.get(date.getMonth()).dayMap.get(date.getDay()).totalRevenue;
+        else return 0.0;
     }
 }
 
