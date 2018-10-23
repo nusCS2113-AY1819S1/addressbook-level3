@@ -35,13 +35,13 @@ public class Main extends Application implements Stoppable{
 
     public static void main(String[] args) {
         if(login.main()) {
-//            try {
-//                Credentials test = new Credentials("s9672013J", "!Lalala123") ;
-//                launch(args);
-//            } catch (IllegalValueException e){
-//                System.out.println(e);
-//            }
-            launch(args);
+            try {
+                Credentials test = new Credentials("s9672013J", "!Lalala123") ;
+                launch(args);
+            } catch (IllegalValueException e){
+                System.out.println(e);
+            }
+//            launch(args);
         }else{
             System.exit(0);
         }

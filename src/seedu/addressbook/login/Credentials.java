@@ -3,6 +3,9 @@ package seedu.addressbook.login;
 import seedu.addressbook.data.exception.IllegalValueException;
 import seedu.addressbook.login.hashing;
 
+import java.io.IOException;
+import java.util.Scanner;
+
 public class Credentials {
     private static final String USERNAME_VALIDATION_REGEX = "[stST]\\d{7}\\w";
     private static final String PASSWORD_VALIDATION_REGEX = "^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$";
@@ -23,7 +26,26 @@ public class Credentials {
         else{
             throw new IllegalValueException(MESSAGE_PASSWORD_CONSTRAINTS);
         }
+        WorkWithLoginStorage.addLogin(this);
     }
+
+    public void editPassword() throws IOException {
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Enter current password: ");
+        PASSWORD = sc.next();
+        if(WorkWithLoginStorage.compareCredentials(this)){
+            System.out.println("Enter new password: ");
+            String password1 = sc.next();
+            System.out.println("Re-enter new password: ");
+            String password2 = sc.next();
+            if(password1.equals(password2)){
+                WorkWithLoginStorage.editLogin(this);
+            }
+        }
+        deletePassword();
+        sc.close();
+    }
+
     private boolean isValidUsername(String username){
         return username.matches(USERNAME_VALIDATION_REGEX);
     }
@@ -33,13 +55,7 @@ public class Credentials {
     }
 
     public void setUsername(String username){
-        if(username.length()< 8){
-            System.out.println("Invalid Username: Too short!");
-        }else if (username.length()>20){
-            System.out.println("Invalid Username: Too long!");
-        }else{
             USERNAME = username;
-        }
     }
 
     public String getUsername(){
@@ -47,13 +63,7 @@ public class Credentials {
     }
 
     public void setPassword(String password) {
-        if (password.length() < 8) {
-            System.out.println("Invalid Password: Too short!");
-        } else if (password.length() > 20) {
-            System.out.println("Invalid Password: Too long!");
-        } else {
             PASSWORD = hashPassword(password);
-        }
     }
 
     private String hashPassword(String toBeHashed){
@@ -62,5 +72,9 @@ public class Credentials {
 
     public String getPassword(){
         return PASSWORD;
+    }
+
+    private void deletePassword(){
+        PASSWORD = null;
     }
 }

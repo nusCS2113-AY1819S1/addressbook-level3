@@ -20,31 +20,35 @@ public class WorkWithLoginStorage {
         }
     }
 
-    public static boolean compareCredentials(String user, String pass) {
+    public static boolean compareCredentials(Credentials username) {
         openScanner();
 
         if(debug) System.out.println(logins.getAbsolutePath());
-        if(debug) System.out.println("user = " + user +"; pass = " + pass);
+//        if(debug) System.out.println("user = " + user +"; pass = " + pass);
 
-        if(retrieveUsername(user)){
+        if(retrieveUsername(username.getUsername())){
             if(debug) System.out.println("user correct");
             retrieveStoredHash();
             if(debug)System.out.println("password = " + PASSWORD + "2");
-            return hashing.hashIt(pass).equals(PASSWORD);
+            return hashing.hashIt(username.getPassword()).equals(PASSWORD);
         }else {
             return false;
         }
     }
 
-    private static void editLogin(Credentials username) throws IOException{
+    public static void editLogin(Credentials username) throws IOException{
         deleteLogin(username);
         addLogin(username);
     }
 
-    public static void addLogin(Credentials username) throws IOException{
-        PrintWriter pw = new PrintWriter(new FileWriter(logins, true) );
-        pw.print(username.getUsername() + " " + hashing.hashIt(username.getPassword()) + " " + username.getPassword());
-        pw.close();
+    public static void addLogin(Credentials username) {
+        try {
+            PrintWriter pw = new PrintWriter(new FileWriter(logins, true));
+            pw.print("\n" + username.getUsername() + " " + hashing.hashIt(username.getPassword()));
+            pw.close();
+        } catch (IOException e){
+            System.out.println("cannot create file");
+        }
     }
 
     public static void deleteLogin(Credentials username){

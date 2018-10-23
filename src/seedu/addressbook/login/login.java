@@ -17,6 +17,7 @@ public class login {
         username = sc.next();
         System.out.print("Password: ");
         password = sc.next();
+        sc.close();
     }
 
     public static boolean main(){
