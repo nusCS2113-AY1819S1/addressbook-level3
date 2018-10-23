@@ -7,6 +7,7 @@ import org.gradle.api.tasks.testing.logging.TestLogEvent
 plugins {
     id 'java'
     id 'org.asciidoctor.convert' version '1.5.6'
+    id 'com.github.johnrengelman.shadow' version '4.0.1'
 }
 
 sourceCompatibility = JavaVersion.VERSION_1_9
@@ -33,6 +34,16 @@ sourceSets {
 }
 
 dependencies {
+    shadow localGroovy()
+    shadow gradleApi()
+
+    compile 'org.jdom:jdom2:2.0.6'
+    compile 'org.ow2.asm:asm:6.0'
+    compile 'org.ow2.asm:asm-commons:6.0'
+    compile 'commons-io:commons-io:2.4'
+    compile 'org.apache.ant:ant:1.9.4'
+    compile 'org.codehaus.plexus:plexus-utils:2.0.6'
+
     implementation group: 'javax.xml.bind', name: 'jaxb-api', version: '2.2.8'
     implementation group: 'com.sun.xml.bind', name: 'jaxb-impl', version: '2.3.0'
     implementation group: 'com.sun.xml.bind', name: 'jaxb-core', version: '2.3.0'
