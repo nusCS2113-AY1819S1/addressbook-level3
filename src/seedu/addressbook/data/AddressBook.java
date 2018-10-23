@@ -96,7 +96,7 @@ public class AddressBook {
         return commandHistory;
     }
 
-    public void linkTwoPerson(ReadOnlyPerson target, ReadOnlyPerson target2) throws Associated.DuplicateAssociationException {
+    public void linkTwoPerson(ReadOnlyPerson target, ReadOnlyPerson target2) throws Associated.DuplicateAssociationException, Associated.SameTitleException {
         Person targetObject = target.getPerson();
         Person targetObject2 = target2.getPerson();
         targetObject.addAnAssociate(target2);

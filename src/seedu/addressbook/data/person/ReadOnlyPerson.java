@@ -16,7 +16,7 @@ public interface ReadOnlyPerson {
     Address getAddress();
     Title getTitle();
     Set<Schedule> getSchedules();
-
+    String getAssociateList() throws Associated.NoAssociatesException;
     /**
      * The returned {@code Set} is a deep copy of the internal {@code Set},
      * changes on the returned list will not affect the person's internal tags.

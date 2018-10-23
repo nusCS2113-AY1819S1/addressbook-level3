@@ -76,6 +76,10 @@ public class Person implements ReadOnlyPerson {
         return new HashSet<>(tags);
     }
 
+    @Override
+    public String getAssociateList() throws Associated.NoAssociatesException {
+        return associated.getAssociates();
+    }
 
     /**
      * Replaces this person's schedule with the schedule in {@code replacement}.
@@ -111,7 +115,8 @@ public class Person implements ReadOnlyPerson {
         return getAsTextShowAll();
     }
 
-    public void addAnAssociate(ReadOnlyPerson target) throws Associated.DuplicateAssociationException {
-        associated.addToAssociated(target);
+    public void addAnAssociate(ReadOnlyPerson target) throws Associated.DuplicateAssociationException, Associated.SameTitleException {
+        if(this.getTitle().equals(target.getTitle())) throw new Associated.SameTitleException();
+        else associated.addToAssociated(target);
     }
 }
