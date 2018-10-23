@@ -17,6 +17,7 @@ public class Person implements ReadOnlyPerson {
     private Email email;
     private Address address;
     private Title title;
+    private Associated associated;
 
     private Set<Schedule> schedules = new HashSet<>();
 
@@ -32,6 +33,7 @@ public class Person implements ReadOnlyPerson {
         this.title = title;
         this.schedules.addAll(schedules);
         this.tags.addAll(tags);
+        this.associated = new Associated();
     }
 
     /**
@@ -40,6 +42,8 @@ public class Person implements ReadOnlyPerson {
     public Person(ReadOnlyPerson source) {
         this(source.getName(), source.getPhone(), source.getEmail(), source.getAddress(), source.getTitle(), source.getSchedules(), source.getTags());
     }
+    @Override
+    public Person getPerson() {return this;}
 
     @Override
     public Name getName() {
@@ -72,6 +76,10 @@ public class Person implements ReadOnlyPerson {
         return new HashSet<>(tags);
     }
 
+    @Override
+    public String getAssociateList() throws Associated.NoAssociatesException {
+        return associated.getAssociates();
+    }
 
     /**
      * Replaces this person's schedule with the schedule in {@code replacement}.
@@ -107,4 +115,8 @@ public class Person implements ReadOnlyPerson {
         return getAsTextShowAll();
     }
 
+    public void addAnAssociate(ReadOnlyPerson target) throws Associated.DuplicateAssociationException, Associated.SameTitleException {
+        if(this.getTitle().equals(target.getTitle())) throw new Associated.SameTitleException();
+        else associated.addToAssociated(target);
+    }
 }
