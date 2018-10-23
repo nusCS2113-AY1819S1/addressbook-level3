@@ -1,5 +1,6 @@
 package seedu.addressbook.data;
 
+import seedu.addressbook.data.person.Associated;
 import seedu.addressbook.data.person.Person;
 import seedu.addressbook.data.person.ReadOnlyPerson;
 import seedu.addressbook.data.person.UniquePersonList;
@@ -93,5 +94,12 @@ public class AddressBook {
 
     public CommandHistory getCommandHistory() {
         return commandHistory;
+    }
+
+    public void linkTwoPerson(ReadOnlyPerson target, ReadOnlyPerson target2) throws Associated.DuplicateAssociationException {
+        Person targetObject = target.getPerson();
+        Person targetObject2 = target2.getPerson();
+        targetObject.addAnAssociate(target2);
+        targetObject2.addAnAssociate(target);
     }
 }

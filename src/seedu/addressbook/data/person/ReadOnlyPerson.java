@@ -9,7 +9,7 @@ import seedu.addressbook.data.tag.Tag;
  * Implementations should guarantee: details are present and not null, field values are validated.
  */
 public interface ReadOnlyPerson {
-
+    Person getPerson();
     Name getName();
     Phone getPhone();
     Email getEmail();
