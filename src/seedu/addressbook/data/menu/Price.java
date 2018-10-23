@@ -40,6 +40,11 @@ public class Price {
     public static String convertPricetoString(double priceIndouble){
         String valueAsString = Double.toString(priceIndouble);
         String valueAsPrice = "$" + valueAsString;
+        //ensuring the final answer is always returned in 2 decimal places
+        int decimalIndex = valueAsPrice.indexOf(".");
+        if((valueAsPrice.substring(decimalIndex)).length()<3){
+            valueAsPrice = valueAsPrice + "0";
+        }
 
         return valueAsPrice;
     }
