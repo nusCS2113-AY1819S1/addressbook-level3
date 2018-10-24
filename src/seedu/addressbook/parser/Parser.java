@@ -47,6 +47,8 @@ public class Parser {
                     + " (?<isPointsPrivate>p?)pt/(?<points>[^/]+)"
                     + "(?<tagArguments>(?: t/[^/]+)*)"); // variable number of tags
 
+    public static final Pattern STATSMENU_DATE_ARGS_FORMAT =
+            Pattern.compile("(f\\/(?<dateFrom>(0[1-9]|[12]\\d|3[01])(0[1-9]|1[0-2])[12]\\d{3}))? ?(t\\/(?<dateTo>(0[1-9]|[12]\\d|3[01])(0[1-9]|1[0-2])[12]\\d{3}))?"); // variable number of tags
 
     /**
      * Signals that the user input could not be parsed.
@@ -136,7 +138,7 @@ public class Parser {
                 return new StatsMemberCommand();
 
             case StatsMenuCommand.COMMAND_WORD:
-                return new StatsMenuCommand();
+                return prepareStatsMenu(arguments);
 
             case StatsOrderCommand.COMMAND_WORD:
                 return new StatsOrderCommand();
@@ -399,6 +401,25 @@ public class Parser {
         final String[] keywords = matcher.group("keywords").split("\\s+");
         final Set<String> keywordSet = new HashSet<>(Arrays.asList(keywords));
         return new MenuFindCommand(keywordSet);
+    }
+
+    /**
+     * Parses arguments in the context of the stats menu command.
+     *
+     * @param args full command args string
+     * @return the prepared command
+     */
+    private Command prepareStatsMenu(String args) {
+        final Matcher matcher = STATSMENU_DATE_ARGS_FORMAT.matcher(args.trim());
+        // Validate arg string format
+        if (!matcher.matches()) {
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, StatsMenuCommand.MESSAGE_USAGE));
+        }
+            return new StatsMenuCommand(
+                    matcher.group("dateFrom"),
+
+                    matcher.group("dateTo")
+            );
     }
 
 

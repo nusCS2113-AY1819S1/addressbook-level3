@@ -7,6 +7,7 @@ import seedu.addressbook.data.menu.ReadOnlyMenus;
 import seedu.addressbook.data.order.ReadOnlyOrder;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -18,17 +19,38 @@ import com.sun.xml.bind.Util;
  * Lists all food items in the address book to the user.
  */
 public class StatsMenuCommand extends Command {
+    private Date dateFrom, dateTo;
+    private String heading;
 
     public static final String COMMAND_WORD = "statsmenu";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ":\n"
-            + "Displays statistics information for menu items.\n\t"
-            + "Example: " + COMMAND_WORD;
+            + "Displays statistics information for menu items.\n Select date range from ddmmyyyy to ddmmyyyy with f/ddmmyyyy and t/ddmmyyyy\t"
+            + "Example: " + COMMAND_WORD + " [f/24102018] [t/26102018]";
 
+
+    public StatsMenuCommand(String dateFrom, String dateTo) {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Displaying menu statistics ");
+        if (dateFrom != null) {
+            sb.append("from " + dateFrom + " ");
+            this.dateFrom = stringToDate(dateFrom);
+        }
+        else
+            this.dateFrom = new Date(0);
+        if (dateTo != null) {
+            sb.append("until " + dateTo);
+            this.dateTo = stringToDate(dateTo);
+        }
+        else
+            this.dateTo = new Date();
+        sb.append("\n================\n\n");
+        this.heading = sb.toString();
+    }
 
     @Override
     public CommandResult execute() {
-        return new StatsCommandResult(getMenuStats());
+        return new StatsCommandResult(heading + getMenuStats());
     }
 
     private String getMenuStats() {
@@ -41,6 +63,10 @@ public class StatsMenuCommand extends Command {
 
         // For every menu in every order, add the menu and quantity sold into allMenuSales
         for (ReadOnlyOrder order : allOrders) {
+            Date orderDate = order.getDate();
+            if (orderDate.compareTo(dateFrom) < 0 || orderDate.compareTo(dateTo) > 0) {
+                continue;
+            }
             // Replace with order.getDishItems() during merge
             Map<ReadOnlyMenus, Integer> dishItems = new HashMap<>();
             dishItems.put(rms.getAllMenus().immutableListView().get(0), 2);
@@ -93,5 +119,9 @@ public class StatsMenuCommand extends Command {
         }
 
         return sb.toString();
+    }
+
+    private Date stringToDate(String input) {
+        return new Date(Integer.parseInt(input.substring(4)) - 1900, Integer.parseInt(input.substring(2,4)) - 1, Integer.parseInt(input.substring(0,2)));
     }
 }
