@@ -828,11 +828,13 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* *` |Manager |add, edit and delete items from the menu |keep my restaurant menu interesting
 
-|`* *` |Manager |view employees  |know which one of my employees are working today
+|`* *` |Manager |list employees  |to view the details of the employees working in the restaurant
 
-|`* * *` |Chef |view all the orders made  |know which order I need to prepare next
+|`* * *` | Manager | add, edit and delete employees from the system |to manage information of the employees working in the restaurant
 
-|`* * *` |Chef |update the order status  |let the customers know that their orders are ready
+|`* * *` |view all the orders made |Chef  |know which order I need to prepare next
+
+|`* * *` |update the order status |Chef  |let the customers know that their orders are ready
 |=======================================================================
 
 
