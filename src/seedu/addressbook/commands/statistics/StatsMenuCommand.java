@@ -1,5 +1,7 @@
 package seedu.addressbook.commands.statistics;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -27,16 +29,17 @@ public class StatsMenuCommand extends Command {
 
 
     public StatsMenuCommand(String dateFrom, String dateTo) {
+        DateFormat dateFormat = new SimpleDateFormat("dd MMM yyyy");
         StringBuilder sb = new StringBuilder();
         sb.append("Displaying menu statistics ");
         if (dateFrom != null) {
-            sb.append("from " + dateFrom + " ");
             this.dateFrom = stringToDate(dateFrom);
+            sb.append("from " + dateFormat.format(this.dateFrom) + " ");
         }
         else
             this.dateFrom = new Date(0);
         if (dateTo != null) {
-            sb.append("until " + dateTo);
+            sb.append("until " + dateFormat.format(this.dateTo));
             this.dateTo = stringToDate(dateTo);
         }
         else
