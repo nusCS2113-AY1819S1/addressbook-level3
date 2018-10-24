@@ -981,8 +981,7 @@ public class LogicTest {
         Member m1 = helper.eve();
         m1.updatePoints(-50);
         Points actualPoints = m1.getPoints();
-
-        System.out.println(m1.getPoints());
+        
         assertEquals(expectedPoints.getPoints(), actualPoints.getPoints());
     }
 //
