@@ -1,16 +1,16 @@
 package seedu.addressbook.commands.statistics;
 
-import seedu.addressbook.commands.Command;
-import seedu.addressbook.commands.CommandResult;
-import seedu.addressbook.common.Utils;
-import seedu.addressbook.data.menu.ReadOnlyMenus;
-import seedu.addressbook.data.order.ReadOnlyOrder;
-
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
+
+import seedu.addressbook.commands.Command;
+import seedu.addressbook.commands.CommandResult;
+import seedu.addressbook.common.Utils;
+import seedu.addressbook.data.menu.ReadOnlyMenus;
+import seedu.addressbook.data.order.ReadOnlyOrder;
 
 /**
  * Lists all food items in the address book to the user.
