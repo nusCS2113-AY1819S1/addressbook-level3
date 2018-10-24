@@ -841,7 +841,7 @@ _{More to be added}_
 [appendix]
 == Use Cases
 
-(For all use cases below, the *System* is the `Restaurant Management System`, unless specified otherwise)
+(For all use cases below, the *System* is the `Restaurant Management System (RMS)`, unless specified otherwise)
 
 [discrete]
 === Use case: View Menu to take a Customer’s Orders
@@ -918,7 +918,110 @@ Use case ends.
 +
 Use case ends.
 
+[discrete]
+=== Use case: List employees
+System: Restaurant Management System (RMS) +
+Use Case: List employees +
+Actor: Restaurant Manager +
+Preconditions: User has started up the system. +
+Guarantees:
 
+* List of employees will be displayed.
+
+*MSS*
+
+1.    User requests to list employees.
+2.    RMS displays a list of the employees.
++
+Use case ends.
+
+*Extensions*
+
+
+* 1a. RMS detects that there are currently no employees recorded.
+** 1a1. RMS shows a message that says there are currently no employees recorded.
++
+Use case ends.
+
+[discrete]
+=== Use case: Add employee
+Actor: Restaurant Manager +
+Preconditions: "List employee" use case was used before this use case. +
+Guarantees:
+
+* New employee is added to the RMS.
+
+*MSS*
+
+1.    User requests to add a new employee with the required parameters.
+2.    RMS adds a new employee to the list with the parameters that were specified by the User.
++
+Use case ends.
+
+*Extensions*
+
+
+* 1a. RMS detects that an invalid command format has been entered.
+** 1a1. RMS displays an error that says the command format is invalid.
+** 1a2. RMS displays information on the proper use of the command along with an example.
++
+Use case ends.
+
+* 1b. RMS detects that there is an attempt to add a duplicate employee.
+** 1b1. RMS displays an error that says the employee already exists in Rms.
++
+Use case ends.
+
+[discrete]
+=== Use case: Delete employee
+Actor: Restaurant Manager +
+Preconditions: "List employee" use case was used before this use case. +
+Guarantees:
+
+* The specified employee will be deleted from the RMS.
+
+*MSS*
+
+1.    User requests to delete an employee by using the index as shown on the list of employees.
+2.    RMS deletes an employee using the specified index.
++
+Use case ends.
+
+*Extensions*
+
+
+* 1a. RMS detects that an invalid index has been entered.
+** 1a1. RMS displays an error that says the index provided is invalid.
++
+Use case ends.
+
+[discrete]
+=== Use case: Edit employee
+Actor: Restaurant Manager +
+Preconditions: "List employee" use case was used before this use case. +
+Guarantees:
+
+* Details of an employee is edited.
+
+*MSS*
+
+1.    User requests to edit an existing employee at the specified index with the optional parameters provided.
+2.    RMS edits the employee at the specified index with the optional parameters that were provided.
++
+Use case ends.
+
+*Extensions*
+
+* 1a. RMS detects that an invalid command format has been entered.
+** 1a1. RMS displays an error that says the command format is invalid.
+** 1a2. RMS displays information on the proper use of the command along with an example.
++
+Use case ends.
+
+* 1b. RMS detects that an invalid index has been entered.
+** 1b1. RMS displays an error that says the index provided is invalid.
++
+Use case ends.
 
 _{More to be added}_
 
