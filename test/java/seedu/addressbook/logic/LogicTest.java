@@ -384,16 +384,6 @@ public class LogicTest {
 
     }
 
-//    @Test
-//    public void updateMemberPoints() throws Exception {
-//        TestDataHelper helper = new TestDataHelper();
-//        Member toBeAdded = helper.eve();
-//        Rms expectedAB = new Rms();
-//        expectedAB.addMember(toBeAdded);
-//        toBeAdded.updatePoints(50);
-//
-//    }
-
     @Test
     public void execute_addmenu_successful() throws Exception {
         // setup expectations
@@ -983,6 +973,35 @@ public class LogicTest {
                 expectedList);
     }
 
+    @Test
+    public void updateMemberPoints() throws Exception {
+        TestDataHelper helper = new TestDataHelper();
+        Member toBeAdded = helper.eve();
+        Rms expectedAB = new Rms();
+        expectedAB.addMember(toBeAdded);
+        toBeAdded.updatePoints(50);
+        toBeAdded.updatePoints(-50);
+    }
+
+    @Test
+    public void invalidMemberInOrder() throws Exception {
+        TestDataHelper helper = new TestDataHelper();
+        Member m1 = helper.generateMember(1);
+        Member toBeAdded = helper.eve();
+        Rms expectedAB = new Rms();
+        expectedAB.addMember(toBeAdded);
+        expectedAB.findMemberInOrder(m1);
+    }
+
+    @Test
+    public void validMemberInOrder() throws Exception {
+        TestDataHelper helper = new TestDataHelper();
+        Member m1 = helper.generateMember(1);
+        Rms expectedAB = new Rms();
+        expectedAB.addMember(m1);
+        expectedAB.findMemberInOrder(m1);
+    }
+
     /**
      * A utility class to generate test data.
      */
@@ -1012,6 +1031,7 @@ public class LogicTest {
             MemberName name = new MemberName("Eve");
             return new Member(name);
         }
+
 
         Menu burger() throws Exception {
             MenuName name = new MenuName("Cheese Burger");
