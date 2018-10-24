@@ -34,7 +34,7 @@ public class ChatClient {
 
     private BufferedReader in;
     private PrintWriter out;
-    private JFrame frame = new JFrame("Chatter");
+    private JFrame frame = new JFrame("MediChat");
     private JTextField textField = new JTextField(40);
     private JTextArea messageArea = new JTextArea(8, 40);
 
@@ -73,7 +73,7 @@ public class ChatClient {
         return JOptionPane.showInputDialog(
                 frame,
                 "Enter IP Address of the Server:",
-                "Welcome to the Chatter",
+                "Welcome to MediChat!",
                 JOptionPane.QUESTION_MESSAGE);
     }
 

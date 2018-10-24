@@ -95,6 +95,9 @@ public class Parser {
             case LinkCommand.COMMAND_WORD:
                 return prepareLink(arguments);
 
+            case ChatCommand.COMMAND_WORD:
+                return new ChatCommand();
+
             case HelpCommand.COMMAND_WORD: // Fallthrough
             default:
                 return new HelpCommand();

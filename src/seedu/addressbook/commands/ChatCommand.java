@@ -1,11 +1,12 @@
 package seedu.addressbook.commands;
 
-//import seedu.addressbook.communications.ChatClient;
+import seedu.addressbook.communications.ChatClient;
+
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 
-public class ChatCommand extends Command{
+public class ChatCommand extends Command {
 
     public static final String COMMAND_WORD = "chat";
     public static final String MESSAGE_USAGE = COMMAND_WORD + ":\n" + "Opens up a separate chat programme\n\t"
@@ -13,9 +14,7 @@ public class ChatCommand extends Command{
 
     public static final String MESSAGE_SUCCESS = "Initialising chat!";
 
-
-
-    public static void main(String[] args)  {
+    public static void main(String[] args) {
         new ChatCommand();
     }
 
@@ -23,7 +22,7 @@ public class ChatCommand extends Command{
         try {
             int result = compile("seedu.addressbook.communications.ChatClient");
             System.out.println("javac returned " + result);
-            result = run("chatcommand.HelloWorld");
+            result = run("seedu.addressbook.communications.ChatClient");
         } catch (IOException | InterruptedException ex) {
             ex.printStackTrace();
         }
@@ -94,11 +93,17 @@ public class ChatCommand extends Command{
         public IOException getException() {
             return exp;
         }
-        /*public CommandResult execute() {
-            ChatClient.main(new String[0]);
-            commandHistory.checkForAction();
-            commandHistory.addHistory(COMMAND_WORD);
-            return new CommandResult(MESSAGE_SUCCESS);
-        }*/
+    }
+
+    public CommandResult execute() {
+        ChatClient cc = new ChatClient();
+        try {
+            cc.main(new String[]{"a", "b"});
+        } catch (Exception e) {
+            System.out.println("fk dis shit");
+        }
+        commandHistory.checkForAction();
+        commandHistory.addHistory(COMMAND_WORD);
+        return new CommandResult(MESSAGE_SUCCESS);
     }
 }
