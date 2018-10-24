@@ -973,15 +973,18 @@ public class LogicTest {
                 expectedList);
     }
 
-//    @Test
-//    public void updateMemberPoints() throws Exception {
-//        TestDataHelper helper = new TestDataHelper();
-//        Member toBeAdded = helper.eve();
-//        Rms expectedAB = new Rms();
-//        expectedAB.addMember(toBeAdded);
-//        toBeAdded.updatePoints(50);
-//        toBeAdded.updatePoints(-50);
-//    }
+    @Test
+    public void updateMemberPoints() throws Exception {
+        TestDataHelper helper = new TestDataHelper();
+        Points expectedPoints = new Points();
+
+        Member m1 = helper.eve();
+        m1.updatePoints(-50);
+        Points actualPoints = m1.getPoints();
+
+        System.out.println(m1.getPoints());
+        assertEquals(expectedPoints.getPoints(), actualPoints.getPoints());
+    }
 //
 //    @Test
 //    public void invalidMemberInOrder() throws Exception {
