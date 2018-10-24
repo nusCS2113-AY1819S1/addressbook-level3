@@ -271,6 +271,7 @@ Format: `editemp INDEX [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [pos/POSITION]`
 * Parameters in square brackets are optional.
 * At least one of the optional parameters must be provided.
 * Existing values will be updated to the input values.
+* The index must be a positive integer `1, 2, 3 ...`
 
 Examples: +
 `edit Joe Bob pos/Cashier` +

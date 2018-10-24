@@ -49,10 +49,10 @@
     </members>
     <employees>
         <name>Peter Lee</name>
-        <phone>98765432</phone>
-        <email>test@test.com</email>
-        <address>testing</address>
-        <position>nice</position>
+        <phone>32453564356</phone>
+        <email>PeterLee89@rms.com</email>
+        <address>Clementi Ave 2, Blk 543 #13-12 </address>
+        <position>Cashier</position>
     </employees>
     <orders>
         <customer>

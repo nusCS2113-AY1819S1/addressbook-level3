@@ -41,7 +41,6 @@ import seedu.addressbook.commands.statistics.StatsEmployeeCommand;
 import seedu.addressbook.commands.statistics.StatsMemberCommand;
 import seedu.addressbook.commands.statistics.StatsMenuCommand;
 import seedu.addressbook.commands.statistics.StatsOrderCommand;
-import seedu.addressbook.data.employee.ReadOnlyEmployee;
 import seedu.addressbook.data.exception.IllegalValueException;
 
 /**
@@ -359,10 +358,10 @@ public class Parser {
             final int targetIndex = parseArgsAsDisplayedIndex(matcher.group("targetIndex"));
             return new EmployeeEditCommand(
                     targetIndex,
-                    checkEmpty(matcher.group("phone"), "phone"),
-                    checkEmpty(matcher.group("email"), "email"),
-                    checkEmpty(matcher.group("address"), "address"),
-                    checkEmpty(matcher.group("position"), "position")
+                    prepareEditArg(matcher.group("phone"), "phone"),
+                    prepareEditArg(matcher.group("email"), "email"),
+                    prepareEditArg(matcher.group("address"), "address"),
+                    prepareEditArg(matcher.group("position"), "position")
             );
         } catch (ParseException | NumberFormatException e) {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EmployeeEditCommand.MESSAGE_USAGE));
@@ -372,11 +371,12 @@ public class Parser {
     }
 
     /**
-     * Returns new information to be edited if it is not empty
+     * Returns new information to be edited if it is not empty,
+     * else returns a placeholder string indicating that there is no new information
      */
-    private static String checkEmpty(String toCheck, String argument){
+    private static String prepareEditArg(String toCheck, String argumentType){
         if (toCheck == null || toCheck.isEmpty()) {
-            switch(argument) {
+            switch(argumentType) {
                 case "phone":
                     toCheck = "00000000";
                     break;
