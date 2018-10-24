@@ -47,7 +47,7 @@ public class Price {
         }
         if((valueAsPrice.substring(decimalIndex)).length()>3){
             priceIndouble = Math.round(priceIndouble*100.0)/100.0;
-            valueAsPrice = Double.toString(priceIndouble);
+            valueAsPrice = "$" + Double.toString(priceIndouble);
 
         }
 
