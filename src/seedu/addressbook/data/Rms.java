@@ -32,6 +32,7 @@ import seedu.addressbook.data.person.UniquePersonList.PersonNotFoundException;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Represents the entire address book. Contains the data of the address book.
@@ -149,18 +150,6 @@ public class Rms {
         return allMembers.contains(key);
     }
 
-    /**
-     *  Checks if a member in another feature is in the list of members
-     *  Returns the member if found, else create a new Member using the data from the member in the order
-     */
-    public Member retrieveMember(ReadOnlyMember target) {
-        for(Member member : allMembers) {
-            if(target.isSameStateAs(member)) {
-                return member;
-            }
-        }
-        return new Member(target);
-    }
 
     /**
      * Checks if an equivalent employee exists in the address book.
@@ -295,7 +284,7 @@ public class Rms {
     }
 
     public ReadOnlyOrder getDraftOrder() {
-        return new Order(draftOrder);
+        return draftOrder;
     }
 
     public void editDraftOrderCustomer(ReadOnlyMember customer) {

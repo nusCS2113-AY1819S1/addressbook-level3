@@ -64,4 +64,29 @@
         <address>Clementi Ave 2, Blk 543 #13-12 </address>
         <position>Cashier</position>
     </employees>
+    <orders>
+        <customer>
+            <name>Kang Ming</name>
+            <points>0</points>
+            <date>0</date>
+        </customer>
+        <date>1540462115989</date>
+        <price>1003.0</price>
+        <dishItems>
+            <dish>
+                <name>cheese fries</name>
+                <price>$0.60</price>
+                <type>sides</type>
+            </dish>
+            <quantity>5</quantity>
+        </dishItems>
+        <dishItems>
+            <dish>
+                <name>Pizza</name>
+                <price>$10.00</price>
+                <type>main</type>
+            </dish>
+            <quantity>100</quantity>
+        </dishItems>
+    </orders>
 </Rms>

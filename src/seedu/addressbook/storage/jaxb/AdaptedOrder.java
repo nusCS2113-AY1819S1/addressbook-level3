@@ -3,7 +3,9 @@ package seedu.addressbook.storage.jaxb;
 import seedu.addressbook.common.Utils;
 import seedu.addressbook.data.exception.IllegalValueException;
 import seedu.addressbook.data.member.Member;
+import seedu.addressbook.data.member.ReadOnlyMember;
 import seedu.addressbook.data.menu.Menu;
+import seedu.addressbook.data.menu.ReadOnlyMenus;
 import seedu.addressbook.data.order.Order;
 import seedu.addressbook.data.order.ReadOnlyOrder;
 
@@ -45,7 +47,7 @@ public class AdaptedOrder {
         price = source.getPrice();
 
         dishItems = new ArrayList<>();
-        for (Map.Entry<Menu, Integer> m: source.getDishItems().entrySet()) {
+        for (Map.Entry<ReadOnlyMenus, Integer> m: source.getDishItems().entrySet()) {
             AdaptedDishItem dishItem = new AdaptedDishItem();
             dishItem.dish = new AdaptedMenu(m.getKey());
             dishItem.quantity = m.getValue();
@@ -75,14 +77,29 @@ public class AdaptedOrder {
      *
      * @throws IllegalValueException if there were any data constraints violated in the adapted order
      */
-    public Order toModelType() throws IllegalValueException {
-        final Map<Menu, Integer> dishItems = new HashMap<>();
+    public Order toModelType(List<Member> memberList) throws IllegalValueException {
+        final Map<ReadOnlyMenus, Integer> dishItems = new HashMap<>();
         for (AdaptedDishItem dishItem : this.dishItems) {
             dishItems.put(dishItem.dish.toModelType(), dishItem.quantity);
         }
-        final Member customer = this.customer.toModelType();
+        ReadOnlyMember customerClone = this.customer.toModelType();
+        final ReadOnlyMember customer = retrieveMember(customerClone, memberList);
         final Date date = new Date(this.date);
         final double price = this.price;
         return new Order(customer, date, price, dishItems);
     }
+
+    /**
+     *  Checks if a member in another feature is in a list of members
+     *  Returns the member if found, else create a new Member using the data from the member in the order
+     */
+    public Member retrieveMember(ReadOnlyMember target, List<Member> memberList) {
+        for(Member member : memberList) {
+            if(target.isSameStateAs(member)) {
+                return member;
+            }
+        }
+        return new Member(target);
+    }
+
 }
