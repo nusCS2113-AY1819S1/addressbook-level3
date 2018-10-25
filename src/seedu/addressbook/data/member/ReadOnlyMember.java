@@ -29,7 +29,6 @@ public interface ReadOnlyMember {
         return other == this // short circuit if same object
                 || (other != null // this is first to avoid NPE below
                 && other.getName().equals(this.getName())); // state checks here onwards
-//
     }
 
     /**

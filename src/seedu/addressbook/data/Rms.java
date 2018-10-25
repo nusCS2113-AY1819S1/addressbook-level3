@@ -146,20 +146,16 @@ public class Rms {
     }
 
     /**
-     *  Checks if a member in the order is in the list of members
+     *  Checks if a member in another feature is in the list of members
      *  Returns the member if found, else create a new Member using the data from the member in the order
      */
-    public Member findMemberInOrder(Member orderMember) {
-        MemberName name = orderMember.getName();
-        Points points = orderMember.getPoints();
-        Date date = orderMember.getDate();
-
+    public Member retrieveMember(ReadOnlyMember target) {
         for(Member member : allMembers) {
-            if((name == member.getName()) && (points == member.getPoints()) && (date == member.getDate())) {
+            if(target.isSameStateAs(member)) {
                 return member;
             }
         }
-        return new Member(name, points, date);
+        return new Member(target);
     }
 
     /**

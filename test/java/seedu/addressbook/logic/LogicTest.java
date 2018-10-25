@@ -451,10 +451,10 @@ public class LogicTest {
         expectedAB.addMember(toBeAdded);
 
         // setup starting state
-        logic.execute(helper.generateAddMemberCommand(toBeAdded)); //employee already in Rms
+        logic.execute(helper.generateAddMemberCommand(toBeAdded)); //member already in Rms
 
         // execute command and verify result
-        assertEmployeeCommandBehavior(
+        assertMemberCommandBehavior(
                 helper.generateAddMemberCommand(toBeAdded),
                 MemberAddCommand.MESSAGE_DUPLICATE_MEMBER,
                 expectedAB,
