@@ -11,13 +11,13 @@ import seedu.addressbook.data.menu.ReadOnlyMenus;
  */
 public class DraftOrderEditDishCommand extends Command {
 
-    public static final String COMMAND_WORD = "editdraftdish";
+    public static final String COMMAND_WORD = "draftdish";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ":\n"
             + "Add a customer to the draft order. "
             + "The customer is identified using the index from the last shown menu list. \n\t"
-            + "Parameters: i/INDEX q/QUANTITY\n\t"
-            + "Example: " + COMMAND_WORD + " i/3 q/4";
+            + "Parameters: INDEX q/QUANTITY\n\t"
+            + "Example: " + COMMAND_WORD + " 3 q/4";
 
     public static final String MESSAGE_SUCCESS = "The dish is edited in the draft order.";
 
