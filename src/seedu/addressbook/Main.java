@@ -16,7 +16,7 @@ import seedu.addressbook.login.login;
 public class Main extends Application implements Stoppable{
 
     /** Version info of the program. */
-    public static final String VERSION = "Health Booklet - Version 1.3";
+    public static final String VERSION = "MediBook - Version 1.3";
     private Gui gui;
 
     @Override
