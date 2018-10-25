@@ -13,6 +13,7 @@ import seedu.addressbook.commands.menu.*;
 import seedu.addressbook.common.Messages;
 import seedu.addressbook.data.Rms;
 import seedu.addressbook.data.member.Member;
+import seedu.addressbook.data.member.MemberName;
 import seedu.addressbook.data.member.Points;
 import seedu.addressbook.data.member.ReadOnlyMember;
 import seedu.addressbook.data.person.*;
@@ -943,9 +944,8 @@ public class LogicTest {
         }
 
         Member eve() throws Exception {
-            Name name = new Name("Eve");
-            Points points = new Points();
-            return new Member(name, points);
+            MemberName name = new MemberName("Eve");
+            return new Member(name);
         }
 
         Menu burger() throws Exception {
@@ -1002,8 +1002,7 @@ public class LogicTest {
          */
         Member generateMember(int seed) throws Exception {
             return new Member(
-                    new Name("Member " + seed),
-                    new Points()
+                    new MemberName("Member " + seed)
             );
         }
         /**

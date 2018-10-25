@@ -3,9 +3,13 @@ package seedu.addressbook.parser;
 import org.junit.Before;
 import org.junit.Test;
 import seedu.addressbook.commands.*;
+import seedu.addressbook.commands.member.MemberAddCommand;
 import seedu.addressbook.commands.member.MemberListCommand;
 import seedu.addressbook.commands.menu.*;
 import seedu.addressbook.data.exception.IllegalValueException;
+import seedu.addressbook.data.member.Member;
+import seedu.addressbook.data.member.MemberName;
+import seedu.addressbook.data.member.ReadOnlyMember;
 import seedu.addressbook.data.menu.*;
 import seedu.addressbook.data.person.*;
 import seedu.addressbook.data.tag.Tag;
@@ -481,7 +485,7 @@ public class ParserTest {
     @Test
     public void MemberAddCommand_invalidMemberDataInArgs() {
         final String invalidName = "[]\\[;]";
-        final String validName = Name.EXAMPLE;
+        final String validName = MemberName.EXAMPLE;
 
         // address can be any string, so no invalid address
         final String MemberAddCommandFormatString = "addmember p/";
@@ -495,6 +499,47 @@ public class ParserTest {
         for (String input : inputs) {
             parseAndAssertCommandType(input, IncorrectCommand.class);
         }
+    }
+
+    @Test
+    public void MemberAddCommand_validEmptyMemberData_parsedCorrectly() {
+        final Member testMember = generateTestEmptyMember();
+        final String input = convertMemberToAddCommandString(testMember);
+        final MemberAddCommand result = parseAndAssertCommandType(input, MemberAddCommand.class);
+        assertEquals(result.getMember(), testMember);
+
+    }
+
+    @Test
+    public void MemberAddCommand_validMemberData_parsedCorrectly() {
+        final Member testMember = generateTestMember();
+        final String input = convertMemberToAddCommandString(testMember);
+        final MemberAddCommand result = parseAndAssertCommandType(input, MemberAddCommand.class);
+        assertEquals(result.getMember(), testMember);
+    }
+
+
+    private static Member generateTestEmptyMember() {
+        try {
+            return new Member();
+        } catch (Exception ive) {
+            throw new RuntimeException("test empty member data should be valid by definition");
+        }
+    }
+
+    private static Member generateTestMember() {
+        try {
+            return new Member(new MemberName(MemberName.EXAMPLE));
+        } catch (IllegalValueException ie) {
+            throw new RuntimeException("test member data should be valid by definition");
+        }
+    }
+
+    private static String convertMemberToAddCommandString(ReadOnlyMember member) {
+        String addCommand = "addmember "
+                + member.getName().value;
+
+        return addCommand;
     }
 
     /**
