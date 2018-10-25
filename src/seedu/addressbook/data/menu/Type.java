@@ -11,8 +11,14 @@ import java.util.List;
  */
 public class Type {
 
-    public static final String EXAMPLE = "Burger";
-    public static final String MESSAGE_TYPE_CONSTRAINTS = "Item Type should only be in words";
+    public static final String EXAMPLE = "Main";
+    public static final String MESSAGE_TYPE_CONSTRAINTS = "Item Type should only be one of the few Category:"
+                                                           + "\n" + "Main"
+                                                           + "\n" + "Sides"
+                                                           + "\n" + "Beverage"
+                                                           + "\n" + "Dessert"
+                                                           + "\n" + "Others"
+                                                           + "\n" + "Set Meal";
     public static final String TYPE_VALIDATION_REGEX = "[\\p{Alnum} ]+";
 
     public final String value;
@@ -34,9 +40,13 @@ public class Type {
      * Returns true if a given string is a valid person name.
      */
     public static boolean isValidTypeName(String test) {
+        if ((test.equals("main")==true || test.equals("sides")==true || test.equals("beverage")==true || test.equals("dessert")==true || test.equals("others")==true || test.equals("set meal")) && test.matches(TYPE_VALIDATION_REGEX)==true){
+            return true;
+
+        }
 
 
-        return test.matches(TYPE_VALIDATION_REGEX);
+        return false;
     }
 
     /**

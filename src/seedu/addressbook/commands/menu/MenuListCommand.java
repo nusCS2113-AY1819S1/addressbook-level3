@@ -27,4 +27,3 @@ public class MenuListCommand extends Command {
         return new MenuCommandResult(getMessageForMenuListShownSummary(allMenus), allMenus);
     }
 }
-//added a random command

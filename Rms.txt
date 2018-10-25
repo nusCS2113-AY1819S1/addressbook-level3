@@ -25,22 +25,12 @@
     <menus>
         <name>Pizza</name>
         <price>$10.00</price>
-        <type>burger</type>
-    </menus>
-    <menus>
-        <name>burger</name>
-        <price>$5.00</price>
-        <type>burger</type>
+        <type>main</type>
     </menus>
     <menus>
         <name>cheesefries</name>
         <price>$5</price>
         <type>sides</type>
-    </menus>
-    <menus>
-        <name>cheese burger</name>
-        <price>$5.00</price>
-        <type>burger</type>
     </menus>
     <menus>
         <name>cheese fries</name>
@@ -50,7 +40,12 @@
     <menus>
         <name>sprite</name>
         <price>$5.00</price>
-        <type>drinks</type>
+        <type>beverage</type>
+    </menus>
+    <menus>
+        <name>cheese burger</name>
+        <price>$5.00</price>
+        <type>main</type>
     </menus>
     <members>
         <name>Kang Ming</name>
