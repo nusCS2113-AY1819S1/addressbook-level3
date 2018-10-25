@@ -446,7 +446,7 @@ public class ParserTest {
 
     private static String convertMemberToAddCommandString(ReadOnlyMember member) {
         String addCommand = "addmember "
-                + member.getName().value;
+                + member.getName().fullName;
 
         return addCommand;
     }

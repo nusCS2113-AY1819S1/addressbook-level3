@@ -14,7 +14,10 @@ public class Messages {
     public static final String MESSAGE_EMPLOYEE_NOT_IN_RMS = "Employee could not be found in Rms";
     public static final String MESSAGE_EMPLOYEES_LISTED_OVERVIEW = "%1$d employees listed!";
 
+    public static final String MESSAGE_INVALID_MEMBER_DISPLAYED_INDEX = "The employee index provided is invalid";
+    public static final String MESSAGE_MEMBER_NOT_IN_RMS = "Employee could not be found in Rms";
     public static final String MESSAGE_MEMBERS_LISTED_OVERVIEW = "%1$d members listed!";
+    public static final String MESSAGE_NEGATIVE_POINTS = "Update points cannot result in negative points.";
 
     public static final String MESSAGE_INVALID_MENU_ITEM_DISPLAYED_INDEX = "The menu item index provided is invalid";
     public static final String MESSAGE_MENU_ITEM_NOT_IN_ADDRESSBOOK = "Menu item could not be found in Rms";
