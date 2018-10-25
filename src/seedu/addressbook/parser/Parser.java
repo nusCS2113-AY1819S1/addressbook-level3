@@ -12,6 +12,7 @@ import java.util.regex.Pattern;
 
 import seedu.addressbook.commands.employee.*;
 import seedu.addressbook.commands.member.MemberAddCommand;
+import seedu.addressbook.commands.member.MemberDeleteCommand;
 import seedu.addressbook.commands.member.MemberListCommand;
 import seedu.addressbook.commands.menu.MenuAddCommand;
 import seedu.addressbook.commands.menu.MenuDeleteCommand;
@@ -132,12 +133,6 @@ public class Parser {
 
             case EmployeeListCommand.COMMAND_WORD:
                 return new EmployeeListCommand();
-
-            case MemberAddCommand.COMMAND_WORD:
-                return prepareAddMember(arguments);
-
-            case MemberListCommand.COMMAND_WORD:
-                return new MemberListCommand();
 
             case MemberListCommand.COMMAND_WORD:
                 return new MemberListCommand();
