@@ -1,5 +1,6 @@
 package seedu.addressbook.common;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
@@ -45,4 +46,8 @@ public class Utils {
         return list;
     }
 
+    public static String formatCurrency(double input) {
+        DecimalFormat df = new DecimalFormat("0.00");
+        return df.format(input);
+    }
 }

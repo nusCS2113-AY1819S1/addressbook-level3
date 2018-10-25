@@ -1,10 +1,8 @@
 package seedu.addressbook.commands.statistics;
 
-import java.text.DecimalFormat;
 import java.util.Date;
 import java.util.List;
 
-import com.sun.xml.bind.Util;
 
 import seedu.addressbook.commands.Command;
 import seedu.addressbook.commands.CommandResult;
@@ -39,20 +37,19 @@ public class StatsOrderCommand extends Command {
             dateTable.addData(order);
         }
         Date currentDate = new Date();
-        DecimalFormat df = new DecimalFormat("0.00");
 
         sb.append("This year's statistics\n");
         sb.append("========================\n");
         sb.append("Number of orders: " + Integer.toString(dateTable.getYearCount(currentDate)) + "\n");
-        sb.append("Revenue: $" + df.format(dateTable.getYearRevenue(currentDate)) + "\n\n");
+        sb.append("Revenue: $" + Utils.formatCurrency(dateTable.getYearRevenue(currentDate)) + "\n\n");
         sb.append("This month's statistics\n");
         sb.append("========================\n");
         sb.append("Number of orders: " + Integer.toString(dateTable.getMonthCount(currentDate)) + "\n");
-        sb.append("Revenue: $" + df.format(dateTable.getMonthRevenue(currentDate)) + "\n\n");
+        sb.append("Revenue: $" + Utils.formatCurrency(dateTable.getMonthRevenue(currentDate)) + "\n\n");
         sb.append("Today's statistics\n");
         sb.append("========================\n");
         sb.append("Number of orders: " + Integer.toString(dateTable.getDayCount(currentDate)) + "\n");
-        sb.append("Revenue: $" + df.format(dateTable.getDayRevenue(currentDate)));
+        sb.append("Revenue: $" + Utils.formatCurrency(dateTable.getDayRevenue(currentDate)));
 
         return sb.toString();
     }
