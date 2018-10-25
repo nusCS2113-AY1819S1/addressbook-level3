@@ -30,6 +30,8 @@ public class StatsOrderCommand extends Command {
     private String getOrderStats() {
         StringBuilder sb = new StringBuilder();
         List<ReadOnlyOrder> allOrders = rms.getAllOrders().immutableListView();
+        if (allOrders.isEmpty())
+            return "There are no orders in the system.";
 
         OrderDateTable dateTable = new OrderDateTable();
 
