@@ -1,9 +1,13 @@
 package seedu.addressbook.common;
 
 import java.util.Arrays;
+import java.text.DecimalFormat;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Objects;
+import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 /**
@@ -42,5 +46,17 @@ public class Utils {
             }
         }
         return true;
+    }
+
+    public static <K, V extends Comparable<? super V>> List<Map.Entry <K, V>> sortByValue(Map<K, V> map) {
+        List<Map.Entry<K, V>> list = new ArrayList<>(map.entrySet());
+        list.sort(Map.Entry.comparingByValue());
+
+        return list;
+    }
+
+    public static String formatCurrency(double input) {
+        DecimalFormat df = new DecimalFormat("0.00");
+        return df.format(input);
     }
 }
