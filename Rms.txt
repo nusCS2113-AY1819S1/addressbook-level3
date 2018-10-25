@@ -54,7 +54,7 @@
     </menus>
     <members>
         <name>Kang Ming</name>
-        <points>0</points>
+        <points>155</points>
         <date>0</date>
     </members>
     <employees>
@@ -67,7 +67,7 @@
     <orders>
         <customer>
             <name>Kang Ming</name>
-            <points>0</points>
+            <points>155</points>
             <date>0</date>
         </customer>
         <date>1540462115989</date>
@@ -87,6 +87,40 @@
                 <type>main</type>
             </dish>
             <quantity>100</quantity>
+        </dishItems>
+    </orders>
+    <orders>
+        <customer>
+            <name>Kang Ming</name>
+            <points>155</points>
+            <date>0</date>
+        </customer>
+        <date>1540464518619</date>
+        <price>1500.0</price>
+        <dishItems>
+            <dish>
+                <name>sprite</name>
+                <price>$5.00</price>
+                <type>beverage</type>
+            </dish>
+            <quantity>300</quantity>
+        </dishItems>
+    </orders>
+    <orders>
+        <customer>
+            <name>Kang Ming</name>
+            <points>155</points>
+            <date>0</date>
+        </customer>
+        <date>1540465181617</date>
+        <price>50.0</price>
+        <dishItems>
+            <dish>
+                <name>ice cream</name>
+                <price>$5.00</price>
+                <type>dessert</type>
+            </dish>
+            <quantity>10</quantity>
         </dishItems>
     </orders>
 </Rms>
