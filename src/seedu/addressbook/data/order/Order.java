@@ -25,7 +25,7 @@ public class Order implements ReadOnlyOrder {
      *
      * Use {@code entrySet()} to create a Set for iteration.
      */
-    private final Map<Menu, Integer> dishItems = new HashMap<>();
+    private final Map<ReadOnlyMenus, Integer> dishItems = new HashMap<>();
 
     /**
      * Constructor used for drafting new order. Uses empty customer instead of null.
@@ -39,7 +39,7 @@ public class Order implements ReadOnlyOrder {
     /**
      * Constructor for new order to be added to the order list.
      */
-    public Order(ReadOnlyMember customer, Map<Menu, Integer> dishItems) {
+    public Order(ReadOnlyMember customer, Map<ReadOnlyMenus, Integer> dishItems) {
         this.customer = customer;
         this.dishItems.putAll(dishItems);
         this.price = calculatePrice();
@@ -49,7 +49,7 @@ public class Order implements ReadOnlyOrder {
     /**
      * Constructor for edited order to keep the original ordered date.
      */
-    public Order(ReadOnlyMember customer, Date date, Map<Menu, Integer> dishItems) {
+    public Order(ReadOnlyMember customer, Date date, Map<ReadOnlyMenus, Integer> dishItems) {
         this.customer = customer;
         this.dishItems.putAll(dishItems);
         this.price = calculatePrice();
@@ -59,7 +59,7 @@ public class Order implements ReadOnlyOrder {
     /**
      * Full constructor.
      */
-    public Order(ReadOnlyMember customer, Date date, double price, Map<Menu, Integer> dishItems) {
+    public Order(ReadOnlyMember customer, Date date, double price, Map<ReadOnlyMenus, Integer> dishItems) {
         this.customer = customer;
         this.dishItems.putAll(dishItems);
         this.price = price;
@@ -92,7 +92,7 @@ public class Order implements ReadOnlyOrder {
     }
 
     @Override
-    public Map<Menu, Integer> getDishItems() {
+    public Map<ReadOnlyMenus, Integer> getDishItems() {
         return new HashMap<>(dishItems);
     }
 
@@ -103,7 +103,7 @@ public class Order implements ReadOnlyOrder {
     /**
      * Replaces the list of dish items with the dish items in {@code replacement}.
      */
-    public void setDishItems(Map<Menu, Integer> replacement) {
+    public void setDishItems(Map<ReadOnlyMenus, Integer> replacement) {
         dishItems.clear();
         dishItems.putAll(replacement);
         price = calculatePrice();
@@ -114,7 +114,7 @@ public class Order implements ReadOnlyOrder {
      */
     public double calculatePrice() {
         double result = 0;
-        for (Map.Entry<Menu, Integer> m: getDishItems().entrySet()) {
+        for (Map.Entry<ReadOnlyMenus, Integer> m: getDishItems().entrySet()) {
             double dishPrice = m.getKey().getPrice().convertValueOfPricetoDouble();
             int dishQuantity = m.getValue();
             result += (dishPrice * dishQuantity);
@@ -125,7 +125,7 @@ public class Order implements ReadOnlyOrder {
     /**
      * Get the number of a certain dish item in an order.
      */
-    public int getDishQuantity(Menu dish) {
+    public int getDishQuantity(ReadOnlyMenus dish) {
         if (dishItems.containsKey(dish)) {
             return dishItems.get(dish);
         } else {
@@ -138,7 +138,7 @@ public class Order implements ReadOnlyOrder {
      * Used to add, remove and edit dishes in an order.
      */
     public void changeDishQuantity(ReadOnlyMenus readOnlyDish, int quantity) {
-        Menu dish = new Menu(readOnlyDish);
+        ReadOnlyMenus dish = new Menu(readOnlyDish);
         if (quantity == 0) {
             dishItems.remove(dish);
         } else if (quantity > 0) {
@@ -166,7 +166,7 @@ public class Order implements ReadOnlyOrder {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(new Member(customer), date, price, dishItems);
+        return Objects.hash(customer, date, price, dishItems);
     }
 
     @Override

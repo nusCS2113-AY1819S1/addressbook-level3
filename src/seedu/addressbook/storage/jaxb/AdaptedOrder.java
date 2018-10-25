@@ -5,6 +5,7 @@ import seedu.addressbook.data.exception.IllegalValueException;
 import seedu.addressbook.data.member.Member;
 import seedu.addressbook.data.member.ReadOnlyMember;
 import seedu.addressbook.data.menu.Menu;
+import seedu.addressbook.data.menu.ReadOnlyMenus;
 import seedu.addressbook.data.order.Order;
 import seedu.addressbook.data.order.ReadOnlyOrder;
 
@@ -46,7 +47,7 @@ public class AdaptedOrder {
         price = source.getPrice();
 
         dishItems = new ArrayList<>();
-        for (Map.Entry<Menu, Integer> m: source.getDishItems().entrySet()) {
+        for (Map.Entry<ReadOnlyMenus, Integer> m: source.getDishItems().entrySet()) {
             AdaptedDishItem dishItem = new AdaptedDishItem();
             dishItem.dish = new AdaptedMenu(m.getKey());
             dishItem.quantity = m.getValue();
@@ -77,7 +78,7 @@ public class AdaptedOrder {
      * @throws IllegalValueException if there were any data constraints violated in the adapted order
      */
     public Order toModelType(List<Member> memberList) throws IllegalValueException {
-        final Map<Menu, Integer> dishItems = new HashMap<>();
+        final Map<ReadOnlyMenus, Integer> dishItems = new HashMap<>();
         for (AdaptedDishItem dishItem : this.dishItems) {
             dishItems.put(dishItem.dish.toModelType(), dishItem.quantity);
         }

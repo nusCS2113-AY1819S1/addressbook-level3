@@ -14,7 +14,7 @@ public interface ReadOnlyOrder {
     ReadOnlyMember getCustomer();
     Date getDate();
     double getPrice();
-    Map<Menu, Integer> getDishItems();
+    Map<ReadOnlyMenus, Integer> getDishItems();
 
     boolean hasCustomerField();
     boolean hasDishItems();
@@ -40,7 +40,7 @@ public interface ReadOnlyOrder {
         }
         builder.append("\tDate: ").append(getDate());
         int i = 0;
-        for (Map.Entry<Menu, Integer> m: getDishItems().entrySet()) {
+        for (Map.Entry<ReadOnlyMenus, Integer> m: getDishItems().entrySet()) {
             i++;
             builder.append("\n");
             MenuName dishName = m.getKey().getName();
@@ -52,7 +52,8 @@ public interface ReadOnlyOrder {
                     .append("($").append(dishPrice.toString()).append(") \t\t")
                     .append("x").append(quantity);
         }
-        builder.append("\n\t\tPrice: $").append(getPrice());
+        builder.append("\n\t\tPrice: $");
+        builder.append(Price.convertPricetoString(getPrice()));
         return builder.toString();
     }
 
@@ -66,7 +67,7 @@ public interface ReadOnlyOrder {
         }
         builder.append("\tDate: ").append(getDate());
         int i = 0;
-        for (Map.Entry<Menu, Integer> m: getDishItems().entrySet()) {
+        for (Map.Entry<ReadOnlyMenus, Integer> m: getDishItems().entrySet()) {
             i++;
             builder.append("\n");
             MenuName dishName = m.getKey().getName();
@@ -78,7 +79,8 @@ public interface ReadOnlyOrder {
                     .append("($").append(dishPrice.toString()).append(") \t\t")
                     .append("x").append(quantity);
         }
-        builder.append("\n\t\tPrice: $").append(getPrice());
+        builder.append("\n\t\tPrice: $");
+        builder.append(Price.convertPricetoString(getPrice()));
         return builder.toString();
     }
 
@@ -96,7 +98,7 @@ public interface ReadOnlyOrder {
         builder.append("\n\t\tDishes: ");
         if (hasDishItems()) {
             int i = 0;
-            for (Map.Entry<Menu, Integer> m: getDishItems().entrySet()) {
+            for (Map.Entry<ReadOnlyMenus, Integer> m: getDishItems().entrySet()) {
                 i++;
                 builder.append("\n");
                 MenuName dishName = m.getKey().getName();
