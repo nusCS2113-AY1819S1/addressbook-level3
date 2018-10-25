@@ -6,6 +6,7 @@ import seedu.addressbook.commands.*;
 import seedu.addressbook.commands.member.MemberAddCommand;
 import seedu.addressbook.commands.member.MemberListCommand;
 import seedu.addressbook.commands.menu.*;
+import seedu.addressbook.commands.statistics.*;
 import seedu.addressbook.data.exception.IllegalValueException;
 import seedu.addressbook.data.member.Member;
 import seedu.addressbook.data.member.MemberName;
@@ -75,6 +76,30 @@ public class ParserTest {
     public void MenulistCommand_parsedCorrectly() {
         final String input = "listmenu";
         parseAndAssertCommandType(input, MenuListCommand.class);
+    }
+
+    @Test
+    public void StatsEmployeeCommand_parsedCorrectly() {
+        final String input = "statsemp";
+        parseAndAssertCommandType(input, StatsEmployeeCommand.class);
+    }
+
+    @Test
+    public void StatsMemberCommand_parsedCorrectly() {
+        final String input = "statsmember";
+        parseAndAssertCommandType(input, StatsMemberCommand.class);
+    }
+
+    @Test
+    public void StatsMenuCommand_parsedCorrectly() {
+        final String input = "statsmenu";
+        parseAndAssertCommandType(input, StatsMenuCommand.class);
+    }
+
+    @Test
+    public void StatsOrderCommand_parsedCorrectly() {
+        final String input = "statsorder";
+        parseAndAssertCommandType(input, StatsOrderCommand.class);
     }
 
     @Test

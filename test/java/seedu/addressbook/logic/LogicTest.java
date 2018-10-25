@@ -11,6 +11,7 @@ import seedu.addressbook.commands.employee.*;
 import seedu.addressbook.commands.member.MemberAddCommand;
 import seedu.addressbook.commands.member.MemberDeleteCommand;
 import seedu.addressbook.commands.menu.*;
+import seedu.addressbook.commands.statistics.StatsMenuCommand;
 import seedu.addressbook.common.Messages;
 import seedu.addressbook.data.Rms;
 import seedu.addressbook.data.member.Member;
@@ -217,6 +218,24 @@ public class LogicTest {
         //Confirm the state of data is as expected
         assertEquals(expectedRms, rms);
         assertEquals(lastShownMenuList, logic.getLastShownMenuList());
+        assertEquals(rms, saveFile.load());
+    }
+
+    /**
+     * Executes the stats command and confirms that the result message is correct<br>
+     */
+    private void assertStatsCommandBehavior(String inputCommand,
+                                           String expectedMessage,
+                                           Rms expectedRms) throws Exception {
+
+        //Execute the command
+        CommandResult r = logic.execute(inputCommand);
+
+        //Confirm the result contains the right data
+        assertEquals(expectedMessage, r.feedbackToUser);
+
+        //Confirm the state of data is as expected
+        assertEquals(expectedRms, rms);
         assertEquals(rms, saveFile.load());
     }
 
@@ -1108,6 +1127,17 @@ public class LogicTest {
         Points actualPoints = m1.getPoints();
         
         assertEquals(expectedPoints.getPoints(), actualPoints.getPoints());
+    }
+
+    @Test
+    public void execute_statsmenu_invalidArgsFormat() throws Exception {
+        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, StatsMenuCommand.MESSAGE_USAGE);
+        assertMenuCommandBehavior(
+                "statsmenu InvalidDate", expectedMessage);
+        assertMenuCommandBehavior(
+                "statsmenu f/00192048 t/99022018", expectedMessage);
+        assertMenuCommandBehavior(
+                "statsmenu f/062017 t/2018", expectedMessage);
     }
 //
 //    @Test
