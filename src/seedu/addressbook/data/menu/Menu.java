@@ -17,14 +17,16 @@ public class Menu implements ReadOnlyMenus, Comparable<Menu> {
 
     private MenuName name;
     private Price price;
+    private Type type;
 
     private final Set<Tag> tags = new HashSet<>();
     /**
      * Assumption: Every field must be present and not null.
      */
-    public Menu(MenuName name, Price price, Set<Tag> tags) {
+    public Menu(MenuName name, Price price, Type type, Set<Tag> tags) {
         this.name = name;
         this.price = price;
+        this.type = type;
         this.tags.addAll(tags);
     }
 
@@ -32,7 +34,7 @@ public class Menu implements ReadOnlyMenus, Comparable<Menu> {
      * Copy constructor.
      */
     public Menu(ReadOnlyMenus source) {
-        this(source.getName(), source.getPrice(), source.getTags());
+        this(source.getName(), source.getPrice(), source.getType(), source.getTags());
     }
 
     @Override
@@ -43,6 +45,11 @@ public class Menu implements ReadOnlyMenus, Comparable<Menu> {
     @Override
     public Price getPrice() {
         return price;
+    }
+
+    @Override
+    public Type getType() {
+        return type;
     }
 
 
@@ -69,12 +76,12 @@ public class Menu implements ReadOnlyMenus, Comparable<Menu> {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, price, tags);
+        return Objects.hash(name);
     }
 
     @Override
     public String toString() {
-        return getAsTextShowAll();
+        return this.name.fullName;
     }
 
     @Override
