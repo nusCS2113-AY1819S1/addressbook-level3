@@ -25,7 +25,7 @@ public class StatsMenuCommand extends Command {
     public static final String COMMAND_WORD = "statsmenu";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ":\n"
-            + "Displays statistics information for menu items.\n Select date range from ddmmyyyy to ddmmyyyy with f/ddmmyyyy and t/ddmmyyyy\t"
+            + "Displays statistics information for menu items.\nSelect date range from ddmmyyyy to ddmmyyyy with f/ddmmyyyy and t/ddmmyyyy\n\t"
             + "Example: " + COMMAND_WORD + " [f/24102018] [t/26102018]";
 
 
