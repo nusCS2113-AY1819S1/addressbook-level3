@@ -844,7 +844,7 @@ _{More to be added}_
 (For all use cases below, the *System* is the `Restaurant Management System`, unless specified otherwise)
 
 [discrete]
-=== Use case: View Menu to take a Customer’s Orders
+=== Use case: Taking a Customer’s Orders
 Actor: Manager and Cashier
 
 *MSS*
@@ -861,12 +861,19 @@ Use case ends.
 *Extensions*
 
 [none]
-* 2a. Menu list too long or does not have what the customer exactly wants
+* 1a. If a customer is in the restaurant's member list, user can record them
+in the order so that bonus points can be accumulated when the order is confirmed. +
++
+Return to step 1.
+
+[none]
+* 2a. Menu list too long or does not have what the customer exactly wants +
 +
 [none]
 ** 2a1. User enters the find command and searches for the item customer is looking for
 +
 2a2. FMS returns the list of items searched by the command the user entered
+
 +
 Return to step 3.
 
