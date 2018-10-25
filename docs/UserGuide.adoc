@@ -42,7 +42,8 @@ image::Ui.png[]
 
 * *`listmenu`* : lists all menu items
 * **`addmember`**`n/John Doe p/98765432 e/johnd@example.com d/10182017` : adds a member named `John Doe` to the Restaurant Management System.
-* **`deleteorder`**`3` : deletes the 3rd order shown in the current list
+* *`listorder`* : lists all orders in the order list.
+* **`deleteorder`**`3` : deletes the 3rd order shown in the last shown order list
 * *`exit`* : exits the app
 .  Refer to <<Features>> for details of each command.
 
@@ -150,76 +151,6 @@ Returns Double Cheese Burger, Veggie Burger, Coke, Coke Zero, Fries, Curly Fries
 //* Menu is updated by adding, editing or deleting food items from menu list.
 
 
-
-
-=== Order
-
-==== Add Order
-
-To add new order to the order list, a draft must be completed before adding it to the order list. +
-
-To do so, the draft's customer information and order dishes list must be completed and then confirmed.
-
-===== Display List Of Commands For Adding New Order
-
-Display the current draft and the list of order draft commands used for adding a new order
-
-Format: `addorder`
-
-===== Edit The Customer Of The Draft
-
-Edit the customer field of the draft order. +
-
-The customer is retrieved with the index of last displayed member list.
-
-Format: `editdraftcustomer INDEX`
-
-===== Edit A Dish Item Of The Draft
-
-Edit the quantity of a dish item of the draft order. +
-
-The dish item is retrieved with the index of last displayed menu. +
-
- * If the quantity is set to 0, then the dish will be removed for the order. +
-
-Format: `editdraftdish i/INDEX q/QUANTITY`
-
-===== Clear Draft
-
-Clear the draft order, which include both customer and dishList of the class; +
-
-Format: `cleardraft`
-
-===== ConfirmDraft
-
-Confirm the draft and add it to the order list
-
-Format: `confirmdraft`
-
-==== Delete Order
-
-Delete an order. +
-
-The deleted order is specified by the index of that order on the last displayed order list. +
-
-Format: `deleteorder INDEX`
-
-==== Clear Order
-
-Clear the entire order list. +
-
-Format: `clearorder`
-
-==== List Orders
-
-Shows a list of all the current orders. +
-
-Each order include details of: customer, ordered time, total price and the list of dish items and quantities ordered +
-
-Only the non-private data of customer will be showed. +
-
-Format: `listorder`
-
 === Members
 
 ==== Add Member
@@ -300,6 +231,87 @@ Calculates the wage of an employee. +
 Examples: +
 `calcwage Joe Bob`
 
+
+=== Order
+
+==== Add Order
+
+To add new order to the order list, a draft must be completed before adding it to the order list. +
+
+To do so, dishes must be added into the draft, and then it can be added into the order list after
+the draft is confirmed.
+
+Registered customer of the member list can be added into the order draft to accumulate member points
+once the order is confirmed.
+
+* *Display Draft And List Of Commands For Adding* +
++
+Display the current draft and the list of order draft commands used for adding a new order +
++
+Format: `addorder`
+
+* *Pick A Member As The Customer Of The Draft* +
++
+Select a member from the last shown member list to be the customer of the draft order. +
++
+The customer is retrieved with the index of last displayed member list. +
++
+Format: `draftcustomer INDEX`
+
+* *Edit A Dish Item Of The Draft* +
++
+By picking a dish from the last shown menu and state the quantity to be added,
+a dish item can be added, deleted or edited in the draft order. +
++
+The dish item is retrieved with the index of last displayed menu. +
++
+ ** If the quantity is set to 0, then the dish will be removed from the draft. +
++
+ ** If the quantity of a dish that is currently not in the draft is set to a
+ positive integer, then the dish and its quantity will be added into the draft.
++
+Format: `draftdish INDEX q/QUANTITY`
+
+* *Clear Draft* +
++
+Clear all details of the draft order. +
++
+Format: `cleardraft`
+
+* *ConfirmDraft* +
++
+Confirm the draft and add it to the order list. +
++
+Once it is confirmed, the ordered dish items in the
+newly added order can no longer be changed. +
++
+Format: `confirmdraft`
+
+==== Delete Order
+
+Delete an order. +
+
+The deleted order is specified by the index of that order on the last displayed order list. +
+
+Format: `deleteorder INDEX`
+
+==== Clear Order
+
+Clear the entire order list. +
+
+Format: `clearorder`
+
+==== List Orders
+
+Shows a list of all the current orders. +
+
+Each order include details of: customer, ordered time, total price and the list of dish items and quantities ordered +
+
+Only the non-private data of customer will be showed. +
+
+Format: `listorder`
+
+
 === Statistics
 
 ==== View Order Statistics
@@ -339,24 +351,6 @@ There is no need to save manually.
 
 *Delete Item* : `deletemenu INDEX`
 
-=== Order
-
-*Delete Order* : `deleteorder INDEX`
-
-*Clear Order* : `clearorder`
-
-*List All Order* : `listorder`
-
-*Display Add Order Commands*: `addOrder`
-
-*Change Draft Customer*: `editdraftcustomer INDEX`
-
-*Edit Dishes In Draft Order*: `editdraftdish i/INDEX q/QUANTITY`
-
-*Clear The Customer Draft*: `cleardraft`
-
-*Confirm And Add Order*: `confirmdraft`
-
 === Employees
 
 *View Employees* : `add n/NAME p/PHONE_NUMBER pos/POSITION`
@@ -381,6 +375,28 @@ There is no need to save manually.
 
 *Find Member* : `findmember NAME`
 
+=== Order
+
+* *Add Order:*
+
+** *Display Add Order Commands*: `addorder`
+
+** *Select Member As Customer Of The Draft*: `draftcustomer INDEX` +
+e.g. `draftcustomer 2`
+
+** *Edit Dishes In The Draft*: `draftdish INDEX q/QUANTITY` +
+e.g. `draftdish 4 q/1`
+
+** *Clear The Draft*: `cleardraft`
+
+** *Confirm Draft*: `confirmdraft`
+
+* *Delete Order* : `deleteorder INDEX` +
+e.g. `deleteorder 3`
+
+* *Clear Order List* : `clearorder`
+
+* *List All Orders* : `listorder`
 
 === Statistics
 
