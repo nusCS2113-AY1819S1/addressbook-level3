@@ -56,7 +56,7 @@ public class AdaptedMember {
      * @param source future changes to this will not affect the created AdaptedPerson
      */
     public AdaptedMember(ReadOnlyMember source) {
-        name = source.getName().value;
+        name = source.getName().fullName;
         points = source.getPoints().toString();
         date = source.getDate().getTime();
 
