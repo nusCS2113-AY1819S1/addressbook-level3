@@ -18,12 +18,7 @@ By: `CS2113-AY1819S1-F09-2`      Since: `Aug 2018`      Licence: `MIT`
 
 == Introduction
 
-Restaurant Management System is to help provide restaurants
- with a more efficient way to manage their restaurants.
-  It has various amount of features that can improve
-   productivity of the different staff members in the
-    restaurant.
-    Jump to the <<Quick Start>> to get started.
+The Restaurant Management System (RMS) provides restaurants with a more efficient way to manage their operations. It has a wide variety of features which cater to different roles in a restaurant. In line with Singapore's "Smart Nation" movement, the RMS aims to digitise the restaurant business and make day-to-day operations smoother and simpler. Jump to <<Setting up>> to get started.
 
 == Quick Start
 .  Ensure you have Java version `9` or later installed in your Computer.
