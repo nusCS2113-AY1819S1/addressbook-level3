@@ -14,6 +14,7 @@ import seedu.addressbook.data.member.UniqueMemberList.DuplicateMemberException;
 import seedu.addressbook.data.member.UniqueMemberList.MemberNotFoundException;
 import seedu.addressbook.data.menu.Menu;
 import seedu.addressbook.data.menu.ReadOnlyMenus;
+import seedu.addressbook.data.menu.Type;
 import seedu.addressbook.data.menu.UniqueMenuList;
 import seedu.addressbook.data.menu.UniqueMenuList.DuplicateMenuException;
 import seedu.addressbook.data.menu.UniqueMenuList.MenuNotFoundException;
@@ -28,6 +29,8 @@ import seedu.addressbook.data.person.UniquePersonList;
 import seedu.addressbook.data.person.UniquePersonList.DuplicatePersonException;
 import seedu.addressbook.data.person.UniquePersonList.PersonNotFoundException;
 
+import java.util.HashSet;
+import java.util.Set;
 import java.util.Date;
 import java.util.List;
 
@@ -43,6 +46,7 @@ public class Rms {
     private final UniqueOrderList allOrders;
 
     private Order draftOrder = new Order();
+    public static Set<Type> TypeSet = new HashSet<>();
 
     public static Rms empty() {
         return new Rms();

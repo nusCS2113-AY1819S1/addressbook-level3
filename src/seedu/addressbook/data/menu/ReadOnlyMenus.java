@@ -12,6 +12,7 @@ public interface ReadOnlyMenus {
 
     MenuName getName();
     Price getPrice();
+    Type getType();
 
     /**
      * The returned {@code Set} is a deep copy of the internal {@code Set},
@@ -25,8 +26,7 @@ public interface ReadOnlyMenus {
     default boolean isSameStateAs(ReadOnlyMenus other) {
         return other == this // short circuit if same object
                 || (other != null // this is first to avoid NPE below
-                && other.getName().equals(this.getName()) // state checks here onwards
-                && other.getPrice().equals(this.getPrice()));
+                && other.getName().equals(this.getName()));
     }
 
     /**
@@ -37,6 +37,8 @@ public interface ReadOnlyMenus {
         builder.append(getName())
                 .append(" Price: ");
         builder.append(getPrice())
+                .append(" Type: ");
+        builder.append(getType())
                 .append(" Tags: ");
         for (Tag tag : getTags()) {
             builder.append(tag);
@@ -45,11 +47,22 @@ public interface ReadOnlyMenus {
     }
 
     /**
+     * Formats the menu name and price as text, showing all relevant details.
+     */
+    default String getAsTextShowMenuAndPrice() {
+        final StringBuilder builder = new StringBuilder();
+        builder.append(getName())
+                .append(" Price: ");
+        builder.append(getPrice());
+        return builder.toString();
+    }
+
+    /**
      * Formats a menu item as text, showing only non-private contact details.
      */
     default String getAsTextHidePrivate() {
         final StringBuilder builder = new StringBuilder();
-        builder.append(getName()).append(" Price ").append(getPrice());
+        builder.append(getName()).append(" Price ").append(getPrice()).append(" Type: ").append(getType());
         /*if (!getPrice().isPrivate()) {
             builder.append(" Price: ").append(getPrice());
         }*/
