@@ -125,6 +125,9 @@ public class Parser {
             case MenuListCommand.COMMAND_WORD:
                 return new MenuListCommand();
 
+            case MenuShowMainMenuCommand.COMMAND_WORD:
+                return new MenuShowMainMenuCommand();
+
             case MenuListByTypeCommand.COMMAND_WORD:
                 return prepareMenuListByType(arguments);
 

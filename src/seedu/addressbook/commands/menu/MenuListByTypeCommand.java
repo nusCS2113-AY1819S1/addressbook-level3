@@ -16,7 +16,7 @@ public class MenuListByTypeCommand extends Command {
     public static final String COMMAND_WORD = "listmenutype";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ":\n"
-            + "Displays all burgers in the Rms system as a list with index numbers.\n\t"
+            + "Displays all food item of a specific category in the Rms system as a list with index numbers.\n\t"
             + "Example: " + COMMAND_WORD;
     private final String itemword;
     public static boolean executedMenutype = false;
@@ -30,12 +30,12 @@ public class MenuListByTypeCommand extends Command {
          return
      }*/
     private List<ReadOnlyMenus> getFoodItemsBurger(String itemword) {
-        for (ReadOnlyMenus burger : rms.getAllMenus()) {
+        for (ReadOnlyMenus menuItem : rms.getAllMenus()) {
             //final Set<String> wordsInName = new HashSet<>(burger.getType().getWordsInTypeName());
-            final String wordsInItemName = burger.getType().value;
+            final String wordsInItemName = menuItem.getType().value;
             //boolean exist = wordsInName.contains(itemword);
             if (wordsInItemName.equals(itemword)) {
-                matchedFoodItems.add(burger);
+                matchedFoodItems.add(menuItem);
                 //System.out.println(true);
             }
         }

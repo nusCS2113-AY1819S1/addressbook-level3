@@ -36,6 +36,7 @@ public class HelpCommand extends Command {
             + "\n" + MenuDeleteCommand.MESSAGE_USAGE
             + "\n" + MenuFindCommand.MESSAGE_USAGE
             + "\n" + MenuListCommand.MESSAGE_USAGE
+            + "\n" + MenuShowMainMenuCommand.MESSAGE_USAGE
             + "\n" + MenuViewAllCommand.MESSAGE_USAGE
             + "\n" + MenuClearCommand.MESSAGE_USAGE
 
