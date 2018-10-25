@@ -1,6 +1,6 @@
 package seedu.addressbook.data;
 
-import seedu.addressbook.data.member*;
+import seedu.addressbook.data.member.*;
 import seedu.addressbook.data.employee.Employee;
 import seedu.addressbook.data.employee.ReadOnlyEmployee;
 import seedu.addressbook.data.employee.UniqueEmployeeList;
