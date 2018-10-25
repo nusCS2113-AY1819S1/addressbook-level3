@@ -57,6 +57,8 @@ public class StatsMenuCommand extends Command {
     private String getMenuStats() {
         StringBuilder sb = new StringBuilder();
         List<ReadOnlyOrder> allOrders = rms.getAllOrders().immutableListView();
+        if (allOrders.isEmpty())
+            return "There are no orders in the system to calculate menu stats.";
         List<ReadOnlyMenus> allMenu = rms.getAllMenus().immutableListView();
         Map<ReadOnlyMenus, QuantityRevenuePair> allMenuSales = new TreeMap<>();
         Map<String, ReadOnlyMenus> bestsellers = new HashMap<>();
