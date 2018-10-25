@@ -32,7 +32,8 @@ public class StatsMemberCommand extends Command {
     private String getOverviewStats() {
         StringBuilder res = new StringBuilder();
         List<ReadOnlyMember> allMembers = rms.getAllMembers().immutableListView();
-
+        if (allMembers.isEmpty())
+            return "There are no members in the system.";
         MemberDateTable dateTable = new MemberDateTable();
 
         for (ReadOnlyMember member : allMembers) {
