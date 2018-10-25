@@ -11,14 +11,14 @@ import java.util.List;
  */
 public class Type {
 
-    public static final String EXAMPLE = "Main";
+    public static final String EXAMPLE = "main";
     public static final String MESSAGE_TYPE_CONSTRAINTS = "Item Type should only be one of the few Category:"
-                                                           + "\n" + "Main"
-                                                           + "\n" + "Sides"
-                                                           + "\n" + "Beverage"
-                                                           + "\n" + "Dessert"
-                                                           + "\n" + "Others"
-                                                           + "\n" + "Set Meal";
+                                                           + "\n" + "main"
+                                                           + "\n" + "sides"
+                                                           + "\n" + "beverage"
+                                                           + "\n" + "dessert"
+                                                           + "\n" + "others"
+                                                           + "\n" + "set meal";
     public static final String TYPE_VALIDATION_REGEX = "[\\p{Alnum} ]+";
 
     public final String value;

@@ -951,7 +951,7 @@ public class LogicTest {
         Menu burger() throws Exception {
             MenuName name = new MenuName("Cheese Burger");
             Price price = new Price("$5.00");
-            Type type = new Type("Burger");
+            Type type = new Type("main");
             Tag tag1 = new Tag("tag1");
             Tag tag2 = new Tag("tag2");
             Set<Tag> tags = new HashSet<>(Arrays.asList(tag1, tag2));
