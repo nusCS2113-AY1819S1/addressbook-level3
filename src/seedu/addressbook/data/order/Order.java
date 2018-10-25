@@ -115,7 +115,7 @@ public class Order implements ReadOnlyOrder {
     public double calculatePrice() {
         double result = 0;
         for (Map.Entry<Menu, Integer> m: getDishItems().entrySet()) {
-            double dishPrice = Double.parseDouble(m.getKey().getPrice().value);
+            double dishPrice = m.getKey().getPrice().convertValueOfPricetoDouble();
             int dishQuantity = m.getValue();
             result += (dishPrice * dishQuantity);
         }
