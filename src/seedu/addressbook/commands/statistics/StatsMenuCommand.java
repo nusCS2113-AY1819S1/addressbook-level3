@@ -78,9 +78,9 @@ public class StatsMenuCommand extends Command {
             // ==========================================
             for (Map.Entry<ReadOnlyMenus, Integer> entry : dishItems.entrySet()) {
                 if (!allMenuSales.containsKey(entry.getKey()))
-                    allMenuSales.put(entry.getKey(), new QuantityRevenuePair(entry.getValue(), Double.parseDouble(entry.getKey().getPrice().value)));
+                    allMenuSales.put(entry.getKey(), new QuantityRevenuePair(entry.getValue(), entry.getKey().getPrice().convertValueOfPricetoDouble()));
                 else
-                    allMenuSales.put(entry.getKey(), allMenuSales.get(entry.getKey()).addData(entry.getValue(), Double.parseDouble(entry.getKey().getPrice().value)));
+                    allMenuSales.put(entry.getKey(), allMenuSales.get(entry.getKey()).addData(entry.getValue(), entry.getKey().getPrice().convertValueOfPricetoDouble()));
             }
         }
 
@@ -99,9 +99,9 @@ public class StatsMenuCommand extends Command {
             sb.append(" sold " + quantity + "\n");
 
             // Replace with menu.type during merge
-            String type = "Mains";
+            String type = menu.getType().value;
             // ==========================================
-            if (!bestsellers.containsKey(type) && quantity > 1)
+            if (!bestsellers.containsKey(type) && quantity > 0)
                 bestsellers.put(type, menu);
             else
                 worstsellers.put(type, menu);
@@ -112,7 +112,7 @@ public class StatsMenuCommand extends Command {
         for (Map.Entry<String, ReadOnlyMenus> bestEntry : bestsellers.entrySet()) {
             sb.append(bestEntry.getKey() + ": " + bestEntry.getValue().getName() + "\n");
             sb.append("Total quantity sold: " + allMenuSales.get(bestEntry.getValue()).getQuantity() + "\n");
-            sb.append("Total sales revenue: $" + Utils.formatCurrency(allMenuSales.get(bestEntry.getValue()).getRevenue()) + "\n");
+            sb.append("Total sales revenue: $" + Utils.formatCurrency(allMenuSales.get(bestEntry.getValue()).getRevenue()) + "\n\n");
         }
 
         sb.append("\n\nUnpopular Items\n");
@@ -120,7 +120,7 @@ public class StatsMenuCommand extends Command {
         for (Map.Entry<String, ReadOnlyMenus> worstEntry : worstsellers.entrySet()) {
             sb.append(worstEntry.getKey() + ": " + worstEntry.getValue().getName() + "\n");
             sb.append("Total quantity sold: " + allMenuSales.get(worstEntry.getValue()).getQuantity() + "\n");
-            sb.append("Total sales revenue: $" + Utils.formatCurrency(allMenuSales.get(worstEntry.getValue()).getRevenue()) + "\n");
+            sb.append("Total sales revenue: $" + Utils.formatCurrency(allMenuSales.get(worstEntry.getValue()).getRevenue()) + "\n\n");
         }
 
         return sb.toString();
