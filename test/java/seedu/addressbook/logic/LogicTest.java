@@ -287,7 +287,9 @@ public class LogicTest {
         assertMenuCommandBehavior(
                 "addmenu wrong args wrong args", expectedMessage);
         assertMenuCommandBehavior(
-                "addmenu Valid Name 12345", expectedMessage);
+                "addmenu Valid Name $12345", expectedMessage);
+        assertMenuCommandBehavior(
+                "addmenu Valid Name p/$12345 butNoTypePrefix", expectedMessage);
     }
 
     @Test
@@ -325,11 +327,13 @@ public class LogicTest {
     @Test
     public void execute_addmenu_invalidMenuData() throws Exception {
         assertMenuCommandBehavior(
-                "addmenu []\\[;] p/12345", MenuName.MESSAGE_NAME_CONSTRAINTS);
+                "addmenu []\\[;] p/$12345 type/valid, type", MenuName.MESSAGE_NAME_CONSTRAINTS);
         assertMenuCommandBehavior(
-                "addmenu Valid Name p/not_numbers", Price.MESSAGE_PRICE_CONSTRAINTS);
+                "addmenu Valid Name p/not_numbers type/valid, type", Price.MESSAGE_PRICE_CONSTRAINTS);
         assertMenuCommandBehavior(
-                "addmenu Valid Name p/12345 t/invalid_-[.tag", Tag.MESSAGE_TAG_CONSTRAINTS);
+                "addmenu Valid Name p/$12345 type/@#%&", Type.MESSAGE_TYPE_CONSTRAINTS);
+        assertMenuCommandBehavior(
+                "addmenu Valid Name p/$12345 type/valid, type t/invalid_-[.tag", Tag.MESSAGE_TAG_CONSTRAINTS);
 
     }
 
@@ -443,6 +447,27 @@ public class LogicTest {
     }
 
     @Test
+    public void execute_addmenuDuplicate_notAllowed() throws Exception {
+        // setup expectations
+        TestDataHelper helper = new TestDataHelper();
+        Menu toBeAdded = helper.burger();
+        Rms expectedAB = new Rms();
+        expectedAB.addMenu(toBeAdded);
+
+        // setup starting state
+        rms.addMenu(toBeAdded); // menu already in internal RMS
+
+        // execute command and verify result
+        assertMenuCommandBehavior(
+                helper.generateMenuAddCommand(toBeAdded),
+                MenuAddCommand.MESSAGE_DUPLICATE_MENU_ITEM,
+                expectedAB,
+                false,
+                Collections.emptyList());
+
+    }
+
+    @Test
     public void execute_addmemberDuplicate_notAllowed() throws Exception {
         // setup expectations
         TestDataHelper helper = new TestDataHelper();
@@ -496,6 +521,74 @@ public class LogicTest {
                 expectedRMS,
                 true,
                 expectedRMSList);
+    }
+
+    @Test
+    public void execute_menulistByTpe_invalidArgsFormat() throws Exception {
+        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, MenuListByTypeCommand.MESSAGE_USAGE);
+        assertMenuCommandBehavior("listmenutype ", expectedMessage);
+    }
+
+
+    @Test
+    public void execute_menulistByType_successful_MatchesTheSpecifiedCategory() throws Exception {
+        TestDataHelper helper = new TestDataHelper();
+        Menu mTarget1 = helper.generateMenuWithGivenNameAndType("Cheese Burger","main");
+        Menu mTarget2 = helper.generateMenuWithGivenNameAndType("Chicken Burger", "main");
+        Menu m1 = helper.generateMenuWithGivenNameAndType("Salad", "sides");
+        Menu m2 = helper.generateMenuWithGivenNameAndType("Sprite", "beverage");
+
+        List<Menu> fourMenus = helper.generateMenuList(m1, mTarget1, m2, mTarget2);
+        Rms expectedAB = helper.generateRmsMenu(fourMenus);
+        List<Menu> expectedList = helper.generateMenuList(mTarget1, mTarget2);
+        helper.addToRmsMenu(rms, fourMenus);
+        assertMenuCommandBehavior("listmenutype main",
+                Command.getMessageForMenuListShownSummary(expectedList),
+                expectedAB,
+                true,
+                expectedList);
+    }
+
+    @Test
+    public void execute_menulistByType_moreThanOneTypeSearchNotAllowed() throws Exception {
+        TestDataHelper helper = new TestDataHelper();
+        Menu mTarget1 = helper.generateMenuWithGivenNameAndType("Cheese Burger","main");
+        Menu mTarget2 = helper.generateMenuWithGivenNameAndType("Chicken Burger", "main");
+        Menu m1 = helper.generateMenuWithGivenNameAndType("Salad", "sides");
+        Menu m2 = helper.generateMenuWithGivenNameAndType("Sprite", "beverage");
+
+        List<Menu> fourMenus = helper.generateMenuList(m1, mTarget1, m2, mTarget2);
+        Rms expectedAB = helper.generateRmsMenu(fourMenus);
+        List<Menu> expectedList = helper.generateMenuList();
+        helper.addToRmsMenu(rms, fourMenus);
+        assertMenuCommandBehavior("listmenutype main sides",
+                MenuListByTypeCommand.MESSAGE_ERROR,
+                expectedAB,
+                false,
+                expectedList);
+    }
+    /*
+     * Test case to check if the argument entered is one of the following or not: main, sides, beverage, dessert, others, set meals
+     * If the arguments are not one of the following, then the argument is Invalid
+     */
+
+    @Test
+    public void execute_menulistByType_invalidArgs() throws Exception {
+        TestDataHelper helper = new TestDataHelper();
+        Menu mTarget1 = helper.generateMenuWithGivenNameAndType("Cheese Burger","main");
+        Menu mTarget2 = helper.generateMenuWithGivenNameAndType("Chicken Burger", "main");
+        Menu m1 = helper.generateMenuWithGivenNameAndType("Salad", "sides");
+        Menu m2 = helper.generateMenuWithGivenNameAndType("Sprite", "beverage");
+
+        List<Menu> fourMenus = helper.generateMenuList(m1, mTarget1, m2, mTarget2);
+        Rms expectedAB = helper.generateRmsMenu(fourMenus);
+        List<Menu> expectedList = helper.generateMenuList();
+        helper.addToRmsMenu(rms, fourMenus);
+        assertMenuCommandBehavior("listmenutype burger",
+                MenuListByTypeCommand.MESSAGE_ERROR,
+                expectedAB,
+                false,
+                expectedList);
     }
 
     @Test
@@ -593,6 +686,29 @@ public class LogicTest {
     }
 
     /**
+     * Confirms the 'invalid argument index number behaviour' for the given command
+<<<<<<< HEAD
+     * targeting a single menu item in the last shown menu list, using visible index.
+     * @param commandWord to test assuming it targets a single menu item in the last shown menu list based on visible index.
+     */
+    private void assertInvalidIndexBehaviorForMenuCommand(String commandWord) throws Exception {
+        String expectedMessage = Messages.MESSAGE_INVALID_MENU_ITEM_DISPLAYED_INDEX;
+        TestDataHelper helper = new TestDataHelper();
+
+        Menu e1 = helper.generateMenuItem(1);
+        Menu e2 = helper.generateMenuItem(2);
+        List<Menu> lastShownMenuList = helper.generateMenuList(e1, e2);
+
+        logic.setLastShownMenuList(lastShownMenuList);
+
+        assertMenuCommandBehavior(commandWord + " -1", expectedMessage, Rms.empty(), false, lastShownMenuList);
+        assertMenuCommandBehavior(commandWord + " 0", expectedMessage, Rms.empty(), false, lastShownMenuList);
+        assertMenuCommandBehavior(commandWord + " 3", expectedMessage, Rms.empty(), false, lastShownMenuList);
+
+    }
+
+
+     /**
      * Confirms the 'invalid argument index number behaviour' for the given command
      * targeting a single member in the last shown list, using visible index.
      * @param commandWord to test assuming it targets a single employee in the last shown list based on visible index.
@@ -760,10 +876,16 @@ public class LogicTest {
         assertInvalidIndexBehaviorForEmployeeCommand("delemp");
     }
 
+    /*@Test
+    public void execute_deletemenu_invalidIndex() throws Exception {
+        assertInvalidIndexBehaviorForMenuCommand("deletemenu");
+    }*/
+
     @Test
     public void execute_delmember_invalidIndex() throws Exception {
         assertInvalidIndexBehaviorForMemberCommand("delmember");
     }
+
 
 
     @Test
@@ -913,6 +1035,7 @@ public class LogicTest {
         assertCommandBehavior("find ", expectedMessage);
     }
 
+
     @Test
     public void execute_find_onlyMatchesFullWordsInNames() throws Exception {
         TestDataHelper helper = new TestDataHelper();
@@ -932,6 +1055,8 @@ public class LogicTest {
                 true,
                 expectedList);
     }
+
+
 
     @Test
     public void execute_find_isCaseSensitive() throws Exception {
@@ -1037,11 +1162,12 @@ public class LogicTest {
 
         Menu burger() throws Exception {
             MenuName name = new MenuName("Cheese Burger");
-            Price price = new Price("5");
+            Price price = new Price("$5.00");
+            Type type = new Type("main");
             Tag tag1 = new Tag("tag1");
             Tag tag2 = new Tag("tag2");
             Set<Tag> tags = new HashSet<>(Arrays.asList(tag1, tag2));
-            return new Menu(name, price, tags);
+            return new Menu(name, price, type, tags);
         }
 
         /**
@@ -1096,13 +1222,13 @@ public class LogicTest {
          * Running this function with the same parameter values guarantees the returned menu item will have the same state.
          * Each unique seed will generate a unique Person object.
          *
-         * @param seed used to generate the person data field values
-         * @param isAllFieldsPrivate determines if private-able fields (phone, email, address) will be private
+         * @param seed used to generate the menu item data field values
          */
-        Menu generateMenuItem(int seed, boolean isAllFieldsPrivate) throws Exception {
+        Menu generateMenuItem(int seed) throws Exception {
             return new Menu(
                     new MenuName("Person " + seed),
                     new Price("" + Math.abs(seed)),
+                    new Type(("Type " + seed)),
                     new HashSet<>(Arrays.asList(new Tag("tag" + Math.abs(seed)), new Tag("tag" + Math.abs(seed + 1))))
             );
         }
@@ -1160,6 +1286,7 @@ public class LogicTest {
 
             cmd.add(m.getName().toString());
             cmd.add(("p/") + m.getPrice());
+            cmd.add(("type/") + m.getType());
 
             Set<Tag> tags = m.getTags();
             for(Tag t: tags){
@@ -1359,7 +1486,20 @@ public class LogicTest {
         Menu generateMenuWithName(String name) throws Exception {
             return new Menu(
                     new MenuName(name),
-                    new Price("5"),
+                    new Price("$5.00"),
+                    new Type("main"),
+                    Collections.singleton(new Tag("tag"))
+            );
+        }
+
+        /**
+         * Generates a Menu object with given name. Other fields will have some dummy values.
+         */
+        Menu generateMenuWithGivenNameAndType(String name, String type) throws Exception {
+            return new Menu(
+                    new MenuName(name),
+                    new Price("$5.00"),
+                    new Type(type),
                     Collections.singleton(new Tag("tag"))
             );
         }
