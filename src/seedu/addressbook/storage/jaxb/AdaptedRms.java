@@ -108,7 +108,7 @@ public class AdaptedRms {
         }
 
         for (AdaptedOrder order : orders) {
-            orderList.add(order.toModelType());
+            orderList.add(order.toModelType(memberList));
         }
         return new Rms(
                 new UniquePersonList(personList),

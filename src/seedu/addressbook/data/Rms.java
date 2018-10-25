@@ -1,5 +1,6 @@
 package seedu.addressbook.data;
 
+import seedu.addressbook.data.member.*;
 import seedu.addressbook.data.employee.Employee;
 import seedu.addressbook.data.employee.ReadOnlyEmployee;
 import seedu.addressbook.data.employee.UniqueEmployeeList;
@@ -8,10 +9,12 @@ import seedu.addressbook.data.employee.UniqueEmployeeList.EmployeeNotFoundExcept
 import seedu.addressbook.data.member.Member;
 import seedu.addressbook.data.member.ReadOnlyMember;
 import seedu.addressbook.data.member.UniqueMemberList;
+
 import seedu.addressbook.data.member.UniqueMemberList.DuplicateMemberException;
 import seedu.addressbook.data.member.UniqueMemberList.MemberNotFoundException;
 import seedu.addressbook.data.menu.Menu;
 import seedu.addressbook.data.menu.ReadOnlyMenus;
+import seedu.addressbook.data.menu.Type;
 import seedu.addressbook.data.menu.UniqueMenuList;
 import seedu.addressbook.data.menu.UniqueMenuList.DuplicateMenuException;
 import seedu.addressbook.data.menu.UniqueMenuList.MenuNotFoundException;
@@ -26,6 +29,11 @@ import seedu.addressbook.data.person.UniquePersonList;
 import seedu.addressbook.data.person.UniquePersonList.DuplicatePersonException;
 import seedu.addressbook.data.person.UniquePersonList.PersonNotFoundException;
 
+import java.util.HashSet;
+import java.util.Set;
+import java.util.Date;
+import java.util.List;
+
 /**
  * Represents the entire address book. Contains the data of the address book.
  */
@@ -38,6 +46,7 @@ public class Rms {
     private final UniqueOrderList allOrders;
 
     private Order draftOrder = new Order();
+    public static Set<Type> TypeSet = new HashSet<>();
 
     public static Rms empty() {
         return new Rms();
@@ -140,6 +149,7 @@ public class Rms {
     public boolean containsMember(ReadOnlyMember key) {
         return allMembers.contains(key);
     }
+
 
     /**
      * Checks if an equivalent employee exists in the address book.
@@ -274,7 +284,7 @@ public class Rms {
     }
 
     public ReadOnlyOrder getDraftOrder() {
-        return new Order(draftOrder);
+        return draftOrder;
     }
 
     public void editDraftOrderCustomer(ReadOnlyMember customer) {

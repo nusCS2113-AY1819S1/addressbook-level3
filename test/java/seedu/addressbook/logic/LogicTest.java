@@ -9,6 +9,7 @@ import seedu.addressbook.commands.CommandResult;
 import seedu.addressbook.commands.*;
 import seedu.addressbook.commands.employee.*;
 import seedu.addressbook.commands.member.MemberAddCommand;
+import seedu.addressbook.commands.member.MemberDeleteCommand;
 import seedu.addressbook.commands.menu.*;
 import seedu.addressbook.common.Messages;
 import seedu.addressbook.data.Rms;
@@ -286,7 +287,9 @@ public class LogicTest {
         assertMenuCommandBehavior(
                 "addmenu wrong args wrong args", expectedMessage);
         assertMenuCommandBehavior(
-                "addmenu Valid Name 12345", expectedMessage);
+                "addmenu Valid Name $12345", expectedMessage);
+        assertMenuCommandBehavior(
+                "addmenu Valid Name p/$12345 butNoTypePrefix", expectedMessage);
     }
 
     @Test
@@ -316,13 +319,21 @@ public class LogicTest {
     }
 
     @Test
+    public void execute_addmember_invalidMemberData() throws Exception {
+        assertMemberCommandBehavior(
+                "addmember []\\[;]", MemberName.MESSAGE_NAME_CONSTRAINTS);
+    }
+
+    @Test
     public void execute_addmenu_invalidMenuData() throws Exception {
         assertMenuCommandBehavior(
-                "addmenu []\\[;] p/12345", MenuName.MESSAGE_NAME_CONSTRAINTS);
+                "addmenu []\\[;] p/$12345 type/valid, type", MenuName.MESSAGE_NAME_CONSTRAINTS);
         assertMenuCommandBehavior(
-                "addmenu Valid Name p/not_numbers", Price.MESSAGE_PRICE_CONSTRAINTS);
+                "addmenu Valid Name p/not_numbers type/valid, type", Price.MESSAGE_PRICE_CONSTRAINTS);
         assertMenuCommandBehavior(
-                "addmenu Valid Name p/12345 t/invalid_-[.tag", Tag.MESSAGE_TAG_CONSTRAINTS);
+                "addmenu Valid Name p/$12345 type/@#%&", Type.MESSAGE_TYPE_CONSTRAINTS);
+        assertMenuCommandBehavior(
+                "addmenu Valid Name p/$12345 type/valid, type t/invalid_-[.tag", Tag.MESSAGE_TAG_CONSTRAINTS);
 
     }
 
@@ -435,6 +446,47 @@ public class LogicTest {
                 Collections.emptyList());
     }
 
+    @Test
+    public void execute_addmenuDuplicate_notAllowed() throws Exception {
+        // setup expectations
+        TestDataHelper helper = new TestDataHelper();
+        Menu toBeAdded = helper.burger();
+        Rms expectedAB = new Rms();
+        expectedAB.addMenu(toBeAdded);
+
+        // setup starting state
+        rms.addMenu(toBeAdded); // menu already in internal RMS
+
+        // execute command and verify result
+        assertMenuCommandBehavior(
+                helper.generateMenuAddCommand(toBeAdded),
+                MenuAddCommand.MESSAGE_DUPLICATE_MENU_ITEM,
+                expectedAB,
+                false,
+                Collections.emptyList());
+
+    }
+
+    @Test
+    public void execute_addmemberDuplicate_notAllowed() throws Exception {
+        // setup expectations
+        TestDataHelper helper = new TestDataHelper();
+        Member toBeAdded = helper.eve();
+        Rms expectedAB = new Rms();
+        expectedAB.addMember(toBeAdded);
+
+        // setup starting state
+        logic.execute(helper.generateAddMemberCommand(toBeAdded)); //member already in Rms
+
+        // execute command and verify result
+        assertMemberCommandBehavior(
+                helper.generateAddMemberCommand(toBeAdded),
+                MemberAddCommand.MESSAGE_DUPLICATE_MEMBER,
+                expectedAB,
+                false,
+                Collections.emptyList());
+    }
+
 
     @Test
     public void execute_list_showsAllPersons() throws Exception {
@@ -469,6 +521,74 @@ public class LogicTest {
                 expectedRMS,
                 true,
                 expectedRMSList);
+    }
+
+    @Test
+    public void execute_menulistByTpe_invalidArgsFormat() throws Exception {
+        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, MenuListByTypeCommand.MESSAGE_USAGE);
+        assertMenuCommandBehavior("listmenutype ", expectedMessage);
+    }
+
+
+    @Test
+    public void execute_menulistByType_successful_MatchesTheSpecifiedCategory() throws Exception {
+        TestDataHelper helper = new TestDataHelper();
+        Menu mTarget1 = helper.generateMenuWithGivenNameAndType("Cheese Burger","main");
+        Menu mTarget2 = helper.generateMenuWithGivenNameAndType("Chicken Burger", "main");
+        Menu m1 = helper.generateMenuWithGivenNameAndType("Salad", "sides");
+        Menu m2 = helper.generateMenuWithGivenNameAndType("Sprite", "beverage");
+
+        List<Menu> fourMenus = helper.generateMenuList(m1, mTarget1, m2, mTarget2);
+        Rms expectedAB = helper.generateRmsMenu(fourMenus);
+        List<Menu> expectedList = helper.generateMenuList(mTarget1, mTarget2);
+        helper.addToRmsMenu(rms, fourMenus);
+        assertMenuCommandBehavior("listmenutype main",
+                Command.getMessageForMenuListShownSummary(expectedList),
+                expectedAB,
+                true,
+                expectedList);
+    }
+
+    @Test
+    public void execute_menulistByType_moreThanOneTypeSearchNotAllowed() throws Exception {
+        TestDataHelper helper = new TestDataHelper();
+        Menu mTarget1 = helper.generateMenuWithGivenNameAndType("Cheese Burger","main");
+        Menu mTarget2 = helper.generateMenuWithGivenNameAndType("Chicken Burger", "main");
+        Menu m1 = helper.generateMenuWithGivenNameAndType("Salad", "sides");
+        Menu m2 = helper.generateMenuWithGivenNameAndType("Sprite", "beverage");
+
+        List<Menu> fourMenus = helper.generateMenuList(m1, mTarget1, m2, mTarget2);
+        Rms expectedAB = helper.generateRmsMenu(fourMenus);
+        List<Menu> expectedList = helper.generateMenuList();
+        helper.addToRmsMenu(rms, fourMenus);
+        assertMenuCommandBehavior("listmenutype main sides",
+                MenuListByTypeCommand.MESSAGE_ERROR,
+                expectedAB,
+                false,
+                expectedList);
+    }
+    /*
+     * Test case to check if the argument entered is one of the following or not: main, sides, beverage, dessert, others, set meals
+     * If the arguments are not one of the following, then the argument is Invalid
+     */
+
+    @Test
+    public void execute_menulistByType_invalidArgs() throws Exception {
+        TestDataHelper helper = new TestDataHelper();
+        Menu mTarget1 = helper.generateMenuWithGivenNameAndType("Cheese Burger","main");
+        Menu mTarget2 = helper.generateMenuWithGivenNameAndType("Chicken Burger", "main");
+        Menu m1 = helper.generateMenuWithGivenNameAndType("Salad", "sides");
+        Menu m2 = helper.generateMenuWithGivenNameAndType("Sprite", "beverage");
+
+        List<Menu> fourMenus = helper.generateMenuList(m1, mTarget1, m2, mTarget2);
+        Rms expectedAB = helper.generateRmsMenu(fourMenus);
+        List<Menu> expectedList = helper.generateMenuList();
+        helper.addToRmsMenu(rms, fourMenus);
+        assertMenuCommandBehavior("listmenutype burger",
+                MenuListByTypeCommand.MESSAGE_ERROR,
+                expectedAB,
+                false,
+                expectedList);
     }
 
     @Test
@@ -563,6 +683,49 @@ public class LogicTest {
         assertEmployeeCommandBehavior(commandWord + " -1", expectedMessage, Rms.empty(), false, lastShownList);
         assertEmployeeCommandBehavior(commandWord + " 0", expectedMessage, Rms.empty(), false, lastShownList);
         assertEmployeeCommandBehavior(commandWord + " 3", expectedMessage, Rms.empty(), false, lastShownList);
+    }
+
+    /**
+     * Confirms the 'invalid argument index number behaviour' for the given command
+<<<<<<< HEAD
+     * targeting a single menu item in the last shown menu list, using visible index.
+     * @param commandWord to test assuming it targets a single menu item in the last shown menu list based on visible index.
+     */
+    private void assertInvalidIndexBehaviorForMenuCommand(String commandWord) throws Exception {
+        String expectedMessage = Messages.MESSAGE_INVALID_MENU_ITEM_DISPLAYED_INDEX;
+        TestDataHelper helper = new TestDataHelper();
+
+        Menu e1 = helper.generateMenuItem(1);
+        Menu e2 = helper.generateMenuItem(2);
+        List<Menu> lastShownMenuList = helper.generateMenuList(e1, e2);
+
+        logic.setLastShownMenuList(lastShownMenuList);
+
+        assertMenuCommandBehavior(commandWord + " -1", expectedMessage, Rms.empty(), false, lastShownMenuList);
+        assertMenuCommandBehavior(commandWord + " 0", expectedMessage, Rms.empty(), false, lastShownMenuList);
+        assertMenuCommandBehavior(commandWord + " 3", expectedMessage, Rms.empty(), false, lastShownMenuList);
+
+    }
+
+
+     /**
+     * Confirms the 'invalid argument index number behaviour' for the given command
+     * targeting a single member in the last shown list, using visible index.
+     * @param commandWord to test assuming it targets a single employee in the last shown list based on visible index.
+     */
+    private void assertInvalidIndexBehaviorForMemberCommand(String commandWord) throws Exception {
+        String expectedMessage = Messages.MESSAGE_INVALID_MEMBER_DISPLAYED_INDEX;
+        TestDataHelper helper = new TestDataHelper();
+
+        Member m1 = helper.generateMember(1);
+        Member m2 = helper.generateMember(2);
+        List<Member> lastShownList = helper.generateMemberList(m1, m2);
+
+        logic.setLastShownMemberList(lastShownList);
+
+        assertMemberCommandBehavior(commandWord + " -1", expectedMessage, Rms.empty(), false, lastShownList);
+        assertMemberCommandBehavior(commandWord + " 0", expectedMessage, Rms.empty(), false, lastShownList);
+        assertMemberCommandBehavior(commandWord + " 3", expectedMessage, Rms.empty(), false, lastShownList);
     }
 
     @Test
@@ -689,6 +852,13 @@ public class LogicTest {
     }
 
     @Test
+    public void execute_delmember_invalidArgsFormat() throws Exception {
+        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, MemberDeleteCommand.MESSAGE_USAGE);
+        assertMemberCommandBehavior("delmember ", expectedMessage);
+        assertMemberCommandBehavior("delmember arg not number", expectedMessage);
+    }
+
+    @Test
     public void execute_deletemenu_invalidArgsFormat() throws Exception {
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, MenuDeleteCommand.MESSAGE_USAGE);
         assertMenuCommandBehavior("deletemenu ", expectedMessage);
@@ -705,6 +875,17 @@ public class LogicTest {
     public void execute_delemp_invalidIndex() throws Exception {
         assertInvalidIndexBehaviorForEmployeeCommand("delemp");
     }
+
+    /*@Test
+    public void execute_deletemenu_invalidIndex() throws Exception {
+        assertInvalidIndexBehaviorForMenuCommand("deletemenu");
+    }*/
+
+    @Test
+    public void execute_delmember_invalidIndex() throws Exception {
+        assertInvalidIndexBehaviorForMemberCommand("delmember");
+    }
+
 
 
     @Test
@@ -751,6 +932,29 @@ public class LogicTest {
                 expectedRms,
                 false,
                 threeEmployees);
+    }
+
+    @Test
+    public void execute_delmember_removesCorrectMember() throws Exception {
+        TestDataHelper helper = new TestDataHelper();
+        Member m1 = helper.generateMember(1);
+        Member m2 = helper.generateMember(2);
+        Member m3 = helper.generateMember(3);
+
+        List<Member> threeMembers = helper.generateMemberList(m1, m2, m3);
+
+        Rms expectedRms = helper.generateRmsMember(threeMembers);
+        expectedRms.removeMember(m2);
+
+
+        helper.addMembersToRms(rms, threeMembers);
+        logic.setLastShownMemberList(threeMembers);
+
+        assertMemberCommandBehavior("delmember 2",
+                String.format(MemberDeleteCommand.MESSAGE_DELETE_MEMBER_SUCCESS, m2),
+                expectedRms,
+                false,
+                threeMembers);
     }
 
     @Test
@@ -802,10 +1006,35 @@ public class LogicTest {
     }
 
     @Test
+    public void execute_delmember_missingInRms() throws Exception {
+        TestDataHelper helper = new TestDataHelper();
+        Member m1 = helper.generateMember(1);
+        Member m2 = helper.generateMember(2);
+        Member m3 = helper.generateMember(3);
+
+        List<Member> threeMembers = helper.generateMemberList(m1, m2, m3);
+
+        Rms expectedRms = helper.generateRmsMember(threeMembers);
+        expectedRms.removeMember(m2);
+
+
+        helper.addMembersToRms(rms, threeMembers);
+        rms.removeMember(m2);
+        logic.setLastShownMemberList(threeMembers);
+
+        assertMemberCommandBehavior("delmember 2",
+                Messages.MESSAGE_MEMBER_NOT_IN_RMS,
+                expectedRms,
+                false,
+                threeMembers);
+    }
+
+    @Test
     public void execute_find_invalidArgsFormat() throws Exception {
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE);
         assertCommandBehavior("find ", expectedMessage);
     }
+
 
     @Test
     public void execute_find_onlyMatchesFullWordsInNames() throws Exception {
@@ -826,6 +1055,8 @@ public class LogicTest {
                 true,
                 expectedList);
     }
+
+
 
     @Test
     public void execute_find_isCaseSensitive() throws Exception {
@@ -867,6 +1098,37 @@ public class LogicTest {
                 expectedList);
     }
 
+    @Test
+    public void updateMemberPoints() throws Exception {
+        TestDataHelper helper = new TestDataHelper();
+        Points expectedPoints = new Points();
+
+        Member m1 = helper.eve();
+        m1.updatePoints(-50);
+        Points actualPoints = m1.getPoints();
+        
+        assertEquals(expectedPoints.getPoints(), actualPoints.getPoints());
+    }
+//
+//    @Test
+//    public void invalidMemberInOrder() throws Exception {
+//        TestDataHelper helper = new TestDataHelper();
+//        Member m1 = helper.generateMember(1);
+//        Member toBeAdded = helper.eve();
+//        Rms expectedAB = new Rms();
+//        expectedAB.addMember(toBeAdded);
+//        expectedAB.findMemberInOrder(m1);
+//    }
+//
+//    @Test
+//    public void validMemberInOrder() throws Exception {
+//        TestDataHelper helper = new TestDataHelper();
+//        Member m1 = helper.generateMember(1);
+//        Rms expectedAB = new Rms();
+//        expectedAB.addMember(m1);
+//        expectedAB.findMemberInOrder(m1);
+//    }
+
     /**
      * A utility class to generate test data.
      */
@@ -897,13 +1159,15 @@ public class LogicTest {
             return new Member(name);
         }
 
+
         Menu burger() throws Exception {
             MenuName name = new MenuName("Cheese Burger");
-            Price price = new Price("5");
+            Price price = new Price("$5.00");
+            Type type = new Type("main");
             Tag tag1 = new Tag("tag1");
             Tag tag2 = new Tag("tag2");
             Set<Tag> tags = new HashSet<>(Arrays.asList(tag1, tag2));
-            return new Menu(name, price, tags);
+            return new Menu(name, price, type, tags);
         }
 
         /**
@@ -958,13 +1222,13 @@ public class LogicTest {
          * Running this function with the same parameter values guarantees the returned menu item will have the same state.
          * Each unique seed will generate a unique Person object.
          *
-         * @param seed used to generate the person data field values
-         * @param isAllFieldsPrivate determines if private-able fields (phone, email, address) will be private
+         * @param seed used to generate the menu item data field values
          */
-        Menu generateMenuItem(int seed, boolean isAllFieldsPrivate) throws Exception {
+        Menu generateMenuItem(int seed) throws Exception {
             return new Menu(
                     new MenuName("Person " + seed),
                     new Price("" + Math.abs(seed)),
+                    new Type(("Type " + seed)),
                     new HashSet<>(Arrays.asList(new Tag("tag" + Math.abs(seed)), new Tag("tag" + Math.abs(seed + 1))))
             );
         }
@@ -1022,6 +1286,7 @@ public class LogicTest {
 
             cmd.add(m.getName().toString());
             cmd.add(("p/") + m.getPrice());
+            cmd.add(("type/") + m.getType());
 
             Set<Tag> tags = m.getTags();
             for(Tag t: tags){
@@ -1158,7 +1423,7 @@ public class LogicTest {
         }
 
         /**
-         * Creates a list of Members based on the give Employee objects.
+         * Creates a list of Members based on the give Member objects.
          */
         List<Member> generateMemberList(Member... members) throws Exception{
             List<Member> memberList = new ArrayList<>();
@@ -1207,12 +1472,34 @@ public class LogicTest {
         }
 
         /**
+         * Generates a Member object with given name. Other fields will have some dummy values.
+         */
+        Member generateMemberWithName(String name) throws Exception {
+            return new Member(
+                    new MemberName(name)
+            );
+        }
+
+        /**
          * Generates a Menu object with given name. Other fields will have some dummy values.
          */
         Menu generateMenuWithName(String name) throws Exception {
             return new Menu(
                     new MenuName(name),
-                    new Price("5"),
+                    new Price("$5.00"),
+                    new Type("main"),
+                    Collections.singleton(new Tag("tag"))
+            );
+        }
+
+        /**
+         * Generates a Menu object with given name. Other fields will have some dummy values.
+         */
+        Menu generateMenuWithGivenNameAndType(String name, String type) throws Exception {
+            return new Menu(
+                    new MenuName(name),
+                    new Price("$5.00"),
+                    new Type(type),
                     Collections.singleton(new Tag("tag"))
             );
         }

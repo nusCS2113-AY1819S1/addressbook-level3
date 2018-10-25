@@ -1,6 +1,6 @@
 package seedu.addressbook.data.order;
 
-import seedu.addressbook.data.member.Member;
+import seedu.addressbook.data.member.ReadOnlyMember;
 import seedu.addressbook.data.menu.*;
 
 import java.util.Date;
@@ -11,14 +11,13 @@ import java.util.Map;
  */
 public interface ReadOnlyOrder {
 
-    Member getCustomer();
+    ReadOnlyMember getCustomer();
     Date getDate();
     double getPrice();
-    Map<Menu, Integer> getDishItems();
+    Map<ReadOnlyMenus, Integer> getDishItems();
 
     boolean hasCustomerField();
     boolean hasDishItems();
-    boolean hasAllRequiredField();
 
     /**
      * Returns true if the values inside this object is same as those of the other (Note: interfaces cannot override .equals)
@@ -36,10 +35,12 @@ public interface ReadOnlyOrder {
      */
     default String getAsTextShowAll() {
         final StringBuilder builder = new StringBuilder();
-        builder.append("\tCustomer: ").append(getCustomer().getAsTextShowAll()).append("\n")
-                .append("\t\tDate: ").append(getDate());
+        if (hasCustomerField()) {
+            builder.append("\tCustomer: ").append(getCustomer().getAsTextShowAll()).append("\n\t");
+        }
+        builder.append("\tDate: ").append(getDate());
         int i = 0;
-        for (Map.Entry<Menu, Integer> m: getDishItems().entrySet()) {
+        for (Map.Entry<ReadOnlyMenus, Integer> m: getDishItems().entrySet()) {
             i++;
             builder.append("\n");
             MenuName dishName = m.getKey().getName();
@@ -51,7 +52,8 @@ public interface ReadOnlyOrder {
                     .append("($").append(dishPrice.toString()).append(") \t\t")
                     .append("x").append(quantity);
         }
-        builder.append("\n\t\tPrice: $").append(getPrice());
+        builder.append("\n\t\tPrice: $");
+        builder.append(Price.convertPricetoString(getPrice()));
         return builder.toString();
     }
 
@@ -60,10 +62,12 @@ public interface ReadOnlyOrder {
      */
     default String getAsTextHidePrivate() {
         final StringBuilder builder = new StringBuilder();
-        builder.append("\tCustomer: ").append(getCustomer().getAsTextHidePrivate()).append("\n")
-                .append("\t\tDate: ").append(getDate());
+        if (hasCustomerField()) {
+            builder.append("\tCustomer: ").append(getCustomer().getAsTextHidePrivate()).append("\n\t");
+        }
+        builder.append("\tDate: ").append(getDate());
         int i = 0;
-        for (Map.Entry<Menu, Integer> m: getDishItems().entrySet()) {
+        for (Map.Entry<ReadOnlyMenus, Integer> m: getDishItems().entrySet()) {
             i++;
             builder.append("\n");
             MenuName dishName = m.getKey().getName();
@@ -75,7 +79,8 @@ public interface ReadOnlyOrder {
                     .append("($").append(dishPrice.toString()).append(") \t\t")
                     .append("x").append(quantity);
         }
-        builder.append("\n\t\tPrice: $").append(getPrice());
+        builder.append("\n\t\tPrice: $");
+        builder.append(Price.convertPricetoString(getPrice()));
         return builder.toString();
     }
 
@@ -93,7 +98,7 @@ public interface ReadOnlyOrder {
         builder.append("\n\t\tDishes: ");
         if (hasDishItems()) {
             int i = 0;
-            for (Map.Entry<Menu, Integer> m: getDishItems().entrySet()) {
+            for (Map.Entry<ReadOnlyMenus, Integer> m: getDishItems().entrySet()) {
                 i++;
                 builder.append("\n");
                 MenuName dishName = m.getKey().getName();
