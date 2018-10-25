@@ -24,23 +24,6 @@ public class MenuListCommand extends Command {
 
     private final Set<String> typeSet = new HashSet<>();
 
-    private void ExistingMenuCategory() {
-        List<ReadOnlyMenus> allMenus = rms.getAllMenus().immutableListView();
-        for (ReadOnlyMenus menuItem : allMenus) {
-            //final Set<String> typeSet = new HashSet<>(menuItem.getType().getWordsInTypeName());
-            typeSet.add(menuItem.getType().value);
-        }
-    }
-
-    /*private String ConstructDisplayMessage(){
-        String MainMenuDisplay = "Main Menu";
-        for (String typeName : typeSet){
-            MainMenuDisplay += "\n" + typeName.toUpperCase() + ":  key in listmenutype" + typeName + "to view all" + typeName + "items";
-        }
-        return MainMenuDisplay;
-    }*/
-
-
 
 
     @Override
