@@ -4,8 +4,10 @@ import seedu.addressbook.commands.Command;
 import seedu.addressbook.commands.CommandResult;
 import seedu.addressbook.common.Messages;
 import seedu.addressbook.data.menu.ReadOnlyMenus;
+import seedu.addressbook.data.menu.Type;
 import seedu.addressbook.data.person.ReadOnlyPerson;
 
+import java.net.Proxy;
 import java.util.*;
 
 /**
@@ -18,8 +20,11 @@ public class MenuListByTypeCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ":\n"
             + "Displays all food item of a specific category in the Rms system as a list with index numbers.\n\t"
             + "Example: " + COMMAND_WORD;
+    public static final String MESSAGE_ERROR = "Invalid menu type searched! " +
+            "\n" +"Only the following types are available: main, sides, beverage, dessert, others, set meals." +
+            "\n" + "Only one type search allowed at a time!";
     private final String itemword;
-    public static boolean executedMenutype = false;
+    //public static boolean executedMenutype = false;
 
     public MenuListByTypeCommand(String itemword){
         this.itemword = itemword;
@@ -68,11 +73,17 @@ public class MenuListByTypeCommand extends Command {
 
     @Override
     public CommandResult execute() {
-        if(MenuListCommand.executeMenu == true) {
+        final List<ReadOnlyMenus> itemsFound = getFoodItemsBurger(itemword);
+        if(Type.isValidTypeName(itemword)==false){
+            return new MenuCommandResult(MESSAGE_ERROR);
+        }
+
+        return new MenuCommandResult(getMessageForMenuListShownSummary(itemsFound), itemsFound);
+        /*if(MenuListCommand.executeMenu == true) {
             //executedMenutype = true;
             final List<ReadOnlyMenus> itemsFound = getFoodItemsBurger(itemword);
             return new MenuCommandResult(getMessageForMenuListShownSummary(itemsFound), itemsFound);
         }
-        return new MenuCommandResult(Messages.MESSAGE_INVALID_COMMAND_FORMAT);
+        return new MenuCommandResult(Messages.MESSAGE_INVALID_COMMAND_FORMAT);*/
     }
 }

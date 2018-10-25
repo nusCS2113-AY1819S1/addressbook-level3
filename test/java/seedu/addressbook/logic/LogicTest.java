@@ -496,6 +496,74 @@ public class LogicTest {
     }
 
     @Test
+    public void execute_menulistByTpe_invalidArgsFormat() throws Exception {
+        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, MenuListByTypeCommand.MESSAGE_USAGE);
+        assertMenuCommandBehavior("listmenutype ", expectedMessage);
+    }
+
+
+    @Test
+    public void execute_menulistByType_successful_MatchesTheSpecifiedCategory() throws Exception {
+        TestDataHelper helper = new TestDataHelper();
+        Menu mTarget1 = helper.generateMenuWithGivenNameAndType("Cheese Burger","main");
+        Menu mTarget2 = helper.generateMenuWithGivenNameAndType("Chicken Burger", "main");
+        Menu m1 = helper.generateMenuWithGivenNameAndType("Salad", "sides");
+        Menu m2 = helper.generateMenuWithGivenNameAndType("Sprite", "beverage");
+
+        List<Menu> fourMenus = helper.generateMenuList(m1, mTarget1, m2, mTarget2);
+        Rms expectedAB = helper.generateRmsMenu(fourMenus);
+        List<Menu> expectedList = helper.generateMenuList(mTarget1, mTarget2);
+        helper.addToRmsMenu(rms, fourMenus);
+        assertMenuCommandBehavior("listmenutype main",
+                Command.getMessageForMenuListShownSummary(expectedList),
+                expectedAB,
+                true,
+                expectedList);
+    }
+
+    @Test
+    public void execute_menulistByType_moreThanOneTypeSearchNotAllowed() throws Exception {
+        TestDataHelper helper = new TestDataHelper();
+        Menu mTarget1 = helper.generateMenuWithGivenNameAndType("Cheese Burger","main");
+        Menu mTarget2 = helper.generateMenuWithGivenNameAndType("Chicken Burger", "main");
+        Menu m1 = helper.generateMenuWithGivenNameAndType("Salad", "sides");
+        Menu m2 = helper.generateMenuWithGivenNameAndType("Sprite", "beverage");
+
+        List<Menu> fourMenus = helper.generateMenuList(m1, mTarget1, m2, mTarget2);
+        Rms expectedAB = helper.generateRmsMenu(fourMenus);
+        List<Menu> expectedList = helper.generateMenuList();
+        helper.addToRmsMenu(rms, fourMenus);
+        assertMenuCommandBehavior("listmenutype main sides",
+                MenuListByTypeCommand.MESSAGE_ERROR,
+                expectedAB,
+                false,
+                expectedList);
+    }
+    /*
+     * Test case to check if the argument entered is one of the following or not: main, sides, beverage, dessert, others, set meals
+     * If the arguments are not one of the following, then the argument is Invalid
+     */
+
+    @Test
+    public void execute_menulistByType_invalidArgs() throws Exception {
+        TestDataHelper helper = new TestDataHelper();
+        Menu mTarget1 = helper.generateMenuWithGivenNameAndType("Cheese Burger","main");
+        Menu mTarget2 = helper.generateMenuWithGivenNameAndType("Chicken Burger", "main");
+        Menu m1 = helper.generateMenuWithGivenNameAndType("Salad", "sides");
+        Menu m2 = helper.generateMenuWithGivenNameAndType("Sprite", "beverage");
+
+        List<Menu> fourMenus = helper.generateMenuList(m1, mTarget1, m2, mTarget2);
+        Rms expectedAB = helper.generateRmsMenu(fourMenus);
+        List<Menu> expectedList = helper.generateMenuList();
+        helper.addToRmsMenu(rms, fourMenus);
+        assertMenuCommandBehavior("listmenutype burger",
+                MenuListByTypeCommand.MESSAGE_ERROR,
+                expectedAB,
+                false,
+                expectedList);
+    }
+
+    @Test
     public void execute_listemp_successful() throws Exception {
         // prepare expectations
         TestDataHelper helper = new TestDataHelper();
@@ -857,6 +925,7 @@ public class LogicTest {
         assertCommandBehavior("find ", expectedMessage);
     }
 
+
     @Test
     public void execute_find_onlyMatchesFullWordsInNames() throws Exception {
         TestDataHelper helper = new TestDataHelper();
@@ -876,6 +945,8 @@ public class LogicTest {
                 true,
                 expectedList);
     }
+
+
 
     @Test
     public void execute_find_isCaseSensitive() throws Exception {
@@ -1267,7 +1338,19 @@ public class LogicTest {
             return new Menu(
                     new MenuName(name),
                     new Price("$5.00"),
-                    new Type("Burger"),
+                    new Type("main"),
+                    Collections.singleton(new Tag("tag"))
+            );
+        }
+
+        /**
+         * Generates a Menu object with given name. Other fields will have some dummy values.
+         */
+        Menu generateMenuWithGivenNameAndType(String name, String type) throws Exception {
+            return new Menu(
+                    new MenuName(name),
+                    new Price("$5.00"),
+                    new Type(type),
                     Collections.singleton(new Tag("tag"))
             );
         }
