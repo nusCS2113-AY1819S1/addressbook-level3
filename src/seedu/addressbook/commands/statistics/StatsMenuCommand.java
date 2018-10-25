@@ -13,6 +13,7 @@ import seedu.addressbook.commands.CommandResult;
 import seedu.addressbook.common.Utils;
 import seedu.addressbook.data.menu.ReadOnlyMenus;
 import seedu.addressbook.data.order.ReadOnlyOrder;
+import seedu.addressbook.data.statistics.QuantityRevenuePair;
 
 /**
  * Lists all food items in the address book to the user.
@@ -39,8 +40,8 @@ public class StatsMenuCommand extends Command {
         else
             this.dateFrom = new Date(0);
         if (dateTo != null) {
-            sb.append("until " + dateFormat.format(this.dateTo));
             this.dateTo = stringToDate(dateTo);
+            sb.append("until " + dateFormat.format(this.dateTo));
         }
         else
             this.dateTo = new Date();
@@ -57,7 +58,7 @@ public class StatsMenuCommand extends Command {
         StringBuilder sb = new StringBuilder();
         List<ReadOnlyOrder> allOrders = rms.getAllOrders().immutableListView();
         List<ReadOnlyMenus> allMenu = rms.getAllMenus().immutableListView();
-        Map<ReadOnlyMenus, Integer> allMenuSales = new TreeMap<>();
+        Map<ReadOnlyMenus, QuantityRevenuePair> allMenuSales = new TreeMap<>();
         Map<String, ReadOnlyMenus> bestsellers = new HashMap<>();
         Map<String, ReadOnlyMenus> worstsellers = new HashMap<>();
 
@@ -75,23 +76,23 @@ public class StatsMenuCommand extends Command {
             // ==========================================
             for (Map.Entry<ReadOnlyMenus, Integer> entry : dishItems.entrySet()) {
                 if (!allMenuSales.containsKey(entry.getKey()))
-                    allMenuSales.put(entry.getKey(), entry.getValue());
+                    allMenuSales.put(entry.getKey(), new QuantityRevenuePair(entry.getValue(), Double.parseDouble(entry.getKey().getPrice().value)));
                 else
-                    allMenuSales.put(entry.getKey(), allMenuSales.get(entry.getKey()) + entry.getValue());
+                    allMenuSales.put(entry.getKey(), allMenuSales.get(entry.getKey()).addData(entry.getValue(), Double.parseDouble(entry.getKey().getPrice().value)));
             }
         }
 
         // Check for menu items with no sales and insert into allMenuSales
         for (ReadOnlyMenus menu: allMenu) {
             if (!allMenuSales.containsKey(menu))
-                allMenuSales.put(menu, 0);
+                allMenuSales.put(menu, new QuantityRevenuePair());
         }
 
         // Sort allMenuSales by quantity sold
-        List<Map.Entry<ReadOnlyMenus, Integer>> sortedMenu = Utils.sortByValue(allMenuSales);
+        List<Map.Entry<ReadOnlyMenus, QuantityRevenuePair>> sortedMenu = Utils.sortByValue(allMenuSales);
         for (int i = sortedMenu.size() - 1; i >= 0; i--) {
             ReadOnlyMenus menu = sortedMenu.get(i).getKey();
-            Integer quantity = sortedMenu.get(i).getValue();
+            int quantity = sortedMenu.get(i).getValue().getQuantity();
             sb.append(menu.getName());
             sb.append(" sold " + quantity + "\n");
 
@@ -108,14 +109,16 @@ public class StatsMenuCommand extends Command {
         sb.append("=============\n");
         for (Map.Entry<String, ReadOnlyMenus> bestEntry : bestsellers.entrySet()) {
             sb.append(bestEntry.getKey() + ": " + bestEntry.getValue().getName() + "\n");
-            sb.append("Total quantity sold: " + allMenuSales.get(bestEntry.getValue()) + "\n");
+            sb.append("Total quantity sold: " + allMenuSales.get(bestEntry.getValue()).getQuantity() + "\n");
+            sb.append("Total sales revenue: $" + Utils.formatCurrency(allMenuSales.get(bestEntry.getValue()).getRevenue()) + "\n");
         }
 
         sb.append("\n\nUnpopular Items\n");
         sb.append("================\n");
         for (Map.Entry<String, ReadOnlyMenus> worstEntry : worstsellers.entrySet()) {
             sb.append(worstEntry.getKey() + ": " + worstEntry.getValue().getName() + "\n");
-            sb.append("Total quantity sold: " + allMenuSales.get(worstEntry.getValue()) + "\n");
+            sb.append("Total quantity sold: " + allMenuSales.get(worstEntry.getValue()).getQuantity() + "\n");
+            sb.append("Total sales revenue: $" + Utils.formatCurrency(allMenuSales.get(worstEntry.getValue()).getRevenue()) + "\n");
         }
 
         return sb.toString();
