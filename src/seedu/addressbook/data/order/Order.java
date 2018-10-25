@@ -1,20 +1,14 @@
 package seedu.addressbook.data.order;
 
-import seedu.addressbook.data.exception.IllegalValueException;
 import seedu.addressbook.data.member.Member;
-import seedu.addressbook.data.member.MemberName;
-import seedu.addressbook.data.member.Points;
 import seedu.addressbook.data.member.ReadOnlyMember;
 import seedu.addressbook.data.menu.Menu;
 import seedu.addressbook.data.menu.ReadOnlyMenus;
-import seedu.addressbook.data.person.Name;
 
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  * Represents an Order in the ordering list.
@@ -22,11 +16,7 @@ import java.util.logging.Logger;
 
 public class Order implements ReadOnlyOrder {
 
-    public static final String EMPTY_NAME_STRING = "gAksDZgOjsIPyVmMIuUE";
-    public static final Member EMPTY_CUSTOMER = getNewEmptyCustomer();
-    private static final Logger LOGGER = Logger.getLogger( Order.class.getName() );
-
-    private Member customer;
+    private ReadOnlyMember customer;
     private Date date;
     private double price;
 
@@ -35,13 +25,13 @@ public class Order implements ReadOnlyOrder {
      *
      * Use {@code entrySet()} to create a Set for iteration.
      */
-    private final Map<Menu, Integer> dishItems = new HashMap<>();
+    private final Map<ReadOnlyMenus, Integer> dishItems = new HashMap<>();
 
     /**
      * Constructor used for drafting new order. Uses empty customer instead of null.
      */
     public Order() {
-        this.customer = getNewEmptyCustomer();
+        this.customer = new Member();
         this.date = new Date();
         this.price = 0;
     }
@@ -49,7 +39,7 @@ public class Order implements ReadOnlyOrder {
     /**
      * Constructor for new order to be added to the order list.
      */
-    public Order(Member customer, Map<Menu, Integer> dishItems) {
+    public Order(ReadOnlyMember customer, Map<ReadOnlyMenus, Integer> dishItems) {
         this.customer = customer;
         this.dishItems.putAll(dishItems);
         this.price = calculatePrice();
@@ -59,7 +49,7 @@ public class Order implements ReadOnlyOrder {
     /**
      * Constructor for edited order to keep the original ordered date.
      */
-    public Order(Member customer, Date date, Map<Menu, Integer> dishItems) {
+    public Order(ReadOnlyMember customer, Date date, Map<ReadOnlyMenus, Integer> dishItems) {
         this.customer = customer;
         this.dishItems.putAll(dishItems);
         this.price = calculatePrice();
@@ -69,7 +59,7 @@ public class Order implements ReadOnlyOrder {
     /**
      * Full constructor.
      */
-    public Order(Member customer, Date date, double price, Map<Menu, Integer> dishItems) {
+    public Order(ReadOnlyMember customer, Date date, double price, Map<ReadOnlyMenus, Integer> dishItems) {
         this.customer = customer;
         this.dishItems.putAll(dishItems);
         this.price = price;
@@ -84,8 +74,8 @@ public class Order implements ReadOnlyOrder {
     }
 
     @Override
-    public Member getCustomer() {
-        return new Member(customer);
+    public ReadOnlyMember getCustomer() {
+        return customer;
     }
 
     /**
@@ -102,28 +92,18 @@ public class Order implements ReadOnlyOrder {
     }
 
     @Override
-    public Map<Menu, Integer> getDishItems() {
+    public Map<ReadOnlyMenus, Integer> getDishItems() {
         return new HashMap<>(dishItems);
     }
 
-    private static Member getNewEmptyCustomer() {
-        return new Member();
-//        try {
-//            return new Member(new MemberName(EMPTY_NAME_STRING));
-//        } catch (IllegalValueException ie) {
-//            LOGGER.log(Level.SEVERE,"Order.EMPTY_NAME_STRING is invalid", ie);
-//            return null;
-//        }
-    }
-
     public void setCustomer(ReadOnlyMember customer) {
-        this.customer = new Member(customer);
+        this.customer = customer;
     }
 
     /**
      * Replaces the list of dish items with the dish items in {@code replacement}.
      */
-    public void setDishItems(Map<Menu, Integer> replacement) {
+    public void setDishItems(Map<ReadOnlyMenus, Integer> replacement) {
         dishItems.clear();
         dishItems.putAll(replacement);
         price = calculatePrice();
@@ -134,8 +114,8 @@ public class Order implements ReadOnlyOrder {
      */
     public double calculatePrice() {
         double result = 0;
-        for (Map.Entry<Menu, Integer> m: getDishItems().entrySet()) {
-            double dishPrice = Double.parseDouble(m.getKey().getPrice().value);
+        for (Map.Entry<ReadOnlyMenus, Integer> m: getDishItems().entrySet()) {
+            double dishPrice = m.getKey().getPrice().convertValueOfPricetoDouble();
             int dishQuantity = m.getValue();
             result += (dishPrice * dishQuantity);
         }
@@ -145,7 +125,7 @@ public class Order implements ReadOnlyOrder {
     /**
      * Get the number of a certain dish item in an order.
      */
-    public int getDishQuantity(Menu dish) {
+    public int getDishQuantity(ReadOnlyMenus dish) {
         if (dishItems.containsKey(dish)) {
             return dishItems.get(dish);
         } else {
@@ -158,7 +138,7 @@ public class Order implements ReadOnlyOrder {
      * Used to add, remove and edit dishes in an order.
      */
     public void changeDishQuantity(ReadOnlyMenus readOnlyDish, int quantity) {
-        Menu dish = new Menu(readOnlyDish);
+        ReadOnlyMenus dish = new Menu(readOnlyDish);
         if (quantity == 0) {
             dishItems.remove(dish);
         } else if (quantity > 0) {
@@ -168,17 +148,12 @@ public class Order implements ReadOnlyOrder {
 
     @Override
     public boolean hasCustomerField() {
-        return !(customer.equals(EMPTY_CUSTOMER));
+        return !(customer.equals(new Member()));
     }
 
     @Override
     public boolean hasDishItems() {
         return !(dishItems.isEmpty());
-    }
-
-    @Override
-    public boolean hasAllRequiredField() {
-        return hasCustomerField() && hasDishItems();
     }
 
     @Override

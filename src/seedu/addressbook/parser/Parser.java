@@ -97,7 +97,7 @@ public class Parser {
                     + "type/(?<type>[^/]+)"
                     + "(?<tagArguments>(?: t/[^/]+)*)"); // variable number of tags
 
-    public static final Pattern ORDER_DISH_ARGS_FORMAT = Pattern.compile("i/(?<targetIndex>.+)\\s+q/(?<quantity>.+)");
+    public static final Pattern ORDER_DISH_ARGS_FORMAT = Pattern.compile("(?<targetIndex>.+)\\s+q/(?<quantity>.+)");
 
     public static final Pattern STATSMENU_DATE_ARGS_FORMAT =
             Pattern.compile("(f\\/(?<dateFrom>(0[1-9]|[12]\\d|3[01])(0[1-9]|1[0-2])[12]\\d{3}))? ?(t\\/(?<dateTo>(0[1-9]|[12]\\d|3[01])(0[1-9]|1[0-2])[12]\\d{3}))?"); // variable number of tags
