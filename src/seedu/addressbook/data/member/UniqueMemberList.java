@@ -8,7 +8,7 @@ import seedu.addressbook.data.member.ReadOnlyMember;
 import java.util.*;
 
 /**
- * A list of persons. Does not allow null elements or duplicates.
+ * A list of members. Does not allow null elements or duplicates.
  *
  * @see Member#equals(Object)
  * @see Utils#elementsAreUnique(Collection)

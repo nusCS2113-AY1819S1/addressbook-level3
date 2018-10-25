@@ -67,11 +67,11 @@ public class Formatter {
 
     /** Formats the given list of members for displaying to the user. */
     public String formatMemberResult(List<? extends ReadOnlyMember> members) {
-        final List<String> formattedOrders = new ArrayList<>();
+        final List<String> formattedMembers = new ArrayList<>();
         for (ReadOnlyMember member : members) {
-            formattedOrders.add(member.getAsTextHidePrivate());
+            formattedMembers.add(member.getAsTextHidePrivate());
         }
-        return format(asIndexedList(formattedOrders));
+        return format(asIndexedList(formattedMembers));
     }
 
     /** Formats the given list of employees for displaying to the user. */
