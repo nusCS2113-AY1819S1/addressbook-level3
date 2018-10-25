@@ -16,6 +16,10 @@ endif::[]
 
 By: `CS2113-AY1819S1-F09-2`      Since: `Aug 2018`      Licence: `MIT`
 
+== Introduction
+The Restaurant Management System (RMS) provides restaurants with a more efficient way to manage their operations. It has a wide variety of features which cater to different roles in a restaurant. In line with Singapore's "Smart Nation" movement, the RMS aims to digitise the restaurant business and make day-to-day operations smoother and simpler. Jump to <<Setting up>> to get started with the development.
+
+
 == Setting up
 
 === Prerequisites
@@ -83,49 +87,45 @@ Optionally, you can set up AppVeyor as a second CI (see <<UsingAppVeyor#, UsingA
 [NOTE]
 Having both Travis and AppVeyor ensures your App works on both Unix-based platforms and Windows-based platforms (Travis is Unix-based and AppVeyor is Windows-based)
 
-//==== Getting started with coding
-//
-//When you are ready to start coding,
-//
-//1. Get some sense of the overall design by reading <<Design-Architecture>>.
-//2. Take a look at <<GetStartedProgramming>>.
+==== Getting started with coding
 
-//== Design
-//
-//[[Design-Architecture]]
-//=== Architecture
-//
-//.Architecture Diagram
-//image::Architecture.png[width="600"]
-//
-//The *_Architecture Diagram_* given above explains the high-level design of the App. Given below is a quick overview of each component.
-//
-//[TIP]
-//The `.pptx` files used to create diagrams in this document can be found in the link:{repoURL}/docs/diagrams/[diagrams] folder. To update a diagram, modify the diagram in the pptx file, select the objects of the diagram, and choose `Save as picture`.
+When you are ready to start coding,
+
+1. Get some sense of the overall design by reading <<Design-Architecture>>.
+2. Take a look at <<GetStartedProgramming>>.
+
+== Design
+
+[[Design-Architecture]]
+=== Architecture
+
+.Architecture Diagram
+image::Architecture.png[width="600"]
+
+The *_Architecture Diagram_* given above explains the high-level design of the App. Given below is a quick overview of each component.
+
 //
 //`Main` has only one class called link:{repoURL}/src/main/java/seedu/address/MainApp.java[`MainApp`]. It is responsible for,
-//
-//* At app launch: Initializes the components in the correct sequence, and connects them up with each other.
-//* At shut down: Shuts down the components and invokes cleanup method where necessary.
-//
-//<<Design-Commons,*`Commons`*>> represents a collection of classes used by multiple other components. Two of those classes play important roles at the architecture level.
-//
+
+* At app launch: Initializes the components in the correct sequence, and connects them up with each other.
+* At shut down: Shuts down the components and invokes cleanup method where necessary.
+
+<<Design-Commons,*`Commons`*>> represents a collection of classes used by multiple other components. Two of those classes play important roles at the architecture level.
+
 //* `EventsCenter` : This class (written using https://github.com/google/guava/wiki/EventBusExplained[Google's Event Bus library]) is used by components to communicate with other components using events (i.e. a form of _Event Driven_ design)
-//* `LogsCenter` : Used by many classes to write log messages to the App's log file.
-//
-//The rest of the App consists of four components.
-//
-//* <<Design-Ui,*`UI`*>>: The UI of the App.
-//* <<Design-Logic,*`Logic`*>>: The command executor.
-//* <<Design-Model,*`Model`*>>: Holds the data of the App in-memory.
-//* <<Design-Storage,*`Storage`*>>: Reads data from, and writes data to, the hard disk.
-//
-//Each of the four components
-//
-//* Defines its _API_ in an `interface` with the same name as the Component.
-//* Exposes its functionality using a `{Component Name}Manager` class.
-//
-//For example, the `Logic` component (see the class diagram given below) defines it's API in the `Logic.java` interface and exposes its functionality using the `LogicManager.java` class.
+* `Messages` : Used by many classes to write user visible message.
+* `Utils` : Contains all the utility methods.
+* `Name` : The parent class to the MemberName and EmployeeName classes.
+
+The rest of the App consists of four key components.
+
+* <<Design-Ui,*`UI`*>>: The UI of the App.
+* <<Design-Logic,*`Logic`*>>: The command executor.
+* <<Design-Data,*`Data`*>>: Holds the data of the App in-memory.
+* <<Design-Storage,*`Storage`*>>: Reads data from, and writes data to, the hard disk.
+
+Below contains the description for each of the four key components:
+
 //
 //.Class Diagram of the Logic Component
 //image::LogicClassDiagram.png[width="800"]
