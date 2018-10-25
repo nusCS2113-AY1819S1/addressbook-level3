@@ -1,6 +1,14 @@
 package seedu.addressbook.data;
 
-import seedu.addressbook.data.member.*;
+import seedu.addressbook.data.employee.Employee;
+import seedu.addressbook.data.employee.ReadOnlyEmployee;
+import seedu.addressbook.data.employee.UniqueEmployeeList;
+import seedu.addressbook.data.employee.UniqueEmployeeList.DuplicateEmployeeException;
+import seedu.addressbook.data.employee.UniqueEmployeeList.EmployeeNotFoundException;
+import seedu.addressbook.data.member.Member;
+import seedu.addressbook.data.member.ReadOnlyMember;
+import seedu.addressbook.data.member.UniqueMemberList;
+
 import seedu.addressbook.data.member.UniqueMemberList.DuplicateMemberException;
 import seedu.addressbook.data.member.UniqueMemberList.MemberNotFoundException;
 import seedu.addressbook.data.menu.Menu;
@@ -15,11 +23,6 @@ import seedu.addressbook.data.order.UniqueOrderList.DuplicateOrderException;
 import seedu.addressbook.data.order.UniqueOrderList.OrderNotFoundException;
 import seedu.addressbook.data.person.Person;
 import seedu.addressbook.data.person.ReadOnlyPerson;
-import seedu.addressbook.data.employee.Employee;
-import seedu.addressbook.data.employee.ReadOnlyEmployee;
-import seedu.addressbook.data.employee.UniqueEmployeeList;
-import seedu.addressbook.data.employee.UniqueEmployeeList.DuplicateEmployeeException;
-import seedu.addressbook.data.employee.UniqueEmployeeList.EmployeeNotFoundException;
 import seedu.addressbook.data.person.UniquePersonList;
 import seedu.addressbook.data.person.UniquePersonList.DuplicatePersonException;
 import seedu.addressbook.data.person.UniquePersonList.PersonNotFoundException;
@@ -79,7 +82,7 @@ public class Rms {
     public void addPerson(Person toAdd) throws DuplicatePersonException { allPersons.add(toAdd); }
 
     /**
-     * Adds a person to the address book.
+     * Adds a person to the Rms.
      *
      * @throws DuplicateEmployeeException if an equivalent person already exists.
      */
@@ -203,12 +206,21 @@ public class Rms {
     }
 
     /**
-     * Removes the equivalent employee from the address book.
+     * Removes the equivalent employee from the Rms.
      *
      * @throws EmployeeNotFoundException if no such Employee could be found.
      */
     public void removeEmployee(ReadOnlyEmployee toRemove) throws EmployeeNotFoundException {
         allEmployees.remove(toRemove);
+    }
+
+    /**
+     * Edits the equivalent employee from Rms
+     *
+     * @throws EmployeeNotFoundException if no such Employee could be found.
+     */
+    public void editEmployee(ReadOnlyEmployee toRemove, Employee toReplace) throws  EmployeeNotFoundException {
+        allEmployees.edit(toRemove, toReplace);
     }
 
     /**

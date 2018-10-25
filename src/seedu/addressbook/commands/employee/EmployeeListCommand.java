@@ -1,10 +1,10 @@
 package seedu.addressbook.commands.employee;
 
+import java.util.List;
+
 import seedu.addressbook.commands.Command;
 import seedu.addressbook.commands.CommandResult;
 import seedu.addressbook.data.employee.ReadOnlyEmployee;
-
-import java.util.List;
 
 /**
  * List all employees.

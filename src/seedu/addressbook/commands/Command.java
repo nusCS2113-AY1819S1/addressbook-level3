@@ -1,16 +1,17 @@
 package seedu.addressbook.commands;
 
-import seedu.addressbook.common.Messages;
-import seedu.addressbook.data.Rms;
-import seedu.addressbook.data.member.ReadOnlyMember;
-import seedu.addressbook.data.menu.ReadOnlyMenus;
-import seedu.addressbook.data.order.ReadOnlyOrder;
-import seedu.addressbook.data.employee.ReadOnlyEmployee;
-import seedu.addressbook.data.person.ReadOnlyPerson;
+import static seedu.addressbook.ui.Gui.DISPLAYED_INDEX_OFFSET;
 
 import java.util.List;
 
-import static seedu.addressbook.ui.Gui.DISPLAYED_INDEX_OFFSET;
+import seedu.addressbook.data.employee.ReadOnlyEmployee;
+import seedu.addressbook.data.member.ReadOnlyMember;
+import seedu.addressbook.data.menu.ReadOnlyMenus;
+import seedu.addressbook.data.order.ReadOnlyOrder;
+import seedu.addressbook.data.Rms;
+import seedu.addressbook.data.person.ReadOnlyPerson;
+
+import seedu.addressbook.common.Messages;
 
 /**
  * Represents an executable command.
@@ -161,7 +162,7 @@ public abstract class Command {
     }
 
     /**
-     * Extracts the the target order in the last shown employee list from the given arguments.
+     * Extracts the target order in the last shown employee list from the given arguments.
      *
      * @throws IndexOutOfBoundsException if the target index is out of bounds of the last viewed listing
      */
