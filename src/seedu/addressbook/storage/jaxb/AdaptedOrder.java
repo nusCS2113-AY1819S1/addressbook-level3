@@ -2,7 +2,7 @@ package seedu.addressbook.storage.jaxb;
 
 import seedu.addressbook.common.Utils;
 import seedu.addressbook.data.exception.IllegalValueException;
-import seedu.addressbook.data.member.Member;
+import seedu.addressbook.data.member.ReadOnlyMember;
 import seedu.addressbook.data.menu.Menu;
 import seedu.addressbook.data.order.Order;
 import seedu.addressbook.data.order.ReadOnlyOrder;
@@ -80,7 +80,7 @@ public class AdaptedOrder {
         for (AdaptedDishItem dishItem : this.dishItems) {
             dishItems.put(dishItem.dish.toModelType(), dishItem.quantity);
         }
-        final Member customer = this.customer.toModelType();
+        final ReadOnlyMember customer = this.customer.toModelType();
         final Date date = new Date(this.date);
         final double price = this.price;
         return new Order(customer, date, price, dishItems);

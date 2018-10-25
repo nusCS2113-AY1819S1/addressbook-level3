@@ -28,7 +28,7 @@ public class DraftOrderConfirmCommand extends Command {
         try {
             final ReadOnlyOrder draftOrder = rms.getDraftOrder();
             String message;
-            if (draftOrder.hasAllRequiredField()) {
+            if (draftOrder.hasCustomerField()) {
                 final Order toAdd = new Order(draftOrder.getCustomer(), draftOrder.getDishItems());
                 rms.addOrder(toAdd);
                 rms.clearDraftOrder();

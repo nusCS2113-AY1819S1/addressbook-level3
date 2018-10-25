@@ -274,7 +274,7 @@ public class Rms {
     }
 
     public ReadOnlyOrder getDraftOrder() {
-        return new Order(draftOrder);
+        return draftOrder;
     }
 
     public void editDraftOrderCustomer(ReadOnlyMember customer) {
