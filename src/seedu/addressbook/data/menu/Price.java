@@ -44,10 +44,8 @@ public class Price {
         int decimalIndex = valueAsPrice.indexOf(".");
         if((valueAsPrice.substring(decimalIndex)).length()<3){
             valueAsPrice = valueAsPrice + "0";
-        }
-        if((valueAsPrice.substring(decimalIndex)).length()>3){
-            priceIndouble = Math.round(priceIndouble*100.0)/100.0;
-            valueAsPrice = "$" + Double.toString(priceIndouble);
+        }else if((valueAsPrice.substring(decimalIndex)).length()>=3){
+            valueAsPrice.substring(0, decimalIndex+3);
 
         }
 

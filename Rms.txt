@@ -47,6 +47,11 @@
         <price>$5.00</price>
         <type>main</type>
     </menus>
+    <menus>
+        <name>ice cream</name>
+        <price>$5.00</price>
+        <type>dessert</type>
+    </menus>
     <members>
         <name>Kang Ming</name>
         <points>0</points>

@@ -34,10 +34,13 @@ public class MenuListByTypeCommand extends Command {
     /* public String getItemword(){
          return
      }*/
+    private final Set<String> typeSet = new HashSet<>();
     private List<ReadOnlyMenus> getFoodItemsBurger(String itemword) {
         for (ReadOnlyMenus menuItem : rms.getAllMenus()) {
             //final Set<String> wordsInName = new HashSet<>(burger.getType().getWordsInTypeName());
             final String wordsInItemName = menuItem.getType().value;
+            typeSet.add(wordsInItemName);
+            //System.out.println(wordsInItemName);
             //boolean exist = wordsInName.contains(itemword);
             if (wordsInItemName.equals(itemword)) {
                 matchedFoodItems.add(menuItem);
