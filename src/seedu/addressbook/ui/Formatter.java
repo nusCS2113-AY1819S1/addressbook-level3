@@ -51,7 +51,7 @@ public class Formatter {
     /** Formats a list of strings as an indexed list. */
     private static String asIndexedList(List<String> listItems) {
         final StringBuilder formatted = new StringBuilder();
-        int displayIndex = 0 + DISPLAYED_INDEX_OFFSET;
+        int displayIndex = DISPLAYED_INDEX_OFFSET;
         for (String listItem : listItems) {
             formatted.append(getIndexedListItem(displayIndex, listItem)).append("\n");
             displayIndex++;
@@ -74,7 +74,7 @@ public class Formatter {
     public static String getPrintableString(boolean showPrivate, Printable... printables) {
         StringBuilder stringChain = new StringBuilder();
         for (Printable i: printables) {
-            stringChain.append(i.getPrintableString(showPrivate)).append(" ");
+            stringChain.append(i.getPrintableString(showPrivate)).append("\n");
         }
         return stringChain.toString();
     }

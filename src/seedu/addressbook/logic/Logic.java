@@ -101,6 +101,7 @@ public class Logic {
     private StorageFile initializeStorage()
             throws StorageFile.InvalidStorageFilePathException,
             StorageFile.InvalidInitialisationException {
+
         return new StorageFile();
     }
 
@@ -179,20 +180,23 @@ public class Logic {
             result = command.execute();
         } else {
             result = new IncorrectCommand (String.format(MESSAGE_INSUFFICIENT_PRIVILEGE,
-                            privilege.getRequiredPrivilegeAsString(command),
-                            privilege.getLevelAsString())).execute();
+                    privilege.getRequiredPrivilegeAsString(command),
+                    privilege.getLevelAsString())).execute();
         }
 
         if (command.isMutating()) {
             storage.save(addressBook);
-            storage.saveExam(examBook);
             storage.saveStatistics(statisticsBook);
+        }
+        if (command.isExamMutating()) {
+            storage.saveExam(examBook);
         }
         return result;
     }
 
     /** Updates the {@link #lastShownList} if the result contains a list of Persons.
      *  Updates the {@link #lastShownExamList} if the result contains a list of Exams.
+     *  Updates the {@link #lastShownAssessmentList} if the result contains a list of Assessments.
      * */
     private void recordResult(CommandResult result) {
         final Optional<List<? extends ReadOnlyPerson>> personList = result.getRelevantPersons();

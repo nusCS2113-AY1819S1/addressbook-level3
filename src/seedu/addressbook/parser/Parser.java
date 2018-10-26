@@ -4,7 +4,7 @@ import static java.lang.Integer.parseInt;
 import static seedu.addressbook.common.Messages.MESSAGE_COMMAND_NOT_FOUND;
 import static seedu.addressbook.common.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.addressbook.common.Messages.MESSAGE_INVALID_DATE;
-import static seedu.addressbook.common.Messages.MESSAGE_NO_ARGS_FOUND;
+import static seedu.addressbook.common.Messages.MESSAGE_WRONG_NUMBER_ARGUMENTS;
 
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
@@ -13,6 +13,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
+import java.util.Optional;
 import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -30,6 +31,7 @@ import seedu.addressbook.commands.DeleteAccountCommand;
 import seedu.addressbook.commands.DeleteAssessmentCommand;
 import seedu.addressbook.commands.DeleteCommand;
 import seedu.addressbook.commands.DeleteExamCommand;
+import seedu.addressbook.commands.DeregisterExamCommand;
 import seedu.addressbook.commands.EditExamCommand;
 import seedu.addressbook.commands.EditPasswordCommand;
 import seedu.addressbook.commands.ExamsListCommand;
@@ -43,12 +45,14 @@ import seedu.addressbook.commands.ListFeesCommand;
 import seedu.addressbook.commands.LoginCommand;
 import seedu.addressbook.commands.LogoutCommand;
 import seedu.addressbook.commands.RaisePrivilegeCommand;
+import seedu.addressbook.commands.RegisterExamCommand;
 import seedu.addressbook.commands.ReplaceAttendanceCommand;
 import seedu.addressbook.commands.SetPermanentAdminCommand;
 import seedu.addressbook.commands.UpdateAttendanceCommand;
 import seedu.addressbook.commands.ViewAllCommand;
 import seedu.addressbook.commands.ViewAttendanceCommand;
 import seedu.addressbook.commands.ViewCommand;
+import seedu.addressbook.commands.ViewExamsCommand;
 import seedu.addressbook.commands.ViewFeesCommand;
 import seedu.addressbook.commands.ViewPrivilegeCommand;
 import seedu.addressbook.commands.ViewSelfCommand;
@@ -77,7 +81,7 @@ public class Parser {
                     + "(?<tagArguments>(?: t/[^/]+)*)"); // variable number of tags
 
     public static final Pattern EXAM_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
-            Pattern.compile("(?<isExamPrivate>p?)e/(?<examName>[^/]+)"
+            Pattern.compile("(?<isPrivate>p?)e/(?<examName>[^/]+)"
                     + " s/(?<subjectName>[^/]+)"
                     + " d/(?<examDate>[^/]+)"
                     + " st/(?<examStartTime>[^/]+)"
@@ -105,13 +109,13 @@ public class Parser {
                     + " att/(?<isPresent>[0-1])");
 
     public static final Pattern EDIT_EXAM_INDEX_ARGS_FORMAT = Pattern.compile("(?<targetIndex>[^/]+)"
-                    + "(p/(?<isExamPrivate>[^/]+))*"
-                    + "(e/(?<examName>[^/]+))*"
-                    + "(s/(?<subjectName>[^/]+))*"
-                    + "(d/(?<examDate>[^/]+))*" // '/' forward slashes are reserved for delimiter prefixes
-                    + "(st/(?<examStartTime>[^/]+))*"
-                    + "(et/(?<examEndTime>[^/]+))*"
-                    + "(dt/(?<examDetails>[^/]+))*");
+                    + "(p/(?<isPrivate>[^/]+))?"
+                    + "(e/(?<examName>[^/]+))?"
+                    + "(s/(?<subjectName>[^/]+))?"
+                    + "(d/(?<examDate>[^/]+))?" // '/' forward slashes are reserved for delimiter prefixes
+                    + "(st/(?<examStartTime>[^/]+))?"
+                    + "(et/(?<examEndTime>[^/]+))?"
+                    + "(dt/(?<examDetails>[^/]+))?");
 
     public static final Pattern ASSESSMENT_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
             Pattern.compile("(?<examName>[^/]+)");
@@ -231,6 +235,15 @@ public class Parser {
 
         case EditExamCommand.COMMAND_WORD:
             return prepareEditExam(arguments);
+
+        case RegisterExamCommand.COMMAND_WORD:
+            return prepareRegisterExam(arguments);
+
+        case DeregisterExamCommand.COMMAND_WORD:
+            return prepareDeregisterExam(arguments);
+
+        case ViewExamsCommand.COMMAND_WORD:
+            return prepareViewExams(arguments);
 
         case AddAssessmentCommand.COMMAND_WORD:
             return prepareAddAssessment(arguments);
@@ -415,10 +428,9 @@ public class Parser {
         return parseInt(matcher.group("targetIndex"));
     }
 
-    /**
+    /*
      * Parse the given arguments string as a float
-
-     private float parseArgsAsFloat(String args) throws ParseException, NumberFormatException {
+    private float parseArgsAsFloat(String args) throws ParseException, NumberFormatException {
         final Matcher matcher = PERSON_INDEX_ARGS_FORMAT.matcher(args.trim());
         if (!matcher.matches()) {
             throw new ParseException("Could not find float number to parse");
@@ -592,7 +604,7 @@ public class Parser {
                     matcher.group("examStartTime"),
                     matcher.group("examEndTime"),
                     matcher.group("examDetails"),
-                    isPrivatePrefixPresent(matcher.group("isExamPrivate"))
+                    isPrivatePrefixPresent(matcher.group("isPrivate"))
             );
         } catch (IllegalValueException ive) {
             return new IncorrectCommand(ive.getMessage());
@@ -739,28 +751,86 @@ public class Parser {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     EditExamCommand.MESSAGE_USAGE));
         }
-
-        String isPrivate = matcher.group("isExamPrivate");
-        // Validate private status
-        if (!isPrivateValid(isPrivate)) {
-            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                    EditExamCommand.MESSAGE_USAGE));
-        }
-
-        Map<String, String> changedDetails = storeNewDetails(matcher.group("examName"),
-                matcher.group("subjectName"), matcher.group("examDate"),
-                matcher.group("examStartTime"), matcher.group("examEndTime"),
-                matcher.group("examDetails"), isPrivate);
-        if (changedDetails.isEmpty()) {
-            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                    MESSAGE_NO_ARGS_FOUND + EditExamCommand.MESSAGE_USAGE));
-        }
-
+        Map<ExamField, String> changedDetails = storeNewDetails(matcher);
         try {
             final int targetIndex = parseInt(matcher.group("targetIndex").trim());
             return new EditExamCommand(targetIndex, changedDetails);
-        } catch (NumberFormatException e) {
+        } catch (NumberFormatException nfe) {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditExamCommand.MESSAGE_USAGE));
+        } catch (IllegalValueException ive) {
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ive.getMessage()));
+        }
+    }
+
+    /**
+     * Parses arguments in the context of the register exam command.
+     *
+     * @param args full command args string
+     * @return the prepared command
+     */
+    private Command prepareRegisterExam(String args) {
+        final Matcher matcher = KEYWORDS_ARGS_FORMAT.matcher(args.trim());
+        if (!matcher.matches()) {
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    RegisterExamCommand.MESSAGE_USAGE));
+        }
+
+        String[] arr = matcher.group("keywords").split("\\s+");
+        if (arr.length != 2) {
+            return new IncorrectCommand(String.format(MESSAGE_WRONG_NUMBER_ARGUMENTS , 2, arr.length,
+                    RegisterExamCommand.MESSAGE_USAGE));
+        }
+        try {
+            final int targetIndex = parseArgsAsDisplayedIndex(arr[0]);
+            final int targetExamIndex = parseArgsAsDisplayedIndex(arr[1]);
+            return new RegisterExamCommand(targetIndex, targetExamIndex);
+        } catch (ParseException | NumberFormatException e) {
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    RegisterExamCommand.MESSAGE_USAGE));
+        }
+    }
+
+    /**
+     * Parses arguments in the context of the deregister exam command.
+     *
+     * @param args full command args string
+     * @return the prepared command
+     */
+    private Command prepareDeregisterExam(String args) {
+        final Matcher matcher = KEYWORDS_ARGS_FORMAT.matcher(args.trim());
+        if (!matcher.matches()) {
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    DeregisterExamCommand.MESSAGE_USAGE));
+        }
+
+        String[] arr = matcher.group("keywords").split("\\s+");
+        if (arr.length != 2) {
+            return new IncorrectCommand(String.format(MESSAGE_WRONG_NUMBER_ARGUMENTS , 2, arr.length,
+                    DeregisterExamCommand.MESSAGE_USAGE));
+        }
+        try {
+            final int targetIndex = parseArgsAsDisplayedIndex(arr[0]);
+            final int targetExamIndex = parseArgsAsDisplayedIndex(arr[1]);
+            return new DeregisterExamCommand(targetIndex, targetExamIndex);
+        } catch (ParseException | NumberFormatException e) {
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    DeregisterExamCommand.MESSAGE_USAGE));
+        }
+    }
+
+    /**
+     * Parses arguments in the context of the view exams command.
+     *
+     * @param args full command args string
+     * @return the prepared command
+     */
+    private Command prepareViewExams(String args) {
+        try {
+            final int targetIndex = parseArgsAsDisplayedIndex(args);
+            return new ViewExamsCommand(targetIndex);
+        } catch (ParseException | NumberFormatException e) {
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    ViewExamsCommand.MESSAGE_USAGE));
         }
     }
 
@@ -802,46 +872,39 @@ public class Parser {
         }
     }
 
-
     /**
      * Stores the new values of exam to be edited to.
     */
-    private static Map<String, String> storeNewDetails(String examName, String subjectName,
-                                                    String examDate, String startTime, String endTime,
-                                                    String details, String isExamPrivate) {
-        Map<String, String> result = new HashMap<>();
-        if (examName != null) {
-            result.put("examName", examName);
+    private static Map<ExamField, String> storeNewDetails(Matcher matcher) {
+        Map<ExamField, String> result = new HashMap<>();
+        Optional<String> examName = Optional.ofNullable(matcher.group("examName"));
+        if (examName.isPresent()) {
+            result.put(ExamField.examName, examName.get());
         }
-        if (subjectName != null) {
-            result.put("subjectName", subjectName);
+        Optional<String> subjectName = Optional.ofNullable(matcher.group("subjectName"));
+        if (subjectName.isPresent()) {
+            result.put(ExamField.subjectName, subjectName.get());
         }
-        if (examDate != null) {
-            result.put("examDate", examDate);
+        Optional<String> examDate = Optional.ofNullable(matcher.group("examDate"));
+        if (examDate.isPresent()) {
+            result.put(ExamField.examDate, examDate.get());
         }
-        if (startTime != null) {
-            result.put("examStartTime", startTime);
+        Optional<String> examStartTime = Optional.ofNullable(matcher.group("examStartTime"));
+        if (examStartTime.isPresent()) {
+            result.put(ExamField.examStartTime, examStartTime.get());
         }
-        if (endTime != null) {
-            result.put("examEndTime", endTime);
+        Optional<String> examEndTime = Optional.ofNullable(matcher.group("examEndTime"));
+        if (examEndTime.isPresent()) {
+            result.put(ExamField.examEndTime, examEndTime.get());
         }
-        if (details != null) {
-            result.put("examDetails", details);
+        Optional<String> examDetails = Optional.ofNullable(matcher.group("examDetails"));
+        if (examDetails.isPresent()) {
+            result.put(ExamField.examDetails, examDetails.get());
         }
-        if (isExamPrivate != null) {
-            result.put("isPrivate", isExamPrivate);
+        Optional<String> isPrivate = Optional.ofNullable(matcher.group("isPrivate"));
+        if (isPrivate.isPresent()) {
+            result.put(ExamField.isPrivate, isPrivate.get());
         }
         return result;
-    }
-
-    /**
-     * Checks if the private status for edit exam command is valid.
-     */
-    private static boolean isPrivateValid(String value) {
-        boolean valid = true;
-        if (value != null && !"y".equals(value.trim()) && !"n".equals(value.trim())) {
-            valid = false;
-        }
-        return valid;
     }
 }

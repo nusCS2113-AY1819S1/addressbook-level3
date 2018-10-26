@@ -2,8 +2,8 @@ package seedu.addressbook.parser;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
+import static seedu.addressbook.commands.EditExamCommand.MESSAGE_NO_ARGS_FOUND;
 import static seedu.addressbook.common.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.addressbook.common.Messages.MESSAGE_NO_ARGS_FOUND;
 
 import java.util.Arrays;
 import java.util.HashSet;
@@ -429,10 +429,6 @@ public class ParserTest {
         resultMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_NO_ARGS_FOUND
                 + EditExamCommand.MESSAGE_USAGE);
         parseAndAssertIncorrectWithMessage(resultMessage, input);
-
-        final String[] inputPrivateChange = { "editexam 1 p/ok", "editexam 1 p/12", "editexam 1 p/a" };
-        resultMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditExamCommand.MESSAGE_USAGE);
-        parseAndAssertIncorrectWithMessage(resultMessage, inputPrivateChange);
     }
 
     @Test
@@ -452,7 +448,7 @@ public class ParserTest {
                 Exam.SUBJECT_NAME_EXAMPLE, Exam.EXAM_DATE_EXAMPLE, Exam.EXAM_START_TIME_EXAMPLE,
                 Exam.EXAM_END_TIME_EXAMPLE, Exam.EXAM_DETAILS_EXAMPLE);
         final EditExamCommand result = parseAndAssertCommandType(input, EditExamCommand.class);
-        assertEquals(result.getTargetIndex(), testIndex);
+        assertEquals(result.getTargetExamIndex(), testIndex);
     }
 
     @Test

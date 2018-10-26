@@ -20,7 +20,7 @@ public class EditPasswordCommand extends Command {
     public static final String MESSAGE_WRONG_PASSWORD = "Wrong password entered";
     public static final String MESSAGE_SAME_AS_OLDPASSWORD = "New password entered is the same as old password";
     public static final String MESSAGE_WRONG_NUMBER_ARGUMENTS =
-            "Wrong number of arguments, expected %d, actual %d\n %s";
+            "Wrong number of arguments, expected %d, actual %d.\n%s";
 
     private static final int REQUIRED_ARGUMENTS = 2;
 

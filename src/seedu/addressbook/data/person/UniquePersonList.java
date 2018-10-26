@@ -1,7 +1,6 @@
 package seedu.addressbook.data.person;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Iterator;
@@ -40,17 +39,6 @@ public class UniquePersonList implements Iterable<Person> {
      * Constructs empty person list.
      */
     public UniquePersonList() {}
-
-    /**
-     * Constructs a person list with the given persons.
-     */
-    public UniquePersonList(Person... persons) throws DuplicatePersonException {
-        final List<Person> initialTags = Arrays.asList(persons);
-        if (!Utils.elementsAreUnique(initialTags)) {
-            throw new DuplicatePersonException();
-        }
-        internalList.addAll(initialTags);
-    }
 
     /**
      * Constructs a list from the items in the given collection.
@@ -180,6 +168,40 @@ public class UniquePersonList implements Iterable<Person> {
         }
     }
 
+    /**
+     * Checks an exam to its new values for all persons
+     * @param exam the original exam
+     * @param newExam the new exam with updated details
+     */
+    public void updateExam(Exam exam, Exam newExam) {
+        for (Person p: internalList) {
+            if (p.isExamPresent(exam)) {
+                p.removeExam(exam);
+                p.addExam(newExam);
+            }
+        }
+    }
+
+    /**
+     * Removes an exam for all persons
+     * @param exam the exam to be removed
+     */
+    public void removeExam(Exam exam) {
+        for (Person p: internalList) {
+            if (p.isExamPresent(exam)) {
+                p.removeExam(exam);
+            }
+        }
+    }
+
+    /**
+     * Clears all exams for all persons
+     */
+    public void clearAllExam() {
+        for (Person p: internalList) {
+            p.clearExams();
+        }
+    }
     @Override
     public Iterator<Person> iterator() {
         return internalList.iterator();

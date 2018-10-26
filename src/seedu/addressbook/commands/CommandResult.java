@@ -53,7 +53,6 @@ public class CommandResult {
     public CommandResult(String statusConsoleMessage,
                          String outputConsoleMessage) {
         this.statusConsoleMessage = statusConsoleMessage;
-
         this.outputConsoleMessage = outputConsoleMessage;
         relevantExams = null;
         relevantStatistics = null;
@@ -63,9 +62,9 @@ public class CommandResult {
     public CommandResult(String statusConsoleMessage, List<? extends ReadOnlyPerson> relevantPersons) {
         this.statusConsoleMessage = statusConsoleMessage;
         this.relevantPersons = relevantPersons;
-        this.relevantExams = null;
-        this.relevantAssessments = null;
-        this.relevantStatistics = null;
+        relevantExams = null;
+        relevantStatistics = null;
+        relevantAssessments = null;
     }
 
     public CommandResult(String statusConsoleMessage, List<? extends Assessment> relevantAssessments,
@@ -73,15 +72,16 @@ public class CommandResult {
         this.statusConsoleMessage = statusConsoleMessage;
         this.relevantAssessments = relevantAssessments;
         this.relevantPersons = relevantPersons;
-        this.relevantExams = null;
-        this.relevantStatistics = null;
+        relevantExams = null;
+        relevantStatistics = null;
     }
 
     public CommandResult(List<? extends ReadOnlyExam> relevantExams, String statusConsoleMessage) {
         this.statusConsoleMessage = statusConsoleMessage;
         this.relevantExams = relevantExams;
-        this.relevantAssessments = null;
-        this.relevantStatistics = null;
+        relevantStatistics = null;
+        relevantPersons = null;
+        relevantAssessments = null;
     }
 
     public CommandResult(List<? extends ReadOnlyExam> relevantExams, String statusConsoleMessage,
@@ -89,7 +89,8 @@ public class CommandResult {
         this.statusConsoleMessage = statusConsoleMessage;
         this.relevantExams = relevantExams;
         this.relevantStatistics = relevantStatistics;
-        this.relevantAssessments = null;
+        relevantPersons = null;
+        relevantAssessments = null;
     }
 
     public CommandResult(List<? extends ReadOnlyExam> relevantExams, String statusConsoleMessage,
@@ -99,6 +100,7 @@ public class CommandResult {
         this.relevantExams = relevantExams;
         this.relevantStatistics = relevantStatistics;
         this.relevantAssessments = relevantAssessments;
+        relevantPersons = null;
     }
 
 
