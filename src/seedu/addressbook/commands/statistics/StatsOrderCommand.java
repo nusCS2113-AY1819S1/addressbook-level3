@@ -58,9 +58,9 @@ public class StatsOrderCommand extends Command {
         sb.append("========================\n");
         sb.append("Number of orders: " + Integer.toString(dateTable.getDayCount(currentDate)) + "\n");
         sb.append("Revenue: $" + Utils.formatCurrency(dateTable.getDayRevenue(currentDate)));
-        sb.append("\n\n");
+        sb.append("\n\n\n");
 
-        sb.append("Past 12 Months\n");
+        sb.append("Past 12 Months Sales\n");
         int currentMonth = calendar.get(Calendar.MONTH);
         int currentYear = calendar.get(Calendar.YEAR);
         String[] months = {"Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"};
@@ -72,7 +72,7 @@ public class StatsOrderCommand extends Command {
             if (currentMonth <= i) {
                 calendar.set(Calendar.YEAR, currentYear - 1);
             }
-            dataRow[i] = Integer.toString(dateTable.getMonthCount(calendar.getTime()));
+            dataRow[i] = "$" + Utils.formatCurrency((dateTable.getMonthRevenue(calendar.getTime())));
         }
         table.addRow(dataRow);
         sb.append(table.toString());
