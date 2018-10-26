@@ -1,60 +1,29 @@
 package seedu.addressbook.logic;
 
 
-import static junit.framework.TestCase.assertEquals;
-import static seedu.addressbook.common.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-
-import java.util.Collections;
-import java.util.List;
-
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
-
-import seedu.addressbook.commands.employee.EmployeeAddCommand;
-import seedu.addressbook.commands.employee.EmployeeDeleteCommand;
-import seedu.addressbook.commands.member.MemberAddCommand;
-import seedu.addressbook.commands.member.MemberDeleteCommand;
-import seedu.addressbook.commands.menu.MenuAddCommand;
-import seedu.addressbook.commands.menu.MenuDeleteCommand;
-import seedu.addressbook.commands.menu.MenuListByTypeCommand;
-import seedu.addressbook.commands.menu.MenuViewAllCommand;
-import seedu.addressbook.commands.AddCommand;
-import seedu.addressbook.commands.ClearCommand;
-import seedu.addressbook.commands.Command;
 import seedu.addressbook.commands.CommandResult;
-import seedu.addressbook.commands.DeleteCommand;
-import seedu.addressbook.commands.ExitCommand;
-import seedu.addressbook.commands.FindCommand;
-import seedu.addressbook.commands.HelpCommand;
-import seedu.addressbook.commands.ViewAllCommand;
-import seedu.addressbook.commands.ViewCommand;
-import seedu.addressbook.data.employee.Employee;
-import seedu.addressbook.data.employee.EmployeeEmail;
-import seedu.addressbook.data.employee.EmployeeName;
-import seedu.addressbook.data.employee.EmployeePhone;
-import seedu.addressbook.data.employee.EmployeePosition;
-import seedu.addressbook.data.employee.ReadOnlyEmployee;
-import seedu.addressbook.data.member.Member;
-import seedu.addressbook.data.member.MemberName;
-import seedu.addressbook.data.member.Points;
-import seedu.addressbook.data.member.ReadOnlyMember;
-import seedu.addressbook.data.menu.Menu;
-import seedu.addressbook.data.menu.MenuName;
-import seedu.addressbook.data.menu.Price;
-import seedu.addressbook.data.menu.ReadOnlyMenus;
-import seedu.addressbook.data.menu.Type;
-import seedu.addressbook.data.Rms;
-import seedu.addressbook.data.person.Email;
-import seedu.addressbook.data.person.Name;
-import seedu.addressbook.data.person.Person;
-import seedu.addressbook.data.person.Phone;
-import seedu.addressbook.data.person.ReadOnlyPerson;
-import seedu.addressbook.data.tag.Tag;
-
+import seedu.addressbook.commands.*;
+import seedu.addressbook.commands.employee.*;
+import seedu.addressbook.commands.member.*;
+import seedu.addressbook.commands.statistics.*;
+import seedu.addressbook.commands.menu.*;
 import seedu.addressbook.common.Messages;
+import seedu.addressbook.data.Rms;
+import seedu.addressbook.data.member.*;
+import seedu.addressbook.data.person.*;
+import seedu.addressbook.data.employee.*;
+import seedu.addressbook.data.menu.*;
+import seedu.addressbook.data.tag.Tag;
 import seedu.addressbook.storage.StorageFile;
+
+import java.util.*;
+
+import static junit.framework.TestCase.assertEquals;
+import static seedu.addressbook.common.Messages.*;
 
 
 public class LogicTest {
@@ -265,6 +234,24 @@ public class LogicTest {
         //Confirm the state of data is as expected
         assertEquals(expectedRms, rms);
         assertEquals(lastShownMenuList, logic.getLastShownMenuList());
+        assertEquals(rms, saveFile.load());
+    }
+
+    /**
+     * Executes the stats command and confirms that the result message is correct<br>
+     */
+    private void assertStatsCommandBehavior(String inputCommand,
+                                           String expectedMessage,
+                                           Rms expectedRms) throws Exception {
+
+        //Execute the command
+        CommandResult r = logic.execute(inputCommand);
+
+        //Confirm the result contains the right data
+        assertEquals(expectedMessage, r.feedbackToUser);
+
+        //Confirm the state of data is as expected
+        assertEquals(expectedRms, rms);
         assertEquals(rms, saveFile.load());
     }
 
@@ -678,6 +665,36 @@ public class LogicTest {
                 Collections.emptyList());
 
     }
+
+    @Test
+    public void execute_statsmenu_invalidArgsFormat() throws Exception {
+        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, StatsMenuCommand.MESSAGE_USAGE);
+        assertMenuCommandBehavior(
+                "statsmenu InvalidDate", expectedMessage);
+        assertMenuCommandBehavior(
+                "statsmenu f/00192048 t/99022018", expectedMessage);
+        assertMenuCommandBehavior(
+                "statsmenu f/062017 t/2018", expectedMessage);
+    }
+//
+//    @Test
+//    public void invalidMemberInOrder() throws Exception {
+//        TestDataHelper helper = new TestDataHelper();
+//        Member m1 = helper.generateMember(1);
+//        Member toBeAdded = helper.eve();
+//        Rms expectedAB = new Rms();
+//        expectedAB.addMember(toBeAdded);
+//        expectedAB.findMemberInOrder(m1);
+//    }
+//
+//    @Test
+//    public void validMemberInOrder() throws Exception {
+//        TestDataHelper helper = new TestDataHelper();
+//        Member m1 = helper.generateMember(1);
+//        Rms expectedAB = new Rms();
+//        expectedAB.addMember(m1);
+//        expectedAB.findMemberInOrder(m1);
+//    }
 
     @Test
     public void execute_addempDuplicate_notAllowed() throws Exception {

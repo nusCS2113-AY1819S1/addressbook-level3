@@ -1,6 +1,5 @@
 package seedu.addressbook.data;
 
-import seedu.addressbook.data.member.*;
 import seedu.addressbook.data.employee.Employee;
 import seedu.addressbook.data.employee.ReadOnlyEmployee;
 import seedu.addressbook.data.employee.UniqueEmployeeList;
@@ -31,8 +30,6 @@ import seedu.addressbook.data.person.UniquePersonList.PersonNotFoundException;
 
 import java.util.HashSet;
 import java.util.Set;
-import java.util.Date;
-import java.util.List;
 
 /**
  * Represents the entire address book. Contains the data of the address book.
