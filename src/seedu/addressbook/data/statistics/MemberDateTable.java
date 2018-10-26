@@ -33,7 +33,7 @@ public class MemberDateTable {
     }
 
     public int getDayCount(Date date) {
-        return yearMap.get(date.getYear()).monthMap.get(date.getMonth()).dayMap.get(date.getDay()).count;
+        return yearMap.get(date.getYear()).monthMap.get(date.getMonth()).dayMap.get(date.getDate()).count;
     }
 }
 
@@ -45,7 +45,7 @@ class YearMember {
         this.yearNo = yearNo;
         this.count = 0;
         this.monthMap = new HashMap<>();
-        for (int i = 1; i <= 12; i++) {
+        for (int i = 0; i < 12; i++) {
             monthMap.put(i, new MonthMember(i));
         }
     }
@@ -65,14 +65,14 @@ class MonthMember {
         this.monthNo = monthNo;
         this.count = 0;
         this.dayMap = new HashMap<>();
-        for (int i = 1; i <= 31; i++) {
+        for (int i = 0; i < 31; i++) {
             dayMap.put(i, new DayMember(i));
         }
     }
 
     public MonthMember addData(Date date) {
         count++;
-        dayMap.put(date.getDay(), dayMap.get(date.getDay()).addData());
+        dayMap.put(date.getDate(), dayMap.get(date.getDate()).addData());
         return this;
     }
 }

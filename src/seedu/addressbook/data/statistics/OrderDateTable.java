@@ -53,14 +53,14 @@ public class OrderDateTable {
 
     public int getDayCount(Date date) {
         if (yearMap.containsKey(date.getYear()))
-            return yearMap.get(date.getYear()).monthMap.get(date.getMonth()).dayMap.get(date.getDay()).count;
+            return yearMap.get(date.getYear()).monthMap.get(date.getMonth()).dayMap.get(date.getDate()).count;
         else
             return 0;
     }
 
     public Double getDayRevenue(Date date) {
         if (yearMap.containsKey(date.getYear()))
-            return yearMap.get(date.getYear()).monthMap.get(date.getMonth()).dayMap.get(date.getDay()).totalRevenue;
+            return yearMap.get(date.getYear()).monthMap.get(date.getMonth()).dayMap.get(date.getDate()).totalRevenue;
         else return 0.0;
     }
 }
@@ -75,7 +75,7 @@ class YearOrder {
         this.count = 0;
         this.totalRevenue = 0.0;
         this.monthMap = new HashMap<>();
-        for (int i = 1; i <= 12; i++) {
+        for (int i = 0; i < 12; i++) {
             monthMap.put(i, new MonthOrder(i));
         }
     }
@@ -99,7 +99,7 @@ class MonthOrder {
         this.count = 0;
         this.totalRevenue = 0.0;
         this.dayMap = new HashMap<>();
-        for (int i = 1; i <= 31; i++) {
+        for (int i = 0; i < 31; i++) {
             dayMap.put(i, new DayOrder(i));
         }
     }
@@ -108,7 +108,7 @@ class MonthOrder {
         count++;
         totalRevenue += order.getPrice();
         Date date = order.getDate();
-        dayMap.put(date.getDay(), dayMap.get(date.getDay()).addData(order));
+        dayMap.put(date.getDate(), dayMap.get(date.getDate()).addData(order));
         return this;
     }
 }
