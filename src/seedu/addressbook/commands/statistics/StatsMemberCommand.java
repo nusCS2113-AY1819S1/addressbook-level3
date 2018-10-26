@@ -46,7 +46,7 @@ public class StatsMemberCommand extends Command {
         res.append("\n\n\n");
 
         // Replace with list of tiers during merge
-        res.append("Tier Table");
+        res.append("Tier Table\n");
         String[] headings = new String[]{"Bronze", "Silver", "Gold", "Platinum", "Diamond"};
         // =======================================
         AsciiTable table = new AsciiTable(headings);
