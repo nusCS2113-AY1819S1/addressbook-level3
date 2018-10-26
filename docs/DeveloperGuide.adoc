@@ -832,9 +832,9 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* * *` | Manager | add, edit and delete employees from the system |to manage information of the employees working in the restaurant
 
-|`* * *` |view all the orders made |Chef  |know which order I need to prepare next
+|`* * *` |Chef |view all the orders made  |know which order I need to prepare next
 
-|`* * *` |update the order status |Chef  |let the customers know that their orders are ready
+|`* * *` |Chef |update the order status  |let the customers know that their orders are ready
 |=======================================================================
 
 
