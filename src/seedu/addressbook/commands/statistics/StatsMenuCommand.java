@@ -71,10 +71,7 @@ public class StatsMenuCommand extends Command {
                 continue;
             }
             // Replace with order.getDishItems() during merge
-            Map<ReadOnlyMenus, Integer> dishItems = new HashMap<>();
-            dishItems.put(rms.getAllMenus().immutableListView().get(0), 2);
-            dishItems.put(rms.getAllMenus().immutableListView().get(1), 3);
-            dishItems.put(rms.getAllMenus().immutableListView().get(3), 1);
+            Map<ReadOnlyMenus, Integer> dishItems = order.getDishItems();
             // ==========================================
             for (Map.Entry<ReadOnlyMenus, Integer> entry : dishItems.entrySet()) {
                 if (!allMenuSales.containsKey(entry.getKey()))
