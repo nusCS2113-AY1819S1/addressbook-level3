@@ -12,8 +12,6 @@ import seedu.addressbook.data.employee.ReadOnlyEmployee;
 import seedu.addressbook.data.employee.UniqueEmployeeList;
 import seedu.addressbook.data.exception.IllegalValueException;
 
-import seedu.addressbook.common.Messages;
-
 /**
  * Adds a new employee to the Rms.
  */
