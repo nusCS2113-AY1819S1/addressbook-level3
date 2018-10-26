@@ -13,6 +13,7 @@ import seedu.addressbook.commands.CommandResult;
 import seedu.addressbook.common.Utils;
 import seedu.addressbook.data.menu.ReadOnlyMenus;
 import seedu.addressbook.data.order.ReadOnlyOrder;
+import seedu.addressbook.data.statistics.AsciiTable;
 import seedu.addressbook.data.statistics.QuantityRevenuePair;
 
 /**
@@ -105,22 +106,26 @@ public class StatsMenuCommand extends Command {
         }
 
         sb.append("\n\nBest Sellers\n");
-        sb.append("=============\n");
-        for (Map.Entry<String, ReadOnlyMenus> bestEntry : bestsellers.entrySet()) {
-            sb.append(bestEntry.getKey() + ": " + bestEntry.getValue().getName() + "\n");
-            sb.append("Total quantity sold: " + allMenuSales.get(bestEntry.getValue()).getQuantity() + "\n");
-            sb.append("Total sales revenue: $" + Utils.formatCurrency(allMenuSales.get(bestEntry.getValue()).getRevenue()) + "\n\n");
-        }
+        sb.append(toTable(bestsellers, allMenuSales));
 
-        sb.append("\n\nUnpopular Items\n");
-        sb.append("================\n");
-        for (Map.Entry<String, ReadOnlyMenus> worstEntry : worstsellers.entrySet()) {
-            sb.append(worstEntry.getKey() + ": " + worstEntry.getValue().getName() + "\n");
-            sb.append("Total quantity sold: " + allMenuSales.get(worstEntry.getValue()).getQuantity() + "\n");
-            sb.append("Total sales revenue: $" + Utils.formatCurrency(allMenuSales.get(worstEntry.getValue()).getRevenue()) + "\n\n");
-        }
+        sb.append("Unpopular Items\n");
+        sb.append(toTable(worstsellers, allMenuSales));
 
         return sb.toString();
+    }
+
+    private String toTable(Map<String, ReadOnlyMenus> in, Map<ReadOnlyMenus, QuantityRevenuePair> allMenuSales) {
+        String[] tableHeadings = {"Type", "Name", "Quantity Sold", "Sales Revenue"};
+        AsciiTable table = new AsciiTable(tableHeadings);
+        for (Map.Entry<String, ReadOnlyMenus> worstEntry : in.entrySet()) {
+            String type = worstEntry.getKey();
+            String menuName = worstEntry.getValue().getName().toString();
+            int quantity = allMenuSales.get(worstEntry.getValue()).getQuantity();
+            String revenue = Utils.formatCurrency(allMenuSales.get(worstEntry.getValue()).getRevenue());
+            String[] rowData = {type, menuName, Integer.toString(quantity), "$" + revenue};
+            table.addRow(rowData);
+        }
+        return table.toString();
     }
 
     private Date stringToDate(String input) {
