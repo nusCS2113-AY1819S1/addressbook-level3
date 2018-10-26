@@ -57,6 +57,7 @@ public class AsciiTable {
             String cellString = headings[i];
             sb.append(padCell(cellString, columnWidths[i], ' ', i==0, i==noOfColumns-1));
         }
+        sb.append("\n");
         sb.append(createRowBorder(true));
 
         for (int i=0; i<data.size(); i++) {
@@ -64,6 +65,7 @@ public class AsciiTable {
                 String cellString = data.get(i).get(j);
                 sb.append(padCell(cellString, columnWidths[j], ' ', j==0, j==noOfColumns-1));
             }
+            sb.append("\n");
             sb.append(createRowBorder(false));
         }
         sb.append("\n");
@@ -79,7 +81,7 @@ public class AsciiTable {
             else
                 outputBuffer.append(rowBorder);
         }
-        return "\n" + outputBuffer.toString() + "\n";
+        return outputBuffer.toString() + "\n";
     }
 
     private int calculateTableWidth() {
