@@ -1,7 +1,12 @@
 package seedu.addressbook.commands.statistics;
 
+import java.util.List;
+
 import seedu.addressbook.commands.Command;
 import seedu.addressbook.commands.CommandResult;
+import seedu.addressbook.data.employee.ReadOnlyEmployee;
+import seedu.addressbook.data.menu.ReadOnlyMenus;
+import seedu.addressbook.data.statistics.AsciiTable;
 
 /**
  * Lists all food items in the address book to the user.
@@ -21,7 +26,18 @@ public class StatsEmployeeCommand extends Command {
     }
 
     private String getEmployeeStats() {
-
+//        StringBuilder res = new StringBuilder();
+//        List<ReadOnlyEmployee> allEmployees = rms.getAllEmployees().immutableListView();
+//        if (allEmployees.isEmpty())
+//            return "There are no employees in the system.";
+//
+//        String[] headings = new String[]{"1","2","333"};
+//        AsciiTable table = new AsciiTable(headings);
+//        for (ReadOnlyEmployee emp : allEmployees) {
+//            String[] data = new String[]{"1", emp.getName().value, emp.getPosition().value};
+//            table.addRow(data);
+//        }
+//        return table.toString();
         return "Work In Progress\n";
     }
 }
