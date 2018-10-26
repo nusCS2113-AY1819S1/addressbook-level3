@@ -12,6 +12,7 @@ import java.util.regex.Pattern;
 
 import seedu.addressbook.commands.employee.*;
 import seedu.addressbook.commands.member.MemberAddCommand;
+import seedu.addressbook.commands.member.MemberDeleteCommand;
 import seedu.addressbook.commands.member.MemberListCommand;
 import seedu.addressbook.commands.menu.MenuAddCommand;
 import seedu.addressbook.commands.menu.MenuDeleteCommand;
@@ -140,11 +141,14 @@ public class Parser {
             case EmployeeListCommand.COMMAND_WORD:
                 return new EmployeeListCommand();
 
+            case MemberListCommand.COMMAND_WORD:
+                return new MemberListCommand();
+
             case MemberAddCommand.COMMAND_WORD:
                 return prepareAddMember(arguments);
 
-            case MemberListCommand.COMMAND_WORD:
-                return new MemberListCommand();
+            case MemberDeleteCommand.COMMAND_WORD:
+                return prepareMemberDelete(arguments);
 
             case MenuAddCommand.COMMAND_WORD:
                 return prepareAddMenu(arguments);
@@ -357,6 +361,21 @@ public class Parser {
             return new EmployeeDeleteCommand(targetIndex);
         } catch (ParseException | NumberFormatException e) {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EmployeeDeleteCommand.MESSAGE_USAGE));
+        }
+    }
+
+    
+    /**
+     * Parses arguments in the context of the delete member command.
+     * @param args full command args string
+     * @return the prepared command
+     */
+    private Command prepareMemberDelete(String args) {
+        try {
+            final int targetIndex = parseArgsAsDisplayedIndex(args);
+            return new MemberDeleteCommand(targetIndex);
+        } catch (ParseException | NumberFormatException e) {
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, MemberDeleteCommand.MESSAGE_USAGE));
         }
     }
 

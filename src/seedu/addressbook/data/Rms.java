@@ -1,5 +1,6 @@
 package seedu.addressbook.data;
 
+import seedu.addressbook.data.member.*;
 import seedu.addressbook.data.employee.Employee;
 import seedu.addressbook.data.employee.ReadOnlyEmployee;
 import seedu.addressbook.data.employee.UniqueEmployeeList;
@@ -8,6 +9,7 @@ import seedu.addressbook.data.employee.UniqueEmployeeList.EmployeeNotFoundExcept
 import seedu.addressbook.data.member.Member;
 import seedu.addressbook.data.member.ReadOnlyMember;
 import seedu.addressbook.data.member.UniqueMemberList;
+
 import seedu.addressbook.data.member.UniqueMemberList.DuplicateMemberException;
 import seedu.addressbook.data.member.UniqueMemberList.MemberNotFoundException;
 import seedu.addressbook.data.menu.Menu;
@@ -145,6 +147,19 @@ public class Rms {
      */
     public boolean containsMember(ReadOnlyMember key) {
         return allMembers.contains(key);
+    }
+
+    /**
+     *  Checks if a member in another feature is in the list of members
+     *  Returns the member if found, else create a new Member using the data from the member in the order
+     */
+    public Member retrieveMember(ReadOnlyMember target) {
+        for(Member member : allMembers) {
+            if(target.isSameStateAs(member)) {
+                return member;
+            }
+        }
+        return new Member(target);
     }
 
     /**
