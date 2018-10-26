@@ -55,6 +55,7 @@
     <members>
         <name>Kang Ming</name>
         <points>0</points>
+        <date>0</date>
     </members>
     <employees>
         <name>Peter Lee</name>

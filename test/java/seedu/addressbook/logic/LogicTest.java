@@ -460,6 +460,26 @@ public class LogicTest {
 
     }
 
+    @Test
+    public void execute_addmemberDuplicate_notAllowed() throws Exception {
+        // setup expectations
+        TestDataHelper helper = new TestDataHelper();
+        Member toBeAdded = helper.eve();
+        Rms expectedAB = new Rms();
+        expectedAB.addMember(toBeAdded);
+
+        // setup starting state
+        logic.execute(helper.generateAddMemberCommand(toBeAdded)); //member already in Rms
+
+        // execute command and verify result
+        assertMemberCommandBehavior(
+                helper.generateAddMemberCommand(toBeAdded),
+                MemberAddCommand.MESSAGE_DUPLICATE_MEMBER,
+                expectedAB,
+                false,
+                Collections.emptyList());
+    }
+
 
     @Test
     public void execute_list_showsAllPersons() throws Exception {
@@ -678,6 +698,7 @@ public class LogicTest {
         assertMenuCommandBehavior(commandWord + " 3", expectedMessage, Rms.empty(), false, lastShownMenuList);
 
     }
+
 
     @Test
     public void execute_view_onlyShowsNonPrivate() throws Exception {
