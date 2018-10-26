@@ -338,8 +338,8 @@ public class Parser {
                     matcher.group("email"),
 
                     matcher.group("address"),
-
                     matcher.group("position"));
+
         } catch (IllegalValueException ive) {
             return new IncorrectCommand(ive.getMessage());
         }
