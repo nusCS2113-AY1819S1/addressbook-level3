@@ -2,6 +2,7 @@ package seedu.addressbook.commands.employee;
 
 import seedu.addressbook.commands.Command;
 import seedu.addressbook.commands.CommandResult;
+import seedu.addressbook.data.employee.EditEmployeeDescriptor;
 import seedu.addressbook.data.employee.Employee;
 import seedu.addressbook.data.employee.EmployeeAddress;
 import seedu.addressbook.data.employee.EmployeeEmail;
@@ -10,7 +11,6 @@ import seedu.addressbook.data.employee.EmployeePhone;
 import seedu.addressbook.data.employee.EmployeePosition;
 import seedu.addressbook.data.employee.ReadOnlyEmployee;
 import seedu.addressbook.data.employee.UniqueEmployeeList.EmployeeNotFoundException;
-
 import seedu.addressbook.data.exception.IllegalValueException;
 
 import seedu.addressbook.common.Messages;
@@ -33,8 +33,12 @@ public class EmployeeEditCommand extends Command {
             + "p/97654321 ";
 
     public static final String MESSAGE_EDIT_EMPLOYEE_SUCCESS = "Edited Person: %1$s";
+    // implement check for no field entered
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
-    public static final String MESSAGE_DUPLICATE_EMPLOYEE = "This person already exists in the address book.";
+    public static final String EMPTY_EMPLOYEE_PHONE = "00000000";
+    public static final String EMPTY_EMPLOYEE_EMAIL = "noargs@noargs.com";
+    public static final String EMPTY_EMPLOYEE_ADDRESS = "noargs";
+    public static final String EMPTY_EMPLOYEE_POSITION = "noargs";
 
     private final EditEmployeeDescriptor editEmployeeDescriptor;
 
@@ -89,7 +93,7 @@ public class EmployeeEditCommand extends Command {
     * Check for new phone value.
     */
     private static EmployeePhone checkPhone(EmployeePhone newEdit, EmployeePhone oldInfo){
-        if (newEdit.value == "00000000")
+        if (newEdit.value == EMPTY_EMPLOYEE_PHONE)
             return oldInfo;
         return newEdit;
     }
@@ -98,7 +102,7 @@ public class EmployeeEditCommand extends Command {
      * Check for new email value.
      */
     private static EmployeeEmail checkEmail(EmployeeEmail newEdit, EmployeeEmail oldInfo){
-        if (newEdit.value == "noargs@noargs.com")
+        if (newEdit.value == EMPTY_EMPLOYEE_EMAIL)
             return oldInfo;
         return newEdit;
     }
@@ -107,7 +111,7 @@ public class EmployeeEditCommand extends Command {
      * Check for new address value.
      */
     private static EmployeeAddress checkAddress(EmployeeAddress newEdit, EmployeeAddress oldInfo){
-        if (newEdit.value == "noargs")
+        if (newEdit.value == EMPTY_EMPLOYEE_ADDRESS)
             return oldInfo;
         return newEdit;
     }
@@ -116,89 +120,8 @@ public class EmployeeEditCommand extends Command {
      * Check for new position value.
      */
     private static EmployeePosition checkPosition(EmployeePosition newEdit, EmployeePosition oldInfo){
-        if (newEdit.value == "noargs")
+        if (newEdit.value == EMPTY_EMPLOYEE_POSITION)
             return oldInfo;
         return newEdit;
     }
-
-    /**
-     * Stores the details to edit the employee with. Each non-empty field value will replace the
-     * corresponding field value of the employee.
-     */
-    public static class EditEmployeeDescriptor {
-        private EmployeePhone phone;
-        private EmployeeEmail email;
-        private EmployeeAddress address;
-        private EmployeePosition position;
-
-        public EditEmployeeDescriptor(){}
-
-        public EditEmployeeDescriptor(String phone,
-                                  String email,
-                                  String address,
-                                  String position) throws IllegalValueException {
-            this.phone = new EmployeePhone(phone);
-            this.email = new EmployeeEmail(email);
-            this.address = new EmployeeAddress(address);
-            this.position = new EmployeePosition(position);
-        }
-
-        /**
-         * Copy constructor.
-         */
-        public EditEmployeeDescriptor(EditEmployeeDescriptor toCopy) {
-            setPhone(toCopy.phone);
-            setEmail(toCopy.email);
-            setAddress(toCopy.address);
-            setPosition(toCopy.position);
-        }
-
-        public void setPhone(EmployeePhone phone) {
-            this.phone = phone;
-        }
-
-        public EmployeePhone getPhone() { return phone; }
-
-        public void setEmail(EmployeeEmail email) {
-            this.email = email;
-        }
-
-        public EmployeeEmail getEmail() {
-            return email;
-        }
-
-        public void setAddress(EmployeeAddress address) {
-            this.address = address;
-        }
-
-        public EmployeeAddress getAddress() { return address; }
-
-        public void setPosition(EmployeePosition position) {
-            this.position = position;
-        }
-
-        public EmployeePosition getPosition() { return position;}
-
-        @Override
-        public boolean equals(Object other) {
-            // short circuit if same object
-            if (other == this) {
-                return true;
-            }
-
-            // instanceof handles nulls
-            if (!(other instanceof EditEmployeeDescriptor)) {
-                return false;
-            }
-
-            // state check
-            EditEmployeeDescriptor e = (EditEmployeeDescriptor) other;
-
-            return getPhone().equals(e.getPhone())
-                    && getEmail().equals(e.getEmail())
-                    && getAddress().equals(e.getAddress())
-                    && getPosition().equals(e.getPosition());
-        }
-    }
-
 }

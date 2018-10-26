@@ -2,18 +2,19 @@ package seedu.addressbook.data.member;
 
 import seedu.addressbook.data.person.Name;
 
+import java.util.Date;
+
 
 /**
- * A read-only immutable interface for a Person in the addressbook.
+ * A read-only immutable interface for a Member in the Restaurant Management System.
  * Implementations should guarantee: details are present and not null, field values are validated.
  */
 public interface ReadOnlyMember {
 
-    Name getName();
+    MemberName getName();
     Points getPoints();
-//    Phone getPhone();
-//    Email getEmail();
-//    Address getAddress();
+    Points updatePoints(double price);
+    Date getDate();
 
     /**
      * The returned {@code Set} is a deep copy of the internal {@code Set},
@@ -28,7 +29,6 @@ public interface ReadOnlyMember {
         return other == this // short circuit if same object
                 || (other != null // this is first to avoid NPE below
                 && other.getName().equals(this.getName())); // state checks here onwards
-//
     }
 
     /**
@@ -39,7 +39,9 @@ public interface ReadOnlyMember {
         final String detailIsPrivate = "(private) ";
         builder.append(getName())
                 .append(" Points: ");
-        builder.append(getPoints());
+        builder.append(getPoints())
+                .append(" Date: ");
+        builder.append(getDate());
 //                .append(" Phone: ");
 //        if (getPhone().isPrivate()) {
 //            builder.append(detailIsPrivate);
@@ -69,6 +71,7 @@ public interface ReadOnlyMember {
         final StringBuilder builder = new StringBuilder();
         builder.append(getName());
         builder.append(" Points: ").append(getPoints());
+        builder.append(" Date: ").append(getDate());
 //        if (!getPhone().isPrivate()) {
 //            builder.append(" Phone: ").append(getPhone());
 //        }

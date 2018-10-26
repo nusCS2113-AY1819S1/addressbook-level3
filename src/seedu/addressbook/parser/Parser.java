@@ -12,12 +12,16 @@ import java.util.regex.Pattern;
 
 import seedu.addressbook.commands.employee.*;
 import seedu.addressbook.commands.member.MemberAddCommand;
+import seedu.addressbook.commands.member.MemberDeleteCommand;
 import seedu.addressbook.commands.member.MemberListCommand;
 import seedu.addressbook.commands.menu.MenuAddCommand;
 import seedu.addressbook.commands.menu.MenuDeleteCommand;
 import seedu.addressbook.commands.menu.MenuFindCommand;
 import seedu.addressbook.commands.menu.MenuListCommand;
 import seedu.addressbook.commands.menu.MenuViewAllCommand;
+import seedu.addressbook.commands.menu.MenuShowMainMenuCommand;
+import seedu.addressbook.commands.menu.MenuListByTypeCommand;
+import seedu.addressbook.commands.menu.MenuClearCommand;
 import seedu.addressbook.commands.order.DraftOrderClearCommand;
 import seedu.addressbook.commands.order.DraftOrderConfirmCommand;
 import seedu.addressbook.commands.order.DraftOrderEditCustomerCommand;
@@ -41,7 +45,6 @@ import seedu.addressbook.commands.statistics.StatsEmployeeCommand;
 import seedu.addressbook.commands.statistics.StatsMemberCommand;
 import seedu.addressbook.commands.statistics.StatsMenuCommand;
 import seedu.addressbook.commands.statistics.StatsOrderCommand;
-import seedu.addressbook.data.employee.ReadOnlyEmployee;
 import seedu.addressbook.data.exception.IllegalValueException;
 
 /**
@@ -53,6 +56,9 @@ public class Parser {
 
     public static final Pattern KEYWORDS_ARGS_FORMAT =
             Pattern.compile("(?<keywords>\\S+(?:\\s+\\S+)*)"); // one or more keywords separated by whitespace
+
+    public static final Pattern ITEMWORD_ARGS_FORMAT = Pattern.compile("(?<type>[^/]+)"); //one keyword only
+
 
     public static final Pattern PERSON_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
             Pattern.compile("(?<name>[^/]+)"
@@ -88,10 +94,13 @@ public class Parser {
     public static final Pattern MENU_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
             Pattern.compile("(?<name>[^/]+)"
                     + " p/(?<price>[^/]+)"
+                    + "type/(?<type>[^/]+)"
                     + "(?<tagArguments>(?: t/[^/]+)*)"); // variable number of tags
 
-    public static final Pattern ORDER_DISH_ARGS_FORMAT = Pattern.compile("i/(?<targetIndex>.+)\\s+q/(?<quantity>.+)");
+    public static final Pattern ORDER_DISH_ARGS_FORMAT = Pattern.compile("(?<targetIndex>.+)\\s+q/(?<quantity>.+)");
 
+    public static final Pattern STATSMENU_DATE_ARGS_FORMAT =
+            Pattern.compile("(f\\/(?<dateFrom>(0[1-9]|[12]\\d|3[01])(0[1-9]|1[0-2])[12]\\d{3}))? ?(t\\/(?<dateTo>(0[1-9]|[12]\\d|3[01])(0[1-9]|1[0-2])[12]\\d{3}))?"); // variable number of tags
 
     /**
      * Signals that the user input could not be parsed.
@@ -134,17 +143,27 @@ public class Parser {
             case EmployeeListCommand.COMMAND_WORD:
                 return new EmployeeListCommand();
 
+            case MemberListCommand.COMMAND_WORD:
+                return new MemberListCommand();
+
             case MemberAddCommand.COMMAND_WORD:
                 return prepareAddMember(arguments);
 
-            case MemberListCommand.COMMAND_WORD:
-                return new MemberListCommand();
+            case MemberDeleteCommand.COMMAND_WORD:
+                return prepareMemberDelete(arguments);
 
             case MenuAddCommand.COMMAND_WORD:
                 return prepareAddMenu(arguments);
 
             case MenuListCommand.COMMAND_WORD:
                 return new MenuListCommand();
+
+            case MenuShowMainMenuCommand.COMMAND_WORD:
+                return new MenuShowMainMenuCommand();
+
+            case MenuListByTypeCommand.COMMAND_WORD:
+                return prepareMenuListByType(arguments);
+
 
             case MenuViewAllCommand.COMMAND_WORD:
                 return prepareViewAllMenu(arguments);
@@ -154,6 +173,10 @@ public class Parser {
 
             case MenuFindCommand.COMMAND_WORD:
                 return prepareMenuFind(arguments);
+
+            case MenuClearCommand.COMMAND_WORD:
+                return new MenuClearCommand();
+
 
             case OrderAddCommand.COMMAND_WORD:
                 return new OrderAddCommand();
@@ -186,7 +209,7 @@ public class Parser {
                 return new StatsMemberCommand();
 
             case StatsMenuCommand.COMMAND_WORD:
-                return new StatsMenuCommand();
+                return prepareStatsMenu(arguments);
 
             case StatsOrderCommand.COMMAND_WORD:
                 return new StatsOrderCommand();
@@ -292,6 +315,7 @@ public class Parser {
 
                     matcher.group("price"),
                     //isPrivatePrefixPresent(matcher.group("isPricePrivate")),
+                    matcher.group("type"),
 
                     getTagsFromArgs(matcher.group("tagArguments"))
             );
@@ -317,13 +341,11 @@ public class Parser {
                     matcher.group("name"),
 
                     matcher.group("phone"),
-
                     matcher.group("email"),
 
                     matcher.group("address"),
+                    matcher.group("position"));
 
-                    matcher.group("position")
-            );
         } catch (IllegalValueException ive) {
             return new IncorrectCommand(ive.getMessage());
         }
@@ -344,6 +366,21 @@ public class Parser {
         }
     }
 
+    
+    /**
+     * Parses arguments in the context of the delete member command.
+     * @param args full command args string
+     * @return the prepared command
+     */
+    private Command prepareMemberDelete(String args) {
+        try {
+            final int targetIndex = parseArgsAsDisplayedIndex(args);
+            return new MemberDeleteCommand(targetIndex);
+        } catch (ParseException | NumberFormatException e) {
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, MemberDeleteCommand.MESSAGE_USAGE));
+        }
+    }
+
     /**
      * Parses arguments in the context of the edit employee command.
      *
@@ -359,10 +396,10 @@ public class Parser {
             final int targetIndex = parseArgsAsDisplayedIndex(matcher.group("targetIndex"));
             return new EmployeeEditCommand(
                     targetIndex,
-                    checkEmpty(matcher.group("phone"), "phone"),
-                    checkEmpty(matcher.group("email"), "email"),
-                    checkEmpty(matcher.group("address"), "address"),
-                    checkEmpty(matcher.group("position"), "position")
+                    prepareEditArg(matcher.group("phone"), "phone"),
+                    prepareEditArg(matcher.group("email"), "email"),
+                    prepareEditArg(matcher.group("address"), "address"),
+                    prepareEditArg(matcher.group("position"), "position")
             );
         } catch (ParseException | NumberFormatException e) {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EmployeeEditCommand.MESSAGE_USAGE));
@@ -372,11 +409,12 @@ public class Parser {
     }
 
     /**
-     * Returns new information to be edited if it is not empty
+     * Returns new information to be edited if it is not empty,
+     * else returns a placeholder string indicating that there is no new information
      */
-    private static String checkEmpty(String toCheck, String argument){
+    private static String prepareEditArg(String toCheck, String argumentType){
         if (toCheck == null || toCheck.isEmpty()) {
-            switch(argument) {
+            switch(argumentType) {
                 case "phone":
                     toCheck = "00000000";
                     break;
@@ -589,6 +627,38 @@ public class Parser {
             throw new ParseException("Could not find index number to parse");
         }
         return Integer.parseInt(matcher.group("targetIndex"));
+    }
+    /**
+     * Parses arguments in the context of the stats menu command.
+     *
+     * @param args full command args string
+     * @return the prepared command
+     */
+    private Command prepareStatsMenu(String args) {
+        final Matcher matcher = STATSMENU_DATE_ARGS_FORMAT.matcher(args.trim());
+        // Validate arg string format
+        if (!matcher.matches()) {
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, StatsMenuCommand.MESSAGE_USAGE));
+        }
+            return new StatsMenuCommand(
+                    matcher.group("dateFrom"),
+
+                    matcher.group("dateTo")
+            );
+    }
+
+
+    private Command prepareMenuListByType(String args) {
+        final Matcher matcher = ITEMWORD_ARGS_FORMAT.matcher(args.trim());
+        if (!matcher.matches()) {
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    MenuListByTypeCommand.MESSAGE_USAGE));
+        }
+
+        // keywords delimited by whitespace
+        //final String[] keywords = matcher.group("keywords").split("\\s+");
+        //final String itemword = matcher.group("itemword");
+        return new MenuListByTypeCommand(matcher.group("type"));
     }
 
 }

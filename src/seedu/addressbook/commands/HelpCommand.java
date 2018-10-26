@@ -5,6 +5,10 @@ import seedu.addressbook.commands.member.*;
 import seedu.addressbook.commands.menu.*;
 import seedu.addressbook.commands.order.*;
 import seedu.addressbook.commands.employee.*;
+import seedu.addressbook.commands.statistics.StatsEmployeeCommand;
+import seedu.addressbook.commands.statistics.StatsMemberCommand;
+import seedu.addressbook.commands.statistics.StatsMenuCommand;
+import seedu.addressbook.commands.statistics.StatsOrderCommand;
 
 
 /**
@@ -36,7 +40,9 @@ public class HelpCommand extends Command {
             + "\n" + MenuDeleteCommand.MESSAGE_USAGE
             + "\n" + MenuFindCommand.MESSAGE_USAGE
             + "\n" + MenuListCommand.MESSAGE_USAGE
+            + "\n" + MenuShowMainMenuCommand.MESSAGE_USAGE
             + "\n" + MenuViewAllCommand.MESSAGE_USAGE
+            + "\n" + MenuClearCommand.MESSAGE_USAGE
 
             + "\n" + OrderAddCommand.MESSAGE_USAGE
             + "\n" + OrderDeleteCommand.MESSAGE_USAGE
@@ -46,6 +52,11 @@ public class HelpCommand extends Command {
             + "\n" + DraftOrderEditDishCommand.MESSAGE_USAGE
             + "\n" + DraftOrderClearCommand.MESSAGE_USAGE
             + "\n" + DraftOrderConfirmCommand.MESSAGE_USAGE
+
+            + "\n" + StatsEmployeeCommand.MESSAGE_USAGE
+            + "\n" + StatsMenuCommand.MESSAGE_USAGE
+            + "\n" + StatsMemberCommand.MESSAGE_USAGE
+            + "\n" + StatsOrderCommand.MESSAGE_USAGE
 
             + "\n" + ExitCommand.MESSAGE_USAGE;
 

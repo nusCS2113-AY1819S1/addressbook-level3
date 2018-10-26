@@ -2,6 +2,7 @@ package seedu.addressbook.commands.order;
 
 import seedu.addressbook.commands.Command;
 import seedu.addressbook.commands.CommandResult;
+import seedu.addressbook.data.member.ReadOnlyMember;
 import seedu.addressbook.data.order.Order;
 import seedu.addressbook.data.order.ReadOnlyOrder;
 import seedu.addressbook.data.order.UniqueOrderList;
@@ -28,8 +29,12 @@ public class DraftOrderConfirmCommand extends Command {
         try {
             final ReadOnlyOrder draftOrder = rms.getDraftOrder();
             String message;
-            if (draftOrder.hasAllRequiredField()) {
-                final Order toAdd = new Order(draftOrder.getCustomer(), draftOrder.getDishItems());
+            if (draftOrder.hasCustomerField()) {
+                final ReadOnlyMember customerOfOrderToAdd = draftOrder.getCustomer();
+                final Order toAdd = new Order(customerOfOrderToAdd, draftOrder.getDishItems());
+                if (rms.containsMember(customerOfOrderToAdd)) {
+                    customerOfOrderToAdd.updatePoints(toAdd.getPrice());
+                }
                 rms.addOrder(toAdd);
                 rms.clearDraftOrder();
                 List<ReadOnlyOrder> allOrders = rms.getAllOrders().immutableListView();

@@ -21,14 +21,14 @@ public class AdaptedMenu {
     private static class AdaptedMenuItemDetail {
         @XmlValue
         public String value;
-        @XmlAttribute(required = true)
-        public boolean isPrivate;
     }
 
     @XmlElement(required = true)
     private String name;
     @XmlElement(required = true)
     private AdaptedMenuItemDetail price;
+    @XmlElement(required = true)
+    private AdaptedMenuItemDetail type;
 
 
     @XmlElement
@@ -52,6 +52,9 @@ public class AdaptedMenu {
         //price.isPrivate = source.getPrice().isPrivate();
         price.value = source.getPrice().value;
 
+        type = new AdaptedMenuItemDetail();
+        type.value = source.getType().value;
+
         tagged = new ArrayList<>();
         for (Tag tag : source.getTags()) {
             tagged.add(new AdaptedTag(tag));
@@ -73,8 +76,8 @@ public class AdaptedMenu {
             }
         }
         // second call only happens if phone/email/address are all not null
-        return Utils.isAnyNull(name, price)
-                || Utils.isAnyNull(price.value);
+        return Utils.isAnyNull(name, price, type)
+                || Utils.isAnyNull(price.value, type.value);
     }
 
     /**
@@ -89,6 +92,7 @@ public class AdaptedMenu {
         }
         final MenuName name = new MenuName(this.name);
         final Price price = new Price(this.price.value/*, this.price.isPrivate*/);
-        return new Menu(name, price, tags);
+        final Type type = new Type(this.type.value);
+        return new Menu(name, price, type, tags);
     }
 }
