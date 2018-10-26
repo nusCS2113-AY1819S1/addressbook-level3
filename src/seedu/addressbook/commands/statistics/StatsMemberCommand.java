@@ -10,6 +10,7 @@ import seedu.addressbook.commands.CommandResult;
 import seedu.addressbook.common.Messages;
 import seedu.addressbook.common.Utils;
 import seedu.addressbook.data.member.ReadOnlyMember;
+import seedu.addressbook.data.statistics.AsciiTable;
 import seedu.addressbook.data.statistics.MemberDateTable;
 
 /**
@@ -38,9 +39,9 @@ public class StatsMemberCommand extends Command {
 
         for (ReadOnlyMember member : allMembers) {
             // Replace with member.getDate() during merge
-            Date temp = new Date();
+            Date signupDate = member.getDate();
             // ==========================================
-            dateTable.addData(temp);
+            dateTable.addData(signupDate);
         }
         res.append("Number of members: " + allMembers.size() + "\n\n");
         res.append("New members this year: " + dateTable.getYearCount(new Date()) + "\n\n");
