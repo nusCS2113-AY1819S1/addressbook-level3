@@ -2,7 +2,9 @@ package seedu.addressbook.commands.statistics;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -129,6 +131,8 @@ public class StatsMenuCommand extends Command {
     }
 
     private Date stringToDate(String input) {
-        return new Date(Integer.parseInt(input.substring(4)) - 1900, Integer.parseInt(input.substring(2,4)) - 1, Integer.parseInt(input.substring(0,2)));
+        Calendar calendar = new GregorianCalendar();
+        calendar.set(Integer.parseInt(input.substring(4)), Integer.parseInt(input.substring(2,4)) - 1, Integer.parseInt(input.substring(0,2)));
+        return calendar.getTime();
     }
 }
