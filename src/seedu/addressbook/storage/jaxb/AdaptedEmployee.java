@@ -34,7 +34,7 @@ public class AdaptedEmployee {
 
     public AdaptedEmployee(ReadOnlyEmployee source) {
 
-        name = source.getName().value;
+        name = source.getName().fullName;
 
         phone= source.getPhone().value;
 
