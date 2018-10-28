@@ -242,10 +242,11 @@ To avoid writing a long command line when ordering a long list of dishes, a draf
 
 * When the ordering draft is initialized or cleared, the member `draftOrder` in `Rms.txt` is loaded with a new object
 of class `Order`. It is initialize with an empty list of dish and a pseudo-empty customer field that is not `null`.
-* By using the draft order command classes, the ordering draft can be edited.
-* Once an order is confirmed, the time is recorded and the total price is calculated to create a new `Order` object
-that has the same customer and list of dishes fields as the ordering draft to add to the order list, and the ordering
-draft is cleared afterward.
+* By using the draft order command classes, the ordering draft can be edited (e.g. picking the customer from the member
+list if they present their membership card, pick the dish from the menu list one by one before confirming the order).
+* Once an order is confirmed, the ordering time is recorded and the total price is calculated to create a new `Order`
+object that has the same customer and list of dishes fields as the ordering draft to be added to the order list, and
+the ordering draft is cleared afterward.
 
 === Saving and Loading the order list
 
@@ -255,7 +256,8 @@ class. This means that the order list stores every information of the owner of a
 However, the loading the order list cannot be implemented by creating a list of new `Order` objects that contains a new
 `Member` object in its customer field based on the data stored in the storage file. This is because the created
 customer object are not the same object as the original `Member` object in the member list, so any changes made to the
-member list will not get reflected in the order.
+member list will not get reflected in the order (e.g. not showing the changes of address or phone number if these
+fields are to be recorded to the membership database).
 
 To solve this problem, the order list will retrieve the correct object in the loaded member list at the start of the
 program using the method `retrieveMember()` in `AdaptedOrder.java`.
