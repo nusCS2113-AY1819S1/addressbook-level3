@@ -95,6 +95,9 @@ public class Parser {
             case LinkCommand.COMMAND_WORD:
                 return prepareLink(arguments);
 
+            case EditAppointmentCommand.COMMAND_WORD:
+                return prepareEditAppointment(arguments);
+
             case HelpCommand.COMMAND_WORD: // Fallthrough
             default:
                 return new HelpCommand();
@@ -272,6 +275,16 @@ public class Parser {
         } catch (NumberFormatException e) {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     LinkCommand.MESSAGE_USAGE));
+        }
+    }
+
+    private Command prepareEditAppointment(String args) {
+        try {
+            final int targetIndex = parseArgsAsDisplayedIndex(args);
+            return new EditAppointmentCommand(targetIndex);
+        } catch (ParseException | NumberFormatException e) {
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    EditAppointmentCommand.MESSAGE_USAGE));
         }
     }
 }
