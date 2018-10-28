@@ -7,7 +7,12 @@ import org.gradle.api.tasks.testing.logging.TestLogEvent
 plugins {
     id 'java'
     id 'org.asciidoctor.convert' version '1.5.6'
+    id 'com.github.johnrengelman.shadow' version '2.0.3'
+    id 'application'
 }
+
+// Specifies the entry point of the application
+mainClassName = 'seedu.addressbook.Main'
 
 sourceCompatibility = JavaVersion.VERSION_1_9
 targetCompatibility = JavaVersion.VERSION_1_9
@@ -39,6 +44,12 @@ dependencies {
     implementation group: 'javax.activation', name: 'activation', version: '1.1.1'
 
     testImplementation group: 'junit', name: 'junit', version: '4.12'
+}
+
+shadowJar {
+    archiveName = 'addressbook.jar'
+    
+    destinationDir = file("${buildDir}/jar/")
 }
 
 task wrapper(type: Wrapper) {
