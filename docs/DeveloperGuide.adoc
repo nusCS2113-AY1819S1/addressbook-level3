@@ -1,4 +1,4 @@
-= Restaurant Managment System - Developer Guide
+= Restaurant Management System - Developer Guide
 :site-section: DeveloperGuide
 :toc:
 :toc-title:
@@ -12,7 +12,7 @@ ifdef::env-github[]
 :note-caption: :information_source:
 :warning-caption: :warning:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level4/tree/master
+:repoURL: https://github.com/CS2113-AY1819S1-F09-2/main/blob/master
 
 By: `CS2113-AY1819S1-F09-2`      Since: `Aug 2018`      Licence: `MIT`
 
@@ -126,10 +126,9 @@ The rest of the App consists of four key components.
 
 Below contains the description for each of the four key components:
 
-//
 //.Class Diagram of the Logic Component
 //image::LogicClassDiagram.png[width="800"]
-//
+
 //[discrete]
 //==== Events-Driven nature of the design
 //
@@ -168,27 +167,33 @@ Below contains the description for each of the four key components:
 //* Executes user commands using the `Logic` component.
 //* Binds itself to some data in the `Model` so that the UI can auto-update when data in the `Model` change.
 //* Responds to events raised from various parts of the App and updates the UI accordingly.
-//
-//[[Design-Logic]]
-//=== Logic component
-//
-//[[fig-LogicClassDiagram]]
-//.Structure of the Logic Component
-//image::LogicClassDiagram.png[width="800"]
-//
-//*API* :
-//link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
-//
-//.  `Logic` uses the `AddressBookParser` class to parse the user command.
-//.  This results in a `Command` object which is executed by the `LogicManager`.
-//.  The command execution can affect the `Model` (e.g. adding a person) and/or raise events.
-//.  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
-//
+
+[[Design-Logic]]
+=== Logic component
+
+[[fig-LogicClassDiagram]]
+.Structure of the Logic Component
+image::LogicClassDiagram.png[width="800"]
+
+*API* :
+link:{repoURL}/src/seedu/addressbook/logic/Logic.java[`Logic.java`]
+
+.  `Logic` uses the `Parser` class to parse the user command.
+.  This results in a `Command` object which is executed by `Logic`.
+.  The command execution can affect the `Model` (e.g. adding a new member) and/or raise events.
+.  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
+
+[NOTE]
+Each of the `CommandResult` class is used as a specific constructor to correctly handle the class of the returned list
+of result. +
+e.g. `OrderCommandResult` constructs a `CommandResult` object that only contains a result message and a list of orders
+generated from the ordering commands.
+
 //Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")` API call.
 //
 //.Interactions Inside the Logic Component for the `delete 1` Command
 //image::DeletePersonSdForLogic.png[width="800"]
-//
+
 //[[Design-Model]]
 //=== Model component
 //
@@ -226,11 +231,44 @@ Below contains the description for each of the four key components:
 //=== Common classes
 //
 //Classes used by multiple components are in the `seedu.addressbook.commons` package.
-//
-//== Implementation
-//
-//This section describes some noteworthy details on how certain features are implemented.
-//
+
+== Implementation
+
+This section describes some noteworthy details on how certain features are implemented.
+
+=== Adding a new order
+
+To avoid writing a long command line when ordering a long list of dishes, a draft ordering system is implemented.
+
+* When the ordering draft is initialized or cleared, the member `draftOrder` in `Rms.txt` is loaded with a new object
+of class `Order`. It is initialize with an empty list of dish and a pseudo-empty customer field that is not `null`.
+* By using the draft order command classes, the ordering draft can be edited.
+* Once an order is confirmed, the time is recorded and the total price is calculated to create a new `Order` object
+that has the same customer and list of dishes fields as the ordering draft to add to the order list, and the ordering
+draft is cleared afterward.
+
+=== Saving and Loading the order list
+
+The order list is saved by using an adaptive class that convert the existing data in the objects to a jaxb-friendly
+class. This means that the order list stores every information of the owner of an order.
+
+However, the loading the order list cannot be implemented by creating a list of new `Order` objects that contains a new
+`Member` object in its customer field based on the data stored in the storage file. This is because the created
+customer object are not the same object as the original `Member` object in the member list, so any changes made to the
+member list will not get reflected in the order.
+
+To solve this problem, the order list will retrieve the correct object in the loaded member list at the start of the
+program using the method `retrieveMember()` in `AdaptedOrder.java`.
+
+=== [Proposed] Program State Control
+
+As there is multiple functionality in the program, it is proposed that a program state control functionality should be
+implemented to assist the user navigate through the program. The command keywords can be simplified and the help
+message can be specifically wrote in each states to reduce the burdens of remembering very long line of commands.
+
+This can be done by introducing a status variable in the `Logic` module, creating command to change the state variable
+and adjusting the returning command in the `Parser` based on that variable.
+
 //==== Current Implementation
 //
 //The undo/redo mechanism is facilitated by `VersionedAddressBook`.
@@ -436,7 +474,7 @@ Below contains the description for each of the four key components:
 //You should only modify them if you need greater control over the site's layout than what stylesheets can provide.
 //The SE-EDU team does not provide support for modified template files.
 //====
-//
+
 [[Testing]]
 == Testing
 
@@ -486,7 +524,7 @@ e.g. `seedu.addressbook.logic.LogicTest`
 
 * Reason: One of its dependencies, `HelpWindow.html` in `src/main/resources/docs` is missing.
 * Solution: Execute Gradle task `processResources`.
-//
+
 //== Dev Ops
 //
 //=== Build Automation
@@ -796,7 +834,7 @@ e.g. `seedu.addressbook.logic.LogicTest`
 //==== Full Solution
 //
 //See this https://github.com/se-edu/addressbook-level4/pull/599[PR] for the step-by-step solution.
-//
+
 [appendix]
 == Product Scope
 
