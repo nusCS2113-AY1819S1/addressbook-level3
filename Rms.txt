@@ -1,2 +1,33 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<Rms/>
+<Rms>
+    <employees>
+        <name>Peter Lee</name>
+        <phone>91234567</phone>
+        <email>PeterLee89@rms.com</email>
+        <address>Clementi Ave 2, Blk 543 #13-12 </address>
+        <position>Cashier</position>
+    </employees>
+    <employees>
+        <name>Peter Lee2</name>
+        <phone>91234567</phone>
+        <email>PeterLee89@rms.com</email>
+        <address>Clementi Ave 2, Blk 543 #13-12 </address>
+        <position>Cashier</position>
+    </employees>
+    <employees>
+        <name>Peter Lee3</name>
+        <phone>91234567</phone>
+        <email>PeterLee89@rms.com</email>
+        <address>Clementi Ave 2, Blk 543 #13-12 </address>
+        <position>Cashier</position>
+    </employees>
+    <attendance>
+        <name>Peter Lee</name>
+    </attendance>
+    <attendance>
+        <name>Peter Lee2</name>
+    </attendance>
+    <attendance>
+        <name>Peter Lee3</name>
+    </attendance>
+</Rms>

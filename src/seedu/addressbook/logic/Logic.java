@@ -6,6 +6,7 @@ import seedu.addressbook.commands.menu.MenuCommandResult;
 import seedu.addressbook.data.member.ReadOnlyMember;
 import seedu.addressbook.data.menu.ReadOnlyMenus;
 import seedu.addressbook.data.order.ReadOnlyOrder;
+import seedu.addressbook.data.employee.Attendance;
 import seedu.addressbook.data.employee.ReadOnlyEmployee;
 import seedu.addressbook.data.person.ReadOnlyPerson;
 import seedu.addressbook.data.Rms;
@@ -38,6 +39,9 @@ public class Logic {
 
     /** The list of employee shown to the user most recently.  */
     private List<? extends ReadOnlyEmployee> lastShownEmployeeList = Collections.emptyList();
+
+    /** The list of employee shown to the user most recently.  */
+    private List<? extends Attendance> lastShownAttendanceList = Collections.emptyList();
 
     public Logic() throws Exception{
         setStorage(initializeStorage());
@@ -90,6 +94,12 @@ public class Logic {
     }
 
     /**
+     * Unmodifiable view of the current last shown order list.
+     */
+    public List<Attendance> getLastShownAttendanceList() { return Collections.unmodifiableList(lastShownAttendanceList);
+    }
+
+    /**
      * Unmodifiable view of the current last shown menu list.
      */
     public List<ReadOnlyMenus> getLastShownMenuList() {
@@ -119,8 +129,9 @@ public class Logic {
         lastShownMemberList = newList;
     }
 
-    protected void setLastShownEmployeeList(List<? extends ReadOnlyEmployee> newList) { lastShownEmployeeList = newList;
-    }
+    protected void setLastShownEmployeeList(List<? extends ReadOnlyEmployee> newList) { lastShownEmployeeList = newList; }
+
+    protected void setLastShownAttendanceList(List<? extends Attendance> newList) { lastShownAttendanceList = newList; }
 
     /**
      * Parses the user command, executes it, and returns the result.

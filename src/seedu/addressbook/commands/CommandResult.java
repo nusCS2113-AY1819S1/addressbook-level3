@@ -1,5 +1,6 @@
 package seedu.addressbook.commands;
 
+import seedu.addressbook.data.employee.Attendance;
 import seedu.addressbook.data.employee.ReadOnlyEmployee;
 import seedu.addressbook.data.menu.ReadOnlyMenus;
 import seedu.addressbook.data.member.ReadOnlyMember;
@@ -20,8 +21,11 @@ public class CommandResult {
     /** The list of persons that was produced by the command */
     private final List<? extends ReadOnlyPerson> relevantPersons;
 
-    /** The list of persons that was produced by the command */
+    /** The list of employees that was produced by the command */
     private final List<? extends ReadOnlyEmployee> relevantEmployees;
+
+    /** The list of attendances that was produced by the command */
+    private final List<? extends Attendance> relevantAttendances;
 
     /** The menu list produced by the menu command*/
     private final List<? extends ReadOnlyMenus> relevantMenus;
@@ -40,6 +44,7 @@ public class CommandResult {
         relevantOrders = null;
         relevantMembers = null;
         relevantEmployees = null;
+        relevantAttendances = null;
     }
 
     /** Old AB3 command result constructor for result which return person list*/
@@ -50,6 +55,7 @@ public class CommandResult {
         this.relevantOrders = null;
         this.relevantMembers = null;
         this.relevantEmployees = null;
+        this.relevantAttendances = null;
     }
 
     /** Command result constructor used by child classes for Rms commands*/
@@ -58,13 +64,15 @@ public class CommandResult {
                          List<? extends ReadOnlyMenus> relevantMenus,
                          List<? extends ReadOnlyOrder> relevantOrders,
                          List<? extends ReadOnlyMember> relevantMembers,
-                         List<? extends ReadOnlyEmployee> relevantEmployees) {
+                         List<? extends ReadOnlyEmployee> relevantEmployees,
+                         List<? extends Attendance> relevantAttendances) {
         this.feedbackToUser = feedbackToUser;
         this.relevantPersons = relevantPersons;
         this.relevantMenus = relevantMenus;
         this.relevantOrders = relevantOrders;
         this.relevantMembers = relevantMembers;
         this.relevantEmployees = relevantEmployees;
+        this.relevantAttendances = relevantAttendances;
     }
 
     /**
@@ -99,6 +107,12 @@ public class CommandResult {
      * Returns list of employees relevant to the command result, if any.
      */
     public Optional<List<? extends ReadOnlyEmployee>> getRelevantEmployee() { return Optional.ofNullable(relevantEmployees);
+    }
+
+    /**
+     * Returns list of attendances relevant to the command result, if any.
+     */
+    public Optional<List<? extends Attendance>> getRelevantAttendance() { return Optional.ofNullable(relevantAttendances);
     }
 
 }
