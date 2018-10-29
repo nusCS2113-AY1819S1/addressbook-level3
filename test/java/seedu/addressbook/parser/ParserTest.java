@@ -568,6 +568,39 @@ public class ParserTest {
     }
 
     /**
+     * Test statsmenu with arg command
+     */
+
+    @Test
+    public void statsMenuCommand_validArgs_parsedCorrectly() {
+
+        final String[] inputs = {
+                "statsmenu f/01022018",
+                "statsmenu t/04112018",
+                "statsmenu f/01102017 t/04112018"
+        };
+        for (String input: inputs) {
+            parseAndAssertCommandType(input, StatsMenuCommand.class);
+        }
+    }
+
+    @Test
+    public void statsMenuCommand_invalidArgs() {
+        final String[] inputs = {
+                // No from prefix
+                "statsmenu 0102018",
+                // Invalid date
+                "statsmenu t/00012018",
+                // No to prefix
+                "statsmenu f/01102017 /04112018",
+                // Duplicate prefix
+                "statsmenu f/01102017 f/04112018"
+        };
+        final String resultMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, StatsMenuCommand.MESSAGE_USAGE);
+        parseAndAssertIncorrectWithMessage(resultMessage, inputs);
+    }
+
+    /**
      * Utility methods
      */
 
