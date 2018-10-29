@@ -12,11 +12,8 @@ import seedu.addressbook.data.exception.IllegalValueException;
  */
 public class AdaptedTiming {
 
-    @XmlValue
     private String time;
-    @XmlAttribute
     private String date;
-    @XmlAttribute
     private boolean isClockIn;
 
 
@@ -34,6 +31,33 @@ public class AdaptedTiming {
         setTime(source.time);
         setDate(source.date);
         setClockIn(source.isClockIn);
+    }
+
+    @XmlValue
+    public String getTime() {
+        return time;
+    }
+
+    @XmlAttribute
+    public String getDate() {
+        return date;
+    }
+
+    @XmlAttribute
+    public boolean isClockIn() {
+        return isClockIn;
+    }
+
+    public void setTime(String time) {
+        this.time = time;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
+
+    public void setClockIn(boolean clockIn) {
+        isClockIn = clockIn;
     }
 
     /**
@@ -57,27 +81,4 @@ public class AdaptedTiming {
         return new Timing(getTime(), getDate(), isClockIn());
     }
 
-    public String getTime() {
-        return time;
-    }
-
-    public void setTime(String time) {
-        this.time = time;
-    }
-
-    public String getDate() {
-        return date;
-    }
-
-    public void setDate(String date) {
-        this.date = date;
-    }
-
-    public boolean isClockIn() {
-        return isClockIn;
-    }
-
-    public void setClockIn(boolean clockIn) {
-        isClockIn = clockIn;
-    }
 }

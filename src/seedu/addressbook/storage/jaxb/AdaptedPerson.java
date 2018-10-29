@@ -29,21 +29,21 @@ public class AdaptedPerson {
      * JAXB-friendly adapted contact detail data holder class.
      */
     private static class AdaptedContactDetail {
-        @XmlValue
         private String value;
-        @XmlAttribute(required = true)
         private boolean isPrivate;
 
+        @XmlValue
         public String getValue() {
             return value;
         }
 
-        public void setValue(String value) {
-            this.value = value;
-        }
-
+        @XmlAttribute(required = true)
         public boolean isPrivate() {
             return isPrivate;
+        }
+
+        public void setValue(String value) {
+            this.value = value;
         }
 
         public void setPrivate(boolean aPrivate) {

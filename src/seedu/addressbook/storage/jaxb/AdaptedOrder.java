@@ -25,21 +25,21 @@ public class AdaptedOrder {
      * JAXB-friendly adapted dish item data holder class.
      */
     private static class AdaptedDishItem {
-        @XmlElement
         private AdaptedMenu dish;
-        @XmlElement
         private int quantity;
 
+        @XmlElement
         public AdaptedMenu getDish() {
             return dish;
         }
 
-        public void setDish(AdaptedMenu dish) {
-            this.dish = dish;
-        }
-
+        @XmlElement
         public int getQuantity() {
             return quantity;
+        }
+
+        public void setDish(AdaptedMenu dish) {
+            this.dish = dish;
         }
 
         public void setQuantity(int quantity) {

@@ -26,9 +26,9 @@ public class AdaptedMenu {
      * JAXB-friendly adapted menu item detail data holder class.
      */
     private static class AdaptedMenuItemDetail {
-        @XmlValue
         private String value;
 
+        @XmlValue
         public String getValue() {
             return value;
         }

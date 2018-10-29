@@ -11,7 +11,6 @@ import seedu.addressbook.data.tag.Tag;
  */
 public class AdaptedTag {
 
-    @XmlValue
     private String tagName;
 
     /**
@@ -49,6 +48,7 @@ public class AdaptedTag {
         return new Tag(getTagName());
     }
 
+    @XmlValue
     public String getTagName() {
         return tagName;
     }
