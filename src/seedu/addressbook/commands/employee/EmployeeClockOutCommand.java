@@ -16,8 +16,9 @@ import seedu.addressbook.data.employee.Timing;
 public class EmployeeClockOutCommand extends Command {
     public static final String COMMAND_WORD = "clockOut";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ":\n" + "Clocks out with the current time for the specified employee."
-            + "Parameters: NAME\n\t"
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ":\n"
+            + "Clocks out with the current time for the specified employee.\n\n"
+            + "Parameters: NAME\n"
             + "Example: " + COMMAND_WORD + " "
             + EmployeeName.EXAMPLE;
 

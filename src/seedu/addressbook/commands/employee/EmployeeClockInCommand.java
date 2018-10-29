@@ -17,8 +17,9 @@ public class EmployeeClockInCommand extends Command {
 
     public static final String COMMAND_WORD = "clockIn";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ":\n" + "Clocks in with the current time for the specified employee."
-            + "Parameters: NAME\n\t"
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ":\n"
+            + "Clocks in with the current time for the specified employee.\n\n"
+            + "Parameters: NAME\n"
             + "Example: " + COMMAND_WORD + " "
             + EmployeeName.EXAMPLE;
 
