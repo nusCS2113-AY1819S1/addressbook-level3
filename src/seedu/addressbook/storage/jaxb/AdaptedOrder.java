@@ -1,24 +1,50 @@
 package seedu.addressbook.storage.jaxb;
 
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import javax.xml.bind.annotation.XmlElement;
+
 import seedu.addressbook.common.Utils;
 import seedu.addressbook.data.exception.IllegalValueException;
 import seedu.addressbook.data.member.Member;
 import seedu.addressbook.data.member.ReadOnlyMember;
-import seedu.addressbook.data.menu.Menu;
 import seedu.addressbook.data.menu.ReadOnlyMenus;
 import seedu.addressbook.data.order.Order;
 import seedu.addressbook.data.order.ReadOnlyOrder;
 
-import javax.xml.bind.annotation.XmlElement;
-import java.util.*;
-
+/**
+ * JAXB-friendly adapted order data holder class.
+ */
 public class AdaptedOrder {
 
+    /**
+     * JAXB-friendly adapted dish item data holder class.
+     */
     private static class AdaptedDishItem {
         @XmlElement
-        public AdaptedMenu dish;
+        private AdaptedMenu dish;
         @XmlElement
-        public int quantity;
+        private int quantity;
+
+        public AdaptedMenu getDish() {
+            return dish;
+        }
+
+        public void setDish(AdaptedMenu dish) {
+            this.dish = dish;
+        }
+
+        public int getQuantity() {
+            return quantity;
+        }
+
+        public void setQuantity(int quantity) {
+            this.quantity = quantity;
+        }
     }
 
     @XmlElement(required = true)
@@ -49,8 +75,8 @@ public class AdaptedOrder {
         dishItems = new ArrayList<>();
         for (Map.Entry<ReadOnlyMenus, Integer> m: source.getDishItems().entrySet()) {
             AdaptedDishItem dishItem = new AdaptedDishItem();
-            dishItem.dish = new AdaptedMenu(m.getKey());
-            dishItem.quantity = m.getValue();
+            dishItem.setDish(new AdaptedMenu(m.getKey()));
+            dishItem.setQuantity(m.getValue());
             dishItems.add(dishItem);
         }
     }
@@ -65,7 +91,7 @@ public class AdaptedOrder {
      */
     public boolean isAnyRequiredFieldMissing() {
         for (AdaptedDishItem dishItem : dishItems) {
-            if (dishItem.dish.isAnyRequiredFieldMissing() || Utils.isAnyNull(dishItem.quantity)) {
+            if (dishItem.getDish().isAnyRequiredFieldMissing() || Utils.isAnyNull(dishItem.getQuantity())) {
                 return true;
             }
         }
@@ -80,7 +106,7 @@ public class AdaptedOrder {
     public Order toModelType(List<Member> memberList) throws IllegalValueException {
         final Map<ReadOnlyMenus, Integer> dishItems = new HashMap<>();
         for (AdaptedDishItem dishItem : this.dishItems) {
-            dishItems.put(dishItem.dish.toModelType(), dishItem.quantity);
+            dishItems.put(dishItem.getDish().toModelType(), dishItem.getQuantity());
         }
         ReadOnlyMember customerClone = this.customer.toModelType();
         final ReadOnlyMember customer = retrieveMember(customerClone, memberList);
@@ -94,8 +120,8 @@ public class AdaptedOrder {
      *  Returns the member if found, else create a new Member using the data from the member in the order
      */
     public Member retrieveMember(ReadOnlyMember target, List<Member> memberList) {
-        for(Member member : memberList) {
-            if(target.isSameStateAs(member)) {
+        for (Member member : memberList) {
+            if (target.isSameStateAs(member)) {
                 return member;
             }
         }
