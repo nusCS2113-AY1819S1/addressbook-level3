@@ -42,6 +42,7 @@ import seedu.addressbook.commands.ListCommand;
 import seedu.addressbook.commands.ViewAllCommand;
 import seedu.addressbook.commands.ViewCommand;
 import seedu.addressbook.commands.statistics.StatsEmployeeCommand;
+import seedu.addressbook.commands.statistics.StatsHelpCommand;
 import seedu.addressbook.commands.statistics.StatsMemberCommand;
 import seedu.addressbook.commands.statistics.StatsMenuCommand;
 import seedu.addressbook.commands.statistics.StatsOrderCommand;
@@ -214,6 +215,9 @@ public class Parser {
 
             case StatsOrderCommand.COMMAND_WORD:
                 return new StatsOrderCommand();
+
+            case StatsHelpCommand.COMMAND_WORD:
+                return new StatsHelpCommand();
 
             case AddCommand.COMMAND_WORD:
                 return prepareAdd(arguments);

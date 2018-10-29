@@ -2,7 +2,9 @@ package seedu.addressbook.commands.statistics;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -13,6 +15,7 @@ import seedu.addressbook.commands.CommandResult;
 import seedu.addressbook.common.Utils;
 import seedu.addressbook.data.menu.ReadOnlyMenus;
 import seedu.addressbook.data.order.ReadOnlyOrder;
+import seedu.addressbook.data.statistics.AsciiTable;
 import seedu.addressbook.data.statistics.QuantityRevenuePair;
 
 /**
@@ -105,25 +108,31 @@ public class StatsMenuCommand extends Command {
         }
 
         sb.append("\n\nBest Sellers\n");
-        sb.append("=============\n");
-        for (Map.Entry<String, ReadOnlyMenus> bestEntry : bestsellers.entrySet()) {
-            sb.append(bestEntry.getKey() + ": " + bestEntry.getValue().getName() + "\n");
-            sb.append("Total quantity sold: " + allMenuSales.get(bestEntry.getValue()).getQuantity() + "\n");
-            sb.append("Total sales revenue: $" + Utils.formatCurrency(allMenuSales.get(bestEntry.getValue()).getRevenue()) + "\n\n");
-        }
+        sb.append(toTable(bestsellers, allMenuSales));
 
-        sb.append("\n\nUnpopular Items\n");
-        sb.append("================\n");
-        for (Map.Entry<String, ReadOnlyMenus> worstEntry : worstsellers.entrySet()) {
-            sb.append(worstEntry.getKey() + ": " + worstEntry.getValue().getName() + "\n");
-            sb.append("Total quantity sold: " + allMenuSales.get(worstEntry.getValue()).getQuantity() + "\n");
-            sb.append("Total sales revenue: $" + Utils.formatCurrency(allMenuSales.get(worstEntry.getValue()).getRevenue()) + "\n\n");
-        }
+        sb.append("Unpopular Items\n");
+        sb.append(toTable(worstsellers, allMenuSales));
 
         return sb.toString();
     }
 
+    private String toTable(Map<String, ReadOnlyMenus> in, Map<ReadOnlyMenus, QuantityRevenuePair> allMenuSales) {
+        String[] tableHeadings = {"Type", "Name", "Quantity Sold", "Sales Revenue"};
+        AsciiTable table = new AsciiTable(tableHeadings);
+        for (Map.Entry<String, ReadOnlyMenus> worstEntry : in.entrySet()) {
+            String type = worstEntry.getKey();
+            String menuName = worstEntry.getValue().getName().toString();
+            int quantity = allMenuSales.get(worstEntry.getValue()).getQuantity();
+            String revenue = Utils.formatCurrency(allMenuSales.get(worstEntry.getValue()).getRevenue());
+            String[] rowData = {type, menuName, Integer.toString(quantity), "$" + revenue};
+            table.addRow(rowData);
+        }
+        return table.toString();
+    }
+
     private Date stringToDate(String input) {
-        return new Date(Integer.parseInt(input.substring(4)) - 1900, Integer.parseInt(input.substring(2,4)) - 1, Integer.parseInt(input.substring(0,2)));
+        Calendar calendar = new GregorianCalendar();
+        calendar.set(Integer.parseInt(input.substring(4)), Integer.parseInt(input.substring(2,4)) - 1, Integer.parseInt(input.substring(0,2)));
+        return calendar.getTime();
     }
 }
