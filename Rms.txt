@@ -53,9 +53,9 @@
         <type>dessert</type>
     </menus>
     <members>
-        <name>Kang Ming</name>
-        <points>155</points>
-        <date>0</date>
+        <name>John Doe</name>
+        <points>0</points>
+        <date>1540532199037</date>
     </members>
     <employees>
         <name>Peter Lee</name>
@@ -113,6 +113,23 @@
             <date>0</date>
         </customer>
         <date>1540465181617</date>
+        <price>50.0</price>
+        <dishItems>
+            <dish>
+                <name>ice cream</name>
+                <price>$5.00</price>
+                <type>dessert</type>
+            </dish>
+            <quantity>10</quantity>
+        </dishItems>
+    </orders>
+    <orders>
+        <customer>
+            <name>Kang Ming</name>
+            <points>155</points>
+            <date>0</date>
+        </customer>
+        <date>1530465181617</date>
         <price>50.0</price>
         <dishItems>
             <dish>
