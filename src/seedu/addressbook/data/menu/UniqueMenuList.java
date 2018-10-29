@@ -1,9 +1,14 @@
 package seedu.addressbook.data.menu;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Iterator;
+import java.util.List;
+
 import seedu.addressbook.common.Utils;
 import seedu.addressbook.data.exception.DuplicateDataException;
-
-import java.util.*;
 
 /**
  * A list of menus. Does not allow null elements or duplicates.
@@ -123,8 +128,7 @@ public class UniqueMenuList implements Iterable<Menu> {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof UniqueMenuList // instanceof handles nulls
-                && this.internalMenuList.equals(
-                        ((UniqueMenuList) other).internalMenuList));
+                && this.internalMenuList.equals(((UniqueMenuList) other).internalMenuList));
     }
 
     @Override

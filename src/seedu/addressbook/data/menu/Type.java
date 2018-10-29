@@ -1,9 +1,9 @@
 package seedu.addressbook.data.menu;
 
-import seedu.addressbook.data.exception.IllegalValueException;
-
 import java.util.Arrays;
 import java.util.List;
+
+import seedu.addressbook.data.exception.IllegalValueException;
 
 /**
  * Represents a Person's name in the address book.
@@ -40,9 +40,14 @@ public class Type {
      * Returns true if a given string is a valid person name.
      */
     public static boolean isValidTypeName(String test) {
-        if ((test.equals("main")==true || test.equals("sides")==true || test.equals("beverage")==true || test.equals("dessert")==true || test.equals("others")==true || test.equals("set meal")) && test.matches(TYPE_VALIDATION_REGEX)==true){
+        if ((test.equals("main") == true
+                    || test.equals("sides") == true
+                    || test.equals("beverage") == true
+                    || test.equals("dessert") == true
+                    || test.equals("others") == true
+                    || test.equals("set meal"))
+                && test.matches(TYPE_VALIDATION_REGEX) == true) {
             return true;
-
         }
 
 
