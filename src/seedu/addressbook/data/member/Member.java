@@ -1,18 +1,21 @@
 package seedu.addressbook.data.member;
 
-
-import seedu.addressbook.data.exception.IllegalValueException;
-
-import java.awt.*;
 import java.util.Date;
 import java.util.Objects;
 
+import seedu.addressbook.data.exception.IllegalValueException;
+
+
+/**
+ * Represents a Member in the member list.
+ */
 public class Member implements ReadOnlyMember {
+
+    public static final String EMPTY_NAME_STRING = "EMPTY";
+
     private MemberName name;
     private Points points;
     private Date date;
-
-    public final String EMPTY_NAME_STRING = "EMPTY";
 
     public Member() {
         try {
@@ -35,13 +38,14 @@ public class Member implements ReadOnlyMember {
         this.points = points;
         this.date = date;
     }
-
     /**
      * Copy constructor.
      */
-//    public Member(ReadOnlyMember source) {
-//        this(source.getName(), source.getPoints());
-//    }
+    /*
+    public Member(ReadOnlyMember source) {
+        this(source.getName(), source.getPoints());
+    }
+    */
 
     public Member(ReadOnlyMember source) {
         this(source.getName(), source.getPoints(), source.getDate());
@@ -53,7 +57,9 @@ public class Member implements ReadOnlyMember {
     }
 
     @Override
-    public Points getPoints() { return points; }
+    public Points getPoints() {
+        return points;
+    }
 
     public Points updatePoints(double price) {
         return this.points.updatePoints(price);
