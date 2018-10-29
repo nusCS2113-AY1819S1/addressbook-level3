@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.StringJoiner;
 
+import seedu.addressbook.data.Rms;
 import seedu.addressbook.data.employee.Attendance;
 import seedu.addressbook.data.employee.Employee;
 import seedu.addressbook.data.employee.EmployeeAddress;
@@ -21,7 +22,6 @@ import seedu.addressbook.data.menu.Menu;
 import seedu.addressbook.data.menu.MenuName;
 import seedu.addressbook.data.menu.Price;
 import seedu.addressbook.data.menu.Type;
-import seedu.addressbook.data.Rms;
 import seedu.addressbook.data.person.Address;
 import seedu.addressbook.data.person.Email;
 import seedu.addressbook.data.person.Name;
@@ -32,8 +32,11 @@ import seedu.addressbook.data.tag.Tag;
 /**
  * A utility class to generate test data.
  */
-class TestDataHelper{
+class TestDataHelper {
 
+    /**
+     * Generate a person for testing purpose
+     */
     Person adam() throws Exception {
         Name name = new Name("Adam Brown");
         Phone privatePhone = new Phone("111111", true);
@@ -45,6 +48,9 @@ class TestDataHelper{
         return new Person(name, privatePhone, email, privateAddress, tags);
     }
 
+    /**
+     * Generate an employee for testing purpose
+     */
     Employee peter() throws Exception {
         EmployeeName name = new EmployeeName("Peter Lee");
         EmployeePhone phone = new EmployeePhone("91234567");
@@ -54,12 +60,17 @@ class TestDataHelper{
         return new Employee(name, phone, email, address, position);
     }
 
+    /**
+     * Generate a member for testing purpose
+     */
     Member eve() throws Exception {
         MemberName name = new MemberName("Eve");
         return new Member(name);
     }
 
-
+    /**
+     * Generate a menu item for testing purpose
+     */
     Menu burger() throws Exception {
         MenuName name = new MenuName("Cheese Burger");
         Price price = new Price("$5.00");
@@ -101,7 +112,7 @@ class TestDataHelper{
                 new EmployeePhone("" + Math.abs(seed)),
                 new EmployeeEmail(seed + "@email"),
                 new EmployeeAddress("House of " + seed),
-                new EmployeePosition("Position "+ seed)
+                new EmployeePosition("Position " + seed)
         );
     }
 
@@ -156,7 +167,7 @@ class TestDataHelper{
         cmd.add((p.getAddress().isPrivate() ? "pa/" : "a/") + p.getAddress());
 
         Set<Tag> tags = p.getTags();
-        for(Tag t: tags){
+        for (Tag t: tags) {
             cmd.add("t/" + t.tagName);
         }
 
@@ -200,7 +211,7 @@ class TestDataHelper{
         cmd.add(("type/") + m.getType());
 
         Set<Tag> tags = m.getTags();
-        for(Tag t: tags){
+        for (Tag t: tags) {
             cmd.add("t/" + t.tagName);
         }
 
@@ -213,7 +224,7 @@ class TestDataHelper{
      * @param isPrivateStatuses flags to indicate if all contact details of respective persons should be set to
      *                          private.
      */
-    Rms generateRms(Boolean... isPrivateStatuses) throws Exception{
+    Rms generateRms(Boolean... isPrivateStatuses) throws Exception {
         Rms rms = new Rms();
         addToRms(rms, isPrivateStatuses);
         return rms;
@@ -222,7 +233,7 @@ class TestDataHelper{
     /**
      * Generates an Rms based on the list of Persons given.
      */
-    Rms generateRms(List<Person> persons) throws Exception{
+    Rms generateRms(List<Person> persons) throws Exception {
         Rms rms = new Rms();
         addToRms(rms, persons);
         return rms;
@@ -231,7 +242,7 @@ class TestDataHelper{
     /**
      * Generates an Rms based on the list of Employees given.
      */
-    Rms generateRmsEmployees(List<Employee> employees) throws Exception{
+    Rms generateRmsEmployees(List<Employee> employees) throws Exception {
         Rms rms = new Rms();
         addEmployeesToRms(rms, employees);
         return rms;
@@ -240,7 +251,7 @@ class TestDataHelper{
     /**
      * Generates an Rms based on the list of Employees and Attendances given.
      */
-    Rms generateRmsEmployeesAndAttendances(List<Employee> employees, List<Attendance> attendances) throws Exception{
+    Rms generateRmsEmployeesAndAttendances(List<Employee> employees, List<Attendance> attendances) throws Exception {
         Rms rms = new Rms();
         addEmployeesToRms(rms, employees);
         addAttendancesToRms(rms, attendances);
@@ -250,7 +261,7 @@ class TestDataHelper{
     /**
      * Generates an Rms based on the list of Menu given.
      */
-    Rms generateRmsMenu(List<Menu> menus) throws Exception{
+    Rms generateRmsMenu(List<Menu> menus) throws Exception {
         Rms rms = new Rms();
         addToRmsMenu(rms, menus);
         return rms;
@@ -259,7 +270,7 @@ class TestDataHelper{
     /**
      * Generates an Rms based on the list of Member given.
      */
-    Rms generateRmsMember(List<Member> members) throws Exception{
+    Rms generateRmsMember(List<Member> members) throws Exception {
         Rms rms = new Rms();
         addMembersToRms(rms, members);
         return rms;
@@ -271,15 +282,15 @@ class TestDataHelper{
      * @param isPrivateStatuses flags to indicate if all contact details of generated persons should be set to
      *                          private.
      */
-    void addToRms(Rms rms, Boolean... isPrivateStatuses) throws Exception{
+    void addToRms(Rms rms, Boolean... isPrivateStatuses) throws Exception {
         addToRms(rms, generatePersonList(isPrivateStatuses));
     }
 
     /**
      * Adds the given list of Persons to the given Rms
      */
-    void addToRms(Rms rms, List<Person> personsToAdd) throws Exception{
-        for(Person p: personsToAdd){
+    void addToRms(Rms rms, List<Person> personsToAdd) throws Exception {
+        for (Person p: personsToAdd) {
             rms.addPerson(p);
         }
     }
@@ -290,15 +301,18 @@ class TestDataHelper{
      * @param isPrivateStatuses flags to indicate if details of generated persons should be set to
      *                          private.
      */
-         /*void addToRMS(Rms rms, Boolean... isPrivateStatuses) throws Exception{
-             addToRMS(rms, generatePersonList(isPrivateStatuses));
-         }*/
+
+    /*
+    void addToRMS(Rms rms, Boolean... isPrivateStatuses) throws Exception{
+        addToRMS(rms, generatePersonList(isPrivateStatuses));
+    }
+    */
 
     /**
      * Adds the given list of Menus to the given Rms
      */
-    void addToRmsMenu(Rms rms, List<Menu> menusToAdd) throws Exception{
-        for(Menu m: menusToAdd){
+    void addToRmsMenu(Rms rms, List<Menu> menusToAdd) throws Exception {
+        for (Menu m: menusToAdd) {
             rms.addMenu(m);
         }
     }
@@ -306,8 +320,8 @@ class TestDataHelper{
     /**
      * Adds the given list of Employeees to the given Rms.
      */
-    void addEmployeesToRms(Rms rms, List<Employee> employeesToAdd) throws Exception{
-        for(Employee e: employeesToAdd){
+    void addEmployeesToRms(Rms rms, List<Employee> employeesToAdd) throws Exception {
+        for (Employee e: employeesToAdd) {
             rms.addEmployee(e);
         }
     }
@@ -315,8 +329,8 @@ class TestDataHelper{
     /**
      * Adds the given list of Employeees to the given Rms.
      */
-    void addAttendancesToRms(Rms rms, List<Attendance> attendancesToAdd) throws Exception{
-        for(Attendance a: attendancesToAdd){
+    void addAttendancesToRms(Rms rms, List<Attendance> attendancesToAdd) throws Exception {
+        for (Attendance a: attendancesToAdd) {
             rms.addAttendance(a);
         }
     }
@@ -324,29 +338,18 @@ class TestDataHelper{
     /**
      * Adds the given list of Members to the given Rms
      */
-    void addMembersToRms(Rms rms, List<Member> membersToAdd) throws Exception{
-        for(Member member: membersToAdd){
+    void addMembersToRms(Rms rms, List<Member> membersToAdd) throws Exception {
+        for (Member member: membersToAdd) {
             rms.addMember(member);
         }
     }
 
     /**
-     * Creates a list of Persons based on the give Person objects.
-     */
-    List<Person> generatePersonList(Person... persons) throws Exception{
-        List<Person> personList = new ArrayList<>();
-        for(Person p: persons){
-            personList.add(p);
-        }
-        return personList;
-    }
-
-    /**
      * Creates a list of Employees based on the give Employee objects.
      */
-    List<Employee> generateEmployeeList(Employee... employees) throws Exception{
+    List<Employee> generateEmployeeList(Employee... employees) throws Exception {
         List<Employee> employeeList = new ArrayList<>();
-        for(Employee e: employees){
+        for (Employee e: employees) {
             employeeList.add(e);
         }
         return employeeList;
@@ -355,9 +358,9 @@ class TestDataHelper{
     /**
      * Creates a list of Attendances based on the give Attendance objects.
      */
-    List<Attendance> generateAttendanceList(Attendance... attendances) throws Exception{
+    List<Attendance> generateAttendanceList(Attendance... attendances) throws Exception {
         List<Attendance> attendanceList = new ArrayList<>();
-        for(Attendance a: attendances){
+        for (Attendance a: attendances) {
             attendanceList.add(a);
         }
         return attendanceList;
@@ -366,9 +369,9 @@ class TestDataHelper{
     /**
      * Creates a list of Members based on the give Member objects.
      */
-    List<Member> generateMemberList(Member... members) throws Exception{
+    List<Member> generateMemberList(Member... members) throws Exception {
         List<Member> memberList = new ArrayList<>();
-        for(Member member: members){
+        for (Member member: members) {
             memberList.add(member);
         }
         return memberList;
@@ -377,12 +380,23 @@ class TestDataHelper{
     /**
      * Creates a list of Menu Items based on the give Menu objects.
      */
-    List<Menu> generateMenuList(Menu... menus) throws Exception{
+    List<Menu> generateMenuList(Menu... menus) throws Exception {
         List<Menu> menuList = new ArrayList<>();
-        for(Menu m: menus){
+        for (Menu m: menus) {
             menuList.add(m);
         }
         return menuList;
+    }
+
+    /**
+     * Creates a list of Persons based on the give Person objects.
+     */
+    List<Person> generatePersonList(Person... persons) throws Exception {
+        List<Person> personList = new ArrayList<>();
+        for (Person p: persons) {
+            personList.add(p);
+        }
+        return personList;
     }
 
     /**
@@ -390,10 +404,10 @@ class TestDataHelper{
      * @param isPrivateStatuses flags to indicate if all contact details of respective persons should be set to
      *                          private.
      */
-    List<Person> generatePersonList(Boolean... isPrivateStatuses) throws Exception{
+    List<Person> generatePersonList(Boolean... isPrivateStatuses) throws Exception {
         List<Person> persons = new ArrayList<>();
         int i = 1;
-        for(Boolean p: isPrivateStatuses){
+        for (Boolean p: isPrivateStatuses) {
             persons.add(generatePerson(i++, p));
         }
         return persons;
