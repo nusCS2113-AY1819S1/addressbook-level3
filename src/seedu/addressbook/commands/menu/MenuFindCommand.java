@@ -1,11 +1,14 @@
 package seedu.addressbook.commands.menu;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
 import seedu.addressbook.commands.Command;
 import seedu.addressbook.commands.CommandResult;
 import seedu.addressbook.data.menu.ReadOnlyMenus;
-import seedu.addressbook.data.person.ReadOnlyPerson;
-
-import java.util.*;
 
 /**
  * Finds and lists all persons in address book whose name contains any of the argument keywords.
@@ -47,7 +50,7 @@ public class MenuFindCommand extends Command {
      */
     private List<ReadOnlyMenus> getMenuItemsWithNameContainingAnyKeyword(Set<String> keywords) {
         final List<ReadOnlyMenus> matchedMenuItems = new ArrayList<>();
-        for (ReadOnlyMenus menu : rms.getAllMenus()){
+        for (ReadOnlyMenus menu : rms.getAllMenus()) {
             final Set<String> wordsInName = new HashSet<>(menu.getName().getWordsInName());
             if (!Collections.disjoint(wordsInName, keywords)) {
                 matchedMenuItems.add(menu);
