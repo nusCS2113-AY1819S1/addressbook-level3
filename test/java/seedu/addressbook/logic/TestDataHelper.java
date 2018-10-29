@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.StringJoiner;
 
+import seedu.addressbook.data.employee.Attendance;
 import seedu.addressbook.data.employee.Employee;
 import seedu.addressbook.data.employee.EmployeeAddress;
 import seedu.addressbook.data.employee.EmployeeEmail;
@@ -102,6 +103,17 @@ class TestDataHelper{
                 new EmployeeAddress("House of " + seed),
                 new EmployeePosition("Position "+ seed)
         );
+    }
+
+    /**
+     * Generates a valid attendance using the given seed.
+     * Running this function with the same parameter values guarantees the returned attendance will have the same state.
+     * Each unique seed will generate a unique Attendance object.
+     *
+     * @param seed used to generate the attendnace data field values
+     */
+    Attendance generateAttendnace(int seed) throws Exception {
+        return new Attendance("Employee " + seed);
     }
 
     /**
@@ -226,6 +238,16 @@ class TestDataHelper{
     }
 
     /**
+     * Generates an Rms based on the list of Employees and Attendances given.
+     */
+    Rms generateRmsEmployeesAndAttendances(List<Employee> employees, List<Attendance> attendances) throws Exception{
+        Rms rms = new Rms();
+        addEmployeesToRms(rms, employees);
+        addAttendancesToRms(rms, attendances);
+        return rms;
+    }
+
+    /**
      * Generates an Rms based on the list of Menu given.
      */
     Rms generateRmsMenu(List<Menu> menus) throws Exception{
@@ -282,11 +304,20 @@ class TestDataHelper{
     }
 
     /**
-     * Adds the given list of Persons to the given Rms
+     * Adds the given list of Employeees to the given Rms.
      */
     void addEmployeesToRms(Rms rms, List<Employee> employeesToAdd) throws Exception{
         for(Employee e: employeesToAdd){
             rms.addEmployee(e);
+        }
+    }
+
+    /**
+     * Adds the given list of Employeees to the given Rms.
+     */
+    void addAttendancesToRms(Rms rms, List<Attendance> attendancesToAdd) throws Exception{
+        for(Attendance a: attendancesToAdd){
+            rms.addAttendance(a);
         }
     }
 
@@ -319,6 +350,17 @@ class TestDataHelper{
             employeeList.add(e);
         }
         return employeeList;
+    }
+
+    /**
+     * Creates a list of Attendances based on the give Attendance objects.
+     */
+    List<Attendance> generateAttendanceList(Attendance... attendances) throws Exception{
+        List<Attendance> attendanceList = new ArrayList<>();
+        for(Attendance a: attendances){
+            attendanceList.add(a);
+        }
+        return attendanceList;
     }
 
     /**

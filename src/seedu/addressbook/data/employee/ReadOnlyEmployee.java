@@ -34,7 +34,7 @@ public interface ReadOnlyEmployee {
      */
     default String getAsTextShowDetails() {
         final StringBuilder builder = new StringBuilder();
-        builder.append(getName().value.trim())
+        builder.append(getName().fullName.trim())
                 .append(" Phone: ");
         builder.append(getPhone().value.trim())
                 .append(" Email: ");

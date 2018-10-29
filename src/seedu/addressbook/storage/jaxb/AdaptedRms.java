@@ -10,7 +10,9 @@ import seedu.addressbook.data.member.Member;
 import seedu.addressbook.data.member.UniqueMemberList;
 import seedu.addressbook.data.person.Person;
 import seedu.addressbook.data.person.UniquePersonList;
+import seedu.addressbook.data.employee.Attendance;
 import seedu.addressbook.data.employee.Employee;
+import seedu.addressbook.data.employee.UniqueAttendanceList;
 import seedu.addressbook.data.employee.UniqueEmployeeList;
 
 import javax.xml.bind.annotation.XmlElement;
@@ -34,6 +36,8 @@ public class AdaptedRms {
     private List<AdaptedEmployee> employees = new ArrayList<>();
     @XmlElement(name = "orders")
     private List<AdaptedOrder> orders = new ArrayList<>();
+    @XmlElement(name = "attendance")
+    private List<AdaptedAttendance> attendances = new ArrayList<>();
 
     /**
      * No-arg constructor for JAXB use.
@@ -55,11 +59,13 @@ public class AdaptedRms {
         menus = new ArrayList<>();
         employees = new ArrayList<>();
         members = new ArrayList<>();
+        attendances = new ArrayList<>();
         source.getAllPersons().forEach(person -> persons.add(new AdaptedPerson(person)));
         source.getAllMenus().forEach(menu -> menus.add(new AdaptedMenu(menu)));
         source.getAllEmployees().forEach(employee -> employees.add(new AdaptedEmployee(employee)));
         source.getAllMembers().forEach(member -> members.add(new AdaptedMember(member)));
         source.getAllOrders().forEach(order -> orders.add(new AdaptedOrder(order)));
+        source.getAllAttendance().forEach(attendance -> attendances.add(new AdaptedAttendance(attendance)));
     }
 
 
@@ -90,11 +96,12 @@ public class AdaptedRms {
         final List<Employee> employeeList = new ArrayList<>();
         final List<Member> memberList = new ArrayList<>();
         final List<Order> orderList = new ArrayList<>();
+        final List<Attendance> attendanceList = new ArrayList<>();
+
         for (AdaptedPerson person : persons) {
             personList.add(person.toModelType());
         }
-        
-      // goes through employeeList to change it  
+
         for (AdaptedEmployee employee : employees) {
             employeeList.add(employee.toModelType());
         }
@@ -110,12 +117,18 @@ public class AdaptedRms {
         for (AdaptedOrder order : orders) {
             orderList.add(order.toModelType(memberList));
         }
+
+        for (AdaptedAttendance attendance : attendances) {
+            attendanceList.add(attendance.toModelType());
+        }
+
         return new Rms(
                 new UniquePersonList(personList),
                 new UniqueMenuList(menuList),
                 new UniqueEmployeeList(employeeList),
                 new UniqueOrderList(orderList),
-                new UniqueMemberList(memberList)
+                new UniqueMemberList(memberList),
+                new UniqueAttendanceList(attendanceList)
         );
     }
 }

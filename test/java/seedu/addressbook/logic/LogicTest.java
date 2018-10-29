@@ -110,14 +110,14 @@ public class LogicTest {
     private void assertEmployeeCommandBehavior(String inputCommand, String expectedMessage) throws Exception {
         assertEmployeeCommandBehavior(inputCommand, expectedMessage, Rms.empty(),false, Collections.emptyList());
     }
+
     /**
      * Executes the command and confirms that the result message is correct and
      * also confirms that the following three parts of the Logic object's state are as expected:<br>
-     *      - the internal address book data are same as those in the {@code expectedRms} <br>
+     *      - the internal Rms data are same as those in the {@code expectedRms} <br>
      *      - the internal 'last shown list' matches the {@code expectedLastList} <br>
      *      - the storage file content matches data in {@code expectedRms} <br>
      */
-
     private void assertEmployeeCommandBehavior(String inputCommand,
                                                String expectedMessage,
                                                Rms expectedRms,
@@ -137,6 +137,42 @@ public class LogicTest {
         //Confirm the state of data is as expected
         assertEquals(expectedRms, rms);
         assertEquals(lastShownList, logic.getLastShownEmployeeList());
+        assertEquals(rms, saveFile.load());
+    }
+
+    /**
+     * Executes the command and confirms that the result message is correct and
+     * also confirms that the following three parts of the Logic object's state are as expected:<br>
+     *      - the internal Rms data are same as those in the {@code expectedRms} <br>
+     *      - the internal 'last shown list' matches the {@code expectedLastList} <br>
+     *      - the storage file content matches data in {@code expectedRms} <br>
+     */
+    private void assertEmployeeAttendanceCommandBehavior(String inputCommand,
+                                               String expectedMessage,
+                                               Rms expectedRms,
+                                               boolean isRelevantEmployeesExpected,
+                                               boolean isRelevantAttendancesExpected,
+                                               List<? extends ReadOnlyEmployee> lastShownEmployeeList,
+                                                         List<? extends Attendance> lastShownAttendanceList) throws Exception {
+
+        //Execute the command
+        CommandResult r = logic.execute(inputCommand);
+
+        //Confirm the result contains the right data
+        assertEquals(expectedMessage, r.feedbackToUser);
+        assertEquals(r.getRelevantEmployee().isPresent(), isRelevantEmployeesExpected);
+        assertEquals(r.getRelevantAttendance().isPresent(), isRelevantAttendancesExpected);
+        if(isRelevantEmployeesExpected){
+            assertEquals(lastShownEmployeeList, r.getRelevantEmployee().get());
+        }
+        if(isRelevantAttendancesExpected){
+            assertEquals(lastShownAttendanceList, r.getRelevantAttendance().get());
+        }
+
+        //Confirm the state of data is as expected
+        assertEquals(expectedRms, rms);
+        assertEquals(lastShownEmployeeList, logic.getLastShownEmployeeList());
+        assertEquals(lastShownAttendanceList, logic.getLastShownAttendanceList());
         assertEquals(rms, saveFile.load());
     }
 
@@ -776,21 +812,29 @@ public class LogicTest {
         Employee e1 = helper.generateEmployee(1);
         Employee e2 = helper.generateEmployee(2);
         Employee e3 = helper.generateEmployee(3);
+        Attendance a1 = helper.generateAttendnace(1);
+        Attendance a2 = helper.generateAttendnace(2);
+        Attendance a3 = helper.generateAttendnace(3);
 
-        List<Employee> threeEmployees = helper.generateEmployeeList(e1, e2, e3);
+        List<Employee> lastShowEmployeeList = helper.generateEmployeeList(e1, e2, e3);
+        List<Attendance> lastShownAttendanceList = helper.generateAttendanceList(a1, a2, a3);
 
-        Rms expectedRms = helper.generateRmsEmployees(threeEmployees);
+        Rms expectedRms = helper.generateRmsEmployeesAndAttendances(lastShowEmployeeList, lastShownAttendanceList);
         expectedRms.removeEmployee(e2);
 
 
-        helper.addEmployeesToRms(rms, threeEmployees);
-        logic.setLastShownEmployeeList(threeEmployees);
+        helper.addEmployeesToRms(rms, lastShowEmployeeList);
+        helper.addAttendancesToRms(rms, lastShownAttendanceList);
+        logic.setLastShownEmployeeList(lastShowEmployeeList);
+        logic.setLastShownAttendanceList(lastShownAttendanceList);
 
-        assertEmployeeCommandBehavior("delemp 2",
+        assertEmployeeAttendanceCommandBehavior("delemp 2",
                 String.format(EmployeeDeleteCommand.MESSAGE_DELETE_EMPLOYEE_SUCCESS, e2),
                 expectedRms,
                 false,
-                threeEmployees);
+                false,
+                lastShowEmployeeList,
+                lastShownAttendanceList);
     }
 
     @Test
