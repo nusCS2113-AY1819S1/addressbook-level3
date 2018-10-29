@@ -1,11 +1,9 @@
 package seedu.addressbook.commands.statistics;
 
-import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
-
 
 import seedu.addressbook.commands.Command;
 import seedu.addressbook.commands.CommandResult;
@@ -34,8 +32,9 @@ public class StatsOrderCommand extends Command {
     private String getOrderStats() {
         StringBuilder sb = new StringBuilder();
         List<ReadOnlyOrder> allOrders = rms.getAllOrders().immutableListView();
-        if (allOrders.isEmpty())
+        if (allOrders.isEmpty()) {
             return "There are no orders in the system.";
+        }
 
         OrderDateTable dateTable = new OrderDateTable();
 
@@ -66,8 +65,8 @@ public class StatsOrderCommand extends Command {
         String[] months = {"Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"};
         months = rotateRight(months, 12 - currentMonth);
         AsciiTable table = new AsciiTable(months);
-        String dataRow[] = new String[12];
-        for (int i=0; i<12; i++) {
+        String[] dataRow = new String[12];
+        for (int i = 0; i < 12; i++) {
             calendar.set(Calendar.MONTH, i);
             if (currentMonth <= i) {
                 calendar.set(Calendar.YEAR, currentYear - 1);
@@ -79,10 +78,13 @@ public class StatsOrderCommand extends Command {
         return sb.toString();
     }
 
+    /**
+     * Rotate the columns to the right to display the last 12 months in correct order
+     */
     private String[] rotateRight(String[] in, int rotation) {
         String[] out = in.clone();
-        for(int x = 0; x <= in.length-1; x++){
-            out[(x+rotation) % in.length ] = in[x];
+        for (int x = 0; x <= in.length - 1; x++) {
+            out[(x + rotation) % in.length ] = in[x];
         }
 
         return out;
