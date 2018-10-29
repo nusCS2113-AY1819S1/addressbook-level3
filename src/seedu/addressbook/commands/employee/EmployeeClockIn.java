@@ -13,7 +13,7 @@ import seedu.addressbook.data.employee.Timing;
 /**
  * Clocks in for the specified employee based on the current time.
  */
-public class ClockIn extends Command {
+public class EmployeeClockIn extends Command {
 
     public static final String COMMAND_WORD = "clockIn";
 
@@ -32,7 +32,7 @@ public class ClockIn extends Command {
     private final String currentTime = timeFormatter.format(date);
     private final String currentDate = dateFormatter.format(date);
 
-    public ClockIn(String name){
+    public EmployeeClockIn(String name){
         this.name = name;
     }
 

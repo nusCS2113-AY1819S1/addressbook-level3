@@ -10,26 +10,26 @@ public class Timing {
 
     public final String time;
     public final String date;
-    public final boolean isCheckIn;
+    public final boolean isClockIn;
 
 
-    public Timing(String time, String date, boolean isCheckIn){
+    public Timing(String time, String date, boolean isClockIn){
         this.time = time;
         this.date = date;
-        this.isCheckIn = isCheckIn;
+        this.isClockIn = isClockIn;
     }
 
     public String getDate() { return date; }
 
-    public boolean isCheckIn() {
-        return isCheckIn;
+    public boolean isClockIn() {
+        return isClockIn;
     }
 
     @Override
-    public int hashCode(){ return Objects.hash(time, date, isCheckIn); }
+    public int hashCode(){ return Objects.hash(time, date, isClockIn); }
 
     @Override
     public String toString() {
-        return "Date = " + date + " Time = " + time + " isCheckIn = " + isCheckIn;
+        return "Date = " + date + " Time = " + time + " isClockIn = " + isClockIn;
     }
 }

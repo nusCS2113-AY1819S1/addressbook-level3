@@ -18,7 +18,7 @@ public class AdaptedTiming {
     @XmlAttribute
     public String date;
     @XmlAttribute
-    public boolean isCheckIn;
+    public boolean isClockIn;
 
 
     /**
@@ -34,7 +34,7 @@ public class AdaptedTiming {
     public AdaptedTiming(Timing source) {
         time = source.time;
         date = source.date;
-        isCheckIn = source.isCheckIn;
+        isClockIn = source.isClockIn;
     }
 
     /**
@@ -46,7 +46,7 @@ public class AdaptedTiming {
      * so we check for that.
      */
     public boolean isAnyRequiredFieldMissing() {
-        return Utils.isAnyNull(time, date, isCheckIn);
+        return Utils.isAnyNull(time, date, isClockIn);
     }
 
     /**
@@ -55,6 +55,6 @@ public class AdaptedTiming {
      * @throws IllegalValueException if there were any data constraints violated in the adapted person
      */
     public Timing toModelType() throws IllegalValueException {
-        return new Timing(time, date, isCheckIn);
+        return new Timing(time, date, isClockIn);
     }
 }

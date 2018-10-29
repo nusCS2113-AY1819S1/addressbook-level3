@@ -13,7 +13,7 @@ import seedu.addressbook.data.employee.Timing;
 /**
  * Clocks out for the specified employee based on the current time.
  */
-public class ClockOut extends Command {
+public class EmployeeClockOut extends Command {
     public static final String COMMAND_WORD = "clockOut";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ":\n" + "Clocks out with the current time for the specified employee."
@@ -31,7 +31,7 @@ public class ClockOut extends Command {
     private final String currentTime = timeFormatter.format(date);
     private final String currentDate = dateFormatter.format(date);
 
-    public ClockOut(String name){
+    public EmployeeClockOut(String name){
         this.name = name;
     }
 
