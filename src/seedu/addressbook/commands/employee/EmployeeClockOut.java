@@ -16,7 +16,8 @@ import seedu.addressbook.data.employee.Timing;
 public class EmployeeClockOut extends Command {
     public static final String COMMAND_WORD = "clockOut";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ":\n" + "Clocks out with the current time for the specified employee."
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ":\n"
+            + "Clocks out with the current time for the specified employee."
             + "Parameters: NAME\n\t"
             + "Example: " + COMMAND_WORD + " "
             + EmployeeName.EXAMPLE;
@@ -25,13 +26,13 @@ public class EmployeeClockOut extends Command {
 
     private final String name;
 
-    SimpleDateFormat dateFormatter = new SimpleDateFormat("dd/MM/yyyy");
-    SimpleDateFormat timeFormatter = new SimpleDateFormat("HH:mm:ss");
-    Date date = new Date();
+    private SimpleDateFormat dateFormatter = new SimpleDateFormat("dd/MM/yyyy");
+    private SimpleDateFormat timeFormatter = new SimpleDateFormat("HH:mm:ss");
+    private Date date = new Date();
     private final String currentTime = timeFormatter.format(date);
     private final String currentDate = dateFormatter.format(date);
 
-    public EmployeeClockOut(String name){
+    public EmployeeClockOut(String name) {
         this.name = name;
     }
 
@@ -42,7 +43,7 @@ public class EmployeeClockOut extends Command {
         String name = oldAttendance.getName();
         Set<Timing> updatedTimings = oldAttendance.getTimings();
 
-        Timing currentTiming = new Timing(this.currentTime, this.currentDate,false);
+        Timing currentTiming = new Timing(this.currentTime, this.currentDate, false);
         updatedTimings.add(currentTiming);
 
         return new Attendance(name, updatedTimings);

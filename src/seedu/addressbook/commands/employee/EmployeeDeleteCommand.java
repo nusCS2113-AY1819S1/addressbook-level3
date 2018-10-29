@@ -2,16 +2,15 @@ package seedu.addressbook.commands.employee;
 
 import seedu.addressbook.commands.Command;
 import seedu.addressbook.commands.CommandResult;
+import seedu.addressbook.common.Messages;
 import seedu.addressbook.data.employee.Attendance;
 import seedu.addressbook.data.employee.ReadOnlyEmployee;
 import seedu.addressbook.data.employee.UniqueEmployeeList.EmployeeNotFoundException;
 
-import seedu.addressbook.common.Messages;
-
 /**
  * Deletes an employee identified using it's last displayed index from the Rms.
  */
-public class EmployeeDeleteCommand extends Command{
+public class EmployeeDeleteCommand extends Command {
 
     public static final String COMMAND_WORD = "delemp";
 
