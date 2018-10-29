@@ -11,17 +11,18 @@ import seedu.addressbook.data.employee.EmployeeName;
 import seedu.addressbook.data.employee.Timing;
 
 /**
- * Clocks out for the specified employee based on the current time.
+ * Clocks in for the specified employee based on the current time.
  */
-public class EmployeeClockOut extends Command {
-    public static final String COMMAND_WORD = "clockOut";
+public class EmployeeClockInCommand extends Command {
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ":\n" + "Clocks out with the current time for the specified employee."
+    public static final String COMMAND_WORD = "clockIn";
+
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ":\n" + "Clocks in with the current time for the specified employee."
             + "Parameters: NAME\n\t"
             + "Example: " + COMMAND_WORD + " "
             + EmployeeName.EXAMPLE;
 
-    public static final String MESSAGE_SUCCESS = "%1$s clocked out on %2$s";
+    public static final String MESSAGE_SUCCESS = "%1$s clocked in on %2$s";
 
     private final String name;
 
@@ -31,18 +32,18 @@ public class EmployeeClockOut extends Command {
     private final String currentTime = timeFormatter.format(date);
     private final String currentDate = dateFormatter.format(date);
 
-    public EmployeeClockOut(String name){
+    public EmployeeClockInCommand(String name){
         this.name = name;
     }
 
     /**
-     * Creates and returns an {@code Attendance} with the details of the current time to clock out.
+     * Creates and returns an {@code Attendance} with the details of the current time to clock in.
      */
     private Attendance createNewAttendance(Attendance oldAttendance) {
         String name = oldAttendance.getName();
         Set<Timing> updatedTimings = oldAttendance.getTimings();
 
-        Timing currentTiming = new Timing(this.currentTime, this.currentDate,false);
+        Timing currentTiming = new Timing(this.currentTime, this.currentDate,true);
         updatedTimings.add(currentTiming);
 
         return new Attendance(name, updatedTimings);
@@ -50,12 +51,12 @@ public class EmployeeClockOut extends Command {
 
     @Override
     public CommandResult execute() {
-        int index = rms.findAttendanceIndex(name);
+            int index = rms.findAttendanceIndex(name);
 
-        Attendance oldAttendance = rms.findAttendance(index);
-        Attendance newAttendance = createNewAttendance(oldAttendance);
+            Attendance oldAttendance = rms.findAttendance(index);
+            Attendance newAttendance = createNewAttendance(oldAttendance);
 
-        rms.updateAttendance(oldAttendance, newAttendance);
-        return new CommandResult(String.format(MESSAGE_SUCCESS, name, this.currentDate));
+            rms.updateAttendance(oldAttendance, newAttendance);
+            return new CommandResult(String.format(MESSAGE_SUCCESS, name, this.currentDate));
     }
 }

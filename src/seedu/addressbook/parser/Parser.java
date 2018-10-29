@@ -139,10 +139,10 @@ public class Parser {
             case EmployeeListCommand.COMMAND_WORD:
                 return new EmployeeListCommand();
 
-            case EmployeeClockIn.COMMAND_WORD:
+            case EmployeeClockInCommand.COMMAND_WORD:
                 return prepareClockIn(arguments);
 
-            case EmployeeClockOut.COMMAND_WORD:
+            case EmployeeClockOutCommand.COMMAND_WORD:
                 return prepareClockOut(arguments);
 
             case MemberListCommand.COMMAND_WORD:
@@ -362,9 +362,9 @@ public class Parser {
         final Matcher matcher = CLOCK_IN_DATA_ARGS_FORMAT.matcher(args.trim());
         // Validate arg string format
         if (!matcher.matches()) {
-            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EmployeeClockIn.MESSAGE_USAGE));
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EmployeeClockInCommand.MESSAGE_USAGE));
         }
-            return new EmployeeClockIn(matcher.group("name"));
+            return new EmployeeClockInCommand(matcher.group("name"));
     }
 
     /**
@@ -377,9 +377,9 @@ public class Parser {
         final Matcher matcher = CLOCK_IN_DATA_ARGS_FORMAT.matcher(args.trim());
         // Validate arg string format
         if (!matcher.matches()) {
-            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EmployeeClockOut.MESSAGE_USAGE));
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EmployeeClockOutCommand.MESSAGE_USAGE));
         }
-        return new EmployeeClockOut(matcher.group("name"));
+        return new EmployeeClockOutCommand(matcher.group("name"));
     }
 
     /**
