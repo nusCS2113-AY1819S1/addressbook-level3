@@ -6,6 +6,9 @@ import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Represent a table storing the registering day of the members in the member list
+ */
 public class MemberDateTable {
     private Map<Integer, YearMember> yearMap;
     private Calendar calendar;
@@ -15,6 +18,9 @@ public class MemberDateTable {
         this.yearMap = new HashMap<>();
     }
 
+    /**
+     * Adjust the yearMap based on the added Date
+     */
     public void addData(Date date) {
         calendar.setTime(date);
         if (!yearMap.containsKey(calendar.get(Calendar.YEAR))) {
@@ -28,7 +34,7 @@ public class MemberDateTable {
     public int getYearCount(Date date) {
         calendar.setTime(date);
         if (yearMap.containsKey(calendar.get(Calendar.YEAR))) {
-            return yearMap.get(calendar.get(Calendar.YEAR)).count;
+            return yearMap.get(calendar.get(Calendar.YEAR)).getCount();
         } else {
             return 0;
         }
@@ -36,18 +42,25 @@ public class MemberDateTable {
 
     public int getMonthCount(Date date) {
         calendar.setTime(date);;
-        return yearMap.get(calendar.get(Calendar.YEAR)).monthMap.get(calendar.get(Calendar.MONTH)).count;
+        return yearMap.get(calendar.get(Calendar.YEAR)).getMonthMap().get(calendar.get(Calendar.MONTH)).getCount();
     }
 
     public int getDayCount(Date date) {
-        return yearMap.get(calendar.get(Calendar.YEAR)).monthMap.get(calendar.get(Calendar.MONTH)).dayMap.get(calendar.get(Calendar.DATE)).count;
+        return yearMap.get(calendar.get(Calendar.YEAR))
+                .getMonthMap().get(calendar.get(Calendar.MONTH))
+                .getDayMap().get(calendar.get(Calendar.DATE))
+                .getCount();
     }
 }
 
+/**
+ * Represents an year in the yearMap
+ */
 class YearMember {
-    int yearNo, count;
-    Map<Integer, MonthMember> monthMap;
-    Calendar calendar;
+    private int yearNo;
+    private int count;
+    private Map<Integer, MonthMember> monthMap;
+    private Calendar calendar;
 
     public YearMember(int yearNo) {
         this.calendar = new GregorianCalendar();
@@ -55,22 +68,37 @@ class YearMember {
         this.count = 0;
         this.monthMap = new HashMap<>();
         for (int i = 0; i < 12; i++) {
-            monthMap.put(i, new MonthMember(i));
+            getMonthMap().put(i, new MonthMember(i));
         }
     }
 
+    /**
+     * Adjust the monthMap based on the added Date and return the yearMember container object
+     */
     public YearMember addData(Date date) {
         calendar.setTime(date);
-        count++;
-        monthMap.put(calendar.get(Calendar.MONTH), monthMap.get(calendar.get(Calendar.MONTH)).addData(date));
+        count = getCount() + 1;
+        getMonthMap().put(calendar.get(Calendar.MONTH), getMonthMap().get(calendar.get(Calendar.MONTH)).addData(date));
         return this;
+    }
+
+    public int getCount() {
+        return count;
+    }
+
+    public Map<Integer, MonthMember> getMonthMap() {
+        return monthMap;
     }
 }
 
+/**
+ * Represents a month in the monthMap
+ */
 class MonthMember {
-    int monthNo, count;
-    Map<Integer, DayMember> dayMap;
-    Calendar calendar;
+    private int monthNo;
+    private int count;
+    private Map<Integer, DayMember> dayMap;
+    private Calendar calendar;
 
     public MonthMember(int monthNo) {
         this.calendar = new GregorianCalendar();
@@ -78,20 +106,35 @@ class MonthMember {
         this.count = 0;
         this.dayMap = new HashMap<>();
         for (int i = 0; i < 31; i++) {
-            dayMap.put(i, new DayMember(i));
+            getDayMap().put(i, new DayMember(i));
         }
     }
 
+    /**
+     * Adjust the dayMap based on the added Date and return the MonthMember container object
+     */
     public MonthMember addData(Date date) {
         calendar.setTime(date);
-        count++;
-        dayMap.put(calendar.get(Calendar.DATE), dayMap.get(calendar.get(Calendar.DATE)).addData());
+        count = getCount() + 1;
+        getDayMap().put(calendar.get(Calendar.DATE), getDayMap().get(calendar.get(Calendar.DATE)).addData());
         return this;
+    }
+
+    public int getCount() {
+        return count;
+    }
+
+    public Map<Integer, DayMember> getDayMap() {
+        return dayMap;
     }
 }
 
+/**
+ * Represents a day in the dayMap
+ */
 class DayMember {
-    int dayNo, count;
+    private int dayNo;
+    private int count;
 
     public DayMember(int dayNo) {
         this.dayNo = dayNo;
@@ -99,7 +142,11 @@ class DayMember {
     }
 
     public DayMember addData() {
-        count++;
+        count = getCount() + 1;
         return this;
+    }
+
+    public int getCount() {
+        return count;
     }
 }
