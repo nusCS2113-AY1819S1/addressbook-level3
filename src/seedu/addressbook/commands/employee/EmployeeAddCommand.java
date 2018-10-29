@@ -23,7 +23,7 @@ public class EmployeeAddCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ":\n"
             + "Adds an employee to the Rms.\n\n"
             + "Parameters: NAME p/PHONE e/EMAIL a/ADDRESS pos/POSITION\n"
-            + "Example: " + COMMAND_WORD
+            + "Example: " + COMMAND_WORD + " "
             + EmployeeName.EXAMPLE
             + " p/" + EmployeePhone.EXAMPLE
             + " e/" + EmployeeEmail.EXAMPLE

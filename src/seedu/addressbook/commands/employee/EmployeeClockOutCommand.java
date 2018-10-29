@@ -22,7 +22,8 @@ public class EmployeeClockOutCommand extends Command {
             + "Example: " + COMMAND_WORD + " "
             + EmployeeName.EXAMPLE;
 
-    public static final String MESSAGE_SUCCESS = "%1$s clocked out on %2$s";
+    public static final String MESSAGE_SUCCESS = "%1$s clocked out on %2$s.";
+    public static final String MESSAGE_NOT_YET_CLOCKED_IN = "%1$s needs to clock in first in order to clock out.";
 
     private final String name;
 
@@ -46,7 +47,7 @@ public class EmployeeClockOutCommand extends Command {
         Timing currentTiming = new Timing(this.currentTime, this.currentDate,false);
         updatedTimings.add(currentTiming);
 
-        return new Attendance(name, updatedTimings);
+        return new Attendance(name, false, updatedTimings);
     }
 
     @Override
@@ -54,6 +55,11 @@ public class EmployeeClockOutCommand extends Command {
         int index = rms.findAttendanceIndex(name);
 
         Attendance oldAttendance = rms.findAttendance(index);
+        boolean isClockedIn = oldAttendance.getClockedIn();
+        if(!isClockedIn){
+            return new CommandResult(String.format(MESSAGE_NOT_YET_CLOCKED_IN, name));
+        }
+
         Attendance newAttendance = createNewAttendance(oldAttendance);
 
         rms.updateAttendance(oldAttendance, newAttendance);
