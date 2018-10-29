@@ -1,9 +1,9 @@
 package seedu.addressbook.commands.order;
 
+import java.util.List;
+
 import seedu.addressbook.commands.CommandResult;
 import seedu.addressbook.data.order.ReadOnlyOrder;
-
-import java.util.List;
 
 /**
  * Represents the result of an order command execution.
