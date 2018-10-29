@@ -16,11 +16,11 @@ public class Attendance {
 
     public Attendance(){}
 
-    public Attendance(String name){
+    public Attendance(String name) {
         this.name = name.trim();
     }
 
-    public Attendance(String name, Set<Timing> timings){
+    public Attendance(String name, Set<Timing> timings) {
         this.name = name;
         this.timings.addAll(timings);
     }

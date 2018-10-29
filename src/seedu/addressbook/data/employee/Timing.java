@@ -1,6 +1,5 @@
 package seedu.addressbook.data.employee;
 
-
 import java.util.Objects;
 
 /**
@@ -13,20 +12,24 @@ public class Timing {
     public final boolean isClockIn;
 
 
-    public Timing(String time, String date, boolean isClockIn){
+    public Timing(String time, String date, boolean isClockIn) {
         this.time = time;
         this.date = date;
         this.isClockIn = isClockIn;
     }
 
-    public String getDate() { return date; }
+    public String getDate() {
+        return date;
+    }
 
     public boolean isClockIn() {
         return isClockIn;
     }
 
     @Override
-    public int hashCode(){ return Objects.hash(time, date, isClockIn); }
+    public int hashCode() {
+        return Objects.hash(time, date, isClockIn);
+    }
 
     @Override
     public String toString() {

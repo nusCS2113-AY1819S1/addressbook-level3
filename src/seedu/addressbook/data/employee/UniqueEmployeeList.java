@@ -7,9 +7,8 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
-import seedu.addressbook.data.exception.DuplicateDataException;
-
 import seedu.addressbook.common.Utils;
+import seedu.addressbook.data.exception.DuplicateDataException;
 
 /**
  * A list of employees. Does not allow null elements or duplicates.
@@ -17,7 +16,7 @@ import seedu.addressbook.common.Utils;
  * @see Employee#equals(Object)
  * @see Utils#elementsAreUnique(Collection)
  */
-public class UniqueEmployeeList implements Iterable<Employee>{
+public class UniqueEmployeeList implements Iterable<Employee> {
 
     /**
      * Signals that an operation would have violated the 'no duplicates' property of the list.
@@ -85,7 +84,8 @@ public class UniqueEmployeeList implements Iterable<Employee>{
     /**
      * Adds an employee to the list.
      *
-     * @throws UniqueEmployeeList.DuplicateEmployeeException if the employee to add is a duplicate of an existing employee in the list.
+     * @throws UniqueEmployeeList.DuplicateEmployeeException
+     *     if the employee to add is a duplicate of an existing employee in the list.
      */
     public void add(Employee toAdd) throws UniqueEmployeeList.DuplicateEmployeeException {
         if (contains(toAdd)) {
@@ -117,7 +117,7 @@ public class UniqueEmployeeList implements Iterable<Employee>{
         if (!employeeFoundAndDeleted) {
             throw new EmployeeNotFoundException();
         }
-            employeeInternalList.add(toReplace);
+        employeeInternalList.add(toReplace);
     }
 
     /**
@@ -136,8 +136,7 @@ public class UniqueEmployeeList implements Iterable<Employee>{
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof UniqueEmployeeList // instanceof handles nulls
-                && this.employeeInternalList.equals(
-                ((UniqueEmployeeList) other).employeeInternalList));
+                && this.employeeInternalList.equals(((UniqueEmployeeList) other).employeeInternalList));
     }
 
     @Override
