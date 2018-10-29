@@ -20,24 +20,27 @@ public class DeleteAssessmentCommand extends Command {
 
     public static final String MESSAGE_DELETE_ASSESSMENT_SUCCESS = "Deleted Assessment: %1$s";
 
+    private final int assessIndex;
+
     /**
-     * Constructor used for Privileges
+     * Constructor used for Assessments
      * Command constructed has no functionality
      * */
     public DeleteAssessmentCommand() {
+        assessIndex = -1;
     }
 
     public DeleteAssessmentCommand(int targetVisibleIndex) {
-        super(targetVisibleIndex);
+        assessIndex = targetVisibleIndex;
     }
 
     @Override
     public CommandResult execute() {
         try {
-            final Assessment target = getTargetAssessment();
+            final Assessment target = getTargetAssessment(assessIndex);
             addressBook.removeAssessment(target);
             return new CommandResult(String.format(MESSAGE_DELETE_ASSESSMENT_SUCCESS, target));
-        } catch (IndexOutOfBoundsException ie) {
+        } catch (AssessmentIndexOutOfBoundsException aie) {
             return new CommandResult(Messages.MESSAGE_INVALID_ASSESSMENT_DISPLAYED_INDEX);
         } catch (AssessmentNotFoundException nfe) {
             return new CommandResult(Messages.MESSAGE_ASSESSMENT_NOT_IN_ADDRESSBOOK);

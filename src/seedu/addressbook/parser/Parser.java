@@ -23,6 +23,7 @@ import seedu.addressbook.commands.DeregisterExamCommand;
 import seedu.addressbook.commands.IncorrectCommand;
 import seedu.addressbook.commands.RegisterExamCommand;
 import seedu.addressbook.commands.ViewExamsCommand;
+
 import seedu.addressbook.commands.account.AddAccountCommand;
 import seedu.addressbook.commands.account.DeleteAccountCommand;
 import seedu.addressbook.commands.account.ListAccountCommand;
@@ -30,8 +31,11 @@ import seedu.addressbook.commands.account.LoginCommand;
 import seedu.addressbook.commands.account.LogoutCommand;
 import seedu.addressbook.commands.assessment.AddAssessmentCommand;
 import seedu.addressbook.commands.assessment.AddAssignmentStatistics;
+import seedu.addressbook.commands.assessment.AddGradesCommand;
 import seedu.addressbook.commands.assessment.DeleteAssessmentCommand;
+import seedu.addressbook.commands.assessment.DeleteGradesCommand;
 import seedu.addressbook.commands.assessment.ListAssessmentCommand;
+import seedu.addressbook.commands.assessment.ViewGradesCommand;
 import seedu.addressbook.commands.attendance.ReplaceAttendanceCommand;
 import seedu.addressbook.commands.attendance.UpdateAttendanceCommand;
 import seedu.addressbook.commands.attendance.ViewAttendanceCommand;
@@ -59,6 +63,7 @@ import seedu.addressbook.commands.privilege.EditPasswordCommand;
 import seedu.addressbook.commands.privilege.RaisePrivilegeCommand;
 import seedu.addressbook.commands.privilege.SetPermanentAdminCommand;
 import seedu.addressbook.commands.privilege.ViewPrivilegeCommand;
+
 import seedu.addressbook.data.exception.IllegalValueException;
 
 /**
@@ -198,6 +203,12 @@ public class Parser {
         case AddExamCommand.COMMAND_WORD:
             return prepareAddExam(arguments);
 
+        case AddGradesCommand.COMMAND_WORD:
+            return prepareAddGrades(arguments);
+
+        case ViewGradesCommand.COMMAND_WORD:
+            return prepareSingleIndexCommand(arguments, new ViewGradesCommand());
+
         case AddAccountCommand.COMMAND_WORD:
             return prepareAddAccount(arguments);
 
@@ -260,6 +271,9 @@ public class Parser {
 
         case ListAssessmentCommand.COMMAND_WORD:
             return new ListAssessmentCommand();
+
+        case DeleteGradesCommand.COMMAND_WORD:
+            return prepareDeleteGrades(arguments);
 
         case HelpCommand.COMMAND_WORD: // Fallthrough
             return prepareVoidCommand(arguments, new HelpCommand());
@@ -389,7 +403,6 @@ public class Parser {
         }
     }
 
-
     /**
      * Parses the given arguments string as a single index number.
      *
@@ -405,16 +418,6 @@ public class Parser {
         }
         return parseInt(matcher.group("targetIndex"));
     }
-
-    /*
-     * Parse the given arguments string as a float
-    private float parseArgsAsFloat(String args) throws ParseException, NumberFormatException {
-        final Matcher matcher = PERSON_INDEX_ARGS_FORMAT.matcher(args.trim());
-        if (!matcher.matches()) {
-            throw new ParseException("Could not find float number to parse");
-        }
-        return Float.parseFloat(matcher.group("targetIndex"));
-    }*/
 
     /**
      * Parses arguments in the context of the find person command.
@@ -535,6 +538,35 @@ public class Parser {
         } catch (ParseException | NumberFormatException e) {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     AddAccountCommand.MESSAGE_USAGE));
+        }
+    }
+
+    /**
+     * Parses arguments in the context of the AddGrades command.
+     *
+     * @param args full command args string
+     * @return the prepared command
+     */
+    private Command prepareAddGrades(String args) {
+        final Matcher matcher = KEYWORDS_ARGS_FORMAT.matcher(args.trim());
+        if (!matcher.matches()) {
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    AddGradesCommand.MESSAGE_USAGE));
+        }
+
+        String[] arr = matcher.group("keywords").split("\\s+");
+        if (arr.length != 3) {
+            return new IncorrectCommand(String.format(MESSAGE_WRONG_NUMBER_ARGUMENTS , 3, arr.length,
+                    AddGradesCommand.MESSAGE_USAGE));
+        }
+        try {
+            final int targetPersonIndex = parseArgsAsDisplayedIndex(arr[0]);
+            final int targetAssessmentIndex = parseArgsAsDisplayedIndex(arr[1]);
+            final int targetGrades = parseArgsAsDisplayedIndex(arr[2]);
+            return new AddGradesCommand(targetPersonIndex, targetAssessmentIndex, targetGrades);
+        } catch (ParseException | NumberFormatException e) {
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    AddGradesCommand.MESSAGE_USAGE));
         }
     }
 
@@ -686,6 +718,34 @@ public class Parser {
             return new DeleteExamCommand(targetIndex);
         } catch (ParseException | NumberFormatException e) {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteExamCommand.MESSAGE_USAGE));
+        }
+    }
+
+    /**
+     * Parses arguments in the context of the delete grades command.
+     *
+     * @param args full command args string
+     * @return the prepared command
+     */
+    private Command prepareDeleteGrades(String args) {
+        final Matcher matcher = KEYWORDS_ARGS_FORMAT.matcher(args.trim());
+        if (!matcher.matches()) {
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    DeleteGradesCommand.MESSAGE_USAGE));
+        }
+
+        String[] arr = matcher.group("keywords").split("\\s+");
+        if (arr.length != 2) {
+            return new IncorrectCommand(String.format(MESSAGE_WRONG_NUMBER_ARGUMENTS , 2, arr.length,
+                    DeleteGradesCommand.MESSAGE_USAGE));
+        }
+        try {
+            final int targetIndex = parseArgsAsDisplayedIndex(arr[0]);
+            final int targetAssessmentIndex = parseArgsAsDisplayedIndex(arr[1]);
+            return new DeleteGradesCommand(targetIndex, targetAssessmentIndex);
+        } catch (ParseException | NumberFormatException e) {
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    DeleteGradesCommand.MESSAGE_USAGE));
         }
     }
 
