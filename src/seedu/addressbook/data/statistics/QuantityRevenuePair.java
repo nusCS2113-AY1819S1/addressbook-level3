@@ -1,7 +1,7 @@
 package seedu.addressbook.data.statistics;
 
 /**
- * Represents a pair of data: quantity and revenue of a statistic 
+ * Represents a pair of data: quantity and revenue of a statistic field
  */
 public class QuantityRevenuePair implements Comparable<QuantityRevenuePair> {
     private int quantity;
@@ -17,6 +17,9 @@ public class QuantityRevenuePair implements Comparable<QuantityRevenuePair> {
         this.revenue = revenue;
     }
 
+    /**
+     * Update the data in the quantity - revenue pair
+     */
     public QuantityRevenuePair addData(int quantity, double price) {
         this.quantity += quantity;
         this.revenue += quantity * price;
