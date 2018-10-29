@@ -26,16 +26,18 @@ public class MenuListByTypeCommand extends Command {
     private final String itemword;
     private final List<ReadOnlyMenus> matchedFoodItems = new ArrayList<>();
     private final Set<String> typeSet = new HashSet<>();
-    //public static boolean executedMenutype = false;
+    // public static boolean executedMenutype = false;
 
     public MenuListByTypeCommand(String itemword) {
         this.itemword = itemword;
     }
+
     /*
     public String getItemword() {
          return
     }
     */
+
     private List<ReadOnlyMenus> getFoodItemsBurger(String itemword) {
         for (ReadOnlyMenus menuItem : rms.getAllMenus()) {
             //final Set<String> wordsInName = new HashSet<>(burger.getType().getWordsInTypeName());
@@ -51,8 +53,8 @@ public class MenuListByTypeCommand extends Command {
         return matchedFoodItems;
     }
 
-
-    /*private final Set<String> keywords;
+    /*
+    private final Set<String> keywords;
 
     public MenuListBurgerCommand(Set<String> keywords) {
         this.keywords = keywords;
@@ -72,7 +74,8 @@ public class MenuListByTypeCommand extends Command {
             }
         }
         return matchedFoodItems;
-    }*/
+    }
+    */
 
 
     @Override
@@ -83,11 +86,13 @@ public class MenuListByTypeCommand extends Command {
         }
 
         return new MenuCommandResult(getMessageForMenuListShownSummary(itemsFound), itemsFound);
-        /*if(MenuListCommand.executeMenu == true) {
+        /*
+        if(MenuListCommand.executeMenu == true) {
             //executedMenutype = true;
             final List<ReadOnlyMenus> itemsFound = getFoodItemsBurger(itemword);
             return new MenuCommandResult(getMessageForMenuListShownSummary(itemsFound), itemsFound);
         }
-        return new MenuCommandResult(Messages.MESSAGE_INVALID_COMMAND_FORMAT);*/
+        return new MenuCommandResult(Messages.MESSAGE_INVALID_COMMAND_FORMAT);
+        */
     }
 }
