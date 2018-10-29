@@ -82,12 +82,8 @@ public class Parser {
                     + "((a/(?<address>[^/]+))?)"
                     + "((pos/(?<position>[^/]+))?)");
 
-                  /* working when all fields are in
-                  Pattern.compile("(?<targetIndex>.+)"
-                           + "p/(?<phone>[^/]+)"
-                           + "e/(?<email>[^/]+)"
-                           + "a/(?<address>[^/]+)"
-                           + "pos/(?<position>[^/]+)");*/
+    public static final Pattern CLOCK_IN_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
+            Pattern.compile("(?<name>[^/]+)");
 
     public static final Pattern MEMBER_DATA_ARGS_FORMAT =
             Pattern.compile("(?<name>[^/]+)"); // variable number of tags
@@ -144,6 +140,12 @@ public class Parser {
             case EmployeeListCommand.COMMAND_WORD:
                 return new EmployeeListCommand();
 
+            case EmployeeClockIn.COMMAND_WORD:
+                return prepareClockIn(arguments);
+
+            case EmployeeClockOut.COMMAND_WORD:
+                return prepareClockOut(arguments);
+
             case MemberListCommand.COMMAND_WORD:
                 return new MemberListCommand();
 
@@ -164,7 +166,6 @@ public class Parser {
 
             case MenuListByTypeCommand.COMMAND_WORD:
                 return prepareMenuListByType(arguments);
-
 
             case MenuViewAllCommand.COMMAND_WORD:
                 return prepareViewAllMenu(arguments);
@@ -353,6 +354,36 @@ public class Parser {
         } catch (IllegalValueException ive) {
             return new IncorrectCommand(ive.getMessage());
         }
+    }
+
+    /**
+     * Parses arguments in the context of the clock in command.
+     *
+     * @param args full command args string
+     * @return the prepared command
+     */
+    private Command prepareClockIn(String args){
+        final Matcher matcher = CLOCK_IN_DATA_ARGS_FORMAT.matcher(args.trim());
+        // Validate arg string format
+        if (!matcher.matches()) {
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EmployeeClockIn.MESSAGE_USAGE));
+        }
+            return new EmployeeClockIn(matcher.group("name"));
+    }
+
+    /**
+     * Parses arguments in the context of the clock out command.
+     *
+     * @param args full command args string
+     * @return the prepared command
+     */
+    private Command prepareClockOut(String args){
+        final Matcher matcher = CLOCK_IN_DATA_ARGS_FORMAT.matcher(args.trim());
+        // Validate arg string format
+        if (!matcher.matches()) {
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EmployeeClockOut.MESSAGE_USAGE));
+        }
+        return new EmployeeClockOut(matcher.group("name"));
     }
 
     /**

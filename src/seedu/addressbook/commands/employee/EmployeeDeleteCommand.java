@@ -2,6 +2,7 @@ package seedu.addressbook.commands.employee;
 
 import seedu.addressbook.commands.Command;
 import seedu.addressbook.commands.CommandResult;
+import seedu.addressbook.data.employee.Attendance;
 import seedu.addressbook.data.employee.ReadOnlyEmployee;
 import seedu.addressbook.data.employee.UniqueEmployeeList.EmployeeNotFoundException;
 
@@ -32,6 +33,12 @@ public class EmployeeDeleteCommand extends Command{
         try {
             final ReadOnlyEmployee target = getTargetEmployee();
             rms.removeEmployee(target);
+
+            String name = target.getName().fullName;
+            int index = rms.findAttendanceIndex(name);
+            Attendance toRemove = rms.findAttendance(index);
+            rms.removeAttendance(toRemove);
+
             return new CommandResult(String.format(MESSAGE_DELETE_EMPLOYEE_SUCCESS, target));
 
         } catch (IndexOutOfBoundsException ie) {
