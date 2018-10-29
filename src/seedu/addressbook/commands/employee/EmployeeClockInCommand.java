@@ -13,16 +13,18 @@ import seedu.addressbook.data.employee.Timing;
 /**
  * Clocks in for the specified employee based on the current time.
  */
-public class EmployeeClockIn extends Command {
+public class EmployeeClockInCommand extends Command {
 
     public static final String COMMAND_WORD = "clockIn";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ":\n" + "Clocks in with the current time for the specified employee."
-            + "Parameters: NAME\n\t"
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ":\n"
+            + "Clocks in with the current time for the specified employee.\n\n"
+            + "Parameters: NAME\n"
             + "Example: " + COMMAND_WORD + " "
             + EmployeeName.EXAMPLE;
 
-    public static final String MESSAGE_SUCCESS = "%1$s clocked in on %2$s";
+    public static final String MESSAGE_SUCCESS = "%1$s clocked in on %2$s.";
+    public static final String MESSAGE_NOT_YET_CLOCKED_OUT = "%1$s needs to clock out first in order to clock in.";
 
     private final String name;
 
@@ -32,7 +34,7 @@ public class EmployeeClockIn extends Command {
     private final String currentTime = timeFormatter.format(date);
     private final String currentDate = dateFormatter.format(date);
 
-    public EmployeeClockIn(String name){
+    public EmployeeClockInCommand(String name){
         this.name = name;
     }
 
@@ -41,12 +43,13 @@ public class EmployeeClockIn extends Command {
      */
     private Attendance createNewAttendance(Attendance oldAttendance) {
         String name = oldAttendance.getName();
+
         Set<Timing> updatedTimings = oldAttendance.getTimings();
 
         Timing currentTiming = new Timing(this.currentTime, this.currentDate,true);
         updatedTimings.add(currentTiming);
 
-        return new Attendance(name, updatedTimings);
+        return new Attendance(name, true, updatedTimings);
     }
 
     @Override
@@ -54,6 +57,11 @@ public class EmployeeClockIn extends Command {
             int index = rms.findAttendanceIndex(name);
 
             Attendance oldAttendance = rms.findAttendance(index);
+            boolean isClockedIn = oldAttendance.getClockedIn();
+            if(isClockedIn){
+                return new CommandResult(String.format(MESSAGE_NOT_YET_CLOCKED_OUT, name));
+            }
+
             Attendance newAttendance = createNewAttendance(oldAttendance);
 
             rms.updateAttendance(oldAttendance, newAttendance);
