@@ -28,12 +28,12 @@ public class AdaptedOrder {
         private AdaptedMenu dish;
         private int quantity;
 
-        @XmlElement
+        @XmlElement(name = "dish")
         public AdaptedMenu getDish() {
             return dish;
         }
 
-        @XmlElement
+        @XmlElement(name = "quantity")
         public int getQuantity() {
             return quantity;
         }

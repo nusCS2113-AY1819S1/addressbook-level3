@@ -38,12 +38,12 @@ public class AdaptedTiming {
         return time;
     }
 
-    @XmlAttribute
+    @XmlAttribute(name = "date")
     public String getDate() {
         return date;
     }
 
-    @XmlAttribute
+    @XmlAttribute(name = "isClockIn")
     public boolean isClockIn() {
         return isClockIn;
     }

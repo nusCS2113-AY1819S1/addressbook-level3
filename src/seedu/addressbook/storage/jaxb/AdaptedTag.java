@@ -27,6 +27,15 @@ public class AdaptedTag {
         setTagName(source.tagName);
     }
 
+    @XmlValue
+    public String getTagName() {
+        return tagName;
+    }
+
+    public void setTagName(String tagName) {
+        this.tagName = tagName;
+    }
+
     /**
      * Returns true if any required field is missing.
      *
@@ -48,12 +57,4 @@ public class AdaptedTag {
         return new Tag(getTagName());
     }
 
-    @XmlValue
-    public String getTagName() {
-        return tagName;
-    }
-
-    public void setTagName(String tagName) {
-        this.tagName = tagName;
-    }
 }

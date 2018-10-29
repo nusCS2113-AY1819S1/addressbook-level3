@@ -37,7 +37,7 @@ public class AdaptedPerson {
             return value;
         }
 
-        @XmlAttribute(required = true)
+        @XmlAttribute(name = "isPrivate", required = true)
         public boolean isPrivate() {
             return isPrivate;
         }
