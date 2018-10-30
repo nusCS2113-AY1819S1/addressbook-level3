@@ -22,8 +22,8 @@ import seedu.addressbook.commands.ListCommand;
 import seedu.addressbook.commands.ViewAllCommand;
 import seedu.addressbook.commands.ViewCommand;
 import seedu.addressbook.commands.employee.EmployeeAddCommand;
-import seedu.addressbook.commands.employee.EmployeeClockIn;
-import seedu.addressbook.commands.employee.EmployeeClockOut;
+import seedu.addressbook.commands.employee.EmployeeClockInCommand;
+import seedu.addressbook.commands.employee.EmployeeClockOutCommand;
 import seedu.addressbook.commands.employee.EmployeeDeleteCommand;
 import seedu.addressbook.commands.employee.EmployeeEditCommand;
 import seedu.addressbook.commands.employee.EmployeeListCommand;
@@ -153,10 +153,10 @@ public class Parser {
         case EmployeeListCommand.COMMAND_WORD:
             return new EmployeeListCommand();
 
-        case EmployeeClockIn.COMMAND_WORD:
+        case EmployeeClockInCommand.COMMAND_WORD:
             return prepareClockIn(arguments);
 
-        case EmployeeClockOut.COMMAND_WORD:
+        case EmployeeClockOutCommand.COMMAND_WORD:
             return prepareClockOut(arguments);
 
         case MemberListCommand.COMMAND_WORD:
@@ -382,9 +382,10 @@ public class Parser {
         final Matcher matcher = CLOCK_IN_DATA_ARGS_FORMAT.matcher(args.trim());
         // Validate arg string format
         if (!matcher.matches()) {
-            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EmployeeClockIn.MESSAGE_USAGE));
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    EmployeeClockInCommand.MESSAGE_USAGE));
         }
-        return new EmployeeClockIn(matcher.group("name"));
+        return new EmployeeClockInCommand(matcher.group("name"));
     }
 
     /**
@@ -397,9 +398,10 @@ public class Parser {
         final Matcher matcher = CLOCK_IN_DATA_ARGS_FORMAT.matcher(args.trim());
         // Validate arg string format
         if (!matcher.matches()) {
-            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EmployeeClockOut.MESSAGE_USAGE));
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    EmployeeClockOutCommand.MESSAGE_USAGE));
         }
-        return new EmployeeClockOut(matcher.group("name"));
+        return new EmployeeClockOutCommand(matcher.group("name"));
     }
 
     /**

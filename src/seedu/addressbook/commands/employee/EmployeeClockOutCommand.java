@@ -13,16 +13,17 @@ import seedu.addressbook.data.employee.Timing;
 /**
  * Clocks out for the specified employee based on the current time.
  */
-public class EmployeeClockOut extends Command {
+public class EmployeeClockOutCommand extends Command {
     public static final String COMMAND_WORD = "clockOut";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ":\n"
-            + "Clocks out with the current time for the specified employee."
-            + "Parameters: NAME\n\t"
+            + "Clocks out with the current time for the specified employee.\n\n"
+            + "Parameters: NAME\n"
             + "Example: " + COMMAND_WORD + " "
             + EmployeeName.EXAMPLE;
 
-    public static final String MESSAGE_SUCCESS = "%1$s clocked out on %2$s";
+    public static final String MESSAGE_SUCCESS = "%1$s clocked out on %2$s.";
+    public static final String MESSAGE_NOT_YET_CLOCKED_IN = "%1$s needs to clock in first in order to clock out.";
 
     private final String name;
 
@@ -32,7 +33,7 @@ public class EmployeeClockOut extends Command {
     private final String currentTime = timeFormatter.format(date);
     private final String currentDate = dateFormatter.format(date);
 
-    public EmployeeClockOut(String name) {
+    public EmployeeClockOutCommand(String name) {
         this.name = name;
     }
 
@@ -46,7 +47,7 @@ public class EmployeeClockOut extends Command {
         Timing currentTiming = new Timing(this.currentTime, this.currentDate, false);
         updatedTimings.add(currentTiming);
 
-        return new Attendance(name, updatedTimings);
+        return new Attendance(name, false, updatedTimings);
     }
 
     @Override
@@ -54,6 +55,11 @@ public class EmployeeClockOut extends Command {
         int index = rms.findAttendanceIndex(name);
 
         Attendance oldAttendance = rms.findAttendance(index);
+        boolean isClockedIn = oldAttendance.getClockedIn();
+        if (!isClockedIn) {
+            return new CommandResult(String.format(MESSAGE_NOT_YET_CLOCKED_IN, name));
+        }
+
         Attendance newAttendance = createNewAttendance(oldAttendance);
 
         rms.updateAttendance(oldAttendance, newAttendance);

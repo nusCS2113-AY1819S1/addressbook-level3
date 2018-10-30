@@ -20,16 +20,16 @@ import seedu.addressbook.data.exception.IllegalValueException;
 public class EmployeeEditCommand extends Command {
     public static final String COMMAND_WORD = "editemp";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the employee identified "
-            + "by the index number used in the displayed person list. "
-            + "Existing values will be overwritten by the input values.\n"
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ":\n"
+            + "Edits the details of the employee identified by the index number used in the displayed person list.\n"
+            + "Existing values will be overwritten by the input values.\n\n"
             + "Parameters: INDEX (must be a positive integer) "
             + "[p/PHONE] "
             + "[e/EMAIL] "
             + "[a/ADDRESS] "
             + "[pos/POSITION]\n"
             + "Example: " + COMMAND_WORD + " 1 "
-            + "p/97654321 ";
+            + " p/" + EmployeePhone.EXAMPLE;
 
     public static final String MESSAGE_EDIT_EMPLOYEE_SUCCESS = "Edited Person: %1$s";
     // implement check for no field entered

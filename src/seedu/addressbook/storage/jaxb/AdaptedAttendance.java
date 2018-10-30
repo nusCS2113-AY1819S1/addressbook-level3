@@ -5,6 +5,7 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 
+import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 
 import seedu.addressbook.common.Utils;
@@ -20,6 +21,8 @@ public class AdaptedAttendance {
 
     @XmlElement(required = true)
     private String name;
+    @XmlAttribute (required = true)
+    private boolean isClockedIn;
 
     @XmlElement
     private List<AdaptedTiming> timings = new ArrayList<>();
@@ -36,7 +39,7 @@ public class AdaptedAttendance {
      */
     public AdaptedAttendance(Attendance source) {
         name = source.getName();
-
+        isClockedIn = source.getClockedIn();
 
         timings = new ArrayList<>();
         for (Timing timing : source.getTimings()) {
@@ -65,11 +68,14 @@ public class AdaptedAttendance {
      * Converts this jaxb-friendly adapted attendance object into the Attendance object.
      */
     public Attendance toModelType() throws IllegalValueException {
+        final String name = this.name;
+        final boolean isClockedIn = this.isClockedIn;
+
         final Set<Timing> timingSet = new LinkedHashSet<>();
         for (AdaptedTiming timing : timings) {
             timingSet.add(timing.toModelType());
         }
-        final String name = this.name;
-        return new Attendance(name, timingSet);
+
+        return new Attendance(name, isClockedIn, timingSet);
     }
 }

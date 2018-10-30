@@ -15,8 +15,8 @@ public class EmployeeDeleteCommand extends Command {
     public static final String COMMAND_WORD = "delemp";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ":\n"
-            + "Deletes the employee identified by the index number used in the last employee listing.\n\t"
-            + "Parameters: INDEX (must be a positive integer)\n\t"
+            + "Deletes the employee identified by the index number used in the last employee listing.\n\n"
+            + "Parameters: INDEX (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1";
 
     public static final String MESSAGE_DELETE_EMPLOYEE_SUCCESS = "Deleted Employee: %1$s";

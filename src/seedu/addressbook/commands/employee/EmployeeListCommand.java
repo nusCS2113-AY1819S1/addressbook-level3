@@ -13,8 +13,9 @@ public class EmployeeListCommand extends Command {
 
     public static final String COMMAND_WORD = "listemp";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ":\n" + "List all employees. \n\t"
-            + "Parameters: NIL\n\t"
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ":\n"
+            + "List all employees. \n\n"
+            + "Parameters: NIL\n"
             + "Example: " + COMMAND_WORD;
 
     @Override
