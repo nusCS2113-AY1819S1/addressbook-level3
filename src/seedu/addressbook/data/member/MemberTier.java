@@ -20,8 +20,12 @@ public class MemberTier {
         return tier;
     }
 
-
-    public MemberTier updateTier(Points points){
+    /**
+     * Checks the points and updates the existing tier.
+     * @param points
+     * @return MemberTier object with the updated tier value
+     */
+    public MemberTier updateTier(Points points) {
         int value = points.getPoints();
         if (value > 100) {
             this.tier = "Gold";
