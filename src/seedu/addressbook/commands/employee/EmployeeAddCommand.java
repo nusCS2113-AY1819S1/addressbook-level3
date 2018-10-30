@@ -17,7 +17,7 @@ import seedu.addressbook.data.exception.IllegalValueException;
  * Adds a new employee to the Rms.
  */
 public class EmployeeAddCommand extends Command {
-//
+
     public static final String COMMAND_WORD = "addemp";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ":\n"
