@@ -1,0 +1,30 @@
+{
+  "authors":
+  [
+    {
+      "githubId": "AngWM",
+      "displayName": "ANG...ING",
+      "authorNames": ["AngWM", "Wei Ming"]
+    },
+    {
+      "githubId": "kianhong95",
+      "displayName": "LIM...ONG",
+      "authorNames": ["kianhong95", "Lim Kian Hong"]
+    },
+    {
+      "githubId": "px1099",
+      "displayName": "PHA...INH",
+      "authorNames": ["px1099", "Pham Quang Minh"]
+    },
+    {
+      "githubId": "SalsabilTasnia",
+      "displayName": "SAL... MD",
+      "authorNames": ["SalsabilTasnia", ]
+    },
+    {
+      "githubId": "kangmingtay",
+      "displayName": "TAY...ING",
+      "authorNames": ["kangmingtay"]
+    }
+  ]
+}
