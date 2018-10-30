@@ -8,7 +8,11 @@ import javax.xml.bind.annotation.XmlValue;
 
 import seedu.addressbook.common.Utils;
 import seedu.addressbook.data.exception.IllegalValueException;
-import seedu.addressbook.data.member.*;
+import seedu.addressbook.data.member.Member;
+import seedu.addressbook.data.member.MemberName;
+import seedu.addressbook.data.member.ReadOnlyMember;
+import seedu.addressbook.data.member.MemberTier;
+import seedu.addressbook.data.member.Points;
 
 
 /**

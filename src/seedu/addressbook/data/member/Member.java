@@ -67,9 +67,13 @@ public class Member implements ReadOnlyMember {
         return date;
     }
 
-    public MemberTier getMemberTier() {return tier; }
+    public MemberTier getMemberTier() {
+        return tier;
+    }
 
-    public MemberTier updateTier(Points points) {return tier.updateTier(points); }
+    public MemberTier updateTier(Points points) {
+        return tier.updateTier(points);
+    }
 
     /**
      * Updates the points and membership tier of the member

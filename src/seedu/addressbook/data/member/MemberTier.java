@@ -1,7 +1,11 @@
 package seedu.addressbook.data.member;
 
+/**
+ * Represents the number of membership tier of a Member in the member list.
+ */
+
 public class MemberTier {
-    public String tier;
+    private String tier;
 
     public MemberTier() {
         this.tier = "Bronze";
@@ -19,7 +23,7 @@ public class MemberTier {
 
     public MemberTier updateTier(Points points){
         int value = points.getPoints();
-        if(value > 100) {
+        if (value > 100) {
             this.tier = "Gold";
             return this;
         } else if (value > 50) {
