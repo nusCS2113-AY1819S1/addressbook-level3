@@ -12,9 +12,11 @@ public interface ReadOnlyMember {
     MemberName getName();
     Points getPoints();
     Points updatePoints(double price);
+    void updatePointsAndTier(double price);
     Date getDate();
     MemberTier getMemberTier();
     MemberTier updateTier(Points points);
+
 
     /**
      * The returned {@code Set} is a deep copy of the internal {@code Set},

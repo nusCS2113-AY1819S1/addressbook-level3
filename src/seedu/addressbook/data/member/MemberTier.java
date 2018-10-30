@@ -1,7 +1,7 @@
 package seedu.addressbook.data.member;
 
 public class MemberTier {
-    public static String tier;
+    public String tier;
 
     public MemberTier() {
         this.tier = "Bronze";

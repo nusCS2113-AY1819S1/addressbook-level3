@@ -71,6 +71,16 @@ public class Member implements ReadOnlyMember {
 
     public MemberTier updateTier(Points points) {return tier.updateTier(points); }
 
+    /**
+     * Updates the points and membership tier of the member
+     * @param price
+     */
+
+    public void updatePointsAndTier(double price) {
+        Points newPoints = updatePoints(price);
+        updateTier(newPoints);
+    }
+
     protected void setName(MemberName name) {
         this.name = name;
     }
