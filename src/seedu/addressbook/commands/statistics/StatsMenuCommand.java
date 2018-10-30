@@ -73,7 +73,6 @@ public class StatsMenuCommand extends Command {
             if (orderDate.compareTo(dateFrom) < 0 || orderDate.compareTo(dateTo) > 0) {
                 continue;
             }
-            // Replace with order.getDishItems() during merge
             Map<ReadOnlyMenus, Integer> dishItems = order.getDishItems();
             // ==========================================
             for (Map.Entry<ReadOnlyMenus, Integer> entry : dishItems.entrySet()) {
@@ -103,7 +102,7 @@ public class StatsMenuCommand extends Command {
             // ==========================================
             if (!bestsellers.containsKey(type) && quantity > 0)
                 bestsellers.put(type, menu);
-            else
+            else if (quantity < 100)
                 worstsellers.put(type, menu);
         }
 
@@ -134,5 +133,44 @@ public class StatsMenuCommand extends Command {
         Calendar calendar = new GregorianCalendar();
         calendar.set(Integer.parseInt(input.substring(4)), Integer.parseInt(input.substring(2,4)) - 1, Integer.parseInt(input.substring(0,2)));
         return calendar.getTime();
+    }
+
+    private static Map<String, ReadOnlyMenus> getBestsellers(List<ReadOnlyOrder> allOrders, List<ReadOnlyMenus> allMenu) {
+        StringBuilder sb = new StringBuilder();
+        if (allOrders.isEmpty())
+            return null;
+        Map<ReadOnlyMenus, QuantityRevenuePair> allMenuSales = new TreeMap<>();
+        Map<String, ReadOnlyMenus> bestsellers = new HashMap<>();
+
+        // For every menu in every order, add the menu and quantity sold into allMenuSales
+        for (ReadOnlyOrder order : allOrders) {
+            Map<ReadOnlyMenus, Integer> dishItems = order.getDishItems();
+            // ==========================================
+            for (Map.Entry<ReadOnlyMenus, Integer> entry : dishItems.entrySet()) {
+                if (!allMenuSales.containsKey(entry.getKey()))
+                    allMenuSales.put(entry.getKey(), new QuantityRevenuePair(entry.getValue(), entry.getKey().getPrice().convertValueOfPricetoDouble()));
+                else
+                    allMenuSales.put(entry.getKey(), allMenuSales.get(entry.getKey()).addData(entry.getValue(), entry.getKey().getPrice().convertValueOfPricetoDouble()));
+            }
+        }
+
+        // Check for menu items with no sales and insert into allMenuSales
+        for (ReadOnlyMenus menu: allMenu) {
+            if (!allMenuSales.containsKey(menu))
+                allMenuSales.put(menu, new QuantityRevenuePair());
+        }
+
+        // Sort allMenuSales by quantity sold
+        List<Map.Entry<ReadOnlyMenus, QuantityRevenuePair>> sortedMenu = Utils.sortByValue(allMenuSales);
+        for (int i = sortedMenu.size() - 1; i >= 0; i--) {
+            ReadOnlyMenus menu = sortedMenu.get(i).getKey();
+            int quantity = sortedMenu.get(i).getValue().getQuantity();
+            String type = menu.getType().value;
+            // ==========================================
+            if (!bestsellers.containsKey(type) && quantity > 0)
+                bestsellers.put(type, menu);
+        }
+
+        return bestsellers;
     }
 }
