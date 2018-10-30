@@ -5,7 +5,6 @@ import javax.xml.bind.annotation.XmlValue;
 
 import seedu.addressbook.common.Utils;
 import seedu.addressbook.data.employee.Timing;
-import seedu.addressbook.data.exception.IllegalValueException;
 
 /**
  * JAXB-friendly adapted tag data holder class.
@@ -75,9 +74,8 @@ public class AdaptedTiming {
     /**
      * Converts this jaxb-friendly adapted tag object into the Tag object.
      *
-     * @throws IllegalValueException if there were any data constraints violated in the adapted person
      */
-    public Timing toModelType() throws IllegalValueException {
+    public Timing toModelType() {
         return new Timing(getTime(), getDate(), isClockIn());
     }
 
