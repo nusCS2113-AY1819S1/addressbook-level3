@@ -1,6 +1,8 @@
 package seedu.addressbook.storage;
 
 import static org.junit.Assert.assertEquals;
+import static seedu.addressbook.util.TestUtil.assertTextFilesEqual;
+
 import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.Collections;
@@ -20,7 +22,6 @@ import seedu.addressbook.data.person.Person;
 import seedu.addressbook.data.person.Phone;
 import seedu.addressbook.data.tag.Tag;
 import seedu.addressbook.storage.StorageFile.StorageOperationException;
-import static seedu.addressbook.util.TestUtil.assertTextFilesEqual;
 
 public class StorageFileTest {
     private static final String TEST_DATA_FOLDER = "test/data/StorageFileTest";
@@ -53,13 +54,13 @@ public class StorageFileTest {
 
     @Test
     public void load_validFormat() throws Exception {
-        Rms actualAB = getStorage("ValidData.txt").load();
-        Rms expectedAB = getTestAddressBook();
+        Rms actualRms = getStorage("ValidData.txt").load();
+        Rms expectedRms = getTestAddressBook();
 
         // ensure loaded Rms is properly constructed with test data
         // overwrite equals method in Rms class and replace with equals method below
-        assertEquals(actualAB.getAllPersons(), expectedAB.getAllPersons());
-        assertEquals(actualAB.getAllMenus(), expectedAB.getAllMenus());
+        assertEquals(actualRms.getAllPersons(), expectedRms.getAllPersons());
+        assertEquals(actualRms.getAllMenus(), expectedRms.getAllMenus());
 
     }
 
@@ -108,7 +109,7 @@ public class StorageFileTest {
                                 new Email("betsycrowe@gmail.com", false),
                                 new Address("Newgate Prison", true),
                                 new HashSet<>(Arrays.asList(new Tag("friend"), new Tag("criminal")))));
-       // ab.addMenu(new Menu(new Name("Pizza"), new Price("5"), Collections.emptySet()));
+        // ab.addMenu(new Menu(new Name("Pizza"), new Price("5"), Collections.emptySet()));
         return ab;
     }
 }

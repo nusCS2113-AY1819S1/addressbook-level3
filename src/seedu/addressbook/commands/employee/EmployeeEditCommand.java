@@ -2,6 +2,7 @@ package seedu.addressbook.commands.employee;
 
 import seedu.addressbook.commands.Command;
 import seedu.addressbook.commands.CommandResult;
+import seedu.addressbook.common.Messages;
 import seedu.addressbook.data.employee.EditEmployeeDescriptor;
 import seedu.addressbook.data.employee.Employee;
 import seedu.addressbook.data.employee.EmployeeAddress;
@@ -12,8 +13,6 @@ import seedu.addressbook.data.employee.EmployeePosition;
 import seedu.addressbook.data.employee.ReadOnlyEmployee;
 import seedu.addressbook.data.employee.UniqueEmployeeList.EmployeeNotFoundException;
 import seedu.addressbook.data.exception.IllegalValueException;
-
-import seedu.addressbook.common.Messages;
 
 /**
  * Edits the details of an existing employee in the Rms.
@@ -50,7 +49,7 @@ public class EmployeeEditCommand extends Command {
                                String phone,
                                String email,
                                String address,
-                               String position) throws IllegalValueException{
+                               String position) throws IllegalValueException {
         super(targetVisibleIndex);
         this.editEmployeeDescriptor = new EditEmployeeDescriptor(phone, email, address, position);
     }
@@ -78,13 +77,15 @@ public class EmployeeEditCommand extends Command {
      * Creates and returns an {@code Employee} with the details of {@code employeeToEdit}
      * edited with {@code editEmployeeDescriptor}.
      */
-    private static Employee createEditedEmployee(ReadOnlyEmployee employeeToEdit, EditEmployeeDescriptor editEmployeeDescriptor) {
+    private static Employee createEditedEmployee(ReadOnlyEmployee employeeToEdit,
+                                                 EditEmployeeDescriptor editEmployeeDescriptor) {
 
         EmployeeName updatedName = employeeToEdit.getName();
-        EmployeePhone updatedPhone = checkPhone(editEmployeeDescriptor.getPhone(),employeeToEdit.getPhone());
+        EmployeePhone updatedPhone = checkPhone(editEmployeeDescriptor.getPhone(), employeeToEdit.getPhone());
         EmployeeEmail updatedEmail = checkEmail(editEmployeeDescriptor.getEmail(), employeeToEdit.getEmail());
         EmployeeAddress updatedAddress = checkAddress(editEmployeeDescriptor.getAddress(), employeeToEdit.getAddress());
-        EmployeePosition updatedPosition = checkPosition(editEmployeeDescriptor.getPosition(), employeeToEdit.getPosition());
+        EmployeePosition updatedPosition = checkPosition(editEmployeeDescriptor.getPosition(),
+                employeeToEdit.getPosition());
 
         return new Employee(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedPosition);
     }
@@ -92,36 +93,40 @@ public class EmployeeEditCommand extends Command {
     /**
     * Check for new phone value.
     */
-    private static EmployeePhone checkPhone(EmployeePhone newEdit, EmployeePhone oldInfo){
-        if (newEdit.value == EMPTY_EMPLOYEE_PHONE)
+    private static EmployeePhone checkPhone(EmployeePhone newEdit, EmployeePhone oldInfo) {
+        if (newEdit.value == EMPTY_EMPLOYEE_PHONE) {
             return oldInfo;
+        }
         return newEdit;
     }
 
     /**
      * Check for new email value.
      */
-    private static EmployeeEmail checkEmail(EmployeeEmail newEdit, EmployeeEmail oldInfo){
-        if (newEdit.value == EMPTY_EMPLOYEE_EMAIL)
+    private static EmployeeEmail checkEmail(EmployeeEmail newEdit, EmployeeEmail oldInfo) {
+        if (newEdit.value == EMPTY_EMPLOYEE_EMAIL) {
             return oldInfo;
+        }
         return newEdit;
     }
 
     /**
      * Check for new address value.
      */
-    private static EmployeeAddress checkAddress(EmployeeAddress newEdit, EmployeeAddress oldInfo){
-        if (newEdit.value == EMPTY_EMPLOYEE_ADDRESS)
+    private static EmployeeAddress checkAddress(EmployeeAddress newEdit, EmployeeAddress oldInfo) {
+        if (newEdit.value == EMPTY_EMPLOYEE_ADDRESS) {
             return oldInfo;
+        }
         return newEdit;
     }
 
     /**
      * Check for new position value.
      */
-    private static EmployeePosition checkPosition(EmployeePosition newEdit, EmployeePosition oldInfo){
-        if (newEdit.value == EMPTY_EMPLOYEE_POSITION)
+    private static EmployeePosition checkPosition(EmployeePosition newEdit, EmployeePosition oldInfo) {
+        if (newEdit.value == EMPTY_EMPLOYEE_POSITION) {
             return oldInfo;
+        }
         return newEdit;
     }
 }

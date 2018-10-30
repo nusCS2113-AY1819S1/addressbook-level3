@@ -1,6 +1,5 @@
 package seedu.addressbook.commands.statistics;
 
-
 import seedu.addressbook.commands.Command;
 
 /**
@@ -10,7 +9,7 @@ public class StatsHelpCommand extends Command {
 
     public static final String COMMAND_WORD = "statistics";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ":\n" +"Shows statistics usage instructions.\n\t"
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ":\n" + "Shows statistics usage instructions.\n\t"
             + "Example: " + COMMAND_WORD;
 
     public static final String MESSAGE_ALL_USAGES = StatsEmployeeCommand.MESSAGE_USAGE

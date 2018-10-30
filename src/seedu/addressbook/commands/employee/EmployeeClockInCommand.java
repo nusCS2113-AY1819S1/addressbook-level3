@@ -28,13 +28,13 @@ public class EmployeeClockInCommand extends Command {
 
     private final String name;
 
-    SimpleDateFormat dateFormatter = new SimpleDateFormat("dd/MM/yyyy");
-    SimpleDateFormat timeFormatter = new SimpleDateFormat("HH:mm:ss");
-    Date date = new Date();
+    private SimpleDateFormat dateFormatter = new SimpleDateFormat("dd/MM/yyyy");
+    private SimpleDateFormat timeFormatter = new SimpleDateFormat("HH:mm:ss");
+    private Date date = new Date();
     private final String currentTime = timeFormatter.format(date);
     private final String currentDate = dateFormatter.format(date);
 
-    public EmployeeClockInCommand(String name){
+    public EmployeeClockInCommand(String name) {
         this.name = name;
     }
 
@@ -46,7 +46,7 @@ public class EmployeeClockInCommand extends Command {
 
         Set<Timing> updatedTimings = oldAttendance.getTimings();
 
-        Timing currentTiming = new Timing(this.currentTime, this.currentDate,true);
+        Timing currentTiming = new Timing(this.currentTime, this.currentDate, true);
         updatedTimings.add(currentTiming);
 
         return new Attendance(name, true, updatedTimings);
@@ -54,17 +54,17 @@ public class EmployeeClockInCommand extends Command {
 
     @Override
     public CommandResult execute() {
-            int index = rms.findAttendanceIndex(name);
+        int index = rms.findAttendanceIndex(name);
 
-            Attendance oldAttendance = rms.findAttendance(index);
-            boolean isClockedIn = oldAttendance.getClockedIn();
-            if(isClockedIn){
-                return new CommandResult(String.format(MESSAGE_NOT_YET_CLOCKED_OUT, name));
-            }
+        Attendance oldAttendance = rms.findAttendance(index);
+        boolean isClockedIn = oldAttendance.getClockedIn();
+        if (isClockedIn) {
+            return new CommandResult(String.format(MESSAGE_NOT_YET_CLOCKED_OUT, name));
+        }
 
-            Attendance newAttendance = createNewAttendance(oldAttendance);
+        Attendance newAttendance = createNewAttendance(oldAttendance);
 
-            rms.updateAttendance(oldAttendance, newAttendance);
-            return new CommandResult(String.format(MESSAGE_SUCCESS, name, this.currentDate));
+        rms.updateAttendance(oldAttendance, newAttendance);
+        return new CommandResult(String.format(MESSAGE_SUCCESS, name, this.currentDate));
     }
 }

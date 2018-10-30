@@ -1,24 +1,25 @@
 package seedu.addressbook.data.member;
 
-import seedu.addressbook.data.exception.IllegalValueException;
-
-import java.awt.*;
-
 import static seedu.addressbook.common.Messages.MESSAGE_NEGATIVE_POINTS;
 
+import seedu.addressbook.data.exception.IllegalValueException;
+
+/**
+ * Represents the number of membership point of a Member in the member list.
+ */
 public class Points {
 
     private int value;
 
-    public Points(){
+    public Points() {
         this.value = 0;
     }
 
-    public Points(int points){
+    public Points(int points) {
         this.value = points;
     }
 
-//    public final String MESSAGE_NEGATIVE_POINTS = "Update points cannot result in negative points.";
+    // public final String MESSAGE_NEGATIVE_POINTS = "Update points cannot result in negative points.";
     /**
      * Converts the price into points and adds in to the existing points for the member
      * @param price of the order being made
@@ -27,7 +28,7 @@ public class Points {
     protected Points updatePoints(double price) {
         try {
             this.value += ((int) price) / 10;
-            if(this.value < 0) {
+            if (this.value < 0) {
                 throw new IllegalValueException(MESSAGE_NEGATIVE_POINTS);
             }
             return this;
@@ -58,8 +59,9 @@ public class Points {
     public int hashCode() {
         return toString().hashCode();
     }
-
-//    public boolean isPrivate() {
-//        return isPrivate;
-//    }
+    /*
+    public boolean isPrivate() {
+        return isPrivate;
+    }
+    */
 }

@@ -1,14 +1,14 @@
 package seedu.addressbook.data.order;
 
-import seedu.addressbook.data.member.Member;
-import seedu.addressbook.data.member.ReadOnlyMember;
-import seedu.addressbook.data.menu.Menu;
-import seedu.addressbook.data.menu.ReadOnlyMenus;
-
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
+
+import seedu.addressbook.data.member.Member;
+import seedu.addressbook.data.member.ReadOnlyMember;
+import seedu.addressbook.data.menu.Menu;
+import seedu.addressbook.data.menu.ReadOnlyMenus;
 
 /**
  * Represents an Order in the ordering list.

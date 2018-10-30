@@ -1,13 +1,18 @@
 package seedu.addressbook.util;
 
 import static org.junit.Assert.assertEquals;
+
 import java.io.IOException;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
 
+/**
+ * Utilities class used for testing
+ */
 public class TestUtil {
+
     /**
      * Asserts whether the text in the two given files are the same. Ignores any
      * differences in line endings

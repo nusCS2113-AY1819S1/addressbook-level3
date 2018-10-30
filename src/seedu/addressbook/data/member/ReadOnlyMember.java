@@ -1,7 +1,5 @@
 package seedu.addressbook.data.member;
 
-import seedu.addressbook.data.person.Name;
-
 import java.util.Date;
 
 
@@ -22,10 +20,11 @@ public interface ReadOnlyMember {
      * The returned {@code Set} is a deep copy of the internal {@code Set},
      * changes on the returned list will not affect the person's internal tags.
      */
-//    Set<Tag> getTags();
+    // Set<Tag> getTags();
 
     /**
-     * Returns true if the values inside this object is same as those of the other (Note: interfaces cannot override .equals)
+     * Returns true if the values inside this object is same as those of the other
+     * (Note: interfaces cannot override .equals)
      */
     default boolean isSameStateAs(ReadOnlyMember other) {
         return other == this // short circuit if same object
@@ -46,7 +45,6 @@ public interface ReadOnlyMember {
         builder.append(getDate())
                 .append(" Tier: ");
         builder.append(getMemberTier().toString());
-
         return builder.toString();
     }
 
@@ -59,7 +57,6 @@ public interface ReadOnlyMember {
         builder.append(" Points: ").append(getPoints());
         builder.append(" Date: ").append(getDate());
         builder.append(" Tier: ").append(getMemberTier().toString());
-
         return builder.toString();
     }
 }

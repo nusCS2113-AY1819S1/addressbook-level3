@@ -1,26 +1,45 @@
 package seedu.addressbook.storage.jaxb;
 
-import seedu.addressbook.common.Utils;
-import seedu.addressbook.data.exception.IllegalValueException;
-import seedu.addressbook.data.member.*;
-import seedu.addressbook.data.person.*;
-import seedu.addressbook.data.tag.Tag;
+import java.util.Date;
 
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlValue;
-import java.util.*;
+
+import seedu.addressbook.common.Utils;
+import seedu.addressbook.data.exception.IllegalValueException;
+import seedu.addressbook.data.member.*;
+
 
 /**
  * JAXB-friendly adapted person data holder class.
  */
 public class AdaptedMember {
 
+    /**
+     * JAXB-friendly adapted contact detail data holder class.
+     */
     private static class AdaptedContactDetail {
+        private String value;
+        private boolean isPrivate;
+
         @XmlValue
-        public String value;
-        @XmlAttribute(required = true)
-        public boolean isPrivate;
+        public String getValue() {
+            return value;
+        }
+
+        @XmlAttribute(name = "isPrivate", required = true)
+        public boolean isPrivate() {
+            return isPrivate;
+        }
+
+        public void setValue(String value) {
+            this.value = value;
+        }
+
+        public void setPrivate(boolean aPrivate) {
+            isPrivate = aPrivate;
+        }
     }
 
     @XmlElement(required = true)
@@ -62,14 +81,16 @@ public class AdaptedMember {
      * so we check for that.
      */
     public boolean isAnyRequiredFieldMissing() {
-//        for (AdaptedTag tag : tagged) {
-//            if (tag.isAnyRequiredFieldMissing()) {
-//                return true;
-//            }
-//        }
+        /*
+        for (AdaptedTag tag : tagged) {
+            if (tag.isAnyRequiredFieldMissing()) {
+                return true;
+            }
+        }
+        */
         // second call only happens if phone/email/address are all not null
         return Utils.isAnyNull(name);
-//                || Utils.isAnyNull(phone.value, email.value, address.value);
+        // || Utils.isAnyNull(phone.value, email.value, address.value);
     }
 
     /**
@@ -78,10 +99,12 @@ public class AdaptedMember {
      * @throws IllegalValueException if there were any data constraints violated in the adapted person
      */
     public Member toModelType() throws IllegalValueException {
-//        final Set<Tag> tags = new HashSet<>();
-//        for (AdaptedTag tag : tagged) {
-//            tags.add(tag.toModelType());
-//        }
+        /*
+        final Set<Tag> tags = new HashSet<>();
+        for (AdaptedTag tag : tagged) {
+            tags.add(tag.toModelType());
+        }
+        */
         final MemberName name = new MemberName(this.name);
         final Points points = new Points(Integer.parseInt(this.points));
         final Date date = new Date(this.date);

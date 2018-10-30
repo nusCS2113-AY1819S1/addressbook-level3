@@ -1,14 +1,11 @@
 package seedu.addressbook.data;
 
-import seedu.addressbook.data.menu.Menu;
+import seedu.addressbook.data.employee.UniqueEmployeeList;
 import seedu.addressbook.data.menu.ReadOnlyMenus;
 import seedu.addressbook.data.menu.UniqueMenuList;
 import seedu.addressbook.data.person.Person;
 import seedu.addressbook.data.person.ReadOnlyPerson;
-import seedu.addressbook.data.employee.UniqueEmployeeList;
 import seedu.addressbook.data.person.UniquePersonList;
-import seedu.addressbook.data.person.UniquePersonList.DuplicatePersonException;
-import seedu.addressbook.data.person.UniquePersonList.PersonNotFoundException;
 
 /**
  * Represents the entire address book. Contains the data of the address book.
@@ -18,10 +15,6 @@ public class AddressBook {
     private final UniquePersonList allPersons;
     private final UniqueEmployeeList allEmployees;
     private final UniqueMenuList allFoodItems;
-
-    public static AddressBook empty() {
-        return new AddressBook();
-    }
 
     /**
      * Creates an empty address book.
@@ -46,23 +39,18 @@ public class AddressBook {
         this.allFoodItems = new UniqueMenuList(menus);
     }
 
-    /**
-     * Adds a person to the address book.
-     *
-     * @throws DuplicatePersonException if an equivalent person already exists.
-     */
-    public void addPerson(Person toAdd) throws DuplicatePersonException {
-        allPersons.add(toAdd);
+    public static AddressBook empty() {
+        return new AddressBook();
     }
 
     /**
-     * Adds a menu item to the address book.
+     * Adds a person to the address book.
      *
-     * @throws DuplicatePersonException if an equivalent food item already exists.
+     * @throws Exception if an equivalent person already exists.
      */
 
-    public void addMenu(Menu toAddFoodItem) throws UniqueMenuList.DuplicateMenuException {
-        allFoodItems.add(toAddFoodItem);
+    public void addPerson(Person toAdd) throws Exception {
+        allPersons.add(toAdd);
     }
 
     /**
@@ -82,20 +70,10 @@ public class AddressBook {
     /**
      * Removes the equivalent person from the address book.
      *
-     * @throws PersonNotFoundException if no such Person could be found.
+     * @throws Exception if no such Person could be found.
      */
-    public void removePerson(ReadOnlyPerson toRemove) throws PersonNotFoundException {
+    public void removePerson(ReadOnlyPerson toRemove) throws Exception {
         allPersons.remove(toRemove);
-    }
-
-    /**
-     * Removes the equivalent food item from the address book.
-     *
-     * @throws PersonNotFoundException if no such Person could be found.
-     */
-
-    public void removeMenuItem(ReadOnlyMenus toRemove1) throws UniqueMenuList.MenuNotFoundException {
-        allFoodItems.remove(toRemove1);
     }
 
     /**
