@@ -309,16 +309,40 @@ Format: `listorder`
 
 === Statistics
 
-==== View Order Statistics
+==== View Employee Statistics
 
-Display the order statistics overview +
-Format: vieworderstats
+Display the member statistics overview +
+Format: statsemp
 
+Examples: +
+`statsemp`
 
 ==== View Member Statistics
 
 Display the member statistics overview +
-Format: viewmemberstats
+Format: statsmember
+
+Examples: +
+`statsmember`
+
+==== View Menu Statistics
+
+Display the menu statistics overview with optional parameter `f/` or `t/` to set date range to calculate statistics from +
+Format: statsmenu [f/mmddyyyy] [t/mmddyyyy]
+
+Examples: +
+
+* `statsmenu` +
+* `statsmenu f/01122017 t/31122017`
+* `statsmenu f/01012017 t/31122017`
+
+==== View Order Statistics
+
+Display the order statistics overview +
+Format: statsorder
+
+Examples: +
+`statsorder`
 
 === Saving the data
 
@@ -395,6 +419,10 @@ e.g. `deleteorder 3`
 
 === Statistics
 
-*View Order Statistics* : `vieworderstats`
+*View Employee Statistics* : `statsemp`
 
-*View Member Statistics* : `viewmemberstats`
+*View Member Statistics* : `statsmember`
+
+*View Menu Statistics* : `statsmenu [f/ddmmyyyy] [t/ddmmyyyy]`
+
+*View Order Statistics* : `statsorder`
