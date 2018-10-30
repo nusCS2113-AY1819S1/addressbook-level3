@@ -17,11 +17,11 @@ public class Attendance {
 
     public Attendance(){}
 
-    public Attendance(String name){
+    public Attendance(String name) {
         this.name = name.trim();
     }
 
-    public Attendance(String name, boolean isClockedIn, Set<Timing> timings){
+    public Attendance(String name, boolean isClockedIn, Set<Timing> timings) {
         this.name = name;
         this.isClockedIn = isClockedIn;
         this.timings.addAll(timings);
@@ -38,7 +38,9 @@ public class Attendance {
         return name;
     }
 
-    public boolean getClockedIn() {return isClockedIn; }
+    public boolean getClockedIn() {
+        return isClockedIn;
+    }
 
     public Set<Timing> getTimings() {
         return new LinkedHashSet<>(timings);
@@ -48,7 +50,9 @@ public class Attendance {
         this.name = name;
     }
 
-    public void setClockedIn(boolean isClockedIn) {this.isClockedIn = isClockedIn; }
+    public void setClockedIn(boolean isClockedIn) {
+        this.isClockedIn = isClockedIn;
+    }
 
     @Override
     public int hashCode() {

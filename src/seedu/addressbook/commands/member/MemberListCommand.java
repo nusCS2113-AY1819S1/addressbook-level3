@@ -1,11 +1,14 @@
 package seedu.addressbook.commands.member;
 
+import java.util.List;
+
 import seedu.addressbook.commands.Command;
 import seedu.addressbook.commands.CommandResult;
 import seedu.addressbook.data.member.ReadOnlyMember;
 
-import java.util.List;
-
+/**
+ * Lists all members in the member list to the user.
+ */
 public class MemberListCommand extends Command {
     public static final String COMMAND_WORD = "listmembers";
 

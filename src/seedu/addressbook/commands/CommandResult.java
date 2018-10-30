@@ -1,14 +1,14 @@
 package seedu.addressbook.commands;
 
-import seedu.addressbook.data.employee.Attendance;
-import seedu.addressbook.data.employee.ReadOnlyEmployee;
-import seedu.addressbook.data.menu.ReadOnlyMenus;
-import seedu.addressbook.data.member.ReadOnlyMember;
-import seedu.addressbook.data.order.ReadOnlyOrder;
-import seedu.addressbook.data.person.ReadOnlyPerson;
-
 import java.util.List;
 import java.util.Optional;
+
+import seedu.addressbook.data.employee.Attendance;
+import seedu.addressbook.data.employee.ReadOnlyEmployee;
+import seedu.addressbook.data.member.ReadOnlyMember;
+import seedu.addressbook.data.menu.ReadOnlyMenus;
+import seedu.addressbook.data.order.ReadOnlyOrder;
+import seedu.addressbook.data.person.ReadOnlyPerson;
 
 /**
  * Represents the result of a command execution.
@@ -106,13 +106,15 @@ public class CommandResult {
     /**
      * Returns list of employees relevant to the command result, if any.
      */
-    public Optional<List<? extends ReadOnlyEmployee>> getRelevantEmployee() { return Optional.ofNullable(relevantEmployees);
+    public Optional<List<? extends ReadOnlyEmployee>> getRelevantEmployee() {
+        return Optional.ofNullable(relevantEmployees);
     }
 
     /**
      * Returns list of attendances relevant to the command result, if any.
      */
-    public Optional<List<? extends Attendance>> getRelevantAttendance() { return Optional.ofNullable(relevantAttendances);
+    public Optional<List<? extends Attendance>> getRelevantAttendance() {
+        return Optional.ofNullable(relevantAttendances);
     }
 
 }

@@ -3,22 +3,17 @@ package seedu.addressbook.storage.jaxb;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlValue;
 
-import seedu.addressbook.data.employee.Timing;
-import seedu.addressbook.data.exception.IllegalValueException;
-
 import seedu.addressbook.common.Utils;
+import seedu.addressbook.data.employee.Timing;
 
 /**
  * JAXB-friendly adapted tag data holder class.
  */
 public class AdaptedTiming {
 
-    @XmlValue
-    public String time;
-    @XmlAttribute
-    public String date;
-    @XmlAttribute
-    public boolean isClockIn;
+    private String time;
+    private String date;
+    private boolean isClockIn;
 
 
     /**
@@ -32,9 +27,36 @@ public class AdaptedTiming {
      * @param source future changes to this will not affect the created AdaptedTag
      */
     public AdaptedTiming(Timing source) {
-        time = source.time;
-        date = source.date;
-        isClockIn = source.isClockIn;
+        setTime(source.time);
+        setDate(source.date);
+        setClockIn(source.isClockIn);
+    }
+
+    @XmlValue
+    public String getTime() {
+        return time;
+    }
+
+    @XmlAttribute(name = "date")
+    public String getDate() {
+        return date;
+    }
+
+    @XmlAttribute(name = "isClockIn")
+    public boolean isClockIn() {
+        return isClockIn;
+    }
+
+    public void setTime(String time) {
+        this.time = time;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
+
+    public void setClockIn(boolean clockIn) {
+        isClockIn = clockIn;
     }
 
     /**
@@ -46,15 +68,15 @@ public class AdaptedTiming {
      * so we check for that.
      */
     public boolean isAnyRequiredFieldMissing() {
-        return Utils.isAnyNull(time, date, isClockIn);
+        return Utils.isAnyNull(getTime(), getDate(), isClockIn());
     }
 
     /**
      * Converts this jaxb-friendly adapted tag object into the Tag object.
      *
-     * @throws IllegalValueException if there were any data constraints violated in the adapted person
      */
-    public Timing toModelType() throws IllegalValueException {
-        return new Timing(time, date, isClockIn);
+    public Timing toModelType() {
+        return new Timing(getTime(), getDate(), isClockIn());
     }
+
 }

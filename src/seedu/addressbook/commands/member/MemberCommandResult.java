@@ -1,9 +1,9 @@
 package seedu.addressbook.commands.member;
 
+import java.util.List;
+
 import seedu.addressbook.commands.CommandResult;
 import seedu.addressbook.data.member.ReadOnlyMember;
-
-import java.util.List;
 
 /**
  * Represents the result of an order command execution.
