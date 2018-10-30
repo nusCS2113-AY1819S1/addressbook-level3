@@ -325,7 +325,7 @@ Format: statsmenu [f/mmddyyyy] [t/mmddyyyy]
 
 Examples: +
 
-* `statsmenu` +
+* `statsmenu`
 * `statsmenu f/01122017 t/31122017`
 * `statsmenu f/01012017`
 * `statsmenu f/31122018`
