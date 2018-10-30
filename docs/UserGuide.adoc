@@ -304,7 +304,7 @@ Examples: +
 
 ==== View Employee Statistics
 
-Display the member statistics overview +
+Display the employee statistics overview +
 Format: statsemp
 
 Examples: +
@@ -320,14 +320,15 @@ Examples: +
 
 ==== View Menu Statistics
 
-Display the menu statistics overview with optional parameter `f/` or `t/` to set date range to calculate statistics from +
+Display the menu statistics overview without any parameters or with optional parameters `f/` or `t/` to set date range for calculatation of statistics +
 Format: statsmenu [f/mmddyyyy] [t/mmddyyyy]
 
 Examples: +
 
 * `statsmenu` +
 * `statsmenu f/01122017 t/31122017`
-* `statsmenu f/01012017 t/31122017`
+* `statsmenu f/01012017`
+* `statsmenu f/31122018`
 
 ==== View Order Statistics
 
