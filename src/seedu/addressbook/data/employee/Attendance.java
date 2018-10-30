@@ -11,6 +11,7 @@ import java.util.Set;
  */
 public class Attendance {
     private String name;
+    private boolean isClockedIn;
 
     private final Set<Timing> timings = new LinkedHashSet<>();
 
@@ -20,8 +21,9 @@ public class Attendance {
         this.name = name.trim();
     }
 
-    public Attendance(String name, Set<Timing> timings){
+    public Attendance(String name, boolean isClockedIn, Set<Timing> timings){
         this.name = name;
+        this.isClockedIn = isClockedIn;
         this.timings.addAll(timings);
     }
 
@@ -29,12 +31,14 @@ public class Attendance {
      * Copy constructor.
      */
     public Attendance(Attendance source) {
-        this(source.getName(), source.getTimings());
+        this(source.getName(), source.getClockedIn(), source.getTimings());
     }
 
     public String getName() {
         return name;
     }
+
+    public boolean getClockedIn() {return isClockedIn; }
 
     public Set<Timing> getTimings() {
         return new LinkedHashSet<>(timings);
@@ -43,6 +47,8 @@ public class Attendance {
     public void setName(String name) {
         this.name = name;
     }
+
+    public void setClockedIn(boolean isClockedIn) {this.isClockedIn = isClockedIn; }
 
     @Override
     public int hashCode() {
