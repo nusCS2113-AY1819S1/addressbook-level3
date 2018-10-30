@@ -175,7 +175,7 @@ Format: find NAME
 
 
 === Employees
-==== View Employees
+==== List Employees
 
 Show a list of all the employees on the RMS. +
 Format: `listemp`
@@ -191,7 +191,7 @@ Example: +
 
 ==== Edit Employee
 
-Edit details of an employee. +
+Edit details of an employee in the RMS. +
 Format: `editemp INDEX [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [pos/POSITION]`
 
 * Edits the employee at the specified `INDEX`.
@@ -208,7 +208,7 @@ Edits the position of the 1st employee in the employee list to Cashier.
 
 ==== Delete Employee
 
-Delete an employee. +
+Deletes an employee from the RMS. +
 Format: `delemp INDEX`
 
 * Deletes the employee at the specified `INDEX`.
