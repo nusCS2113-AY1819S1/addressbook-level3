@@ -26,10 +26,10 @@ public class StatsEmployeeCommand extends Command {
 
     @Override
     public CommandResult execute() {
-        return new StatsCommandResult(getEmployeeStats());
+        return new StatsCommandResult(getEmployeeOverviewStats());
     }
 
-    private String getEmployeeStats() {
+    private String getEmployeeOverviewStats() {
         StringBuilder res = new StringBuilder();
         List<ReadOnlyEmployee> allEmployees = rms.getAllEmployees().immutableListView();
         UniqueAttendanceList allAttendance = rms.getAllAttendance();
@@ -38,22 +38,46 @@ public class StatsEmployeeCommand extends Command {
         res.append("Number of employees: " + allEmployees.size() + "\n\n");
         res.append("Currently on duty employees: ");
         String[] headings = new String[]{"Name", "Position", "Clocked in"};
-        AsciiTable onduty = new AsciiTable(headings);
+        AsciiTable onDuty = new AsciiTable(headings);
+        headings = new String[]{"Name", "Position", "Activity"};
+        AsciiTable recentAttendance = new AsciiTable(headings);
         int count = 0;
         for (ReadOnlyEmployee emp : allEmployees) {
             String name = emp.getName().fullName;
             Attendance attendance = allAttendance.getAttendance(allAttendance.getAttendanceIndex(name));
+            Set<Timing> timings = attendance.getTimings();
+            Object[] timingArray = timings.toArray();
+            int offset = 0;
             if (attendance.getClockedIn()) {
-                Set<Timing> timing = attendance.getTimings();
-                String[] data = new String[]{name, emp.getPosition().value, ((Timing) timing.toArray()[ timing.size()-1 ]).time};
-                onduty.addRow(data);
+                offset = 1;
+                String[] data = new String[]{name, emp.getPosition().value, ((Timing) timingArray[ timingArray.length-1 ]).time};
+                onDuty.addRow(data);
                 count++;
             }
+
+            int j = 0;
+            for (int i=timingArray.length - 1 - offset; i >= 1 && j < 3; i-=2) {
+                String[] data = new String[]{" ", " ", "  "};
+
+                if (j == 0) {
+                    data[0] = emp.getName().fullName;
+                    data[1] = emp.getPosition().value;
+                }
+                Timing outTiming = (Timing) timingArray[i];
+                Timing inTiming = (Timing) timingArray[i-1];
+                data[2] = inTiming.date + " " + inTiming.time + " - " + outTiming.date + " " + outTiming.time;
+                j++;
+                recentAttendance.addRow(data);
+            }
+
         }
         res.append(count + "\n");
         if (count != 0)
-            res.append(onduty.toString());
-        res.append("\n");
+            res.append(onDuty.toString());
+        res.append("\n\n");
+        res.append("All employees recent attendance\n");
+        res.append(recentAttendance.toString());
+        res.append("\n\n");
 
         return res.toString();
     }
