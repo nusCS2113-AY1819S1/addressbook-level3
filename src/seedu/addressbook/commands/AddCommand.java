@@ -3,6 +3,7 @@ package seedu.addressbook.commands;
 import java.util.HashSet;
 import java.util.Set;
 
+import seedu.addressbook.common.Messages;
 import seedu.addressbook.data.exception.IllegalValueException;
 import seedu.addressbook.data.person.Address;
 import seedu.addressbook.data.person.Email;
@@ -69,6 +70,8 @@ public class AddCommand extends Command {
             return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
         } catch (UniquePersonList.DuplicatePersonException dpe) {
             return new CommandResult(MESSAGE_DUPLICATE_PERSON);
+        } catch (Exception e) {
+            return new CommandResult(Messages.MESSAGE_ERROR);
         }
     }
 

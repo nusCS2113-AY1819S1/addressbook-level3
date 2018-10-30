@@ -5,6 +5,8 @@ package seedu.addressbook.common;
  */
 public class Messages {
 
+    public static final String MESSAGE_ERROR = "Error!";
+
     public static final String MESSAGE_INVALID_COMMAND_FORMAT = "Invalid command format! \n%1$s";
     public static final String MESSAGE_INVALID_PERSON_DISPLAYED_INDEX = "The person index provided is invalid";
     public static final String MESSAGE_PERSON_NOT_IN_ADDRESSBOOK = "Person could not be found in address book";
