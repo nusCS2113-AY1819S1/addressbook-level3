@@ -175,7 +175,7 @@ Format: find NAME
 
 
 === Employees
-==== View Employees
+==== List Employees
 
 Show a list of all the employees on the RMS. +
 Format: `listemp`
@@ -185,12 +185,13 @@ Format: `listemp`
 Adds a new employee to the RMS. +
 Format: `addemp n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS pos/POSITION`
 
-Examples: +
- `addemp Peter Lee p/91234567 e/PeterLee89@rms.com a/Clementi Ave 2, Blk 543 #13-12 pos/Cashier`
+Example: +
+ `addemp John Doe p/91234567 e/Example2018@rms.com a/Clementi Ave 2, Blk 543 #13-12 pos/Cashier` +
+ Adds a new employee with the specified details.
 
 ==== Edit Employee
 
-Edit details of an employee. +
+Edit details of an employee in the RMS. +
 Format: `editemp INDEX [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [pos/POSITION]`
 
 * Edits the employee at the specified `INDEX`.
@@ -199,32 +200,58 @@ Format: `editemp INDEX [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [pos/POSITION]`
 * Existing values will be updated to the input values.
 * The index must be a positive integer `1, 2, 3 ...`
 
-Examples: +
-`edit Joe Bob pos/Cashier` +
-Edits the value of Joe Bob to Cashier
+Example: +
 
-=== Delete Employee
+* `listemp` +
+* `editemp 1 pos/Cashier` +
+Edits the position of the 1st employee in the employee list to Cashier.
 
-Delete and employee. +
-Format: delemp INDEX
+==== Delete Employee
+
+Deletes an employee from the RMS. +
+Format: `delemp INDEX`
 
 * Deletes the employee at the specified `INDEX`.
 * The index refers to the index number shown in the displayed employee list.
 * The index must be a positive integer `1, 2, 3 ...`
 
-Examples: +
+Example: +
 
 * `listemp` +
 * `delemp 1` +
 Deletes the 1st employee in the employee list.
 
-==== Calculate Wages
+==== Clock In
 
-Calculates the wage of an employee. +
-`Format calcwage NAME`
+Clocks in attendance for the specified employee based on the current time +
+Format: `clockIn NAME`
 
-Examples: +
-`calcwage Joe Bob`
+* Employee must either have been newly created or
+have used the "Clock Out" command, otherwise, they would not be able to use this command.
+
+Example: +
+`clockIn John Doe` +
+Clocks in for the employee John Doe.
+
+
+==== Clock Out
+
+Clocks out for the specified employee based on the current time. +
+Format: `clockOut NAME`
+
+* Employee must have used the "Clock In" command, otherwise, they would not  e able to use this command.
+
+Example: +
+`clockOut John Doe` +
+Clocks out for the employee John Doe.
+
+//==== Calculate Wages
+
+//Calculates the wage of an employee. +
+//`Format calcwage NAME`
+
+//Examples: +
+//`calcwage Joe Bob`
 
 
 === Order
@@ -309,16 +336,41 @@ Format: `listorder`
 
 === Statistics
 
-==== View Order Statistics
+==== View Employee Statistics
 
-Display the order statistics overview +
-Format: vieworderstats
+Display the employee statistics overview +
+Format: statsemp
 
+Examples: +
+`statsemp`
 
 ==== View Member Statistics
 
 Display the member statistics overview +
-Format: viewmemberstats
+Format: statsmember
+
+Examples: +
+`statsmember`
+
+==== View Menu Statistics
+
+Display the menu statistics overview without any parameters or with optional parameters `f/` or `t/` to set date range for calculatation of statistics +
+Format: statsmenu [f/mmddyyyy] [t/mmddyyyy]
+
+Examples: +
+
+* `statsmenu`
+* `statsmenu f/01122017 t/31122017`
+* `statsmenu f/01012017`
+* `statsmenu f/31122018`
+
+==== View Order Statistics
+
+Display the order statistics overview +
+Format: statsorder
+
+Examples: +
+`statsorder`
 
 === Saving the data
 
@@ -348,15 +400,17 @@ There is no need to save manually.
 
 === Employees
 
-*View Employees* : `add n/NAME p/PHONE_NUMBER pos/POSITION`
+*List Emplyees* : `listemp`
 
-*Add Employee* : `add n/NAME p/PHONE_NUMBER pos/POSITION`
+*Add Employee* : `addemp INDEX p/PHONE_NUMBER e/EMAIL a/ADDRESS pos/POSITION`
 
-*Edit Employee* : `edit NAME [p/PHONE_NUMBER] [pos/POSITION]`
+*Edit Employee* : `editemp INDEX [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [pos/POSITION]`
 
-*Delete Employee* : `delete NAME`
+*Delete Employee* : `delemp INDEX`
 
-*Calculate Wages* : `calcwage NAME`
+*Clock In* : `clockIn NAME`
+
+*Clock Out* : `clockOut NAME`
 
 === Members
 
@@ -395,6 +449,10 @@ e.g. `deleteorder 3`
 
 === Statistics
 
-*View Order Statistics* : `vieworderstats`
+*View Employee Statistics* : `statsemp`
 
-*View Member Statistics* : `viewmemberstats`
+*View Member Statistics* : `statsmember`
+
+*View Menu Statistics* : `statsmenu [f/ddmmyyyy] [t/ddmmyyyy]`
+
+*View Order Statistics* : `statsorder`

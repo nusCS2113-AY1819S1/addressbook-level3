@@ -876,6 +876,8 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |`* * *` |Chef |view all the orders made  |know which order I need to prepare next
 
 |`* * *` |Chef |update the order status  |let the customers know that their orders are ready
+
+|`* *` |Employee |clock in and clock out attendance  |account for the time period which I am working
 |=======================================================================
 
 
@@ -984,56 +986,8 @@ Guarantees:
 2.    RMS displays a list of the employees.
 +
 Use case ends.
-
-=== Use case: View employee statistics
-Actor: Manager
-
-*MSS*
-
-1.  User chooses to view the employee statistics
-2.  RMS shows overview employee statistics
-
-Use case ends.
-
 [discrete]
-=== Use case: View member statistics
-Actor: Manager
 
-*MSS*
-
-1.  User chooses to view the member statistics
-2.  RMS shows overview member statistics
-
-Use case ends.
-
-[discrete]
-=== Use case: View menu statistics
-Actor: Manager
-
-*MSS*
-
-1.  User chooses to view the menu statistics
-2.  RMS shows overview menu statistics
-
-Use case ends.
-
-[discrete]
-=== Use case: View order statistics
-Actor: Manager
-
-*MSS*
-
-1.  User chooses to view the order statistics
-2.  RMS shows overview order statistics
-
-Use case ends.
-
-* 1a. RMS detects that there are currently no employees recorded.
-** 1a1. RMS shows a message that says there are currently no employees recorded.
-+
-Use case ends.
-
-[discrete]
 === Use case: Add employee
 Actor: Restaurant Manager +
 Preconditions: "List employee" use case was used before this use case. +
@@ -1110,6 +1064,100 @@ Use case ends.
 
 * 1b. RMS detects that an invalid index has been entered.
 ** 1b1. RMS displays an error that says the index provided is invalid.
++
+Use case ends.
+
+[discrete]
+=== Use case: Employee clock in
+Actor: Employee +
+Preconditions: User has started up the system. +
+Guarantees:
+
+* Details of the time that the employee clocks in will be added to the system.
+
+*MSS*
+
+1.    User requests to record his/her clock in details into the system with his/her name.
+2.    RMS clocks in the user's attendance based on the current date and time using his/her specified name.
++
+Use case ends.
+
+*Extensions*
+
+* 1a. RMS detects that the user did not use the clock out command yet.
+** 1a1. RMS displays an error that says the user has to clock out before clocking in.
+** 1a2. RMS displays information on the proper use of the command along with an example.
++
+Use case ends.
+
+[discrete]
+=== Use case: Employee clock out
+Actor: Employee +
+Preconditions: User has started up the system. +
+Guarantees:
+
+* Details of the time that the employee clocks out will be added to the system.
+
+*MSS*
+
+1.    User requests to record his/her clock out details into the system with his/her name.
+2.    RMS clocks in the user's attendance based on the current date and time using his/her specified name.
++
+Use case ends.
+
+*Extensions*
+
+* 1a. RMS detects that the user did not use the clock in command yet.
+** 1a1. RMS displays an error that says the user has to clock in before clocking out.
+** 1a2. RMS displays information on the proper use of the command along with an example.
++
+Use case ends.
+
+=== Use case: View employee statistics
+Actor: Manager
+
+*MSS*
+
+1.  User chooses to view the employee statistics
+2.  RMS shows overview employee statistics
+
+Use case ends.
+
+[discrete]
+=== Use case: View member statistics
+Actor: Manager
+
+*MSS*
+
+1.  User chooses to view the member statistics
+2.  RMS shows overview member statistics
+
+Use case ends.
+
+[discrete]
+=== Use case: View menu statistics
+Actor: Manager
+
+*MSS*
+
+1.  User chooses to view the menu statistics
+2.  RMS shows overview menu statistics
+
+Use case ends.
+
+[discrete]
+=== Use case: View order statistics
+Actor: Manager
+
+*MSS*
+
+1.  User chooses to view the order statistics
+2.  RMS shows overview order statistics
+
+Use case ends.
+
+* 1a. RMS detects that there are currently no employees recorded.
+** 1a1. RMS shows a message that says there are currently no employees recorded.
 +
 Use case ends.
 
