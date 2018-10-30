@@ -1,28 +1,54 @@
 package seedu.addressbook.storage.jaxb;
 
-import seedu.addressbook.common.Utils;
-import seedu.addressbook.data.exception.IllegalValueException;
-import seedu.addressbook.data.person.*;
-import seedu.addressbook.data.tag.Tag;
-
-import javax.xml.bind.annotation.XmlAttribute;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlValue;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlValue;
+
+import seedu.addressbook.common.Utils;
+import seedu.addressbook.data.exception.IllegalValueException;
+import seedu.addressbook.data.person.Address;
+import seedu.addressbook.data.person.Email;
+import seedu.addressbook.data.person.Name;
+import seedu.addressbook.data.person.Person;
+import seedu.addressbook.data.person.Phone;
+import seedu.addressbook.data.person.ReadOnlyPerson;
+import seedu.addressbook.data.tag.Tag;
+
 
 /**
  * JAXB-friendly adapted person data holder class.
  */
 public class AdaptedPerson {
 
+    /**
+     * JAXB-friendly adapted contact detail data holder class.
+     */
     private static class AdaptedContactDetail {
+        private String value;
+        private boolean isPrivate;
+
         @XmlValue
-        public String value;
-        @XmlAttribute(required = true)
-        public boolean isPrivate;
+        public String getValue() {
+            return value;
+        }
+
+        @XmlAttribute(name = "isPrivate", required = true)
+        public boolean isPrivate() {
+            return isPrivate;
+        }
+
+        public void setValue(String value) {
+            this.value = value;
+        }
+
+        public void setPrivate(boolean aPrivate) {
+            isPrivate = aPrivate;
+        }
     }
 
     @XmlElement(required = true)
@@ -52,16 +78,16 @@ public class AdaptedPerson {
         name = source.getName().fullName;
 
         phone = new AdaptedContactDetail();
-        phone.isPrivate = source.getPhone().isPrivate();
-        phone.value = source.getPhone().value;
+        phone.setPrivate(source.getPhone().isPrivate());
+        phone.setValue(source.getPhone().value);
 
         email = new AdaptedContactDetail();
-        email.isPrivate = source.getEmail().isPrivate();
-        email.value = source.getEmail().value;
+        email.setPrivate(source.getEmail().isPrivate());
+        email.setValue(source.getEmail().value);
 
         address = new AdaptedContactDetail();
-        address.isPrivate = source.getAddress().isPrivate();
-        address.value = source.getAddress().value;
+        address.setPrivate(source.getAddress().isPrivate());
+        address.setValue(source.getAddress().value);
 
         tagged = new ArrayList<>();
         for (Tag tag : source.getTags()) {
@@ -85,7 +111,7 @@ public class AdaptedPerson {
         }
         // second call only happens if phone/email/address are all not null
         return Utils.isAnyNull(name, phone, email, address)
-                || Utils.isAnyNull(phone.value, email.value, address.value);
+                || Utils.isAnyNull(phone.getValue(), email.getValue(), address.getValue());
     }
 
     /**
@@ -99,9 +125,9 @@ public class AdaptedPerson {
             tags.add(tag.toModelType());
         }
         final Name name = new Name(this.name);
-        final Phone phone = new Phone(this.phone.value, this.phone.isPrivate);
-        final Email email = new Email(this.email.value, this.email.isPrivate);
-        final Address address = new Address(this.address.value, this.address.isPrivate);
+        final Phone phone = new Phone(this.phone.getValue(), this.phone.isPrivate());
+        final Email email = new Email(this.email.getValue(), this.email.isPrivate());
+        final Address address = new Address(this.address.getValue(), this.address.isPrivate());
         return new Person(name, phone, email, address, tags);
     }
 }

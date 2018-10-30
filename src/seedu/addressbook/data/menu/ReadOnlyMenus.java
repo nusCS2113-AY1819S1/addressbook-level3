@@ -1,8 +1,8 @@
 package seedu.addressbook.data.menu;
 
-import seedu.addressbook.data.tag.Tag;
-
 import java.util.Set;
+
+import seedu.addressbook.data.tag.Tag;
 
 /**
  * A read-only immutable interface for a Menu Item in the Rms.
@@ -21,7 +21,8 @@ public interface ReadOnlyMenus {
     Set<Tag> getTags();
 
     /**
-     * Returns true if the values inside this object is same as those of the other (Note: interfaces cannot override .equals)
+     * Returns true if the values inside this object is same as those of the other
+     * (Note: interfaces cannot override .equals)
      */
     default boolean isSameStateAs(ReadOnlyMenus other) {
         return other == this // short circuit if same object

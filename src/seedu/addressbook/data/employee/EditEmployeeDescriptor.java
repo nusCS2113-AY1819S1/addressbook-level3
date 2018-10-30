@@ -34,8 +34,7 @@ public class EditEmployeeDescriptor {
         setPosition(toCopy.position);
     }
 
-    public void setPhone(EmployeePhone phone)
-    {
+    public void setPhone(EmployeePhone phone) {
         this.phone = phone;
     }
 

@@ -3,7 +3,6 @@ package seedu.addressbook.commands.menu;
 import seedu.addressbook.commands.Command;
 import seedu.addressbook.commands.CommandResult;
 import seedu.addressbook.common.Messages;
-import seedu.addressbook.data.menu.Menu;
 import seedu.addressbook.data.menu.ReadOnlyMenus;
 import seedu.addressbook.data.menu.UniqueMenuList.MenuNotFoundException;
 
@@ -31,9 +30,9 @@ public class MenuDeleteCommand extends Command {
     @Override
     public CommandResult execute() {
         try {
-            final ReadOnlyMenus Menutarget = getTargetMenu();
-            rms.removeMenuItem(Menutarget);
-            return new CommandResult(String.format(MESSAGE_DELETE_MENU_ITEM_SUCCESS, Menutarget));
+            final ReadOnlyMenus menutarget = getTargetMenu();
+            rms.removeMenuItem(menutarget);
+            return new CommandResult(String.format(MESSAGE_DELETE_MENU_ITEM_SUCCESS, menutarget));
 
         } catch (IndexOutOfBoundsException ie) {
             return new CommandResult(Messages.MESSAGE_INVALID_MENU_ITEM_DISPLAYED_INDEX);

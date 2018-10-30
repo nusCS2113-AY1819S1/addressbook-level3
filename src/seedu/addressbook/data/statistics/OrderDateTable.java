@@ -8,6 +8,9 @@ import java.util.Map;
 
 import seedu.addressbook.data.order.ReadOnlyOrder;
 
+/**
+ * Represent a table storing the ordering date of the orders in the order list
+ */
 public class OrderDateTable {
     private Map<Integer, YearOrder> yearMap;
     private Calendar calendar;
@@ -17,6 +20,9 @@ public class OrderDateTable {
         yearMap = new HashMap<>();
     }
 
+    /**
+     * Adjust the yearMap based on the added Date
+     */
     public void addData(ReadOnlyOrder order) {
         calendar.setTime(order.getDate());
         if (!yearMap.containsKey(calendar.get(Calendar.YEAR))) {
@@ -30,7 +36,7 @@ public class OrderDateTable {
     public int getYearCount(Date date) {
         calendar.setTime(date);
         if (yearMap.containsKey(calendar.get(Calendar.YEAR))) {
-            return yearMap.get(calendar.get(Calendar.YEAR)).count;
+            return yearMap.get(calendar.get(Calendar.YEAR)).getCount();
         } else {
             return 0;
         }
@@ -39,7 +45,7 @@ public class OrderDateTable {
     public Double getYearRevenue(Date date) {
         calendar.setTime(date);
         if (yearMap.containsKey(calendar.get(Calendar.YEAR))) {
-            return yearMap.get(calendar.get(Calendar.YEAR)).totalRevenue;
+            return yearMap.get(calendar.get(Calendar.YEAR)).getTotalRevenue();
         } else {
             return 0.0;
         }
@@ -47,39 +53,58 @@ public class OrderDateTable {
 
     public int getMonthCount(Date date) {
         calendar.setTime(date);
-        if (yearMap.containsKey(calendar.get(Calendar.YEAR)))
-            return yearMap.get(calendar.get(Calendar.YEAR)).monthMap.get(calendar.get(Calendar.MONTH)).count;
-        else return 0;
+        if (yearMap.containsKey(calendar.get(Calendar.YEAR))) {
+            return yearMap.get(calendar.get(Calendar.YEAR)).getMonthMap().get(calendar.get(Calendar.MONTH)).getCount();
+        } else {
+            return 0;
+        }
     }
 
     public Double getMonthRevenue(Date date) {
         calendar.setTime(date);
-        if (yearMap.containsKey(calendar.get(Calendar.YEAR)))
-            return yearMap.get(calendar.get(Calendar.YEAR)).monthMap.get(calendar.get(Calendar.MONTH)).totalRevenue;
-        else return 0.0;
+        if (yearMap.containsKey(calendar.get(Calendar.YEAR))) {
+            return yearMap.get(calendar.get(Calendar.YEAR))
+                    .getMonthMap().get(calendar.get(Calendar.MONTH))
+                    .getTotalRevenue();
+        } else {
+            return 0.0;
+        }
     }
 
     public int getDayCount(Date date) {
         calendar.setTime(date);
-        if (yearMap.containsKey(calendar.get(Calendar.YEAR)))
-            return yearMap.get(calendar.get(Calendar.YEAR)).monthMap.get(calendar.get(Calendar.MONTH)).dayMap.get(calendar.get(Calendar.DATE)).count;
-        else
+        if (yearMap.containsKey(calendar.get(Calendar.YEAR))) {
+            return yearMap.get(calendar.get(Calendar.YEAR))
+                    .getMonthMap().get(calendar.get(Calendar.MONTH))
+                    .getDayMap().get(calendar.get(Calendar.DATE))
+                    .getCount();
+        } else {
             return 0;
+        }
     }
 
     public Double getDayRevenue(Date date) {
         calendar.setTime(date);
-        if (yearMap.containsKey(calendar.get(Calendar.YEAR)))
-            return yearMap.get(calendar.get(Calendar.YEAR)).monthMap.get(calendar.get(Calendar.MONTH)).dayMap.get(calendar.get(Calendar.DATE)).totalRevenue;
-        else return 0.0;
+        if (yearMap.containsKey(calendar.get(Calendar.YEAR))) {
+            return yearMap.get(calendar.get(Calendar.YEAR))
+                    .getMonthMap().get(calendar.get(Calendar.MONTH))
+                    .getDayMap().get(calendar.get(Calendar.DATE))
+                    .getTotalRevenue();
+        } else {
+            return 0.0;
+        }
     }
 }
 
+/**
+ * Represents an year in the yearMap
+ */
 class YearOrder {
-    int yearNo, count;
-    Double totalRevenue;
-    Map<Integer, MonthOrder> monthMap;
-    Calendar calendar;
+    private int yearNo;
+    private int count;
+    private Double totalRevenue;
+    private Map<Integer, MonthOrder> monthMap;
+    private Calendar calendar;
 
     public YearOrder(int yearNo) {
         this.calendar = new GregorianCalendar();
@@ -88,24 +113,43 @@ class YearOrder {
         this.totalRevenue = 0.0;
         this.monthMap = new HashMap<>();
         for (int i = 0; i < 12; i++) {
-            monthMap.put(i, new MonthOrder(i));
+            getMonthMap().put(i, new MonthOrder(i));
         }
     }
 
+    /**
+     * Adjust the monthMap based on the added Date and return the yearOrder container object
+     */
     public YearOrder addData(ReadOnlyOrder order) {
         calendar.setTime(order.getDate());
-        count++;
-        totalRevenue += order.getPrice();
-        monthMap.put(calendar.get(Calendar.MONTH), monthMap.get(calendar.get(Calendar.MONTH)).addData(order));
+        count = getCount() + 1;
+        totalRevenue = getTotalRevenue() + order.getPrice();
+        getMonthMap().put(calendar.get(Calendar.MONTH), getMonthMap().get(calendar.get(Calendar.MONTH)).addData(order));
         return this;
+    }
+
+    public int getCount() {
+        return count;
+    }
+
+    public Double getTotalRevenue() {
+        return totalRevenue;
+    }
+
+    public Map<Integer, MonthOrder> getMonthMap() {
+        return monthMap;
     }
 }
 
+/**
+ * Represents a month in the monthMap
+ */
 class MonthOrder {
-    int monthNo, count;
-    Double totalRevenue;
-    Map<Integer, DayOrder> dayMap;
-    Calendar calendar;
+    private int monthNo;
+    private int count;
+    private Double totalRevenue;
+    private Map<Integer, DayOrder> dayMap;
+    private Calendar calendar;
 
     public MonthOrder(int monthNo) {
         this.calendar = new GregorianCalendar();
@@ -114,22 +158,41 @@ class MonthOrder {
         this.totalRevenue = 0.0;
         this.dayMap = new HashMap<>();
         for (int i = 0; i < 31; i++) {
-            dayMap.put(i, new DayOrder(i));
+            getDayMap().put(i, new DayOrder(i));
         }
     }
 
+    /**
+     * Adjust the dayMap based on the added Date and return the MonthOrder container object
+     */
     public MonthOrder addData(ReadOnlyOrder order) {
         calendar.setTime(order.getDate());
-        count++;
-        totalRevenue += order.getPrice();
-        dayMap.put(calendar.get(Calendar.DATE), dayMap.get(calendar.get(Calendar.DATE)).addData(order));
+        count = getCount() + 1;
+        totalRevenue = getTotalRevenue() + order.getPrice();
+        getDayMap().put(calendar.get(Calendar.DATE), getDayMap().get(calendar.get(Calendar.DATE)).addData(order));
         return this;
+    }
+
+    public Map<Integer, DayOrder> getDayMap() {
+        return dayMap;
+    }
+
+    public Double getTotalRevenue() {
+        return totalRevenue;
+    }
+
+    public int getCount() {
+        return count;
     }
 }
 
+/**
+ * Represents a day in the dayMap
+ */
 class DayOrder {
-    int dayNo, count;
-    Double totalRevenue;
+    private int dayNo;
+    private int count;
+    private Double totalRevenue;
 
     public DayOrder(int dayNo) {
         this.dayNo = dayNo;
@@ -138,8 +201,16 @@ class DayOrder {
     }
 
     public DayOrder addData(ReadOnlyOrder order) {
-        count++;
-        totalRevenue += order.getPrice();
+        count = getCount() + 1;
+        totalRevenue = getTotalRevenue() + order.getPrice();
         return this;
+    }
+
+    public Double getTotalRevenue() {
+        return totalRevenue;
+    }
+
+    public int getCount() {
+        return count;
     }
 }

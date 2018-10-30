@@ -1,10 +1,12 @@
 package seedu.addressbook.data.order;
 
-import seedu.addressbook.data.member.ReadOnlyMember;
-import seedu.addressbook.data.menu.*;
-
 import java.util.Date;
 import java.util.Map;
+
+import seedu.addressbook.data.member.ReadOnlyMember;
+import seedu.addressbook.data.menu.MenuName;
+import seedu.addressbook.data.menu.Price;
+import seedu.addressbook.data.menu.ReadOnlyMenus;
 
 /**
  * A read-only immutable interface for an Order in the ordering list.
@@ -20,7 +22,8 @@ public interface ReadOnlyOrder {
     boolean hasDishItems();
 
     /**
-     * Returns true if the values inside this object is same as those of the other (Note: interfaces cannot override .equals)
+     * Returns true if the values inside this object is same as those of the other
+     * (Note: interfaces cannot override .equals)
      */
     default boolean isSameStateAs(ReadOnlyOrder other) {
         return other == this // short circuit if same object

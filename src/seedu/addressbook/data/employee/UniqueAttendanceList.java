@@ -21,7 +21,7 @@ public class UniqueAttendanceList implements Iterable<Attendance> {
     /**
      * Constructs an attendance list with the given attendance timings.
      */
-    public UniqueAttendanceList(Attendance... attendances){
+    public UniqueAttendanceList(Attendance... attendances) {
         final List<Attendance> initialTags = Arrays.asList(attendances);
         attendanceInternalList.addAll(initialTags);
     }
@@ -44,23 +44,23 @@ public class UniqueAttendanceList implements Iterable<Attendance> {
     /**
      * Adds an attendance to the list.
      */
-    public void add(Attendance toAdd)  {
+    public void add(Attendance toAdd) {
         attendanceInternalList.add(toAdd);
     }
 
     /**
      * Removes the equivalent employee from the list.
      */
-    public void remove(Attendance toRemove){
+    public void remove(Attendance toRemove) {
         attendanceInternalList.remove(toRemove);
     }
 
     /**
      * Gets index of the specified Attendance object.
      */
-    public int getAttendanceIndex(String target){
-        for (Attendance attendance : attendanceInternalList){
-            if(attendance.getName().equals(target)){
+    public int getAttendanceIndex(String target) {
+        for (Attendance attendance : attendanceInternalList) {
+            if (attendance.getName().equals(target)) {
                 int index = attendanceInternalList.indexOf(attendance);
                 return index;
             }
@@ -71,14 +71,14 @@ public class UniqueAttendanceList implements Iterable<Attendance> {
     /**
      * Gets the Attendance object at target index.
      */
-    public Attendance getAttendance(int target){
+    public Attendance getAttendance(int target) {
         return attendanceInternalList.get(target);
     }
 
     /**
      * Adds a time field to the attendance for the specified employee in the list.
      */
-    public void setAttendance(Attendance target, Attendance newAttendance)  {
+    public void setAttendance(Attendance target, Attendance newAttendance) {
         int index = attendanceInternalList.indexOf(target);
 
         attendanceInternalList.set(index, newAttendance);

@@ -1,7 +1,7 @@
 package seedu.addressbook.commands.statistics;
 
-import java.util.List;
 import java.util.Date;
+import java.util.List;
 
 import seedu.addressbook.commands.Command;
 import seedu.addressbook.commands.CommandResult;
@@ -29,8 +29,9 @@ public class StatsMemberCommand extends Command {
     private String getOverviewStats() {
         StringBuilder res = new StringBuilder();
         List<ReadOnlyMember> allMembers = rms.getAllMembers().immutableListView();
-        if (allMembers.isEmpty())
+        if (allMembers.isEmpty()) {
             return "There are no members in the system.";
+        }
         MemberDateTable dateTable = new MemberDateTable();
 
         for (ReadOnlyMember member : allMembers) {
