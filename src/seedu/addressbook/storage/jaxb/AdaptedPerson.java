@@ -40,6 +40,9 @@ public class AdaptedPerson {
     private List<AdaptedSchedule> scheduled = new ArrayList<>();
 
     @XmlElement
+    private List<AdaptedAssociate> associates = new ArrayList<>();
+
+    @XmlElement
     private List<AdaptedTag> tagged = new ArrayList<>();
 
     /**
@@ -76,7 +79,10 @@ public class AdaptedPerson {
         for (Schedule schedule : source.getSchedules()) {
             scheduled.add(new AdaptedSchedule(schedule));
         }
-
+        associates = new ArrayList<>();
+        for (Associated associated : source.getAssociateList()) {
+            associates.add((new AdaptedAssociate(associated)));
+        }
         tagged = new ArrayList<>();
         for (Tag tag : source.getTags()) {
             tagged.add(new AdaptedTag(tag));
@@ -121,11 +127,15 @@ public class AdaptedPerson {
         for (AdaptedTag tag : tagged) {
             tags.add(tag.toModelType());
         }
+        final Set<Associated> associateds = new HashSet<>();
+        for (AdaptedAssociate associate : associates) {
+            associateds.add(associate.toModelType());
+        }
         final Name name = new Name(this.name);
         final Phone phone = new Phone(this.phone.value, this.phone.isPrivate);
         final Email email = new Email(this.email.value, this.email.isPrivate);
         final Address address = new Address(this.address.value, this.address.isPrivate);
         final Title title = new Title(this.title.value, this.title.isPrivate);
-        return new Person(name, phone, email, address, title, schedules, tags);
+        return new Person(name, phone, email, address, title, schedules, tags, associateds);
     }
 }

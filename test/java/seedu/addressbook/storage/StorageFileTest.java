@@ -98,6 +98,7 @@ public class StorageFileTest {
                                 new Address("John street, block 123, #01-01", false),
                                 new Title("Doctor", false),
                                 Collections.emptySet(),
+                                Collections.emptySet(),
                                 Collections.emptySet()));
         ab.addPerson(new Person(new Name("Betsy Crowe"),
                                 new Phone("1234567", true),
@@ -105,7 +106,8 @@ public class StorageFileTest {
                                 new Address("Newgate Prison", true),
                                 new Title("Patient", false),
                                 new HashSet<>(Arrays.asList(new Schedule("01-05-1995"), new Schedule("04-06-2020") )),
-                                new HashSet<>(Arrays.asList(new Tag("friend"), new Tag("criminal")))));
+                                new HashSet<>(Arrays.asList(new Tag("friend"), new Tag("criminal"))),
+                                new HashSet<>(Arrays.asList(new Associated("associate1")))));
         return ab;
     }
 }

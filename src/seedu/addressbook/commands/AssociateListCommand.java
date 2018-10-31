@@ -4,6 +4,9 @@ import seedu.addressbook.common.Messages;
 import seedu.addressbook.data.person.Associated;
 import seedu.addressbook.data.person.ReadOnlyPerson;
 
+import java.util.HashSet;
+import java.util.Set;
+
 public class AssociateListCommand extends Command {
     public static final String COMMAND_WORD = "associatelist";
 
@@ -25,11 +28,10 @@ public class AssociateListCommand extends Command {
     public CommandResult execute() {
         try {
             final ReadOnlyPerson target = getTargetPerson();
-            return new CommandResult(MESSAGE_SUCCESS + target.getAssociateList());
+             Set<Associated> associateList= target.getAssociateList();
+            return new CommandResult(MESSAGE_SUCCESS + associateList.toString());
         } catch (IndexOutOfBoundsException ie) {
             return new CommandResult(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
-        } catch (Associated.NoAssociatesException nae) {
-            return new CommandResult(MESSAGE_NO_ASSOCIATES);
         }
     }
 }

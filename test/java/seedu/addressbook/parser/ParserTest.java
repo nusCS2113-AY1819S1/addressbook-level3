@@ -254,7 +254,8 @@ public class ParserTest {
                 new Address(Address.EXAMPLE, true),
                 new Title(Title.EXAMPLE, true),
                 new HashSet<>(Arrays.asList(new Schedule(Schedule.EXAMPLE), new Schedule(Schedule.EXAMPLE2)) ),
-                new HashSet<>(Arrays.asList(new Tag("tag1"), new Tag("tag2"), new Tag("tag3")))
+                new HashSet<>(Arrays.asList(new Tag("tag1"), new Tag("tag2"), new Tag("tag3"))),
+                new HashSet<>(Arrays.asList(new Associated("associate1"), new Associated("associated2")))
             );
         } catch (IllegalValueException ive) {
             throw new RuntimeException("test person data should be valid by definition");
