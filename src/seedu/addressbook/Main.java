@@ -12,6 +12,7 @@ import seedu.addressbook.communications.ChatClient;
 import seedu.addressbook.logic.Logic;
 import seedu.addressbook.login.WorkWithLoginStorage;
 import seedu.addressbook.ui.Gui;
+import seedu.addressbook.ui.LoginWindow;
 import seedu.addressbook.ui.Stoppable;
 import seedu.addressbook.login.login;
 import seedu.addressbook.login.Credentials;
@@ -24,43 +25,31 @@ public class Main extends Application implements Stoppable{
     /** Version info of the program. */
 
     public static final String VERSION = "MediBook - Version 1.3";
-    private Gui gui;
-
-//    public static final String VERSION = "AddressBook Level 3 - Version 1.0";
-//    private Gui gui;
-//
-//    @Override
-//    public void start(Stage primaryStage) throws Exception{
-//        gui = new Gui(new Logic(), VERSION);
-//        gui.start(primaryStage, this);
-//    }
-//
-//    @Override
-//    public void stop() throws Exception {
-//        super.stop();
-//        Platform.exit();
-//        System.exit(0);
-//    }
+    private static Gui gui;
+    public static Stage window;
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(Main.class.getResource("ui/signin.fxml"));
-        primaryStage.setTitle("Welcome to MediBook");
-        primaryStage.setScene(new Scene(loader.load(), 800,600));
-        primaryStage.show();
+        window = primaryStage;
+        gui = new Gui(new Logic(), VERSION);
+        gui.start(primaryStage, this);
+        gui.startLogin(primaryStage, this);
+
+    }
+
+    public static void  change(){
+        window.setScene(gui.MainScene);
+    }
+
+    @Override
+    public void stop() throws Exception {
+        super.stop();
+        Platform.exit();
+        System.exit(0);
     }
 
     public static void main(String[] args) {
-//        if(login.main()) {
-//            WorkWithLoginStorage.addLogin(new Credentials("S1234567A", "S1234567a"));
-//            try {
-//                launch(args);
-//            } catch (IllegalValueException e){
-//                System.out.println(e);
-//            }
             launch(args);
-//        }else{
             System.exit(0);
         }
     }

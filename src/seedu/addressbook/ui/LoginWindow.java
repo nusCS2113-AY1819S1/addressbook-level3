@@ -8,6 +8,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.Label;
+import seedu.addressbook.Main;
 import seedu.addressbook.commands.CommandResult;
 import seedu.addressbook.commands.ExitCommand;
 import seedu.addressbook.data.person.ReadOnlyPerson;
@@ -26,6 +27,13 @@ public class LoginWindow {
 
     public Button button;
     private int tries = 3;
+    private String USERNAME, PASSWORD;
+    private Stoppable mainApp;
+
+    public void setMainApp(Stoppable mainApp){
+        this.mainApp = mainApp;
+    }
+
 
     @FXML
     private PasswordField password;
@@ -37,83 +45,20 @@ public class LoginWindow {
     private Label message;
 
     @FXML
-    boolean handleButtonClick(ActionEvent event) {
-            String user = username.getText();
-            String pass = password.getText();
+    void handleButtonClick(ActionEvent event) {
+            USERNAME = username.getText();
+            PASSWORD = password.getText();
             username.clear();
             password.clear();
-            if (!login.main(user, pass)) {
-                message.setText("Incorrect Username/Password! Please Try Again! " + tries +" left.");
+            if (!login.main(USERNAME, PASSWORD)) {
+                message.setText("Incorrect Username/Password! Please Try Again! " + tries + " left.");
                 tries--;
             }else{
-                return true;
+                Main.change();
             }
-        return false;
     }
 
-//    private Logic logic;
-//    private Stoppable mainApp;
-//
-//    public LoginWindow(){
-//    }
-//
-//    public void setLogic(Logic logic){
-//        this.logic = logic;
-//    }
-//
-//    public void setMainApp(Stoppable mainApp){
-//        this.mainApp = mainApp;
-//    }
-//
-
-//
-//    private void exitApp() throws Exception {
-//        mainApp.stop();
-//    }
-//
-//    /** Returns true of the result given is the result of an exit command */
-//    private boolean isExitCommand(CommandResult result) {
-//        return result.feedbackToUser.equals(ExitCommand.MESSAGE_EXIT_ACKNOWEDGEMENT);
-//    }
-//
-//    /** Clears the command input box */
-//    private void clearCommandInput() {
-//        commandInput.setText("");
-//    }
-//
-//    /** Clears the output display area */
-//    public void clearOutputConsole(){
-//        outputConsole.clear();
-//    }
-//
-//    /** Displays the result of a command execution to the user. */
-//    public void displayResult(CommandResult result) {
-//        clearOutputConsole();
-//        final Optional<List<? extends ReadOnlyPerson>> resultPersons = result.getRelevantPersons();
-//        if(resultPersons.isPresent()) {
-//            display(resultPersons.get());
-//        }
-//        display(result.feedbackToUser);
-//    }
-//
-//    public void displayWelcomeMessage(String version, String storageFilePath) {
-//        String storageFileInfo = String.format(MESSAGE_USING_STORAGE_FILE, storageFilePath);
-//        display(MESSAGE_WELCOME, version, MESSAGE_PROGRAM_LAUNCH_ARGS_USAGE, storageFileInfo);
-//    }
-//
-//    /**
-//     * Displays the list of persons in the output display area, formatted as an indexed list.
-//     * Private contact details are hidden.
-//     */
-//    private void display(List<? extends ReadOnlyPerson> persons) {
-//        display(new Formatter().format(persons));
-//    }
-//
-//    /**
-//     * Displays the given messages on the output display area, after formatting appropriately.
-//     */
-//    private void display(String... messages) {
-//        outputConsole.setText(outputConsole.getText() + new Formatter().format(messages));
-//    }
-
+    private void exitApp() throws Exception {
+        mainApp.stop();
+    }
 }
