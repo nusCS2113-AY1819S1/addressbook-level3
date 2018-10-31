@@ -150,23 +150,22 @@ Below contains the description for each of the four key components:
 //
 //The sections below give more details of each component.
 //
-//[[Design-Ui]]
-//=== UI component
-//
-//.Structure of the UI Component
-//image::UiClassDiagram.png[width="800"]
-//
-//*API* : link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
-//
-//The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `StatusBarFooter`, `BrowserPanel` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
-//
-//The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
-//
-//The `UI` component,
-//
-//* Executes user commands using the `Logic` component.
-//* Binds itself to some data in the `Model` so that the UI can auto-update when data in the `Model` change.
-//* Responds to events raised from various parts of the App and updates the UI accordingly.
+
+// tag::UI[]
+[[Design-Ui]]
+=== UI component
+
+.Structure of the UI Component
+image::UiComponentClassDiagram.png[width="800"]
+
+The UI consists of `Main` that implements `Stoppable` and extends `Application`. `Main` is also dependant on `Gui` which is dependant on `MainWindow`.
+Furthermore, `Gui` and `MainWindow` are both dependant on `Logic`.
+
+The components use JavaFx UI framework.
+
+The `Main` component,
+
+* Executes user commands using the `Gui` component which relies on the `Logic` component.
 
 [[Design-Logic]]
 === Logic component
@@ -851,7 +850,7 @@ e.g. `seedu.addressbook.logic.LogicTest`
 
 [appendix]
 == User Stories
-
+// tag:userstories[]
 Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (unlikely to have) - `*`
 
 [width="59%",cols="22%,<23%,<25%,<30%",options="header",]
@@ -970,6 +969,7 @@ Use case ends.
 +
 Use case ends.
 
+// tag::employeeusecase[]
 [discrete]
 === Use case: List employees
 System: Restaurant Management System (RMS) +

@@ -173,7 +173,7 @@ Format: delete NAME
 Find membership details of a member in the RMS +
 Format: find NAME
 
-
+// tag::employeecommands[]
 === Employees
 ==== List Employees
 
