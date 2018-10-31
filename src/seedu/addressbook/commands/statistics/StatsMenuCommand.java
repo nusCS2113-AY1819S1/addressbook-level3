@@ -111,9 +111,8 @@ public class StatsMenuCommand extends Command {
             // ==========================================
             if (!bestsellers.containsKey(type) && quantity > 0) {
                 bestsellers.put(type, menu);
-            }
-            else if (quantity < 100) {
-                    worstsellers.put(type, menu);
+            } else if (quantity < 100) {
+                worstsellers.put(type, menu);
             }
         }
 
@@ -154,10 +153,10 @@ public class StatsMenuCommand extends Command {
         return calendar.getTime();
     }
 
-    private static Map<String, ReadOnlyMenus> getBestsellers(List<ReadOnlyOrder> allOrders, List<ReadOnlyMenus> allMenu) {
-        StringBuilder sb = new StringBuilder();
-        if (allOrders.isEmpty())
+    private static Map<String, ReadOnlyMenus> getBs(List<ReadOnlyOrder> allOrders, List<ReadOnlyMenus> allMenu) {
+        if (allOrders.isEmpty()) {
             return null;
+        }
         Map<ReadOnlyMenus, QuantityRevenuePair> allMenuSales = new TreeMap<>();
         Map<String, ReadOnlyMenus> bestsellers = new HashMap<>();
 
@@ -166,17 +165,26 @@ public class StatsMenuCommand extends Command {
             Map<ReadOnlyMenus, Integer> dishItems = order.getDishItems();
             // ==========================================
             for (Map.Entry<ReadOnlyMenus, Integer> entry : dishItems.entrySet()) {
-                if (!allMenuSales.containsKey(entry.getKey()))
-                    allMenuSales.put(entry.getKey(), new QuantityRevenuePair(entry.getValue(), entry.getKey().getPrice().convertValueOfPricetoDouble()));
-                else
-                    allMenuSales.put(entry.getKey(), allMenuSales.get(entry.getKey()).addData(entry.getValue(), entry.getKey().getPrice().convertValueOfPricetoDouble()));
+                if (!allMenuSales.containsKey(entry.getKey())) {
+                    int quantity = entry.getValue();
+                    double revenue = entry.getKey().getPrice().convertValueOfPricetoDouble();
+                    QuantityRevenuePair qr = new QuantityRevenuePair(quantity, revenue);
+                    allMenuSales.put(entry.getKey(), qr);
+                } else {
+                    int quantity = entry.getValue();
+                    double revenue = entry.getKey().getPrice().convertValueOfPricetoDouble();
+                    QuantityRevenuePair qr = allMenuSales.get(entry.getKey());
+                    qr.addData(quantity, revenue);
+                    allMenuSales.put(entry.getKey(), qr);
+                }
             }
         }
 
         // Check for menu items with no sales and insert into allMenuSales
         for (ReadOnlyMenus menu: allMenu) {
-            if (!allMenuSales.containsKey(menu))
+            if (!allMenuSales.containsKey(menu)) {
                 allMenuSales.put(menu, new QuantityRevenuePair());
+            }
         }
 
         // Sort allMenuSales by quantity sold
@@ -186,8 +194,9 @@ public class StatsMenuCommand extends Command {
             int quantity = sortedMenu.get(i).getValue().getQuantity();
             String type = menu.getType().value;
             // ==========================================
-            if (!bestsellers.containsKey(type) && quantity > 0)
+            if (!bestsellers.containsKey(type) && quantity > 0) {
                 bestsellers.put(type, menu);
+            }
         }
 
         return bestsellers;

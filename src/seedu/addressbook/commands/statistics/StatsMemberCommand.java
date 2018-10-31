@@ -1,8 +1,8 @@
 package seedu.addressbook.commands.statistics;
 
 import java.util.Arrays;
-import java.util.List;
 import java.util.Date;
+import java.util.List;
 
 import seedu.addressbook.commands.Command;
 import seedu.addressbook.commands.CommandResult;
@@ -34,7 +34,7 @@ public class StatsMemberCommand extends Command {
             return "There are no members in the system.";
         }
         MemberDateTable dateTable = new MemberDateTable();
-        int[] tierCount = new int[]{0,0,0};
+        int[] tierCount = new int[]{0, 0, 0};
         for (ReadOnlyMember member : allMembers) {
             Date signupDate = member.getDate();
             dateTable.addData(signupDate);
