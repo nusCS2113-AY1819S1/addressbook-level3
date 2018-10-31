@@ -77,7 +77,7 @@ class MonthMember {
         this.monthNo = monthNo;
         this.count = 0;
         this.dayMap = new HashMap<>();
-        for (int i = 0; i < 31; i++) {
+        for (int i = 1; i <= 31; i++) {
             dayMap.put(i, new DayMember(i));
         }
     }
