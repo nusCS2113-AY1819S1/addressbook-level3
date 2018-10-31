@@ -15,6 +15,7 @@
         <title isPrivate="false">Patient</title>
         <scheduled>01-05-1995</scheduled>
         <scheduled>04-06-2020</scheduled>
+        <associates>associate1</associates>
         <tagged>friend</tagged>
         <tagged>criminal</tagged>
     </persons>

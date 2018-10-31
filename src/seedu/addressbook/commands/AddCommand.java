@@ -46,6 +46,7 @@ public class AddCommand extends Command {
         for (String tagName : tags) {
             tagSet.add(new Tag(tagName));
         }
+        final Set<Associated> associatedSet = new HashSet<>();
         this.toAdd = new Person(
                 new Name(name),
                 new Phone(phone, isPhonePrivate),
@@ -53,7 +54,8 @@ public class AddCommand extends Command {
                 new Address(address, isAddressPrivate),
                 new Title(title, isTitlePrivate),
                 scheduleSet,
-                tagSet
+                tagSet,
+                associatedSet
         );
     }
 

@@ -473,7 +473,8 @@ public class LogicTest {
             Tag tag1 = new Tag("tag1");
             Tag tag2 = new Tag("tag2");
             Set<Tag> tags = new HashSet<>(Arrays.asList(tag1, tag2));
-            return new Person(name, privatePhone, email, privateAddress, title, schedules, tags);
+            Set<Associated> associated= new HashSet<>();
+            return new Person(name, privatePhone, email, privateAddress, title, schedules, tags, associated);
         }
 
         /**
@@ -492,7 +493,8 @@ public class LogicTest {
                     new Address("House of " + seed, isAllFieldsPrivate),
                     new Title("Doctor", isAllFieldsPrivate),
                     new HashSet<>(Arrays.asList(new Schedule("26-01-2019"), new Schedule("19-02-2019"))),
-                    new HashSet<>(Arrays.asList(new Tag("tag" + Math.abs(seed)), new Tag("tag" + Math.abs(seed + 1))))
+                    new HashSet<>(Arrays.asList(new Tag("tag" + Math.abs(seed)), new Tag("tag" + Math.abs(seed + 1)))),
+                    new HashSet<>(Arrays.asList(new Associated("associate1")))
             );
         }
 
@@ -595,7 +597,8 @@ public class LogicTest {
                     new Address("House of 1", false),
                     new Title("Doctor", false),
                     Collections.singleton(new Schedule( "27-01-2019")),
-                    Collections.singleton(new Tag("tag"))
+                    Collections.singleton(new Tag("tag")),
+                    Collections.singleton(new Associated("associate1"))
             );
         }
     }
