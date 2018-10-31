@@ -1,14 +1,14 @@
 package seedu.addressbook.data.order;
 
-import seedu.addressbook.common.Utils;
-import seedu.addressbook.data.exception.DuplicateDataException;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
+
+import seedu.addressbook.common.Utils;
+import seedu.addressbook.data.exception.DuplicateDataException;
 
 /**
  * A list of orders. Does not allow null element or duplicates.
@@ -127,8 +127,7 @@ public class UniqueOrderList implements Iterable<Order> {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof UniqueOrderList // instanceof handles nulls
-                && this.internalList.equals(
-                ((UniqueOrderList) other).internalList));
+                && this.internalList.equals(((UniqueOrderList) other).internalList));
     }
 
     @Override

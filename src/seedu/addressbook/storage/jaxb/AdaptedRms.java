@@ -1,24 +1,25 @@
 package seedu.addressbook.storage.jaxb;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+
 import seedu.addressbook.data.Rms;
-import seedu.addressbook.data.exception.IllegalValueException;
-import seedu.addressbook.data.order.Order;
-import seedu.addressbook.data.order.UniqueOrderList;
-import seedu.addressbook.data.menu.Menu;
-import seedu.addressbook.data.menu.UniqueMenuList;
-import seedu.addressbook.data.member.Member;
-import seedu.addressbook.data.member.UniqueMemberList;
-import seedu.addressbook.data.person.Person;
-import seedu.addressbook.data.person.UniquePersonList;
 import seedu.addressbook.data.employee.Attendance;
 import seedu.addressbook.data.employee.Employee;
 import seedu.addressbook.data.employee.UniqueAttendanceList;
 import seedu.addressbook.data.employee.UniqueEmployeeList;
-
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
-import java.util.ArrayList;
-import java.util.List;
+import seedu.addressbook.data.exception.IllegalValueException;
+import seedu.addressbook.data.member.Member;
+import seedu.addressbook.data.member.UniqueMemberList;
+import seedu.addressbook.data.menu.Menu;
+import seedu.addressbook.data.menu.UniqueMenuList;
+import seedu.addressbook.data.order.Order;
+import seedu.addressbook.data.order.UniqueOrderList;
+import seedu.addressbook.data.person.Person;
+import seedu.addressbook.data.person.UniquePersonList;
 
 /**
  * JAXB-friendly adapted address book data holder class.

@@ -1,13 +1,10 @@
 package seedu.addressbook.data.menu;
 
-import seedu.addressbook.data.menu.Price;
-import seedu.addressbook.data.menu.ReadOnlyMenus;
-import seedu.addressbook.data.tag.Tag;
-
-import java.util.Comparator;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
+
+import seedu.addressbook.data.tag.Tag;
 
 /**
  * Represents a Menu in the Rms.
@@ -89,4 +86,3 @@ public class Menu implements ReadOnlyMenus, Comparable<Menu> {
         return this.name.fullName.compareTo(target.name.fullName);
     }
 }
-//random comment

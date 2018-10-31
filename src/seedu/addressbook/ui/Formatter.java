@@ -1,13 +1,14 @@
 package seedu.addressbook.ui;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import seedu.addressbook.data.employee.ReadOnlyEmployee;
 import seedu.addressbook.data.member.ReadOnlyMember;
 import seedu.addressbook.data.menu.ReadOnlyMenus;
 import seedu.addressbook.data.order.ReadOnlyOrder;
 import seedu.addressbook.data.person.ReadOnlyPerson;
-import seedu.addressbook.data.employee.ReadOnlyEmployee;
 
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Used for formatting text for display. e.g. for adding text decorations.
