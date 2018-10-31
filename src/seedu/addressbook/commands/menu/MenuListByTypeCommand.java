@@ -33,9 +33,9 @@ public class MenuListByTypeCommand extends Command {
     private final List<ReadOnlyMenus> matchedFoodItems = new ArrayList<>();
     private final Set<String> typeSet = new HashSet<>();
 
-    /* public String getItemword() {
-         return
-     }*/
+     public String getItemword() {
+         return itemword;
+     }
     private List<ReadOnlyMenus> getFoodItemsBurger(String itemword) {
         for (ReadOnlyMenus menuItem : rms.getAllMenus()) {
             //final Set<String> wordsInName = new HashSet<>(burger.getType().getWordsInTypeName());

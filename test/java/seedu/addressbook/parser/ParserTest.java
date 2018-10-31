@@ -78,6 +78,27 @@ public class ParserTest {
     }
 
     @Test
+    public void MenuListByTypeCommand_invalidArgs() {
+        // no keywords
+        final String inputs = "listmenutype";
+        final String resultMessage =
+                String.format(MenuListByTypeCommand.MESSAGE_ERROR, MenuListByTypeCommand.MESSAGE_USAGE);
+        //parseAndAssertIncorrectWithMessage(resultMessage, inputs);
+        parseAndAssertCommandType(inputs, IncorrectCommand.class);
+    }
+
+    @Test
+    public void MenuListByTypeCommand_validArgs_parsedCorrectly() {
+        final String type = "main";
+        //final Set<String> keySet = new HashSet<>(Arrays.asList(keywords));
+
+        final String input = "listmenutype " + type;
+        final MenuListByTypeCommand result =
+                parseAndAssertCommandType(input, MenuListByTypeCommand.class);
+        assertEquals(type, result.getItemword());
+    }
+
+    @Test
     public void MemberlistCommand_parsedCorrectly() {
         final String input = "listmembers";
         parseAndAssertCommandType(input, MemberListCommand.class);
