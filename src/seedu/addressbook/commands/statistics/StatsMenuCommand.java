@@ -111,8 +111,9 @@ public class StatsMenuCommand extends Command {
             // ==========================================
             if (!bestsellers.containsKey(type) && quantity > 0) {
                 bestsellers.put(type, menu);
+            }
             else if (quantity < 100) {
-                worstsellers.put(type, menu);
+                    worstsellers.put(type, menu);
             }
         }
 
