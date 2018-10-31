@@ -95,7 +95,7 @@ When you are ready to start coding,
 2. Take a look at <<GetStartedProgramming>>.
 
 == Design
-
+// tag::architecture[]
 [[Design-Architecture]]
 === Architecture
 
@@ -124,6 +124,8 @@ The rest of the App consists of four key components.
 * <<Design-Data,*`Data`*>>: Holds the data of the App in-memory.
 * <<Design-Storage,*`Storage`*>>: Reads data from, and writes data to, the hard disk.
 
+// end::architecture[]
+
 Below contains the description for each of the four key components:
 
 //.Class Diagram of the Logic Component
@@ -150,6 +152,7 @@ Below contains the description for each of the four key components:
 //
 //The sections below give more details of each component.
 //
+
 
 // tag::UI[]
 [[Design-Ui]]
@@ -514,16 +517,11 @@ We have 1 type of test:
 ..  _Unit tests_ targeting the lowest level methods/classes. +
 e.g. `seedu.addressbook.commons.UtilsTest`
 ..  _Integration tests_ that are checking the integration of multiple code units (those code units are assumed to be working). +
-e.g. `seedu.addressbook.storage.StorageFileTest`
+e.g. `seedu.addressbook.storage.StorageFileTest` +
+     `seedu.addressbook.parser.ParserTest`
 ..  Hybrids of unit and integration tests. These test are checking multiple code units as well as how the are connected together. +
 e.g. `seedu.addressbook.logic.LogicTest`
 
-
-=== Troubleshooting Testing
-**Problem: `HelpWindowTest` fails with a `NullPointerException`.**
-
-* Reason: One of its dependencies, `HelpWindow.html` in `src/main/resources/docs` is missing.
-* Solution: Execute Gradle task `processResources`.
 
 //== Dev Ops
 //
@@ -850,15 +848,16 @@ e.g. `seedu.addressbook.logic.LogicTest`
 
 [appendix]
 == User Stories
-// tag:userstories[]
+// tag::userstories[]
 Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (unlikely to have) - `*`
 
 [width="59%",cols="22%,<23%,<25%,<30%",options="header",]
 |=======================================================================
 |Priority |As a ... |I want to ... |So that I can...
-|`* * *` |Cashier |add , edit and delete orders made |collate the customer’s orders and send it to the kitchen
+|`* * *` |Cashier |add, edit and delete orders made |collate the customer’s orders and send it to the kitchen
 
-|`* *` |Cashier |view all members of the restaurant |keep track of which customer has a membership at the restaurant
+|`* *` |Cashier |add new members, delete old members and view all members of the restaurant |keep track of which customer has a membership at the restaurant
+
 
 |`* * *` |Manager |keep track of the restaurant business statistics such as daily revenue |understand if the restaurant is making a loss or not
 
@@ -881,6 +880,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 
 _{More to be added}_
+// end::userstories[]
 
 [appendix]
 == Use Cases
@@ -1112,6 +1112,80 @@ Use case ends.
 ** 1a2. RMS displays information on the proper use of the command along with an example.
 +
 Use case ends.
+
+// tag::MemberUseCases[]
+=== Use case: List member
+System: Restaurant Management System (RMS) +
+Use Case: List member +
+Actor: Restaurant Manager / Cashier +
+Preconditions: User has started up the system. +
+Guarantees:
+
+* List of members will be displayed.
+
+*MSS*
+
+1.    User chooses to view the entire list of members.
+2.    RMS displays a list of the employees.
++
+Use case ends.
+
+=== Use case: Add member
+Actor: Restaurant Manager / Cashier +
+Preconditions: User has started up the system. +
+Guarantees:
+
+* New member is added to the RMS.
+
+*MSS*
+
+1.    User requests to add a new member with the required parameters.
+2.    RMS adds a new member to the list with the parameters that were specified by the User.
++
+Use case ends.
+
+*Extensions*
+
+
+* 1a. RMS detects that an invalid command format has been entered.
+** 1a1. RMS displays an error that says the command format is invalid.
+** 1a2. RMS displays information on the proper use of the command along with an example.
++
+Use case ends.
+
+* 1b. RMS detects that there is an attempt to add a duplicate member.
+** 1b1. RMS displays an error that says the member already exists in Rms.
++
+Use case ends.
+
+=== Use case: Delete member
+Actor: Restaurant Manager / Cashier +
+Preconditions: User has started up the system. +
+Guarantees:
+
+* Existing member is deleted from the RMS.
+
+*MSS*
+
+1.    User requests to delete an existing member in the list of members.
+2.    RMS deletes the existing member at the index that was specified by the User.
++
+Use case ends.
+
+*Extensions*
+
+
+* 1a. RMS detects that an invalid command format has been entered.
+** 1a1. RMS displays an error that says the command format is invalid.
+** 1a2. RMS displays information on the proper use of the command along with an example.
++
+Use case ends.
+
+* 1b. RMS detects that there is an attempt to delete a member that does not exist in the RMS.
+** 1b1. RMS displays an error that says the member index provided is invalid.
++
+Use case ends.
+// end::MemberUseCases[]
 
 === Use case: View employee statistics
 Actor: Manager
