@@ -5,10 +5,14 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Button;
+import javafx.scene.control.PasswordField;
+import javafx.scene.control.Label;
 import seedu.addressbook.commands.CommandResult;
 import seedu.addressbook.commands.ExitCommand;
 import seedu.addressbook.data.person.ReadOnlyPerson;
 import seedu.addressbook.logic.Logic;
+import seedu.addressbook.login.login;
 
 import java.util.List;
 import java.util.Optional;
@@ -19,6 +23,33 @@ import static seedu.addressbook.common.Messages.*;
  * Main Window of the GUI.
  */
 public class LoginWindow {
+
+    public Button button;
+    private int tries = 3;
+
+    @FXML
+    private PasswordField password;
+
+    @FXML
+    private TextField username;
+
+    @FXML
+    private Label message;
+
+    @FXML
+    boolean handleButtonClick(ActionEvent event) {
+            String user = username.getText();
+            String pass = password.getText();
+            username.clear();
+            password.clear();
+            if (!login.main(user, pass)) {
+                message.setText("Incorrect Username/Password! Please Try Again! " + tries +" left.");
+                tries--;
+            }else{
+                return true;
+            }
+        return false;
+    }
 
 //    private Logic logic;
 //    private Stoppable mainApp;
@@ -34,29 +65,7 @@ public class LoginWindow {
 //        this.mainApp = mainApp;
 //    }
 //
-//    @FXML
-//    private TextArea outputConsole;
-//
-//    @FXML
-//    private TextField commandInput;
-//
-//
-//    @FXML
-//    void onCommand(ActionEvent event) {
-//        try {
-//            String userCommandText = commandInput.getText();
-//            CommandResult result = logic.execute(userCommandText);
-//            if(isExitCommand(result)){
-//                exitApp();
-//                return;
-//            }
-//            displayResult(result);
-//            clearCommandInput();
-//        } catch (Exception e) {
-//            display(e.getMessage());
-//            throw new RuntimeException(e);
-//        }
-//    }
+
 //
 //    private void exitApp() throws Exception {
 //        mainApp.stop();

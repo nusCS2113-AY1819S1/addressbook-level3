@@ -25,16 +25,23 @@ public class login {
 //        }
 //    }
 
-    private static void inputLogin(){
-        System.out.print("Username: ");
-        username = in.nextLine();
-        System.out.print("Password: ");
-        password = in.nextLine();
-    }
 
-    public static boolean main(){
-        for(tries=0; tries<3; tries++) {
-            inputLogin();
+//    public static void setUsername(String user) {
+//        username = user;
+//    }
+//    public static void setPassword(String pass){
+//        password = pass;
+//    }
+//
+//    private static void inputLogin(){
+//        System.out.print("Username: ");
+//        username = in.nextLine();
+//        System.out.print("Password: ");
+//        password = in.nextLine();
+//    }
+
+    public static boolean main(String username, String password){
+//        for(tries=0; tries<3; tries++) {
             Credentials credentials = new Credentials(username, password);
             if(username.equals(stdUser) && password.equals(stdPass)){
 //            if(credentials.getUsername().equals(stdUser) && credentials.getPassword().equals(stdPass)){
@@ -48,7 +55,7 @@ public class login {
 //                credentials = null;
                 System.out.println("Incorrect Username/Password! Please try again.");
             }
-        }
+//        }
         System.out.println("Login failed. Account is now locked.");
         return false;
     }
