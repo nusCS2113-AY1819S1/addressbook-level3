@@ -27,13 +27,13 @@ public class EmployeeClockOutCommand extends Command {
 
     private final String name;
 
-    SimpleDateFormat dateFormatter = new SimpleDateFormat("dd/MM/yyyy");
-    SimpleDateFormat timeFormatter = new SimpleDateFormat("HH:mm:ss");
-    Date date = new Date();
+    private SimpleDateFormat dateFormatter = new SimpleDateFormat("dd/MM/yyyy");
+    private SimpleDateFormat timeFormatter = new SimpleDateFormat("HH:mm:ss");
+    private Date date = new Date();
     private final String currentTime = timeFormatter.format(date);
     private final String currentDate = dateFormatter.format(date);
 
-    public EmployeeClockOutCommand(String name){
+    public EmployeeClockOutCommand(String name) {
         this.name = name;
     }
 
@@ -44,7 +44,7 @@ public class EmployeeClockOutCommand extends Command {
         String name = oldAttendance.getName();
         Set<Timing> updatedTimings = oldAttendance.getTimings();
 
-        Timing currentTiming = new Timing(this.currentTime, this.currentDate,false);
+        Timing currentTiming = new Timing(this.currentTime, this.currentDate, false);
         updatedTimings.add(currentTiming);
 
         return new Attendance(name, false, updatedTimings);
@@ -56,7 +56,7 @@ public class EmployeeClockOutCommand extends Command {
 
         Attendance oldAttendance = rms.findAttendance(index);
         boolean isClockedIn = oldAttendance.getClockedIn();
-        if(!isClockedIn){
+        if (!isClockedIn) {
             return new CommandResult(String.format(MESSAGE_NOT_YET_CLOCKED_IN, name));
         }
 

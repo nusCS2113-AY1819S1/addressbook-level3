@@ -30,8 +30,9 @@ public class StatsMemberCommand extends Command {
     private String getOverviewStats() {
         StringBuilder res = new StringBuilder();
         List<ReadOnlyMember> allMembers = rms.getAllMembers().immutableListView();
-        if (allMembers.isEmpty())
+        if (allMembers.isEmpty()) {
             return "There are no members in the system.";
+        }
         MemberDateTable dateTable = new MemberDateTable();
         int[] tierCount = new int[]{0,0,0};
         for (ReadOnlyMember member : allMembers) {

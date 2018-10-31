@@ -9,7 +9,7 @@ import seedu.addressbook.data.member.UniqueMemberList.MemberNotFoundException;
 /**
  * Deletes an employee identified using it's last displayed index from the address book.
  */
-public class MemberDeleteCommand extends Command{
+public class MemberDeleteCommand extends Command {
 
     public static final String COMMAND_WORD = "delmember";
 

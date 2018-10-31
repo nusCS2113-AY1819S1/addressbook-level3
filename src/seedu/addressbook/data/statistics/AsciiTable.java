@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * Represents a table made in Ascii
+ */
 public class AsciiTable {
     private String[] headings;
     private List<List<String>> data;
@@ -17,10 +20,12 @@ public class AsciiTable {
     private String postPad;
 
     public AsciiTable(String[] headings) {
-        if (headings == null)
+        if (headings == null) {
             throw new IllegalArgumentException("Headings is null.");
-        if (headings.length == 0)
+        }
+        if (headings.length == 0) {
             throw new IllegalArgumentException("No headings.");
+        }
 
         this.colBorder = '|';
         this.rowBorder = '-';
@@ -32,19 +37,24 @@ public class AsciiTable {
         this.columnWidths = new int[noOfColumns];
         this.headings = headings;
         this.data = new ArrayList<>();
-        for (int i=0; i<noOfColumns; i++) {
+        for (int i = 0; i < noOfColumns; i++) {
             this.columnWidths[i] = headings[i].length();
         }
     }
 
+    /**
+     * Add and populate a row if the number number of entries is the same as the number of columns
+     */
     public void addRow(String[] rowData) {
-        if (rowData.length != this.noOfColumns)
+        if (rowData.length != this.noOfColumns) {
             return;
+        }
 
         data.add(Arrays.asList(rowData));
-        for (int i=0; i<this.noOfColumns; i++) {
-            if (columnWidths[i] < rowData[i].length())
+        for (int i = 0; i < this.noOfColumns; i++) {
+            if (columnWidths[i] < rowData[i].length()) {
                 columnWidths[i] = rowData[i].length();
+            }
         }
     }
 
@@ -53,17 +63,17 @@ public class AsciiTable {
         StringBuilder sb = new StringBuilder();
         sb.append(createRowBorder(true));
 
-        for (int i=0; i<noOfColumns; i++) {
+        for (int i = 0; i < noOfColumns; i++) {
             String cellString = headings[i];
-            sb.append(padCell(cellString, columnWidths[i], ' ', i==0, i==noOfColumns-1));
+            sb.append(padCell(cellString, columnWidths[i], ' ', i == 0, i == noOfColumns - 1));
         }
         sb.append("\n");
         sb.append(createRowBorder(true));
 
-        for (int i=0; i<data.size(); i++) {
-            for (int j=0; j<noOfColumns; j++) {
+        for (int i = 0; i < data.size(); i++) {
+            for (int j = 0; j < noOfColumns; j++) {
                 String cellString = data.get(i).get(j);
-                sb.append(padCell(cellString, columnWidths[j], ' ', j==0, j==noOfColumns-1));
+                sb.append(padCell(cellString, columnWidths[j], ' ', j == 0, j == noOfColumns - 1));
             }
             sb.append("\n");
             sb.append(createRowBorder(false));
@@ -72,18 +82,25 @@ public class AsciiTable {
         return sb.toString();
     }
 
+    /**
+     * Create a border for a row
+     */
     private String createRowBorder(boolean heading) {
         int tableWidth = calculateTableWidth();
         StringBuffer outputBuffer = new StringBuffer(tableWidth);
-        for (int i = 0; i < tableWidth; i++){
-            if (heading)
+        for (int i = 0; i < tableWidth; i++) {
+            if (heading) {
                 outputBuffer.append(rowHBorder);
-            else
+            } else {
                 outputBuffer.append(rowBorder);
+            }
         }
         return outputBuffer.toString() + "\n";
     }
 
+    /**
+     * Calculate and return the width of a table
+     */
     private int calculateTableWidth() {
         int width = 0;
         width += 1;
@@ -97,11 +114,14 @@ public class AsciiTable {
         return width;
     }
 
+    /**
+     * Return a String after padding a String into a table cell
+     */
     private String padCell(String in, int width, char pad, boolean first, boolean last) {
         int cellSize = in.length();
         int padSize = width - cellSize;
         StringBuffer outputBuffer = new StringBuffer(padSize);
-        for (int i = 0; i < padSize; i++){
+        for (int i = 0; i < padSize; i++) {
             outputBuffer.append(pad);
         }
 

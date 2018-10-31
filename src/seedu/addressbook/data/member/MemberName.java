@@ -1,11 +1,7 @@
 package seedu.addressbook.data.member;
 
-
 import seedu.addressbook.common.Name;
 import seedu.addressbook.data.exception.IllegalValueException;
-
-import java.util.Arrays;
-import java.util.List;
 
 /**
  * Represents an Employee's name in the Rms.

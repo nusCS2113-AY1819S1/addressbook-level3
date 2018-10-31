@@ -1,26 +1,41 @@
 package seedu.addressbook.storage.jaxb;
 
-import seedu.addressbook.common.Utils;
-import seedu.addressbook.data.exception.IllegalValueException;
-import seedu.addressbook.data.menu.*;
-import seedu.addressbook.data.tag.Tag;
-
-import javax.xml.bind.annotation.XmlAttribute;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlValue;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlValue;
+
+import seedu.addressbook.common.Utils;
+import seedu.addressbook.data.exception.IllegalValueException;
+import seedu.addressbook.data.menu.Menu;
+import seedu.addressbook.data.menu.MenuName;
+import seedu.addressbook.data.menu.Price;
+import seedu.addressbook.data.menu.ReadOnlyMenus;
+import seedu.addressbook.data.menu.Type;
+import seedu.addressbook.data.tag.Tag;
 
 /**
  * JAXB-friendly adapted person data holder class.
  */
 public class AdaptedMenu {
 
+    /**
+     * JAXB-friendly adapted menu item detail data holder class.
+     */
     private static class AdaptedMenuItemDetail {
+        private String value;
+
         @XmlValue
-        public String value;
+        public String getValue() {
+            return value;
+        }
+
+        public void setValue(String value) {
+            this.value = value;
+        }
     }
 
     @XmlElement(required = true)
@@ -50,10 +65,10 @@ public class AdaptedMenu {
 
         price = new AdaptedMenuItemDetail();
         //price.isPrivate = source.getPrice().isPrivate();
-        price.value = source.getPrice().value;
+        price.setValue(source.getPrice().value);
 
         type = new AdaptedMenuItemDetail();
-        type.value = source.getType().value;
+        type.setValue(source.getType().value);
 
         tagged = new ArrayList<>();
         for (Tag tag : source.getTags()) {
@@ -77,7 +92,7 @@ public class AdaptedMenu {
         }
         // second call only happens if phone/email/address are all not null
         return Utils.isAnyNull(name, price, type)
-                || Utils.isAnyNull(price.value, type.value);
+                || Utils.isAnyNull(price.getValue(), type.getValue());
     }
 
     /**
@@ -91,8 +106,8 @@ public class AdaptedMenu {
             tags.add(tag.toModelType());
         }
         final MenuName name = new MenuName(this.name);
-        final Price price = new Price(this.price.value/*, this.price.isPrivate*/);
-        final Type type = new Type(this.type.value);
+        final Price price = new Price(this.price.getValue()/*, this.price.isPrivate*/);
+        final Type type = new Type(this.type.getValue());
         return new Menu(name, price, type, tags);
     }
 }

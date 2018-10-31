@@ -1,13 +1,13 @@
 package seedu.addressbook.commands.order;
 
+import java.util.List;
+
 import seedu.addressbook.commands.Command;
 import seedu.addressbook.commands.CommandResult;
 import seedu.addressbook.data.member.ReadOnlyMember;
 import seedu.addressbook.data.order.Order;
 import seedu.addressbook.data.order.ReadOnlyOrder;
 import seedu.addressbook.data.order.UniqueOrderList;
-
-import java.util.List;
 
 /**
  * Confirm the order and put it into the order list. Clear the draft order afterward.
@@ -33,7 +33,7 @@ public class DraftOrderConfirmCommand extends Command {
                 final ReadOnlyMember customerOfOrderToAdd = draftOrder.getCustomer();
                 final Order toAdd = new Order(customerOfOrderToAdd, draftOrder.getDishItems());
                 if (rms.containsMember(customerOfOrderToAdd)) {
-                    customerOfOrderToAdd.updatePoints(toAdd.getPrice());
+                    customerOfOrderToAdd.updatePointsAndTier(toAdd.getPrice());
                 }
                 rms.addOrder(toAdd);
                 rms.clearDraftOrder();

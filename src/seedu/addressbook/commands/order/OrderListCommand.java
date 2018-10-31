@@ -1,10 +1,10 @@
 package seedu.addressbook.commands.order;
 
+import java.util.List;
+
 import seedu.addressbook.commands.Command;
 import seedu.addressbook.commands.CommandResult;
 import seedu.addressbook.data.order.ReadOnlyOrder;
-
-import java.util.List;
 
 /**
  * Lists all orders in the order list to the user.
