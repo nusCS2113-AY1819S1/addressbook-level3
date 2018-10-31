@@ -38,8 +38,7 @@ public class StatsMemberCommand extends Command {
         for (ReadOnlyMember member : allMembers) {
             Date signupDate = member.getDate();
             dateTable.addData(signupDate);
-            String tier = "Bronze";
-//            String tier = member.getMemberTier().toString();
+            String tier = member.getMemberTier().toString();
             if (tier.equalsIgnoreCase("Bronze")) {
                 tierCount[0]++;
             } else if (tier.equalsIgnoreCase("Silver")) {
