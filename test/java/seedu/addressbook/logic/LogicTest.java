@@ -875,10 +875,10 @@ public class LogicTest {
         assertInvalidIndexBehaviorForEmployeeCommand("delemp");
     }
 
-    /*@Test
+    @Test
     public void execute_deletemenu_invalidIndex() throws Exception {
         assertInvalidIndexBehaviorForMenuCommand("deletemenu");
-    }*/
+    }
 
     @Test
     public void execute_delmember_invalidIndex() throws Exception {
@@ -957,6 +957,30 @@ public class LogicTest {
     }
 
     @Test
+    public void execute_deletemenu_removesCorrectMenu() throws Exception {
+        TestDataHelper helper = new TestDataHelper();
+        Menu m1 = helper.generateMenuItem(1);
+        Menu m2 = helper.generateMenuItem(2);
+        Menu m3 = helper.generateMenuItem(3);
+
+        List<Menu> threeMenus = helper.generateMenuList(m1, m2, m3);
+
+        Rms expectedRms = helper.generateRmsMenu(threeMenus);
+        expectedRms.removeMenuItem(m2);
+
+
+        helper.addToRmsMenu(rms, threeMenus);
+        logic.setLastShownMenuList(threeMenus);
+
+        assertMenuCommandBehavior("deletemenu 2",
+                String.format(MenuDeleteCommand.MESSAGE_DELETE_MENU_ITEM_SUCCESS, m2),
+                expectedRms,
+                false,
+                threeMenus);
+    }
+
+
+    @Test
     public void execute_delete_missingInAddressBook() throws Exception {
 
         TestDataHelper helper = new TestDataHelper();
@@ -1029,9 +1053,40 @@ public class LogicTest {
     }
 
     @Test
+    public void execute_deletemenu_missingInRMS() throws Exception {
+
+        TestDataHelper helper = new TestDataHelper();
+        Menu m1 = helper.generateMenuItem(1);
+        Menu m2 = helper.generateMenuItem(2);
+        Menu m3 = helper.generateMenuItem(3);
+
+        List<Menu> threeMenus = helper.generateMenuList(m1, m2, m3);
+
+        Rms expectedRms = helper.generateRmsMenu(threeMenus);
+        expectedRms.removeMenuItem(m2);
+
+        helper.addToRmsMenu(rms, threeMenus);
+        rms.removeMenuItem(m2);
+        logic.setLastShownMenuList(threeMenus);
+
+        assertMenuCommandBehavior("deletemenu 2",
+                Messages.MESSAGE_MENU_ITEM_NOT_IN_ADDRESSBOOK,
+                expectedRms,
+                false,
+                threeMenus);
+    }
+
+
+    @Test
     public void execute_find_invalidArgsFormat() throws Exception {
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE);
         assertCommandBehavior("find ", expectedMessage);
+    }
+
+    @Test
+    public void execute_findmenu_invalidArgsFormat() throws Exception {
+        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, MenuFindCommand.MESSAGE_USAGE);
+        assertMenuCommandBehavior("findmenu ", expectedMessage);
     }
 
 
@@ -1051,6 +1106,26 @@ public class LogicTest {
         assertCommandBehavior("find KEY",
                 Command.getMessageForPersonListShownSummary(expectedList),
                 expectedAB,
+                true,
+                expectedList);
+    }
+
+    @Test
+    public void execute_findmenu_onlyMatchesFullWordsInMenuItems() throws Exception {
+        TestDataHelper helper = new TestDataHelper();
+        Menu mTarget1 = helper.generateMenuWithName("Double Cheese Burger");
+        Menu mTarget2 = helper.generateMenuWithName("Mac and Cheese");
+        Menu m1 = helper.generateMenuWithName("cheeeeseeeeeee");
+        Menu m2 = helper.generateMenuWithName("che ese");
+
+        List<Menu> fourMenus = helper.generateMenuList(m1, mTarget1, m2, mTarget2);
+        Rms expectedRms = helper.generateRmsMenu(fourMenus);
+        List<Menu> expectedList = helper.generateMenuList(mTarget1, mTarget2);
+        helper.addToRmsMenu(rms, fourMenus);
+
+        assertMenuCommandBehavior("findmenu Cheese",
+                Command.getMessageForMenuListShownSummary(expectedList),
+                expectedRms,
                 true,
                 expectedList);
     }
@@ -1093,6 +1168,26 @@ public class LogicTest {
         assertCommandBehavior("find KEY rAnDoM",
                 Command.getMessageForPersonListShownSummary(expectedList),
                 expectedAB,
+                true,
+                expectedList);
+    }
+
+    @Test
+    public void execute_findmenu_matchesIfAnyKeywordPresent() throws Exception {
+        TestDataHelper helper = new TestDataHelper();
+        Menu mTarget1 = helper.generateMenuWithName("Cheese Taco");
+        Menu mTarget2 = helper.generateMenuWithName("Cheese Burger");
+        Menu m1 = helper.generateMenuWithName("CheeSe wrap");
+        Menu m2 = helper.generateMenuWithName("Grilled cheeeese sandwiches");
+
+        List<Menu> fourMenus = helper.generateMenuList(m1, mTarget1, m2, mTarget2);
+        Rms expectedRms = helper.generateRmsMenu(fourMenus);
+        List<Menu> expectedList = helper.generateMenuList(mTarget1, mTarget2);
+        helper.addToRmsMenu(rms, fourMenus);
+
+        assertMenuCommandBehavior("findmenu Cheese Taco",
+                Command.getMessageForMenuListShownSummary(expectedList),
+                expectedRms,
                 true,
                 expectedList);
     }
@@ -1225,9 +1320,9 @@ public class LogicTest {
          */
         Menu generateMenuItem(int seed) throws Exception {
             return new Menu(
-                    new MenuName("Person " + seed),
-                    new Price("" + Math.abs(seed)),
-                    new Type(("Type " + seed)),
+                    new MenuName("Menu " + seed),
+                    new Price("$" + Math.abs(seed)),
+                    new Type(("main")),
                     new HashSet<>(Arrays.asList(new Tag("tag" + Math.abs(seed)), new Tag("tag" + Math.abs(seed + 1))))
             );
         }
@@ -1492,7 +1587,7 @@ public class LogicTest {
         }
 
         /**
-         * Generates a Menu object with given name. Other fields will have some dummy values.
+         * Generates a Menu object with given name and type. Other fields will have some dummy values.
          */
         Menu generateMenuWithGivenNameAndType(String name, String type) throws Exception {
             return new Menu(
