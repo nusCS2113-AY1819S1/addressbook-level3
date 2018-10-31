@@ -20,23 +20,25 @@ public class WorkWithLoginStorage {
         }
     }
 
-    public static boolean compareCredentials(Credentials username) {
+//    public static boolean compareCredentials(String username, String password) {
+    public static boolean compareCredentials(String username, String password) {
         openScanner();
 
         if(debug) System.out.println(logins.getAbsolutePath());
 //        if(debug) System.out.println("user = " + user +"; pass = " + pass);
 
-        if(retrieveUsername(username.getUsername())){
+        if(retrieveUsername(username)){
             if(debug) System.out.println("user correct");
             retrieveStoredHash();
             if(debug)System.out.println("password = " + PASSWORD + "2");
-            return hashing.hashIt(username.getPassword()).equals(PASSWORD);
+            return (hashing.hashIt(password)).equals(PASSWORD);
+//            return (password.equals(PASSWORD));
         }else {
             return false;
         }
     }
 
-    public static void editLogin(Credentials username) throws IOException{
+    public static void editLogin(Credentials username) {
         deleteLogin(username);
         addLogin(username);
     }
@@ -68,7 +70,7 @@ public class WorkWithLoginStorage {
                     pw.println(" " + sc.nextLine());
                 }
             }
-            pw.close();
+//            pw.close();
             logins.delete();
             file1.renameTo(logins);
         }catch (IOException e){

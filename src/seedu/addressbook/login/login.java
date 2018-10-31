@@ -1,5 +1,8 @@
 package seedu.addressbook.login;
 
+import seedu.addressbook.data.exception.IllegalValueException;
+import seedu.addressbook.login.Credentials.*;
+
 import java.util.Scanner;
 
 public class login {
@@ -10,26 +13,39 @@ public class login {
     private static final String stdPass = "Password";
     private static String username;
     private static String password;
-    private static Scanner sc = new Scanner(System.in);
+    private static Scanner in = new Scanner(System.in);
+
+//    private static Credentials credentials = new Credentials();
+//
+//    static {
+//        try {
+//            credentials = new Credentials("S1234567T", "123abcABC!@#");
+//        } catch (IllegalValueException e) {
+//            e.printStackTrace();
+//        }
+//    }
 
     private static void inputLogin(){
         System.out.print("Username: ");
-        username = sc.next();
+        username = in.nextLine();
         System.out.print("Password: ");
-        password = sc.next();
-        sc.close();
+        password = in.nextLine();
     }
 
     public static boolean main(){
-        for(tries=0; tries<3; tries++){
+        for(tries=0; tries<3; tries++) {
             inputLogin();
+            Credentials credentials = new Credentials(username, password);
             if(username.equals(stdUser) && password.equals(stdPass)){
+//            if(credentials.getUsername().equals(stdUser) && credentials.getPassword().equals(stdPass)){
                 System.out.println("Welcome to AddressBook3");
                 return true;
-            }else if(WorkWithLoginStorage.compareCredentials(username, password)){
+            }else if(credentials.validateCredentials()){
+//            }else if(WorkWithLoginStorage.compareCredentials(username, password)){
                 System.out.println("2Welcome to AddressBook3");
                 return true;
             }else{
+//                credentials = null;
                 System.out.println("Incorrect Username/Password! Please try again.");
             }
         }

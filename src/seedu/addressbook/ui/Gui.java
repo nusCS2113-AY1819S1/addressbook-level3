@@ -31,6 +31,7 @@ public class Gui {
 
     public void start(Stage stage, Stoppable mainApp) throws IOException {
         mainWindow = createMainWindow(stage, mainApp);
+//        mainWindow.displayWelcomeMessage(version, null);
         mainWindow.displayWelcomeMessage(version, logic.getStorageFilePath());
     }
 
@@ -50,5 +51,6 @@ public class Gui {
         mainWindow.setMainApp(mainApp);
         return mainWindow;
     }
+
 
 }

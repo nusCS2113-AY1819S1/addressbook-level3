@@ -2,7 +2,6 @@ package seedu.addressbook.login;
 
 import seedu.addressbook.data.exception.IllegalValueException;
 import seedu.addressbook.login.hashing;
-
 import java.io.IOException;
 import java.util.Scanner;
 
@@ -17,7 +16,29 @@ public class Credentials {
 //    private String salt;
 //    private  int authLevel;
 
-    public Credentials(String username, String password) throws IllegalValueException {
+    public Credentials(String username, String password){
+//        if(isValidUsername(username)){
+            USERNAME = username;
+//            if(isValidPassword(password)){
+                PASSWORD = password;
+//            }
+//            WorkWithLoginStorage.addLogin(this);
+//        }
+    }
+
+//    public Credentials(String username, String password) throws IllegalValueException {
+//        if(isValidUsername(username)) setUsername(username);
+//        else{
+//            throw new IllegalValueException(MESSAGE_USERNAME_CONSTRAINTS);
+//        }
+//        if(isValidPassword(password)) setPassword(password);
+//        else{
+//            throw new IllegalValueException(MESSAGE_PASSWORD_CONSTRAINTS);
+//        }
+//        WorkWithLoginStorage.addLogin(this);
+//    }
+
+    public void addCredentials(String username, String password) throws IllegalValueException {
         if(isValidUsername(username)) setUsername(username);
         else{
             throw new IllegalValueException(MESSAGE_USERNAME_CONSTRAINTS);
@@ -29,21 +50,33 @@ public class Credentials {
         WorkWithLoginStorage.addLogin(this);
     }
 
+    public boolean validateCredentials(){
+        return WorkWithLoginStorage.compareCredentials(getUsername(), getPassword());
+    }
+
     public void editPassword() throws IOException {
         Scanner sc = new Scanner(System.in);
         System.out.println("Enter current password: ");
         PASSWORD = sc.next();
-        if(WorkWithLoginStorage.compareCredentials(this)){
+        if(WorkWithLoginStorage.compareCredentials(this.getUsername(), this.getPassword())){
             System.out.println("Enter new password: ");
             String password1 = sc.next();
             System.out.println("Re-enter new password: ");
             String password2 = sc.next();
             if(password1.equals(password2)){
-                WorkWithLoginStorage.editLogin(this);
+                System.out.println("This action cannot be undone! Are you sure you want to change your password? \n EnterY/N to confirm.");
+                String confirm = sc.next();
+                if(confirm.equals("Y")){
+                    WorkWithLoginStorage.editLogin(this);
+                }else if(confirm.equals("N")){
+                    System.out.println("Then why waste my time trying to change your password?");
+                }else{
+                    System.out.println("Invalid input, please try again");
+                }
             }
         }
         deletePassword();
-        sc.close();
+//        sc.close();
     }
 
     private boolean isValidUsername(String username){
@@ -63,7 +96,8 @@ public class Credentials {
     }
 
     public void setPassword(String password) {
-            PASSWORD = hashPassword(password);
+//            PASSWORD = hashPassword(password);
+        PASSWORD=password;
     }
 
     private String hashPassword(String toBeHashed){
