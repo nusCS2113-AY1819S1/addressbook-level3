@@ -1,13 +1,19 @@
 package seedu.addressbook.commands.menu;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import seedu.addressbook.commands.Command;
 import seedu.addressbook.commands.CommandResult;
 import seedu.addressbook.data.exception.IllegalValueException;
-import seedu.addressbook.data.menu.*;
+import seedu.addressbook.data.menu.Menu;
+import seedu.addressbook.data.menu.MenuName;
+import seedu.addressbook.data.menu.Price;
+import seedu.addressbook.data.menu.ReadOnlyMenus;
+import seedu.addressbook.data.menu.Type;
+import seedu.addressbook.data.menu.UniqueMenuList;
 import seedu.addressbook.data.tag.Tag;
 
-import java.util.HashSet;
-import java.util.Set;
 
 /**
  * Adds a menu item to the address book.
@@ -66,4 +72,3 @@ public class MenuAddCommand extends Command {
     }
 
 }
-//test command

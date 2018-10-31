@@ -31,9 +31,9 @@ public class MenuDeleteCommand extends Command {
     @Override
     public CommandResult execute() {
         try {
-            final ReadOnlyMenus Menutarget = getTargetMenu();
-            rms.removeMenuItem(Menutarget);
-            return new CommandResult(String.format(MESSAGE_DELETE_MENU_ITEM_SUCCESS, Menutarget));
+            final ReadOnlyMenus menutarget = getTargetMenu();
+            rms.removeMenuItem(menutarget);
+            return new CommandResult(String.format(MESSAGE_DELETE_MENU_ITEM_SUCCESS, menutarget));
 
         } catch (IndexOutOfBoundsException ie) {
             return new CommandResult(Messages.MESSAGE_INVALID_MENU_ITEM_DISPLAYED_INDEX);
