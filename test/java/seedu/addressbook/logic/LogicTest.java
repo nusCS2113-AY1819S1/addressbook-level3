@@ -687,7 +687,6 @@ public class LogicTest {
 
     /**
      * Confirms the 'invalid argument index number behaviour' for the given command
-<<<<<<< HEAD
      * targeting a single menu item in the last shown menu list, using visible index.
      * @param commandWord to test assuming it targets a single menu item in the last shown menu list based on visible index.
      */
