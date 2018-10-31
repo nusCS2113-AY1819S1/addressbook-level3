@@ -9,6 +9,7 @@ import seedu.addressbook.commands.CommandResult;
 import seedu.addressbook.commands.*;
 import seedu.addressbook.common.Messages;
 import seedu.addressbook.data.AddressBook;
+import seedu.addressbook.data.CommandHistory;
 import seedu.addressbook.data.person.*;
 import seedu.addressbook.data.tag.Tag;
 import seedu.addressbook.storage.StorageFile;
@@ -388,6 +389,55 @@ public class LogicTest {
                                 expectedAB,
                                 false,
                                 threePersons);
+    }
+
+    @Test
+    public void execute_undo_nothingToUndo() throws Exception {
+        String expectedMessage = String.format(UndoCommand.MESSAGE_FAILURE);
+        assertCommandBehavior("undo", expectedMessage);
+    }
+
+    @Test
+    public void execute_undo_undoOneCommand() throws Exception {
+        TestDataHelper helper = new TestDataHelper();
+        Person p1 = helper.generatePerson(1, false);
+        Person p2 = helper.generatePerson(2, false);
+        Person p3 = helper.generatePerson(3, false);
+
+        List<Person> onePersons = helper.generatePersonList(p3);
+        List<Person> twoPersons = helper.generatePersonList(p1, p2);
+
+        CommandHistory CH = addressBook.getCommandHistory();
+        CH.moveIteratorForward();
+        helper.addToAddressBook(addressBook, twoPersons);
+        CH.checkForAction();
+        helper.addToAddressBook(addressBook, onePersons);
+        CH.checkForAction();
+        CH.undoLast();
+
+
+        AddressBook expectedAB = helper.generateAddressBook(twoPersons);
+        logic.setLastShownList(twoPersons);
+        String expectedMessage = String.format(UndoCommand.MESSAGE_SUCCESS);
+        assertCommandBehavior("undo", expectedMessage, expectedAB, true, twoPersons);
+    }
+
+    @Test
+    public void execute_redo_nothingToRedo() throws Exception {
+        String expectedMessage = String.format(RedoCommand.MESSAGE_FAILURE);
+        assertCommandBehavior("redo", expectedMessage);
+    }
+
+    @Test
+    public void execute_history_noHistory() throws Exception {
+        String expectedMessage = String.format(HistoryCommand.MESSAGE_NO_HISTORY);
+        assertCommandBehavior("history", expectedMessage);
+    }
+
+    @Test
+    public void execute_link_invalidArgsFormat() throws Exception {
+        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, LinkCommand.MESSAGE_USAGE);
+        assertCommandBehavior("link ", expectedMessage);
     }
 
     @Test
