@@ -16,6 +16,7 @@ public class Member implements ReadOnlyMember {
     private MemberName name;
     private Points points;
     private Date date;
+    private MemberTier tier;
 
     public Member() {
         try {
@@ -25,30 +26,27 @@ public class Member implements ReadOnlyMember {
         }
         this.points = new Points();
         this.date = new Date();
+        this.tier = new MemberTier();
     }
 
     public Member(MemberName name) {
         this.name = name;
         this.points = new Points();
         this.date = new Date();
+        this.tier = new MemberTier();
     }
 
-    public Member(MemberName name, Points points, Date date) {
+    public Member(MemberName name, Points points, Date date, MemberTier tier) {
         this.name = name;
         this.points = points;
         this.date = date;
+        this.tier = tier;
     }
     /**
      * Copy constructor.
      */
-    /*
     public Member(ReadOnlyMember source) {
-        this(source.getName(), source.getPoints());
-    }
-    */
-
-    public Member(ReadOnlyMember source) {
-        this(source.getName(), source.getPoints(), source.getDate());
+        this(source.getName(), source.getPoints(), source.getDate(), source.getMemberTier());
     }
 
     @Override
@@ -68,6 +66,25 @@ public class Member implements ReadOnlyMember {
     public Date getDate() {
         return date;
     }
+
+    public MemberTier getMemberTier() {
+        return tier;
+    }
+
+    public MemberTier updateTier(Points points) {
+        return tier.updateTier(points);
+    }
+
+    /**
+     * Updates the points and membership tier of the member
+     * @param price
+     */
+
+    public void updatePointsAndTier(double price) {
+        Points newPoints = updatePoints(price);
+        updateTier(newPoints);
+    }
+
     protected void setName(MemberName name) {
         this.name = name;
     }
