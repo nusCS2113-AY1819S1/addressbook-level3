@@ -46,7 +46,7 @@ public class MainWindow {
         try {
             String userCommandText = commandInput.getText();
             CommandResult result = logic.execute(userCommandText);
-            if(isExitCommand(result)){
+            if(isExitCommand(result)) {
                 exitApp();
                 return;
             }
@@ -73,7 +73,7 @@ public class MainWindow {
     }
 
     /** Clears the output display area */
-    public void clearOutputConsole(){
+    public void clearOutputConsole() {
         outputConsole.clear();
     }
 
@@ -81,7 +81,7 @@ public class MainWindow {
     public void displayResult(CommandResult result) {
         clearOutputConsole();
         final Optional<List<? extends ReadOnlyPerson>> resultPersons = result.getRelevantPersons();
-        if(resultPersons.isPresent()) {
+        if (resultPersons.isPresent()) {
             display(resultPersons.get());
         }
         display(result.feedbackToUser);

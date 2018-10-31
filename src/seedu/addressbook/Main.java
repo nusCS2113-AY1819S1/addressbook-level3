@@ -6,8 +6,9 @@ import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import org.gradle.internal.impldep.org.apache.commons.lang.WordUtils;
+//import org.gradle.internal.impldep.org.apache.commons.lang.WordUtils;
 import seedu.addressbook.data.exception.IllegalValueException;
+import seedu.addressbook.communications.ChatClient;
 import seedu.addressbook.logic.Logic;
 import seedu.addressbook.login.WorkWithLoginStorage;
 import seedu.addressbook.ui.Gui;
@@ -21,6 +22,9 @@ import seedu.addressbook.login.Credentials;
 public class Main extends Application implements Stoppable{
 
     /** Version info of the program. */
+
+    public static final String VERSION = "MediBook - Version 1.3";
+    private Gui gui;
 
 //    public static final String VERSION = "AddressBook Level 3 - Version 1.0";
 //    private Gui gui;
