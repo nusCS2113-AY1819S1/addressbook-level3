@@ -262,12 +262,21 @@ Format: `clear`
 Shows a list of all executed commands in the current session. +
 Format: `history`
 
-=== 4.12 Exiting the program : `exit`
+=== 4.12 Opening MediChat : `chat`
+
+Opens up MediChat, an instant messaging client to instantly contact your colleagues.
+
+Note: In V1.3, the chat server has to be started first. Once MediChat window opens, type "localhost" when the IP address is requested. Next, enter a unique username.
+To simulate chatting, multiple MediChat windows have to be opened.
+
+Format: `chat` `localhost`
+
+=== 4.13 Exiting the program : `exit`
 
 Exits the program. +
 Format: `exit`
 
-=== 4.13 Saving the data
+=== 4.14 Saving the data
 
 Health Booklet data are saved in the hard disk automatically after any command that changes the data. As such, there is no need to save the data manually. These data are saved in a file called addressbook.txt in the project root folder.
 
@@ -291,6 +300,7 @@ However, the history of commands made are only available within the browsing ses
 * `clear` : Clear all entries in the Health Booklet
 * `history` : Shows a list of all executed commands
 * `association` : Coming soon in v1.3
+* `chat` : Opens MediChat
 * `exit` : Exits the program
 
 == 6 Troubleshooting/FAQ
