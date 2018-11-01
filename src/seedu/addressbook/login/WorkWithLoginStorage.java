@@ -6,7 +6,7 @@ import seedu.addressbook.login.hashing;
 import seedu.addressbook.login.Credentials;
 
 public class WorkWithLoginStorage {
-    private static boolean debug = false;
+    private static boolean debug = true;
     private static File logins = new File("src/seedu/addressbook/login/loginstorage.txt");
     private static Scanner sc;
     private static String USERNAME;
@@ -26,13 +26,11 @@ public class WorkWithLoginStorage {
 
         if(debug) System.out.println(logins.getAbsolutePath());
 //        if(debug) System.out.println("user = " + user +"; pass = " + pass);
-
         if(retrieveUsername(username)){
             if(debug) System.out.println("user correct");
             retrieveStoredHash();
             if(debug)System.out.println("password = " + PASSWORD + "2");
             return (hashing.hashIt(password)).equals(PASSWORD);
-//            return (password.equals(PASSWORD));
         }else {
             return false;
         }
@@ -43,17 +41,19 @@ public class WorkWithLoginStorage {
         addLogin(username);
     }
 
-    public static void addLogin(Credentials username) {
+    public static boolean addLogin(Credentials username) {
         try {
             PrintWriter pw = new PrintWriter(new FileWriter(logins, true));
             pw.print("\n" + username.getUsername() + " " + hashing.hashIt(username.getPassword()));
             pw.close();
         } catch (IOException e){
             System.out.println("cannot create file");
+            return false;
         }
+        return true;
     }
 
-    public static void deleteLogin(Credentials username){
+    public static boolean deleteLogin(Credentials username){
         try{
             File file1 = new File ("temp.txt");
             PrintWriter pw = new PrintWriter(new FileWriter(file1, true));
@@ -64,17 +64,20 @@ public class WorkWithLoginStorage {
                 if(matchUsername(username.getUsername())){
                     System.out.println("matches");
                     sc.nextLine();
-                    pw.println(sc.nextLine());
                 }else{
-                    pw.print(USERNAME);
-                    pw.println(" " + sc.nextLine());
+                    pw.print(USERNAME + sc.nextLine());
+                    if(sc.hasNextLine()){
+                        pw.println();
+                    }
                 }
             }
-//            pw.close();
+            pw.close();
             logins.delete();
             file1.renameTo(logins);
+            return true;
         }catch (IOException e){
             System.out.println("cannot create file");
+            return false;
         }
     }
 
@@ -95,10 +98,11 @@ public class WorkWithLoginStorage {
 
     private static void retrieveStoredHash() {
         PASSWORD = sc.next();
+        System.out.println("PASSWORD IS "+ PASSWORD);
     }
 
-    public static void retrieveSalt(){
-        //to be implemented
-    }
+//    public static void retrieveSalt(){
+//        //to be implemented
+//    }
 
 }

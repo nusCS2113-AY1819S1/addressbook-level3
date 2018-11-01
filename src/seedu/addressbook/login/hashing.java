@@ -7,6 +7,7 @@ import java.security.SecureRandom;
 public class hashing {
 
     private static String hashAlgo = "SHA-512";
+    private final static char[] hexArray = "0123456789ABCDEF".toCharArray();
 
     public static String hashIt(String password){
         try {
@@ -29,14 +30,13 @@ public class hashing {
         return "abc";
     }
 
-    private static byte[] getSalt(){
-        byte[] bytes = new byte[20];
-        SecureRandom random = new SecureRandom();
-        random.nextBytes(bytes);
-        return bytes;
-    }
+//    private static byte[] getSalt(){
+//        byte[] bytes = new byte[20];
+//        SecureRandom random = new SecureRandom();
+//        random.nextBytes(bytes);
+//        return bytes;
+//    }
 
-    private final static char[] hexArray = "0123456789ABCDEF".toCharArray();
 
     private static String bytesToStringHex(byte[] bytes) {
         char[] hexChars = new char[bytes.length * 2];
