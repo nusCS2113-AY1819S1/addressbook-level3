@@ -2,7 +2,6 @@ package seedu.addressbook.commands.order;
 
 import seedu.addressbook.commands.Command;
 import seedu.addressbook.commands.CommandResult;
-import seedu.addressbook.data.order.ReadOnlyOrder;
 
 
 /**
@@ -26,7 +25,6 @@ public class OrderAddCommand extends Command {
 
     @Override
     public CommandResult execute() {
-        final ReadOnlyOrder draftOrder = rms.getDraftOrder();
         String message = getDraftOrderAsString()
                         + "\n\n" + MESSAGE_ALL_ORDER_DRAFT_COMMANDS
                         + "\n" + MESSAGE_ALL_ORDER_DRAFT_COMMANDS_USAGES;

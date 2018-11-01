@@ -11,7 +11,7 @@ import seedu.addressbook.data.exception.IllegalValueException;
  */
 public class Member implements ReadOnlyMember {
 
-    public static final String EMPTY_NAME_STRING = "EMPTY";
+    public static final String EMPTY_NAME_STRING = "2l65D1f5H";
 
     private MemberName name;
     private Points points;
