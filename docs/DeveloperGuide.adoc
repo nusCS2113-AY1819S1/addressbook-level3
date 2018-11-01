@@ -188,6 +188,7 @@ of result. +
 e.g. `OrderCommandResult` constructs a `CommandResult` object that only contains a result message and a list of orders
 generated from the ordering commands.
 
+// tag::Data[]
 [[Design-Data]]
 === Data component
 
@@ -203,7 +204,7 @@ link:{repoURL}/src/seedu/addressbook/data[`data`]
 
 [NOTE]
 As a more OOP model, we can store a Tag list in RMS, which all the relevant features can reference. This would allow RMS to only require one Tag object per unique Tag, instead of each feature needing their own Tag object.
-
+// end::Data[]
 
 //Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")` API call.
 //
@@ -897,7 +898,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* *` |Employee |clock in and clock out attendance  |account for the time period which I am working
 |=======================================================================
-
+// end::userstories[]
 
 _{More to be added}_
 
@@ -939,8 +940,9 @@ Return to step 1.
 
 +
 Return to step 3.
-[discrete]
 
+// tag::menuusecase[]
+[discrete]
 === Use case: Show Main Menu
 System: Restaurant Management System (RMS) +
 Use Case: Show Main Menu +
@@ -1069,6 +1071,7 @@ Actor: Cashier
 2.  RMS shows the menu items that contain those keywords.
 
 Use case ends.
+// end::menuusecase[]
 
 
 // tag::employeeusecase[]

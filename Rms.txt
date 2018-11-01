@@ -14,6 +14,14 @@
         <email isPrivate="false">john@gmail.com</email>
         <address isPrivate="false">clementi</address>
     </persons>
+    <persons>
+        <name>John Doe</name>
+        <phone isPrivate="false">98765432</phone>
+        <email isPrivate="false">johnd@gmail.com</email>
+        <address isPrivate="false">311, Clementi Ave 2, #02-25</address>
+        <tagged>owesMoney</tagged>
+        <tagged>friends</tagged>
+    </persons>
     <menus>
         <name>Pizza</name>
         <price>$10.00</price>
@@ -48,6 +56,13 @@
         <name>cheese toast</name>
         <price>$5.00</price>
         <type>main</type>
+    </menus>
+    <menus>
+        <name>Cheese Burger</name>
+        <price>$5.00</price>
+        <type>main</type>
+        <tagged>newAddition</tagged>
+        <tagged>hotSeller</tagged>
     </menus>
     <members>
         <name>Kang Ming</name>
