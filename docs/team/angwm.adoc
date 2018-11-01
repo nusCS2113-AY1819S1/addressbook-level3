@@ -1,0 +1,62 @@
+= Ang Wei Ming - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: Restaurant Management System
+
+---
+
+== Overview
+
+Restaurant Management System (RMS) is a desktop restaurant management application used to help restaurant managers oversee their various processes in a more elegant and efficient way.
+
+== Summary of contributions
+
+* *Major enhancement*: Added statistics features for all the different data stored in the RMS.
+** What it does: Allows restaurant managers to view the statistics of the menus, orders, members and employees.
+** Justification: This feature will be able to let the restaurant managers understand how his restaurant is currently performing as well as to keep track of the employees schedule.
+** Highlights: Data displayed under the different statistics commands have to be easy to understand as well as useful to the restaurant managers.
+It required thinking from a perspective of a restaurant manager to understand what kind of data he/she would want to see.
+This implementation was challenging because I also had to make use of the limited data the other features were able to provide.
+
+** Credits: https://github.com/nusCS2113-AY1819S1/addressbook-level3
+
+* *Code contributed*: https://github.com/CS2113-AY1819S1-F09-2/main[Project Github Page]
+
+* *Other contributions*:
+** Enhancements to existing features:
+*** Updated the GUI font: https://github.com/CS2113-AY1819S1-F09-2/main/pull/94[#94]
+*** Updated the GUI size: https://github.com/CS2113-AY1819S1-F09-2/main/pull/112[#112]
+** Documentation:
+*** Addition of content to User Guide: https://github.com/CS2113-AY1819S1-F09-2/main/pull/100[#100], https://github.com/CS2113-AY1819S1-F09-2/main/pull/122[#122]
+*** Addition of content to Developer Guide: https://github.com/CS2113-AY1819S1-F09-2/main/pull/8[#8], https://github.com/CS2113-AY1819S1-F09-2/main/pull/67[#67], https://github.com/CS2113-AY1819S1-F09-2/main/pull/114[#114]
+** Community:
+*** PRs reviewed (with non-trivial review comments): https://github.com/CS2113-AY1819S1-F09-2/main/pull/107[#107], https://github.com/CS2113-AY1819S1-F09-2/main/pull/113[#113], https://github.com/CS2113-AY1819S1-F09-2/main/pull/117[#117], https://github.com/CS2113-AY1819S1-F09-2/main/pull/120[#120]
+//*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
+//** Tools:
+//*** Integrated a third party library (Natty) to the project (https://github.com[#42])
+//*** Integrated a new Github plugin (CircleCI) to the team repo
+
+
+== Contributions to the User Guide
+
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+include::../UserGuide.adoc[tag=statisticscommands]
+
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+include::../DeveloperGuide.adoc[tag=storage]
+
+include::../DeveloperGuide.adoc[tag=userstories]
+
+include::../DeveloperGuide.adoc[tag=statisticsusecase]
