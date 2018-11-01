@@ -275,6 +275,8 @@ Clocks out for the employee John Doe.
 
 ==== Add Order
 
+image::AddOrderInstruction.png[]
+
 To add new order to the order list, a draft must be completed before adding it to the order list. +
 
 To do so, dishes must be added into the draft, and then it can be added into the order list after
@@ -283,7 +285,7 @@ the draft is confirmed.
 Registered customer of the member list can be added into the order draft to accumulate member points
 once the order is confirmed.
 
-* *Display Draft And List Of Commands For Adding* +
+* *Display Draft And Instruction For Adding New Order* +
 +
 Display the current draft and the list of order draft commands used for adding a new order +
 +
