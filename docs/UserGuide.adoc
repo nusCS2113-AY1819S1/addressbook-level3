@@ -162,33 +162,31 @@ Returns Double Cheese Burger, Veggie Burger, Coke, Coke Zero, Fries, Curly Fries
 //* Update Menu will show user what he/ she can do to update menu.
 //* Menu is updated by adding, editing or deleting food items from menu list.
 
-
+[[MemberCommands]]
+// tag::membercommands[]
 === Members
 
 ==== Add Member
 
 Add a new member to the RMS +
-Format: addmember NAME
+Format: `addmember` NAME
+
+Example: +
+`addmember kang ming` +
+Returns: New member added: kangming Points: 0 Date: Wed Oct 31 20:30:50 SRET 2018 Tier: Bronze
+
 
 ==== List Member
 
-Shows a list of all the members in the RMS. Displays the NAME and POINTS of each member. +
-Format: listmembers
-
-==== Edit Member
-
-Edit membership details of a member in the RMS +
-Format: edit NAME [p/PHONE_NUMBER] [e/EMAIL_ADDRESS][d/DATE_JOINED][pt/POINTS]
+Shows a list of all the members in the RMS. Displays the NAME, POINTS, DATE JOINED, MEMBERSHIP TIER of each member. +
+Format: `listmembers`
 
 ===== Delete Member
 
 Delete membership details of a member in the RMS +
-Format: delete NAME
+Format: `delmember INDEX`
 
-==== Find Member
-
-Find membership details of a member in the RMS +
-Format: find NAME
+// end::membercommands[]
 
 // tag::employeecommands[]
 === Employees
@@ -449,7 +447,7 @@ There is no need to save manually.
 
 *Edit Member* : `editmember NAME`
 
-*Delete Member* : `deletemember NAME`
+*Delete Member* : `delmember INDEX`
 
 *Find Member* : `findmember NAME`
 
