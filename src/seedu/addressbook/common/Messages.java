@@ -12,9 +12,10 @@ public class Messages {
     public static final String MESSAGE_PERSON_NOT_IN_ADDRESSBOOK = "Person could not be found in address book";
     public static final String MESSAGE_PERSONS_LISTED_OVERVIEW = "%1$d persons listed!";
 
-    public static final String MESSAGE_INVALID_EMPLOYEE_DISPLAYED_INDEX = "The employee index provided is invalid";
-    public static final String MESSAGE_EMPLOYEE_NOT_IN_RMS = "Employee could not be found in Rms";
-    public static final String MESSAGE_EMPLOYEES_LISTED_OVERVIEW = "%1$d employees listed!";
+    public static final String MESSAGE_INVALID_EMPLOYEE_DISPLAYED_INDEX = "The employee index provided is invalid.";
+    public static final String MESSAGE_EMPLOYEE_NOT_IN_RMS = "Employee could not be found in Rms.";
+    public static final String MESSAGE_EMPLOYEES_LISTED_OVERVIEW = "%1$d employees listed.";
+    public static final String MESSAGE_NO_EMPLOYEES_IN_SYSTEM = "There are currently no employees added in the system.";
 
     public static final String MESSAGE_INVALID_MEMBER_DISPLAYED_INDEX = "The member index provided is invalid";
     public static final String MESSAGE_MEMBER_NOT_IN_RMS = "Member could not be found in Rms";
