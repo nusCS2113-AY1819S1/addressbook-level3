@@ -4,12 +4,14 @@ import seedu.addressbook.commands.Command;
 import seedu.addressbook.commands.CommandResult;
 import seedu.addressbook.data.AddressBook;
 import seedu.addressbook.data.person.ReadOnlyPerson;
+import seedu.addressbook.data.person.Schedule;
 import seedu.addressbook.parser.Parser;
 import seedu.addressbook.storage.StorageFile;
 
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 /**
  * Represents the main Logic of the AddressBook.
@@ -95,5 +97,10 @@ public class Logic {
         if (personList.isPresent()) {
             lastShownList = personList.get();
         }
+        /*final Optional<Set<? extends Schedule>> appointmentSet = result.getRelevantAppointments();
+        if (appointmentSet.isPresent()) {
+            lastShownList = personList.get();
+        }
+        */
     }
 }
