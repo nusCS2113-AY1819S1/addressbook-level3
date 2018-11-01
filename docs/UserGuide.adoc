@@ -68,32 +68,49 @@ When the application is first started, users have to choose
 * Items in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
 ====
 
+// tag::menucommands[]
 === Menu
+
+==== Show Main Menu
+
+Shows a list of menu categories available. +
+
+Format: `showMainMenu`
 
 ==== List Menu
 
 Shows a list of all the menu items. +
 
-Each menu item include details of: menu item, price and any relevant tags. +
+Each menu item include details of: menu item, price, type and any relevant tags. +
 
 Format: `listmenu`
+
+* List the current menu items in the menu
+
+==== List Menu According to Category
+
+Shows a list of the menu items of a particular category type (e.g Main, Sides). +
+
+Each menu item include details of: menu item, price, type and any relevant tags. +
+
+Format: `listmenubytype TYPE`
+
+* List the current menu items of a particular category in the menu
 
 ==== View All Menu
 
 Shows the detail of the a menu item with a particular index. +
 Format: `viewallmenu INDEX`
 
-* List the current food items in the menu
-
-==== Add Menu Item
+==== Add Menu
 
 Add a new item to the menu. +
-Format: `addmenu NAME p/PRICE [t/TAG]`
+Format: `addmenu NAME p/PRICE type/TYPE [t/TAG]`
 
 * Adds the new menu item into the menu list
 
 Example: +
-add Cheese Fries p/3.50 t/New item +
+add Cheese Fries p/$3.50 type/sides t/New item +
 System adds Cheese Fries to the existing menu.
 //
 //
@@ -109,7 +126,7 @@ System adds Cheese Fries to the existing menu.
 //System updates Cheese Fries, which is //in index 3, to Cheese Fries with //bacon and changes the price from //$3.50 to $5.00
 //
 
-==== Delete Item
+==== Delete Menu
 
 Delete an item on the menu +
 Format: `deletemenu INDEX`
@@ -117,11 +134,11 @@ Format: `deletemenu INDEX`
 * Deletes the menu item in that particular index
 
 Example: +
-view menu +
-delete 1 +
+viewallmenu +
+deletemenu 1 +
 System deletes food item in index 1 from the menu. +
-find Cheese Fries +
-Delete 3 +
+findmenu Cheese Fries +
+deletemenu 3 +
 System deletes Cheese Fries in index 3 from the menu.
 
 ==== Find Menu
@@ -130,13 +147,13 @@ Finds the menu item(s) related to the keywords typed in by the user. +
 Format: `findmenu KEYWORD [MORE KEYWORDS]`
 
 * A list of menu items with names related to the keyword(s) will be displayed.
-* The command is case insensitive.
+* The command is case sensitive.
 * Order of keywords do not matter.
 
 Example: +
-find Burger COKE fries +
+findmenu Burger Coke Fries +
 Returns Double Cheese Burger, Veggie Burger, Coke, Coke Zero, Fries, Curly Fries
-
+// end::menucommands[]
 //==== Update Menu
 //
 //Shows options that you can use to update the menu. +
@@ -386,19 +403,25 @@ There is no need to save manually.
 
 == Command Summary
 
+// tag::menucommandsummary[]
+
+
 === Menu
 
-*View Menu* : `viewmenu`
+*Show Main Menu Page* : `showMainMenu`
+
+*View Menu* : `viewallmenu INDEX`
 
 *Find Menu* : `findmenu KEYWORD [MORE KEYWORDS]`
-//
-//*Update Menu* : `update`
 
-*Add Item* : `addmenu NAME p/PRICE [t/TAG]`
-
-*Edit Item* : `editmenu INDEX [n/NAME] [p/PRICE] [t/TAG]`
+*Add Item* : `addmenu NAME p/PRICE type/TYPE [t/TAG]`
 
 *Delete Item* : `deletemenu INDEX`
+
+*List Menu* : `listmenu`
+
+*List Menu According to Category* : `listmenubytype TYPE`
+// end::menucommandsummary[]
 
 === Employees
 

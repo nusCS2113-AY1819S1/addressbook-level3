@@ -5,7 +5,7 @@ import seedu.addressbook.data.exception.IllegalValueException;
 
 /**
  * Price of a particular menu item in the Restaurant Management System.
- * Guarantees: immutable; is valid as declared in {@link #isValidPhone(String)}
+ * Guarantees: immutable; is valid as declared in {@link #isValidPrice(String)}
  */
 public class Price {
 
@@ -25,7 +25,7 @@ public class Price {
     public Price(String price/*, boolean isPrivate*/) throws IllegalValueException {
         //this.isPrivate = isPrivate;
         price = price.trim();
-        if (!isValidPhone(price)) {
+        if (!isValidPrice(price)) {
             throw new IllegalValueException(MESSAGE_PRICE_CONSTRAINTS);
         }
         this.value = price;
@@ -63,7 +63,7 @@ public class Price {
     /**
      * Checks if a given string is a valid menu item price.
      */
-    public static boolean isValidPhone(String test) {
+    public static boolean isValidPrice(String test) {
         return test.matches(PRICE_VALIDATION_REGEX);
     }
 
