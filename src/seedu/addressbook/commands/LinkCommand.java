@@ -19,7 +19,7 @@ public class LinkCommand extends UndoAbleCommand{
     }
 
     @Override
-    public CommandResult execute() {
+    public CommandResult executeLogic() {
         try {
             final ReadOnlyPerson target = getTargetPerson();
             final ReadOnlyPerson target2 = getTargetPerson2();
@@ -35,5 +35,19 @@ public class LinkCommand extends UndoAbleCommand{
         } catch (Associated.SameTitleException ste) {
             return new CommandResult(MESSAGE_SAME_TITLE_FAILURE);
         }
+    }
+
+    @Override
+    public void executeUndo() throws Exception{
+        final ReadOnlyPerson target = getTargetPerson();
+        final ReadOnlyPerson target2 = getTargetPerson2();
+        addressBook.unlinkTwoPerson(target, target2);
+    }
+
+    @Override
+    public void executeRedo() throws Exception{
+        final ReadOnlyPerson target = getTargetPerson();
+        final ReadOnlyPerson target2 = getTargetPerson2();
+        addressBook.linkTwoPerson(target, target2);
     }
 }

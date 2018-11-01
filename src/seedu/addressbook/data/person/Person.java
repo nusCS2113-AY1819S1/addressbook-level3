@@ -120,4 +120,9 @@ public class Person implements ReadOnlyPerson {
         if(associated.contains(toAdd)) throw new Associated.DuplicateAssociationException();
         associated.add(toAdd);
     }
+
+    public void removeAnAssociate(ReadOnlyPerson target) throws Exception {
+        Associated toRemove = new Associated(target.getName(), target.getTitle(), this.title);
+        associated.remove(toRemove);
+    }
 }

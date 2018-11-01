@@ -107,4 +107,11 @@ public class AddressBook {
         targetObject.addAnAssociate(target2);
         targetObject2.addAnAssociate(target);
     }
+
+    public void unlinkTwoPerson(ReadOnlyPerson target, ReadOnlyPerson target2) throws Exception{
+        Person targetObject = target.getPerson();
+        Person targetObject2 = target2.getPerson();
+        targetObject.removeAnAssociate(target2);
+        targetObject2.removeAnAssociate(target);
+    }
 }
