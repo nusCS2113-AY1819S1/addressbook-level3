@@ -148,9 +148,9 @@ class TestDataHelper {
      */
     Menu generateMenuItem(int seed) throws Exception {
         return new Menu(
-                new MenuName("Person " + seed),
-                new Price("" + Math.abs(seed)),
-                new Type(("Type " + seed)),
+                new MenuName("Menu " + seed),
+                new Price("$" + Math.abs(seed)),
+                new Type(("main")),
                 new HashSet<>(Arrays.asList(new Tag("tag" + Math.abs(seed)), new Tag("tag" + Math.abs(seed + 1))))
         );
     }

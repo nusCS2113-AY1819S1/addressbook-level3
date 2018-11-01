@@ -26,6 +26,7 @@ import seedu.addressbook.commands.member.MemberAddCommand;
 import seedu.addressbook.commands.member.MemberDeleteCommand;
 import seedu.addressbook.commands.menu.MenuAddCommand;
 import seedu.addressbook.commands.menu.MenuDeleteCommand;
+import seedu.addressbook.commands.menu.MenuFindCommand;
 import seedu.addressbook.commands.menu.MenuListByTypeCommand;
 import seedu.addressbook.commands.menu.MenuViewAllCommand;
 import seedu.addressbook.commands.statistics.StatsMenuCommand;
@@ -170,7 +171,7 @@ public class LogicTest {
     }
 
     /**
-     * Executes the command and confirms that the result message is correct and
+     * Executes the command and confirms that the result message is correct and assert
      * also confirms that the following three parts of the Logic object's state are as expected:<br>
      *      - the internal Rms data are same as those in the {@code expectedRms} <br>
      *      - the internal 'last shown list' matches the {@code expectedLastList} <br>
@@ -204,7 +205,6 @@ public class LogicTest {
         assertEquals(lastShownAttendanceList, logic.getLastShownAttendanceList());
         assertEquals(rms, saveFile.load());
     }
-
     /**
      * Executes the Member command and confirms that the result message is correct.
      * Both the 'address book' and the 'last shown list' are expected to be empty.
@@ -306,8 +306,8 @@ public class LogicTest {
      * Executes the stats command and confirms that the result message is correct<br>
      */
     private void assertStatsCommandBehavior(String inputCommand,
-                                           String expectedMessage,
-                                           Rms expectedRms) throws Exception {
+                                            String expectedMessage,
+                                            Rms expectedRms) throws Exception {
 
         //Execute the command
         CommandResult r = logic.execute(inputCommand);
@@ -1195,14 +1195,13 @@ public class LogicTest {
     }
 
 
-    // /**
-    //  * Confirms the 'invalid argument index number behaviour' for the given command
-    //  * targeting a single menu item in the last shown menu list, using visible index.
-    //  * @param commandWord to test
-    //  *     assuming it targets a single menu item in the last shown menu list based on visible index.
-    //  */
+    /**
+      * Confirms the 'invalid argument index number behaviour' for the given command
+      * targeting a single menu item in the last shown menu list, using visible index.
+      * @param commandWord to test
+      *     assuming it targets a single menu item in the last shown menu list based on visible index.
+      */
 
-    /*
     private void assertInvalidIndexBehaviorForMenuCommand(String commandWord) throws Exception {
         String expectedMessage = Messages.MESSAGE_INVALID_MENU_ITEM_DISPLAYED_INDEX;
         TestDataHelper helper = new TestDataHelper();
@@ -1218,7 +1217,7 @@ public class LogicTest {
         assertMenuCommandBehavior(commandWord + " 3", expectedMessage, Rms.empty(), false, lastShownMenuList);
 
     }
-    */
+
 
     //test for MenuViewAll Command testing for valid arguments
     @Test
@@ -1237,10 +1236,94 @@ public class LogicTest {
         assertMenuCommandBehavior("deletemenu arg not number", expectedMessage);
     }
 
-    /*@Test
+    @Test
     public void execute_deletemenu_invalidIndex() throws Exception {
         assertInvalidIndexBehaviorForMenuCommand("deletemenu");
-    }*/
+    }
+
+    @Test
+    public void execute_deletemenu_removesCorrectMenu() throws Exception {
+        TestDataHelper helper = new TestDataHelper();
+        Menu m1 = helper.generateMenuItem(1);
+        Menu m2 = helper.generateMenuItem(2);
+        Menu m3 = helper.generateMenuItem(3);
+        List<Menu> threeMenus = helper.generateMenuList(m1, m2, m3);
+        Rms expectedRms = helper.generateRmsMenu(threeMenus);
+        expectedRms.removeMenuItem(m2);
+        helper.addToRmsMenu(rms, threeMenus);
+        logic.setLastShownMenuList(threeMenus);
+        assertMenuCommandBehavior("deletemenu 2",
+                String.format(MenuDeleteCommand.MESSAGE_DELETE_MENU_ITEM_SUCCESS, m2),
+                expectedRms,
+                false,
+                threeMenus);
+    }
+
+    @Test
+    public void execute_deletemenu_missingInRms() throws Exception {
+        TestDataHelper helper = new TestDataHelper();
+        Menu m1 = helper.generateMenuItem(1);
+        Menu m2 = helper.generateMenuItem(2);
+        Menu m3 = helper.generateMenuItem(3);
+        List<Menu> threeMenus = helper.generateMenuList(m1, m2, m3);
+        Rms expectedRms = helper.generateRmsMenu(threeMenus);
+        expectedRms.removeMenuItem(m2);
+        helper.addToRmsMenu(rms, threeMenus);
+        rms.removeMenuItem(m2);
+        logic.setLastShownMenuList(threeMenus);
+        assertMenuCommandBehavior("deletemenu 2",
+                Messages.MESSAGE_MENU_ITEM_NOT_IN_ADDRESSBOOK,
+                expectedRms,
+                false,
+                threeMenus);
+    }
+
+    @Test
+    public void execute_findmenu_invalidArgsFormat() throws Exception {
+        String expectedMessage = String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, MenuFindCommand.MESSAGE_USAGE);
+        assertMenuCommandBehavior("findmenu ", expectedMessage);
+    }
+
+    @Test
+    public void execute_findmenu_onlyMatchesFullWordsInMenuItems() throws Exception {
+        TestDataHelper helper = new TestDataHelper();
+        Menu mTarget1 = helper.generateMenuWithName("Double Cheese Burger");
+        Menu mTarget2 = helper.generateMenuWithName("Mac and Cheese");
+        Menu m1 = helper.generateMenuWithName("cheeeeseeeeeee");
+        Menu m2 = helper.generateMenuWithName("che ese");
+        List<Menu> fourMenus = helper.generateMenuList(m1, mTarget1, m2, mTarget2);
+        Rms expectedRms = helper.generateRmsMenu(fourMenus);
+        List<Menu> expectedList = helper.generateMenuList(mTarget1, mTarget2);
+        helper.addToRmsMenu(rms, fourMenus);
+        assertMenuCommandBehavior("findmenu Cheese",
+                Command.getMessageForMenuListShownSummary(expectedList),
+                expectedRms,
+                true,
+                expectedList);
+    }
+
+    @Test
+    public void execute_findmenu_matchesIfAnyKeywordPresent() throws Exception {
+        TestDataHelper helper = new TestDataHelper();
+        Menu mTarget1 = helper.generateMenuWithName("Cheese Taco");
+        Menu mTarget2 = helper.generateMenuWithName("Cheese Burger");
+        Menu m1 = helper.generateMenuWithName("CheeSe wrap");
+        Menu m2 = helper.generateMenuWithName("Grilled cheeeese sandwiches");
+        List<Menu> fourMenus = helper.generateMenuList(m1, mTarget1, m2, mTarget2);
+        Rms expectedRms = helper.generateRmsMenu(fourMenus);
+        List<Menu> expectedList = helper.generateMenuList(mTarget1, mTarget2);
+        helper.addToRmsMenu(rms, fourMenus);
+        assertMenuCommandBehavior("findmenu Cheese Taco",
+                Command.getMessageForMenuListShownSummary(expectedList),
+                expectedRms,
+                true,
+                expectedList);
+    }
+
+
+
+
+
 
     /*
     @Test
