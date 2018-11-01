@@ -99,6 +99,9 @@ public class Parser {
                 case LinkCommand.COMMAND_WORD:
                     return prepareLink(arguments);
 
+                case AssociateListCommand.COMMAND_WORD:
+                    return prepareAssociateList(arguments);
+
 //              case ChangePasswordCommand.COMMAND_WORD:
 //                  return ChangePasswordCommand.Chan
 
@@ -311,5 +314,20 @@ public class Parser {
         } /* catch () {
             return new IncorrectCommand(String.format("WRONG"));
         }*/
+    }
+
+    /**
+     * Parses arguments in the context of the associatelist command.
+     *
+     * @param args full command args string
+     * @return the prepared command
+     */
+    private Command prepareAssociateList(String args) {
+        try {
+            final int targetIndex = parseArgsAsDisplayedIndex(args);
+            return new AssociateListCommand(targetIndex);
+        } catch (ParseException | NumberFormatException e) {
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AssociateListCommand.MESSAGE_USAGE));
+        }
     }
 }
