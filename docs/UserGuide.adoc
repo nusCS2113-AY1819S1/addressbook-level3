@@ -10,7 +10,9 @@ ifdef::env-github[]
 endif::[]
 
 == Introduction
-ClassRepo is targeted at secondary school users who *prefer to use a desktop app for managing their school details*. ClassRepo is *optimized for those who prefer to work with a Command Line Interface* (CLI). Interested? Jump to the <<Quick Start>> to get started. Enjoy!
+ClassRepo is targeted at secondary school users who *prefer to use a desktop app for managing their school details*.
+ClassRepo is *optimized for those who prefer to work with a Command Line Interface* (CLI). Interested? Jump to the
+<<Quick Start>> to get started. Enjoy!
 
 == Quick Start
 
@@ -245,7 +247,6 @@ Views all details of the 2nd person in the address book.
 * `find Betsy` +
 `viewall 1` +
 Views all details of the 1st person in the results of the `find` command.
-
 
 ==== View your own details : `viewself`  image:Basic.png[16,16]
 
@@ -492,7 +493,9 @@ Format: `listacc`
 // end::account[]
 
 // tag::Grades[]
+
 === Grade Commands
+
 Below are the commands that deals with grades/assessments of students:
 
 ==== Adding an Assessment : `addassess`
@@ -533,16 +536,24 @@ Example:
 Adds grades to selected student/person for a specific assessment listed in addressbook. +
 Format: `addgrades PERSON_INDEX ASSESSMENT_INDEX GRADES`
 
+- Grades can be in the form of numbers or letters. No restriction! It is up to the teacher to decide.
+
 ****
 Words in `UPPER_CASE` are the parameters. There are three parameters for this command, which are the index of the person
 or student, index of the appropriate assessment and the grades themselves.
+
+*NOTE*: You MUST list all persons and assessments first before using this command! +
+i.e. Indices are selected after first carrying out the `list` and `listassess` commands respectively
 
 ****
 
 Examples:
 
+* `list`
+* `listassess`
 * `addgrades 1 1 89` +
-* Here, the indices have been selected after carrying out the `list` and `listassess` commands respectively
+
+- Restriction in v1.3: The grades can only be 'int' values, not 'float'
 
 ==== Viewing grades of a person : `viewgrades`
 
@@ -550,7 +561,9 @@ View the grades for all assessments of a selected student/person. +
 Format: `viewgrades PERSON_INDEX`
 
 ****
-Words in `UPPER_CASE` are the parameters. There is only one parameter for this command, which is the index of the person whos grades you want to view.
+
+Words in `UPPER_CASE` are the parameters. There is only one parameter for this command, which is the index of the person
+or student whose grades you want to view.
 
 ****
 
@@ -564,18 +577,21 @@ Deletes the specified assessment and respective grades of a student. It is irrev
 Format: `deletegrades PERSON_INDEX ASSESSMENT_INDEX`
 
 ****
-Deletes the grades and assessment at the specified `ASSESSMENT_INDEX` of a person specified by the `PERSON_INDEX`.
+
+Deletes the assessment and respective grades for the specified `PERSON_INDEX` and `ASSESSMENT_INDEX`.
 The index refers to the index number shown in the most recent person and assessments listing respectively.
+*NOTE*: You must first list all persons and assessments before using this command!
 ****
 
 Example:
 
 * `deletegrades 1 2` +
 Deletes the grades corresponding to the 2nd assessment in the address book for the student at index 1 in the address book.
+- *IMPORTANT NOTE*: This does not delete grades for the second assessment as per the listing in view grades command, rather
+for the assessment in second index as seen in list assess command.
 // end::Grades[]
 
 // tag::attendance[]
-[[attendance]]
 === Attendance Commands
 
 ==== Updates the attendance of a person: `attendance`
