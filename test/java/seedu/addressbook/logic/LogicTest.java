@@ -9,6 +9,7 @@ import seedu.addressbook.commands.CommandResult;
 import seedu.addressbook.commands.*;
 import seedu.addressbook.common.Messages;
 import seedu.addressbook.data.AddressBook;
+import seedu.addressbook.data.CommandHistory;
 import seedu.addressbook.data.person.*;
 import seedu.addressbook.data.tag.Tag;
 import seedu.addressbook.storage.StorageFile;
@@ -391,6 +392,55 @@ public class LogicTest {
     }
 
     @Test
+    public void execute_undo_nothingToUndo() throws Exception {
+        String expectedMessage = String.format(UndoCommand.MESSAGE_FAILURE);
+        assertCommandBehavior("undo", expectedMessage);
+    }
+
+    @Test
+    public void execute_undo_undoOneCommand() throws Exception {
+        TestDataHelper helper = new TestDataHelper();
+        Person p1 = helper.generatePerson(1, false);
+        Person p2 = helper.generatePerson(2, false);
+        Person p3 = helper.generatePerson(3, false);
+
+        List<Person> onePersons = helper.generatePersonList(p3);
+        List<Person> twoPersons = helper.generatePersonList(p1, p2);
+
+        CommandHistory CH = addressBook.getCommandHistory();
+        CH.moveIteratorForward();
+        helper.addToAddressBook(addressBook, twoPersons);
+        CH.checkForAction();
+        helper.addToAddressBook(addressBook, onePersons);
+        CH.checkForAction();
+        CH.undoLast();
+
+
+        AddressBook expectedAB = helper.generateAddressBook(twoPersons);
+        logic.setLastShownList(twoPersons);
+        String expectedMessage = String.format(UndoCommand.MESSAGE_SUCCESS);
+        assertCommandBehavior("undo", expectedMessage, expectedAB, true, twoPersons);
+    }
+
+    @Test
+    public void execute_redo_nothingToRedo() throws Exception {
+        String expectedMessage = String.format(RedoCommand.MESSAGE_FAILURE);
+        assertCommandBehavior("redo", expectedMessage);
+    }
+
+    @Test
+    public void execute_history_noHistory() throws Exception {
+        String expectedMessage = String.format(HistoryCommand.MESSAGE_NO_HISTORY);
+        assertCommandBehavior("history", expectedMessage);
+    }
+
+    @Test
+    public void execute_link_invalidArgsFormat() throws Exception {
+        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, LinkCommand.MESSAGE_USAGE);
+        assertCommandBehavior("link ", expectedMessage);
+    }
+
+    @Test
     public void execute_find_invalidArgsFormat() throws Exception {
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE);
         assertCommandBehavior("find ", expectedMessage);
@@ -473,7 +523,8 @@ public class LogicTest {
             Tag tag1 = new Tag("tag1");
             Tag tag2 = new Tag("tag2");
             Set<Tag> tags = new HashSet<>(Arrays.asList(tag1, tag2));
-            return new Person(name, privatePhone, email, privateAddress, title, schedules, tags);
+            Set<Associated> associated= new HashSet<>();
+            return new Person(name, privatePhone, email, privateAddress, title, schedules, tags, associated);
         }
 
         /**
@@ -492,7 +543,8 @@ public class LogicTest {
                     new Address("House of " + seed, isAllFieldsPrivate),
                     new Title("Doctor", isAllFieldsPrivate),
                     new HashSet<>(Arrays.asList(new Schedule("26-01-2019"), new Schedule("19-02-2019"))),
-                    new HashSet<>(Arrays.asList(new Tag("tag" + Math.abs(seed)), new Tag("tag" + Math.abs(seed + 1))))
+                    new HashSet<>(Arrays.asList(new Tag("tag" + Math.abs(seed)), new Tag("tag" + Math.abs(seed + 1)))),
+                    new HashSet<>(Arrays.asList(new Associated("associate1")))
             );
         }
 
@@ -595,7 +647,8 @@ public class LogicTest {
                     new Address("House of 1", false),
                     new Title("Doctor", false),
                     Collections.singleton(new Schedule( "27-01-2019")),
-                    Collections.singleton(new Tag("tag"))
+                    Collections.singleton(new Tag("tag")),
+                    Collections.singleton(new Associated("associate1"))
             );
         }
     }

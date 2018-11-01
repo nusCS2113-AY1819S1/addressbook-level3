@@ -17,7 +17,7 @@ public class Person implements ReadOnlyPerson {
     private Email email;
     private Address address;
     private Title title;
-    private Associated associated;
+    private Set<Associated> associated = new HashSet<>();
 
     private Set<Schedule> schedules = new HashSet<>();
 
@@ -25,7 +25,7 @@ public class Person implements ReadOnlyPerson {
     /**
      * Assumption: Every field must be present and not null.
      */
-    public Person(Name name, Phone phone, Email email, Address address, Title title, Set<Schedule> schedules, Set<Tag> tags) {
+    public Person(Name name, Phone phone, Email email, Address address, Title title, Set<Schedule> schedules, Set<Tag> tags, Set<Associated> associated) {
         this.name = name;
         this.phone = phone;
         this.email = email;
@@ -33,14 +33,14 @@ public class Person implements ReadOnlyPerson {
         this.title = title;
         this.schedules.addAll(schedules);
         this.tags.addAll(tags);
-        this.associated = new Associated();
+        this.associated.addAll(associated);
     }
 
     /**
      * Copy constructor.
      */
     public Person(ReadOnlyPerson source) {
-        this(source.getName(), source.getPhone(), source.getEmail(), source.getAddress(), source.getTitle(), source.getSchedules(), source.getTags());
+        this(source.getName(), source.getPhone(), source.getEmail(), source.getAddress(), source.getTitle(), source.getSchedules(), source.getTags(), source.getAssociateList());
     }
     @Override
     public Person getPerson() {return this;}
@@ -77,8 +77,8 @@ public class Person implements ReadOnlyPerson {
     }
 
     @Override
-    public String getAssociateList() throws Associated.NoAssociatesException {
-        return associated.getAssociates();
+    public Set<Associated> getAssociateList(){
+        return new HashSet<>(associated);
     }
 
     /**
@@ -107,7 +107,7 @@ public class Person implements ReadOnlyPerson {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, phone, email, address, title, schedules, tags);
+        return Objects.hash(name, phone, email, address, title, schedules, tags, associated);
     }
 
     @Override
@@ -116,7 +116,8 @@ public class Person implements ReadOnlyPerson {
     }
 
     public void addAnAssociate(ReadOnlyPerson target) throws Associated.DuplicateAssociationException, Associated.SameTitleException {
-        if(this.getTitle().equals(target.getTitle())) throw new Associated.SameTitleException();
-        else associated.addToAssociated(target);
+        Associated toAdd = new Associated(target.getName(), target.getTitle(), this.title);
+        if(associated.contains(toAdd)) throw new Associated.DuplicateAssociationException();
+        associated.add(toAdd);
     }
 }
