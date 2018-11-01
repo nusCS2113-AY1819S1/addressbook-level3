@@ -21,9 +21,9 @@ public class MenuListByTypeCommand extends Command {
             + "Displays all food item of a specific category in the Rms system as a list with index numbers.\n\t"
             + "Example: " + COMMAND_WORD;
 
-    public static final String MESSAGE_ERROR = "Invalid menu type searched! " +
-             "\n" + "Only the following types are available: main, sides, beverage, dessert, others, set meals." +
-             "\n" + "Only one type search allowed at a time!";
+    public static final String MESSAGE_ERROR = "Invalid menu type searched! " + "\n"
+             + "Only the following types are available: main, sides, beverage, dessert, others, set meals." + "\n"
+             + "Only one type search allowed at a time!";
 
     private final String itemword;
     private final List<ReadOnlyMenus> matchedFoodItems = new ArrayList<>();
@@ -34,8 +34,8 @@ public class MenuListByTypeCommand extends Command {
         this.itemword = itemword;
     }
     public String getItemword() {
-         return itemword;
-     }
+        return itemword;
+    }
 
     private List<ReadOnlyMenus> getFoodItemsBurger(String itemword) {
         for (ReadOnlyMenus menuItem : rms.getAllMenus()) {

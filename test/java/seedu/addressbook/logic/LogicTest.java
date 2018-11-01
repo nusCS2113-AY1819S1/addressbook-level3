@@ -24,7 +24,11 @@ import seedu.addressbook.commands.employee.EmployeeAddCommand;
 import seedu.addressbook.commands.employee.EmployeeDeleteCommand;
 import seedu.addressbook.commands.member.MemberAddCommand;
 import seedu.addressbook.commands.member.MemberDeleteCommand;
-import seedu.addressbook.commands.menu.*;
+import seedu.addressbook.commands.menu.MenuAddCommand;
+import seedu.addressbook.commands.menu.MenuDeleteCommand;
+import seedu.addressbook.commands.menu.MenuFindCommand;
+import seedu.addressbook.commands.menu.MenuListByTypeCommand;
+import seedu.addressbook.commands.menu.MenuViewAllCommand;
 import seedu.addressbook.commands.statistics.StatsMenuCommand;
 import seedu.addressbook.common.Messages;
 import seedu.addressbook.data.Rms;
@@ -167,19 +171,19 @@ public class LogicTest {
     }
 
     /**
-     * Executes the command and confirms that the result message is correct and
+     * Executes the command and confirms that the result message is correct andassert
      * also confirms that the following three parts of the Logic object's state are as expected:<br>
      *      - the internal Rms data are same as those in the {@code expectedRms} <br>
      *      - the internal 'last shown list' matches the {@code expectedLastList} <br>
      *      - the storage file content matches data in {@code expectedRms} <br>
      */
     private void assertEmployeeAttendanceCommandBehavior(String inputCommand,
-                                                         String expectedMessage,
-                                                         Rms expectedRms,
-                                                         boolean isRelevantEmployeesExpected,
-                                                         boolean isRelevantAttendancesExpected,
-                                                         List<? extends ReadOnlyEmployee> lastShownEmployeeList,
-                                                         List<? extends Attendance> lastShownAttendanceList) throws Exception {
+                                               String expectedMessage,
+                                               Rms expectedRms,
+                                               boolean isRelevantEmployeesExpected,
+                                               boolean isRelevantAttendancesExpected,
+                                               List<? extends ReadOnlyEmployee> lastShownEmployeeList,
+                                               List<? extends Attendance> lastShownAttendanceList) throws Exception {
 
         //Execute the command
         CommandResult r = logic.execute(inputCommand);
@@ -201,7 +205,6 @@ public class LogicTest {
         assertEquals(lastShownAttendanceList, logic.getLastShownAttendanceList());
         assertEquals(rms, saveFile.load());
     }
-
     /**
      * Executes the Member command and confirms that the result message is correct.
      * Both the 'address book' and the 'last shown list' are expected to be empty.
@@ -1192,13 +1195,12 @@ public class LogicTest {
     }
 
 
-    // /**
-    //  * Confirms the 'invalid argument index number behaviour' for the given command
-    //  * targeting a single menu item in the last shown menu list, using visible index.
-    //  * @param commandWord to test
-    //  *     assuming it targets a single menu item in the last shown menu list based on visible index.
-    //  */
-
+    /**
+      * Confirms the 'invalid argument index number behaviour' for the given command
+      * targeting a single menu item in the last shown menu list, using visible index.
+      * @param commandWord to test
+      *     assuming it targets a single menu item in the last shown menu list based on visible index.
+      */
 
     private void assertInvalidIndexBehaviorForMenuCommand(String commandWord) throws Exception {
         String expectedMessage = Messages.MESSAGE_INVALID_MENU_ITEM_DISPLAYED_INDEX;
@@ -1258,7 +1260,7 @@ public class LogicTest {
     }
 
     @Test
-    public void execute_deletemenu_missingInRMS() throws Exception {
+    public void execute_deletemenu_missingInRms() throws Exception {
         TestDataHelper helper = new TestDataHelper();
         Menu m1 = helper.generateMenuItem(1);
         Menu m2 = helper.generateMenuItem(2);

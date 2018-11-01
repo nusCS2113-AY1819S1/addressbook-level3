@@ -23,7 +23,13 @@ import seedu.addressbook.commands.ViewAllCommand;
 import seedu.addressbook.commands.ViewCommand;
 import seedu.addressbook.commands.member.MemberAddCommand;
 import seedu.addressbook.commands.member.MemberListCommand;
-import seedu.addressbook.commands.menu.*;
+import seedu.addressbook.commands.menu.MenuAddCommand;
+import seedu.addressbook.commands.menu.MenuClearCommand;
+import seedu.addressbook.commands.menu.MenuDeleteCommand;
+import seedu.addressbook.commands.menu.MenuFindCommand;
+import seedu.addressbook.commands.menu.MenuListByTypeCommand;
+import seedu.addressbook.commands.menu.MenuListCommand;
+import seedu.addressbook.commands.menu.MenuViewAllCommand;
 import seedu.addressbook.commands.statistics.StatsEmployeeCommand;
 import seedu.addressbook.commands.statistics.StatsMemberCommand;
 import seedu.addressbook.commands.statistics.StatsMenuCommand;
@@ -103,7 +109,7 @@ public class ParserTest {
     }
 
     @Test
-    public void MenuListByTypeCommand_invalidArgs() {
+    public void menuListByTypeCommand_invalidArgs() {
         // no keywords
         final String inputs = "listmenutype";
         final String resultMessage =
@@ -112,7 +118,7 @@ public class ParserTest {
         parseAndAssertCommandType(inputs, IncorrectCommand.class);
     }
     @Test
-    public void MenuListByTypeCommand_validArgs_parsedCorrectly() {
+    public void menuListByTypeCommand_validArgs_parsedCorrectly() {
         final String type = "main";
         //final Set<String> keySet = new HashSet<>(Arrays.asList(keywords));
         final String input = "listmenutype " + type;
@@ -288,8 +294,8 @@ public class ParserTest {
     public void findCommand_invalidArgs() {
         // no keywords
         final String[] inputs = {
-                "find",
-                "find "
+            "find",
+            "find "
         };
         final String resultMessage =
                 String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE);
@@ -300,8 +306,8 @@ public class ParserTest {
     public void menuFindCommand_invalidArgs() {
         // no keywords
         final String[] inputs = {
-                "findmenu",
-                "findmenu "
+            "findmenu",
+            "findmenu "
         };
         final String resultMessage =
                 String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, MenuFindCommand.MESSAGE_USAGE);
@@ -361,9 +367,9 @@ public class ParserTest {
     @Test
     public void addCommand_invalidArgs() {
         final String[] inputs = {
-                "add",
-                "add ",
-                "add wrong args format",
+            "add",
+            "add ",
+            "add wrong args format",
                 // no phone prefix
                 String.format("add $s $s e/$s a/$s", Name.EXAMPLE, Phone.EXAMPLE, Email.EXAMPLE, Address.EXAMPLE),
                 // no email prefix
@@ -468,9 +474,9 @@ public class ParserTest {
     @Test
     public void menuAddCommand_invalidArgs() {
         final String[] inputs = {
-                "addmenu",
-                "addmenu ",
-                "addmenu wrong args format",
+            "addmenu",
+            "addmenu ",
+            "addmenu wrong args format",
                 // no price prefix
                 String.format("addmenu $s $s type/$s", MenuName.EXAMPLE, Price.EXAMPLE, Type.EXAMPLE),
                 // no type prefix
@@ -495,14 +501,14 @@ public class ParserTest {
 
         // test each incorrect person data field argument individually
         final String[] inputs = {
-                // invalid menu name
-                String.format(addMenuCommandFormatString, invalidMenuName, validPriceArg, validTypeArg),
-                // invalid pricee
-                String.format(addMenuCommandFormatString, validMenuName, invalidPriceArg, validTypeArg),
-                // invalid typa
-                String.format(addMenuCommandFormatString, validMenuName, validPriceArg, invalidTypeArg),
-                // invalid tag
-                String.format(addMenuCommandFormatString, validMenuName, validPriceArg, validTypeArg) + " " + invalidTagArg
+             // invalid menu name
+             String.format(addMenuCommandFormatString, invalidMenuName, validPriceArg, validTypeArg),
+             // invalid pricee
+             String.format(addMenuCommandFormatString, validMenuName, invalidPriceArg, validTypeArg),
+             // invalid typa
+             String.format(addMenuCommandFormatString, validMenuName, validPriceArg, invalidTypeArg),
+             // invalid tag
+             String.format(addMenuCommandFormatString, validMenuName, validPriceArg, validTypeArg) + " " + invalidTagArg
         };
         for (String input : inputs) {
             parseAndAssertCommandType(input, IncorrectCommand.class);
@@ -647,9 +653,9 @@ public class ParserTest {
     public void statsMenuCommand_validArgs_parsedCorrectly() {
 
         final String[] inputs = {
-                "statsmenu f/01022018",
-                "statsmenu t/04112018",
-                "statsmenu f/01102017 t/04112018"
+            "statsmenu f/01022018",
+            "statsmenu t/04112018",
+            "statsmenu f/01102017 t/04112018"
         };
         for (String input: inputs) {
             parseAndAssertCommandType(input, StatsMenuCommand.class);
@@ -659,14 +665,14 @@ public class ParserTest {
     @Test
     public void statsMenuCommand_invalidArgs() {
         final String[] inputs = {
-                // No from prefix
-                "statsmenu 0102018",
-                // Invalid date
-                "statsmenu t/00012018",
-                // No to prefix
-                "statsmenu f/01102017 /04112018",
-                // Duplicate prefix
-                "statsmenu f/01102017 f/04112018"
+            // No from prefix
+            "statsmenu 0102018",
+            // Invalid date
+            "statsmenu t/00012018",
+            // No to prefix
+            "statsmenu f/01102017 /04112018",
+            // Duplicate prefix
+            "statsmenu f/01102017 f/04112018"
         };
         final String resultMessage = String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT,
                 StatsMenuCommand.MESSAGE_USAGE);
