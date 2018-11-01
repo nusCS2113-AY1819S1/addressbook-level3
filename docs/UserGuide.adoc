@@ -245,6 +245,8 @@ Example: +
 `clockOut John Doe` +
 Clocks out for the employee John Doe.
 
+// end::employeecommands[]
+
 //==== Calculate Wages
 
 //Calculates the wage of an employee. +

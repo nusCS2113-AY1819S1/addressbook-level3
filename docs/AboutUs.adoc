@@ -49,7 +49,7 @@ Responsibilities: In charge of the Statistics feature
 
 === Lim Kian Hong
 image::kianhong95.png[width="150", align="left"]
-{empty}[https://github.com/kianhong95[github]] [<<johndoe#, portfolio>>]
+{empty}[https://github.com/kianhong95[github]] [<<kianhong#, portfolio>>]
 
 Role: Developer +
 Responsibilities: In charge of Employee Feature
