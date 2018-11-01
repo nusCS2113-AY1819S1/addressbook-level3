@@ -14,7 +14,7 @@ import seedu.addressbook.ui.Stoppable;
 public class Main extends Application implements Stoppable {
 
     /** Version info of the program. */
-    public static final String VERSION = "Restaurant Management System - Version 1.0";
+    public static final String VERSION = "Restaurant Management System - Version 1.2.1";
 
     private Gui gui;
 
