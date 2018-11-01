@@ -12,7 +12,7 @@ public class UndoCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "Undo successful!\n";
     public static final String MESSAGE_NO_COMMAND = "No command to undo";
-    public static final String MESSAGE_FAILURE = "An error has occurred";
+    public static final String MESSAGE_FAILURE = "An error has occurred with the undo command";
 
     @Override
     public CommandResult execute() {

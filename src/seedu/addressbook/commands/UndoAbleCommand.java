@@ -10,13 +10,7 @@ public abstract class UndoAbleCommand extends Command{
         super(targetVisibleIndex);
     }
 
-    @Override
-    public CommandResult execute(){
-        commandStack.checkForAction(this);
-        return executeLogic();
-    }
-
-    public abstract CommandResult executeLogic();
+    protected UndoAbleCommand(){}
 
     public abstract void executeUndo() throws Exception;
 

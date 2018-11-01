@@ -10,7 +10,7 @@ import java.util.Set;
 /**
  * Adds a person to the address book.
  */
-public class AddCommand extends Command {
+public class AddCommand extends UndoAbleCommand {
 
     public static final String COMMAND_WORD = "add";
 
@@ -71,11 +71,21 @@ public class AddCommand extends Command {
     public CommandResult execute() {
         try {
             addressBook.addPerson(toAdd);
-            commandHistory.checkForAction();
+            commandStack.checkForAction(this);
             commandHistory.addHistory(COMMAND_WORD + " " + toAdd.toString());
             return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
         } catch (UniquePersonList.DuplicatePersonException dpe) {
             return new CommandResult(MESSAGE_DUPLICATE_PERSON);
         }
+    }
+
+    @Override
+    public void executeUndo() throws Exception{
+        addressBook.removePerson(toAdd);
+    }
+
+    @Override
+    public void executeRedo() throws Exception{
+        addressBook.addPerson(toAdd);
     }
 }

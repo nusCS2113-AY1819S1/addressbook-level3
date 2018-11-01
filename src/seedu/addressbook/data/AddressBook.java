@@ -38,6 +38,7 @@ public class AddressBook {
     public AddressBook(UniquePersonList persons) {
         this.allPersons = new UniquePersonList(persons);
         this.commandHistory = new CommandHistory(this);
+        this.commandStack = new CommandStack();
     }
 
     public void switchAddressBook(UniquePersonList persons){
