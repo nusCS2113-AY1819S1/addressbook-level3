@@ -1,20 +1,20 @@
 package seedu.addressbook.logic;
 
-import seedu.addressbook.commands.Command;
-import seedu.addressbook.commands.CommandResult;
-import seedu.addressbook.commands.menu.MenuCommandResult;
-import seedu.addressbook.data.member.ReadOnlyMember;
-import seedu.addressbook.data.menu.ReadOnlyMenus;
-import seedu.addressbook.data.order.ReadOnlyOrder;
-import seedu.addressbook.data.employee.ReadOnlyEmployee;
-import seedu.addressbook.data.person.ReadOnlyPerson;
-import seedu.addressbook.data.Rms;
-import seedu.addressbook.parser.Parser;
-import seedu.addressbook.storage.StorageFile;
-
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
+
+import seedu.addressbook.commands.Command;
+import seedu.addressbook.commands.CommandResult;
+import seedu.addressbook.data.Rms;
+import seedu.addressbook.data.employee.Attendance;
+import seedu.addressbook.data.employee.ReadOnlyEmployee;
+import seedu.addressbook.data.member.ReadOnlyMember;
+import seedu.addressbook.data.menu.ReadOnlyMenus;
+import seedu.addressbook.data.order.ReadOnlyOrder;
+import seedu.addressbook.data.person.ReadOnlyPerson;
+import seedu.addressbook.parser.Parser;
+import seedu.addressbook.storage.StorageFile;
 
 /**
  * Represents the main Logic of the Rms.
@@ -39,21 +39,24 @@ public class Logic {
     /** The list of employee shown to the user most recently.  */
     private List<? extends ReadOnlyEmployee> lastShownEmployeeList = Collections.emptyList();
 
-    public Logic() throws Exception{
+    /** The list of employee shown to the user most recently.  */
+    private List<? extends Attendance> lastShownAttendanceList = Collections.emptyList();
+
+    public Logic() throws Exception {
         setStorage(initializeStorage());
         setRms(storage.load());
     }
 
-    Logic(StorageFile storageFile, Rms rms){
+    Logic(StorageFile storageFile, Rms rms) {
         setStorage(storageFile);
         setRms(rms);
     }
 
-    void setStorage(StorageFile storage){
+    void setStorage(StorageFile storage) {
         this.storage = storage;
     }
 
-    void setRms(Rms rms){
+    void setRms(Rms rms) {
         this.rms = rms;
     }
 
@@ -86,7 +89,15 @@ public class Logic {
     /**
      * Unmodifiable view of the current last shown order list.
      */
-    public List<ReadOnlyEmployee> getLastShownEmployeeList() { return Collections.unmodifiableList(lastShownEmployeeList);
+    public List<ReadOnlyEmployee> getLastShownEmployeeList() {
+        return Collections.unmodifiableList(lastShownEmployeeList);
+    }
+
+    /**
+     * Unmodifiable view of the current last shown order list.
+     */
+    public List<Attendance> getLastShownAttendanceList() {
+        return Collections.unmodifiableList(lastShownAttendanceList);
     }
 
     /**
@@ -119,7 +130,12 @@ public class Logic {
         lastShownMemberList = newList;
     }
 
-    protected void setLastShownEmployeeList(List<? extends ReadOnlyEmployee> newList) { lastShownEmployeeList = newList;
+    protected void setLastShownEmployeeList(List<? extends ReadOnlyEmployee> newList) {
+        lastShownEmployeeList = newList;
+    }
+
+    protected void setLastShownAttendanceList(List<? extends Attendance> newList) {
+        lastShownAttendanceList = newList;
     }
 
     /**
@@ -141,7 +157,12 @@ public class Logic {
      * @throws Exception if there was any problem during command execution.
      */
     private CommandResult execute(Command command) throws Exception {
-        command.setData(rms, lastShownList, lastShownMenuList, lastShownOrderList, lastShownMemberList, lastShownEmployeeList);
+        command.setData(rms,
+                lastShownList,
+                lastShownMenuList,
+                lastShownOrderList,
+                lastShownMemberList,
+                lastShownEmployeeList);
         CommandResult result = command.execute();
         storage.save(rms);
         return result;

@@ -1,22 +1,50 @@
 package seedu.addressbook.storage.jaxb;
 
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import javax.xml.bind.annotation.XmlElement;
+
 import seedu.addressbook.common.Utils;
 import seedu.addressbook.data.exception.IllegalValueException;
 import seedu.addressbook.data.member.Member;
-import seedu.addressbook.data.menu.Menu;
+import seedu.addressbook.data.member.ReadOnlyMember;
+import seedu.addressbook.data.menu.ReadOnlyMenus;
 import seedu.addressbook.data.order.Order;
 import seedu.addressbook.data.order.ReadOnlyOrder;
 
-import javax.xml.bind.annotation.XmlElement;
-import java.util.*;
-
+/**
+ * JAXB-friendly adapted order data holder class.
+ */
 public class AdaptedOrder {
 
+    /**
+     * JAXB-friendly adapted dish item data holder class.
+     */
     private static class AdaptedDishItem {
-        @XmlElement
-        public AdaptedMenu dish;
-        @XmlElement
-        public int quantity;
+        private AdaptedMenu dish;
+        private int quantity;
+
+        @XmlElement(name = "dish")
+        public AdaptedMenu getDish() {
+            return dish;
+        }
+
+        @XmlElement(name = "quantity")
+        public int getQuantity() {
+            return quantity;
+        }
+
+        public void setDish(AdaptedMenu dish) {
+            this.dish = dish;
+        }
+
+        public void setQuantity(int quantity) {
+            this.quantity = quantity;
+        }
     }
 
     @XmlElement(required = true)
@@ -45,10 +73,10 @@ public class AdaptedOrder {
         price = source.getPrice();
 
         dishItems = new ArrayList<>();
-        for (Map.Entry<Menu, Integer> m: source.getDishItems().entrySet()) {
+        for (Map.Entry<ReadOnlyMenus, Integer> m: source.getDishItems().entrySet()) {
             AdaptedDishItem dishItem = new AdaptedDishItem();
-            dishItem.dish = new AdaptedMenu(m.getKey());
-            dishItem.quantity = m.getValue();
+            dishItem.setDish(new AdaptedMenu(m.getKey()));
+            dishItem.setQuantity(m.getValue());
             dishItems.add(dishItem);
         }
     }
@@ -63,7 +91,7 @@ public class AdaptedOrder {
      */
     public boolean isAnyRequiredFieldMissing() {
         for (AdaptedDishItem dishItem : dishItems) {
-            if (dishItem.dish.isAnyRequiredFieldMissing() || Utils.isAnyNull(dishItem.quantity)) {
+            if (dishItem.getDish().isAnyRequiredFieldMissing() || Utils.isAnyNull(dishItem.getQuantity())) {
                 return true;
             }
         }
@@ -75,14 +103,29 @@ public class AdaptedOrder {
      *
      * @throws IllegalValueException if there were any data constraints violated in the adapted order
      */
-    public Order toModelType() throws IllegalValueException {
-        final Map<Menu, Integer> dishItems = new HashMap<>();
+    public Order toModelType(List<Member> memberList) throws IllegalValueException {
+        final Map<ReadOnlyMenus, Integer> dishItems = new HashMap<>();
         for (AdaptedDishItem dishItem : this.dishItems) {
-            dishItems.put(dishItem.dish.toModelType(), dishItem.quantity);
+            dishItems.put(dishItem.getDish().toModelType(), dishItem.getQuantity());
         }
-        final Member customer = this.customer.toModelType();
+        ReadOnlyMember customerClone = this.customer.toModelType();
+        final ReadOnlyMember customer = retrieveMember(customerClone, memberList);
         final Date date = new Date(this.date);
         final double price = this.price;
         return new Order(customer, date, price, dishItems);
     }
+
+    /**
+     *  Checks if a member in another feature is in a list of members
+     *  Returns the member if found, else create a new Member using the data from the member in the order
+     */
+    public Member retrieveMember(ReadOnlyMember target, List<Member> memberList) {
+        for (Member member : memberList) {
+            if (target.isSameStateAs(member)) {
+                return member;
+            }
+        }
+        return new Member(target);
+    }
+
 }

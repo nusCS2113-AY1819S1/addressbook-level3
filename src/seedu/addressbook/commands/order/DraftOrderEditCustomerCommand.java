@@ -11,7 +11,7 @@ import seedu.addressbook.data.member.ReadOnlyMember;
  */
 public class DraftOrderEditCustomerCommand extends Command {
 
-    public static final String COMMAND_WORD = "editdraftcustomer";
+    public static final String COMMAND_WORD = "draftcustomer";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ":\n"
             + "Add a customer to the draft order. "

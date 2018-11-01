@@ -1,9 +1,6 @@
 package seedu.addressbook.commands.statistics;
 
 import seedu.addressbook.commands.CommandResult;
-import seedu.addressbook.data.statistics.ReadOnlyStats;
-
-import java.util.List;
 
 /**
  * Represents the result of a command execution.

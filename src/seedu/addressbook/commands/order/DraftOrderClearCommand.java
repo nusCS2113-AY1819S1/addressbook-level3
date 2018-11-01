@@ -10,7 +10,8 @@ public class DraftOrderClearCommand extends Command {
 
     public static final String COMMAND_WORD = "cleardraft";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ":\n" +"Delete all the fields of the draft order.\n\t"
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ":\n"
+            + "Delete all the fields of the draft order.\n\t"
             + "Example: " + COMMAND_WORD;
 
     public static final String MESSAGE_SUCCESS = "The draft order is cleared.";

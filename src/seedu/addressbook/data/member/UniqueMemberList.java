@@ -1,11 +1,14 @@
 package seedu.addressbook.data.member;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Iterator;
+import java.util.List;
+
 import seedu.addressbook.common.Utils;
 import seedu.addressbook.data.exception.DuplicateDataException;
-import seedu.addressbook.data.member.Member;
-import seedu.addressbook.data.member.ReadOnlyMember;
-
-import java.util.*;
 
 /**
  * A list of members. Does not allow null elements or duplicates.
@@ -124,8 +127,7 @@ public class UniqueMemberList implements Iterable<Member> {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof UniqueMemberList // instanceof handles nulls
-                && this.internalList.equals(
-                        ((UniqueMemberList) other).internalList));
+                && this.internalList.equals(((UniqueMemberList) other).internalList));
     }
 
     @Override

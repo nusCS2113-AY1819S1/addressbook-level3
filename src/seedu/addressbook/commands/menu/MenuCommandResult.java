@@ -5,7 +5,6 @@ import java.util.List;
 import seedu.addressbook.commands.CommandResult;
 import seedu.addressbook.data.menu.ReadOnlyMenus;
 
-
 /**
  * Represents the result of a command execution.
  */
@@ -34,6 +33,6 @@ public class MenuCommandResult extends CommandResult {
 
 
     public MenuCommandResult(String feedbackToUser, List<? extends ReadOnlyMenus> relevantMenus) {
-        super(feedbackToUser, null, relevantMenus, null, null, null);
+        super(feedbackToUser, null, relevantMenus, null, null, null, null);
     }
 }

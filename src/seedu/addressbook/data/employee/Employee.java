@@ -17,7 +17,11 @@ public class Employee implements ReadOnlyEmployee {
     /**
      * Assumption: Every field must be present and not null.
      */
-    public Employee(EmployeeName name,EmployeePhone phone, EmployeeEmail email, EmployeeAddress address, EmployeePosition position){
+    public Employee(EmployeeName name,
+                    EmployeePhone phone,
+                    EmployeeEmail email,
+                    EmployeeAddress address,
+                    EmployeePosition position) {
         this.name = name;
         this.phone = phone;
         this.email = email;
@@ -61,7 +65,7 @@ public class Employee implements ReadOnlyEmployee {
         this.name = name;
     }
 
-    protected void setPhone(EmployeePhone phone){
+    protected void setPhone(EmployeePhone phone) {
         this.phone = phone;
     }
 
@@ -69,11 +73,11 @@ public class Employee implements ReadOnlyEmployee {
         this.email = email;
     }
 
-    protected void setAddress(EmployeeAddress address){
+    protected void setAddress(EmployeeAddress address) {
         this.address = address;
     }
 
-    protected void setPosition(EmployeePosition position){
+    protected void setPosition(EmployeePosition position) {
         this.position = position;
     }
 

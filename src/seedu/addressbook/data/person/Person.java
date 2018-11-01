@@ -4,7 +4,6 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
-import seedu.addressbook.data.exception.IllegalValueException;
 import seedu.addressbook.data.tag.Tag;
 
 /**
@@ -69,7 +68,7 @@ public class Person implements ReadOnlyPerson {
         this.name = name;
     }
 
-    protected void setPhone(Phone phone){
+    protected void setPhone(Phone phone) {
         this.phone = phone;
     }
 
@@ -77,7 +76,7 @@ public class Person implements ReadOnlyPerson {
         this.email = email;
     }
 
-    protected void setAddress(Address address){
+    protected void setAddress(Address address) {
         this.address = address;
     }
 

@@ -10,7 +10,6 @@ import java.util.List;
 import seedu.addressbook.common.Utils;
 import seedu.addressbook.data.exception.DuplicateDataException;
 
-
 /**
  * A list of menus. Does not allow null elements or duplicates.
  *

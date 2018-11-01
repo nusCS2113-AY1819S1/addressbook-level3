@@ -40,13 +40,15 @@ public class Type {
      * Returns true if a given string is a valid person name.
      */
     public static boolean isValidTypeName(String test) {
-        if ((test.equals("main")==true || test.equals("sides")==true || test.equals("beverage")==true || test.equals("dessert")==true || test.equals("others")==true || test.equals("set meal")) && test.matches(TYPE_VALIDATION_REGEX)==true){
-            return true;
+        return (test.equals("main") == true
+                || test.equals("sides") == true
+                || test.equals("beverage") == true
+                || test.equals("dessert") == true
+                || test.equals("others") == true
+                || test.equals("set meal"))
+                && test.matches(TYPE_VALIDATION_REGEX) == true;
 
-        }
 
-
-        return false;
     }
 
     /**

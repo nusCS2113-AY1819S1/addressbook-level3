@@ -1,10 +1,28 @@
 package seedu.addressbook.commands;
 
-
-import seedu.addressbook.commands.member.*;
-import seedu.addressbook.commands.menu.*;
-import seedu.addressbook.commands.order.*;
-import seedu.addressbook.commands.employee.*;
+import seedu.addressbook.commands.employee.EmployeeAddCommand;
+import seedu.addressbook.commands.employee.EmployeeListCommand;
+import seedu.addressbook.commands.member.MemberAddCommand;
+import seedu.addressbook.commands.member.MemberListCommand;
+import seedu.addressbook.commands.menu.MenuAddCommand;
+import seedu.addressbook.commands.menu.MenuClearCommand;
+import seedu.addressbook.commands.menu.MenuDeleteCommand;
+import seedu.addressbook.commands.menu.MenuFindCommand;
+import seedu.addressbook.commands.menu.MenuListCommand;
+import seedu.addressbook.commands.menu.MenuShowMainMenuCommand;
+import seedu.addressbook.commands.menu.MenuViewAllCommand;
+import seedu.addressbook.commands.order.DraftOrderClearCommand;
+import seedu.addressbook.commands.order.DraftOrderConfirmCommand;
+import seedu.addressbook.commands.order.DraftOrderEditCustomerCommand;
+import seedu.addressbook.commands.order.DraftOrderEditDishCommand;
+import seedu.addressbook.commands.order.OrderAddCommand;
+import seedu.addressbook.commands.order.OrderClearCommand;
+import seedu.addressbook.commands.order.OrderDeleteCommand;
+import seedu.addressbook.commands.order.OrderListCommand;
+import seedu.addressbook.commands.statistics.StatsEmployeeCommand;
+import seedu.addressbook.commands.statistics.StatsMemberCommand;
+import seedu.addressbook.commands.statistics.StatsMenuCommand;
+import seedu.addressbook.commands.statistics.StatsOrderCommand;
 
 
 /**
@@ -14,7 +32,8 @@ public class HelpCommand extends Command {
 
     public static final String COMMAND_WORD = "help";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ":\n" +"Shows program usage instructions.\n\t"
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ":\n"
+            + "Shows program usage instructions.\n\t"
             + "Example: " + COMMAND_WORD;
 
     public static final String MESSAGE_ALL_USAGES = AddCommand.MESSAGE_USAGE
@@ -48,6 +67,11 @@ public class HelpCommand extends Command {
             + "\n" + DraftOrderEditDishCommand.MESSAGE_USAGE
             + "\n" + DraftOrderClearCommand.MESSAGE_USAGE
             + "\n" + DraftOrderConfirmCommand.MESSAGE_USAGE
+
+            + "\n" + StatsEmployeeCommand.MESSAGE_USAGE
+            + "\n" + StatsMenuCommand.MESSAGE_USAGE
+            + "\n" + StatsMemberCommand.MESSAGE_USAGE
+            + "\n" + StatsOrderCommand.MESSAGE_USAGE
 
             + "\n" + ExitCommand.MESSAGE_USAGE;
 

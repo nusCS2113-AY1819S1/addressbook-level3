@@ -10,26 +10,6 @@ import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import seedu.addressbook.commands.employee.*;
-import seedu.addressbook.commands.member.MemberAddCommand;
-import seedu.addressbook.commands.member.MemberDeleteCommand;
-import seedu.addressbook.commands.member.MemberListCommand;
-import seedu.addressbook.commands.menu.MenuAddCommand;
-import seedu.addressbook.commands.menu.MenuDeleteCommand;
-import seedu.addressbook.commands.menu.MenuFindCommand;
-import seedu.addressbook.commands.menu.MenuListCommand;
-import seedu.addressbook.commands.menu.MenuViewAllCommand;
-import seedu.addressbook.commands.menu.MenuShowMainMenuCommand;
-import seedu.addressbook.commands.menu.MenuListByTypeCommand;
-import seedu.addressbook.commands.menu.MenuClearCommand;
-import seedu.addressbook.commands.order.DraftOrderClearCommand;
-import seedu.addressbook.commands.order.DraftOrderConfirmCommand;
-import seedu.addressbook.commands.order.DraftOrderEditCustomerCommand;
-import seedu.addressbook.commands.order.DraftOrderEditDishCommand;
-import seedu.addressbook.commands.order.OrderAddCommand;
-import seedu.addressbook.commands.order.OrderClearCommand;
-import seedu.addressbook.commands.order.OrderDeleteCommand;
-import seedu.addressbook.commands.order.OrderListCommand;
 import seedu.addressbook.commands.AddCommand;
 import seedu.addressbook.commands.ClearCommand;
 import seedu.addressbook.commands.Command;
@@ -41,7 +21,33 @@ import seedu.addressbook.commands.IncorrectCommand;
 import seedu.addressbook.commands.ListCommand;
 import seedu.addressbook.commands.ViewAllCommand;
 import seedu.addressbook.commands.ViewCommand;
+import seedu.addressbook.commands.employee.EmployeeAddCommand;
+import seedu.addressbook.commands.employee.EmployeeClockInCommand;
+import seedu.addressbook.commands.employee.EmployeeClockOutCommand;
+import seedu.addressbook.commands.employee.EmployeeDeleteCommand;
+import seedu.addressbook.commands.employee.EmployeeEditCommand;
+import seedu.addressbook.commands.employee.EmployeeListCommand;
+import seedu.addressbook.commands.member.MemberAddCommand;
+import seedu.addressbook.commands.member.MemberDeleteCommand;
+import seedu.addressbook.commands.member.MemberListCommand;
+import seedu.addressbook.commands.menu.MenuAddCommand;
+import seedu.addressbook.commands.menu.MenuClearCommand;
+import seedu.addressbook.commands.menu.MenuDeleteCommand;
+import seedu.addressbook.commands.menu.MenuFindCommand;
+import seedu.addressbook.commands.menu.MenuListByTypeCommand;
+import seedu.addressbook.commands.menu.MenuListCommand;
+import seedu.addressbook.commands.menu.MenuShowMainMenuCommand;
+import seedu.addressbook.commands.menu.MenuViewAllCommand;
+import seedu.addressbook.commands.order.DraftOrderClearCommand;
+import seedu.addressbook.commands.order.DraftOrderConfirmCommand;
+import seedu.addressbook.commands.order.DraftOrderEditCustomerCommand;
+import seedu.addressbook.commands.order.DraftOrderEditDishCommand;
+import seedu.addressbook.commands.order.OrderAddCommand;
+import seedu.addressbook.commands.order.OrderClearCommand;
+import seedu.addressbook.commands.order.OrderDeleteCommand;
+import seedu.addressbook.commands.order.OrderListCommand;
 import seedu.addressbook.commands.statistics.StatsEmployeeCommand;
+import seedu.addressbook.commands.statistics.StatsHelpCommand;
 import seedu.addressbook.commands.statistics.StatsMemberCommand;
 import seedu.addressbook.commands.statistics.StatsMenuCommand;
 import seedu.addressbook.commands.statistics.StatsOrderCommand;
@@ -59,46 +65,52 @@ public class Parser {
 
     public static final Pattern ITEMWORD_ARGS_FORMAT = Pattern.compile("(?<type>[^/]+)"); //one keyword only
 
-
-    public static final Pattern PERSON_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
+    // '/' forward slashes are reserved for delimiter prefixes
+    public static final Pattern PERSON_DATA_ARGS_FORMAT =
             Pattern.compile("(?<name>[^/]+)"
                     + " (?<isPhonePrivate>p?)p/(?<phone>[^/]+)"
                     + " (?<isEmailPrivate>p?)e/(?<email>[^/]+)"
                     + " (?<isAddressPrivate>p?)a/(?<address>[^/]+)"
                     + "(?<tagArguments>(?: t/[^/]+)*)"); // variable number of tags
 
-    public static final Pattern EMPLOYEE_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
+    // '/' forward slashes are reserved for delimiter prefixes
+    public static final Pattern EMPLOYEE_DATA_ARGS_FORMAT =
             Pattern.compile("(?<name>[^/]+)"
                     + "p/(?<phone>[^/]+)"
                     + "e/(?<email>[^/]+)"
                     + "a/(?<address>[^/]+)"
                     + "pos/(?<position>[^/]+)");
 
-    public static final Pattern EMPLOYEE_EDIT_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
+    // '/' forward slashes are reserved for delimiter prefixes
+    public static final Pattern EMPLOYEE_EDIT_DATA_ARGS_FORMAT =
             Pattern.compile("(?<targetIndex>.+ )"
                     + "((p/(?<phone>[^/]+))?)"
                     + "((e/(?<email>[^/]+))?)"
                     + "((a/(?<address>[^/]+))?)"
                     + "((pos/(?<position>[^/]+))?)");
 
-                  /* working when all fields are in
-                  Pattern.compile("(?<targetIndex>.+)"
-                           + "p/(?<phone>[^/]+)"
-                           + "e/(?<email>[^/]+)"
-                           + "a/(?<address>[^/]+)"
-                           + "pos/(?<position>[^/]+)");*/
+    // '/' forward slashes are reserved for delimiter prefixes
+    public static final Pattern CLOCK_IN_DATA_ARGS_FORMAT =
+            Pattern.compile("(?<name>[^/]+)");
 
     public static final Pattern MEMBER_DATA_ARGS_FORMAT =
             Pattern.compile("(?<name>[^/]+)"); // variable number of tags
 
-    public static final Pattern MENU_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
+    // '/' forward slashes are reserved for delimiter prefixes
+    public static final Pattern MENU_DATA_ARGS_FORMAT =
             Pattern.compile("(?<name>[^/]+)"
                     + " p/(?<price>[^/]+)"
                     + "type/(?<type>[^/]+)"
                     + "(?<tagArguments>(?: t/[^/]+)*)"); // variable number of tags
 
-    public static final Pattern ORDER_DISH_ARGS_FORMAT = Pattern.compile("i/(?<targetIndex>.+)\\s+q/(?<quantity>.+)");
+    public static final Pattern ORDER_DISH_ARGS_FORMAT = Pattern.compile("(?<targetIndex>.+)\\s+q/(?<quantity>.+)");
 
+    public static final String STATSMENU_DATE_ARGS_FORMAT_PATTERN_COMPILE_STRING =
+            "(f\\/(?<dateFrom>(0[1-9]|[12]\\d|3[01])(0[1-9]|1[0-2])[12]\\d{3}))?"
+            + " ?(t\\/(?<dateTo>(0[1-9]|[12]\\d|3[01])(0[1-9]|1[0-2])[12]\\d{3}))?"; // variable number of tags
+
+    public static final Pattern STATSMENU_DATE_ARGS_FORMAT =
+            Pattern.compile(STATSMENU_DATE_ARGS_FORMAT_PATTERN_COMPILE_STRING);
 
     /**
      * Signals that the user input could not be parsed.
@@ -129,116 +141,125 @@ public class Parser {
         final String commandWord = matcher.group("commandWord");
         final String arguments = matcher.group("arguments");
         switch (commandWord) {
-            case EmployeeAddCommand.COMMAND_WORD:
-                return prepareEmployeeAdd(arguments);
+        case EmployeeAddCommand.COMMAND_WORD:
+            return prepareEmployeeAdd(arguments);
 
-            case EmployeeDeleteCommand.COMMAND_WORD:
-                return prepareEmployeeDelete(arguments);
+        case EmployeeDeleteCommand.COMMAND_WORD:
+            return prepareEmployeeDelete(arguments);
 
-            case EmployeeEditCommand.COMMAND_WORD:
-                return prepareEmployeeEdit(arguments);
+        case EmployeeEditCommand.COMMAND_WORD:
+            return prepareEmployeeEdit(arguments);
 
-            case EmployeeListCommand.COMMAND_WORD:
-                return new EmployeeListCommand();
+        case EmployeeListCommand.COMMAND_WORD:
+            return new EmployeeListCommand();
 
-            case MemberListCommand.COMMAND_WORD:
-                return new MemberListCommand();
+        case EmployeeClockInCommand.COMMAND_WORD:
+            return prepareClockIn(arguments);
 
-            case MemberAddCommand.COMMAND_WORD:
-                return prepareAddMember(arguments);
+        case EmployeeClockOutCommand.COMMAND_WORD:
+            return prepareClockOut(arguments);
 
-            case MemberDeleteCommand.COMMAND_WORD:
-                return prepareMemberDelete(arguments);
+        case MemberListCommand.COMMAND_WORD:
+            return new MemberListCommand();
 
-            case MenuAddCommand.COMMAND_WORD:
-                return prepareAddMenu(arguments);
+        case MemberAddCommand.COMMAND_WORD:
+            return prepareAddMember(arguments);
 
-            case MenuListCommand.COMMAND_WORD:
-                return new MenuListCommand();
+        case MemberDeleteCommand.COMMAND_WORD:
+            return prepareMemberDelete(arguments);
 
-            case MenuShowMainMenuCommand.COMMAND_WORD:
-                return new MenuShowMainMenuCommand();
+        case MenuAddCommand.COMMAND_WORD:
+            return prepareAddMenu(arguments);
 
-            case MenuListByTypeCommand.COMMAND_WORD:
-                return prepareMenuListByType(arguments);
+        case MenuListCommand.COMMAND_WORD:
+            return new MenuListCommand();
+
+        case MenuShowMainMenuCommand.COMMAND_WORD:
+            return new MenuShowMainMenuCommand();
+
+        case MenuListByTypeCommand.COMMAND_WORD:
+            return prepareMenuListByType(arguments);
+
+        case MenuViewAllCommand.COMMAND_WORD:
+            return prepareViewAllMenu(arguments);
+
+        case MenuDeleteCommand.COMMAND_WORD:
+            return prepareMenuDelete(arguments);
+
+        case MenuFindCommand.COMMAND_WORD:
+            return prepareMenuFind(arguments);
+
+        case MenuClearCommand.COMMAND_WORD:
+            return new MenuClearCommand();
 
 
-            case MenuViewAllCommand.COMMAND_WORD:
-                return prepareViewAllMenu(arguments);
+        case OrderAddCommand.COMMAND_WORD:
+            return new OrderAddCommand();
 
-            case MenuDeleteCommand.COMMAND_WORD:
-                return prepareMenuDelete(arguments);
+        case OrderDeleteCommand.COMMAND_WORD:
+            return prepareOrderDelete(arguments);
 
-            case MenuFindCommand.COMMAND_WORD:
-                return prepareMenuFind(arguments);
+        case OrderClearCommand.COMMAND_WORD:
+            return new OrderClearCommand();
 
-            case MenuClearCommand.COMMAND_WORD:
-                return new MenuClearCommand();
+        case OrderListCommand.COMMAND_WORD:
+            return new OrderListCommand();
 
+        case DraftOrderEditCustomerCommand.COMMAND_WORD:
+            return prepareDraftOrderEditCustomer(arguments);
 
-            case OrderAddCommand.COMMAND_WORD:
-                return new OrderAddCommand();
+        case DraftOrderEditDishCommand.COMMAND_WORD:
+            return prepareDraftOrderEditDish(arguments);
 
-            case OrderDeleteCommand.COMMAND_WORD:
-                return prepareOrderDelete(arguments);
+        case DraftOrderClearCommand.COMMAND_WORD:
+            return new DraftOrderClearCommand();
 
-            case OrderClearCommand.COMMAND_WORD:
-                return new OrderClearCommand();
+        case DraftOrderConfirmCommand.COMMAND_WORD:
+            return new DraftOrderConfirmCommand();
 
-            case OrderListCommand.COMMAND_WORD:
-                return new OrderListCommand();
+        case StatsEmployeeCommand.COMMAND_WORD:
+            return new StatsEmployeeCommand();
 
-            case DraftOrderEditCustomerCommand.COMMAND_WORD:
-                return prepareDraftOrderEditCustomer(arguments);
+        case StatsMemberCommand.COMMAND_WORD:
+            return new StatsMemberCommand();
 
-            case DraftOrderEditDishCommand.COMMAND_WORD:
-                return prepareDraftOrderEditDish(arguments);
+        case StatsMenuCommand.COMMAND_WORD:
+            return prepareStatsMenu(arguments);
 
-            case DraftOrderClearCommand.COMMAND_WORD:
-                return new DraftOrderClearCommand();
+        case StatsOrderCommand.COMMAND_WORD:
+            return new StatsOrderCommand();
 
-            case DraftOrderConfirmCommand.COMMAND_WORD:
-                return new DraftOrderConfirmCommand();
+        case StatsHelpCommand.COMMAND_WORD:
+            return new StatsHelpCommand();
 
-            case StatsEmployeeCommand.COMMAND_WORD:
-                return new StatsEmployeeCommand();
+        case AddCommand.COMMAND_WORD:
+            return prepareAdd(arguments);
 
-            case StatsMemberCommand.COMMAND_WORD:
-                return new StatsMemberCommand();
+        case DeleteCommand.COMMAND_WORD:
+            return prepareDelete(arguments);
 
-            case StatsMenuCommand.COMMAND_WORD:
-                return new StatsMenuCommand();
+        case ClearCommand.COMMAND_WORD:
+            return new ClearCommand();
 
-            case StatsOrderCommand.COMMAND_WORD:
-                return new StatsOrderCommand();
+        case FindCommand.COMMAND_WORD:
+            return prepareFind(arguments);
 
-            case AddCommand.COMMAND_WORD:
-                return prepareAdd(arguments);
+        case ListCommand.COMMAND_WORD:
+            return new ListCommand();
 
-            case DeleteCommand.COMMAND_WORD:
-                return prepareDelete(arguments);
+        case ViewCommand.COMMAND_WORD:
+            return prepareView(arguments);
 
-            case ClearCommand.COMMAND_WORD:
-                return new ClearCommand();
+        case ViewAllCommand.COMMAND_WORD:
+            return prepareViewAll(arguments);
 
-            case FindCommand.COMMAND_WORD:
-                return prepareFind(arguments);
+        case ExitCommand.COMMAND_WORD:
+            return new ExitCommand();
 
-            case ListCommand.COMMAND_WORD:
-                return new ListCommand();
+        case HelpCommand.COMMAND_WORD: // Fallthrough
 
-            case ViewCommand.COMMAND_WORD:
-                return prepareView(arguments);
-
-            case ViewAllCommand.COMMAND_WORD:
-                return prepareViewAll(arguments);
-
-            case ExitCommand.COMMAND_WORD:
-                return new ExitCommand();
-
-            case HelpCommand.COMMAND_WORD: // Fallthrough
-            default:
-                return new HelpCommand();
+        default:
+            return new HelpCommand();
         }
     }
 
@@ -248,7 +269,7 @@ public class Parser {
      * @param args full command args string
      * @return the prepared command
      */
-    private Command prepareAdd(String args){
+    private Command prepareAdd(String args) {
         final Matcher matcher = PERSON_DATA_ARGS_FORMAT.matcher(args.trim());
         // Validate arg string format
         if (!matcher.matches()) {
@@ -280,7 +301,7 @@ public class Parser {
      * @return the prepared command
      */
 
-    private Command prepareAddMember(String args){
+    private Command prepareAddMember(String args) {
         final Matcher matcher = MEMBER_DATA_ARGS_FORMAT.matcher(args.trim());
         // Validate arg string format
         if (!matcher.matches()) {
@@ -301,7 +322,7 @@ public class Parser {
      * @param args full command args string
      * @return the prepared command
      */
-    private Command prepareAddMenu(String args){
+    private Command prepareAddMenu(String args) {
         final Matcher matcher = MENU_DATA_ARGS_FORMAT.matcher(args.trim());
         // Validate arg string format
         if (!matcher.matches()) {
@@ -328,11 +349,13 @@ public class Parser {
      * @param args full command args string
      * @return the prepared command
      */
-    private Command prepareEmployeeAdd(String args){
+    private Command prepareEmployeeAdd(String args) {
         final Matcher matcher = EMPLOYEE_DATA_ARGS_FORMAT.matcher(args.trim());
         // Validate arg string format
         if (!matcher.matches()) {
-            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EmployeeAddCommand.MESSAGE_USAGE));
+            return new IncorrectCommand(String.format(
+                    MESSAGE_INVALID_COMMAND_FORMAT,
+                    EmployeeAddCommand.MESSAGE_USAGE));
         }
         try {
             return new EmployeeAddCommand(
@@ -350,6 +373,38 @@ public class Parser {
     }
 
     /**
+     * Parses arguments in the context of the clock in command.
+     *
+     * @param args full command args string
+     * @return the prepared command
+     */
+    private Command prepareClockIn(String args) {
+        final Matcher matcher = CLOCK_IN_DATA_ARGS_FORMAT.matcher(args.trim());
+        // Validate arg string format
+        if (!matcher.matches()) {
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    EmployeeClockInCommand.MESSAGE_USAGE));
+        }
+        return new EmployeeClockInCommand(matcher.group("name"));
+    }
+
+    /**
+     * Parses arguments in the context of the clock out command.
+     *
+     * @param args full command args string
+     * @return the prepared command
+     */
+    private Command prepareClockOut(String args) {
+        final Matcher matcher = CLOCK_IN_DATA_ARGS_FORMAT.matcher(args.trim());
+        // Validate arg string format
+        if (!matcher.matches()) {
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    EmployeeClockOutCommand.MESSAGE_USAGE));
+        }
+        return new EmployeeClockOutCommand(matcher.group("name"));
+    }
+
+    /**
      * Parses arguments in the context of the delete employee command.
      *
      * @param args full command args string
@@ -360,11 +415,12 @@ public class Parser {
             final int targetIndex = parseArgsAsDisplayedIndex(args);
             return new EmployeeDeleteCommand(targetIndex);
         } catch (ParseException | NumberFormatException e) {
-            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EmployeeDeleteCommand.MESSAGE_USAGE));
+            return new IncorrectCommand(String.format(
+                    MESSAGE_INVALID_COMMAND_FORMAT,
+                    EmployeeDeleteCommand.MESSAGE_USAGE));
         }
     }
 
-    
     /**
      * Parses arguments in the context of the delete member command.
      * @param args full command args string
@@ -375,7 +431,9 @@ public class Parser {
             final int targetIndex = parseArgsAsDisplayedIndex(args);
             return new MemberDeleteCommand(targetIndex);
         } catch (ParseException | NumberFormatException e) {
-            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, MemberDeleteCommand.MESSAGE_USAGE));
+            return new IncorrectCommand(String.format(
+                    MESSAGE_INVALID_COMMAND_FORMAT,
+                    MemberDeleteCommand.MESSAGE_USAGE));
         }
     }
 
@@ -388,9 +446,11 @@ public class Parser {
     private Command prepareEmployeeEdit(String args) {
         final Matcher matcher = EMPLOYEE_EDIT_DATA_ARGS_FORMAT.matcher(args.trim());
         if (!matcher.matches()) {
-            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EmployeeEditCommand.MESSAGE_USAGE));
+            return new IncorrectCommand(String.format(
+                    MESSAGE_INVALID_COMMAND_FORMAT,
+                    EmployeeEditCommand.MESSAGE_USAGE));
         }
-        try{
+        try {
             final int targetIndex = parseArgsAsDisplayedIndex(matcher.group("targetIndex"));
             return new EmployeeEditCommand(
                     targetIndex,
@@ -400,9 +460,11 @@ public class Parser {
                     prepareEditArg(matcher.group("position"), "position")
             );
         } catch (ParseException | NumberFormatException e) {
-            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EmployeeEditCommand.MESSAGE_USAGE));
+            return new IncorrectCommand(String.format(
+                    MESSAGE_INVALID_COMMAND_FORMAT,
+                    EmployeeEditCommand.MESSAGE_USAGE));
         } catch (IllegalValueException ive) {
-        return new IncorrectCommand(ive.getMessage());
+            return new IncorrectCommand(ive.getMessage());
         }
     }
 
@@ -410,19 +472,18 @@ public class Parser {
      * Returns new information to be edited if it is not empty,
      * else returns a placeholder string indicating that there is no new information
      */
-    private static String prepareEditArg(String toCheck, String argumentType){
+    private static String prepareEditArg(String toCheck, String argumentType) {
         if (toCheck == null || toCheck.isEmpty()) {
             switch(argumentType) {
-                case "phone":
-                    toCheck = "00000000";
-                    break;
-                case "email":
-                    toCheck = "noargs@noargs.com";
-                    break;
-                default:
-                    toCheck = "noargs";
-                    break;
-
+            case "phone":
+                toCheck = "00000000";
+                break;
+            case "email":
+                toCheck = "noargs@noargs.com";
+                break;
+            default:
+                toCheck = "noargs";
+                break;
             }
             return toCheck;
         }
@@ -530,6 +591,12 @@ public class Parser {
         }
     }
 
+    /**
+     * Parses arguments in the context of the view all menu item command.
+     *
+     * @param args full command args string
+     * @return the prepared command
+     */
     private Command prepareViewAllMenu(String args) {
 
         try {
@@ -595,6 +662,12 @@ public class Parser {
         }
     }
 
+    /**
+     * Parses arguments in the context of the edit draft order dish command.
+     *
+     * @param args full command args string
+     * @return the prepared command
+     */
     private Command prepareDraftOrderEditDish(String args) {
         try {
             final Matcher matcher = ORDER_DISH_ARGS_FORMAT.matcher(args.trim());
@@ -627,6 +700,31 @@ public class Parser {
         return Integer.parseInt(matcher.group("targetIndex"));
     }
 
+    /**
+     * Parses arguments in the context of the stats menu command.
+     *
+     * @param args full command args string
+     * @return the prepared command
+     */
+    private Command prepareStatsMenu(String args) {
+        final Matcher matcher = STATSMENU_DATE_ARGS_FORMAT.matcher(args.trim());
+        // Validate arg string format
+        if (!matcher.matches()) {
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, StatsMenuCommand.MESSAGE_USAGE));
+        }
+        return new StatsMenuCommand(
+                matcher.group("dateFrom"),
+
+                matcher.group("dateTo")
+        );
+    }
+
+    /**
+     * Parses arguments in the context of the list menu by type command.
+     *
+     * @param args full command args string
+     * @return the prepared command
+     */
     private Command prepareMenuListByType(String args) {
         final Matcher matcher = ITEMWORD_ARGS_FORMAT.matcher(args.trim());
         if (!matcher.matches()) {

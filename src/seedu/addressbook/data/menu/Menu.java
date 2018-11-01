@@ -3,13 +3,14 @@ package seedu.addressbook.data.menu;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
+
 import seedu.addressbook.data.tag.Tag;
 
 /**
  * Represents a Menu in the Rms.
  * Guarantees: details are present and not null, field values are validated.
  */
-public class Menu implements ReadOnlyMenus {
+public class Menu implements ReadOnlyMenus, Comparable<Menu> {
 
     private MenuName name;
     private Price price;
@@ -80,4 +81,8 @@ public class Menu implements ReadOnlyMenus {
         return this.name.fullName;
     }
 
+    @Override
+    public int compareTo(Menu target) {
+        return this.name.fullName.compareTo(target.name.fullName);
+    }
 }

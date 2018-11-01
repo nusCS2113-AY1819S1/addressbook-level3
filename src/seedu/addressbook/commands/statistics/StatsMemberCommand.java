@@ -1,10 +1,13 @@
 package seedu.addressbook.commands.statistics;
 
+import java.util.Date;
 import java.util.List;
 
 import seedu.addressbook.commands.Command;
 import seedu.addressbook.commands.CommandResult;
 import seedu.addressbook.data.member.ReadOnlyMember;
+import seedu.addressbook.data.statistics.AsciiTable;
+import seedu.addressbook.data.statistics.MemberDateTable;
 
 /**
  *
@@ -20,22 +23,39 @@ public class StatsMemberCommand extends Command {
 
     @Override
     public CommandResult execute() {
-        return new StatsCommandResult(getMemberStats());
+        return new StatsCommandResult(getOverviewStats());
     }
 
-    private String getMemberStats() {
+    private String getOverviewStats() {
         StringBuilder res = new StringBuilder();
         List<ReadOnlyMember> allMembers = rms.getAllMembers().immutableListView();
-        for (ReadOnlyMember member : allMembers) {
-
+        if (allMembers.isEmpty()) {
+            return "There are no members in the system.";
         }
-        res.append("Number of members: " + allMembers.size());
-        appendNewLine(res);
+        MemberDateTable dateTable = new MemberDateTable();
+
+        for (ReadOnlyMember member : allMembers) {
+            // Replace with member.getDate() during merge
+            Date signupDate = member.getDate();
+            // ==========================================
+            dateTable.addData(signupDate);
+        }
+        res.append("Number of members: " + allMembers.size() + "\n\n");
+        res.append("New members this year: " + dateTable.getYearCount(new Date()) + "\n\n");
+        res.append("New members this month: " + dateTable.getMonthCount(new Date()) + "\n\n");
+        res.append("New members today: " + dateTable.getDayCount(new Date()));
+        res.append("\n\n\n");
+
+        // Replace with list of tiers during merge
+        res.append("Tier Table\n");
+        String[] headings = new String[]{"Bronze", "Silver", "Gold", "Platinum", "Diamond"};
+        // =======================================
+        AsciiTable table = new AsciiTable(headings);
+        String[] values = new String[]{"12", "6", "4", "2", "1"};
+        table.addRow(values);
+        res.append(table.toString());
+
         return res.toString();
     }
 
-    private StringBuilder appendNewLine(StringBuilder sb) {
-        sb.append("\n");
-        return sb;
-    }
 }

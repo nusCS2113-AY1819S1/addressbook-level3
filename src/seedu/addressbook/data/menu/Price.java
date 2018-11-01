@@ -5,7 +5,7 @@ import seedu.addressbook.data.exception.IllegalValueException;
 
 /**
  * Price of a particular menu item in the Restaurant Management System.
- * Guarantees: immutable; is valid as declared in {@link #isValidPhone(String)}
+ * Guarantees: immutable; is valid as declared in {@link #isValidPrice(String)}
  */
 public class Price {
 
@@ -25,12 +25,15 @@ public class Price {
     public Price(String price/*, boolean isPrivate*/) throws IllegalValueException {
         //this.isPrivate = isPrivate;
         price = price.trim();
-        if (!isValidPhone(price)) {
+        if (!isValidPrice(price)) {
             throw new IllegalValueException(MESSAGE_PRICE_CONSTRAINTS);
         }
         this.value = price;
     }
 
+    /**
+     * Convert value from String to double
+     */
     public double convertValueOfPricetoDouble() {
         String doublevalue = this.value.substring(1);
         double priceIndouble = Double.parseDouble(doublevalue);
@@ -38,14 +41,17 @@ public class Price {
         return priceIndouble;
     }
 
+    /**
+     * Convert any double into a currency String format
+     */
     public static String convertPricetoString(double priceIndouble) {
         String valueAsString = Double.toString(priceIndouble);
         String valueAsPrice = "$" + valueAsString;
         //ensuring the final answer is always returned in 2 decimal places
         int decimalIndex = valueAsPrice.indexOf(".");
-        if((valueAsPrice.substring(decimalIndex)).length() < 3) {
+        if ((valueAsPrice.substring(decimalIndex)).length() < 3) {
             valueAsPrice = valueAsPrice + "0";
-        }else if((valueAsPrice.substring(decimalIndex)).length() >= 3) {
+        } else if ((valueAsPrice.substring(decimalIndex)).length() >= 3) {
             valueAsPrice.substring(0, decimalIndex + 3);
 
         }
@@ -57,7 +63,7 @@ public class Price {
     /**
      * Checks if a given string is a valid menu item price.
      */
-    public static boolean isValidPhone(String test) {
+    public static boolean isValidPrice(String test) {
         return test.matches(PRICE_VALIDATION_REGEX);
     }
 

@@ -1,15 +1,18 @@
 package seedu.addressbook.data;
 
-import seedu.addressbook.data.member.*;
+import java.util.HashSet;
+import java.util.Set;
+
+import seedu.addressbook.data.employee.Attendance;
 import seedu.addressbook.data.employee.Employee;
 import seedu.addressbook.data.employee.ReadOnlyEmployee;
+import seedu.addressbook.data.employee.UniqueAttendanceList;
 import seedu.addressbook.data.employee.UniqueEmployeeList;
 import seedu.addressbook.data.employee.UniqueEmployeeList.DuplicateEmployeeException;
 import seedu.addressbook.data.employee.UniqueEmployeeList.EmployeeNotFoundException;
 import seedu.addressbook.data.member.Member;
 import seedu.addressbook.data.member.ReadOnlyMember;
 import seedu.addressbook.data.member.UniqueMemberList;
-
 import seedu.addressbook.data.member.UniqueMemberList.DuplicateMemberException;
 import seedu.addressbook.data.member.UniqueMemberList.MemberNotFoundException;
 import seedu.addressbook.data.menu.Menu;
@@ -26,30 +29,22 @@ import seedu.addressbook.data.order.UniqueOrderList.OrderNotFoundException;
 import seedu.addressbook.data.person.Person;
 import seedu.addressbook.data.person.ReadOnlyPerson;
 import seedu.addressbook.data.person.UniquePersonList;
-import seedu.addressbook.data.person.UniquePersonList.DuplicatePersonException;
-import seedu.addressbook.data.person.UniquePersonList.PersonNotFoundException;
-
-import java.util.HashSet;
-import java.util.Set;
-import java.util.Date;
 
 /**
  * Represents the entire address book. Contains the data of the address book.
  */
 public class Rms {
 
+    private static Set<Type> typeSet = new HashSet<>();
+
     private final UniquePersonList allPersons;
     private final UniqueEmployeeList allEmployees;
     private final UniqueMemberList allMembers;
     private final UniqueMenuList allFoodItems;
     private final UniqueOrderList allOrders;
+    private final UniqueAttendanceList allAttendance;
 
     private Order draftOrder = new Order();
-    public static Set<Type> TypeSet = new HashSet<>();
-
-    public static Rms empty() {
-        return new Rms();
-    }
 
     /**
      * Creates an empty address book.
@@ -60,6 +55,7 @@ public class Rms {
         allMembers = new UniqueMemberList();
         allFoodItems = new UniqueMenuList();
         allOrders = new UniqueOrderList();
+        allAttendance = new UniqueAttendanceList();
     }
 
     /**
@@ -71,28 +67,65 @@ public class Rms {
                UniqueMenuList menus,
                UniqueEmployeeList employees,
                UniqueOrderList orders,
-               UniqueMemberList members) {
+               UniqueMemberList members,
+               UniqueAttendanceList attendances) {
         this.allPersons = new UniquePersonList(persons);
         this.allEmployees = new UniqueEmployeeList(employees);
         this.allMembers = new UniqueMemberList(members);
         this.allFoodItems = new UniqueMenuList(menus);
         this.allOrders = new UniqueOrderList(orders);
+        this.allAttendance = new UniqueAttendanceList(attendances);
+    }
+
+    public static Rms empty() {
+        return new Rms();
     }
 
     /**
      * Adds a person to the address book.
      *
-     * @throws DuplicatePersonException if an equivalent person already exists.
+     * @throws Exception if an equivalent person already exists.
      */
-    public void addPerson(Person toAdd) throws DuplicatePersonException { allPersons.add(toAdd); }
+    public void addPerson(Person toAdd) throws Exception {
+        allPersons.add(toAdd);
+    }
 
     /**
-     * Adds a person to the Rms.
+     * Adds an employee to the Rms.
      *
-     * @throws DuplicateEmployeeException if an equivalent person already exists.
+     * @throws DuplicateEmployeeException if an equivalent employee already exists.
      */
-    public void addEmployee(Employee toAdd) throws DuplicateEmployeeException { allEmployees.add(toAdd); }
+    public void addEmployee(Employee toAdd) throws DuplicateEmployeeException {
+        allEmployees.add(toAdd);
+    }
 
+    /**
+     * Adds an attendance list with the specified employee to the Rms.
+     */
+    public void addAttendance(Attendance toAdd) {
+        allAttendance.add(toAdd);
+    }
+
+    /**
+     * Gets index of the specified Attendance object.
+     */
+    public int findAttendanceIndex(String toFind) {
+        return allAttendance.getAttendanceIndex(toFind);
+    }
+
+
+    /**
+     * Gets index of the specified Attendance object.
+     */
+    public Attendance findAttendance(int toFind) {
+        return allAttendance.getAttendance(toFind);
+    }
+
+    /**
+     * Adds an attendance list with the specified employee to the Rms.
+     */
+    public void updateAttendance(Attendance oldAttendance, Attendance newAttendance) {
+        allAttendance.setAttendance(oldAttendance, newAttendance); }
 
     /**
      * Adds a member to the address book.
@@ -109,7 +142,9 @@ public class Rms {
      *
      * @throws DuplicateMenuException if an equivalent menu item already exists.
      */
-    public void addMenu(Menu toAdd) throws DuplicateMenuException { allFoodItems.add(toAdd); }
+    public void addMenu(Menu toAdd) throws DuplicateMenuException {
+        allFoodItems.add(toAdd);
+    }
 
     /**
      * Adds an order to the order list.
@@ -149,21 +184,9 @@ public class Rms {
         return allMembers.contains(key);
     }
 
-    /**
-     *  Checks if a member in another feature is in the list of members
-     *  Returns the member if found, else create a new Member using the data from the member in the order
-     */
-    public Member retrieveMember(ReadOnlyMember target) {
-        for(Member member : allMembers) {
-            if(target.isSameStateAs(member)) {
-                return member;
-            }
-        }
-        return new Member(target);
-    }
 
     /**
-     * Checks if an equivalent employee exists in the address book.
+     * Checks if an equivalent employee exists in the Rms.
      */
     public boolean containsEmployee(ReadOnlyEmployee key) {
         return allEmployees.contains(key);
@@ -173,9 +196,9 @@ public class Rms {
     /**
      * Removes the equivalent person from the address book.
      *
-     * @throws PersonNotFoundException if no such Person could be found.
+     * @throws Exception if no such Person could be found.
      */
-    public void removePerson(ReadOnlyPerson toRemove) throws PersonNotFoundException {
+    public void removePerson(ReadOnlyPerson toRemove) throws Exception {
         allPersons.remove(toRemove);
     }
 
@@ -216,11 +239,18 @@ public class Rms {
     }
 
     /**
+     * Removes an attendance list with the specified employee from the Rms.
+     */
+    public void removeAttendance(Attendance toRemove) {
+        allAttendance.remove(toRemove);
+    }
+
+    /**
      * Edits the equivalent employee from Rms
      *
      * @throws EmployeeNotFoundException if no such Employee could be found.
      */
-    public void editEmployee(ReadOnlyEmployee toRemove, Employee toReplace) throws  EmployeeNotFoundException {
+    public void editEmployee(ReadOnlyEmployee toRemove, Employee toReplace) throws EmployeeNotFoundException {
         allEmployees.edit(toRemove, toReplace);
     }
 
@@ -280,6 +310,14 @@ public class Rms {
         return new UniqueEmployeeList(allEmployees);
     }
 
+
+    /**
+     * Defensively copied UniqueEmployeeList of all employees in the employee list at the time of the call.
+     */
+    public UniqueAttendanceList getAllAttendance() {
+        return new UniqueAttendanceList(allAttendance);
+    }
+
     /**
      * Defensively copied UniqueMenuList of all menu items in the menu at the time of the call.
      */
@@ -295,7 +333,7 @@ public class Rms {
     }
 
     public ReadOnlyOrder getDraftOrder() {
-        return new Order(draftOrder);
+        return draftOrder;
     }
 
     public void editDraftOrderCustomer(ReadOnlyMember customer) {

@@ -1,9 +1,9 @@
 package seedu.addressbook.commands.member;
 
+import java.util.List;
+
 import seedu.addressbook.commands.CommandResult;
 import seedu.addressbook.data.member.ReadOnlyMember;
-
-import java.util.List;
 
 /**
  * Represents the result of an order command execution.
@@ -11,6 +11,6 @@ import java.util.List;
 public class MemberCommandResult extends CommandResult {
 
     public MemberCommandResult(String feedbackToUser, List<? extends ReadOnlyMember> relevantMembers) {
-        super(feedbackToUser, null, null, null, relevantMembers, null);
+        super(feedbackToUser, null, null, null, relevantMembers, null, null);
     }
 }

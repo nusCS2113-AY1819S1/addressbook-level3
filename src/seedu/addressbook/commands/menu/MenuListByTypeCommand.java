@@ -10,7 +10,6 @@ import seedu.addressbook.commands.CommandResult;
 import seedu.addressbook.data.menu.ReadOnlyMenus;
 import seedu.addressbook.data.menu.Type;
 
-
 /**
  * Lists all food items in the address book to the user.
  */
@@ -21,21 +20,23 @@ public class MenuListByTypeCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ":\n"
             + "Displays all food item of a specific category in the Rms system as a list with index numbers.\n\t"
             + "Example: " + COMMAND_WORD;
+
     public static final String MESSAGE_ERROR = "Invalid menu type searched! " +
              "\n" + "Only the following types are available: main, sides, beverage, dessert, others, set meals." +
              "\n" + "Only one type search allowed at a time!";
+
     private final String itemword;
-    //public static boolean executedMenutype = false;
+    private final List<ReadOnlyMenus> matchedFoodItems = new ArrayList<>();
+    private final Set<String> typeSet = new HashSet<>();
+    // public static boolean executedMenutype = false;
 
     public MenuListByTypeCommand(String itemword) {
         this.itemword = itemword;
     }
-    private final List<ReadOnlyMenus> matchedFoodItems = new ArrayList<>();
-    private final Set<String> typeSet = new HashSet<>();
-
-     public String getItemword() {
+    public String getItemword() {
          return itemword;
      }
+
     private List<ReadOnlyMenus> getFoodItemsBurger(String itemword) {
         for (ReadOnlyMenus menuItem : rms.getAllMenus()) {
             //final Set<String> wordsInName = new HashSet<>(burger.getType().getWordsInTypeName());
@@ -50,7 +51,6 @@ public class MenuListByTypeCommand extends Command {
         }
         return matchedFoodItems;
     }
-
 
     /*
     private final Set<String> keywords;
@@ -73,7 +73,8 @@ public class MenuListByTypeCommand extends Command {
             }
         }
         return matchedFoodItems;
-    }*/
+    }
+    */
 
 
     @Override

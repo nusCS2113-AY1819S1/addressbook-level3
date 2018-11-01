@@ -1,4 +1,4 @@
-= Restaurant Managment System - Developer Guide
+= Restaurant Management System - Developer Guide
 :site-section: DeveloperGuide
 :toc:
 :toc-title:
@@ -12,9 +12,13 @@ ifdef::env-github[]
 :note-caption: :information_source:
 :warning-caption: :warning:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level4/tree/master
+:repoURL: https://github.com/CS2113-AY1819S1-F09-2/main/tree/master
 
 By: `CS2113-AY1819S1-F09-2`      Since: `Aug 2018`      Licence: `MIT`
+
+== Introduction
+The Restaurant Management System (RMS) provides restaurants with a more efficient way to manage their operations. It has a wide variety of features which cater to different roles in a restaurant. In line with Singapore's "Smart Nation" movement, the RMS aims to digitise the restaurant business and make day-to-day operations smoother and simpler. Jump to <<Setting up>> to get started with the development.
+
 
 == Setting up
 
@@ -83,53 +87,48 @@ Optionally, you can set up AppVeyor as a second CI (see <<UsingAppVeyor#, UsingA
 [NOTE]
 Having both Travis and AppVeyor ensures your App works on both Unix-based platforms and Windows-based platforms (Travis is Unix-based and AppVeyor is Windows-based)
 
-//==== Getting started with coding
-//
-//When you are ready to start coding,
-//
-//1. Get some sense of the overall design by reading <<Design-Architecture>>.
-//2. Take a look at <<GetStartedProgramming>>.
+==== Getting started with coding
 
-//== Design
-//
-//[[Design-Architecture]]
-//=== Architecture
-//
-//.Architecture Diagram
-//image::Architecture.png[width="600"]
-//
-//The *_Architecture Diagram_* given above explains the high-level design of the App. Given below is a quick overview of each component.
-//
-//[TIP]
-//The `.pptx` files used to create diagrams in this document can be found in the link:{repoURL}/docs/diagrams/[diagrams] folder. To update a diagram, modify the diagram in the pptx file, select the objects of the diagram, and choose `Save as picture`.
+When you are ready to start coding,
+
+1. Get some sense of the overall design by reading <<Design-Architecture>>.
+2. Take a look at <<GetStartedProgramming>>.
+
+== Design
+
+[[Design-Architecture]]
+=== Architecture
+
+.Architecture Diagram
+image::Architecture.png[width="600"]
+
+The *_Architecture Diagram_* given above explains the high-level design of the App. Given below is a quick overview of each component.
+
 //
 //`Main` has only one class called link:{repoURL}/src/main/java/seedu/address/MainApp.java[`MainApp`]. It is responsible for,
-//
-//* At app launch: Initializes the components in the correct sequence, and connects them up with each other.
-//* At shut down: Shuts down the components and invokes cleanup method where necessary.
-//
-//<<Design-Commons,*`Commons`*>> represents a collection of classes used by multiple other components. Two of those classes play important roles at the architecture level.
-//
+
+* At app launch: Initializes the components in the correct sequence, and connects them up with each other.
+* At shut down: Shuts down the components and invokes cleanup method where necessary.
+
+<<Design-Commons,*`Commons`*>> represents a collection of classes used by multiple other components. Two of those classes play important roles at the architecture level.
+
 //* `EventsCenter` : This class (written using https://github.com/google/guava/wiki/EventBusExplained[Google's Event Bus library]) is used by components to communicate with other components using events (i.e. a form of _Event Driven_ design)
-//* `LogsCenter` : Used by many classes to write log messages to the App's log file.
-//
-//The rest of the App consists of four components.
-//
-//* <<Design-Ui,*`UI`*>>: The UI of the App.
-//* <<Design-Logic,*`Logic`*>>: The command executor.
-//* <<Design-Model,*`Model`*>>: Holds the data of the App in-memory.
-//* <<Design-Storage,*`Storage`*>>: Reads data from, and writes data to, the hard disk.
-//
-//Each of the four components
-//
-//* Defines its _API_ in an `interface` with the same name as the Component.
-//* Exposes its functionality using a `{Component Name}Manager` class.
-//
-//For example, the `Logic` component (see the class diagram given below) defines it's API in the `Logic.java` interface and exposes its functionality using the `LogicManager.java` class.
-//
+* `Messages` : Used by many classes to write user visible message.
+* `Utils` : Contains all the utility methods.
+* `Name` : The parent class to the MemberName and EmployeeName classes.
+
+The rest of the App consists of four key components.
+
+* <<Design-Ui,*`UI`*>>: The UI of the App.
+* <<Design-Logic,*`Logic`*>>: The command executor.
+* <<Design-Data,*`Data`*>>: Holds the data of the App in-memory.
+* <<Design-Storage,*`Storage`*>>: Reads data from, and writes data to, the hard disk.
+
+Below contains the description for each of the four key components:
+
 //.Class Diagram of the Logic Component
 //image::LogicClassDiagram.png[width="800"]
-//
+
 //[discrete]
 //==== Events-Driven nature of the design
 //
@@ -151,44 +150,49 @@ Having both Travis and AppVeyor ensures your App works on both Unix-based platfo
 //
 //The sections below give more details of each component.
 //
-//[[Design-Ui]]
-//=== UI component
-//
-//.Structure of the UI Component
-//image::UiClassDiagram.png[width="800"]
-//
-//*API* : link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
-//
-//The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `StatusBarFooter`, `BrowserPanel` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
-//
-//The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
-//
-//The `UI` component,
-//
-//* Executes user commands using the `Logic` component.
-//* Binds itself to some data in the `Model` so that the UI can auto-update when data in the `Model` change.
-//* Responds to events raised from various parts of the App and updates the UI accordingly.
-//
-//[[Design-Logic]]
-//=== Logic component
-//
-//[[fig-LogicClassDiagram]]
-//.Structure of the Logic Component
-//image::LogicClassDiagram.png[width="800"]
-//
-//*API* :
-//link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
-//
-//.  `Logic` uses the `AddressBookParser` class to parse the user command.
-//.  This results in a `Command` object which is executed by the `LogicManager`.
-//.  The command execution can affect the `Model` (e.g. adding a person) and/or raise events.
-//.  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
-//
+
+// tag::UI[]
+[[Design-Ui]]
+=== UI component
+
+.Structure of the UI Component
+image::UiComponentClassDiagram.png[width="800"]
+
+The UI consists of `Main` that implements `Stoppable` and extends `Application`. `Main` is also dependant on `Gui` which is dependant on `MainWindow`.
+Furthermore, `Gui` and `MainWindow` are both dependant on `Logic`.
+
+The components use JavaFx UI framework.
+
+The `Main` component,
+
+* Executes user commands using the `Gui` component which relies on the `Logic` component.
+
+[[Design-Logic]]
+=== Logic component
+
+[[fig-LogicClassDiagram]]
+.Structure of the Logic Component
+image::LogicClassDiagram.png[width="800"]
+
+*API* :
+link:{repoURL}/src/seedu/addressbook/logic/Logic.java[`Logic.java`]
+
+.  `Logic` uses the `Parser` class to parse the user command.
+.  This results in a `Command` object which is executed by `Logic`.
+.  The command execution can affect the `Model` (e.g. adding a new member) and/or raise events.
+.  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
+
+[NOTE]
+Each of the `CommandResult` class is used as a specific constructor to correctly handle the class of the returned list
+of result. +
+e.g. `OrderCommandResult` constructs a `CommandResult` object that only contains a result message and a list of orders
+generated from the ordering commands.
+
 //Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")` API call.
 //
 //.Interactions Inside the Logic Component for the `delete 1` Command
 //image::DeletePersonSdForLogic.png[width="800"]
-//
+
 //[[Design-Model]]
 //=== Model component
 //
@@ -210,27 +214,61 @@ Having both Travis and AppVeyor ensures your App works on both Unix-based platfo
 //image:ModelClassBetterOopDiagram.png[width="800"]
 //
 //[[Design-Storage]]
-//=== Storage component
-//
-//.Structure of the Storage Component
-//image::StorageClassDiagram.png[width="800"]
-//
-//*API* : link:{repoURL}/src/main/java/seedu/address/storage/Storage.java[`Storage.java`]
-//
-//The `Storage` component,
-//
-//* can save `UserPref` objects in json format and read it back.
-//* can save the Address Book data in xml format and read it back.
+=== Storage component
+
+.Structure of the Storage Component
+image::StorageClassDiagram.png[width="800"]
+
+*API* : link:{repoURL}/src/seedu/addressbook/storage/StorageFile.java[`StorageFile.java`]
+
+The `Storage` component,
+
+* can save the Address Book data in xml format and read it back.
 //
 //[[Design-Commons]]
 //=== Common classes
 //
 //Classes used by multiple components are in the `seedu.addressbook.commons` package.
-//
-//== Implementation
-//
-//This section describes some noteworthy details on how certain features are implemented.
-//
+
+== Implementation
+
+This section describes some noteworthy details on how certain features are implemented.
+
+=== Adding a new order
+
+To avoid writing a long command line when ordering a long list of dishes, a draft ordering system is implemented.
+
+* When the ordering draft is initialized or cleared, the member `draftOrder` in `Rms.txt` is loaded with a new object
+of class `Order`. It is initialize with an empty list of dish and a pseudo-empty customer field that is not `null`.
+* By using the draft order command classes, the ordering draft can be edited (e.g. picking the customer from the member
+list if they present their membership card, pick the dish from the menu list one by one before confirming the order).
+* Once an order is confirmed, the ordering time is recorded and the total price is calculated to create a new `Order`
+object that has the same customer and list of dishes fields as the ordering draft to be added to the order list, and
+the ordering draft is cleared afterward.
+
+=== Saving and Loading the order list
+
+The order list is saved by using an adaptive class that convert the existing data in the objects to a jaxb-friendly
+class. This means that the order list stores every information of the owner of an order.
+
+However, the loading the order list cannot be implemented by creating a list of new `Order` objects that contains a new
+`Member` object in its customer field based on the data stored in the storage file. This is because the created
+customer object are not the same object as the original `Member` object in the member list, so any changes made to the
+member list will not get reflected in the order (e.g. not showing the changes of address or phone number if these
+fields are to be recorded to the membership database).
+
+To solve this problem, the order list will retrieve the correct object in the loaded member list at the start of the
+program using the method `retrieveMember()` in `AdaptedOrder.java`.
+
+=== [Proposed] Program State Control
+
+As there is multiple functionality in the program, it is proposed that a program state control functionality should be
+implemented to assist the user navigate through the program. The command keywords can be simplified and the help
+message can be specifically wrote in each states to reduce the burdens of remembering very long line of commands.
+
+This can be done by introducing a status variable in the `Logic` module, creating command to change the state variable
+and adjusting the returning command in the `Parser` based on that variable.
+
 //==== Current Implementation
 //
 //The undo/redo mechanism is facilitated by `VersionedAddressBook`.
@@ -436,57 +474,57 @@ Having both Travis and AppVeyor ensures your App works on both Unix-based platfo
 //You should only modify them if you need greater control over the site's layout than what stylesheets can provide.
 //The SE-EDU team does not provide support for modified template files.
 //====
-//
-//[[Testing]]
-//== Testing
-//
-//=== Running Tests
-//
-//There are three ways to run tests.
-//
-//[TIP]
-//The most reliable way to run tests is the 3rd one. The first two methods might fail some GUI tests due to platform/resolution-specific idiosyncrasies.
-//
-//*Method 1: Using IntelliJ JUnit test runner*
-//
-//* To run all tests, right-click on the `src/test/java` folder and choose `Run 'All Tests'`
-//* To run a subset of tests, you can right-click on a test package, test class, or a test and choose `Run 'ABC'`
-//
-//*Method 2: Using Gradle*
-//
-//* Open a console and run the command `gradlew clean allTests` (Mac/Linux: `./gradlew clean allTests`)
-//
-//[NOTE]
-//See <<UsingGradle#, UsingGradle.adoc>> for more info on how to run tests using Gradle.
-//
-//*Method 3: Using Gradle (headless)*
-//
-//Thanks to the https://github.com/TestFX/TestFX[TestFX] library we use, our GUI tests can be run in the _headless_ mode. In the headless mode, GUI tests do not show up on the screen. That means the developer can do other things on the Computer while the tests are running.
-//
-//To run tests in headless mode, open a console and run the command `gradlew clean headless allTests` (Mac/Linux: `./gradlew clean headless allTests`)
-//
-//=== Types of tests
-//
-//We have two types of tests:
-//
+
+[[Testing]]
+== Testing
+
+=== Running Tests
+
+There are three ways to run tests.
+
+[TIP]
+The most reliable way to run tests is the 3rd one. The first two methods might fail some GUI tests due to platform/resolution-specific idiosyncrasies.
+
+*Method 1: Using IntelliJ JUnit test runner*
+
+* To run all tests, right-click on the `src/test/java` folder and choose `Run 'All Tests'`
+* To run a subset of tests, you can right-click on a test package, test class, or a test and choose `Run 'ABC'`
+
+*Method 2: Using Gradle*
+
+* Open a console and run the command `gradlew clean allTests` (Mac/Linux: `./gradlew clean allTests`)
+
+[NOTE]
+See <<UsingGradle#, UsingGradle.adoc>> for more info on how to run tests using Gradle.
+
+*Method 3: Using Gradle (headless)*
+
+Thanks to the https://github.com/TestFX/TestFX[TestFX] library we use, our GUI tests can be run in the _headless_ mode. In the headless mode, GUI tests do not show up on the screen. That means the developer can do other things on the Computer while the tests are running.
+
+To run tests in headless mode, open a console and run the command `gradlew clean headless allTests` (Mac/Linux: `./gradlew clean headless allTests`)
+
+=== Types of tests
+
+We have 1 type of test:
+
 //.  *GUI Tests* - These are tests involving the GUI. They include,
 //.. _System Tests_ that test the entire App by simulating user actions on the GUI. These are in the `systemtests` package.
 //.. _Unit tests_ that test the individual components. These are in `seedu.address.ui` package.
-//.  *Non-GUI Tests* - These are tests not involving the GUI. They include,
-//..  _Unit tests_ targeting the lowest level methods/classes. +
-//e.g. `seedu.address.commons.StringUtilTest`
-//..  _Integration tests_ that are checking the integration of multiple code units (those code units are assumed to be working). +
-//e.g. `seedu.address.storage.StorageManagerTest`
-//..  Hybrids of unit and integration tests. These test are checking multiple code units as well as how the are connected together. +
-//e.g. `seedu.address.logic.LogicManagerTest`
-//
-//
-//=== Troubleshooting Testing
-//**Problem: `HelpWindowTest` fails with a `NullPointerException`.**
-//
-//* Reason: One of its dependencies, `HelpWindow.html` in `src/main/resources/docs` is missing.
-//* Solution: Execute Gradle task `processResources`.
-//
+.  *Non-GUI Tests* - These are tests not involving the GUI. They include,
+..  _Unit tests_ targeting the lowest level methods/classes. +
+e.g. `seedu.addressbook.commons.UtilsTest`
+..  _Integration tests_ that are checking the integration of multiple code units (those code units are assumed to be working). +
+e.g. `seedu.addressbook.storage.StorageFileTest`
+..  Hybrids of unit and integration tests. These test are checking multiple code units as well as how the are connected together. +
+e.g. `seedu.addressbook.logic.LogicTest`
+
+
+=== Troubleshooting Testing
+**Problem: `HelpWindowTest` fails with a `NullPointerException`.**
+
+* Reason: One of its dependencies, `HelpWindow.html` in `src/main/resources/docs` is missing.
+* Solution: Execute Gradle task `processResources`.
+
 //== Dev Ops
 //
 //=== Build Automation
@@ -796,7 +834,7 @@ Having both Travis and AppVeyor ensures your App works on both Unix-based platfo
 //==== Full Solution
 //
 //See this https://github.com/se-edu/addressbook-level4/pull/599[PR] for the step-by-step solution.
-//
+
 [appendix]
 == Product Scope
 
@@ -812,7 +850,7 @@ Having both Travis and AppVeyor ensures your App works on both Unix-based platfo
 
 [appendix]
 == User Stories
-
+// tag:userstories[]
 Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (unlikely to have) - `*`
 
 [width="59%",cols="22%,<23%,<25%,<30%",options="header",]
@@ -822,17 +860,23 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* *` |Cashier |view all members of the restaurant |keep track of which customer has a membership at the restaurant
 
-|`* * *` |Manager |keep track of the restaurant business statistics |understand if the restaurant is making a loss or not
+|`* * *` |Manager |keep track of the restaurant business statistics such as daily revenue |understand if the restaurant is making a loss or not
 
-|`* *` |Manager |keep track of which food item are sold the most |know which food item should remain on the menu
+|`* * *` |Manager |keep track of employees wages | know how much I have to pay or how much I have paid to restaurant employees
+
+|`* *` |Manager |keep track of which menu item are sold the most | know which food is the best seller
 
 |`* *` |Manager |add, edit and delete items from the menu |keep my restaurant menu interesting
 
-|`* *` |Manager |view employees  |know which one of my employees are working today
+|`* *` |Manager |list employees  |to view the details of the employees working in the restaurant
+
+|`* * *` | Manager | add, edit and delete employees from the system |to manage information of the employees working in the restaurant
 
 |`* * *` |Chef |view all the orders made  |know which order I need to prepare next
 
 |`* * *` |Chef |update the order status  |let the customers know that their orders are ready
+
+|`* *` |Employee |clock in and clock out attendance  |account for the time period which I am working
 |=======================================================================
 
 
@@ -841,10 +885,10 @@ _{More to be added}_
 [appendix]
 == Use Cases
 
-(For all use cases below, the *System* is the `Restaurant Management System`, unless specified otherwise)
+(For all use cases below, the *System* is the `Restaurant Management System (RMS)`, unless specified otherwise)
 
 [discrete]
-=== Use case: View Menu to take a Customer’s Orders
+=== Use case: Taking a Customer’s Orders
 Actor: Manager and Cashier
 
 *MSS*
@@ -861,12 +905,19 @@ Use case ends.
 *Extensions*
 
 [none]
-* 2a. Menu list too long or does not have what the customer exactly wants
+* 1a. If a customer is in the restaurant's member list, user can record them
+in the order so that bonus points can be accumulated when the order is confirmed. +
++
+Return to step 1.
+
+[none]
+* 2a. Menu list too long or does not have what the customer exactly wants +
 +
 [none]
 ** 2a1. User enters the find command and searches for the item customer is looking for
 +
 2a2. FMS returns the list of items searched by the command the user entered
+
 +
 Return to step 3.
 
@@ -918,7 +969,197 @@ Use case ends.
 +
 Use case ends.
 
+// tag::employeeusecase[]
+[discrete]
+=== Use case: List employees
+System: Restaurant Management System (RMS) +
+Use Case: List employees +
+Actor: Restaurant Manager +
+Preconditions: User has started up the system. +
+Guarantees:
 
+* List of employees will be displayed.
+
+*MSS*
+
+1.    User requests to list employees.
+2.    RMS displays a list of the employees.
++
+Use case ends.
+[discrete]
+
+=== Use case: Add employee
+Actor: Restaurant Manager +
+Preconditions: "List employee" use case was used before this use case. +
+Guarantees:
+
+* New employee is added to the RMS.
+
+*MSS*
+
+1.    User requests to add a new employee with the required parameters.
+2.    RMS adds a new employee to the list with the parameters that were specified by the User.
++
+Use case ends.
+
+*Extensions*
+
+
+* 1a. RMS detects that an invalid command format has been entered.
+** 1a1. RMS displays an error that says the command format is invalid.
+** 1a2. RMS displays information on the proper use of the command along with an example.
++
+Use case ends.
+
+* 1b. RMS detects that there is an attempt to add a duplicate employee.
+** 1b1. RMS displays an error that says the employee already exists in Rms.
++
+Use case ends.
+
+[discrete]
+=== Use case: Delete employee
+Actor: Restaurant Manager +
+Preconditions: "List employee" use case was used before this use case. +
+Guarantees:
+
+* The specified employee will be deleted from the RMS.
+
+*MSS*
+
+1.    User requests to delete an employee by using the index as shown on the list of employees.
+2.    RMS deletes an employee using the specified index.
++
+Use case ends.
+
+*Extensions*
+
+
+* 1a. RMS detects that an invalid index has been entered.
+** 1a1. RMS displays an error that says the index provided is invalid.
++
+Use case ends.
+
+[discrete]
+=== Use case: Edit employee
+Actor: Restaurant Manager +
+Preconditions: "List employee" use case was used before this use case. +
+Guarantees:
+
+* Details of an employee is edited.
+
+*MSS*
+
+1.    User requests to edit an existing employee at the specified index with the optional parameters provided.
+2.    RMS edits the employee at the specified index with the optional parameters that were provided.
++
+Use case ends.
+
+*Extensions*
+
+* 1a. RMS detects that an invalid command format has been entered.
+** 1a1. RMS displays an error that says the command format is invalid.
+** 1a2. RMS displays information on the proper use of the command along with an example.
++
+Use case ends.
+
+* 1b. RMS detects that an invalid index has been entered.
+** 1b1. RMS displays an error that says the index provided is invalid.
++
+Use case ends.
+
+[discrete]
+=== Use case: Employee clock in
+Actor: Employee +
+Preconditions: User has started up the system. +
+Guarantees:
+
+* Details of the time that the employee clocks in will be added to the system.
+
+*MSS*
+
+1.    User requests to record his/her clock in details into the system with his/her name.
+2.    RMS clocks in the user's attendance based on the current date and time using his/her specified name.
++
+Use case ends.
+
+*Extensions*
+
+* 1a. RMS detects that the user did not use the clock out command yet.
+** 1a1. RMS displays an error that says the user has to clock out before clocking in.
+** 1a2. RMS displays information on the proper use of the command along with an example.
++
+Use case ends.
+
+[discrete]
+=== Use case: Employee clock out
+Actor: Employee +
+Preconditions: User has started up the system. +
+Guarantees:
+
+* Details of the time that the employee clocks out will be added to the system.
+
+*MSS*
+
+1.    User requests to record his/her clock out details into the system with his/her name.
+2.    RMS clocks in the user's attendance based on the current date and time using his/her specified name.
++
+Use case ends.
+
+*Extensions*
+
+* 1a. RMS detects that the user did not use the clock in command yet.
+** 1a1. RMS displays an error that says the user has to clock in before clocking out.
+** 1a2. RMS displays information on the proper use of the command along with an example.
++
+Use case ends.
+
+=== Use case: View employee statistics
+Actor: Manager
+
+*MSS*
+
+1.  User chooses to view the employee statistics
+2.  RMS shows overview employee statistics
+
+Use case ends.
+
+[discrete]
+=== Use case: View member statistics
+Actor: Manager
+
+*MSS*
+
+1.  User chooses to view the member statistics
+2.  RMS shows overview member statistics
+
+Use case ends.
+
+[discrete]
+=== Use case: View menu statistics
+Actor: Manager
+
+*MSS*
+
+1.  User chooses to view the menu statistics
+2.  RMS shows overview menu statistics
+
+Use case ends.
+
+[discrete]
+=== Use case: View order statistics
+Actor: Manager
+
+*MSS*
+
+1.  User chooses to view the order statistics
+2.  RMS shows overview order statistics
+
+Use case ends.
+
+* 1a. RMS detects that there are currently no employees recorded.
+** 1a1. RMS shows a message that says there are currently no employees recorded.
++
+Use case ends.
 
 _{More to be added}_
 

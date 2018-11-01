@@ -2,18 +2,18 @@ package seedu.addressbook.storage.jaxb;
 
 import javax.xml.bind.annotation.XmlElement;
 
-import seedu.addressbook.data.exception.IllegalValueException;
 import seedu.addressbook.data.employee.Employee;
-import seedu.addressbook.data.employee.EmployeeName;
-import seedu.addressbook.data.employee.EmployeePhone;
 import seedu.addressbook.data.employee.EmployeeAddress;
 import seedu.addressbook.data.employee.EmployeeEmail;
+import seedu.addressbook.data.employee.EmployeeName;
+import seedu.addressbook.data.employee.EmployeePhone;
 import seedu.addressbook.data.employee.EmployeePosition;
 import seedu.addressbook.data.employee.ReadOnlyEmployee;
+import seedu.addressbook.data.exception.IllegalValueException;
 
-
-
-
+/**
+ * JAXB-friendly adapted employee data holder class.
+ */
 public class AdaptedEmployee {
 
     @XmlElement(required = true)
@@ -34,9 +34,9 @@ public class AdaptedEmployee {
 
     public AdaptedEmployee(ReadOnlyEmployee source) {
 
-        name = source.getName().value;
+        name = source.getName().fullName;
 
-        phone= source.getPhone().value;
+        phone = source.getPhone().value;
 
         email = source.getEmail().value;
 
