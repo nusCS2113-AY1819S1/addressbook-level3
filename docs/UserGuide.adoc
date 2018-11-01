@@ -277,6 +277,8 @@ Clocks out for the employee John Doe.
 
 ==== Add Order
 
+image::AddOrderInstruction.png[]
+
 To add new order to the order list, a draft must be completed before adding it to the order list. +
 
 To do so, dishes must be added into the draft, and then it can be added into the order list after
