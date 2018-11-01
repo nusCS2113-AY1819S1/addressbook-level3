@@ -1,6 +1,5 @@
 package seedu.addressbook.commands;
 
-import seedu.addressbook.data.AddressBook;
 import seedu.addressbook.data.CommandHistory;
 import seedu.addressbook.data.person.ReadOnlyPerson;
 
@@ -20,7 +19,7 @@ public class RedoCommand extends Command{
             commandHistory.redoLast();
             commandHistory.addHistory(COMMAND_WORD);
             List<ReadOnlyPerson> allPersons = addressBook.getAllPersons().immutableListView();
-            return new CommandResult(MESSAGE_SUCCESS + getMessageForPersonListShownSummary(allPersons), allPersons);
+            return new CommandResult(MESSAGE_SUCCESS, allPersons);
         } catch (CommandHistory.HistoryOutOfBoundException hoobe){
             return new CommandResult(MESSAGE_FAILURE);
         }

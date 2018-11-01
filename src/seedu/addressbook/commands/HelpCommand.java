@@ -22,6 +22,7 @@ public class HelpCommand extends Command {
             + "\n" + ExitCommand.MESSAGE_USAGE + "\n"
             + "\n" + UndoCommand.MESSAGE_USAGE + "\n"
             + "\n" + RedoCommand.MESSAGE_USAGE + "\n"
+            + "\n" + EditAppointmentCommand.MESSAGE_USAGE + "\n"
             + "\n" + ChatCommand.MESSAGE_USAGE;
 
     @Override
