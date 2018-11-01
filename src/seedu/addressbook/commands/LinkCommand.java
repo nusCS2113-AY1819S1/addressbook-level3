@@ -4,7 +4,7 @@ import seedu.addressbook.common.Messages;
 import seedu.addressbook.data.person.Associated;
 import seedu.addressbook.data.person.ReadOnlyPerson;
 
-public class LinkCommand extends Command{
+public class LinkCommand extends UndoAbleCommand{
     public static final String COMMAND_WORD = "link";
     public static final String MESSAGE_USAGE = COMMAND_WORD + ":\n"
             + "associates a person identified by the index number used in the last person listing with another person. One of them must a patient and the other a doctor\n\t"
@@ -24,7 +24,7 @@ public class LinkCommand extends Command{
             final ReadOnlyPerson target = getTargetPerson();
             final ReadOnlyPerson target2 = getTargetPerson2();
             addressBook.linkTwoPerson(target, target2);
-            commandHistory.checkForAction();
+            commandStack.checkForAction(this);
             commandHistory.addHistory(COMMAND_WORD + " " + getTargetIndex() + " " + getTargetIndex2());
             return new CommandResult(String.format(MESSAGE_SUCCESS, target.getName() ,target2.getName()));
 
@@ -35,5 +35,19 @@ public class LinkCommand extends Command{
         } catch (Associated.SameTitleException ste) {
             return new CommandResult(MESSAGE_SAME_TITLE_FAILURE);
         }
+    }
+
+    @Override
+    public void executeUndo() throws Exception{
+        final ReadOnlyPerson target = getTargetPerson();
+        final ReadOnlyPerson target2 = getTargetPerson2();
+        addressBook.unlinkTwoPerson(target, target2);
+    }
+
+    @Override
+    public void executeRedo() throws Exception{
+        final ReadOnlyPerson target = getTargetPerson();
+        final ReadOnlyPerson target2 = getTargetPerson2();
+        addressBook.linkTwoPerson(target, target2);
     }
 }
