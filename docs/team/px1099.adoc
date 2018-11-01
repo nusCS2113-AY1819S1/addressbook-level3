@@ -1,0 +1,132 @@
+= Pham Quang Minh - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: Restaurant Manager System
+
+---
+
+== Overview
+
+Restaurant Management System (RMS) is a desktop application written in Java to help users manage a restaurant.
+
+The interactions of this application with the users are implemented with a Command Line Interface (CLI),
+and it has a GUI created with JavaFX.
+
+This project is morphed from the https://github.com/se-edu/addressbook-level3[Address Book Level 3] created by
+https://github.com/se-edu[SE-EDU initiative].
+
+== Summary of contributions
+
+=== Implemented Functionality
+
+
+
+==== Added the functionality to manage orders
+
+====
+
+* What it does: Allows the user to add, delete, clear and list orders in the restaurant system.
+* Justification: This feature is required for a restaurant to keep track of all orders made in the past and present.
+It allows conveniences in taking new orders and storing important data for future references.
+* Highlights: Not only does this feature requires implementation of an order list management system, it also requires a
+new order drafting system to make sure that the flow of adding new order feels natural and to avoid typing very long
+command line to add a new order. As a result, many commands were developed for this functionality.
+* Credits: The implementation of the order list is based on the code written for the person list in the Address Book
+Level 3 made by SE-EDU initiative.
+
+====
+
+=== Proposed Idea For Future Implementations
+
+==== Implement a state control system
+
+====
+
+* What it does: Allows the user to access a specific functionality in the RMS.
+* Justification: As there are many functionality in the RMS, having a state control system will make the flow of using
+the RMS feels more natural and less confusing.
+
+====
+
+=== Code contributed
+
+* https://github.com/CS2113-AY1819S1-F09-2/main/commits?author=px1099[Functional code]
+// * https://github.com[Test code]
+
+=== Other contributions
+
+* Project management:
+** Managed release `v1.2.1` on GitHub
+** Add shadowJar to the project according to the announcement made by the CS2113T teaching team:
+https://github.com/CS2113-AY1819S1-F09-2/main/pull/110[#110]
+** Assisted teammates to debug problems
+
+* Enhancements to existing features:
+** Clean the checkStyle errors in the project:
+https://github.com/CS2113-AY1819S1-F09-2/main/pull/116[#116]
+** Divide the command classes into multiple subfolder:
+https://github.com/CS2113-AY1819S1-F09-2/main/pull/48[#48]
+
+* Documentation:
+** Contributed the ordering functionality contents of the User Guide and Developer Guide:
+https://github.com[#14]
+** Add the Logic Design and the Implementation in the Developer Guide:
+https://github.com/CS2113-AY1819S1-F09-2/main/pull/109[#109]
+
+* Community:
+** Made a proposal on how to each member can morph the code without creating too many merge conflicts.
+** PRs reviewed (with non-trivial review comments):
+https://github.com/CS2113-AY1819S1-F09-2/main/pull/87[#87],
+https://github.com/CS2113-AY1819S1-F09-2/main/pull/88[#88],
+https://github.com/CS2113-AY1819S1-F09-2/main/pull/99[#99]
+** Shared the problems our project had to the CS2113T forum discussions:
+https://github.com/nusCS2113-AY1819S1/forum/issues/75[1],
+https://github.com/nusCS2113-AY1819S1/forum/issues/78[2],
+https://github.com/nusCS2113-AY1819S1/forum/issues/85[3]
+** Reported bugs and suggestions to the other team members:
+https://github.com/CS2113-AY1819S1-F09-2/main/issues/79[#79],
+https://github.com/CS2113-AY1819S1-F09-2/main/issues/104[#104]
+
+// ** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
+
+* Tools:
+** Integrated CheckStyle and Coveralls into the project:
+https://github.com/CS2113-AY1819S1-F09-2/main/pull/116[#116]
+** Changed the Codacy badge in the README page:
+https://github.com/CS2113-AY1819S1-F09-2/main/pull/129[#129]
+
+== Contributions to the User Guide
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+=== Ordering commands guide
+
+include::../UserGuide.adoc[tag=orderuserguide,leveloffset=+1]
+
+=== Ordering commands summary
+
+include::../UserGuide.adoc[tag=ordercommandsummary,leveloffset=+1]
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+=== Logic design
+
+include::../DeveloperGuide.adoc[tag=logic,leveloffset=+1]
+
+=== Implementation
+
+include::../DeveloperGuide.adoc[tag=orderimplementation,leveloffset=+1]
+
+// == PROJECT: PowerPointLabs
+//
+// ---
+//
+// _{Optionally, you may include other projects in your portfolio.}_

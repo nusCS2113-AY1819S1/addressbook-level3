@@ -253,7 +253,7 @@ Clocks out for the employee John Doe.
 //Examples: +
 //`calcwage Joe Bob`
 
-
+// tag::orderuserguide[]
 === Order
 
 ==== Add Order
@@ -332,7 +332,7 @@ Each order include details of: customer, ordered time, total price and the list 
 Only the non-private data of customer will be showed. +
 
 Format: `listorder`
-
+// end::orderuserguide[]
 
 === Statistics
 
@@ -424,6 +424,7 @@ There is no need to save manually.
 
 *Find Member* : `findmember NAME`
 
+// tag::ordercommandsummary[]
 === Order
 
 * *Add Order:*
@@ -446,6 +447,7 @@ e.g. `deleteorder 3`
 * *Clear Order List* : `clearorder`
 
 * *List All Orders* : `listorder`
+// end::ordercommandsummary[]
 
 === Statistics
 
