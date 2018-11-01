@@ -32,7 +32,9 @@ public abstract class Command {
         GENERAL,
         ACCOUNT,
         ASSESSMENT,
-        EXAM
+        EXAM,
+        FEES,
+        ATTENDANCE
     }
 
     protected static Privilege privilege;

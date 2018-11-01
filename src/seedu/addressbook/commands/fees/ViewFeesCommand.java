@@ -53,7 +53,7 @@ public class ViewFeesCommand extends Command {
 
     @Override
     public Category getCategory() {
-        return Category.PERSON;
+        return Category.FEES;
     }
 
     @Override

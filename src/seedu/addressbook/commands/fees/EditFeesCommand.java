@@ -74,6 +74,11 @@ public class EditFeesCommand extends Command {
     }
 
     @Override
+    public Category getCategory() {
+        return Category.FEES;
+    }
+
+    @Override
     public String getCommandUsageMessage() {
         return MESSAGE_USAGE;
     }

@@ -44,7 +44,7 @@ public class ViewGradesCommand extends Command {
 
     @Override
     public Category getCategory() {
-        return Category.PERSON;
+        return Category.ASSESSMENT;
     }
 
     @Override
