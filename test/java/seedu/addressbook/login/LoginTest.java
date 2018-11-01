@@ -58,13 +58,13 @@ public class LoginTest {
         assertFalse(credentials.validateCredentials());
     }
 
-    @Test
-    public void testDeleteAndAddLogin(){
-        assertTrue(WorkWithLoginStorage.deleteLogin(credentials));
-        assertFalse(login.main(credentials.getUsername(), credentials.getPassword()));
-        assertTrue(WorkWithLoginStorage.addLogin(credentials));
-        assertTrue(login.main(credentials.getUsername(), credentials.getPassword()));
-    }
+//    @Test
+//    public void testDeleteAndAddLogin(){
+//        assertTrue(WorkWithLoginStorage.deleteLogin(credentials));
+//        assertFalse(login.main(credentials.getUsername(), credentials.getPassword()));
+//        assertTrue(WorkWithLoginStorage.addLogin(credentials));
+//        assertTrue(login.main(credentials.getUsername(), credentials.getPassword()));
+//    }
 
     @Test
     public void testEditLogin(){
