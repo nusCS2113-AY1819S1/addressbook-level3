@@ -45,17 +45,24 @@ public class LoginWindow {
     private Label message;
 
     @FXML
-    void handleButtonClick(ActionEvent event) {
+    void handleButtonClick(ActionEvent event) throws Exception {
             USERNAME = username.getText();
             PASSWORD = password.getText();
             username.clear();
             password.clear();
-            if (!login.main(USERNAME, PASSWORD)) {
-                message.setText("Incorrect Username/Password! Please Try Again! " + tries + " left.");
-                tries--;
-            }else{
-                Main.change();
-            }
+            attemptLogin();
+    }
+
+    private void attemptLogin() throws Exception {
+        if (!login.main(USERNAME, PASSWORD)) {
+            tries--;
+            message.setText("Incorrect Username/Password! Please Try Again! " + tries + " left.");
+        }else{
+            Main.change();
+        }
+        if(tries==0){
+            exitApp();
+        }
     }
 
     private void exitApp() throws Exception {
