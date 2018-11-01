@@ -39,7 +39,7 @@ public interface ReadOnlyOrder {
     default String getAsTextShowAll() {
         final StringBuilder builder = new StringBuilder();
         if (hasCustomerField()) {
-            builder.append("\tCustomer: ").append(getCustomer().getAsTextShowAll()).append("\n\t");
+            builder.append("\tCustomer: ").append(getCustomer().getAsTextInOrderList()).append("\n\t");
         }
         builder.append("\tDate: ").append(getDate());
         int i = 0;
@@ -66,7 +66,7 @@ public interface ReadOnlyOrder {
     default String getAsTextHidePrivate() {
         final StringBuilder builder = new StringBuilder();
         if (hasCustomerField()) {
-            builder.append("\tCustomer: ").append(getCustomer().getAsTextHidePrivate()).append("\n\t");
+            builder.append("\tCustomer: ").append(getCustomer().getAsTextInOrderList()).append("\n\t");
         }
         builder.append("\tDate: ").append(getDate());
         int i = 0;
@@ -94,7 +94,7 @@ public interface ReadOnlyOrder {
         final StringBuilder builder = new StringBuilder();
         builder.append("\t\tCustomer: ");
         if (hasCustomerField()) {
-            builder.append(getCustomer().getAsTextShowAll());
+            builder.append(getCustomer().getAsTextInOrderList());
         } else {
             builder.append("<empty>");
         }
