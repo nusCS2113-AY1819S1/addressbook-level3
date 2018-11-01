@@ -3,9 +3,12 @@ package seedu.addressbook.commands;
 import seedu.addressbook.common.Messages;
 import seedu.addressbook.data.AddressBook;
 import seedu.addressbook.data.CommandHistory;
+import seedu.addressbook.data.person.Name;
 import seedu.addressbook.data.person.ReadOnlyPerson;
+import seedu.addressbook.data.person.Schedule;
 
 import java.util.List;
+import java.util.Set;
 
 import static seedu.addressbook.ui.Gui.DISPLAYED_INDEX_OFFSET;
 
@@ -18,6 +21,17 @@ public abstract class Command {
     protected List<? extends ReadOnlyPerson> relevantPersons;
     private int targetIndex = -1;
     private int targetIndex2 = -1;
+    private static boolean isEditingAppointment = false;
+    private static int editingPersonIndex = 0;
+
+    public static boolean checkEditingAppointmentState(){ return isEditingAppointment;}
+
+    public static void setEditingAppointmentState(boolean state){ isEditingAppointment = state;}
+
+    public static int checkEditingPersonIndex(){ return editingPersonIndex;}
+
+    public static void setEditingPersonIndex(int index){ editingPersonIndex = index;}
+
 
     /**
      * @param targetIndex last visible listing index of the target person
@@ -42,6 +56,16 @@ public abstract class Command {
      */
     public static String getMessageForPersonListShownSummary(List<? extends ReadOnlyPerson> personsDisplayed) {
         return String.format(Messages.MESSAGE_PERSONS_LISTED_OVERVIEW, personsDisplayed.size());
+    }
+
+    /**
+     * Constructs a feedback message to summarise an operation that displayed a listing of persons.
+     *
+     * @param appointmentDisplayed used to generate summary
+     * @return a list of appointments made for the chosen person
+     */
+    public static String getMessageForAppointmentMadeByPerson(Set<? extends Schedule> appointmentDisplayed, Name name) {
+        return String.format(Messages.MESSAGE_APPOINTMENT_LISTED_OVERVIEW, appointmentDisplayed.size(), name);
     }
 
     /**

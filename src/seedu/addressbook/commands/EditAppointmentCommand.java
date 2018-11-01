@@ -2,7 +2,7 @@ package seedu.addressbook.commands;
 
 import seedu.addressbook.common.Messages;
 import seedu.addressbook.data.person.ReadOnlyPerson;
-//import seedu.addressbook.data.person.UniquePersonList;
+import seedu.addressbook.data.person.UniquePersonList;
 
 
 /**
@@ -10,14 +10,14 @@ import seedu.addressbook.data.person.ReadOnlyPerson;
  */
 public class EditAppointmentCommand extends Command {
 
-    public static final String COMMAND_WORD = "editappointment";
+    public static final String COMMAND_WORD = "edit-appointment";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + "\n"
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ":\n"
             + "Select the person to edit appointment.\n\t"
             + "Parameters: INDEX\n\t"
             + "Example: " + COMMAND_WORD + " 1";
 
-    public static final String MESSAGE_EDIT_PERSON_APPOINTMENT = "Accessing person appointment: %1$s";
+    public static final String MESSAGE_EDIT_PERSON_APPOINTMENT = "Accessed to %1$s's appointment: ";
 
 
     public EditAppointmentCommand(int targetVisibleIndex) {
@@ -33,8 +33,13 @@ public class EditAppointmentCommand extends Command {
             }
             commandHistory.addHistory(COMMAND_WORD + " " + getTargetIndex());
             //return new CommandResult(String.format(MESSAGE_EDIT_PERSON_APPOINTMENT, target.getAsTextHidePrivate()));
-
-            return new CommandResult(String.format (MESSAGE_EDIT_PERSON_APPOINTMENT, target.getName()));
+            //command.setdata(addressBook, lastShownList);
+            //Command command = new EditAppointmentOperation(getTargetIndex());
+            //CommandResult result = command.execute();
+            //storage.save(addressBook);
+            setEditingAppointmentState(true);
+            setEditingPersonIndex( getTargetIndex() );
+            return new CommandResult( String.format (MESSAGE_EDIT_PERSON_APPOINTMENT, target.getName()) );
 
         } catch (IndexOutOfBoundsException ie) {
             return new CommandResult(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);

@@ -9,14 +9,14 @@ import seedu.addressbook.data.tag.Tag;
  * Implementations should guarantee: details are present and not null, field values are validated.
  */
 public interface ReadOnlyPerson {
-
+    Person getPerson();
     Name getName();
     Phone getPhone();
     Email getEmail();
     Address getAddress();
     Title getTitle();
     Set<Schedule> getSchedules();
-
+    String getAssociateList() throws Associated.NoAssociatesException;
     /**
      * The returned {@code Set} is a deep copy of the internal {@code Set},
      * changes on the returned list will not affect the person's internal tags.
@@ -111,3 +111,5 @@ public interface ReadOnlyPerson {
         return builder.toString();
     }
 }
+
+

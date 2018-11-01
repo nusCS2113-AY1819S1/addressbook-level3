@@ -57,50 +57,67 @@ public class Parser {
 
         final String commandWord = matcher.group("commandWord");
         final String arguments = matcher.group("arguments");
-        switch (commandWord) {
+        if( Command.checkEditingAppointmentState() == false) {
+            switch (commandWord) {
 
-            case AddCommand.COMMAND_WORD:
-                return prepareAdd(arguments);
+                case AddCommand.COMMAND_WORD:
+                    return prepareAdd(arguments);
 
-            case DeleteCommand.COMMAND_WORD:
-                return prepareDelete(arguments);
+                case DeleteCommand.COMMAND_WORD:
+                    return prepareDelete(arguments);
 
-            case ClearCommand.COMMAND_WORD:
-                return new ClearCommand();
+                case ClearCommand.COMMAND_WORD:
+                    return new ClearCommand();
 
-            case FindCommand.COMMAND_WORD:
-                return prepareFind(arguments);
+                case FindCommand.COMMAND_WORD:
+                    return prepareFind(arguments);
 
-            case ListCommand.COMMAND_WORD:
-                return new ListCommand();
+                case ListCommand.COMMAND_WORD:
+                    return new ListCommand();
 
-            case ViewCommand.COMMAND_WORD:
-                return prepareView(arguments);
+                case ViewCommand.COMMAND_WORD:
+                    return prepareView(arguments);
 
-            case ViewAllCommand.COMMAND_WORD:
-                return prepareViewAll(arguments);
+                case ViewAllCommand.COMMAND_WORD:
+                    return prepareViewAll(arguments);
 
-            case ExitCommand.COMMAND_WORD:
-                return new ExitCommand();
+                case ExitCommand.COMMAND_WORD:
+                    return new ExitCommand();
 
-            case UndoCommand.COMMAND_WORD:
-                return new UndoCommand();
+                case UndoCommand.COMMAND_WORD:
+                    return new UndoCommand();
 
-            case RedoCommand.COMMAND_WORD:
-                return new RedoCommand();
+                case RedoCommand.COMMAND_WORD:
+                    return new RedoCommand();
 
-            case HistoryCommand.COMMAND_WORD:
-                return new HistoryCommand();
+                case HistoryCommand.COMMAND_WORD:
+                    return new HistoryCommand();
 
-            case LinkCommand.COMMAND_WORD:
-                return prepareLink(arguments);
+                case LinkCommand.COMMAND_WORD:
+                    return prepareLink(arguments);
 
-            case EditAppointmentCommand.COMMAND_WORD:
-                return prepareEditAppointment(arguments);
+                case EditAppointmentCommand.COMMAND_WORD:
+                    return prepareEditAppointment(arguments);
 
-            case HelpCommand.COMMAND_WORD: // Fallthrough
-            default:
-                return new HelpCommand();
+                case HelpCommand.COMMAND_WORD: // Fallthrough
+                default:
+                    return new HelpCommand();
+            }
+        }else{
+            switch (commandWord) {
+                case ExitEditAppointment.COMMAND_WORD:
+                    return new ExitEditAppointment(Command.checkEditingPersonIndex());
+
+                case ListAppoinment.COMMAND_WORD:
+                    return new ListAppoinment();
+
+                case EditAppointmentOperation.COMMAND_WORD:
+                    return new EditAppointmentOperation(Command.checkEditingPersonIndex());
+
+                case HelpEditAppointment.COMMAND_WORD:
+                default:
+                    return new HelpEditAppointment();
+            }
         }
     }
 
@@ -285,6 +302,8 @@ public class Parser {
         } catch (ParseException | NumberFormatException e) {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     EditAppointmentCommand.MESSAGE_USAGE));
-        }
+        } /* catch () {
+            return new IncorrectCommand(String.format("WRONG"));
+        }*/
     }
 }

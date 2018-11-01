@@ -8,8 +8,8 @@ public class CommandHistory {
     private AddressBook addressBook;
     private ArrayList<UniquePersonList> addressBookStates = new ArrayList<>();
     private ArrayList<String> history = new ArrayList<>();
-    private int STATEITERATOR = 0;
-    private int ITERATOROFFSET = 1;
+    private static final int ITERATOROFFSET = 1;
+    private int stateIterator = 0;
 
     public CommandHistory(AddressBook addressBook){
         this.addressBook = addressBook;
@@ -34,18 +34,18 @@ public class CommandHistory {
     }
 
     public void moveIteratorForward() {
-        STATEITERATOR++;
+        stateIterator++;
     }
 
     public void moveIteratorBackward() {
-        STATEITERATOR--;
+        stateIterator--;
     }
 
     /**
      * truncate old history when new undo-able command is executed after undo-ing
      */
     public void truncateOldPath() {
-        addressBookStates.subList(STATEITERATOR + ITERATOROFFSET, addressBookStates.size()).clear();
+        addressBookStates.subList(stateIterator + ITERATOROFFSET, addressBookStates.size()).clear();
     }
 
     /**
@@ -57,26 +57,26 @@ public class CommandHistory {
     }
 
     public boolean nextBoxIsEmpty() {
-        if((STATEITERATOR + ITERATOROFFSET) >= addressBookStates.size()) return true;
+        if((stateIterator + ITERATOROFFSET) >= addressBookStates.size()) return true;
         else return false;
     }
 
     public void undoLast() throws HistoryOutOfBoundException {
         moveIteratorBackward();
-        if(STATEITERATOR < 0){
+        if(stateIterator < 0){
             moveIteratorForward();
             throw new HistoryOutOfBoundException();
         }
-        addressBook.switchAddressBook(addressBookStates.get(STATEITERATOR));
+        addressBook.switchAddressBook(addressBookStates.get(stateIterator));
     }
 
     public void redoLast() throws HistoryOutOfBoundException {
         moveIteratorForward();
-        if(STATEITERATOR + ITERATOROFFSET> addressBookStates.size()){
+        if(stateIterator + ITERATOROFFSET> addressBookStates.size()){
             moveIteratorBackward();
             throw new HistoryOutOfBoundException();
         }
-        addressBook.switchAddressBook(addressBookStates.get(STATEITERATOR));
+        addressBook.switchAddressBook(addressBookStates.get(stateIterator));
     }
     public void addHistory(String Arg) {
         history.add(Arg);
