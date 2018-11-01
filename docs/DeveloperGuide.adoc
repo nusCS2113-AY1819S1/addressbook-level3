@@ -168,6 +168,7 @@ The `Main` component,
 * Executes user commands using the `Gui` component which relies on the `Logic` component.
 // end::UI[]
 
+// tag::logic[]
 [[Design-Logic]]
 === Logic component
 
@@ -188,6 +189,7 @@ Each of the `CommandResult` class is used as a specific constructor to correctly
 of result. +
 e.g. `OrderCommandResult` constructs a `CommandResult` object that only contains a result message and a list of orders
 generated from the ordering commands.
+// end::logic[]
 
 // tag::Data[]
 [[Design-Data]]
@@ -232,7 +234,8 @@ As a more OOP model, we can store a Tag list in RMS, which all the relevant feat
 // +
 //image:ModelClassBetterOopDiagram.png[width="800"]
 //
-//[[Design-Storage]]
+
+[[Design-Storage]]
 === Storage component
 
 .Structure of the Storage Component
@@ -243,12 +246,13 @@ image::StorageClassDiagram.png[width="800"]
 The `Storage` component,
 
 * can save the Address Book data in xml format and read it back.
-//
+
 //[[Design-Commons]]
 //=== Common classes
 //
 //Classes used by multiple components are in the `seedu.addressbook.commons` package.
 
+// tag::orderimplementation[]
 == Implementation
 
 This section describes some noteworthy details on how certain features are implemented.
@@ -287,6 +291,7 @@ message can be specifically wrote in each states to reduce the burdens of rememb
 
 This can be done by introducing a status variable in the `Logic` module, creating command to change the state variable
 and adjusting the returning command in the `Parser` based on that variable.
+// end::orderimplementation[]
 
 //==== Current Implementation
 //
