@@ -3,6 +3,7 @@ package seedu.addressbook.login;
 import java.io.*;
 import java.util.Scanner;
 import seedu.addressbook.login.hashing;
+import seedu.addressbook.login.Credentials;
 
 public class WorkWithLoginStorage {
     private static boolean debug = false;
@@ -19,27 +20,40 @@ public class WorkWithLoginStorage {
         }
     }
 
-    public static boolean compareCredentials(String user, String pass) {
+//    public static boolean compareCredentials(String username, String password) {
+    public static boolean compareCredentials(String username, String password) {
         openScanner();
 
         if(debug) System.out.println(logins.getAbsolutePath());
-        if(debug) System.out.println("user = " + user +"; pass = " + pass);
+//        if(debug) System.out.println("user = " + user +"; pass = " + pass);
 
-        if(retrieveUsername(user)){
+        if(retrieveUsername(username)){
             if(debug) System.out.println("user correct");
             retrieveStoredHash();
             if(debug)System.out.println("password = " + PASSWORD + "2");
-            return hashing.main(pass).equals(PASSWORD);
+            return (hashing.hashIt(password)).equals(PASSWORD);
+//            return (password.equals(PASSWORD));
         }else {
             return false;
         }
     }
 
-//    private static void editLogin(String username){
-//        //to be implemented
-//    }
+    public static void editLogin(Credentials username) {
+        deleteLogin(username);
+        addLogin(username);
+    }
 
-    public static void deleteLogin(String username){
+    public static void addLogin(Credentials username) {
+        try {
+            PrintWriter pw = new PrintWriter(new FileWriter(logins, true));
+            pw.print("\n" + username.getUsername() + " " + hashing.hashIt(username.getPassword()));
+            pw.close();
+        } catch (IOException e){
+            System.out.println("cannot create file");
+        }
+    }
+
+    public static void deleteLogin(Credentials username){
         try{
             File file1 = new File ("temp.txt");
             PrintWriter pw = new PrintWriter(new FileWriter(file1, true));
@@ -47,7 +61,7 @@ public class WorkWithLoginStorage {
             while(sc.hasNext()){
                 USERNAME = sc.next();
                 System.out.println(USERNAME);
-                if(matchUsername(username)){
+                if(matchUsername(username.getUsername())){
                     System.out.println("matches");
                     sc.nextLine();
                     pw.println(sc.nextLine());
@@ -56,7 +70,7 @@ public class WorkWithLoginStorage {
                     pw.println(" " + sc.nextLine());
                 }
             }
-            pw.close();
+//            pw.close();
             logins.delete();
             file1.renameTo(logins);
         }catch (IOException e){
@@ -83,8 +97,8 @@ public class WorkWithLoginStorage {
         PASSWORD = sc.next();
     }
 
-//    public static void retrieveSalt(){
-//        //to be implemented
-//    }
+    public static void retrieveSalt(){
+        //to be implemented
+    }
 
 }

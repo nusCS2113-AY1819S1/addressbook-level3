@@ -1,37 +1,61 @@
 package seedu.addressbook.login;
 
+import seedu.addressbook.data.exception.IllegalValueException;
+import seedu.addressbook.login.Credentials.*;
+
 import java.util.Scanner;
 
 public class login {
 //    private boolean loggedin;
 //    private boolean debug = true;
     private static int tries = 0;
-    private static String stdUser = "Username";
-    private static String stdPass = "Password";
+    private static final String stdUser = "Username";
+    private static final String stdPass = "Password";
     private static String username;
     private static String password;
-    private static Scanner sc = new Scanner(System.in);
+    private static Scanner in = new Scanner(System.in);
 
-    public static void getLogin(){
-        System.out.print("Username: ");
-        username = sc.next();
-        System.out.print("Password: ");
-        password = sc.next();
-    }
+//    private static Credentials credentials = new Credentials();
+//
+//    static {
+//        try {
+//            credentials = new Credentials("S1234567T", "123abcABC!@#");
+//        } catch (IllegalValueException e) {
+//            e.printStackTrace();
+//        }
+//    }
 
-    public static boolean main(){
-        for(tries=0; tries<3; tries++){
-            getLogin();
+
+//    public static void setUsername(String user) {
+//        username = user;
+//    }
+//    public static void setPassword(String pass){
+//        password = pass;
+//    }
+//
+//    private static void inputLogin(){
+//        System.out.print("Username: ");
+//        username = in.nextLine();
+//        System.out.print("Password: ");
+//        password = in.nextLine();
+//    }
+
+    public static boolean main(String username, String password){
+//        for(tries=0; tries<3; tries++) {
+            Credentials credentials = new Credentials(username, password);
             if(username.equals(stdUser) && password.equals(stdPass)){
+//            if(credentials.getUsername().equals(stdUser) && credentials.getPassword().equals(stdPass)){
                 System.out.println("Welcome to AddressBook3");
                 return true;
-            }else if(WorkWithLoginStorage.compareCredentials(username, password)){
+            }else if(credentials.validateCredentials()){
+//            }else if(WorkWithLoginStorage.compareCredentials(username, password)){
                 System.out.println("2Welcome to AddressBook3");
                 return true;
             }else{
+//                credentials = null;
                 System.out.println("Incorrect Username/Password! Please try again.");
             }
-        }
+//        }
         System.out.println("Login failed. Account is now locked.");
         return false;
     }

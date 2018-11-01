@@ -94,7 +94,8 @@ public class Parser {
 
             case LinkCommand.COMMAND_WORD:
                 return prepareLink(arguments);
-
+//            case ChangePasswordCommand.COMMAND_WORD:
+//                return ChangePasswordCommand.Chan
             case ChatCommand.COMMAND_WORD:
                 return new ChatCommand();
 

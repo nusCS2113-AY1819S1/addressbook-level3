@@ -22,6 +22,8 @@ public class Gui {
     private final Logic logic;
 
     private MainWindow mainWindow;
+    public Scene MainScene, LoginScene;
+    private LoginWindow loginWindow;
     private String version;
 
     public Gui(Logic logic, String version) {
@@ -43,12 +45,29 @@ public class Gui {
         loader.setLocation(Main.class.getResource("ui/mainwindow.fxml"));
 
         stage.setTitle(version);
-        stage.setScene(new Scene(loader.load(), INITIAL_WINDOW_WIDTH, INITIAL_WINDOW_HEIGHT));
+        MainScene = new Scene(loader.load(), INITIAL_WINDOW_WIDTH, INITIAL_WINDOW_HEIGHT);
+        stage.setScene(MainScene);
         stage.show();
         MainWindow mainWindow = loader.getController();
         mainWindow.setLogic(logic);
         mainWindow.setMainApp(mainApp);
         return mainWindow;
+    }
+    public void startLogin(Stage stage, Stoppable mainApp) throws IOException {
+        loginWindow = createLoginWindow(stage, mainApp);
+    }
+
+    private LoginWindow createLoginWindow(Stage stage, Stoppable mainApp) throws IOException{
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(Main.class.getResource("ui/signin.fxml"));
+
+        stage.setTitle("Welcome to MediBook");
+        LoginScene = new Scene(loader.load(), INITIAL_WINDOW_WIDTH,INITIAL_WINDOW_HEIGHT);
+        stage.setScene(LoginScene);
+        stage.show();
+        LoginWindow loginWindow = loader.getController();
+        loginWindow.setMainApp(mainApp);
+        return loginWindow;
     }
 
 }
