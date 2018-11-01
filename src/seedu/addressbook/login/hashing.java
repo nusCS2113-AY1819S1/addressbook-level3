@@ -8,7 +8,7 @@ public class hashing {
 
     private static String hashAlgo = "SHA-512";
 
-    public static String main(String password){
+    public static String hashIt(String password){
         try {
             return getHash(password, hashAlgo);
         }catch (Exception b){

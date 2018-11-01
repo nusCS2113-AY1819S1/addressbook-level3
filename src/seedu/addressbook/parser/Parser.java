@@ -93,11 +93,17 @@ public class Parser {
                 case HistoryCommand.COMMAND_WORD:
                     return new HistoryCommand();
 
+                case EditAppointmentCommand.COMMAND_WORD:
+                    return prepareEditAppointment(arguments);
+
                 case LinkCommand.COMMAND_WORD:
                     return prepareLink(arguments);
 
-                case EditAppointmentCommand.COMMAND_WORD:
-                    return prepareEditAppointment(arguments);
+//              case ChangePasswordCommand.COMMAND_WORD:
+//                  return ChangePasswordCommand.Chan
+
+                case ChatCommand.COMMAND_WORD:
+                    return new ChatCommand();
 
                 case HelpCommand.COMMAND_WORD: // Fallthrough
                 default:
