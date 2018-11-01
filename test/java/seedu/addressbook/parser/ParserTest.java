@@ -30,6 +30,14 @@ import seedu.addressbook.commands.menu.MenuFindCommand;
 import seedu.addressbook.commands.menu.MenuListByTypeCommand;
 import seedu.addressbook.commands.menu.MenuListCommand;
 import seedu.addressbook.commands.menu.MenuViewAllCommand;
+import seedu.addressbook.commands.order.DraftOrderClearCommand;
+import seedu.addressbook.commands.order.DraftOrderConfirmCommand;
+import seedu.addressbook.commands.order.DraftOrderEditCustomerCommand;
+import seedu.addressbook.commands.order.DraftOrderEditDishCommand;
+import seedu.addressbook.commands.order.OrderAddCommand;
+import seedu.addressbook.commands.order.OrderClearCommand;
+import seedu.addressbook.commands.order.OrderDeleteCommand;
+import seedu.addressbook.commands.order.OrderListCommand;
 import seedu.addressbook.commands.statistics.StatsEmployeeCommand;
 import seedu.addressbook.commands.statistics.StatsMemberCommand;
 import seedu.addressbook.commands.statistics.StatsMenuCommand;
@@ -159,6 +167,36 @@ public class ParserTest {
     }
 
     @Test
+    public void draftOrderClearCommand_parsedCorrectly() {
+        final String input = "cleardraft";
+        parseAndAssertCommandType(input, DraftOrderClearCommand.class);
+    }
+
+    @Test
+    public void draftOrderConfirmCommand_parsedCorrectly() {
+        final String input = "confirmdraft";
+        parseAndAssertCommandType(input, DraftOrderConfirmCommand.class);
+    }
+
+    @Test
+    public void orderAddCommand_parsedCorrectly() {
+        final String input = "addorder";
+        parseAndAssertCommandType(input, OrderAddCommand.class);
+    }
+
+    @Test
+    public void orderClearCommand_parsedCorrectly() {
+        final String input = "clearorder";
+        parseAndAssertCommandType(input, OrderClearCommand.class);
+    }
+
+    @Test
+    public void orderListCommand_parsedCorrectly() {
+        final String input = "listorder";
+        parseAndAssertCommandType(input, OrderListCommand.class);
+    }
+
+    @Test
     public void exitCommand_parsedCorrectly() {
         final String input = "exit";
         parseAndAssertCommandType(input, ExitCommand.class);
@@ -283,6 +321,55 @@ public class ParserTest {
         final int testIndex = 3;
         final String input = "viewallmenu " + testIndex;
         final MenuViewAllCommand result = parseAndAssertCommandType(input, MenuViewAllCommand.class);
+        assertEquals(result.getTargetIndex(), testIndex);
+    }
+
+    @Test
+    public void draftOrderEditCustomerCommand_noArgs() {
+        final String[] inputs = { "draftcustomer", "draftcustomer " };
+        final String resultMessage = String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT,
+                DraftOrderEditCustomerCommand.MESSAGE_USAGE);
+        parseAndAssertIncorrectWithMessage(resultMessage, inputs);
+    }
+
+    @Test
+    public void draftOrderEditCustomerCommand_argsIsNotSingleNumber() {
+        final String[] inputs = { "draftcustomer notAnumber ", "draftcustomer 8*wh12", "draftcustomer 1 2 3 4 5" };
+        final String resultMessage = String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT,
+                DraftOrderEditCustomerCommand.MESSAGE_USAGE);
+        parseAndAssertIncorrectWithMessage(resultMessage, inputs);
+    }
+
+    @Test
+    public void draftOrderEditCustomerCommand_numericArg_indexParsedCorrectly() {
+        final int testIndex = 1;
+        final String input = "draftcustomer " + testIndex;
+        final DraftOrderEditCustomerCommand result = parseAndAssertCommandType(input,
+                DraftOrderEditCustomerCommand.class);
+        assertEquals(result.getTargetIndex(), testIndex);
+    }
+
+    @Test
+    public void orderDeleteCommand_noArgs() {
+        final String[] inputs = { "deleteorder", "deleteorder " };
+        final String resultMessage = String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT,
+                OrderDeleteCommand.MESSAGE_USAGE);
+        parseAndAssertIncorrectWithMessage(resultMessage, inputs);
+    }
+
+    @Test
+    public void orderDeleteCommand_argsIsNotSingleNumber() {
+        final String[] inputs = { "deleteorder notAnumber ", "deleteorder 8*wh12", "deleteorder 1 2 3 4 5" };
+        final String resultMessage = String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT,
+                OrderDeleteCommand.MESSAGE_USAGE);
+        parseAndAssertIncorrectWithMessage(resultMessage, inputs);
+    }
+
+    @Test
+    public void orderDeleteCommand_numericArg_indexParsedCorrectly() {
+        final int testIndex = 1;
+        final String input = "deleteorder " + testIndex;
+        final OrderDeleteCommand result = parseAndAssertCommandType(input, OrderDeleteCommand.class);
         assertEquals(result.getTargetIndex(), testIndex);
     }
 
@@ -678,6 +765,49 @@ public class ParserTest {
                 StatsMenuCommand.MESSAGE_USAGE);
         parseAndAssertIncorrectWithMessage(resultMessage, inputs);
     }
+
+    /**
+     * Test draft dish command
+     */
+
+    @Test
+    public void draftOrderEditDishCommand_invalidArgs() {
+        final String[] inputs = {
+            "draftdish",
+            "draftdish ",
+            "draftdish wrong args format",
+            // no index
+            "draftdish q/15",
+            // index is not a single number
+            "draftdish a q/15",
+            "draftdish * q/15",
+            "draftdish 1 2 3 4 q/15",
+            // no quantity
+            "draftdish 1 q/",
+            "draftdish 1 q/ ",
+            // quantity is not a single number
+            "draftdish 1 q/a",
+            "draftdish 1 q/*",
+            "draftdish 1 q/1 2 3 4",
+            // no quantity prefix
+            "draftdish 1",
+            "draftdish 1 2"
+        };
+        final String resultMessage = String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT,
+                DraftOrderEditDishCommand.MESSAGE_USAGE);
+        parseAndAssertIncorrectWithMessage(resultMessage, inputs);
+    }
+
+    @Test
+    public void draftOrderEditDishCommand_validArgs_parsedCorrectly() {
+        final int testIndex = 1;
+        final int testQuantity = 15;
+        final String input = "draftdish " + testIndex + " q/" + testQuantity;
+        final DraftOrderEditDishCommand result = parseAndAssertCommandType(input, DraftOrderEditDishCommand.class);
+        assertEquals(result.getTargetIndex(), testIndex);
+        assertEquals(result.getQuantity(), testQuantity);
+    }
+
 
     /**
      * Utility methods

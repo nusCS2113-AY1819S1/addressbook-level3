@@ -30,6 +30,10 @@ public class DraftOrderEditDishCommand extends Command {
         this.quantity = quantity;
     }
 
+    public int getQuantity() {
+        return quantity;
+    }
+
 
     @Override
     public CommandResult execute() {
