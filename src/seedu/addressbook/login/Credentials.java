@@ -8,7 +8,7 @@ import java.util.Scanner;
 public class Credentials {
     private static final String USERNAME_VALIDATION_REGEX = "[stST]\\d{7}\\w";
     private static final String PASSWORD_VALIDATION_REGEX = "^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$";
-    private static final String MESSAGE_PASSWORD_CONSTRAINTS = "Invalid Password! Passwords must: \n\thave both Uppercase and Lowercase letters\n\thave at least 1 digit\n\tbe at least 8 characters long ";
+    private static final String MESSAGE_PASSWORD_CONSTRAINTS = "Invalid Password! Passwords must: \n\thave both Uppercase and Lowercase letters\n\thave at least 1 digit and 1 special character\n\tbe at least 8 characters long ";
     private static final String MESSAGE_USERNAME_CONSTRAINTS = "Invalid Username! Username is NRIC";
 
     private String PASSWORD;
