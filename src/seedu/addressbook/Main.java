@@ -34,7 +34,6 @@ public class Main extends Application implements Stoppable{
         gui = new Gui(new Logic(), VERSION);
         gui.start(primaryStage, this);
         gui.startLogin(primaryStage, this);
-
     }
 
     public static void  change(){
