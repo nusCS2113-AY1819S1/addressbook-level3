@@ -563,7 +563,8 @@ public class Parser {
             final int targetIndex = parseArgsAsDisplayedIndex(args);
             return new OrderDeleteCommand(targetIndex);
         } catch (ParseException | NumberFormatException e) {
-            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    OrderDeleteCommand.MESSAGE_USAGE));
         }
     }
 
