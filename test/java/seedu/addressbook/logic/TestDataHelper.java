@@ -39,6 +39,8 @@ import seedu.addressbook.data.tag.Tag;
  */
 class TestDataHelper {
 
+    public static final int FOOD_QUANTITY = 1;
+
     /**
      * Generate a person for testing purpose
      */
@@ -87,17 +89,39 @@ class TestDataHelper {
     }
 
     /**
+     * Generate an map of dish items for testing purpose
+     */
+    Map<ReadOnlyMenus, Integer> foodItems() throws Exception {
+        Map<ReadOnlyMenus, Integer> foods = new HashMap<>();
+        foods.put(burger(), FOOD_QUANTITY);
+        return foods;
+    }
+
+    /**
      * Generate an order for testing purpose
      */
     Order foodOrder() throws Exception {
         long orderingTime = 1000;
-        int foodQuantity = 15;
         Date orderingDate = new Date(orderingTime);
-        Member orderCustomer = eve();
-        Menu food = burger();
-        Map<ReadOnlyMenus, Integer> foodItems = new HashMap<>();
-        foodItems.put(food, foodQuantity);
-        return new Order(orderCustomer, orderingDate, foodItems);
+        return new Order(eve(), orderingDate, foodItems());
+    }
+
+    /**
+     * Generate an order without customer field for testing purpose
+     */
+    Order foodOrderWithoutCustomer() throws Exception {
+        long orderingTime = 1000;
+        Date orderingDate = new Date(orderingTime);
+        return new Order(new Member(), orderingDate, foodItems());
+    }
+
+    /**
+     * Generate an order without dishes for testing purpose
+     */
+    Order foodOrderWithoutDishes() throws Exception {
+        long orderingTime = 1000;
+        Date orderingDate = new Date(orderingTime);
+        return new Order(eve(), orderingDate, new HashMap<>());
     }
 
     /**
@@ -337,6 +361,12 @@ class TestDataHelper {
         return rms;
     }
 
+    Rms generateRmsOrder(Integer... integers) throws Exception {
+        Rms rms = new Rms();
+        addOrdersToRms(rms, integers);
+        return rms;
+    }
+
     /**
      * Adds auto-generated Person objects to the given Rms
      * @param rms The Rms to which the Persons will be added
@@ -402,6 +432,15 @@ class TestDataHelper {
     }
 
     /**
+     * Adds auto-generated Order objects to the given Rms
+     * @param rms The Rms to which the Orders will be added
+     * @param integers the seeds used to create the Orders
+     */
+    void addOrdersToRms(Rms rms, Integer... integers) throws Exception {
+        addOrdersToRms(rms, generateOrderList(integers));
+    }
+
+    /**
      * Creates a list of Employees based on the give Employee objects.
      */
     List<Employee> generateEmployeeList(Employee... employees) throws Exception {
@@ -452,6 +491,17 @@ class TestDataHelper {
         List<Order> orderList = new ArrayList<>();
         for (Order p: orders) {
             orderList.add(p);
+        }
+        return orderList;
+    }
+
+    /**
+     * Creates a list of Orders based on the given integers.
+     */
+    List<Order> generateOrderList(Integer... integers) throws Exception {
+        List<Order> orderList = new ArrayList<>();
+        for (Integer n: integers) {
+            orderList.add(generateOrder(n));
         }
         return orderList;
     }
