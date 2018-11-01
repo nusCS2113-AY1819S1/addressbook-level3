@@ -40,7 +40,7 @@ Responsibilities: Responsible for maintaining the code quality & testing. + Orde
 
 === Ang Wei Ming
 image::angwm.png[width="150", align="left"]
-{empty}[https://github.com/AngWM[github]] [<<johndoe#, portfolio>>]
+{empty}[https://github.com/AngWM[github]] [<<angwm#, portfolio>>]
 
 Role: Developer +
 Responsibilities: In charge of the Statistics feature

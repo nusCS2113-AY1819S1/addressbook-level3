@@ -235,6 +235,8 @@ As a more OOP model, we can store a Tag list in RMS, which all the relevant feat
 //image:ModelClassBetterOopDiagram.png[width="800"]
 //
 
+// tag::storage[]
+
 [[Design-Storage]]
 === Storage component
 
@@ -247,6 +249,9 @@ The `Storage` component,
 
 * can save the Address Book data in xml format and read it back.
 
+// end::storage[]
+
+//
 //[[Design-Commons]]
 //=== Common classes
 //
@@ -1095,8 +1100,8 @@ Guarantees:
 2.    RMS displays a list of the employees.
 +
 Use case ends.
-[discrete]
 
+[discrete]
 === Use case: Add employee
 Actor: Restaurant Manager +
 Preconditions: "List employee" use case was used before this use case. +
@@ -1224,6 +1229,8 @@ Use case ends.
 
 //end::employeeusecase[]
 
+// tag::statisticsusecase[]
+[discrete]
 === Use case: View employee statistics
 Actor: Manager
 
@@ -1271,6 +1278,8 @@ Use case ends.
 ** 1a1. RMS shows a message that says there are currently no employees recorded.
 +
 Use case ends.
+
+// end::statisticsusecase[]
 
 _{More to be added}_
 

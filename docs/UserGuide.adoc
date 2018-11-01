@@ -353,6 +353,8 @@ Only the non-private data of customer will be showed. +
 Format: `listorder`
 // end::orderuserguide[]
 
+
+// tag::statisticscommands[]
 === Statistics
 
 ==== View Employee Statistics
@@ -390,6 +392,8 @@ Format: statsorder
 
 Examples: +
 `statsorder`
+
+// end::statisticscommands[]
 
 === Saving the data
 
