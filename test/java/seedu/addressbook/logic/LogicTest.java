@@ -171,7 +171,7 @@ public class LogicTest {
     }
 
     /**
-     * Executes the command and confirms that the result message is correct andassert
+     * Executes the command and confirms that the result message is correct and assert
      * also confirms that the following three parts of the Logic object's state are as expected:<br>
      *      - the internal Rms data are same as those in the {@code expectedRms} <br>
      *      - the internal 'last shown list' matches the {@code expectedLastList} <br>
