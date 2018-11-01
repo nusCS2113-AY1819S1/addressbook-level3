@@ -852,9 +852,9 @@ public class LogicTest {
         Employee e1 = helper.generateEmployee(1);
         Employee e2 = helper.generateEmployee(2);
         Employee e3 = helper.generateEmployee(3);
-        Attendance a1 = helper.generateAttendnace(1);
-        Attendance a2 = helper.generateAttendnace(2);
-        Attendance a3 = helper.generateAttendnace(3);
+        Attendance a1 = helper.generateAttendance(1);
+        Attendance a2 = helper.generateAttendance(2);
+        Attendance a3 = helper.generateAttendance(3);
 
         List<Employee> lastShowEmployeeList = helper.generateEmployeeList(e1, e2, e3);
         List<Attendance> lastShownAttendanceList = helper.generateAttendanceList(a1, a2, a3);

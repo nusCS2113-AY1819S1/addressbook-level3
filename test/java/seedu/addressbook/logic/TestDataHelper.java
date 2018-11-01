@@ -3,8 +3,11 @@ package seedu.addressbook.logic;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.StringJoiner;
 
@@ -21,7 +24,9 @@ import seedu.addressbook.data.member.MemberName;
 import seedu.addressbook.data.menu.Menu;
 import seedu.addressbook.data.menu.MenuName;
 import seedu.addressbook.data.menu.Price;
+import seedu.addressbook.data.menu.ReadOnlyMenus;
 import seedu.addressbook.data.menu.Type;
+import seedu.addressbook.data.order.Order;
 import seedu.addressbook.data.person.Address;
 import seedu.addressbook.data.person.Email;
 import seedu.addressbook.data.person.Name;
@@ -82,6 +87,20 @@ class TestDataHelper {
     }
 
     /**
+     * Generate an order for testing purpose
+     */
+    Order foodOrder() throws Exception {
+        long orderingTime = 1000;
+        int foodQuantity = 15;
+        Date orderingDate = new Date(orderingTime);
+        Member orderCustomer = eve();
+        Menu food = burger();
+        Map<ReadOnlyMenus, Integer> foodItems = new HashMap<>();
+        foodItems.put(food, foodQuantity);
+        return new Order(orderCustomer, orderingDate, foodItems);
+    }
+
+    /**
      * Generates a valid person using the given seed.
      * Running this function with the same parameter values guarantees the returned person will have the same state.
      * Each unique seed will generate a unique Person object.
@@ -123,14 +142,14 @@ class TestDataHelper {
      *
      * @param seed used to generate the attendnace data field values
      */
-    Attendance generateAttendnace(int seed) throws Exception {
+    Attendance generateAttendance(int seed) throws Exception {
         return new Attendance("Employee " + seed);
     }
 
     /**
      * Generates a valid member using the given seed.
      * Running this function with the same parameter values guarantees the returned employee will have the same state.
-     * Each unique seed will generate a unique Employee object.
+     * Each unique seed will generate a unique Member object.
      *
      * @param seed used to generate the employee data field values
      */
@@ -139,10 +158,11 @@ class TestDataHelper {
                 new MemberName("Member " + seed)
         );
     }
+
     /**
      * Generates a valid menu item using the given seed.
      * Running this function with the same parameter values guarantees the returned menu item will have the same state.
-     * Each unique seed will generate a unique Person object.
+     * Each unique seed will generate a unique Menu object.
      *
      * @param seed used to generate the menu item data field values
      */
@@ -152,6 +172,27 @@ class TestDataHelper {
                 new Price("$" + Math.abs(seed)),
                 new Type(("main")),
                 new HashSet<>(Arrays.asList(new Tag("tag" + Math.abs(seed)), new Tag("tag" + Math.abs(seed + 1))))
+        );
+    }
+
+    Map<ReadOnlyMenus, Integer> generateDishItems(int seed) throws Exception {
+        Map<ReadOnlyMenus, Integer> dishItems = new HashMap<>();
+        dishItems.put(generateMenuItem(seed), Math.abs(seed));
+        return dishItems;
+    }
+
+    /**
+     * Generates a valid order using the given seed.
+     * Running this function with the same parameter values guarantees the returned menu item will have the same state.
+     * Each unique seed will generate a unique Order object.
+     *
+     * @param seed used to generate the menu item data field values
+     */
+    Order generateOrder(int seed) throws Exception {
+        return new Order(
+                generateMember(seed),
+                new Date(Math.abs(seed)),
+                generateDishItems(seed)
         );
     }
 
@@ -218,6 +259,17 @@ class TestDataHelper {
         return cmd.toString();
     }
 
+    /** Generates the correct edit draft dish command based on the given index number and quantity */
+    String generateDraftOrderEditDishCommand(int index, int quantity) {
+        StringJoiner cmd = new StringJoiner(" ");
+
+        cmd.add("draftdish");
+
+        cmd.add(Integer.toString(index));
+        cmd.add("q/" + quantity);
+
+        return cmd.toString();
+    }
 
     /**
      * Generates an Rms with auto-generated persons.
@@ -277,6 +329,15 @@ class TestDataHelper {
     }
 
     /**
+     * Generates an Rms based on the list of Member given.
+     */
+    Rms generateRmsOrder(List<Order> orders) throws Exception {
+        Rms rms = new Rms();
+        addOrdersToRms(rms, orders);
+        return rms;
+    }
+
+    /**
      * Adds auto-generated Person objects to the given Rms
      * @param rms The Rms to which the Persons will be added
      * @param isPrivateStatuses flags to indicate if all contact details of generated persons should be set to
@@ -294,19 +355,6 @@ class TestDataHelper {
             rms.addPerson(p);
         }
     }
-
-    /**
-     * Adds auto-generated Menu objects to the given Rms
-     * @param rms The Rms to which the Menus will be added
-     * @param isPrivateStatuses flags to indicate if details of generated persons should be set to
-     *                          private.
-     */
-
-    /*
-    void addToRMS(Rms rms, Boolean... isPrivateStatuses) throws Exception{
-        addToRMS(rms, generatePersonList(isPrivateStatuses));
-    }
-    */
 
     /**
      * Adds the given list of Menus to the given Rms
@@ -341,6 +389,15 @@ class TestDataHelper {
     void addMembersToRms(Rms rms, List<Member> membersToAdd) throws Exception {
         for (Member member: membersToAdd) {
             rms.addMember(member);
+        }
+    }
+
+    /**
+     * Adds the given list of Orders to the given Rms
+     */
+    void addOrdersToRms(Rms rms, List<Order> ordersToAdd) throws Exception {
+        for (Order order: ordersToAdd) {
+            rms.addOrder(order);
         }
     }
 
@@ -386,6 +443,17 @@ class TestDataHelper {
             menuList.add(m);
         }
         return menuList;
+    }
+
+    /**
+     * Creates a list of Orders based on the given Order objects.
+     */
+    List<Order> generateOrderList(Order... orders) throws Exception {
+        List<Order> orderList = new ArrayList<>();
+        for (Order p: orders) {
+            orderList.add(p);
+        }
+        return orderList;
     }
 
     /**
@@ -458,4 +526,25 @@ class TestDataHelper {
                 Collections.singleton(new Tag("tag"))
         );
     }
+
+    /**
+     * Generates a Person object with given name. Other fields will have some dummy values.
+     */
+    Map<ReadOnlyMenus, Integer> generateDishItemsWithName(String name) throws Exception {
+        Map<ReadOnlyMenus, Integer> dishItems = new HashMap<>();
+        dishItems.put(generateMenuWithName(name), 3);
+        return dishItems;
+    }
+
+    /**
+     * Generates an Order object with given name. Other fields will have some dummy values.
+     */
+    Order generateOrderWithName(String name) throws Exception {
+        return new Order(
+                generateMemberWithName(name),
+                new Date(5000),
+                generateDishItemsWithName(name)
+        );
+    }
+
 }
