@@ -44,6 +44,11 @@
         <price>$5.00</price>
         <type>dessert</type>
     </menus>
+    <menus>
+        <name>cheese toast</name>
+        <price>$5.00</price>
+        <type>main</type>
+    </menus>
     <members>
         <name>Kang Ming</name>
         <points>0</points>
