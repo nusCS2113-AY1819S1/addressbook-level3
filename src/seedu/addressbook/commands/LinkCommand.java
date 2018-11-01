@@ -4,7 +4,7 @@ import seedu.addressbook.common.Messages;
 import seedu.addressbook.data.person.Associated;
 import seedu.addressbook.data.person.ReadOnlyPerson;
 
-public class LinkCommand extends Command{
+public class LinkCommand extends UndoAbleCommand{
     public static final String COMMAND_WORD = "link";
     public static final String MESSAGE_USAGE = COMMAND_WORD + ":\n"
             + "associates a person identified by the index number used in the last person listing with another person. One of them must a patient and the other a doctor\n\t"

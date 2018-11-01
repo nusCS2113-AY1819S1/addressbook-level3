@@ -1,5 +1,6 @@
 package seedu.addressbook.data;
 
+import seedu.addressbook.commands.Command;
 import seedu.addressbook.data.person.Associated;
 import seedu.addressbook.data.person.Person;
 import seedu.addressbook.data.person.ReadOnlyPerson;
@@ -13,6 +14,7 @@ import seedu.addressbook.data.person.UniquePersonList.PersonNotFoundException;
 public class AddressBook {
 
     private CommandHistory commandHistory;
+    private CommandStack commandStack;
     private UniquePersonList allPersons;
 
     public static AddressBook empty() {
@@ -25,6 +27,7 @@ public class AddressBook {
     public AddressBook() {
         allPersons = new UniquePersonList();
         commandHistory = new CommandHistory(this);
+        commandStack = new CommandStack();
     }
 
     /**
@@ -95,6 +98,8 @@ public class AddressBook {
     public CommandHistory getCommandHistory() {
         return commandHistory;
     }
+
+    public CommandStack getCommandStack() { return commandStack;}
 
     public void linkTwoPerson(ReadOnlyPerson target, ReadOnlyPerson target2) throws Associated.DuplicateAssociationException, Associated.SameTitleException {
         Person targetObject = target.getPerson();
