@@ -26,7 +26,7 @@ public class Messages {
     public static final String MESSAGE_MENUS_LISTED_OVERVIEW = "%1$d food items listed!";
 
     public static final String MESSAGE_INVALID_ORDER_DISPLAYED_INDEX = "The order index provided is invalid";
-    public static final String MESSAGE_DRAFT_ORDER_DETAILS = "Viewing current draft order: ";
+    public static final String MESSAGE_DRAFT_ORDER_DETAILS = "Current draft order: ";
     public static final String MESSAGE_ORDER_NOT_IN_ORDER_LIST = "Order could not be found in order list";
     public static final String MESSAGE_ORDERS_LISTED_OVERVIEW = "%1$d orders listed!";
     public static final String MESSAGE_USING_ORDER_LIST_STORAGE_FILE = "Using order list storage file : %1$s";
