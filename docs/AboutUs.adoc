@@ -13,7 +13,7 @@ We are a team based in the http://www.comp.nus.edu.sg[School of Computing, Natio
 
 === Tay Kang Ming
 image::kangmingtay.png[width="150", align="left"]
-{empty} [https://github.com/kangmingtay[github]] [<<johndoe#, portfolio>>]
+{empty} [https://github.com/kangmingtay[github]] [<<kangming#, portfolio>>]
 
 Role: Team Leader +
 Responsibilities: Responsible for overall project coordination.
