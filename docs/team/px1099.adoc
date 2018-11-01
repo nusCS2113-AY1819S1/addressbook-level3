@@ -21,8 +21,6 @@ https://github.com/se-edu[SE-EDU initiative].
 
 === Implemented Functionality
 
-
-
 ==== Added the functionality to manage orders
 
 ====
