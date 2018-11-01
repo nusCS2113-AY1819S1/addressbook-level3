@@ -10,8 +10,11 @@ import seedu.addressbook.common.Utils;
 import seedu.addressbook.data.exception.IllegalValueException;
 import seedu.addressbook.data.member.Member;
 import seedu.addressbook.data.member.MemberName;
+import seedu.addressbook.data.member.MemberTier;
 import seedu.addressbook.data.member.Points;
 import seedu.addressbook.data.member.ReadOnlyMember;
+
+
 
 /**
  * JAXB-friendly adapted person data holder class.
@@ -52,17 +55,9 @@ public class AdaptedMember {
 
     @XmlElement(required = true)
     private long date;
-    /*
-    @XmlElement(required = true)
-    private AdaptedContactDetail phone;
-    @XmlElement(required = true)
-    private AdaptedContactDetail email;
-    @XmlElement(required = true)
-    private AdaptedContactDetail address;
 
-    @XmlElement
-    private List<AdaptedTag> tagged = new ArrayList<>();
-    */
+    @XmlElement(required = true)
+    private String tier;
 
     /**
      * No-arg constructor for JAXB use.
@@ -79,24 +74,7 @@ public class AdaptedMember {
         name = source.getName().fullName;
         points = source.getPoints().toString();
         date = source.getDate().getTime();
-        /*
-        phone = new AdaptedContactDetail();
-        phone.isPrivate = source.getPhone().isPrivate();
-        phone.value = source.getPhone().value;
-
-        email = new AdaptedContactDetail();
-        email.isPrivate = source.getEmail().isPrivate();
-        email.value = source.getEmail().value;
-
-        address = new AdaptedContactDetail();
-        address.isPrivate = source.getAddress().isPrivate();
-        address.value = source.getAddress().value;
-
-        tagged = new ArrayList<>();
-        for (Tag tag : source.getTags()) {
-            tagged.add(new AdaptedTag(tag));
-        }
-        */
+        tier = source.getMemberTier().toString();
     }
 
     /**
@@ -135,11 +113,8 @@ public class AdaptedMember {
         final MemberName name = new MemberName(this.name);
         final Points points = new Points(Integer.parseInt(this.points));
         final Date date = new Date(this.date);
-        /*
-        final Phone phone = new Phone(this.phone.value, this.phone.isPrivate);
-        final Email email = new Email(this.email.value, this.email.isPrivate);
-        final Address address = new Address(this.address.value, this.address.isPrivate);
-        */
-        return new Member(name, points, date);
+        final MemberTier tier = new MemberTier(this.tier);
+
+        return new Member(name, points, date, tier);
     }
 }

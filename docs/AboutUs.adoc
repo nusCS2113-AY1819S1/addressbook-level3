@@ -22,7 +22,7 @@ Responsibilities: Responsible for overall project coordination.
 
 === Salsabil Tasnia Ali Nikita MD
 image::salsabiltasnia.png[width="150", align="left"]
-{empty}[https://github.com/SalsabilTasnia[github]] [<<johndoe#, portfolio>>]
+{empty}[https://github.com/SalsabilTasnia[github]] [<<salsabil#, portfolio>>]
 
 Role: Developer, Documentation Lead +
 Responsibilities: Responsible for the menu feature.
@@ -31,7 +31,7 @@ Responsibilities: Responsible for the menu feature.
 
 === Pham Quang Minh
 image::px1099.png[width="150", align="left"]
-{empty}[https://github.com/px1099[github]]
+{empty}[https://github.com/px1099[github]] [<<px1099#, portfolio>>]
 
 Role: Developer +
 Responsibilities: Responsible for maintaining the code quality & testing. + Order Feature

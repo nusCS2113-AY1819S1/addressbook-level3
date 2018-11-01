@@ -27,6 +27,7 @@ import seedu.addressbook.commands.menu.MenuAddCommand;
 import seedu.addressbook.commands.menu.MenuClearCommand;
 import seedu.addressbook.commands.menu.MenuDeleteCommand;
 import seedu.addressbook.commands.menu.MenuFindCommand;
+import seedu.addressbook.commands.menu.MenuListByTypeCommand;
 import seedu.addressbook.commands.menu.MenuListCommand;
 import seedu.addressbook.commands.menu.MenuViewAllCommand;
 import seedu.addressbook.commands.statistics.StatsEmployeeCommand;
@@ -106,6 +107,26 @@ public class ParserTest {
         final String input = "listmenu";
         parseAndAssertCommandType(input, MenuListCommand.class);
     }
+
+    @Test
+    public void menuListByTypeCommand_invalidArgs() {
+        // no keywords
+        final String inputs = "listmenutype";
+        final String resultMessage =
+                String.format(MenuListByTypeCommand.MESSAGE_ERROR, MenuListByTypeCommand.MESSAGE_USAGE);
+        //parseAndAssertIncorrectWithMessage(resultMessage, inputs);
+        parseAndAssertCommandType(inputs, IncorrectCommand.class);
+    }
+    @Test
+    public void menuListByTypeCommand_validArgs_parsedCorrectly() {
+        final String type = "main";
+        //final Set<String> keySet = new HashSet<>(Arrays.asList(keywords));
+        final String input = "listmenutype " + type;
+        final MenuListByTypeCommand result =
+                parseAndAssertCommandType(input, MenuListByTypeCommand.class);
+        assertEquals(type, result.getItemword());
+    }
+
 
     @Test
     public void statsEmployeeCommand_parsedCorrectly() {
@@ -349,12 +370,12 @@ public class ParserTest {
             "add",
             "add ",
             "add wrong args format",
-            // no phone prefix
-            String.format("add $s $s e/$s a/$s", Name.EXAMPLE, Phone.EXAMPLE, Email.EXAMPLE, Address.EXAMPLE),
-            // no email prefix
-            String.format("add $s p/$s $s a/$s", Name.EXAMPLE, Phone.EXAMPLE, Email.EXAMPLE, Address.EXAMPLE),
-            // no address prefix
-            String.format("add $s p/$s e/$s $s", Name.EXAMPLE, Phone.EXAMPLE, Email.EXAMPLE, Address.EXAMPLE)
+                // no phone prefix
+                String.format("add $s $s e/$s a/$s", Name.EXAMPLE, Phone.EXAMPLE, Email.EXAMPLE, Address.EXAMPLE),
+                // no email prefix
+                String.format("add $s p/$s $s a/$s", Name.EXAMPLE, Phone.EXAMPLE, Email.EXAMPLE, Address.EXAMPLE),
+                // no address prefix
+                String.format("add $s p/$s e/$s $s", Name.EXAMPLE, Phone.EXAMPLE, Email.EXAMPLE, Address.EXAMPLE)
         };
         final String resultMessage = String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE);
         parseAndAssertIncorrectWithMessage(resultMessage, inputs);
@@ -418,11 +439,11 @@ public class ParserTest {
     private static Person generateTestPerson() {
         try {
             return new Person(
-                new Name(Name.EXAMPLE),
-                new Phone(Phone.EXAMPLE, true),
-                new Email(Email.EXAMPLE, false),
-                new Address(Address.EXAMPLE, true),
-                new HashSet<>(Arrays.asList(new Tag("tag1"), new Tag("tag2"), new Tag("tag3")))
+                    new Name(Name.EXAMPLE),
+                    new Phone(Phone.EXAMPLE, true),
+                    new Email(Email.EXAMPLE, false),
+                    new Address(Address.EXAMPLE, true),
+                    new HashSet<>(Arrays.asList(new Tag("tag1"), new Tag("tag2"), new Tag("tag3")))
             );
         } catch (IllegalValueException ive) {
             throw new RuntimeException("test person data should be valid by definition");
@@ -456,10 +477,10 @@ public class ParserTest {
             "addmenu",
             "addmenu ",
             "addmenu wrong args format",
-            // no price prefix
-            String.format("addmenu $s $s type/$s", MenuName.EXAMPLE, Price.EXAMPLE, Type.EXAMPLE),
-            // no type prefix
-            String.format("addmenu $s p/$s $s", MenuName.EXAMPLE, Price.EXAMPLE, Type.EXAMPLE)
+                // no price prefix
+                String.format("addmenu $s $s type/$s", MenuName.EXAMPLE, Price.EXAMPLE, Type.EXAMPLE),
+                // no type prefix
+                String.format("addmenu $s p/$s $s", MenuName.EXAMPLE, Price.EXAMPLE, Type.EXAMPLE)
         };
         final String resultMessage = String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT,
                 MenuAddCommand.MESSAGE_USAGE);
@@ -480,14 +501,14 @@ public class ParserTest {
 
         // test each incorrect person data field argument individually
         final String[] inputs = {
-            // invalid menu name
-            String.format(addMenuCommandFormatString, invalidMenuName, validPriceArg, validTypeArg),
-            // invalid pricee
-            String.format(addMenuCommandFormatString, validMenuName, invalidPriceArg, validTypeArg),
-            // invalid typa
-            String.format(addMenuCommandFormatString, validMenuName, validPriceArg, invalidTypeArg),
-            // invalid tag
-            String.format(addMenuCommandFormatString, validMenuName, validPriceArg, validTypeArg) + " " + invalidTagArg
+             // invalid menu name
+             String.format(addMenuCommandFormatString, invalidMenuName, validPriceArg, validTypeArg),
+             // invalid pricee
+             String.format(addMenuCommandFormatString, validMenuName, invalidPriceArg, validTypeArg),
+             // invalid typa
+             String.format(addMenuCommandFormatString, validMenuName, validPriceArg, invalidTypeArg),
+             // invalid tag
+             String.format(addMenuCommandFormatString, validMenuName, validPriceArg, validTypeArg) + " " + invalidTagArg
         };
         for (String input : inputs) {
             parseAndAssertCommandType(input, IncorrectCommand.class);

@@ -150,24 +150,25 @@ Below contains the description for each of the four key components:
 //
 //The sections below give more details of each component.
 //
-//[[Design-Ui]]
-//=== UI component
-//
-//.Structure of the UI Component
-//image::UiClassDiagram.png[width="800"]
-//
-//*API* : link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
-//
-//The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `StatusBarFooter`, `BrowserPanel` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
-//
-//The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
-//
-//The `UI` component,
-//
-//* Executes user commands using the `Logic` component.
-//* Binds itself to some data in the `Model` so that the UI can auto-update when data in the `Model` change.
-//* Responds to events raised from various parts of the App and updates the UI accordingly.
 
+// tag::UI[]
+[[Design-Ui]]
+=== UI component
+
+.Structure of the UI Component
+image::UiComponentClassDiagram.png[width="800"]
+
+The UI consists of `Main` that implements `Stoppable` and extends `Application`. `Main` is also dependant on `Gui` which is dependant on `MainWindow`.
+Furthermore, `Gui` and `MainWindow` are both dependant on `Logic`.
+
+The components use JavaFx UI framework.
+
+The `Main` component,
+
+* Executes user commands using the `Gui` component which relies on the `Logic` component.
+// end::UI[]
+
+// tag::logic[]
 [[Design-Logic]]
 === Logic component
 
@@ -188,6 +189,25 @@ Each of the `CommandResult` class is used as a specific constructor to correctly
 of result. +
 e.g. `OrderCommandResult` constructs a `CommandResult` object that only contains a result message and a list of orders
 generated from the ordering commands.
+// end::logic[]
+
+// tag::Data[]
+[[Design-Data]]
+=== Data component
+
+[[fig-DataComponent]]
+.Structure of the Data Component
+image::DataComponent.png[width="800"]
+
+*API* :
+link:{repoURL}/src/seedu/addressbook/data[`data`]
+
+.  The Data stores the RMS data
+.  It does not depend on any of the other components
+
+[NOTE]
+As a more OOP model, we can store a Tag list in RMS, which all the relevant features can reference. This would allow RMS to only require one Tag object per unique Tag, instead of each feature needing their own Tag object.
+// end::Data[]
 
 //Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")` API call.
 //
@@ -214,9 +234,10 @@ generated from the ordering commands.
 // +
 //image:ModelClassBetterOopDiagram.png[width="800"]
 //
-//[[Design-Storage]]
 
 // tag::storage[]
+
+[[Design-Storage]]
 === Storage component
 
 .Structure of the Storage Component
@@ -227,6 +248,7 @@ image::StorageClassDiagram.png[width="800"]
 The `Storage` component,
 
 * can save the Address Book data in xml format and read it back.
+
 // end::storage[]
 
 //
@@ -235,6 +257,7 @@ The `Storage` component,
 //
 //Classes used by multiple components are in the `seedu.addressbook.commons` package.
 
+// tag::orderimplementation[]
 == Implementation
 
 This section describes some noteworthy details on how certain features are implemented.
@@ -273,6 +296,7 @@ message can be specifically wrote in each states to reduce the burdens of rememb
 
 This can be done by introducing a status variable in the `Logic` module, creating command to change the state variable
 and adjusting the returning command in the `Parser` based on that variable.
+// end::orderimplementation[]
 
 //==== Current Implementation
 //
@@ -853,9 +877,9 @@ e.g. `seedu.addressbook.logic.LogicTest`
 
 *Value proposition*: manage restaurant faster than a typical mouse/GUI driven app
 
+//tag::userstories[]
 [appendix]
 == User Stories
-
 Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (unlikely to have) - `*`
 
 [width="59%",cols="22%,<23%,<25%,<30%",options="header",]
@@ -864,6 +888,8 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |`* * *` |Cashier |add , edit and delete orders made |collate the customer’s orders and send it to the kitchen
 
 |`* *` |Cashier |view all members of the restaurant |keep track of which customer has a membership at the restaurant
+
+|`* * *` |Cashier |view all existing menu items of the restaurant |know which item the customer wants when taking an order
 
 |`* * *` |Manager |keep track of the restaurant business statistics such as daily revenue |understand if the restaurant is making a loss or not
 
@@ -883,7 +909,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* *` |Employee |clock in and clock out attendance  |account for the time period which I am working
 |=======================================================================
-
+// end::userstories[]
 
 _{More to be added}_
 
@@ -926,54 +952,138 @@ Return to step 1.
 +
 Return to step 3.
 
+// tag::menuusecase[]
 [discrete]
-=== Use case: Update Menu
-Actor: Manager
+=== Use case: Show Main Menu
+System: Restaurant Management System (RMS) +
+Use Case: Show Main Menu +
+Actor: Manager, Cashier
 
 *MSS*
 
-1.  User enters the command to update menu
-2.  FMS displays a message telling user the (three) ways he/she can update the menu
-3.  User wishes to edit an existing item in the menu
-4.  User enters index of the item that should be updated and edits the details
-5.  System updates that item in that particular index of the menu list
+1.  User chooses to view the Main Menu to see the categories of menu item available.
+2.  RMS shows Main Menu of the restaurant.
 
+Use case ends.
+
+[discrete]
+=== Use case: List Menu Based On Category
+System: Restaurant Management System (RMS) +
+Use Case: List employees +
+Actor: Manager, Cashier +
+Preconditions: User executes the Show Main Menu use case to know the existing menu categories. +
+Guarantees:
+
+* List of menu items of a particular category will be displayed.
+
+*MSS*
+
+1.    User requests to list menu items of a particular category.
+2.    RMS displays a list of the menu items of that category.
 +
 Use case ends.
 
 *Extensions*
 
-[none]
-* 3a. User wishes to delete an item by viewing the existing menu list
-[none]
-** 3a1. User chooses to view the menu list
-+
-3a2. FMS displays the existing menu list
-+
-3a3. User looks for the INDEX of the particular item to be deleted and deletes the item
-+
-3a4. FMS deletes the food item from the existing list
-+
-Use case ends.
-* 3b. User wishes to delete an item from the menu
-[none]
-** 3b1. User searches for the menu item to be deleted
-+
-3b2. FMS shows the list of items with that menu name
-+
-3b3. User looks for the INDEX of the particular item to be deleted and deletes the item
-+
-3b4. FMS deletes the food item from the existing list
-+
-Use case ends.
-* 3c. User wishes to add new item to the menu
-[none]
-** 3c1. User enters the new item into the menu
-+
-3c2. FMS adds the entered menu to the existing menu list
+
+* 1a. RMS detects that an invalid type has been entered.
+** 1a1. RMS displays an error message stating what the valid item types are.
 +
 Use case ends.
 
+
+[discrete]
+=== Use case: Add Menu
+Actor: Manager
+Preconditions: List Menu By Type command should be executed prior to this use case. +
+Guarantees:
+
+* New menu item is added to the RMS.
+
+*MSS*
+
+1.    User requests to add a new menu item with the required parameters.
+2.    RMS adds a new menu item to the existing menu list with the parameters that were specified by the User.
++
+Use case ends.
+
+*Extensions*
+
+
+* 1a. RMS detects that an invalid command format has been entered.
+** 1a1. RMS displays an error that says the command format is invalid.
+** 1a2. RMS displays information on the proper use of the command along with an example.
++
+Use case ends.
+
+* 1b. RMS detects that the new menu item to be added has the same name as one of the exisitng menu items.
+** 1b1. RMS detects this as an an attempt to add a duplicate menu item.
+** 1b2. RMS displays an error that says the employee already exists in Rms.
++
+Use case ends.
+
+* 1c. RMS detects that the price field entered is invalid.
+** 1c1. RMS dispays an error message stating the appropriate price field argument to be entered.
++
+Use case ends.
+
+* 1d. RMS detects that the type field entered is invalid.
+** 1d1. RMS dispays an error message stating what the valid item types are.
++
+Use case ends.
+
+[discrete]
+=== Use case: Delete menu
+Actor: Restaurant Manager +
+Preconditions: List Menu By Type or Find Menu use case should be executed prior to this use case this use case. +
+Guarantees:
+
+* The specified menu item will be deleted from the RMS.
+
+*MSS*
+
+1.    User requests to delete menu item by using the index as shown on the list of menu items.
+2.    RMS deletes a menu item of the specified index.
++
+Use case ends.
+
+*Extensions*
+
+
+* 1a. RMS detects that an invalid index has been entered.
+** 1a1. RMS displays an error that says the index provided is invalid.
++
+Use case ends.
+
+[discrete]
+=== Use case: View A Menu Item
+System: Restaurant Management System (RMS) +
+Use Case: View A Menu Item +
+Actor: Cashier +
+Preconditions: User executes the List Menu By Type use case before using this use case.
+
+*MSS*
+
+1.  User chooses to view a particular menu item from the existing menu list.
+2.  RMS shows the menu item of that particular index.
+
+Use case ends.
+
+[discrete]
+=== Use case: Find Menu
+System: Restaurant Management System (RMS) +
+Use Case: Find Menu +
+Actor: Cashier
+
+*MSS*
+
+1.  User chooses to find menu items containing some keywords.
+2.  RMS shows the menu items that contain those keywords.
+
+Use case ends.
+// end::menuusecase[]
+
+//tag::employeeusecase[]
 [discrete]
 === Use case: List employees
 System: Restaurant Management System (RMS) +
@@ -1116,6 +1226,8 @@ Use case ends.
 ** 1a2. RMS displays information on the proper use of the command along with an example.
 +
 Use case ends.
+
+//end::employeeusecase[]
 
 // tag::statisticsusecase[]
 [discrete]

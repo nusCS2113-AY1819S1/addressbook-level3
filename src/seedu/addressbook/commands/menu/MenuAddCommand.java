@@ -24,7 +24,7 @@ public class MenuAddCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ":\n" + "Adds a food item to the Rms. "
             + "Parameters: NAME p/PRICE type/TYPE [t/TAG]...\n\t"
             + "Example: " + COMMAND_WORD
-            + " Cheese Burger p/$5.00 type/burger t/newAddition t/hotSeller";
+            + " Cheese Burger p/$5.00 type/main t/newAddition t/hotSeller";
 
     public static final String MESSAGE_SUCCESS = "New food item added: %1$s";
     public static final String MESSAGE_DUPLICATE_MENU_ITEM = "This food item already exists in the Rms";
@@ -71,3 +71,4 @@ public class MenuAddCommand extends Command {
     }
 
 }
+
