@@ -61,4 +61,15 @@ public interface ReadOnlyMember {
         builder.append(" Tier: ").append(getMemberTier().toString());
         return builder.toString();
     }
+
+    /**
+     * Formats a person as text, showing only non-private contact details and hide membership date.
+     */
+    default String getAsTextInOrderList() {
+        final StringBuilder builder = new StringBuilder();
+        builder.append(getName());
+        builder.append(" Points: ").append(getPoints());
+        builder.append(" Tier: ").append(getMemberTier().toString());
+        return builder.toString();
+    }
 }

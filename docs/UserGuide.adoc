@@ -295,23 +295,26 @@ Format: `addorder`
 +
 Select a member from the last shown member list to be the customer of the draft order. +
 +
-The customer is retrieved with the index of last displayed member list. +
-+
 Format: `draftcustomer INDEX`
+
+** The index refers to the index number shown in the last shown member list.
 
 * *Edit A Dish Item Of The Draft* +
 +
 By picking a dish from the last shown menu and state the quantity to be added,
 a dish item can be added, deleted or edited in the draft order. +
 +
-The dish item is retrieved with the index of last displayed menu. +
-+
- ** If the quantity is set to 0, then the dish will be removed from the draft. +
+ ** If the quantity is set to 0, then the dish will be removed from the draft.
 +
  ** If the quantity of a dish that is currently not in the draft is set to a
  positive integer, then the dish and its quantity will be added into the draft.
 +
+ ** If the quantity of a dish that is currently in the draft is set to a positive
+ integer, then its quantity will be adjusted to the new value.
++
 Format: `draftdish INDEX q/QUANTITY`
+
+** The index refers to the index number shown in the last shown menu list.
 
 * *Clear Draft* +
 +
@@ -335,6 +338,8 @@ Delete an order. +
 The deleted order is specified by the index of that order on the last displayed order list. +
 
 Format: `deleteorder INDEX`
+
+* The index refers to the index number shown in the last shown order list.
 
 ==== Clear Order
 
