@@ -12,6 +12,7 @@ public class RedoCommand extends Command{
 
     public static final String MESSAGE_SUCCESS = "Redo successful!\n";
     public static final String MESSAGE_FAILURE = "No command to redo";
+    public static final String MESSAGE_NO_COMMAND_TO_REDO = "No command to redo";
 
     @Override
     public CommandResult execute() {
@@ -22,7 +23,7 @@ public class RedoCommand extends Command{
             List<ReadOnlyPerson> allPersons = addressBook.getAllPersons().immutableListView();
             return new CommandResult(MESSAGE_SUCCESS, allPersons);
         } catch (CommandStack.HistoryOutOfBoundException hoobe){
-            return new CommandResult(MESSAGE_FAILURE);
+            return new CommandResult(MESSAGE_NO_COMMAND_TO_REDO);
         } catch (Exception e){
             return new CommandResult(MESSAGE_FAILURE);
         }
