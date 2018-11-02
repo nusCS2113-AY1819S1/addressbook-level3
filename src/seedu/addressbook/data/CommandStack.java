@@ -20,7 +20,7 @@ public class CommandStack {
     }
 
     public void truncateOldPath() {
-        redoStack.empty();
+        redoStack.clear();
     }
 
     /**
@@ -32,7 +32,7 @@ public class CommandStack {
     }
 
     public boolean nextBoxIsEmpty() {
-        return redoStack.isEmpty();
+        return redoStack.empty();
     }
 
     public UndoAbleCommand undoLast() throws HistoryOutOfBoundException {

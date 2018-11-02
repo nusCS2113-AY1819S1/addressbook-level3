@@ -26,7 +26,7 @@ public class AddressBook {
      */
     public AddressBook() {
         allPersons = new UniquePersonList();
-        commandHistory = new CommandHistory(this);
+        commandHistory = new CommandHistory();
         commandStack = new CommandStack();
     }
 
@@ -37,7 +37,7 @@ public class AddressBook {
      */
     public AddressBook(UniquePersonList persons) {
         this.allPersons = new UniquePersonList(persons);
-        this.commandHistory = new CommandHistory(this);
+        this.commandHistory = new CommandHistory();
         this.commandStack = new CommandStack();
     }
 
