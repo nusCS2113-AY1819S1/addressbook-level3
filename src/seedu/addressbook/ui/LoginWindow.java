@@ -60,7 +60,7 @@ public class LoginWindow {
         }else{
             Main.change();
         }
-        if(tries==0){
+        if(tries==0) {
             exitApp();
         }
     }
