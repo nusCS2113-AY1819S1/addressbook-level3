@@ -1,5 +1,6 @@
 package seedu.addressbook.commands.statistics;
 
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
@@ -33,12 +34,18 @@ public class StatsMemberCommand extends Command {
             return "There are no members in the system.";
         }
         MemberDateTable dateTable = new MemberDateTable();
-
+        int[] tierCount = new int[]{0, 0, 0};
         for (ReadOnlyMember member : allMembers) {
-            // Replace with member.getDate() during merge
             Date signupDate = member.getDate();
-            // ==========================================
             dateTable.addData(signupDate);
+            String tier = member.getMemberTier().toString();
+            if (tier.equalsIgnoreCase("Bronze")) {
+                tierCount[0]++;
+            } else if (tier.equalsIgnoreCase("Silver")) {
+                tierCount[1]++;
+            } else if (tier.equalsIgnoreCase("Gold")) {
+                tierCount[2]++;
+            }
         }
         res.append("Number of members: " + allMembers.size() + "\n\n");
         res.append("New members this year: " + dateTable.getYearCount(new Date()) + "\n\n");
@@ -46,12 +53,10 @@ public class StatsMemberCommand extends Command {
         res.append("New members today: " + dateTable.getDayCount(new Date()));
         res.append("\n\n\n");
 
-        // Replace with list of tiers during merge
         res.append("Tier Table\n");
-        String[] headings = new String[]{"Bronze", "Silver", "Gold", "Platinum", "Diamond"};
-        // =======================================
+        String[] headings = new String[]{"Bronze", "Silver", "Gold"};
         AsciiTable table = new AsciiTable(headings);
-        String[] values = new String[]{"12", "6", "4", "2", "1"};
+        String[] values = Arrays.toString(tierCount).replaceAll("[\\[\\]]", "").split("\\s*,\\s*");
         table.addRow(values);
         res.append(table.toString());
 

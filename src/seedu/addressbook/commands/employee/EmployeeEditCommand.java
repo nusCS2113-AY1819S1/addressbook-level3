@@ -22,7 +22,8 @@ public class EmployeeEditCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ":\n"
             + "Edits the details of the employee identified by the index number used in the displayed person list.\n"
-            + "Existing values will be overwritten by the input values.\n\n"
+            + "Existing values will be overwritten by the input values.\n"
+            + "(listemp must be used before this command to retrieve index for employee to be deleted)\n\n"
             + "Parameters: INDEX (must be a positive integer) "
             + "[p/PHONE] "
             + "[e/EMAIL] "
@@ -32,8 +33,7 @@ public class EmployeeEditCommand extends Command {
             + " p/" + EmployeePhone.EXAMPLE;
 
     public static final String MESSAGE_EDIT_EMPLOYEE_SUCCESS = "Edited Person: %1$s";
-    // implement check for no field entered
-    public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
+    public static final String MESSAGE_NOARGS = "At least one field to edit must be provided.";
     public static final String EMPTY_EMPLOYEE_PHONE = "00000000";
     public static final String EMPTY_EMPLOYEE_EMAIL = "noargs@noargs.com";
     public static final String EMPTY_EMPLOYEE_ADDRESS = "noargs";

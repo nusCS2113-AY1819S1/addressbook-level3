@@ -144,6 +144,7 @@ public class Order implements ReadOnlyOrder {
         } else if (quantity > 0) {
             dishItems.put(dish, quantity);
         }
+        price = calculatePrice();
     }
 
     @Override

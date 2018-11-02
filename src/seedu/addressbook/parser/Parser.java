@@ -90,6 +90,10 @@ public class Parser {
                     + "((pos/(?<position>[^/]+))?)");
 
     // '/' forward slashes are reserved for delimiter prefixes
+    public static final Pattern EMPLOYEE_EDIT_DATA_NOARGS_FORMAT =
+            Pattern.compile("(?<targetIndex>\\d+)");
+
+    // '/' forward slashes are reserved for delimiter prefixes
     public static final Pattern CLOCK_IN_DATA_ARGS_FORMAT =
             Pattern.compile("(?<name>[^/]+)");
 
@@ -444,6 +448,12 @@ public class Parser {
      * @return the prepared command
      */
     private Command prepareEmployeeEdit(String args) {
+        final Matcher checkForArgs = EMPLOYEE_EDIT_DATA_NOARGS_FORMAT.matcher(args.trim());
+        if (checkForArgs.matches()) {
+            return new IncorrectCommand(String.format(
+                    EmployeeEditCommand.MESSAGE_NOARGS,
+                    EmployeeEditCommand.MESSAGE_USAGE));
+        }
         final Matcher matcher = EMPLOYEE_EDIT_DATA_ARGS_FORMAT.matcher(args.trim());
         if (!matcher.matches()) {
             return new IncorrectCommand(String.format(
@@ -553,7 +563,8 @@ public class Parser {
             final int targetIndex = parseArgsAsDisplayedIndex(args);
             return new OrderDeleteCommand(targetIndex);
         } catch (ParseException | NumberFormatException e) {
-            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    OrderDeleteCommand.MESSAGE_USAGE));
         }
     }
 

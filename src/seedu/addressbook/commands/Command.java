@@ -56,6 +56,9 @@ public abstract class Command {
      * @return summary message for employees displayed
      */
     public static String getMessageForEmployeeListShownSummary(List<? extends ReadOnlyEmployee> employeesDisplayed) {
+        if (employeesDisplayed.size() == 0) {
+            return Messages.MESSAGE_NO_EMPLOYEES_IN_SYSTEM;
+        }
         return String.format(Messages.MESSAGE_EMPLOYEES_LISTED_OVERVIEW, employeesDisplayed.size());
     }
 
