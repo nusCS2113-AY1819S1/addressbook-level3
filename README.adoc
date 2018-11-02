@@ -6,7 +6,7 @@ ifdef::env-github,env-browser[]
 endif::[]
 
 ifndef::env-github,env-browser[]
-:imagesDir: docs/images
+:imagesDir: images
 endif::[]
 
 https://travis-ci.org/CS2113-AY1819S1-F10-1/main[image:https://travis-ci.org/CS2113-AY1819S1-F10-1/main.svg?branch=master[Build Status]]
