@@ -89,7 +89,7 @@ Format: `listmenu`
 
 ==== List Menu According to Category
 
-Shows a list of the menu items of a particular category type (e.g main, sides). +
+Shows a list of the menu items of a particular category type, as shown in the Main Menu (e.g main, sides). +
 
 Each menu item include details of: menu item, price, type and any relevant tags. +
 
