@@ -1,8 +1,2 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<Rms>
-    <menus>
-        <name>cheese burger</name>
-        <price>$5.00</price>
-        <type>main</type>
-    </menus>
-</Rms>
+<Rms/>

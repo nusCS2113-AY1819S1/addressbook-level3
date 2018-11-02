@@ -19,7 +19,7 @@ public class MenuListByTypeCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ":\n"
             + "Displays all food item of a specific category in the Rms system as a list with index numbers.\n\t"
-            + "Example: " + COMMAND_WORD + "main";
+            + "Example: " + COMMAND_WORD + " main";
 
     public static final String MESSAGE_ERROR = "Invalid menu type searched! " + "\n"
              + "Only the following types are available: main, sides, beverage, dessert, others, set meals." + "\n"
