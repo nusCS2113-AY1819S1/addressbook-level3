@@ -14,8 +14,9 @@ endif::[]
 
 == Introduction
 ClassRepo is targeted at secondary school users who *prefer to use a desktop app for managing their school details*.
-ClassRepo is *optimized for those who prefer to work with a Command Line Interface* (CLI). Interested? Jump to the
-<<Quick Start>> to get started. Enjoy!
+ClassRepo is *optimized for those who prefer to work with a Command Line Interface* (CLI). +
+
+Interested? Jump to the <<Quick Start>> to get started. Enjoy!
 
 == Quick Start
 
@@ -62,7 +63,7 @@ Below are the commands that deals with privilege:
 ==== Raises your privilege level : `raise` image:Basic.png[16,16]
 
 Raises the privilege level to Admin. Requires the master password. +
-Format: `viewall PASSWORD`
+Format: `raise PASSWORD`
 
 [NOTE]
 ====
@@ -99,7 +100,7 @@ Changes the master password to "new_pw".
 
 ==== Sets default privilege : `perm` image:Admin.png[16,16]
 
-Sets/Unsets the privilege to be Admin when starting a session. +
+Sets/Unsets the privilege to be Admin when starting a new session. +
 Format: `perm BOOLEAN`
 
 ****
@@ -181,7 +182,7 @@ Example(s):
 Returns `John Doe` but not `john`.
 
 * `find Betsy Tim John` +
-Returns Any person having names `Betsy`, `Tim`, or `John`.
+Returns any persons having names `Betsy`, `Tim`, or `John`.
 
 ==== Deleting a person : `delete` image:Admin.png[16,16]
 
@@ -190,7 +191,7 @@ Format: `delete INDEX`
 
 ****
 Deletes the person at the specified `INDEX`.
-The index refers to the index number shown in the most recent listing.
+The index refers to the index number shown in the most recent person listing.
 ****
 
 Example(s):
@@ -210,7 +211,7 @@ Format: `view INDEX`
 
 ****
 Views the person at the specified `INDEX`.
-The index refers to the index number shown in the most recent listing.
+The index refers to the index number shown in the most recent person listing.
 ****
 
 Example(s):
@@ -230,7 +231,7 @@ Format: `viewall INDEX`
 
 ****
 Views all details of the person at the specified `INDEX`.
-The index refers to the index number shown in the most recent listing.
+The index refers to the index number shown in the most recent person listing.
 ****
 
 Example(s):
@@ -252,6 +253,79 @@ Format: `viewself`
 
 Clears all entries from the address book. +
 Format: `clear`
+
+// tag::account[]
+[[account]]
+=== Account Commands
+Below are the commands that deal with accounts:
+
+==== Add an account to a person: `addacc` image:Admin.png[16,16]
+Adds an account to the target person. +
+Format: `addacc INDEX USERNAME PASSWORD PRIVILEGE_LEVEL`
+
+****
+Creates an account for the person with INDEX as specified by the last shown person listing. +
+USERNAME and PASSWORD will be used for logging in. +
+****
+
+[NOTE]
+=====
+PRIVILEGE_LEVEL can be of type "Basic", "Tutor" or "Admin".
+=====
+
+Example(s):
+
+* `list`  +
+`addacc 1 JohnDoe1337 P455W0RD Admin` +
+Adds an account with the username of `JohnDoe1337`, password of `P455W0RD` and privilege level of `Admin` 
+to the first person in the list.
+
+==== Delete the account of a person: `delacc` image:Admin.png[16,16]
+Deletes the account of the target person. +
+Format: `delacc INDEX`
+
+****
+Deletes the account of the person with INDEX as specified by the last shown list.
+****
+
+Example(s):
+
+* `list`  +
+`delacc 1` +
+Deletes the account of the first person in the list, provided that he has an account.
+
+==== Login to an account: `login` image:Basic.png[16,16]
+Log in to the account with the specified username and password. +
+Format: `login USERNAME PASSWORD`
+
+****
+Logs into the account with the given USERNAME and PASSWORD. +
+Sets the current privilege level to that of the account.
+****
+
+Example(s):
+
+* `login JohnDoe1337 P455W0RD` +
+Login an account with the username of `JohnDoe1337` and password of `P455W0RD`, provided it exists.
+
+==== Logout of an account: `logout` image:Basic.png[16,16]
+Logout of the current account. +
+Format: `logout`
+
+****
+Logout from the currently signed in account. +
+Also resets the privilege back to the level of a Basic User.
+****
+
+Example(s):
+
+* `logout` +
+Logs out of the current account, provided there is privilege or account to relinquish.
+
+==== Displays the list of people with account: `listacc` image:Basic.png[16,16]
+Shows a list of all persons with an account in the address book. +
+Format: `listacc`
+// end::account[]
 
 //tag::Exam[]
 === Exam Commands
@@ -411,7 +485,7 @@ Format: `viewfees INDEX`
 
 ****
 Views the fees of the person at the specified `INDEX`.
-The index refers to the index number shown in the most recent listing.
+The index refers to the index number shown in the most recent person listing.
 ****
 
 Example(s):
@@ -453,78 +527,6 @@ Views all information of the 1st person in the results of the `listdue` command.
 Including the "feesdue" tag.
 
 //end::Fees[]
-
-// tag::account[]
-[[account]]
-=== Account Commands
-Below are the commands that deal with accounts:
-
-==== Add an account to a person: `addacc` image:Admin.png[16,16]
-Adds an account to the target person. +
-Format: `addacc INDEX USERNAME PASSWORD USER_TYPE`
-
-****
-Creates an account for the person with INDEX as specified by the last shown list.
-USERNAME and PASSWORD will be used for logging in. +
-****
-
-[NOTE]
-=====
-USER_TYPE can be of type "Basic", "Tutor" or "Admin".
-=====
-
-Example(s):
-
-* `list`  +
-`addacc 1 JohnDoe1337 P455W0RD Admin` +
-Adds an account with the username of `JohnDoe1337` and password of `P455W0RD` to the first person in the list.
-
-==== Delete the account of a person: `delacc` image:Admin.png[16,16]
-Deletes the account of the target person. +
-Format: `delacc INDEX`
-
-****
-Deletes the account of the person with INDEX as specified by the last shown list.
-****
-
-Example(s):
-
-* `list`  +
-`delacc 1` +
-Deletes the account of the first person in the list, provided that he has an account.
-
-==== Login to an account: `login` image:Basic.png[16,16]
-Log in to the account with the specified username and password. +
-Format: `login USERNAME PASSWORD`
-
-****
-Logs into the account with the given USERNAME and PASSWORD. +
-Sets the current privilege level to that of the account.
-****
-
-Example(s):
-
-* `login 1 JohnDoe1337 P455W0RD Admin` +
-Login an account with the username of `JohnDoe1337` and password of `P455W0RD`, provided it exists.
-
-==== Logout of an account: `logout` image:Basic.png[16,16]
-Logout of the current account. +
-Format: `logout`
-
-****
-Logout from the currently signed in account. +
-Also resets the privilege back to the level of a Basic User.
-****
-
-Example(s):
-
-* `logout` +
-Logs out of the current account, provided there is privilege or account to relinquish.
-
-==== Displays the list of people with account: `listacc` image:Basic.png[16,16]
-Shows a list of all persons with an account in the address book. +
-Format: `listacc`
-// end::account[]
 
 // tag::Grades[]
 
@@ -712,11 +714,14 @@ There is no need to save manually. Address book data, exam book data and statist
 == Handling Errors
 
 1. ClassRepo does not start up when running the jar file. +
-*Plausible cause*: `addressbook.txt`, `exambook.txt` or `statistic.txt` contains invalid data.
-*Solution*: Fix the data error in the problematic file. 
+*Plausible cause*: `addressbook.txt`, `exambook.txt` or `statistic.txt` contains invalid data. +
+*Solution*: Fix the data error in the problematic file. +
 Refer to `log.txt` to find the underlying error. +
 
 2. ClassRepo shuts down mid-operation. +
 *Plausible cause*: `addressbook.txt`, `exambook.txt` or `statistic.txt` was set to read-only during
-a data saving operation. ClassRepo shuts itself down to ensure synchronisation of AppData and storage data.
+a data saving operation. ClassRepo shuts itself down to ensure synchronisation of AppData and storage data. +
 *Solution*: Ensure that the data files are not set as read-only. 
+
+== Known Bugs
+1. ClassRepo ASCII art may be formatted wrongly on OS's such as Mac.
