@@ -22,7 +22,7 @@ public class MenuListByTypeCommand extends Command {
             + "Example: " + COMMAND_WORD + " main";
 
     public static final String MESSAGE_ERROR = "Invalid menu type searched! " + "\n"
-             + "Only the following types are available: main, sides, beverage, dessert, others, set meals." + "\n"
+             + "Only the following types are available: main, sides, beverage, dessert, others, set meal." + "\n"
              + "Only one type search allowed at a time!";
 
     private final String itemword;
