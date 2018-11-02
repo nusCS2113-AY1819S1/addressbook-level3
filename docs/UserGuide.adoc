@@ -1,4 +1,4 @@
-= User Guide
+﻿= User Guide
 :site-section: UserGuide
 :toc:
 :toc-title: An Overview of the User Guide:
@@ -320,7 +320,7 @@ If you encounter this, please feel free to let us know. Thank you!
 ====
 
 
-=== 4.14 Opening MediChat : `chat`
+=== 4.14 Opening MediChat : `chat` (Coming soon in v1.4)
 
 Opens up MediChat, an instant messaging client to instantly contact your colleagues.
 
