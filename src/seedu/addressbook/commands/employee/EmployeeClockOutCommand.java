@@ -6,9 +6,11 @@ import java.util.Set;
 
 import seedu.addressbook.commands.Command;
 import seedu.addressbook.commands.CommandResult;
+import seedu.addressbook.common.Messages;
 import seedu.addressbook.data.employee.Attendance;
 import seedu.addressbook.data.employee.EmployeeName;
 import seedu.addressbook.data.employee.Timing;
+
 
 /**
  * Clocks out for the specified employee based on the current time.
@@ -52,17 +54,21 @@ public class EmployeeClockOutCommand extends Command {
 
     @Override
     public CommandResult execute() {
-        int index = rms.findAttendanceIndex(name);
+        try {
+            int index = rms.findAttendanceIndex(name);
 
-        Attendance oldAttendance = rms.findAttendance(index);
-        boolean isClockedIn = oldAttendance.getClockedIn();
-        if (!isClockedIn) {
-            return new CommandResult(String.format(MESSAGE_NOT_YET_CLOCKED_IN, name));
+            Attendance oldAttendance = rms.findAttendance(index);
+            boolean isClockedIn = oldAttendance.getClockedIn();
+            if (!isClockedIn) {
+                return new CommandResult(String.format(MESSAGE_NOT_YET_CLOCKED_IN, name));
+            }
+
+            Attendance newAttendance = createNewAttendance(oldAttendance);
+
+            rms.updateAttendance(oldAttendance, newAttendance);
+            return new CommandResult(String.format(MESSAGE_SUCCESS, name, this.currentDate));
+        } catch (IndexOutOfBoundsException ie) {
+            return new CommandResult(Messages.MESSAGE_EMPLOYEE_NOT_IN_RMS);
         }
-
-        Attendance newAttendance = createNewAttendance(oldAttendance);
-
-        rms.updateAttendance(oldAttendance, newAttendance);
-        return new CommandResult(String.format(MESSAGE_SUCCESS, name, this.currentDate));
     }
 }
