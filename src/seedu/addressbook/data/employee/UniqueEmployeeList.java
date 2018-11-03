@@ -79,7 +79,8 @@ public class UniqueEmployeeList implements Iterable<Employee> {
      */
     public boolean containsDuplicate(ReadOnlyEmployee toCheck) {
         return employeeInternalList.stream()
-        .filter(o -> o.getName().equals(toCheck.getName())).findFirst().isPresent();
+        .filter(o -> o.getName().toString().toLowerCase()
+                .equals(toCheck.getName().toString().toLowerCase())).findFirst().isPresent();
     }
 
     /**
