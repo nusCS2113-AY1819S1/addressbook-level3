@@ -75,10 +75,11 @@ public class UniqueEmployeeList implements Iterable<Employee> {
     }
 
     /**
-     * Checks if the list contains an equivalent employee as the given argument.
+     * Checks if the list contains an employee that already exists in Rms.
      */
-    public boolean contains(ReadOnlyEmployee toCheck) {
-        return employeeInternalList.contains(toCheck);
+    public boolean containsDuplicate(ReadOnlyEmployee toCheck) {
+        return employeeInternalList.stream()
+        .filter(o -> o.getName().equals(toCheck.getName())).findFirst().isPresent();
     }
 
     /**
@@ -88,7 +89,7 @@ public class UniqueEmployeeList implements Iterable<Employee> {
      *     if the employee to add is a duplicate of an existing employee in the list.
      */
     public void add(Employee toAdd) throws UniqueEmployeeList.DuplicateEmployeeException {
-        if (contains(toAdd)) {
+        if (containsDuplicate(toAdd)) {
             throw new UniqueEmployeeList.DuplicateEmployeeException();
         }
         employeeInternalList.add(toAdd);
