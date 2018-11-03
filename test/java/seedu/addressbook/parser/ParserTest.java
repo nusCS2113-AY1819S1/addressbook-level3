@@ -10,17 +10,10 @@ import java.util.Set;
 import org.junit.Before;
 import org.junit.Test;
 
-import seedu.addressbook.commands.AddCommand;
-import seedu.addressbook.commands.ClearCommand;
 import seedu.addressbook.commands.Command;
-import seedu.addressbook.commands.DeleteCommand;
 import seedu.addressbook.commands.ExitCommand;
-import seedu.addressbook.commands.FindCommand;
 import seedu.addressbook.commands.HelpCommand;
 import seedu.addressbook.commands.IncorrectCommand;
-import seedu.addressbook.commands.ListCommand;
-import seedu.addressbook.commands.ViewAllCommand;
-import seedu.addressbook.commands.ViewCommand;
 import seedu.addressbook.commands.member.MemberAddCommand;
 import seedu.addressbook.commands.member.MemberListCommand;
 import seedu.addressbook.commands.menu.MenuAddCommand;
@@ -52,12 +45,6 @@ import seedu.addressbook.data.menu.MenuName;
 import seedu.addressbook.data.menu.Price;
 import seedu.addressbook.data.menu.ReadOnlyMenus;
 import seedu.addressbook.data.menu.Type;
-import seedu.addressbook.data.person.Address;
-import seedu.addressbook.data.person.Email;
-import seedu.addressbook.data.person.Name;
-import seedu.addressbook.data.person.Person;
-import seedu.addressbook.data.person.Phone;
-import seedu.addressbook.data.person.ReadOnlyPerson;
 import seedu.addressbook.data.tag.Tag;
 
 public class ParserTest {
@@ -93,21 +80,9 @@ public class ParserTest {
     }
 
     @Test
-    public void clearCommand_parsedCorrectly() {
-        final String input = "clear";
-        parseAndAssertCommandType(input, ClearCommand.class);
-    }
-
-    @Test
     public void menuClearCommand_parsedCorrectly() {
         final String input = "clearmenu";
         parseAndAssertCommandType(input, MenuClearCommand.class);
-    }
-
-    @Test
-    public void listCommand_parsedCorrectly() {
-        final String input = "list";
-        parseAndAssertCommandType(input, ListCommand.class);
     }
 
     @Test
@@ -207,26 +182,10 @@ public class ParserTest {
      */
 
     @Test
-    public void deleteCommand_noArgs() {
-        final String[] inputs = { "delete", "delete " };
-        final String resultMessage = String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT,
-                DeleteCommand.MESSAGE_USAGE);
-        parseAndAssertIncorrectWithMessage(resultMessage, inputs);
-    }
-
-    @Test
     public void menuDeleteCommand_noArgs() {
         final String[] inputs = { "deletemenu", "deletemenu " };
         final String resultMessage = String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT,
                 MenuDeleteCommand.MESSAGE_USAGE);
-        parseAndAssertIncorrectWithMessage(resultMessage, inputs);
-    }
-
-    @Test
-    public void deleteCommand_argsIsNotSingleNumber() {
-        final String[] inputs = { "delete notAnumber ", "delete 8*wh12", "delete 1 2 3 4 5" };
-        final String resultMessage = String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT,
-                DeleteCommand.MESSAGE_USAGE);
         parseAndAssertIncorrectWithMessage(resultMessage, inputs);
     }
 
@@ -239,49 +198,11 @@ public class ParserTest {
     }
 
     @Test
-    public void deleteCommand_numericArg_indexParsedCorrectly() {
-        final int testIndex = 1;
-        final String input = "delete " + testIndex;
-        final DeleteCommand result = parseAndAssertCommandType(input, DeleteCommand.class);
-        assertEquals(result.getTargetIndex(), testIndex);
-    }
-
-    @Test
     public void menuDeleteCommand_numericArg_indexParsedCorrectly() {
         final int testIndex = 1;
         final String input = "deletemenu " + testIndex;
         final MenuDeleteCommand result = parseAndAssertCommandType(input, MenuDeleteCommand.class);
         assertEquals(result.getTargetIndex(), testIndex);
-    }
-
-    @Test
-    public void viewCommand_noArgs() {
-        final String[] inputs = { "view", "view " };
-        final String resultMessage = String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, ViewCommand.MESSAGE_USAGE);
-        parseAndAssertIncorrectWithMessage(resultMessage, inputs);
-    }
-
-    @Test
-    public void viewCommand_argsIsNotSingleNumber() {
-        final String[] inputs = { "view notAnumber ", "view 8*wh12", "view 1 2 3 4 5" };
-        final String resultMessage = String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, ViewCommand.MESSAGE_USAGE);
-        parseAndAssertIncorrectWithMessage(resultMessage, inputs);
-    }
-
-    @Test
-    public void viewCommand_numericArg_indexParsedCorrectly() {
-        final int testIndex = 2;
-        final String input = "view " + testIndex;
-        final ViewCommand result = parseAndAssertCommandType(input, ViewCommand.class);
-        assertEquals(result.getTargetIndex(), testIndex);
-    }
-
-    @Test
-    public void viewAllCommand_noArgs() {
-        final String[] inputs = { "viewall", "viewall " };
-        final String resultMessage =
-                String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, ViewAllCommand.MESSAGE_USAGE);
-        parseAndAssertIncorrectWithMessage(resultMessage, inputs);
     }
 
     @Test
@@ -293,27 +214,11 @@ public class ParserTest {
     }
 
     @Test
-    public void viewAllCommand_argsIsNotSingleNumber() {
-        final String[] inputs = { "viewall notAnumber ", "viewall 8*wh12", "viewall 1 2 3 4 5" };
-        final String resultMessage = String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT,
-                ViewAllCommand.MESSAGE_USAGE);
-        parseAndAssertIncorrectWithMessage(resultMessage, inputs);
-    }
-
-    @Test
     public void menuViewAllCommand_argsIsNotSingleNumber() {
         final String[] inputs = { "viewallmenu notAnumber ", "viewallmenu 8*wh12", "viewallmenu 1 2 3 4 5" };
         final String resultMessage = String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT,
                 MenuViewAllCommand.MESSAGE_USAGE);
         parseAndAssertIncorrectWithMessage(resultMessage, inputs);
-    }
-
-    @Test
-    public void viewAllCommand_numericArg_indexParsedCorrectly() {
-        final int testIndex = 3;
-        final String input = "viewall " + testIndex;
-        final ViewAllCommand result = parseAndAssertCommandType(input, ViewAllCommand.class);
-        assertEquals(result.getTargetIndex(), testIndex);
     }
 
     @Test
@@ -378,18 +283,6 @@ public class ParserTest {
      */
 
     @Test
-    public void findCommand_invalidArgs() {
-        // no keywords
-        final String[] inputs = {
-            "find",
-            "find "
-        };
-        final String resultMessage =
-                String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE);
-        parseAndAssertIncorrectWithMessage(resultMessage, inputs);
-    }
-
-    @Test
     public void menuFindCommand_invalidArgs() {
         // no keywords
         final String[] inputs = {
@@ -399,17 +292,6 @@ public class ParserTest {
         final String resultMessage =
                 String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, MenuFindCommand.MESSAGE_USAGE);
         parseAndAssertIncorrectWithMessage(resultMessage, inputs);
-    }
-
-    @Test
-    public void findCommand_validArgs_parsedCorrectly() {
-        final String[] keywords = { "key1", "key2", "key3" };
-        final Set<String> keySet = new HashSet<>(Arrays.asList(keywords));
-
-        final String input = "find " + String.join(" ", keySet);
-        final FindCommand result =
-                parseAndAssertCommandType(input, FindCommand.class);
-        assertEquals(keySet, result.getKeywords());
     }
 
     @Test
@@ -424,18 +306,6 @@ public class ParserTest {
     }
 
     @Test
-    public void findCommand_duplicateKeys_parsedCorrectly() {
-        final String[] keywords = { "key1", "key2", "key3" };
-        final Set<String> keySet = new HashSet<>(Arrays.asList(keywords));
-
-        // duplicate every keyword
-        final String input = "find " + String.join(" ", keySet) + " " + String.join(" ", keySet);
-        final FindCommand result =
-                parseAndAssertCommandType(input, FindCommand.class);
-        assertEquals(keySet, result.getKeywords());
-    }
-
-    @Test
     public void menuFindCommand_duplicateKeys_parsedCorrectly() {
         final String[] keywords = { "key1", "key2", "key3" };
         final Set<String> keySet = new HashSet<>(Arrays.asList(keywords));
@@ -445,111 +315,6 @@ public class ParserTest {
         final MenuFindCommand result =
                 parseAndAssertCommandType(input, MenuFindCommand.class);
         assertEquals(keySet, result.getKeywords());
-    }
-
-    /**
-     * Test add person command
-     */
-
-    @Test
-    public void addCommand_invalidArgs() {
-        final String[] inputs = {
-            "add",
-            "add ",
-            "add wrong args format",
-                // no phone prefix
-                String.format("add $s $s e/$s a/$s", Name.EXAMPLE, Phone.EXAMPLE, Email.EXAMPLE, Address.EXAMPLE),
-                // no email prefix
-                String.format("add $s p/$s $s a/$s", Name.EXAMPLE, Phone.EXAMPLE, Email.EXAMPLE, Address.EXAMPLE),
-                // no address prefix
-                String.format("add $s p/$s e/$s $s", Name.EXAMPLE, Phone.EXAMPLE, Email.EXAMPLE, Address.EXAMPLE)
-        };
-        final String resultMessage = String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE);
-        parseAndAssertIncorrectWithMessage(resultMessage, inputs);
-    }
-
-
-    @Test
-    public void addCommand_invalidPersonDataInArgs() {
-        final String invalidName = "[]\\[;]";
-        final String validName = Name.EXAMPLE;
-        final String invalidPhoneArg = "p/not__numbers";
-        final String validPhoneArg = "p/" + Phone.EXAMPLE;
-        final String invalidEmailArg = "e/notAnEmail123";
-        final String validEmailArg = "e/" + Email.EXAMPLE;
-        final String invalidTagArg = "t/invalid_-[.tag";
-
-        // address can be any string, so no invalid address
-        final String addCommandFormatString = "add $s $s $s a/" + Address.EXAMPLE;
-
-        // test each incorrect person data field argument individually
-        final String[] inputs = {
-                // invalid name
-                String.format(addCommandFormatString, invalidName, validPhoneArg, validEmailArg),
-                // invalid phone
-                String.format(addCommandFormatString, validName, invalidPhoneArg, validEmailArg),
-                // invalid email
-                String.format(addCommandFormatString, validName, validPhoneArg, invalidEmailArg),
-                // invalid tag
-                String.format(addCommandFormatString, validName, validPhoneArg, validEmailArg) + " " + invalidTagArg
-        };
-        for (String input : inputs) {
-            parseAndAssertCommandType(input, IncorrectCommand.class);
-        }
-    }
-
-    @Test
-    public void addCommand_validPersonData_parsedCorrectly() {
-        final Person testPerson = generateTestPerson();
-        final String input = convertPersonToAddCommandString(testPerson);
-        final AddCommand result = parseAndAssertCommandType(input, AddCommand.class);
-        assertEquals(result.getPerson(), testPerson);
-    }
-
-
-    @Test
-    public void addCommand_duplicateTags_merged() throws IllegalValueException {
-        final Person testPerson = generateTestPerson();
-        String input = convertPersonToAddCommandString(testPerson);
-        for (Tag tag : testPerson.getTags()) {
-            // create duplicates by doubling each tag
-            input += " t/" + tag.tagName;
-        }
-
-        final AddCommand result = parseAndAssertCommandType(input, AddCommand.class);
-        assertEquals(result.getPerson(), testPerson);
-    }
-
-    /**
-     * Generate a Person for testing
-     */
-    private static Person generateTestPerson() {
-        try {
-            return new Person(
-                    new Name(Name.EXAMPLE),
-                    new Phone(Phone.EXAMPLE, true),
-                    new Email(Email.EXAMPLE, false),
-                    new Address(Address.EXAMPLE, true),
-                    new HashSet<>(Arrays.asList(new Tag("tag1"), new Tag("tag2"), new Tag("tag3")))
-            );
-        } catch (IllegalValueException ive) {
-            throw new RuntimeException("test person data should be valid by definition");
-        }
-    }
-
-    /**
-     * Return the command line used to add the given Person to the address book
-     */
-    private static String convertPersonToAddCommandString(ReadOnlyPerson person) {
-        String addCommand = "add "
-                + person.getName().fullName
-                + (person.getPhone().isPrivate() ? " pp/" : " p/") + person.getPhone().value
-                + (person.getEmail().isPrivate() ? " pe/" : " e/") + person.getEmail().value
-                + (person.getAddress().isPrivate() ? " pa/" : " a/") + person.getAddress().value;
-        for (Tag tag : person.getTags()) {
-            addCommand += " t/" + tag.tagName;
-        }
-        return addCommand;
     }
 
     /**
@@ -579,7 +344,7 @@ public class ParserTest {
         final String invalidMenuName = "[]\\[;]";
         final String validMenuName = MenuName.EXAMPLE;
         final String invalidPriceArg = "p/not__numbers";
-        final String validPriceArg = "p/" + Phone.EXAMPLE;
+        final String validPriceArg = "p/" + Price.EXAMPLE;
         final String invalidTypeArg = "type/notType";
         final String validTypeArg = "type/" + Type.EXAMPLE;
         final String invalidTagArg = "t/invalid_-[.tag";
@@ -627,7 +392,6 @@ public class ParserTest {
         final MenuAddCommand result = parseAndAssertCommandType(input, MenuAddCommand.class);
         assertEquals(result.getMenu(), testMenu);
     }
-
 
     /**
      * Generate a menu item for testing
