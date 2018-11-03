@@ -17,7 +17,7 @@ import seedu.addressbook.common.Messages;
  */
 public class EmployeeClockInCommand extends Command {
 
-    public static final String COMMAND_WORD = "clockin";
+    public static final String COMMAND_WORD = "clockIn";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ":\n"
             + "Clocks in with the current time for the specified employee.\n\n"
