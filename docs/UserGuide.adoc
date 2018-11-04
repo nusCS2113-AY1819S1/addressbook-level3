@@ -42,6 +42,11 @@ image::Ui.png[]
 * *`exit`* : exits the app
 .  Refer to <<Features>> for details of each command.
 
+== Important Terminology
+.  _A customer is anyone who wants to place an order._
+. _A member in the RMS is a registered customer who enjoys more benefits than an unregistered customer._
+. _A dish is a food item on the menu._
+
 [[Features]]
 == Features
 
@@ -275,11 +280,6 @@ Clocks out for the employee John Doe.
 
 ==== Add Order
 
-Important Terminology
-
-* _A customer is anyone who wants to place an order._
-* _A member in the RMS is a returning customer._
-
 image::AddOrderInstruction.png[]
 
 To add a new order to the order list, a draft must be completed before adding it to the order list. +
@@ -297,9 +297,8 @@ Displays the current draft, steps to add an order and the list of order draft co
 Format: `addorder`
 
 
-_The following step is only necessary if the customer is a member._
-
 * *Select A Member As The Customer Of The Draft* +
+_The following step is only necessary if the customer is a member._
 +
 Select a member from the last shown member list to be the customer of the draft order. +
 +
