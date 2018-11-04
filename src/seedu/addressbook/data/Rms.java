@@ -10,6 +10,7 @@ import seedu.addressbook.data.employee.UniqueAttendanceList;
 import seedu.addressbook.data.employee.UniqueEmployeeList;
 import seedu.addressbook.data.employee.UniqueEmployeeList.DuplicateEmployeeException;
 import seedu.addressbook.data.employee.UniqueEmployeeList.EmployeeNotFoundException;
+import seedu.addressbook.data.exception.IllegalValueException;
 import seedu.addressbook.data.member.Member;
 import seedu.addressbook.data.member.ReadOnlyMember;
 import seedu.addressbook.data.member.UniqueMemberList;
@@ -340,11 +341,23 @@ public class Rms {
         draftOrder.setCustomer(customer);
     }
 
+    public ReadOnlyMember getMemberFromDraftOrder() {
+        return draftOrder.getCustomer();
+    }
+
     /**
      * Adjust the dish and its quantity in the draft order to add, remove or edit dish items in the draft.
      */
     public void editDraftOrderDishItem(ReadOnlyMenus dish, int quantity) {
         draftOrder.changeDishQuantity(dish, quantity);
+    }
+
+    /**
+     * Edit the number of points to be redeemed
+     */
+    public void editDraftOrderPoints(int points) {
+        draftOrder.setPoints(points);
+        draftOrder.setPrice(draftOrder.calculatePrice(points));
     }
 
     public void clearDraftOrder() {

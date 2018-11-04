@@ -25,9 +25,10 @@ public class Points {
      * @param price of the order being made
      * @return updated points
      */
-    protected Points updatePoints(double price) {
+    protected Points updatePoints(double price, int pointsToRedeem) {
         try {
             this.value += ((int) price) / 10;
+            this.value -= pointsToRedeem;
             if (this.value < 0) {
                 throw new IllegalValueException(MESSAGE_NEGATIVE_POINTS);
             }
@@ -41,6 +42,10 @@ public class Points {
 
     public int getPoints() {
         return this.value;
+    }
+
+    public void setPoints(int points) {
+        this.value = points;
     }
 
     @Override

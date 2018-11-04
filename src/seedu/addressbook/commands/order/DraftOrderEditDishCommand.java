@@ -4,6 +4,7 @@ import seedu.addressbook.commands.Command;
 import seedu.addressbook.commands.CommandResult;
 import seedu.addressbook.common.Messages;
 import seedu.addressbook.data.menu.ReadOnlyMenus;
+import seedu.addressbook.data.order.ReadOnlyOrder;
 
 /**
  * Edit the quantity of a dish item of the draft order.
@@ -14,8 +15,8 @@ public class DraftOrderEditDishCommand extends Command {
     public static final String COMMAND_WORD = "draftdish";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ":\n"
-            + "Add a customer to the draft order. "
-            + "The customer is identified using the index from the last shown menu list. \n\t"
+            + "Add a dish to the draft order. "
+            + "The dish is identified using the index from the last shown menu list. \n\t"
             + "Parameters: INDEX q/QUANTITY\n\t"
             + "Example: " + COMMAND_WORD + " 3 q/4";
 
