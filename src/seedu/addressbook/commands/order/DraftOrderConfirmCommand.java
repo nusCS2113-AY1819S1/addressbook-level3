@@ -33,7 +33,7 @@ public class DraftOrderConfirmCommand extends Command {
                 final ReadOnlyMember customerOfOrderToAdd = draftOrder.getCustomer();
                 final Order toAdd = new Order(customerOfOrderToAdd, draftOrder.getDishItems(), draftOrder.getPoints());
                 final int pointsToRedeem = draftOrder.getPoints();
-                final double finalPrice = toAdd.getPrice() - toAdd.getPoints();
+                final double finalPrice = toAdd.calculatePrice(pointsToRedeem);
                 if (rms.containsMember(customerOfOrderToAdd)) {
                     customerOfOrderToAdd.updatePointsAndTier(finalPrice, pointsToRedeem);
                 }
