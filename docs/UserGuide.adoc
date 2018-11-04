@@ -298,7 +298,7 @@ Format: `addorder`
 
 
 * *Select A Member As The Customer Of The Draft* +
-_The following step is only necessary if the customer is a member._
+_This step is only necessary if the customer is a member._
 +
 Select a member from the last shown member list to be the customer of the draft order. +
 +
