@@ -6,11 +6,10 @@ import java.util.Set;
 
 import seedu.addressbook.commands.Command;
 import seedu.addressbook.commands.CommandResult;
+import seedu.addressbook.common.Messages;
 import seedu.addressbook.data.employee.Attendance;
 import seedu.addressbook.data.employee.EmployeeName;
 import seedu.addressbook.data.employee.Timing;
-
-import seedu.addressbook.common.Messages;
 
 /**
  * Clocks in for the specified employee based on the current time.
