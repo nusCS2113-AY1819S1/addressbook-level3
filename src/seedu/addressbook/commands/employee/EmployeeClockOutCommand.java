@@ -24,7 +24,7 @@ public class EmployeeClockOutCommand extends Command {
             + "Example: " + COMMAND_WORD + " "
             + EmployeeName.EXAMPLE;
 
-    public static final String MESSAGE_SUCCESS = "%1$s clocked out on %2$s at %3$ss.";
+    public static final String MESSAGE_SUCCESS = "%1$s clocked out on %2$s at %3$s.";
     public static final String MESSAGE_NOT_YET_CLOCKED_IN = "%1$s needs to clock in first in order to clock out.";
 
     private final String name;
