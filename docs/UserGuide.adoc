@@ -106,6 +106,8 @@ System shows all the main dishes in the menu.
 Shows the detail of the a menu item with a particular index. +
 Format: `viewallmenu INDEX`
 
+* The command is only executable after running the `listmenutype TYPE` or `findmenu KEYWORD` commands
+
 Example: +
 `listmenutype main` +
 `viewallmenu 1` +
@@ -160,12 +162,12 @@ Finds the menu item(s) related to the keywords typed in by the user. +
 Format: `findmenu KEYWORD [MORE KEYWORDS]`
 
 * A list of menu items with names related to the keyword(s) will be displayed.
-* The command is case sensitive.
+* The command is case insensitive.
 * Order of keywords do not matter.
 
 Example: +
 `findmenu Burger Coke Fries` +
-Returns Double Cheese Burger, Veggie Burger, Coke, Coke Zero, Fries, Curly Fries
+Returns Double Cheese burger, Veggie Burger, Coke, coke zero, Fries, Curly Fries
 // end::menucommands[]
 //==== Update Menu
 //

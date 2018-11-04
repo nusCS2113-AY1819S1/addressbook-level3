@@ -1303,6 +1303,26 @@ public class LogicTest {
     }
 
     @Test
+    public void execute_findmenu_isInCaseSensitive() throws Exception {
+        TestDataHelper helper = new TestDataHelper();
+        Menu mTarget1 = helper.generateMenuWithName("bla bla KEY bla");
+        Menu mTarget2 = helper.generateMenuWithName("bla KeY bla bceofeia");
+        Menu mTarget3 = helper.generateMenuWithName("key key");
+        Menu m2 = helper.generateMenuWithName("sduauo");
+
+        List<Menu> fourMenus = helper.generateMenuList(mTarget1, m2, mTarget2, mTarget3);
+        Rms expectedRms = helper.generateRmsMenu(fourMenus);
+        List<Menu> expectedList = helper.generateMenuList(mTarget1, mTarget2, mTarget3);
+        helper.addToRmsMenu(rms, fourMenus);
+
+        assertMenuCommandBehavior("findmenu KEY",
+                Command.getMessageForMenuListShownSummary(expectedList),
+                expectedRms,
+                true,
+                expectedList);
+    }
+
+    @Test
     public void execute_findmenu_matchesIfAnyKeywordPresent() throws Exception {
         TestDataHelper helper = new TestDataHelper();
         Menu mTarget1 = helper.generateMenuWithName("Cheese Taco");
