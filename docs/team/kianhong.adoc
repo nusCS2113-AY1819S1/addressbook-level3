@@ -5,13 +5,28 @@
 
 == PROJECT: Restaurant Management System
 
+Need to use more YOU statements
+
 ---
 
-== Overview
+== Introduction
 
-Restaurant Management System (RMS) is a desktop restaurant management application used to help restaurant managers oversee their various processes in a more elegant and efficient way.
+The purpose of this portfolio is to detail my contributions for the project.
+
+The project is an idea that we have come up together with as a team as we aim to help improve the aims of Singapore or
+wanting to be a smart nation.
+
+Restaurant Management System is an application to help restaurants run more
+efficiently and effectively by enhancing and automating different processes in the restaurant. From order taking to
+employee management, many aspects of running a restaurant are covered.
+
+The main features of the Restaurant Management System is Menu management, Order management, Employee management,
+Member management and Statistics.
 
 == Summary of contributions
+|===
+|_Given below are the contributions that I have done for the project._
+|===
 
 * *Major enhancement*: Added employee management features.
 ** What it does: Allows restaurant mangers using the system to list, add, edit and delete employees from the system. Additionally, employees of the restaurant can clock in and clock out their attendance in the system.
