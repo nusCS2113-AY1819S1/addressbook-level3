@@ -729,7 +729,7 @@ public class LogicTest {
         Points expectedPoints = new Points();
 
         Member m1 = helper.eve();
-        m1.updatePoints(-50);
+        m1.updatePoints(-50, 0);
         Points actualPoints = m1.getPoints();
 
         assertEquals(expectedPoints.getPoints(), actualPoints.getPoints());

@@ -21,6 +21,7 @@ import seedu.addressbook.data.employee.EmployeePhone;
 import seedu.addressbook.data.employee.EmployeePosition;
 import seedu.addressbook.data.member.Member;
 import seedu.addressbook.data.member.MemberName;
+import seedu.addressbook.data.member.Points;
 import seedu.addressbook.data.menu.Menu;
 import seedu.addressbook.data.menu.MenuName;
 import seedu.addressbook.data.menu.Price;
@@ -89,7 +90,7 @@ class TestDataHelper {
     }
 
     /**
-     * Generate an map of dish items for testing purpose
+     * Generate a map of dish items for testing purpose
      */
     Map<ReadOnlyMenus, Integer> foodItems() throws Exception {
         Map<ReadOnlyMenus, Integer> foods = new HashMap<>();
@@ -98,12 +99,19 @@ class TestDataHelper {
     }
 
     /**
+     * Generate empty points to redeem for testing purpose
+     */
+    int pointsToRedeem() throws Exception {
+        return new Points().getPoints();
+    };
+
+    /**
      * Generate an order for testing purpose
      */
     Order foodOrder() throws Exception {
         long orderingTime = 1000;
         Date orderingDate = new Date(orderingTime);
-        return new Order(eve(), orderingDate, foodItems());
+        return new Order(eve(), orderingDate, foodItems(), pointsToRedeem());
     }
 
     /**
@@ -112,7 +120,7 @@ class TestDataHelper {
     Order foodOrderWithoutCustomer() throws Exception {
         long orderingTime = 1000;
         Date orderingDate = new Date(orderingTime);
-        return new Order(new Member(), orderingDate, foodItems());
+        return new Order(new Member(), orderingDate, foodItems(), pointsToRedeem());
     }
 
     /**
@@ -121,7 +129,7 @@ class TestDataHelper {
     Order foodOrderWithoutDishes() throws Exception {
         long orderingTime = 1000;
         Date orderingDate = new Date(orderingTime);
-        return new Order(eve(), orderingDate, new HashMap<>());
+        return new Order(eve(), orderingDate, new HashMap<>(), pointsToRedeem());
     }
 
     /**
@@ -216,7 +224,8 @@ class TestDataHelper {
         return new Order(
                 generateMember(seed),
                 new Date(Math.abs(seed)),
-                generateDishItems(seed)
+                generateDishItems(seed),
+                new Points().getPoints()
         );
     }
 
@@ -593,7 +602,8 @@ class TestDataHelper {
         return new Order(
                 generateMemberWithName(name),
                 new Date(5000),
-                generateDishItemsWithName(name)
+                generateDishItemsWithName(name),
+                new Points().getPoints()
         );
     }
 

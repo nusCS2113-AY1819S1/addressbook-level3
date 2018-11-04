@@ -53,6 +53,8 @@ public class AdaptedOrder {
     private long date;
     @XmlElement(required = true)
     private double price;
+    @XmlElement(required = true)
+    private int points;
 
     @XmlElement
     private List<AdaptedDishItem> dishItems = new ArrayList<>();
@@ -71,6 +73,7 @@ public class AdaptedOrder {
         customer = new AdaptedMember(source.getCustomer());
         date = source.getDate().getTime();
         price = source.getPrice();
+        points = source.getPoints();
 
         dishItems = new ArrayList<>();
         for (Map.Entry<ReadOnlyMenus, Integer> m: source.getDishItems().entrySet()) {
@@ -112,7 +115,8 @@ public class AdaptedOrder {
         final ReadOnlyMember customer = retrieveMember(customerClone, memberList);
         final Date date = new Date(this.date);
         final double price = this.price;
-        return new Order(customer, date, price, dishItems);
+        final int pointsToRedeem = this.points;
+        return new Order(customer, date, price, dishItems, pointsToRedeem);
     }
 
     /**
