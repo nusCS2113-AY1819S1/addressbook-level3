@@ -27,7 +27,6 @@ public class EmployeeClockInCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "%1$s clocked in on %2$s.";
     public static final String MESSAGE_NOT_YET_CLOCKED_OUT = "%1$s needs to clock out first in order to clock in.";
-    public static final String MESSAGE_INVALID_EMPLOYEE_INDEX_ = "Employee could not be found in Rms.";
 
     private final String name;
 
@@ -70,8 +69,9 @@ public class EmployeeClockInCommand extends Command {
 
             rms.updateAttendance(oldAttendance, newAttendance);
             return new CommandResult(String.format(MESSAGE_SUCCESS, name, this.currentDate));
-        } catch (IndexOutOfBoundsException ie) {
-            return new CommandResult(MESSAGE_INVALID_EMPLOYEE_INDEX_);
+        }
+        catch (IndexOutOfBoundsException ie) {
+            return new CommandResult(Messages.MESSAGE_EMPLOYEE_NOT_IN_RMS);
         }
     }
 }
