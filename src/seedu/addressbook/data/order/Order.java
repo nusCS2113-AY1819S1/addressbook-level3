@@ -6,6 +6,7 @@ import java.util.Map;
 import java.util.Objects;
 
 import seedu.addressbook.data.member.Member;
+import seedu.addressbook.data.member.Points;
 import seedu.addressbook.data.member.ReadOnlyMember;
 import seedu.addressbook.data.menu.Menu;
 import seedu.addressbook.data.menu.ReadOnlyMenus;
@@ -18,6 +19,7 @@ public class Order implements ReadOnlyOrder {
 
     private ReadOnlyMember customer;
     private Date date;
+    private Points points;
     private double price;
 
     /**
@@ -33,36 +35,44 @@ public class Order implements ReadOnlyOrder {
     public Order() {
         this.customer = new Member();
         this.date = new Date();
+        this.points = new Points();
         this.price = 0;
     }
 
     /**
      * Constructor for new order to be added to the order list.
      */
-    public Order(ReadOnlyMember customer, Map<ReadOnlyMenus, Integer> dishItems) {
+    public Order(ReadOnlyMember customer, Map<ReadOnlyMenus, Integer> dishItems, int pointsToRedeem) {
         this.customer = customer;
         this.dishItems.putAll(dishItems);
-        this.price = calculatePrice();
+        this.price = calculatePrice(pointsToRedeem);
+        this.points = new Points(pointsToRedeem);
         this.date = new Date();
     }
 
     /**
      * Constructor for edited order to keep the original ordered date.
      */
-    public Order(ReadOnlyMember customer, Date date, Map<ReadOnlyMenus, Integer> dishItems) {
+    public Order(ReadOnlyMember customer, Date date, Map<ReadOnlyMenus, Integer> dishItems, int pointsToRedeem) {
         this.customer = customer;
         this.dishItems.putAll(dishItems);
-        this.price = calculatePrice();
+        this.price = calculatePrice(pointsToRedeem);
+        this.points = new Points(pointsToRedeem);
         this.date = date;
     }
 
     /**
      * Full constructor.
      */
-    public Order(ReadOnlyMember customer, Date date, double price, Map<ReadOnlyMenus, Integer> dishItems) {
+    public Order(ReadOnlyMember customer,
+                 Date date,
+                 double price,
+                 Map<ReadOnlyMenus, Integer> dishItems,
+                 int pointsToRedeem) {
         this.customer = customer;
         this.dishItems.putAll(dishItems);
         this.price = price;
+        this.points = new Points(pointsToRedeem);
         this.date = date;
     }
 
@@ -70,7 +80,7 @@ public class Order implements ReadOnlyOrder {
      * Copy constructor.
      */
     public Order(ReadOnlyOrder source) {
-        this(source.getCustomer(), source.getDate(), source.getPrice(), source.getDishItems());
+        this(source.getCustomer(), source.getDate(), source.getPrice(), source.getDishItems(), source.getPoints());
     }
 
     @Override
@@ -91,6 +101,27 @@ public class Order implements ReadOnlyOrder {
         return price;
     }
 
+    public void setPrice(double value) {
+        price = value;
+    }
+
+    @Override
+    public int getPoints() {
+        return points.getPoints();
+    }
+
+    public int getPointsEarned() {
+        if (customer.getName().equals(new Member().getName())) {
+            return points.getPoints();
+        }
+        return (int) price / 10;
+    }
+
+    @Override
+    public void setPoints(int value) {
+        points.setPoints(value);
+    }
+
     @Override
     public Map<ReadOnlyMenus, Integer> getDishItems() {
         return new HashMap<>(dishItems);
@@ -103,22 +134,23 @@ public class Order implements ReadOnlyOrder {
     /**
      * Replaces the list of dish items with the dish items in {@code replacement}.
      */
-    public void setDishItems(Map<ReadOnlyMenus, Integer> replacement) {
+    public void setDishItems(Map<ReadOnlyMenus, Integer> replacement, int pointsToRedeem) {
         dishItems.clear();
         dishItems.putAll(replacement);
-        price = calculatePrice();
+        price = calculatePrice(pointsToRedeem);
     }
 
     /**
      * Calculate and return the total price of an order.
      */
-    public double calculatePrice() {
+    public double calculatePrice(int points) {
         double result = 0;
         for (Map.Entry<ReadOnlyMenus, Integer> m: getDishItems().entrySet()) {
             double dishPrice = m.getKey().getPrice().convertValueOfPricetoDouble();
             int dishQuantity = m.getValue();
             result += (dishPrice * dishQuantity);
         }
+        result -= points; // 10 points = $1
         return result;
     }
 
@@ -144,7 +176,7 @@ public class Order implements ReadOnlyOrder {
         } else if (quantity > 0) {
             dishItems.put(dish, quantity);
         }
-        price = calculatePrice();
+        price = calculatePrice(points.getPoints());
     }
 
     @Override
@@ -155,6 +187,11 @@ public class Order implements ReadOnlyOrder {
     @Override
     public boolean hasDishItems() {
         return !(dishItems.isEmpty());
+    }
+
+    @Override
+    public boolean hasPointsField() {
+        return !(points.equals(new Points()));
     }
 
     @Override

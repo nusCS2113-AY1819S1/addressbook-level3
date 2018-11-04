@@ -340,11 +340,23 @@ public class Rms {
         draftOrder.setCustomer(customer);
     }
 
+    public ReadOnlyMember getMemberFromDraftOrder() {
+        return draftOrder.getCustomer();
+    }
+
     /**
      * Adjust the dish and its quantity in the draft order to add, remove or edit dish items in the draft.
      */
     public void editDraftOrderDishItem(ReadOnlyMenus dish, int quantity) {
         draftOrder.changeDishQuantity(dish, quantity);
+    }
+
+    /**
+     * Edit the number of points to be redeemed
+     */
+    public void editDraftOrderPoints(int points) {
+        draftOrder.setPoints(points);
+        draftOrder.setPrice(draftOrder.calculatePrice(points));
     }
 
     public void clearDraftOrder() {

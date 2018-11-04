@@ -42,6 +42,7 @@ import seedu.addressbook.commands.order.DraftOrderClearCommand;
 import seedu.addressbook.commands.order.DraftOrderConfirmCommand;
 import seedu.addressbook.commands.order.DraftOrderEditCustomerCommand;
 import seedu.addressbook.commands.order.DraftOrderEditDishCommand;
+import seedu.addressbook.commands.order.DraftOrderEditPointsCommand;
 import seedu.addressbook.commands.order.OrderAddCommand;
 import seedu.addressbook.commands.order.OrderClearCommand;
 import seedu.addressbook.commands.order.OrderDeleteCommand;
@@ -108,6 +109,8 @@ public class Parser {
                     + "(?<tagArguments>(?: t/[^/]+)*)"); // variable number of tags
 
     public static final Pattern ORDER_DISH_ARGS_FORMAT = Pattern.compile("(?<targetIndex>.+)\\s+q/(?<quantity>.+)");
+
+    public static final Pattern REDEEM_POINTS_ARGS_FORMAT = Pattern.compile("(?<points>[^/]+)");
 
     public static final String STATSMENU_DATE_ARGS_FORMAT_PATTERN_COMPILE_STRING =
             "(f\\/(?<dateFrom>(0[1-9]|[12]\\d|3[01])(0[1-9]|1[0-2])[12]\\d{3}))?"
@@ -214,6 +217,9 @@ public class Parser {
 
         case DraftOrderEditDishCommand.COMMAND_WORD:
             return prepareDraftOrderEditDish(arguments);
+
+        case DraftOrderEditPointsCommand.COMMAND_WORD:
+            return prepareDraftOrderEditPoints(arguments);
 
         case DraftOrderClearCommand.COMMAND_WORD:
             return new DraftOrderClearCommand();
@@ -692,6 +698,24 @@ public class Parser {
         } catch (ParseException | NumberFormatException e) {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     DraftOrderEditDishCommand.MESSAGE_USAGE));
+        }
+    }
+
+    /**
+     *  Parses arguments in the context of the edit draft points command.
+     */
+    private Command prepareDraftOrderEditPoints(String args) {
+        try {
+            final Matcher matcher = REDEEM_POINTS_ARGS_FORMAT.matcher(args.trim());
+            // Validate arg string format
+            if (!matcher.matches()) {
+                throw new ParseException("Could not find the points to redeem");
+            }
+            final int points = Integer.parseInt(matcher.group("points"));
+            return new DraftOrderEditPointsCommand(points);
+        } catch (ParseException | NumberFormatException e) {
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    DraftOrderEditPointsCommand.MESSAGE_USAGE));
         }
     }
 
