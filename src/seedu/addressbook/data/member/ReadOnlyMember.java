@@ -11,11 +11,13 @@ public interface ReadOnlyMember {
 
     MemberName getName();
     Points getPoints();
-    Points updatePoints(double price);
-    void updatePointsAndTier(double price);
+    Points updatePoints(double price, int pointsToRedeem);
+    void updatePointsAndTier(double price, int pointsToRedeem);
     Date getDate();
     MemberTier getMemberTier();
     MemberTier updateTier(Points points);
+    int getPointsValue();
+    void setPoints(int value);
 
 
     /**
@@ -58,6 +60,17 @@ public interface ReadOnlyMember {
         builder.append(getName());
         builder.append(" Points: ").append(getPoints());
         builder.append(" Date: ").append(getDate());
+        builder.append(" Tier: ").append(getMemberTier().toString());
+        return builder.toString();
+    }
+
+    /**
+     * Formats a person as text, showing only non-private contact details and hide membership date.
+     */
+    default String getAsTextInOrderList() {
+        final StringBuilder builder = new StringBuilder();
+        builder.append(getName());
+        builder.append(" Points: ").append(getPoints());
         builder.append(" Tier: ").append(getMemberTier().toString());
         return builder.toString();
     }

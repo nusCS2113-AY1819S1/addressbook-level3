@@ -36,11 +36,16 @@ image::Ui.png[]
 .  Some example commands you can try:
 
 * *`listmenu`* : lists all menu items
-* **`addmember`**`n/John Doe p/98765432 e/johnd@example.com d/10182017` : adds a member named `John Doe` to the Restaurant Management System.
+* **`addmember`**`John Doe` : adds a member named `John Doe` to the Restaurant Management System.
 * *`listorder`* : lists all orders in the order list.
 * **`deleteorder`**`3` : deletes the 3rd order shown in the last shown order list
 * *`exit`* : exits the app
 .  Refer to <<Features>> for details of each command.
+
+== Important Terminology
+.  _A customer is anyone who wants to place an order._
+. _A member in the RMS is a registered customer who enjoys more benefits than an unregistered customer._
+. _A dish is a food item on the menu._
 
 [[Features]]
 == Features
@@ -213,7 +218,7 @@ Format: `listemp`
 ==== Add Employee
 
 Adds a new employee to the RMS. +
-Format: `addemp n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS pos/POSITION`
+Format: `addemp NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS pos/POSITION`
 
 Example: +
  `addemp John Doe p/91234567 e/Example2018@rms.com a/Clementi Ave 2, Blk 543 #13-12 pos/Cashier` +
@@ -292,41 +297,46 @@ Clocks out for the employee John Doe.
 
 image::AddOrderInstruction.png[]
 
-To add new order to the order list, a draft must be completed before adding it to the order list. +
+To add a new order to the order list, a draft must be completed before adding it to the order list. +
 
-To do so, dishes must be added into the draft, and then it can be added into the order list after
+To do so, dishes must be added into the draft before it can be added into the order list after
 the draft is confirmed.
 
-Registered customer of the member list can be added into the order draft to accumulate member points
+If the customer happens to be a member, the customer's information can be found in the member list and can be added into the order draft to accumulate member points
 once the order is confirmed.
 
 * *Display Draft And Instruction For Adding New Order* +
 +
-Display the current draft and the list of order draft commands used for adding a new order +
+Displays the current draft, steps to add an order and the list of order draft commands that can be used +
 +
 Format: `addorder`
 
-* *Pick A Member As The Customer Of The Draft* +
+
+* *Select A Member As The Customer Of The Draft* +
+_This step is only necessary if the customer is a member._
 +
 Select a member from the last shown member list to be the customer of the draft order. +
 +
-The customer is retrieved with the index of last displayed member list. +
-+
 Format: `draftcustomer INDEX`
+
+** The index refers to the index number shown in the last shown member list.
 
 * *Edit A Dish Item Of The Draft* +
 +
 By picking a dish from the last shown menu and state the quantity to be added,
 a dish item can be added, deleted or edited in the draft order. +
 +
-The dish item is retrieved with the index of last displayed menu. +
-+
- ** If the quantity is set to 0, then the dish will be removed from the draft. +
+ ** If the quantity is set to 0, then the dish will be removed from the draft.
 +
  ** If the quantity of a dish that is currently not in the draft is set to a
  positive integer, then the dish and its quantity will be added into the draft.
 +
+ ** If the quantity of a dish that is currently in the draft is set to a positive
+ integer, then its quantity will be adjusted to the new value.
++
 Format: `draftdish INDEX q/QUANTITY`
+
+** The index refers to the index number shown in the last shown menu list.
 
 * *Clear Draft* +
 +
@@ -350,6 +360,8 @@ Delete an order. +
 The deleted order is specified by the index of that order on the last displayed order list. +
 
 Format: `deleteorder INDEX`
+
+* The index refers to the index number shown in the last shown order list.
 
 ==== Clear Order
 
@@ -446,7 +458,7 @@ There is no need to save manually.
 
 *List Emplyees* : `listemp`
 
-*Add Employee* : `addemp INDEX p/PHONE_NUMBER e/EMAIL a/ADDRESS pos/POSITION`
+*Add Employee* : `addemp NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS pos/POSITION`
 
 *Edit Employee* : `editemp INDEX [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [pos/POSITION]`
 

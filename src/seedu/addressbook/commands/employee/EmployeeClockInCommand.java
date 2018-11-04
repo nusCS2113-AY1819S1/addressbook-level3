@@ -6,6 +6,7 @@ import java.util.Set;
 
 import seedu.addressbook.commands.Command;
 import seedu.addressbook.commands.CommandResult;
+import seedu.addressbook.common.Messages;
 import seedu.addressbook.data.employee.Attendance;
 import seedu.addressbook.data.employee.EmployeeName;
 import seedu.addressbook.data.employee.Timing;
@@ -15,7 +16,7 @@ import seedu.addressbook.data.employee.Timing;
  */
 public class EmployeeClockInCommand extends Command {
 
-    public static final String COMMAND_WORD = "clockIn";
+    public static final String COMMAND_WORD = "clockin";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ":\n"
             + "Clocks in with the current time for the specified employee.\n\n"
@@ -54,17 +55,22 @@ public class EmployeeClockInCommand extends Command {
 
     @Override
     public CommandResult execute() {
-        int index = rms.findAttendanceIndex(name);
+        try {
+            int index = rms.findAttendanceIndex(name);
 
-        Attendance oldAttendance = rms.findAttendance(index);
-        boolean isClockedIn = oldAttendance.getClockedIn();
-        if (isClockedIn) {
-            return new CommandResult(String.format(MESSAGE_NOT_YET_CLOCKED_OUT, name));
+            Attendance oldAttendance = rms.findAttendance(index);
+            boolean isClockedIn = oldAttendance.getClockedIn();
+            if (isClockedIn) {
+                return new CommandResult(String.format(MESSAGE_NOT_YET_CLOCKED_OUT, name));
+            }
+
+            Attendance newAttendance = createNewAttendance(oldAttendance);
+
+            rms.updateAttendance(oldAttendance, newAttendance);
+            return new CommandResult(String.format(MESSAGE_SUCCESS, name, this.currentDate));
         }
-
-        Attendance newAttendance = createNewAttendance(oldAttendance);
-
-        rms.updateAttendance(oldAttendance, newAttendance);
-        return new CommandResult(String.format(MESSAGE_SUCCESS, name, this.currentDate));
+        catch (IndexOutOfBoundsException ie) {
+            return new CommandResult(Messages.MESSAGE_EMPLOYEE_NOT_IN_RMS);
+        }
     }
 }

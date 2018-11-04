@@ -10,16 +10,10 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
 
-import seedu.addressbook.commands.AddCommand;
-import seedu.addressbook.commands.ClearCommand;
 import seedu.addressbook.commands.Command;
 import seedu.addressbook.commands.CommandResult;
-import seedu.addressbook.commands.DeleteCommand;
 import seedu.addressbook.commands.ExitCommand;
-import seedu.addressbook.commands.FindCommand;
 import seedu.addressbook.commands.HelpCommand;
-import seedu.addressbook.commands.ViewAllCommand;
-import seedu.addressbook.commands.ViewCommand;
 import seedu.addressbook.commands.employee.EmployeeAddCommand;
 import seedu.addressbook.commands.employee.EmployeeDeleteCommand;
 import seedu.addressbook.commands.member.MemberAddCommand;
@@ -29,6 +23,13 @@ import seedu.addressbook.commands.menu.MenuDeleteCommand;
 import seedu.addressbook.commands.menu.MenuFindCommand;
 import seedu.addressbook.commands.menu.MenuListByTypeCommand;
 import seedu.addressbook.commands.menu.MenuViewAllCommand;
+import seedu.addressbook.commands.order.DraftOrderClearCommand;
+import seedu.addressbook.commands.order.DraftOrderConfirmCommand;
+import seedu.addressbook.commands.order.DraftOrderEditCustomerCommand;
+import seedu.addressbook.commands.order.DraftOrderEditDishCommand;
+import seedu.addressbook.commands.order.OrderAddCommand;
+import seedu.addressbook.commands.order.OrderClearCommand;
+import seedu.addressbook.commands.order.OrderDeleteCommand;
 import seedu.addressbook.commands.statistics.StatsMenuCommand;
 import seedu.addressbook.common.Messages;
 import seedu.addressbook.data.Rms;
@@ -48,10 +49,8 @@ import seedu.addressbook.data.menu.MenuName;
 import seedu.addressbook.data.menu.Price;
 import seedu.addressbook.data.menu.ReadOnlyMenus;
 import seedu.addressbook.data.menu.Type;
-import seedu.addressbook.data.person.Email;
-import seedu.addressbook.data.person.Name;
-import seedu.addressbook.data.person.Person;
-import seedu.addressbook.data.person.Phone;
+import seedu.addressbook.data.order.Order;
+import seedu.addressbook.data.order.ReadOnlyOrder;
 import seedu.addressbook.data.person.ReadOnlyPerson;
 import seedu.addressbook.data.tag.Tag;
 import seedu.addressbook.storage.StorageFile;
@@ -84,7 +83,9 @@ public class LogicTest {
         assertEquals(Collections.emptyList(), logic.getLastShownList());
         assertEquals(Collections.emptyList(), logic.getLastShownMenuList());
         assertEquals(Collections.emptyList(), logic.getLastShownEmployeeList());
+        assertEquals(Collections.emptyList(), logic.getLastShownAttendanceList());
         assertEquals(Collections.emptyList(), logic.getLastShownMemberList());
+        assertEquals(Collections.emptyList(), logic.getLastShownOrderList());
     }
 
     @Test
@@ -134,7 +135,7 @@ public class LogicTest {
 
     /**
      * Executes the Employee command and confirms that the result message is correct.
-     * Both the 'address book' and the 'last shown list' are expected to be empty.
+     * Both the 'rms' and the 'last shown list' are expected to be empty.
      * @see #assertEmployeeCommandBehavior(String, String, Rms, boolean, List)
      */
     private void assertEmployeeCommandBehavior(String inputCommand, String expectedMessage) throws Exception {
@@ -205,9 +206,10 @@ public class LogicTest {
         assertEquals(lastShownAttendanceList, logic.getLastShownAttendanceList());
         assertEquals(rms, saveFile.load());
     }
+
     /**
      * Executes the Member command and confirms that the result message is correct.
-     * Both the 'address book' and the 'last shown list' are expected to be empty.
+     * Both the 'rms' and the 'last shown list' are expected to be empty.
      * @see #assertMemberCommandBehavior(String, String, Rms, boolean, List)
      */
     private void assertMemberCommandBehavior(String inputCommand, String expectedMessage) throws Exception {
@@ -240,6 +242,44 @@ public class LogicTest {
         //Confirm the state of data is as expected
         assertEquals(expectedRms, rms);
         assertEquals(lastShownList, logic.getLastShownMemberList());
+        assertEquals(rms, saveFile.load());
+    }
+
+    /**
+     * Executes the Order command and confirms that the result message is correct.
+     * Both the 'rms' and the 'last shown list' are expected to be empty.
+     * @see #assertOrderCommandBehavior(String, String, Rms, boolean, List)
+     */
+    private void assertOrderCommandBehavior(String inputCommand, String expectedMessage) throws Exception {
+        assertOrderCommandBehavior(inputCommand, expectedMessage, Rms.empty(), false, Collections.emptyList());
+    }
+
+    /**
+     * Executes the command and confirms that the result message is correct and
+     * also confirms that the following three parts of the Logic object's state are as expected:<br>
+     *      - the internal rms data are same as those in the {@code expectedRms} <br>
+     *      - the internal 'last shown list' matches the {@code expectedLastList} <br>
+     *      - the storage file content matches data in {@code expectedRms} <br>
+     */
+    private void assertOrderCommandBehavior(String inputCommand,
+                                       String expectedMessage,
+                                       Rms expectedRms,
+                                       boolean isRelevantOrdersExpected,
+                                       List<? extends ReadOnlyOrder> lastShownList) throws Exception {
+
+        //Execute the command
+        CommandResult r = logic.execute(inputCommand);
+
+        //Confirm the result contains the right data
+        assertEquals(expectedMessage, r.feedbackToUser);
+        assertEquals(r.getRelevantOrders().isPresent(), isRelevantOrdersExpected);
+        if (isRelevantOrdersExpected) {
+            assertEquals(lastShownList, r.getRelevantOrders().get());
+        }
+
+        //Confirm the state of data is as expected
+        assertEquals(expectedRms, rms);
+        assertEquals(lastShownList, logic.getLastShownOrderList());
         assertEquals(rms, saveFile.load());
     }
 
@@ -334,356 +374,6 @@ public class LogicTest {
     @Test
     public void execute_exit() throws Exception {
         assertCommandBehavior("exit", ExitCommand.MESSAGE_EXIT_ACKNOWEDGEMENT);
-    }
-
-    @Test
-    public void execute_clear() throws Exception {
-        TestDataHelper helper = new TestDataHelper();
-        rms.addPerson(helper.generatePerson(1, true));
-        rms.addPerson(helper.generatePerson(2, true));
-        rms.addPerson(helper.generatePerson(3, true));
-
-        assertCommandBehavior("clear", ClearCommand.MESSAGE_SUCCESS, Rms.empty(), false, Collections.emptyList());
-    }
-
-    @Test
-    public void execute_add_invalidArgsFormat() throws Exception {
-        String expectedMessage = String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE);
-        assertCommandBehavior(
-                "add wrong args wrong args", expectedMessage);
-        assertCommandBehavior(
-                "add Valid Name 12345 e/valid@email.butNoPhonePrefix a/valid, address", expectedMessage);
-        assertCommandBehavior(
-                "add Valid Name p/12345 valid@email.butNoPrefix a/valid, address", expectedMessage);
-        assertCommandBehavior(
-                "add Valid Name p/12345 e/valid@email.butNoAddressPrefix valid, address", expectedMessage);
-    }
-
-    @Test
-    public void execute_add_invalidPersonData() throws Exception {
-        assertCommandBehavior(
-                "add []\\[;] p/12345 e/valid@e.mail a/valid, address", Name.MESSAGE_NAME_CONSTRAINTS);
-        assertCommandBehavior(
-                "add Valid Name p/not_numbers e/valid@e.mail a/valid, address", Phone.MESSAGE_PHONE_CONSTRAINTS);
-        assertCommandBehavior(
-                "add Valid Name p/12345 e/notAnEmail a/valid, address", Email.MESSAGE_EMAIL_CONSTRAINTS);
-        assertCommandBehavior(
-                "add Valid Name p/12345 e/valid@e.mail a/valid, address t/invalid_-[.tag", Tag.MESSAGE_TAG_CONSTRAINTS);
-
-    }
-
-    @Test
-    public void execute_add_successful() throws Exception {
-        // setup expectations
-        TestDataHelper helper = new TestDataHelper();
-        Person toBeAdded = helper.adam();
-        Rms expectedRms = new Rms();
-        expectedRms.addPerson(toBeAdded);
-
-        // execute command and verify result
-        assertCommandBehavior(helper.generateAddCommand(toBeAdded),
-                String.format(AddCommand.MESSAGE_SUCCESS, toBeAdded),
-                expectedRms,
-                false,
-                Collections.emptyList());
-
-    }
-
-    @Test
-    public void execute_addDuplicate_notAllowed() throws Exception {
-        // setup expectations
-        TestDataHelper helper = new TestDataHelper();
-        Person toBeAdded = helper.adam();
-        Rms expectedRms = new Rms();
-        expectedRms.addPerson(toBeAdded);
-
-        // setup starting state
-        rms.addPerson(toBeAdded); // person already in internal address book
-
-        // execute command and verify result
-        assertCommandBehavior(
-                helper.generateAddCommand(toBeAdded),
-                AddCommand.MESSAGE_DUPLICATE_PERSON,
-                expectedRms,
-                false,
-                Collections.emptyList());
-
-    }
-
-    @Test
-    public void execute_list_showsAllPersons() throws Exception {
-        // prepare expectations
-        TestDataHelper helper = new TestDataHelper();
-        Rms expectedRms = helper.generateRms(false, true);
-        List<? extends ReadOnlyPerson> expectedList = expectedRms.getAllPersons().immutableListView();
-
-        // prepare address book state
-        helper.addToRms(rms, false, true);
-
-        assertCommandBehavior("list",
-                Command.getMessageForPersonListShownSummary(expectedList),
-                expectedRms,
-                true,
-                expectedList);
-    }
-
-    @Test
-    public void execute_view_invalidArgsFormat() throws Exception {
-        String expectedMessage = String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, ViewCommand.MESSAGE_USAGE);
-        assertCommandBehavior("view ", expectedMessage);
-        assertCommandBehavior("view arg not number", expectedMessage);
-    }
-
-    @Test
-    public void execute_view_invalidIndex() throws Exception {
-        assertInvalidIndexBehaviorForCommand("view");
-    }
-
-    /**
-     * Confirms the 'invalid argument index number behaviour' for the given command
-     * targeting a single person in the last shown list, using visible index.
-     * @param commandWord to test assuming it targets a single person in the last shown list based on visible index.
-     */
-    private void assertInvalidIndexBehaviorForCommand(String commandWord) throws Exception {
-        String expectedMessage = Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX;
-        TestDataHelper helper = new TestDataHelper();
-        List<Person> lastShownList = helper.generatePersonList(false, true);
-
-        logic.setLastShownList(lastShownList);
-
-        assertCommandBehavior(commandWord + " -1", expectedMessage, Rms.empty(), false, lastShownList);
-        assertCommandBehavior(commandWord + " 0", expectedMessage, Rms.empty(), false, lastShownList);
-        assertCommandBehavior(commandWord + " 3", expectedMessage, Rms.empty(), false, lastShownList);
-
-    }
-
-    @Test
-    public void execute_view_onlyShowsNonPrivate() throws Exception {
-
-        TestDataHelper helper = new TestDataHelper();
-        Person p1 = helper.generatePerson(1, true);
-        Person p2 = helper.generatePerson(2, false);
-        List<Person> lastShownList = helper.generatePersonList(p1, p2);
-        Rms expectedRms = helper.generateRms(lastShownList);
-        helper.addToRms(rms, lastShownList);
-
-        logic.setLastShownList(lastShownList);
-
-        assertCommandBehavior("view 1",
-                String.format(ViewCommand.MESSAGE_VIEW_PERSON_DETAILS, p1.getAsTextHidePrivate()),
-                expectedRms,
-                false,
-                lastShownList);
-
-        assertCommandBehavior("view 2",
-                String.format(ViewCommand.MESSAGE_VIEW_PERSON_DETAILS, p2.getAsTextHidePrivate()),
-                expectedRms,
-                false,
-                lastShownList);
-    }
-
-    @Test
-    public void execute_tryToViewMissingPerson_errorMessage() throws Exception {
-        TestDataHelper helper = new TestDataHelper();
-        Person p1 = helper.generatePerson(1, false);
-        Person p2 = helper.generatePerson(2, false);
-        List<Person> lastShownList = helper.generatePersonList(p1, p2);
-
-        Rms expectedRms = new Rms();
-        expectedRms.addPerson(p2);
-
-        rms.addPerson(p2);
-        logic.setLastShownList(lastShownList);
-
-        assertCommandBehavior("view 1",
-                Messages.MESSAGE_PERSON_NOT_IN_ADDRESSBOOK,
-                expectedRms,
-                false,
-                lastShownList);
-    }
-
-    @Test
-    public void execute_viewAll_invalidArgsFormat() throws Exception {
-        String expectedMessage = String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, ViewAllCommand.MESSAGE_USAGE);
-        assertCommandBehavior("viewall ", expectedMessage);
-        assertCommandBehavior("viewall arg not number", expectedMessage);
-    }
-
-    @Test
-    public void execute_viewAll_invalidIndex() throws Exception {
-        assertInvalidIndexBehaviorForCommand("viewall");
-    }
-
-    @Test
-    public void execute_viewAll_alsoShowsPrivate() throws Exception {
-        TestDataHelper helper = new TestDataHelper();
-        Person p1 = helper.generatePerson(1, true);
-        Person p2 = helper.generatePerson(2, false);
-        List<Person> lastShownList = helper.generatePersonList(p1, p2);
-        Rms expectedRms = helper.generateRms(lastShownList);
-        helper.addToRms(rms, lastShownList);
-
-        logic.setLastShownList(lastShownList);
-
-        assertCommandBehavior("viewall 1",
-                String.format(ViewCommand.MESSAGE_VIEW_PERSON_DETAILS, p1.getAsTextShowAll()),
-                expectedRms,
-                false,
-                lastShownList);
-
-        assertCommandBehavior("viewall 2",
-                String.format(ViewCommand.MESSAGE_VIEW_PERSON_DETAILS, p2.getAsTextShowAll()),
-                expectedRms,
-                false,
-                lastShownList);
-    }
-
-    @Test
-    public void execute_tryToViewAllPersonMissingInAddressBook_errorMessage() throws Exception {
-        TestDataHelper helper = new TestDataHelper();
-        Person p1 = helper.generatePerson(1, false);
-        Person p2 = helper.generatePerson(2, false);
-        List<Person> lastShownList = helper.generatePersonList(p1, p2);
-
-        Rms expectedRms = new Rms();
-        expectedRms.addPerson(p1);
-
-        rms.addPerson(p1);
-        logic.setLastShownList(lastShownList);
-
-        assertCommandBehavior("viewall 2",
-                Messages.MESSAGE_PERSON_NOT_IN_ADDRESSBOOK,
-                expectedRms,
-                false,
-                lastShownList);
-    }
-
-    @Test
-    public void execute_delete_invalidArgsFormat() throws Exception {
-        String expectedMessage = String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE);
-        assertCommandBehavior("delete ", expectedMessage);
-        assertCommandBehavior("delete arg not number", expectedMessage);
-    }
-
-    @Test
-    public void execute_delete_invalidIndex() throws Exception {
-        assertInvalidIndexBehaviorForCommand("delete");
-    }
-
-    @Test
-    public void execute_delete_removesCorrectPerson() throws Exception {
-        TestDataHelper helper = new TestDataHelper();
-        Person p1 = helper.generatePerson(1, false);
-        Person p2 = helper.generatePerson(2, true);
-        Person p3 = helper.generatePerson(3, true);
-
-        List<Person> threePersons = helper.generatePersonList(p1, p2, p3);
-
-        Rms expectedRms = helper.generateRms(threePersons);
-        expectedRms.removePerson(p2);
-
-
-        helper.addToRms(rms, threePersons);
-        logic.setLastShownList(threePersons);
-
-        assertCommandBehavior("delete 2",
-                String.format(DeleteCommand.MESSAGE_DELETE_PERSON_SUCCESS, p2),
-                expectedRms,
-                false,
-                threePersons);
-    }
-
-    @Test
-    public void execute_delete_missingInAddressBook() throws Exception {
-
-        TestDataHelper helper = new TestDataHelper();
-        Person p1 = helper.generatePerson(1, false);
-        Person p2 = helper.generatePerson(2, true);
-        Person p3 = helper.generatePerson(3, true);
-
-        List<Person> threePersons = helper.generatePersonList(p1, p2, p3);
-
-        Rms expectedRms = helper.generateRms(threePersons);
-        expectedRms.removePerson(p2);
-
-        helper.addToRms(rms, threePersons);
-        rms.removePerson(p2);
-        logic.setLastShownList(threePersons);
-
-        assertCommandBehavior("delete 2",
-                Messages.MESSAGE_PERSON_NOT_IN_ADDRESSBOOK,
-                expectedRms,
-                false,
-                threePersons);
-    }
-
-    @Test
-    public void execute_find_invalidArgsFormat() throws Exception {
-        String expectedMessage = String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE);
-        assertCommandBehavior("find ", expectedMessage);
-    }
-
-
-    @Test
-    public void execute_find_onlyMatchesFullWordsInNames() throws Exception {
-        TestDataHelper helper = new TestDataHelper();
-        Person pTarget1 = helper.generatePersonWithName("bla bla KEY bla");
-        Person pTarget2 = helper.generatePersonWithName("bla KEY bla bceofeia");
-        Person p1 = helper.generatePersonWithName("KE Y");
-        Person p2 = helper.generatePersonWithName("KEYKEYKEY sduauo");
-
-        List<Person> fourPersons = helper.generatePersonList(p1, pTarget1, p2, pTarget2);
-        Rms expectedRms = helper.generateRms(fourPersons);
-        List<Person> expectedList = helper.generatePersonList(pTarget1, pTarget2);
-        helper.addToRms(rms, fourPersons);
-
-        assertCommandBehavior("find KEY",
-                Command.getMessageForPersonListShownSummary(expectedList),
-                expectedRms,
-                true,
-                expectedList);
-    }
-
-
-
-    @Test
-    public void execute_find_isCaseSensitive() throws Exception {
-        TestDataHelper helper = new TestDataHelper();
-        Person pTarget1 = helper.generatePersonWithName("bla bla KEY bla");
-        Person pTarget2 = helper.generatePersonWithName("bla KEY bla bceofeia");
-        Person p1 = helper.generatePersonWithName("key key");
-        Person p2 = helper.generatePersonWithName("KEy sduauo");
-
-        List<Person> fourPersons = helper.generatePersonList(p1, pTarget1, p2, pTarget2);
-        Rms expectedRms = helper.generateRms(fourPersons);
-        List<Person> expectedList = helper.generatePersonList(pTarget1, pTarget2);
-        helper.addToRms(rms, fourPersons);
-
-        assertCommandBehavior("find KEY",
-                Command.getMessageForPersonListShownSummary(expectedList),
-                expectedRms,
-                true,
-                expectedList);
-    }
-
-    @Test
-    public void execute_find_matchesIfAnyKeywordPresent() throws Exception {
-        TestDataHelper helper = new TestDataHelper();
-        Person pTarget1 = helper.generatePersonWithName("bla bla KEY bla");
-        Person pTarget2 = helper.generatePersonWithName("bla rAnDoM bla bceofeia");
-        Person p1 = helper.generatePersonWithName("key key");
-        Person p2 = helper.generatePersonWithName("KEy sduauo");
-
-        List<Person> fourPersons = helper.generatePersonList(p1, pTarget1, p2, pTarget2);
-        Rms expectedRms = helper.generateRms(fourPersons);
-        List<Person> expectedList = helper.generatePersonList(pTarget1, pTarget2);
-        helper.addToRms(rms, fourPersons);
-
-        assertCommandBehavior("find KEY rAnDoM",
-                Command.getMessageForPersonListShownSummary(expectedList),
-                expectedRms,
-                true,
-                expectedList);
     }
 
     @Test
@@ -852,9 +542,9 @@ public class LogicTest {
         Employee e1 = helper.generateEmployee(1);
         Employee e2 = helper.generateEmployee(2);
         Employee e3 = helper.generateEmployee(3);
-        Attendance a1 = helper.generateAttendnace(1);
-        Attendance a2 = helper.generateAttendnace(2);
-        Attendance a3 = helper.generateAttendnace(3);
+        Attendance a1 = helper.generateAttendance(1);
+        Attendance a2 = helper.generateAttendance(2);
+        Attendance a3 = helper.generateAttendance(3);
 
         List<Employee> lastShowEmployeeList = helper.generateEmployeeList(e1, e2, e3);
         List<Attendance> lastShownAttendanceList = helper.generateAttendanceList(a1, a2, a3);
@@ -1039,7 +729,7 @@ public class LogicTest {
         Points expectedPoints = new Points();
 
         Member m1 = helper.eve();
-        m1.updatePoints(-50);
+        m1.updatePoints(-50, 0);
         Points actualPoints = m1.getPoints();
 
         assertEquals(expectedPoints.getPoints(), actualPoints.getPoints());
@@ -1340,30 +1030,373 @@ public class LogicTest {
                 expectedList);
     }
 
+    @Test
+    public void execute_clearorder() throws Exception {
+        TestDataHelper helper = new TestDataHelper();
+        rms.addOrder(helper.generateOrder(1));
+        rms.addOrder(helper.generateOrder(2));
+        rms.addOrder(helper.generateOrder(3));
+
+        assertOrderCommandBehavior(
+                "clearorder",
+                OrderClearCommand.MESSAGE_SUCCESS,
+                Rms.empty(),
+                false,
+                Collections.emptyList());
+    }
+
+    @Test
+    public void execute_listorder_showsAllOrders() throws Exception {
+        // prepare expectations
+        TestDataHelper helper = new TestDataHelper();
+        Rms expectedRms = helper.generateRmsOrder(1, 2, 3, 4);
+        List<? extends ReadOnlyOrder> expectedList = expectedRms.getAllOrders().immutableListView();
+
+        // prepare address book state
+        helper.addOrdersToRms(rms, 1, 2, 3, 4);
+
+        assertOrderCommandBehavior("listorder",
+                Command.getMessageForOrderListShownSummary(expectedList),
+                expectedRms,
+                true,
+                expectedList);
+    }
+
+    /**
+     * Confirms the 'invalid argument index number behaviour' for the given command
+     * targeting a single person in the last shown list, using visible index.
+     * @param commandWord to test assuming it targets a single person in the last shown list based on visible index.
+     */
+    private void assertInvalidIndexBehaviorForOrderCommand(String commandWord) throws Exception {
+        String expectedMessage = Messages.MESSAGE_INVALID_ORDER_DISPLAYED_INDEX;
+        TestDataHelper helper = new TestDataHelper();
+        List<Order> lastShownList = helper.generateOrderList(1, 2);
+
+        logic.setLastShownOrderList(lastShownList);
+
+        assertOrderCommandBehavior(commandWord + " -1", expectedMessage, Rms.empty(), false, lastShownList);
+        assertOrderCommandBehavior(commandWord + " 0", expectedMessage, Rms.empty(), false, lastShownList);
+        assertOrderCommandBehavior(commandWord + " 3", expectedMessage, Rms.empty(), false, lastShownList);
+
+    }
+
+    @Test
+    public void execute_deleteorder_invalidArgsFormat() throws Exception {
+        String expectedMessage = String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT,
+                OrderDeleteCommand.MESSAGE_USAGE);
+        assertOrderCommandBehavior("deleteorder ", expectedMessage);
+        assertOrderCommandBehavior("deleteorder arg not number", expectedMessage);
+    }
+
+    @Test
+    public void execute_deleteorder_invalidIndex() throws Exception {
+        assertInvalidIndexBehaviorForOrderCommand("deleteorder");
+    }
+
+    @Test
+    public void execute_deleteorder_removesCorrectOrder() throws Exception {
+        TestDataHelper helper = new TestDataHelper();
+        Order o1 = helper.generateOrder(1);
+        Order o2 = helper.generateOrder(2);
+        Order o3 = helper.generateOrder(3);
+
+        List<Order> threeOrders = helper.generateOrderList(o1, o2, o3);
+
+        Rms expectedRms = helper.generateRmsOrder(threeOrders);
+        expectedRms.removeOrder(o2);
 
 
+        helper.addOrdersToRms(rms, threeOrders);
+        logic.setLastShownOrderList(threeOrders);
 
+        assertOrderCommandBehavior("deleteorder 2",
+                String.format(OrderDeleteCommand.MESSAGE_DELETE_ORDER_SUCCESS, o2),
+                expectedRms,
+                false,
+                threeOrders);
+    }
 
+    @Test
+    public void execute_deleteorder_missingInRms() throws Exception {
+        TestDataHelper helper = new TestDataHelper();
+        Order o1 = helper.generateOrder(1);
+        Order o2 = helper.generateOrder(2);
+        Order o3 = helper.generateOrder(3);
+
+        List<Order> threeOrders = helper.generateOrderList(o1, o2, o3);
+
+        Rms expectedRms = helper.generateRmsOrder(threeOrders);
+        expectedRms.removeOrder(o2);
+
+        helper.addOrdersToRms(rms, threeOrders);
+        rms.removeOrder(o2);
+        logic.setLastShownOrderList(threeOrders);
+
+        assertOrderCommandBehavior("deleteorder 2",
+                Messages.MESSAGE_ORDER_NOT_IN_ORDER_LIST,
+                expectedRms,
+                false,
+                threeOrders);
+    }
+
+    @Test
+    public void execute_draftcustomer_invalidArgsFormat() throws Exception {
+        String expectedMessage = String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT,
+                DraftOrderEditCustomerCommand.MESSAGE_USAGE);
+        assertOrderCommandBehavior("draftcustomer ", expectedMessage);
+        assertOrderCommandBehavior("draftcustomer arg not number", expectedMessage);
+    }
+
+    @Test
+    public void execute_draftcustomer_invalidIndex() throws Exception {
+        assertInvalidIndexBehaviorForMemberCommand("draftcustomer");
+    }
+
+    @Test
+    public void execute_draftcustomer_retrievesCorrectMember() throws Exception {
+        TestDataHelper helper = new TestDataHelper();
+        Member m1 = helper.generateMember(1);
+        Member m2 = helper.eve();
+        Member m3 = helper.generateMember(3);
+
+        List<Member> threeMembers = helper.generateMemberList(m1, m2, m3);
+
+        Rms expectedRms = helper.generateRmsMember(threeMembers);
+        Order expectedDraftOrder = helper.foodOrderWithoutDishes();
+
+        helper.addMembersToRms(rms, threeMembers);
+        logic.setLastShownMemberList(threeMembers);
+
+        String expectedMessage = DraftOrderEditCustomerCommand.MESSAGE_SUCCESS
+                + "\n" + Messages.MESSAGE_DRAFT_ORDER_DETAILS
+                + "\n" + expectedDraftOrder.getDraftDetailsAsText();
+
+        assertMemberCommandBehavior("draftcustomer 2",
+                expectedMessage,
+                expectedRms,
+                false,
+                threeMembers);
+    }
+
+    @Test
+    public void execute_draftcustomer_missingInRms() throws Exception {
+        TestDataHelper helper = new TestDataHelper();
+        Member m1 = helper.generateMember(1);
+        Member m2 = helper.generateMember(2);
+        Member m3 = helper.generateMember(3);
+
+        List<Member> threeMembers = helper.generateMemberList(m1, m2, m3);
+
+        Rms expectedRms = helper.generateRmsMember(threeMembers);
+        expectedRms.removeMember(m2);
+
+        helper.addMembersToRms(rms, threeMembers);
+        rms.removeMember(m2);
+        logic.setLastShownMemberList(threeMembers);
+
+        assertMemberCommandBehavior("draftcustomer 2",
+                Messages.MESSAGE_MEMBER_NOT_IN_RMS,
+                expectedRms,
+                false,
+                threeMembers);
+    }
+
+    @Test
+    public void execute_draftdish_invalidArgsFormat() throws Exception {
+        String expectedMessage = String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT,
+                DraftOrderEditDishCommand.MESSAGE_USAGE);
+        assertOrderCommandBehavior("draftdish", expectedMessage);
+        assertOrderCommandBehavior("draftdish ", expectedMessage);
+        assertOrderCommandBehavior("draftdish wrong args wrong args", expectedMessage);
+        assertOrderCommandBehavior("draftdish 1", expectedMessage);
+        assertOrderCommandBehavior("draftdish 1 2", expectedMessage);
+        assertOrderCommandBehavior("draftdish 1 q/", expectedMessage);
+        assertOrderCommandBehavior("draftdish q/2", expectedMessage);
+        assertOrderCommandBehavior("draftdish a q/2", expectedMessage);
+        assertOrderCommandBehavior("draftdish 1 q/b", expectedMessage);
+    }
+
+    @Test
+    public void execute_draftdish_invalidIndex() throws Exception {
+        String expectedMessage = Messages.MESSAGE_INVALID_MENU_ITEM_DISPLAYED_INDEX;
+        TestDataHelper helper = new TestDataHelper();
+        Menu m1 = helper.generateMenuItem(1);
+        Menu m2 = helper.generateMenuItem(2);
+        List<Menu> lastShownMenuList = helper.generateMenuList(m1, m2);
+
+        logic.setLastShownMenuList(lastShownMenuList);
+
+        assertMenuCommandBehavior("draftdish" + " -1 " + "q/1", expectedMessage, Rms.empty(), false, lastShownMenuList);
+        assertMenuCommandBehavior("draftdish" + " 0 " + "q/1", expectedMessage, Rms.empty(), false, lastShownMenuList);
+        assertMenuCommandBehavior("draftdish" + " 3 " + "q/1", expectedMessage, Rms.empty(), false, lastShownMenuList);
+    }
+
+    @Test
+    public void execute_draftdish_retrievesCorrectMenuItem() throws Exception {
+        TestDataHelper helper = new TestDataHelper();
+        Menu m1 = helper.generateMenuItem(1);
+        Menu m2 = helper.burger();
+        Menu m3 = helper.generateMenuItem(3);
+
+        List<Menu> threeMenus = helper.generateMenuList(m1, m2, m3);
+
+        Rms expectedRms = helper.generateRmsMenu(threeMenus);
+        Order expectedDraftOrder = helper.foodOrderWithoutCustomer();
+
+        helper.addToRmsMenu(rms, threeMenus);
+        logic.setLastShownMenuList(threeMenus);
+
+        String expectedMessage = DraftOrderEditDishCommand.MESSAGE_SUCCESS
+                + "\n" + Messages.MESSAGE_DRAFT_ORDER_DETAILS
+                + "\n" + expectedDraftOrder.getDraftDetailsAsText();
+
+        assertMenuCommandBehavior("draftdish 2 q/" + helper.FOOD_QUANTITY,
+                expectedMessage,
+                expectedRms,
+                false,
+                threeMenus);
+    }
+
+    @Test
+    public void execute_draftdish_missingInRms() throws Exception {
+        TestDataHelper helper = new TestDataHelper();
+        Menu m1 = helper.generateMenuItem(1);
+        Menu m2 = helper.generateMenuItem(2);
+        Menu m3 = helper.generateMenuItem(3);
+
+        List<Menu> threeMenus = helper.generateMenuList(m1, m2, m3);
+
+        Rms expectedRms = helper.generateRmsMenu(threeMenus);
+        expectedRms.removeMenuItem(m2);
+
+        helper.addToRmsMenu(rms, threeMenus);
+        rms.removeMenuItem(m2);
+        logic.setLastShownMenuList(threeMenus);
+
+        assertMenuCommandBehavior("draftdish 2 q/1",
+                Messages.MESSAGE_MENU_ITEM_NOT_IN_ADDRESSBOOK,
+                expectedRms,
+                false,
+                threeMenus);
+    }
+
+    @Test
+    public void execute_cleardraft() throws Exception {
+        TestDataHelper helper = new TestDataHelper();
+
+        Order expectedDraftOrder = new Order();
+        rms.editDraftOrderCustomer(helper.eve());
+        rms.editDraftOrderDishItem(helper.burger(), helper.FOOD_QUANTITY);
+
+        String expectedMessage = DraftOrderClearCommand.MESSAGE_SUCCESS
+                + "\n" + Messages.MESSAGE_DRAFT_ORDER_DETAILS
+                + "\n" + expectedDraftOrder.getDraftDetailsAsText();
+
+        assertOrderCommandBehavior("cleardraft", expectedMessage);
+    }
+
+    @Test
+    public void execute_addorder() throws Exception {
+        TestDataHelper helper = new TestDataHelper();
+
+        Order expectedDraftOrder = helper.foodOrder();
+        rms.editDraftOrderCustomer(helper.eve());
+        rms.editDraftOrderDishItem(helper.burger(), helper.FOOD_QUANTITY);
+
+        String expectedMessage = Messages.MESSAGE_DRAFT_ORDER_DETAILS
+                + "\n" + expectedDraftOrder.getDraftDetailsAsText()
+                + "\n\n" + OrderAddCommand.MESSAGE_ADD_ORDER_INSTRUCTION
+                + "\n\n" + OrderAddCommand.MESSAGE_ALL_ORDER_DRAFT_COMMANDS
+                + "\n\n" + OrderAddCommand.MESSAGE_ALL_ORDER_DRAFT_COMMANDS_USAGES;
+
+        assertOrderCommandBehavior("addorder", expectedMessage);
+    }
+
+    @Test
+    public void execute_addorder_missingCustomer() throws Exception {
+        TestDataHelper helper = new TestDataHelper();
+
+        Order expectedDraftOrder = helper.foodOrderWithoutCustomer();
+        rms.editDraftOrderDishItem(helper.burger(), helper.FOOD_QUANTITY);
+
+        String expectedMessage = Messages.MESSAGE_DRAFT_ORDER_DETAILS
+                + "\n" + expectedDraftOrder.getDraftDetailsAsText()
+                + "\n\n" + OrderAddCommand.MESSAGE_ADD_ORDER_INSTRUCTION
+                + "\n\n" + OrderAddCommand.MESSAGE_ALL_ORDER_DRAFT_COMMANDS
+                + "\n\n" + OrderAddCommand.MESSAGE_ALL_ORDER_DRAFT_COMMANDS_USAGES;
+
+        assertOrderCommandBehavior("addorder", expectedMessage);
+    }
+
+    @Test
+    public void execute_addorder_missingDishes() throws Exception {
+        TestDataHelper helper = new TestDataHelper();
+
+        Order expectedDraftOrder = helper.foodOrderWithoutDishes();
+        rms.editDraftOrderCustomer(helper.eve());
+
+        String expectedMessage = Messages.MESSAGE_DRAFT_ORDER_DETAILS
+                + "\n" + expectedDraftOrder.getDraftDetailsAsText()
+                + "\n\n" + OrderAddCommand.MESSAGE_ADD_ORDER_INSTRUCTION
+                + "\n\n" + OrderAddCommand.MESSAGE_ALL_ORDER_DRAFT_COMMANDS
+                + "\n\n" + OrderAddCommand.MESSAGE_ALL_ORDER_DRAFT_COMMANDS_USAGES;
+
+        assertOrderCommandBehavior("addorder", expectedMessage);
+    }
+
+    @Test
+    public void execute_addorder_missingCustomerAndDishes() throws Exception {
+        TestDataHelper helper = new TestDataHelper();
+
+        Order expectedDraftOrder = new Order();
+
+        String expectedMessage = Messages.MESSAGE_DRAFT_ORDER_DETAILS
+                + "\n" + expectedDraftOrder.getDraftDetailsAsText()
+                + "\n\n" + OrderAddCommand.MESSAGE_ADD_ORDER_INSTRUCTION
+                + "\n\n" + OrderAddCommand.MESSAGE_ALL_ORDER_DRAFT_COMMANDS
+                + "\n\n" + OrderAddCommand.MESSAGE_ALL_ORDER_DRAFT_COMMANDS_USAGES;
+
+        assertOrderCommandBehavior("addorder", expectedMessage);
+    }
+
+    @Test
+    public void execute_confirmorder_missingDishes() throws Exception {
+        TestDataHelper helper = new TestDataHelper();
+
+        Rms expectedRms = helper.generateRms();
+        Order expectedDraftOrder = helper.foodOrderWithoutDishes();
+        expectedRms.addOrder(expectedDraftOrder);
+
+        rms.editDraftOrderCustomer(helper.eve());
+
+        String expectedMessage = DraftOrderConfirmCommand.MESSAGE_DRAFT_INCOMPLETE
+                + "\n" + Messages.MESSAGE_DRAFT_ORDER_DETAILS
+                + "\n" + expectedDraftOrder.getDraftDetailsAsText();
+
+        assertOrderCommandBehavior("confirmdraft", expectedMessage);
+    }
 
     /*
     @Test
-    public void invalidMemberInOrder() throws Exception {
+    public void execute_confirmorder_missingCustomer() throws Exception {
         TestDataHelper helper = new TestDataHelper();
-        Member m1 = helper.generateMember(1);
-        Member toBeAdded = helper.eve();
-        Rms expectedRms = new Rms();
-        expectedRms.addMember(toBeAdded);
-        expectedRms.findMemberInOrder(m1);
-    }
 
-    @Test
-    public void validMemberInOrder() throws Exception {
-        TestDataHelper helper = new TestDataHelper();
-        Member m1 = helper.generateMember(1);
-        Rms expectedRms = new Rms();
-        expectedRms.addMember(m1);
-        expectedRms.findMemberInOrder(m1);
+        Rms expectedRms = helper.generateRms();
+        Order expectedDraftOrder = helper.foodOrderWithoutCustomer();
+        expectedRms.addOrder(expectedDraftOrder);
+
+        rms.editDraftOrderDishItem(helper.burger(), helper.FOOD_QUANTITY);
+
+        String expectedMessage = DraftOrderConfirmCommand.MESSAGE_SUCCESS
+                + "\n" + Command.getMessageForOrderListShownSummary(expectedRms.getAllOrders().immutableListView());
+
+        assertOrderCommandBehavior("confirmdraft",
+                expectedMessage,
+                expectedRms,
+                true,
+                threeOrders);
     }
     */
+
 }
 
