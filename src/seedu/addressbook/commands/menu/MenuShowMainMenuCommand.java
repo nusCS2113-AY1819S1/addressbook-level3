@@ -11,7 +11,7 @@ import seedu.addressbook.data.menu.ReadOnlyMenus;
  */
 public class MenuShowMainMenuCommand extends Command {
 
-    public static final String COMMAND_WORD = "showMainMenu";
+    public static final String COMMAND_WORD = "showmainmenu";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ":\n"
             + "Displays all the categories of menu items in the Rms system.\n\t"
