@@ -1327,7 +1327,7 @@ public class LogicTest {
         TestDataHelper helper = new TestDataHelper();
         Menu mTarget1 = helper.generateMenuWithName("Cheese Taco");
         Menu mTarget2 = helper.generateMenuWithName("Cheese Burger");
-        Menu m1 = helper.generateMenuWithName("CheeSe wrap");
+        Menu m1 = helper.generateMenuWithName("Cheessse wrap");
         Menu m2 = helper.generateMenuWithName("Grilled cheeeese sandwiches");
         List<Menu> fourMenus = helper.generateMenuList(m1, mTarget1, m2, mTarget2);
         Rms expectedRms = helper.generateRmsMenu(fourMenus);
