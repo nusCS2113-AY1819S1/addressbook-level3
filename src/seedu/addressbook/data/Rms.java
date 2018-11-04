@@ -189,7 +189,7 @@ public class Rms {
      * Checks if an equivalent employee exists in the Rms.
      */
     public boolean containsEmployee(ReadOnlyEmployee key) {
-        return allEmployees.contains(key);
+        return allEmployees.containsDuplicate(key);
     }
 
 
