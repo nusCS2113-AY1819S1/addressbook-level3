@@ -59,13 +59,17 @@ public class Member implements ReadOnlyMember {
         return points;
     }
 
-    public void setPoints(int value) { points.setPoints(value); }
+    public void setPoints(int value) {
+        points.setPoints(value);
+    }
 
     public Points updatePoints(double price, int pointsToRedeem) {
         return this.points.updatePoints(price, pointsToRedeem);
     }
 
-    public int getPointsValue() { return points.getPoints(); }
+    public int getPointsValue() {
+        return points.getPoints();
+    }
 
     public Date getDate() {
         return date;
