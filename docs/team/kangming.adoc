@@ -7,17 +7,29 @@
 
 ---
 
-== Overview
+== Overview of the Restaurant Management System
 
-Restaurant Management System (RMS) is a desktop restaurant management application used to help restaurant managers oversee their various processes in a more elegant and efficient way.
+Restaurant Management System (RMS) is a restaurant management solution that helps restauranteurs make more money, deliver great customer experience and bring honest and meaningful statistics to the table. The RMS was designed to improve the efficiency of completing mundane processes such as taking orders and counting the cash so that you can focus on the important things that matter - serving your customers with great food.
+
+This application is created by my team, which comprises of 5 people including myself, for the NUS module CS2113T titled, Software Engineering & Object-Oriented Programming. The project lasted for around 10 weeks and we were expected to work with an existing sample codebase given by the module. The objective was to innovate and develop the existing codebase into a desktop application for a specific group of users - restaurant owners.
+
+Below shows a screenshot of the basic and simple command-line-interface of the RMS:
+
+image::Ui.png[]
+
+_If you are looking for a detailed tutorial on how to use the RMS, please refer to our <<UserGuide#,*User Guide*>>._ +
+_If you are looking for the detailed architecture and design of the RMS or wish to contribute code to this application, please refer to our <<DeveloperGuide#,*Developer Guide*>>_
+
 
 == Summary of contributions
 
+The workflow of the RMS closely resembles that of an Agile framework. At the beginning of the project, we started off with an initial architectural modeling. The project required us to release a working version of our product almost every fortnightly. Within the team, we set weekly milestones and meetings to ensure that everyone is always on track with the development of the RMS. My role in the team was to be their team leader and be responsible for the overall project coordination. Throughout this development cycle, I have made various contributions to the team, from creating new features to be added into the RMS to writing tests and ensuring that each release is functional.
+
 * *Major enhancement*: Created a membership platform for the RMS
-** What it does: The membership platform allows the restaurant to keep track of its existing members and accumulate their membership points. It also allows the restaurant manager / cashier to list, add and delete members from the system.
-** Justification: This feature improves the product significantly because it is an innovative way for restaurants to retain their customers.
-** Highlights: It is essential that the membership system is well integrated together with the order system. This is to ensure that when an order is made by an existing member, the member's membership points will correspondingly be updated. Also, the commands implemented should be easy to understand and use for a non-tech savvy audience. It is important that the invalid command formats are properly taken care of in a way that it guides the user with examples on how to properly use the platform.
-** Credits: https://github.com/nusCS2113-AY1819S1/addressbook-level3
+** `What it does`: The membership platform allows the restaurant to keep track of its existing members and accumulate their membership points. It also allows the restaurant manager / cashier to list, add and delete members from the system.
+** `Justification`: This feature improves the product significantly because it is an innovative way for restaurants to retain their customers.
+** `Highlights`: It is essential that the membership system is well integrated together with the order system. This is to ensure that when an order is made by an existing member, the member's membership points will correspondingly be updated. Also, the commands implemented should be easy to understand and use for a non-tech savvy audience. It is important that the invalid command formats are properly taken care of in a way that it guides the user with examples on how to properly use the platform.
+** `Credits`: https://github.com/nusCS2113-AY1819S1/addressbook-level3
 
 * *Code contributed*: https://github.com/CS2113-AY1819S1-F09-2/main[Project Github Page]
 
@@ -59,6 +71,5 @@ include::../UserGuide.adoc[tag=membercommands]
 |===
 
 include::../DeveloperGuide.adoc[tag=architecture]
-include::../DeveloperGuide.adoc[tag=userstories]
 include::../DeveloperGuide.adoc[tag=MemberUseCases]
 
