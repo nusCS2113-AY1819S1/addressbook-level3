@@ -10,7 +10,6 @@ import seedu.addressbook.data.employee.UniqueAttendanceList;
 import seedu.addressbook.data.employee.UniqueEmployeeList;
 import seedu.addressbook.data.employee.UniqueEmployeeList.DuplicateEmployeeException;
 import seedu.addressbook.data.employee.UniqueEmployeeList.EmployeeNotFoundException;
-import seedu.addressbook.data.exception.IllegalValueException;
 import seedu.addressbook.data.member.Member;
 import seedu.addressbook.data.member.ReadOnlyMember;
 import seedu.addressbook.data.member.UniqueMemberList;

@@ -4,7 +4,6 @@ import seedu.addressbook.commands.Command;
 import seedu.addressbook.commands.CommandResult;
 import seedu.addressbook.common.Messages;
 import seedu.addressbook.data.menu.ReadOnlyMenus;
-import seedu.addressbook.data.order.ReadOnlyOrder;
 
 /**
  * Edit the quantity of a dish item of the draft order.

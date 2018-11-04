@@ -64,7 +64,11 @@ public class Order implements ReadOnlyOrder {
     /**
      * Full constructor.
      */
-    public Order(ReadOnlyMember customer, Date date, double price, Map<ReadOnlyMenus, Integer> dishItems, int pointsToRedeem) {
+    public Order(ReadOnlyMember customer,
+                 Date date,
+                 double price,
+                 Map<ReadOnlyMenus, Integer> dishItems,
+                 int pointsToRedeem) {
         this.customer = customer;
         this.dishItems.putAll(dishItems);
         this.price = price;
@@ -97,10 +101,14 @@ public class Order implements ReadOnlyOrder {
         return price;
     }
 
-    public void setPrice(double value) { price = value; }
+    public void setPrice(double value) {
+        price = value;
+    }
 
     @Override
-    public int getPoints() { return points.getPoints(); }
+    public int getPoints() {
+        return points.getPoints();
+    }
 
     public int getPointsEarned() {
         if (customer.getName().equals(new Member().getName())) {
@@ -110,7 +118,9 @@ public class Order implements ReadOnlyOrder {
     }
 
     @Override
-    public void setPoints(int value) { points.setPoints(value); }
+    public void setPoints(int value) {
+        points.setPoints(value);
+    }
 
     @Override
     public Map<ReadOnlyMenus, Integer> getDishItems() {
@@ -180,7 +190,9 @@ public class Order implements ReadOnlyOrder {
     }
 
     @Override
-    public boolean hasPointsField() { return !(points.equals(new Points())); }
+    public boolean hasPointsField() {
+        return !(points.equals(new Points()));
+    }
 
     @Override
     public boolean equals(Object other) {
