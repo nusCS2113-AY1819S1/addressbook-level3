@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Rms>
+    <persons>
+        <name>Wei Ming</name>
+        <phone isPrivate="false">93219416</phone>
+        <email isPrivate="false">email@email.com</email>
+        <address isPrivate="false">447</address>
+    </persons>
+    <persons>
+        <name>John Doe</name>
+        <phone isPrivate="false">98765432</phone>
+        <email isPrivate="false">johnd@gmail.com</email>
+        <address isPrivate="false">311, Clementi Ave 2, #02-25</address>
+        <tagged>owesMoney</tagged>
+        <tagged>friends</tagged>
+    </persons>
+    <persons>
+        <name>add John Doe</name>
+        <phone isPrivate="false">98765432</phone>
+        <email isPrivate="false">johnd@gmail.com</email>
+        <address isPrivate="false">311, Clementi Ave 2, #02-25</address>
+        <tagged>owesMoney</tagged>
+        <tagged>friends</tagged>
+    </persons>
+    <menus>
+        <name>Pizza</name>
+        <price isPrivate="false">$10.00</price>
+        <type isPrivate="false">burger</type>
+    </menus>
+    <menus>
+        <name>burger</name>
+        <price isPrivate="false">$5.00</price>
+        <type isPrivate="false">burger</type>
+    </menus>
+    <menus>
+        <name>cheesefries</name>
+        <price isPrivate="false">$5</price>
+        <type isPrivate="false">sides</type>
+    </menus>
+    <members>
+        <name>Kang Ming</name>
+        <points>0</points>
+    </members>
+    <employees>
+        <name>Peter Lee</name>
+        <phone>91234567</phone>
+        <email>PeterLee89@rms.com</email>
+        <address>Clementi Ave 2, Blk 543 #13-12 </address>
+        <position>Cashier</position>
+    </employees>
+</Rms>

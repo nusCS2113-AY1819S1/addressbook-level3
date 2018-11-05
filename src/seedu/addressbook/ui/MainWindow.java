@@ -6,9 +6,13 @@ import javafx.fxml.FXML;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import seedu.addressbook.commands.ExitCommand;
-import seedu.addressbook.logic.Logic;
 import seedu.addressbook.commands.CommandResult;
+import seedu.addressbook.data.member.ReadOnlyMember;
+import seedu.addressbook.data.menu.ReadOnlyMenus;
+import seedu.addressbook.data.order.ReadOnlyOrder;
 import seedu.addressbook.data.person.ReadOnlyPerson;
+import seedu.addressbook.data.employee.ReadOnlyEmployee;
+import seedu.addressbook.logic.Logic;
 
 import java.util.List;
 import java.util.Optional;
@@ -81,15 +85,28 @@ public class MainWindow {
     public void displayResult(CommandResult result) {
         clearOutputConsole();
         final Optional<List<? extends ReadOnlyPerson>> resultPersons = result.getRelevantPersons();
+        final Optional<List<? extends ReadOnlyMenus>> resultMenus = result.getRelevantMenus();
+        final Optional<List<? extends ReadOnlyOrder>> resultOrders = result.getRelevantOrders();
+        final Optional<List<? extends ReadOnlyMember>> resultMembers = result.getRelevantMember();
+        final Optional<List<? extends ReadOnlyEmployee>> resultEmployees = result.getRelevantEmployee();
         if(resultPersons.isPresent()) {
             display(resultPersons.get());
+        } else if (resultOrders.isPresent()) {
+            displayOrderResult(resultOrders.get());
+        } else if(resultMenus.isPresent()) {
+            displayMenuResult(resultMenus.get());
+        } else if(resultMembers.isPresent()) {
+            displayMemberResult(resultMembers.get());
+        } else if(resultEmployees.isPresent()) {
+            displayEmployeeResult(resultEmployees.get());
         }
         display(result.feedbackToUser);
     }
 
-    public void displayWelcomeMessage(String version, String storageFilePath) {
-        String storageFileInfo = String.format(MESSAGE_USING_STORAGE_FILE, storageFilePath);
-        display(MESSAGE_WELCOME, version, MESSAGE_PROGRAM_LAUNCH_ARGS_USAGE, storageFileInfo);
+    public void displayRmsWelcomeMessage(String version, String orderListStorageFilePath) {
+        String orderListStorageFileInfo = String.format(MESSAGE_USING_ORDER_LIST_STORAGE_FILE,
+                orderListStorageFilePath);
+        display(MESSAGE_WELCOME, version, MESSAGE_PROGRAM_LAUNCH_ARGS_USAGE, orderListStorageFileInfo);
     }
 
     /**
@@ -97,7 +114,38 @@ public class MainWindow {
      * Private contact details are hidden.
      */
     private void display(List<? extends ReadOnlyPerson> persons) {
+
         display(new Formatter().format(persons));
+    }
+
+    /**
+     * Displays the list of members in the output display area, formatted as an indexed list.
+     * Private contact details are hidden.
+     */
+    private void displayMemberResult(List<? extends ReadOnlyMember> members) {
+        display(new Formatter().formatMemberResult(members));
+    }
+
+    /**
+     * Displays the list of orders in the output display area, formatted as an indexed list.
+     * Private contact details are hidden.
+     */
+    private void displayOrderResult(List<? extends ReadOnlyOrder> orders) {
+        display(new Formatter().formatOrderResult(orders));
+    }
+
+    /**
+     * Displays the menu list in the output display area, formatted as an indexed list.
+     */
+    private void displayMenuResult(List<? extends ReadOnlyMenus> menus) {
+        display(new Formatter().formatMenuResult(menus));
+    }
+
+    /**
+     * Displays the employee list in the output display area, formatted as an indexed list.
+     */
+    private void displayEmployeeResult(List<? extends ReadOnlyEmployee> employees) {
+        display(new Formatter().formatEmployeeResult(employees));
     }
 
     /**

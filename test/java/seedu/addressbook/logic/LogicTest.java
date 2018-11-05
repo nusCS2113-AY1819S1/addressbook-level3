@@ -7,9 +7,17 @@ import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
 import seedu.addressbook.commands.CommandResult;
 import seedu.addressbook.commands.*;
+import seedu.addressbook.commands.employee.*;
+import seedu.addressbook.commands.member.MemberAddCommand;
+import seedu.addressbook.commands.menu.*;
 import seedu.addressbook.common.Messages;
-import seedu.addressbook.data.AddressBook;
+import seedu.addressbook.data.Rms;
+import seedu.addressbook.data.member.Member;
+import seedu.addressbook.data.member.Points;
+import seedu.addressbook.data.member.ReadOnlyMember;
 import seedu.addressbook.data.person.*;
+import seedu.addressbook.data.employee.*;
+import seedu.addressbook.data.menu.*;
 import seedu.addressbook.data.tag.Tag;
 import seedu.addressbook.storage.StorageFile;
 
@@ -28,15 +36,15 @@ public class LogicTest {
     public TemporaryFolder saveFolder = new TemporaryFolder();
 
     private StorageFile saveFile;
-    private AddressBook addressBook;
+    private Rms rms;
     private Logic logic;
 
     @Before
     public void setup() throws Exception {
         saveFile = new StorageFile(saveFolder.newFile("testSaveFile.txt").getPath());
-        addressBook = new AddressBook();
-        saveFile.save(addressBook);
-        logic = new Logic(saveFile, addressBook);
+        rms = new Rms();
+        saveFile.save(rms);
+        logic = new Logic(saveFile, rms);
     }
 
     @Test
@@ -45,6 +53,9 @@ public class LogicTest {
 
         //Confirm the last shown list is empty
         assertEquals(Collections.emptyList(), logic.getLastShownList());
+        assertEquals(Collections.emptyList(), logic.getLastShownMenuList());
+        assertEquals(Collections.emptyList(), logic.getLastShownEmployeeList());
+        assertEquals(Collections.emptyList(), logic.getLastShownMemberList());
     }
 
     @Test
@@ -57,24 +68,51 @@ public class LogicTest {
     /**
      * Executes the command and confirms that the result message is correct.
      * Both the 'address book' and the 'last shown list' are expected to be empty.
-     * @see #assertCommandBehavior(String, String, AddressBook, boolean, List)
+     * @see #assertCommandBehavior(String, String, Rms, boolean, List)
      */
     private void assertCommandBehavior(String inputCommand, String expectedMessage) throws Exception {
-        assertCommandBehavior(inputCommand, expectedMessage, AddressBook.empty(),false, Collections.emptyList());
+        assertCommandBehavior(inputCommand, expectedMessage, Rms.empty(),false, Collections.emptyList());
     }
+    /**
+     * Executes the Employee command and confirms that the result message is correct.
+     * Both the 'address book' and the 'last shown list' are expected to be empty.
+     * @see #assertEmployeeCommandBehavior(String, String, Rms, boolean, List)
+     */
+    private void assertEmployeeCommandBehavior(String inputCommand, String expectedMessage) throws Exception {
+        assertEmployeeCommandBehavior(inputCommand, expectedMessage, Rms.empty(),false, Collections.emptyList());
+    }
+
+    /**
+     * Executes the Member command and confirms that the result message is correct.
+     * Both the 'address book' and the 'last shown list' are expected to be empty.
+     * @see #assertMemberCommandBehavior(String, String, Rms, boolean, List)
+     */
+    private void assertMemberCommandBehavior(String inputCommand, String expectedMessage) throws Exception {
+        assertMemberCommandBehavior(inputCommand, expectedMessage, Rms.empty(),false, Collections.emptyList());
+    }
+
+    /**
+     * Executes the menu command and confirms that the result message is correct.
+     * Both the 'address book' and the 'last shown menu list' are expected to be empty.
+     * @see #assertMenuCommandBehavior(String, String, Rms, boolean, List)
+     */
+    private void assertMenuCommandBehavior(String inputCommand, String expectedMessage) throws Exception {
+        assertMenuCommandBehavior(inputCommand, expectedMessage, Rms.empty(), false, Collections.emptyList());
+    }
+
 
     /**
      * Executes the command and confirms that the result message is correct and
      * also confirms that the following three parts of the Logic object's state are as expected:<br>
-     *      - the internal address book data are same as those in the {@code expectedAddressBook} <br>
+     *      - the internal address book data are same as those in the {@code expectedRms} <br>
      *      - the internal 'last shown list' matches the {@code expectedLastList} <br>
-     *      - the storage file content matches data in {@code expectedAddressBook} <br>
+     *      - the storage file content matches data in {@code expectedRms} <br>
      */
     private void assertCommandBehavior(String inputCommand,
-                                      String expectedMessage,
-                                      AddressBook expectedAddressBook,
-                                      boolean isRelevantPersonsExpected,
-                                      List<? extends ReadOnlyPerson> lastShownList) throws Exception {
+                                       String expectedMessage,
+                                       Rms expectedRms,
+                                       boolean isRelevantPersonsExpected,
+                                       List<? extends ReadOnlyPerson> lastShownList) throws Exception {
 
         //Execute the command
         CommandResult r = logic.execute(inputCommand);
@@ -87,11 +125,98 @@ public class LogicTest {
         }
 
         //Confirm the state of data is as expected
-        assertEquals(expectedAddressBook, addressBook);
+        assertEquals(expectedRms, rms);
         assertEquals(lastShownList, logic.getLastShownList());
-        assertEquals(addressBook, saveFile.load());
+        assertEquals(rms, saveFile.load());
     }
 
+    /**
+     * Executes the command and confirms that the result message is correct and
+     * also confirms that the following three parts of the Logic object's state are as expected:<br>
+     *      - the internal address book data are same as those in the {@code expectedRms} <br>
+     *      - the internal 'last shown list' matches the {@code expectedLastList} <br>
+     *      - the storage file content matches data in {@code expectedRms} <br>
+     */
+    private void assertEmployeeCommandBehavior(String inputCommand,
+                                               String expectedMessage,
+                                               Rms expectedRms,
+                                               boolean isRelevantEmployeesExpected,
+                                               List<? extends ReadOnlyEmployee> lastShownList) throws Exception {
+
+        //Execute the command
+        CommandResult r = logic.execute(inputCommand);
+
+        //Confirm the result contains the right data
+        assertEquals(expectedMessage, r.feedbackToUser);
+        assertEquals(r.getRelevantEmployee().isPresent(), isRelevantEmployeesExpected);
+        if(isRelevantEmployeesExpected){
+            assertEquals(lastShownList, r.getRelevantEmployee().get());
+        }
+
+        //Confirm the state of data is as expected
+        assertEquals(expectedRms, rms);
+        assertEquals(lastShownList, logic.getLastShownEmployeeList());
+        assertEquals(rms, saveFile.load());
+    }
+
+    /**
+     * Executes the command and confirms that the result message is correct and
+     * also confirms that the following three parts of the Logic object's state are as expected:<br>
+     *      - the internal address book data are same as those in the {@code expectedRms} <br>
+     *      - the internal 'last shown list' matches the {@code expectedLastList} <br>
+     *      - the storage file content matches data in {@code expectedRms} <br>
+     */
+    private void assertMemberCommandBehavior(String inputCommand,
+                                               String expectedMessage,
+                                               Rms expectedRms,
+                                               boolean isRelevantMemberExpected,
+                                               List<? extends ReadOnlyMember> lastShownList) throws Exception {
+
+        //Execute the command
+        CommandResult r = logic.execute(inputCommand);
+
+        //Confirm the result contains the right data
+        assertEquals(expectedMessage, r.feedbackToUser);
+        assertEquals(r.getRelevantMember().isPresent(), isRelevantMemberExpected);
+        if(isRelevantMemberExpected){
+            assertEquals(lastShownList, r.getRelevantMember().get());
+        }
+
+        //Confirm the state of data is as expected
+        assertEquals(expectedRms, rms);
+        assertEquals(lastShownList, logic.getLastShownMemberList());
+        assertEquals(rms, saveFile.load());
+    }
+
+    /**
+     * Executes the menu command and confirms that the result message is correct and
+     * also confirms that the following three parts of the Logic object's state are as expected:<br>
+     *      - the internal address book data are same as those in the {@code expectedRms} <br>
+     *      - the internal 'last shown menu list' matches the {@code expectedLastList} <br>
+     *      - the storage file content matches data in {@code expectedRms} <br>
+     */
+    private void assertMenuCommandBehavior(String inputCommand,
+                                           String expectedMessage,
+                                           Rms expectedRms,
+                                           boolean isRelevantMenuItemsExpected,
+                                           List<? extends ReadOnlyMenus> lastShownMenuList) throws Exception {
+
+        //Execute the command
+        CommandResult r = logic.execute(inputCommand);
+
+        //Confirm the result contains the right data
+        assertEquals(expectedMessage, r.feedbackToUser);
+        assertEquals(r.getRelevantMenus().isPresent(), isRelevantMenuItemsExpected);
+        if(isRelevantMenuItemsExpected){
+            assertEquals(lastShownMenuList, r.getRelevantMenus().get());
+        }
+
+
+        //Confirm the state of data is as expected
+        assertEquals(expectedRms, rms);
+        assertEquals(lastShownMenuList, logic.getLastShownMenuList());
+        assertEquals(rms, saveFile.load());
+    }
 
     @Test
     public void execute_unknownCommandWord() throws Exception {
@@ -112,11 +237,11 @@ public class LogicTest {
     @Test
     public void execute_clear() throws Exception {
         TestDataHelper helper = new TestDataHelper();
-        addressBook.addPerson(helper.generatePerson(1, true));
-        addressBook.addPerson(helper.generatePerson(2, true));
-        addressBook.addPerson(helper.generatePerson(3, true));
+        rms.addPerson(helper.generatePerson(1, true));
+        rms.addPerson(helper.generatePerson(2, true));
+        rms.addPerson(helper.generatePerson(3, true));
 
-        assertCommandBehavior("clear", ClearCommand.MESSAGE_SUCCESS, AddressBook.empty(), false, Collections.emptyList());
+        assertCommandBehavior("clear", ClearCommand.MESSAGE_SUCCESS, Rms.empty(), false, Collections.emptyList());
     }
 
     @Test
@@ -133,6 +258,39 @@ public class LogicTest {
     }
 
     @Test
+    public void execute_addemp_invalidArgsFormat() throws Exception {
+        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, EmployeeAddCommand.MESSAGE_USAGE);
+        assertEmployeeCommandBehavior(
+                "addemp wrong args wrong args", expectedMessage);
+        assertEmployeeCommandBehavior(
+                "addemp Valid Name 12345 e/valid@email.butNoPhonePrefix a/valid, address pos/validPos", expectedMessage);
+        assertEmployeeCommandBehavior(
+                "addemp Valid Name p/12345 valid@email.butNoPrefix a/valid, address pos/validPos", expectedMessage);
+        assertEmployeeCommandBehavior(
+                "addemp Valid Name p/12345 e/valid@email.butNoAddressPrefix valid, address pos/validPos", expectedMessage);
+        assertCommandBehavior(
+                "addemp Valid Name p/12345 e/valid@email a/butNoAddressPrefix valid, address butNoPositionPrefix", expectedMessage);
+    }
+
+    @Test
+    public void execute_addmember_invalidArgsFormat() throws Exception {
+        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, MemberAddCommand.MESSAGE_USAGE);
+        assertMemberCommandBehavior(
+                "addmember Valid Name p/", expectedMessage);
+    }
+
+    @Test
+    public void execute_addmenu_invalidArgsFormat() throws Exception {
+        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, MenuAddCommand.MESSAGE_USAGE);
+        assertMenuCommandBehavior(
+                "addmenu wrong args wrong args", expectedMessage);
+        assertMenuCommandBehavior(
+                "addmenu Valid Name $12345", expectedMessage);
+        assertMenuCommandBehavior(
+                "addmenu Valid Name p/$12345 butNoTypePrefix", expectedMessage);
+    }
+
+    @Test
     public void execute_add_invalidPersonData() throws Exception {
         assertCommandBehavior(
                 "add []\\[;] p/12345 e/valid@e.mail a/valid, address", Name.MESSAGE_NAME_CONSTRAINTS);
@@ -146,19 +304,96 @@ public class LogicTest {
     }
 
     @Test
+    public void execute_addemp_invalidPersonData() throws Exception {
+        assertEmployeeCommandBehavior(
+                "addemp []\\[;] p/12345 e/valid@e.mail a/valid, address pos/validPos", EmployeeName.MESSAGE_NAME_CONSTRAINTS);
+        assertEmployeeCommandBehavior(
+                "addemp Valid Name p/not_numbers e/valid@e.mail a/valid, address pos/validPos", EmployeePhone.MESSAGE_PHONE_CONSTRAINTS);
+        assertEmployeeCommandBehavior(
+                "addemp Valid Name p/12345 e/notAnEmail a/valid, address pos/validPos", EmployeeEmail.MESSAGE_EMAIL_CONSTRAINTS);
+        assertEmployeeCommandBehavior(
+                "addemp Valid Name p/12345 e/valid@e.mail a/valid, address pos/@#%&%", EmployeePosition.MESSAGE_POSITION_CONSTRAINTS);
+
+    }
+
+    @Test
+    public void execute_addmenu_invalidMenuData() throws Exception {
+        assertMenuCommandBehavior(
+                "addmenu []\\[;] p/$12345 type/valid, type", MenuName.MESSAGE_NAME_CONSTRAINTS);
+        assertMenuCommandBehavior(
+                "addmenu Valid Name p/not_numbers type/valid, type", Price.MESSAGE_PRICE_CONSTRAINTS);
+        assertMenuCommandBehavior(
+                "addmenu Valid Name p/$12345 type/@#%&", Type.MESSAGE_TYPE_CONSTRAINTS);
+        assertMenuCommandBehavior(
+                "addmenu Valid Name p/$12345 type/valid, type t/invalid_-[.tag", Tag.MESSAGE_TAG_CONSTRAINTS);
+
+    }
+
+    @Test
     public void execute_add_successful() throws Exception {
         // setup expectations
         TestDataHelper helper = new TestDataHelper();
         Person toBeAdded = helper.adam();
-        AddressBook expectedAB = new AddressBook();
+        Rms expectedAB = new Rms();
         expectedAB.addPerson(toBeAdded);
 
         // execute command and verify result
         assertCommandBehavior(helper.generateAddCommand(toBeAdded),
-                              String.format(AddCommand.MESSAGE_SUCCESS, toBeAdded),
-                              expectedAB,
-                              false,
-                              Collections.emptyList());
+                String.format(AddCommand.MESSAGE_SUCCESS, toBeAdded),
+                expectedAB,
+                false,
+                Collections.emptyList());
+
+    }
+
+    @Test
+    public void execute_addemp_successful() throws Exception {
+        // setup expectations
+        TestDataHelper helper = new TestDataHelper();
+        Employee toBeAdded = helper.peter();
+        Rms expectedAB = new Rms();
+        expectedAB.addEmployee(toBeAdded);
+
+        // execute command and verify result
+        assertEmployeeCommandBehavior(helper.generateAddEmpCommand(toBeAdded),
+                String.format(EmployeeAddCommand.MESSAGE_SUCCESS, toBeAdded),
+                expectedAB,
+                false,
+                Collections.emptyList());
+
+    }
+
+    @Test
+    public void execute_addmember_successful() throws Exception {
+        // setup expectations
+        TestDataHelper helper = new TestDataHelper();
+        Member toAdd = helper.eve();
+        Rms expectedAB = new Rms();
+        expectedAB.addMember(toAdd);
+
+        // execute command and verify result
+        assertMemberCommandBehavior(helper.generateAddMemberCommand(toAdd),
+                String.format(MemberAddCommand.MESSAGE_SUCCESS, toAdd),
+                expectedAB,
+                false,
+                Collections.emptyList());
+
+    }
+
+    @Test
+    public void execute_addmenu_successful() throws Exception {
+        // setup expectations
+        TestDataHelper helper = new TestDataHelper();
+        Menu toBeAdded = helper.burger();
+        Rms expectedAB = new Rms();
+        expectedAB.addMenu(toBeAdded);
+
+        // execute command and verify result
+        assertMenuCommandBehavior(helper.generateMenuAddCommand(toBeAdded),
+                String.format(MenuAddCommand.MESSAGE_SUCCESS, toBeAdded),
+                expectedAB,
+                false,
+                Collections.emptyList());
 
     }
 
@@ -167,11 +402,11 @@ public class LogicTest {
         // setup expectations
         TestDataHelper helper = new TestDataHelper();
         Person toBeAdded = helper.adam();
-        AddressBook expectedAB = new AddressBook();
+        Rms expectedAB = new Rms();
         expectedAB.addPerson(toBeAdded);
 
         // setup starting state
-        addressBook.addPerson(toBeAdded); // person already in internal address book
+        rms.addPerson(toBeAdded); // person already in internal address book
 
         // execute command and verify result
         assertCommandBehavior(
@@ -184,20 +419,124 @@ public class LogicTest {
     }
 
     @Test
+    public void execute_addempDuplicate_notAllowed() throws Exception {
+        // setup expectations
+        TestDataHelper helper = new TestDataHelper();
+        Employee toBeAdded = helper.peter();
+        Rms expectedAB = new Rms();
+        expectedAB.addEmployee(toBeAdded);
+
+        // setup starting state
+        logic.execute(helper.generateAddEmpCommand(toBeAdded)); //employee already in Rms
+
+        // execute command and verify result
+        assertEmployeeCommandBehavior(
+                helper.generateAddEmpCommand(toBeAdded),
+                EmployeeAddCommand.MESSAGE_DUPLICATE_EMPLOYEE,
+                expectedAB,
+                false,
+                Collections.emptyList());
+    }
+
+    @Test
+    public void execute_addmenuDuplicate_notAllowed() throws Exception {
+        // setup expectations
+        TestDataHelper helper = new TestDataHelper();
+        Menu toBeAdded = helper.burger();
+        Rms expectedAB = new Rms();
+        expectedAB.addMenu(toBeAdded);
+
+        // setup starting state
+        rms.addMenu(toBeAdded); // menu already in internal RMS
+
+        // execute command and verify result
+        assertMenuCommandBehavior(
+                helper.generateMenuAddCommand(toBeAdded),
+                MenuAddCommand.MESSAGE_DUPLICATE_MENU_ITEM,
+                expectedAB,
+                false,
+                Collections.emptyList());
+
+    }
+
+
+    @Test
     public void execute_list_showsAllPersons() throws Exception {
         // prepare expectations
         TestDataHelper helper = new TestDataHelper();
-        AddressBook expectedAB = helper.generateAddressBook(false, true);
+        Rms expectedAB = helper.generateRms(false, true);
         List<? extends ReadOnlyPerson> expectedList = expectedAB.getAllPersons().immutableListView();
 
         // prepare address book state
-        helper.addToAddressBook(addressBook, false, true);
+        helper.addToRms(rms, false, true);
 
         assertCommandBehavior("list",
-                              Command.getMessageForPersonListShownSummary(expectedList),
-                              expectedAB,
-                              true,
-                              expectedList);
+                Command.getMessageForPersonListShownSummary(expectedList),
+                expectedAB,
+                true,
+                expectedList);
+    }
+
+    //test for MenuListCommand
+    @Test
+    public void execute_listmenu_showsAllMenuItems() throws Exception {
+        // prepare expectations
+        // TestDataHelper helper = new TestDataHelper();
+        Rms expectedRMS = new Rms();
+        List<? extends ReadOnlyMenus> expectedRMSList = expectedRMS.getAllMenus().immutableListView();
+
+        // prepare address book state
+        //helper.addToRMS(rms, expectedRMSList);
+
+        assertMenuCommandBehavior("listmenu",
+                Command.getMessageForMenuListShownSummary(expectedRMSList),
+                expectedRMS,
+                true,
+                expectedRMSList);
+    }
+
+    @Test
+    public void execute_listemp_successful() throws Exception {
+        // prepare expectations
+        TestDataHelper helper = new TestDataHelper();
+
+        Employee e1 = helper.generateEmployee(1);
+        Employee e2 = helper.generateEmployee(2);
+        List<Employee> lastShownList = helper.generateEmployeeList(e1, e2);
+
+        Rms expectedRms = helper.generateRmsEmployees(lastShownList);
+        List<? extends ReadOnlyEmployee> expectedList = expectedRms.getAllEmployees().immutableListView();
+
+        // prepare address book state
+        helper.addEmployeesToRms(rms, lastShownList);
+
+        assertEmployeeCommandBehavior("listemp",
+                Command.getMessageForEmployeeListShownSummary(expectedList),
+                expectedRms,
+                true,
+                expectedList);
+    }
+
+    @Test
+    public void execute_listmember_successful() throws Exception {
+        // prepare expectations
+        TestDataHelper helper = new TestDataHelper();
+
+        Member m1 = helper.generateMember(1);
+        Member m2 = helper.generateMember(2);
+        List<Member> lastShownList = helper.generateMemberList(m1, m2);
+
+        Rms expectedRms = helper.generateRmsMember(lastShownList);
+        List<? extends ReadOnlyMember> expectedList = expectedRms.getAllMembers().immutableListView();
+
+        // prepare address book state
+        helper.addMembersToRms(rms, lastShownList);
+
+        assertMemberCommandBehavior("listmembers",
+                Command.getMessageForMemberListShownSummary(expectedList),
+                expectedRms,
+                true,
+                expectedList);
     }
 
     @Test
@@ -224,9 +563,50 @@ public class LogicTest {
 
         logic.setLastShownList(lastShownList);
 
-        assertCommandBehavior(commandWord + " -1", expectedMessage, AddressBook.empty(), false, lastShownList);
-        assertCommandBehavior(commandWord + " 0", expectedMessage, AddressBook.empty(), false, lastShownList);
-        assertCommandBehavior(commandWord + " 3", expectedMessage, AddressBook.empty(), false, lastShownList);
+        assertCommandBehavior(commandWord + " -1", expectedMessage, Rms.empty(), false, lastShownList);
+        assertCommandBehavior(commandWord + " 0", expectedMessage, Rms.empty(), false, lastShownList);
+        assertCommandBehavior(commandWord + " 3", expectedMessage, Rms.empty(), false, lastShownList);
+
+    }
+
+    /**
+     * Confirms the 'invalid argument index number behaviour' for the given command
+     * targeting a single employee in the last shown list, using visible index.
+     * @param commandWord to test assuming it targets a single employee in the last shown list based on visible index.
+     */
+    private void assertInvalidIndexBehaviorForEmployeeCommand(String commandWord) throws Exception {
+        String expectedMessage = Messages.MESSAGE_INVALID_EMPLOYEE_DISPLAYED_INDEX;
+        TestDataHelper helper = new TestDataHelper();
+
+        Employee e1 = helper.generateEmployee(1);
+        Employee e2 = helper.generateEmployee(2);
+        List<Employee> lastShownList = helper.generateEmployeeList(e1, e2);
+
+        logic.setLastShownEmployeeList(lastShownList);
+
+        assertEmployeeCommandBehavior(commandWord + " -1", expectedMessage, Rms.empty(), false, lastShownList);
+        assertEmployeeCommandBehavior(commandWord + " 0", expectedMessage, Rms.empty(), false, lastShownList);
+        assertEmployeeCommandBehavior(commandWord + " 3", expectedMessage, Rms.empty(), false, lastShownList);
+    }
+
+    /**
+     * Confirms the 'invalid argument index number behaviour' for the given command
+     * targeting a single menu item in the last shown menu list, using visible index.
+     * @param commandWord to test assuming it targets a single menu item in the last shown menu list based on visible index.
+     */
+    private void assertInvalidIndexBehaviorForMenuCommand(String commandWord) throws Exception {
+        String expectedMessage = Messages.MESSAGE_INVALID_MENU_ITEM_DISPLAYED_INDEX;
+        TestDataHelper helper = new TestDataHelper();
+
+        Menu e1 = helper.generateMenuItem(1);
+        Menu e2 = helper.generateMenuItem(2);
+        List<Menu> lastShownMenuList = helper.generateMenuList(e1, e2);
+
+        logic.setLastShownMenuList(lastShownMenuList);
+
+        assertMenuCommandBehavior(commandWord + " -1", expectedMessage, Rms.empty(), false, lastShownMenuList);
+        assertMenuCommandBehavior(commandWord + " 0", expectedMessage, Rms.empty(), false, lastShownMenuList);
+        assertMenuCommandBehavior(commandWord + " 3", expectedMessage, Rms.empty(), false, lastShownMenuList);
 
     }
 
@@ -237,22 +617,22 @@ public class LogicTest {
         Person p1 = helper.generatePerson(1, true);
         Person p2 = helper.generatePerson(2, false);
         List<Person> lastShownList = helper.generatePersonList(p1, p2);
-        AddressBook expectedAB = helper.generateAddressBook(lastShownList);
-        helper.addToAddressBook(addressBook, lastShownList);
+        Rms expectedAB = helper.generateRms(lastShownList);
+        helper.addToRms(rms, lastShownList);
 
         logic.setLastShownList(lastShownList);
 
         assertCommandBehavior("view 1",
-                              String.format(ViewCommand.MESSAGE_VIEW_PERSON_DETAILS, p1.getAsTextHidePrivate()),
-                              expectedAB,
-                              false,
-                              lastShownList);
+                String.format(ViewCommand.MESSAGE_VIEW_PERSON_DETAILS, p1.getAsTextHidePrivate()),
+                expectedAB,
+                false,
+                lastShownList);
 
         assertCommandBehavior("view 2",
-                              String.format(ViewCommand.MESSAGE_VIEW_PERSON_DETAILS, p2.getAsTextHidePrivate()),
-                              expectedAB,
-                              false,
-                              lastShownList);
+                String.format(ViewCommand.MESSAGE_VIEW_PERSON_DETAILS, p2.getAsTextHidePrivate()),
+                expectedAB,
+                false,
+                lastShownList);
     }
 
     @Test
@@ -262,17 +642,17 @@ public class LogicTest {
         Person p2 = helper.generatePerson(2, false);
         List<Person> lastShownList = helper.generatePersonList(p1, p2);
 
-        AddressBook expectedAB = new AddressBook();
+        Rms expectedAB = new Rms();
         expectedAB.addPerson(p2);
 
-        addressBook.addPerson(p2);
+        rms.addPerson(p2);
         logic.setLastShownList(lastShownList);
 
         assertCommandBehavior("view 1",
-                              Messages.MESSAGE_PERSON_NOT_IN_ADDRESSBOOK,
-                              expectedAB,
-                              false,
-                              lastShownList);
+                Messages.MESSAGE_PERSON_NOT_IN_ADDRESSBOOK,
+                expectedAB,
+                false,
+                lastShownList);
     }
 
     @Test
@@ -280,6 +660,14 @@ public class LogicTest {
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, ViewAllCommand.MESSAGE_USAGE);
         assertCommandBehavior("viewall ", expectedMessage);
         assertCommandBehavior("viewall arg not number", expectedMessage);
+    }
+
+    //test for MenuViewAll Command testing for valid arguments
+    @Test
+    public void execute_MenuviewAll_invalidArgsFormat() throws Exception {
+        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, MenuViewAllCommand.MESSAGE_USAGE);
+        assertMenuCommandBehavior("viewallmenu ", expectedMessage);
+        assertMenuCommandBehavior("viewallmenu arg not number", expectedMessage);
     }
 
     @Test
@@ -293,22 +681,22 @@ public class LogicTest {
         Person p1 = helper.generatePerson(1, true);
         Person p2 = helper.generatePerson(2, false);
         List<Person> lastShownList = helper.generatePersonList(p1, p2);
-        AddressBook expectedAB = helper.generateAddressBook(lastShownList);
-        helper.addToAddressBook(addressBook, lastShownList);
+        Rms expectedAB = helper.generateRms(lastShownList);
+        helper.addToRms(rms, lastShownList);
 
         logic.setLastShownList(lastShownList);
 
         assertCommandBehavior("viewall 1",
-                            String.format(ViewCommand.MESSAGE_VIEW_PERSON_DETAILS, p1.getAsTextShowAll()),
-                            expectedAB,
-                            false,
-                            lastShownList);
+                String.format(ViewCommand.MESSAGE_VIEW_PERSON_DETAILS, p1.getAsTextShowAll()),
+                expectedAB,
+                false,
+                lastShownList);
 
         assertCommandBehavior("viewall 2",
-                            String.format(ViewCommand.MESSAGE_VIEW_PERSON_DETAILS, p2.getAsTextShowAll()),
-                            expectedAB,
-                            false,
-                            lastShownList);
+                String.format(ViewCommand.MESSAGE_VIEW_PERSON_DETAILS, p2.getAsTextShowAll()),
+                expectedAB,
+                false,
+                lastShownList);
     }
 
     @Test
@@ -318,17 +706,17 @@ public class LogicTest {
         Person p2 = helper.generatePerson(2, false);
         List<Person> lastShownList = helper.generatePersonList(p1, p2);
 
-        AddressBook expectedAB = new AddressBook();
+        Rms expectedAB = new Rms();
         expectedAB.addPerson(p1);
 
-        addressBook.addPerson(p1);
+        rms.addPerson(p1);
         logic.setLastShownList(lastShownList);
 
         assertCommandBehavior("viewall 2",
-                                Messages.MESSAGE_PERSON_NOT_IN_ADDRESSBOOK,
-                                expectedAB,
-                                false,
-                                lastShownList);
+                Messages.MESSAGE_PERSON_NOT_IN_ADDRESSBOOK,
+                expectedAB,
+                false,
+                lastShownList);
     }
 
     @Test
@@ -339,9 +727,35 @@ public class LogicTest {
     }
 
     @Test
+    public void execute_delemp_invalidArgsFormat() throws Exception {
+        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, EmployeeDeleteCommand.MESSAGE_USAGE);
+        assertEmployeeCommandBehavior("delemp ", expectedMessage);
+        assertEmployeeCommandBehavior("delemp arg not number", expectedMessage);
+    }
+
+    @Test
+    public void execute_deletemenu_invalidArgsFormat() throws Exception {
+        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, MenuDeleteCommand.MESSAGE_USAGE);
+        assertMenuCommandBehavior("deletemenu ", expectedMessage);
+        assertMenuCommandBehavior("deletemenu arg not number", expectedMessage);
+    }
+
+
+    @Test
     public void execute_delete_invalidIndex() throws Exception {
         assertInvalidIndexBehaviorForCommand("delete");
     }
+
+    @Test
+    public void execute_delemp_invalidIndex() throws Exception {
+        assertInvalidIndexBehaviorForEmployeeCommand("delemp");
+    }
+
+    /*@Test
+    public void execute_deletemenu_invalidIndex() throws Exception {
+        assertInvalidIndexBehaviorForMenuCommand("deletemenu");
+    }*/
+
 
     @Test
     public void execute_delete_removesCorrectPerson() throws Exception {
@@ -352,18 +766,41 @@ public class LogicTest {
 
         List<Person> threePersons = helper.generatePersonList(p1, p2, p3);
 
-        AddressBook expectedAB = helper.generateAddressBook(threePersons);
+        Rms expectedAB = helper.generateRms(threePersons);
         expectedAB.removePerson(p2);
 
 
-        helper.addToAddressBook(addressBook, threePersons);
+        helper.addToRms(rms, threePersons);
         logic.setLastShownList(threePersons);
 
         assertCommandBehavior("delete 2",
-                                String.format(DeleteCommand.MESSAGE_DELETE_PERSON_SUCCESS, p2),
-                                expectedAB,
-                                false,
-                                threePersons);
+                String.format(DeleteCommand.MESSAGE_DELETE_PERSON_SUCCESS, p2),
+                expectedAB,
+                false,
+                threePersons);
+    }
+
+    @Test
+    public void execute_delemp_removesCorrectEmployee() throws Exception {
+        TestDataHelper helper = new TestDataHelper();
+        Employee e1 = helper.generateEmployee(1);
+        Employee e2 = helper.generateEmployee(2);
+        Employee e3 = helper.generateEmployee(3);
+
+        List<Employee> threeEmployees = helper.generateEmployeeList(e1, e2, e3);
+
+        Rms expectedRms = helper.generateRmsEmployees(threeEmployees);
+        expectedRms.removeEmployee(e2);
+
+
+        helper.addEmployeesToRms(rms, threeEmployees);
+        logic.setLastShownEmployeeList(threeEmployees);
+
+        assertEmployeeCommandBehavior("delemp 2",
+                String.format(EmployeeDeleteCommand.MESSAGE_DELETE_EMPLOYEE_SUCCESS, e2),
+                expectedRms,
+                false,
+                threeEmployees);
     }
 
     @Test
@@ -376,18 +813,42 @@ public class LogicTest {
 
         List<Person> threePersons = helper.generatePersonList(p1, p2, p3);
 
-        AddressBook expectedAB = helper.generateAddressBook(threePersons);
+        Rms expectedAB = helper.generateRms(threePersons);
         expectedAB.removePerson(p2);
 
-        helper.addToAddressBook(addressBook, threePersons);
-        addressBook.removePerson(p2);
+        helper.addToRms(rms, threePersons);
+        rms.removePerson(p2);
         logic.setLastShownList(threePersons);
 
         assertCommandBehavior("delete 2",
-                                Messages.MESSAGE_PERSON_NOT_IN_ADDRESSBOOK,
-                                expectedAB,
-                                false,
-                                threePersons);
+                Messages.MESSAGE_PERSON_NOT_IN_ADDRESSBOOK,
+                expectedAB,
+                false,
+                threePersons);
+    }
+
+    @Test
+    public void execute_delemp_missingInRms() throws Exception {
+        TestDataHelper helper = new TestDataHelper();
+        Employee e1 = helper.generateEmployee(1);
+        Employee e2 = helper.generateEmployee(2);
+        Employee e3 = helper.generateEmployee(3);
+
+        List<Employee> threeEmployees = helper.generateEmployeeList(e1, e2, e3);
+
+        Rms expectedRms = helper.generateRmsEmployees(threeEmployees);
+        expectedRms.removeEmployee(e2);
+
+
+        helper.addEmployeesToRms(rms, threeEmployees);
+        rms.removeEmployee(e2);
+        logic.setLastShownEmployeeList(threeEmployees);
+
+        assertEmployeeCommandBehavior("delemp 2",
+                Messages.MESSAGE_EMPLOYEE_NOT_IN_RMS,
+                expectedRms,
+                false,
+                threeEmployees);
     }
 
     @Test
@@ -405,15 +866,15 @@ public class LogicTest {
         Person p2 = helper.generatePersonWithName("KEYKEYKEY sduauo");
 
         List<Person> fourPersons = helper.generatePersonList(p1, pTarget1, p2, pTarget2);
-        AddressBook expectedAB = helper.generateAddressBook(fourPersons);
+        Rms expectedAB = helper.generateRms(fourPersons);
         List<Person> expectedList = helper.generatePersonList(pTarget1, pTarget2);
-        helper.addToAddressBook(addressBook, fourPersons);
+        helper.addToRms(rms, fourPersons);
 
         assertCommandBehavior("find KEY",
-                                Command.getMessageForPersonListShownSummary(expectedList),
-                                expectedAB,
-                                true,
-                                expectedList);
+                Command.getMessageForPersonListShownSummary(expectedList),
+                expectedAB,
+                true,
+                expectedList);
     }
 
     @Test
@@ -425,15 +886,15 @@ public class LogicTest {
         Person p2 = helper.generatePersonWithName("KEy sduauo");
 
         List<Person> fourPersons = helper.generatePersonList(p1, pTarget1, p2, pTarget2);
-        AddressBook expectedAB = helper.generateAddressBook(fourPersons);
+        Rms expectedAB = helper.generateRms(fourPersons);
         List<Person> expectedList = helper.generatePersonList(pTarget1, pTarget2);
-        helper.addToAddressBook(addressBook, fourPersons);
+        helper.addToRms(rms, fourPersons);
 
         assertCommandBehavior("find KEY",
-                                Command.getMessageForPersonListShownSummary(expectedList),
-                                expectedAB,
-                                true,
-                                expectedList);
+                Command.getMessageForPersonListShownSummary(expectedList),
+                expectedAB,
+                true,
+                expectedList);
     }
 
     @Test
@@ -445,15 +906,15 @@ public class LogicTest {
         Person p2 = helper.generatePersonWithName("KEy sduauo");
 
         List<Person> fourPersons = helper.generatePersonList(p1, pTarget1, p2, pTarget2);
-        AddressBook expectedAB = helper.generateAddressBook(fourPersons);
+        Rms expectedAB = helper.generateRms(fourPersons);
         List<Person> expectedList = helper.generatePersonList(pTarget1, pTarget2);
-        helper.addToAddressBook(addressBook, fourPersons);
+        helper.addToRms(rms, fourPersons);
 
         assertCommandBehavior("find KEY rAnDoM",
-                                Command.getMessageForPersonListShownSummary(expectedList),
-                                expectedAB,
-                                true,
-                                expectedList);
+                Command.getMessageForPersonListShownSummary(expectedList),
+                expectedAB,
+                true,
+                expectedList);
     }
 
     /**
@@ -472,6 +933,31 @@ public class LogicTest {
             return new Person(name, privatePhone, email, privateAddress, tags);
         }
 
+        Employee peter() throws Exception {
+            EmployeeName name = new EmployeeName("Peter Lee");
+            EmployeePhone phone = new EmployeePhone("91234567");
+            EmployeeEmail email = new EmployeeEmail("PeterLee89@rms.com");
+            EmployeeAddress address = new EmployeeAddress("Clementi Ave 2, Blk 543 #13-12");
+            EmployeePosition position = new EmployeePosition("Cashier");
+            return new Employee(name, phone, email, address, position);
+        }
+
+        Member eve() throws Exception {
+            Name name = new Name("Eve");
+            Points points = new Points();
+            return new Member(name, points);
+        }
+
+        Menu burger() throws Exception {
+            MenuName name = new MenuName("Cheese Burger");
+            Price price = new Price("$5.00");
+            Type type = new Type("Burger");
+            Tag tag1 = new Tag("tag1");
+            Tag tag2 = new Tag("tag2");
+            Set<Tag> tags = new HashSet<>(Arrays.asList(tag1, tag2));
+            return new Menu(name, price, type, tags);
+        }
+
         /**
          * Generates a valid person using the given seed.
          * Running this function with the same parameter values guarantees the returned person will have the same state.
@@ -486,6 +972,52 @@ public class LogicTest {
                     new Phone("" + Math.abs(seed), isAllFieldsPrivate),
                     new Email(seed + "@email", isAllFieldsPrivate),
                     new Address("House of " + seed, isAllFieldsPrivate),
+                    new HashSet<>(Arrays.asList(new Tag("tag" + Math.abs(seed)), new Tag("tag" + Math.abs(seed + 1))))
+            );
+        }
+
+        /**
+         * Generates a valid employee using the given seed.
+         * Running this function with the same parameter values guarantees the returned employee will have the same state.
+         * Each unique seed will generate a unique Employee object.
+         *
+         * @param seed used to generate the employee data field values
+         */
+        Employee generateEmployee(int seed) throws Exception {
+            return new Employee(
+                    new EmployeeName("Employee " + seed),
+                    new EmployeePhone("" + Math.abs(seed)),
+                    new EmployeeEmail(seed + "@email"),
+                    new EmployeeAddress("House of " + seed),
+                    new EmployeePosition("Position "+ seed)
+            );
+        }
+
+        /**
+         * Generates a valid member using the given seed.
+         * Running this function with the same parameter values guarantees the returned employee will have the same state.
+         * Each unique seed will generate a unique Employee object.
+         *
+         * @param seed used to generate the employee data field values
+         */
+        Member generateMember(int seed) throws Exception {
+            return new Member(
+                    new Name("Member " + seed),
+                    new Points()
+            );
+        }
+        /**
+         * Generates a valid menu item using the given seed.
+         * Running this function with the same parameter values guarantees the returned menu item will have the same state.
+         * Each unique seed will generate a unique Person object.
+         *
+         * @param seed used to generate the menu item data field values
+         */
+        Menu generateMenuItem(int seed) throws Exception {
+            return new Menu(
+                    new MenuName("Person " + seed),
+                    new Price("" + Math.abs(seed)),
+                    new Type(("Type " + seed)),
                     new HashSet<>(Arrays.asList(new Tag("tag" + Math.abs(seed)), new Tag("tag" + Math.abs(seed + 1))))
             );
         }
@@ -509,42 +1041,151 @@ public class LogicTest {
             return cmd.toString();
         }
 
+        /** Generates the correct add command based on the person given */
+        String generateAddEmpCommand(Employee e) {
+            StringJoiner cmd = new StringJoiner(" ");
+
+            cmd.add("addemp");
+
+            cmd.add(e.getName().toString());
+            cmd.add("p/" + e.getPhone().toString());
+            cmd.add("e/" + e.getEmail().toString());
+            cmd.add("a/" + e.getAddress().toString());
+            cmd.add("pos/" + e.getPosition().toString());
+
+            return cmd.toString();
+        }
+
+        /** Generates the correct add member command based on the member given */
+        String generateAddMemberCommand(Member e) {
+            StringJoiner cmd = new StringJoiner(" ");
+
+            cmd.add("addmember");
+
+            cmd.add(e.getName().toString());
+
+            return cmd.toString();
+        }
+
+        /** Generates the correct add menu command based on the menu item given */
+        String generateMenuAddCommand(Menu m) {
+            StringJoiner cmd = new StringJoiner(" ");
+
+            cmd.add("addmenu");
+
+            cmd.add(m.getName().toString());
+            cmd.add(("p/") + m.getPrice());
+            cmd.add(("type/") + m.getType());
+
+            Set<Tag> tags = m.getTags();
+            for(Tag t: tags){
+                cmd.add("t/" + t.tagName);
+            }
+
+            return cmd.toString();
+        }
+
+
         /**
-         * Generates an AddressBook with auto-generated persons.
+         * Generates an Rms with auto-generated persons.
          * @param isPrivateStatuses flags to indicate if all contact details of respective persons should be set to
          *                          private.
          */
-        AddressBook generateAddressBook(Boolean... isPrivateStatuses) throws Exception{
-            AddressBook addressBook = new AddressBook();
-            addToAddressBook(addressBook, isPrivateStatuses);
-            return addressBook;
+        Rms generateRms(Boolean... isPrivateStatuses) throws Exception{
+            Rms rms = new Rms();
+            addToRms(rms, isPrivateStatuses);
+            return rms;
         }
 
         /**
-         * Generates an AddressBook based on the list of Persons given.
+         * Generates an Rms based on the list of Persons given.
          */
-        AddressBook generateAddressBook(List<Person> persons) throws Exception{
-            AddressBook addressBook = new AddressBook();
-            addToAddressBook(addressBook, persons);
-            return addressBook;
+        Rms generateRms(List<Person> persons) throws Exception{
+            Rms rms = new Rms();
+            addToRms(rms, persons);
+            return rms;
         }
 
         /**
-         * Adds auto-generated Person objects to the given AddressBook
-         * @param addressBook The AddressBook to which the Persons will be added
+         * Generates an Rms based on the list of Employees given.
+         */
+        Rms generateRmsEmployees(List<Employee> employees) throws Exception{
+            Rms rms = new Rms();
+            addEmployeesToRms(rms, employees);
+            return rms;
+        }
+
+        /**
+         * Generates an Rms based on the list of Menu given.
+         */
+        Rms generateRmsMenu(List<Menu> menus) throws Exception{
+            Rms rms = new Rms();
+            addToRmsMenu(rms, menus);
+            return rms;
+        }
+
+        /**
+         * Generates an Rms based on the list of Member given.
+         */
+        Rms generateRmsMember(List<Member> members) throws Exception{
+            Rms rms = new Rms();
+            addMembersToRms(rms, members);
+            return rms;
+        }
+
+        /**
+         * Adds auto-generated Person objects to the given Rms
+         * @param rms The Rms to which the Persons will be added
          * @param isPrivateStatuses flags to indicate if all contact details of generated persons should be set to
          *                          private.
          */
-        void addToAddressBook(AddressBook addressBook, Boolean... isPrivateStatuses) throws Exception{
-            addToAddressBook(addressBook, generatePersonList(isPrivateStatuses));
+        void addToRms(Rms rms, Boolean... isPrivateStatuses) throws Exception{
+            addToRms(rms, generatePersonList(isPrivateStatuses));
         }
 
         /**
-         * Adds the given list of Persons to the given AddressBook
+         * Adds the given list of Persons to the given Rms
          */
-        void addToAddressBook(AddressBook addressBook, List<Person> personsToAdd) throws Exception{
+        void addToRms(Rms rms, List<Person> personsToAdd) throws Exception{
             for(Person p: personsToAdd){
-                addressBook.addPerson(p);
+                rms.addPerson(p);
+            }
+        }
+
+        /**
+         * Adds auto-generated Menu objects to the given Rms
+         * @param rms The Rms to which the Menus will be added
+         * @param isPrivateStatuses flags to indicate if details of generated persons should be set to
+         *                          private.
+         */
+         /*void addToRMS(Rms rms, Boolean... isPrivateStatuses) throws Exception{
+             addToRMS(rms, generatePersonList(isPrivateStatuses));
+         }*/
+
+        /**
+         * Adds the given list of Menus to the given Rms
+         */
+        void addToRmsMenu(Rms rms, List<Menu> menusToAdd) throws Exception{
+            for(Menu m: menusToAdd){
+                rms.addMenu(m);
+            }
+        }
+
+        /**
+         * Adds the given list of Persons to the given Rms
+         */
+        void addEmployeesToRms(Rms rms, List<Employee> employeesToAdd) throws Exception{
+            for(Employee e: employeesToAdd){
+                rms.addEmployee(e);
+            }
+        }
+
+        /**
+         * Adds the given list of Members to the given Rms
+         */
+        void addMembersToRms(Rms rms, List<Member> membersToAdd) throws Exception{
+            for(Member member: membersToAdd){
+                rms.addMember(member);
             }
         }
 
@@ -557,6 +1198,39 @@ public class LogicTest {
                 personList.add(p);
             }
             return personList;
+        }
+
+        /**
+         * Creates a list of Employees based on the give Employee objects.
+         */
+        List<Employee> generateEmployeeList(Employee... employees) throws Exception{
+            List<Employee> employeeList = new ArrayList<>();
+            for(Employee e: employees){
+                employeeList.add(e);
+            }
+            return employeeList;
+        }
+
+        /**
+         * Creates a list of Members based on the give Employee objects.
+         */
+        List<Member> generateMemberList(Member... members) throws Exception{
+            List<Member> memberList = new ArrayList<>();
+            for(Member member: members){
+                memberList.add(member);
+            }
+            return memberList;
+        }
+
+        /**
+         * Creates a list of Menu Items based on the give Menu objects.
+         */
+        List<Menu> generateMenuList(Menu... menus) throws Exception{
+            List<Menu> menuList = new ArrayList<>();
+            for(Menu m: menus){
+                menuList.add(m);
+            }
+            return menuList;
         }
 
         /**
@@ -576,7 +1250,7 @@ public class LogicTest {
         /**
          * Generates a Person object with given name. Other fields will have some dummy values.
          */
-         Person generatePersonWithName(String name) throws Exception {
+        Person generatePersonWithName(String name) throws Exception {
             return new Person(
                     new Name(name),
                     new Phone("1", false),
@@ -585,6 +1259,18 @@ public class LogicTest {
                     Collections.singleton(new Tag("tag"))
             );
         }
-    }
 
+        /**
+         * Generates a Menu object with given name. Other fields will have some dummy values.
+         */
+        Menu generateMenuWithName(String name) throws Exception {
+            return new Menu(
+                    new MenuName(name),
+                    new Price("$5.00"),
+                    new Type("Burger"),
+                    Collections.singleton(new Tag("tag"))
+            );
+        }
+    }
 }
+
