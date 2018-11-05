@@ -1,4 +1,4 @@
-= User Guide
+﻿= User Guide
 :site-section: UserGuide
 :toc:
 :toc-title: An Overview of the User Guide:
@@ -170,7 +170,7 @@ Format: `undo` +
 Format: `redo`
 
 ****
-Commands are undo-able if they are made within the browsing session.
+Commands are undo-able if they make changes to the data and are made within the browsing session.
 Commands are redo-able if undo are made without other commands called.
 This two commands are especially useful when an erroneous command, such as delete, is made which causes change to the data.
 ****
@@ -198,6 +198,12 @@ Deletes the 1st person in the results of the `find` command. +
 Undo the deletion of the deleted person. +
 `redo` +
 Redo the deletion of 1st person in the results of the `find` command.
+
+
+[NOTE]
+====
+Undo/Redo command currently is only implemented for `add`/`delete`/`clear`/`link` as other commands that make changes to the data might be incomplete
+====
 
 
 === 4.9 Selecting a person to edit his/her appointment: `edit-appointment`
@@ -253,18 +259,68 @@ Format: `list`
 Exits the edit-appointment session. +
 Format: `done`
 
+=== 4.10 Create an associate between a doctor and a patient: `link`
 
-=== 4.10 Clearing all entries : `clear`
+Create an association between person specified at INDEX1 and the person specified at INDEX2  +
+Format: `link INDEX1 INDEX2`
+
+****
+Links the person at the specified `INDEX1` with the person at the specified `INDEX2`.
+One of them must be a doctor and the other one must be a patient
+The index refers to the index number shown in the most recent listing.
+****
+
+[NOTE]
+====
+Similar to viewall, view and delete, it requires list or find command to be called at least once in the session for an index reference to edit-appointment.
+====
+
+Examples:
+
+* `list` +
+`link 1 2` +
+Associate the 1st person in the MediBook with 2nd person in the MediBook.
+
+=== 4.11 Listing all persons associated: `associatelist`
+
+Shows a list of all persons associated with the specified person  +
+Format: `associatelist INDEX`
+
+****
+Show the people associate with the person at the specified `INDEX`.
+The index refers to the index number shown in the most recent listing.
+****
+
+[NOTE]
+====
+Similar to viewall, view and delete, it requires list or find command to be called at least once in the session for an index reference to edit-appointment.
+====
+
+Examples:
+
+* `list` +
+`associatelist 2` +
+Views all persons associated with the 2nd person in the MediBook.
+
+=== 4.12 Clearing all entries : `clear`
 
 Clears all entries from the MediBook. +
 Format: `clear`
 
-=== 4.11 Listing all executed commands : `history`
+=== 4.13 Listing all executed commands : `history`
 
 Shows a list of all executed commands in the current session. +
 Format: `history`
 
-=== 4.12 Opening MediChat : `chat`
+
+[NOTE]
+====
+As some commands are incomplete, they might not be be reflected in `history` eventhough they are executed.
+If you encounter this, please feel free to let us know. Thank you!
+====
+
+
+=== 4.14 Opening MediChat : `chat` (Coming soon in v1.4)
 
 Opens up MediChat, an instant messaging client to instantly contact your colleagues.
 
@@ -273,12 +329,12 @@ To simulate chatting, multiple MediChat windows have to be opened.
 
 Format: `chat` `localhost`
 
-=== 4.13 Exiting the program : `exit`
+=== 4.15 Exiting the program : `exit`
 
 Exits the program. +
 Format: `exit`
 
-=== 4.14 Saving the data
+=== 4.16 Saving the data
 
 MediBook data are saved in the hard disk automatically after any command that changes the data. As such, there is no need to save the data manually. These data are saved in a file called addressbook.txt in the project root folder.
 
@@ -301,7 +357,8 @@ However, the history of commands made are only available within the browsing ses
 ** `done` : Exit the edit-appointment session
 * `clear` : Clear all entries in the MediBook
 * `history` : Shows a list of all executed commands
-* `association` : Coming soon in v1.3
+* `link` : Create an associate between a doctor and a patient
+* `associatelist` : List all persons associated
 * `chat` : Opens MediChat
 * `exit` : Exits the program
 
@@ -313,3 +370,7 @@ However, the history of commands made are only available within the browsing ses
 |At Login: Maximum login attempts attempted. Please try again later |You have attempted to login unsuccessfully in successive tries |Please wait for 5 mins before trying again. If urgent access is needed, please contact the system administrator for your hospital
 |===========================================================================================================================================
 
+== 7 Known Bugs
+
+* `undo` command might show the error message "An error has occurred with the undo command"
+** if you encounter this, please let us know the steps that leads up to that point so we can replicate it
