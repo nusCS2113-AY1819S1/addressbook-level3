@@ -13,7 +13,7 @@ public class ClearCommand extends UndoAbleCommand {
 
     public static final String MESSAGE_SUCCESS = "MediBook has been cleared!";
 
-    public static UniquePersonList copied;
+    public UniquePersonList copied;
 
     @Override
     public CommandResult execute() {
