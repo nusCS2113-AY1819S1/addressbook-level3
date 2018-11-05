@@ -24,7 +24,7 @@ public class EmployeeClockOutCommand extends Command {
             + "Example: " + COMMAND_WORD + " "
             + EmployeeName.EXAMPLE;
 
-    public static final String MESSAGE_SUCCESS = "%1$s clocked out on %2$s.";
+    public static final String MESSAGE_SUCCESS = "%1$s clocked out on %2$s at %3$s.";
     public static final String MESSAGE_NOT_YET_CLOCKED_IN = "%1$s needs to clock in first in order to clock out.";
 
     private final String name;
@@ -66,7 +66,7 @@ public class EmployeeClockOutCommand extends Command {
             Attendance newAttendance = createNewAttendance(oldAttendance);
 
             rms.updateAttendance(oldAttendance, newAttendance);
-            return new CommandResult(String.format(MESSAGE_SUCCESS, name, this.currentDate));
+            return new CommandResult(String.format(MESSAGE_SUCCESS, name, this.currentDate, this.currentTime));
         } catch (IndexOutOfBoundsException ie) {
             return new CommandResult(Messages.MESSAGE_EMPLOYEE_NOT_IN_RMS);
         }

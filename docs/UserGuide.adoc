@@ -224,6 +224,8 @@ Format: `listemp`
 Adds a new employee to the RMS. +
 Format: `addemp NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS pos/POSITION`
 
+* Employees with same name are not allowed irregardless of it being in upper or lower case.
+
 Example: +
  `addemp John Doe p/91234567 e/Example2018@rms.com a/Clementi Ave 2, Blk 543 #13-12 pos/Cashier` +
  Adds a new employee with the specified details.
