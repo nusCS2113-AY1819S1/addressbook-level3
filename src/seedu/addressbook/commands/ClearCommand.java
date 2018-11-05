@@ -11,7 +11,7 @@ public class ClearCommand extends UndoAbleCommand {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ":\n" + "Clears address book permanently.\n\t"
             + "Example: " + COMMAND_WORD;
 
-    public static final String MESSAGE_SUCCESS = "Address book has been cleared!";
+    public static final String MESSAGE_SUCCESS = "MediBook has been cleared!";
 
     public static UniquePersonList copied;
 
