@@ -14,6 +14,7 @@ public class HelpEditAppointment extends Command{
             + "\n" + "Add and Delete Appointment Command still under construction. (Coming in V1.4) " + "\n"
             //+ "\n" + ClearCommand.MESSAGE_USAGE + "\n"
             //+ "\n" + FindCommand.MESSAGE_USAGE + "\n"
+            + "\n" + HelpEditAppointment.MESSAGE_USAGE + "\n"
             + "\n" + ExitEditAppointment.MESSAGE_USAGE;
 
     @Override
