@@ -26,7 +26,7 @@ However, setting up this MediBook requires basic familiarity with integrated dev
 . The GUI should appear in a few seconds
 . Enter "Username" in the username field and "Password" in the password field according to the prompts
 . Upon successful login, GUI `Welcome to MediBook` will appear.
-. If incorrect username and password is entered, both fields will be cleared and you can try logging in again. 
+. If incorrect username and password is entered, both fields will be cleared and you can try logging in again.
 //ignore: program will exit upon login failure, i.e. 3 incorrect username/password tries
 +
 image::Ui.png[]

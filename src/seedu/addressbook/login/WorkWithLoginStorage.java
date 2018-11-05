@@ -17,6 +17,7 @@ public class WorkWithLoginStorage {
             sc = new Scanner(logins);
         } catch (FileNotFoundException f){
             System.out.println("file not found");
+            File file = new File("loginstorage.txt");
         }
     }
 

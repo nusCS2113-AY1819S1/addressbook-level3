@@ -2,11 +2,13 @@ package seedu.addressbook.parser;
 
 import seedu.addressbook.commands.*;
 import seedu.addressbook.data.exception.IllegalValueException;
+import seedu.addressbook.login.login;
 
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import static seedu.addressbook.common.Messages.MESSAGE_CHANGE_PASSWORD;
 import static seedu.addressbook.common.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
 /**
@@ -29,6 +31,8 @@ public class Parser {
                     + "(?<tagArguments>(?: t/[^/]+)*)"); // variable number of tags
 
     public static final Pattern PERSON_INDEX_ARGS_FORMAT2 = Pattern.compile("(?<targetIndex>[^ ]+)" + " (?<targetIndex2>.+)");
+
+    public static final Pattern USER_PASSWORD_ARGS_FORMAT = Pattern.compile("pw/(?<currentpassword>[^/]+)" + "npw/(?<password>[^/]+)" + "cpw/(?<confirmpassword>[^/]+)");
     /**
      * Signals that the user input could not be parsed.
      */
@@ -102,8 +106,8 @@ public class Parser {
                 case AssociateListCommand.COMMAND_WORD:
                     return prepareAssociateList(arguments);
 
-//              case ChangePasswordCommand.COMMAND_WORD:
-//                  return ChangePasswordCommand.Chan
+              case ChangePasswordCommand.COMMAND_WORD:
+                  return prepareChangePassword(arguments);
 
                 case ChatCommand.COMMAND_WORD:
                     return new ChatCommand();
@@ -128,6 +132,16 @@ public class Parser {
                     return new HelpEditAppointment();
             }
         }
+    }
+
+    private Command prepareChangePassword(String args){
+        final Matcher matcher = USER_PASSWORD_ARGS_FORMAT.matcher(args.trim());
+        if(!matcher.matches()){
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ChangePasswordCommand.MESSAGE_USAGE));
+        }
+        return new ChangePasswordCommand(
+                matcher.group("currentpassword"), matcher.group("password"), matcher.group("confirmpassword")
+        );
     }
 
     /**
