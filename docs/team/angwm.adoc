@@ -5,20 +5,72 @@
 
 == PROJECT: Restaurant Management System
 
----
-
 == Overview
 
-Restaurant Management System (RMS) is a desktop restaurant management application used to help restaurant managers oversee their various processes in a more elegant and efficient way.
+This portfolio serves to provide an insight on the mentioned Restaurant Management System (RMS) project such as the various features that our team has developed. Also stated are the different roles of each team members in the project and more importantly the contributions that I have made to the code and documentation.
+
+=== Project Description
+
+Restaurant Management System (RMS) is a CLI^*^ based desktop application that can be used within a restaurant to facilitate various tasks such as listing menu items, order taking, as well as keeping track of members and employees. Restaurant managers will also be able to oversee the different processes more efficiently through a statistics feature.
+
+_* Command Line Interface. Refers to an user interface where an end user enters commands into the application by typing instead of clicking._
+
+=== Features
+
+==== Employee feature
+
+Manage employees working in the restaurant by adding their information into the application. Employees will have to use the application to clock in when the shift starts and clock out when it ends.
+
+==== Member feature
+
+Customers of the restaurant can opt to sign up as a member in the application and will be able to accumulate points that can be used to offset future orders made with the application.
+
+Members are also sorted into different tiers according to the points accumulated
+
+==== Menu feature
+
+Restaurant managers will use this feature to list new items on the menu or make adjustments to the menu such as pricing and this set of menu can then be used when taking orders.
+
+==== Order feature
+
+Cashiers can take customers' orders and this order information such as the sales revenue and the items ordered will be stored in the application. Additionally, orders can be tagged to a customer if he/she is a member.
+
+==== Statistics feature
+
+Able to display the statistics for the different features.
+
+Employee statistics will show the attendance of their clocking and the current on duty personnel.
+
+Member statistics shows the number of new members over a period of time and the number of members in each member tier.
+
+Menu statistics tells us the sales of each menu items as well as the most and least popular items for each categories in the menu (e.g. mains or beverages).
+
+Order statistics displays the total number of orders and the revenue for day, month and year, along with the revenue for the past 12 months.
+
+=== Team roles
+* Ang Wei Ming
+** In charge of the statistics feature.
+* Lim Kian Hong
+** In charge of the employee feature.
+* Pham Quang Minh
+** In charge of the order feature as well as code testing.
+* Salsabil Tasnia
+** In charge of the menu feature.
+* Tay Kang Ming
+** In charge of the member feature and the overall project coordination.
 
 == Summary of contributions
 
-* *Major enhancement*: Added statistics features for all the different data stored in the RMS.
-** What it does: Allows restaurant managers to view the statistics of the menus, orders, members and employees.
-** Justification: This feature will be able to let the restaurant managers understand how his restaurant is currently performing as well as to keep track of the employees schedule.
+|===
+|_This section describes in details the various contributions I made to the code base of the project._
+|===
+
+* *Major enhancement*: Added statistics features for all the different information stored in the application.
+** What it does: This feature allows restaurant managers to view the statistics of the menus, orders, members and employees.
+** Justification: This feature will be able to let the restaurant managers understand how the restaurant is currently performing together with keep track of the employees' schedule.
 ** Highlights: Data displayed under the different statistics commands have to be easy to understand as well as useful to the restaurant managers.
-It required thinking from a perspective of a restaurant manager to understand what kind of data he/she would want to see.
-This implementation was challenging because I also had to make use of the limited data the other features were able to provide.
+It required thinking from a perspective of a restaurant manager to understand what kind of information he/she would want to see.
+This implementation was challenging because apart from the thought process, I had to make use of the limited data the other features were able to provide.
 
 ** Credits: https://github.com/nusCS2113-AY1819S1/addressbook-level3
 
@@ -56,7 +108,5 @@ include::../UserGuide.adoc[tag=statisticscommands]
 |===
 
 include::../DeveloperGuide.adoc[tag=storage]
-
-include::../DeveloperGuide.adoc[tag=userstories]
 
 include::../DeveloperGuide.adoc[tag=statisticsusecase]
