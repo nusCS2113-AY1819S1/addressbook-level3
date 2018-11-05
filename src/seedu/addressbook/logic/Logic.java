@@ -26,7 +26,7 @@ public class Logic {
     private List<? extends ReadOnlyPerson> lastShownList = Collections.emptyList();
 
     /** The set of appointments the selected person has that is shown to the user most recently. */
-    private Set<? extends Schedule> appointmentOfPerson = Collections.emptySet();
+    //private Set<? extends Schedule> appointmentOfPerson = Collections.emptySet();
 
     public Logic() throws Exception{
         setStorage(initializeStorage());
@@ -102,9 +102,9 @@ public class Logic {
         if (personList.isPresent()) {
             lastShownList = personList.get();
         }
-        else if(scheduleList.isPresent()) {
-            appointmentOfPerson = scheduleList.get();
-        }
+        //else if(scheduleList.isPresent()) {
+        //    appointmentOfPerson = scheduleList.get();
+        //}
         /*final Optional<Set<? extends Schedule>> appointmentSet = result.getRelevantAppointments();
         if (appointmentSet.isPresent()) {
             lastShownList = personList.get();

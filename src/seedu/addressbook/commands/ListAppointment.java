@@ -15,7 +15,7 @@ public class ListAppointment extends Command {
     public static final String COMMAND_WORD = "list";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ":\n"
-            + "Displays all appointment of the person selected as a list with index numbers.\n\t"
+            + "Displays all appointment(s) of the person selected as a list with index numbers.\n\t"
             + "Example: " + COMMAND_WORD;
 
 
