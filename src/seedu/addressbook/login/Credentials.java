@@ -13,6 +13,7 @@ public class Credentials {
 
     private String PASSWORD;
     private String USERNAME;
+    private int ACCESSLEVEL;
 //    private String salt;
 //    private  int authLevel;
 

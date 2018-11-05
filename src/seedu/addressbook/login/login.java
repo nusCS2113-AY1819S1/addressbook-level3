@@ -1,9 +1,9 @@
 package seedu.addressbook.login;
 
-import seedu.addressbook.data.exception.IllegalValueException;
-import seedu.addressbook.login.Credentials.*;
+//import seedu.addressbook.data.exception.IllegalValueException;
+//import seedu.addressbook.login.Credentials.*;
 
-import java.util.Scanner;
+//import java.util.Scanner;
 
 public class login {
 //    private boolean loggedin;
@@ -12,8 +12,8 @@ public class login {
     private static final String stdUser = "Username";
     private static final String stdPass = "Password";
     private static String usernameF;
-    private static String password;
-    private static Scanner in = new Scanner(System.in);
+//    private static String password;
+//    private static Scanner in = new Scanner(System.in);
 
 //    public static void setUsername(String user) {
 //        username = user;

@@ -6,7 +6,7 @@ import seedu.addressbook.login.hashing;
 import seedu.addressbook.login.Credentials;
 
 public class WorkWithLoginStorage {
-    private static boolean debug = true;
+    private static boolean debug = false;
     private static File logins = new File("src/seedu/addressbook/login/loginstorage.txt");
     private static Scanner sc;
     private static String USERNAME;
