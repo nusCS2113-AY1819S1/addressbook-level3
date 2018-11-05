@@ -1,7 +1,6 @@
 package seedu.addressbook.login;
 
 import seedu.addressbook.data.exception.IllegalValueException;
-import seedu.addressbook.login.hashing;
 import java.io.IOException;
 import java.util.Scanner;
 
@@ -13,7 +12,7 @@ public class Credentials {
 
     private String PASSWORD;
     private String USERNAME;
-    private int ACCESSLEVEL;
+    private String ACCESSLEVEL;
 //    private String salt;
 //    private  int authLevel;
 
@@ -107,6 +106,18 @@ public class Credentials {
 
     public String getPassword(){
         return PASSWORD;
+    }
+
+    public String getAccessLevel(){
+        return ACCESSLEVEL;
+    }
+
+    public void setAccessLevel(String accesslevel){
+        ACCESSLEVEL = accesslevel;
+    }
+
+    public void validateAccessLevel(){
+        setAccessLevel(WorkWithLoginStorage.retrieveAccessLevel(this.getUsername()));
     }
 
     private void deletePassword(){

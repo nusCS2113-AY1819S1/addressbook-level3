@@ -11,6 +11,7 @@ public class WorkWithLoginStorage {
     private static Scanner sc;
     private static String USERNAME;
     private static String PASSWORD;
+    private static int POSITION;
 
     private static void openScanner()   {
         try {
@@ -99,6 +100,13 @@ public class WorkWithLoginStorage {
     private static void retrieveStoredHash() {
         PASSWORD = sc.next();
         System.out.println("PASSWORD IS "+ PASSWORD);
+    }
+
+    public static String retrieveAccessLevel(String username){
+        openScanner();
+        retrieveUsername(username);
+        sc.next();
+        return sc.next();
     }
 
 //    public static void retrieveSalt(){
