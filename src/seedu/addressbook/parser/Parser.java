@@ -117,8 +117,8 @@ public class Parser {
                 case ExitEditAppointment.COMMAND_WORD:
                     return new ExitEditAppointment(Command.checkEditingPersonIndex());
 
-                case ListAppoinment.COMMAND_WORD:
-                    return new ListAppoinment();
+                case ListAppointment.COMMAND_WORD:
+                    return new ListAppointment();
 
                 //case EditAppointmentOperation.COMMAND_WORD:
                 //    return new EditAppointmentOperation(Command.checkEditingPersonIndex());

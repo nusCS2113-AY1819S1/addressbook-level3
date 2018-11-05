@@ -10,7 +10,7 @@ import java.util.Set;
 /**
  * Lists all appointment of the person selected in the address book to the user.
  */
-public class ListAppoinment extends Command {
+public class ListAppointment extends Command {
 
     public static final String COMMAND_WORD = "list";
 

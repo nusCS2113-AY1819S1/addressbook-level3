@@ -39,6 +39,7 @@ public class CommandResult {
         relevantPersons = null;
     }
 
+
     /**
      * Returns list of persons relevant to the command command result, if any.
      */

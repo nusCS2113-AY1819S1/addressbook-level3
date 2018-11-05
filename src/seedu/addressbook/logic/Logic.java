@@ -25,6 +25,9 @@ public class Logic {
     /** The list of person shown to the user most recently.  */
     private List<? extends ReadOnlyPerson> lastShownList = Collections.emptyList();
 
+    /** The set of appointments the selected person has that is shown to the user most recently. */
+    private Set<? extends Schedule> appointmentOfPerson = Collections.emptySet();
+
     public Logic() throws Exception{
         setStorage(initializeStorage());
         setAddressBook(storage.load());
@@ -91,11 +94,16 @@ public class Logic {
         return result;
     }
 
-    /** Updates the {@link #lastShownList} if the result contains a list of Persons. */
+    /** Updates the {@link #lastShownList} if the result contains a list of Persons.
+     * as well as the set of appointment for the selected person*/
     private void recordResult(CommandResult result) {
         final Optional<List<? extends ReadOnlyPerson>> personList = result.getRelevantPersons();
+        final Optional<Set<? extends Schedule>> scheduleList = result.getRelevantAppointments();
         if (personList.isPresent()) {
             lastShownList = personList.get();
+        }
+        else if(scheduleList.isPresent()) {
+            appointmentOfPerson = scheduleList.get();
         }
         /*final Optional<Set<? extends Schedule>> appointmentSet = result.getRelevantAppointments();
         if (appointmentSet.isPresent()) {

@@ -67,7 +67,7 @@ public abstract class Command {
      * @return a list of appointments made for the chosen person
      */
     public static String getMessageForAppointmentMadeByPerson(Set<? extends Schedule> appointmentDisplayed, Name name) {
-        return String.format(Messages.MESSAGE_APPOINTMENT_LISTED_OVERVIEW, appointmentDisplayed.size(), name);
+        return String.format(Messages.MESSAGE_APPOINTMENT_LISTED_OVERVIEW, appointmentDisplayed.size());
     }
 
     /**
