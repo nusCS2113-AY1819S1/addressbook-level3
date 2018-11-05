@@ -12,17 +12,16 @@ public class WorkWithLoginStorage {
     private static String USERNAME;
     private static String PASSWORD;
 
-    private static void openScanner(){
-        try{
+    private static void openScanner()   {
+        try {
+            logins.createNewFile();
             sc = new Scanner(logins);
-        } catch (FileNotFoundException f){
-            System.out.println("file not found");
-            File file = new File("loginstorage.txt");
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
-//    public static boolean compareCredentials(String username, String password) {
-    public static boolean compareCredentials(String username, String password) {
+    public static boolean compareCredentials(String username, String password)   {
         openScanner();
 
         if(debug) System.out.println(logins.getAbsolutePath());

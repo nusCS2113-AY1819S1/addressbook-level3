@@ -15,17 +15,6 @@ public class login {
     private static String password;
     private static Scanner in = new Scanner(System.in);
 
-//    private static Credentials credentials = new Credentials();
-//
-//    static {
-//        try {
-//            credentials = new Credentials("S1234567T", "123abcABC!@#");
-//        } catch (IllegalValueException e) {
-//            e.printStackTrace();
-//        }
-//    }
-
-
 //    public static void setUsername(String user) {
 //        username = user;
 //    }
@@ -47,7 +36,6 @@ public class login {
                 usernameF = username;
                 return true;
             }else if(credentials.validateCredentials()){
-//            }else if(WorkWithLoginStorage.compareCredentials(username, password)){
                 System.out.println("2Welcome to AddressBook3");
                 usernameF = username;
                 return true;
@@ -55,7 +43,6 @@ public class login {
 //                credentials = null;
                 System.out.println("Incorrect Username/Password! Please try again.");
             }
-//        }
         System.out.println("Login failed. Account is now locked.");
         return false;
     }
