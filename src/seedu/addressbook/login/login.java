@@ -1,9 +1,6 @@
 package seedu.addressbook.login;
 
 //import seedu.addressbook.data.exception.IllegalValueException;
-//import seedu.addressbook.login.Credentials.*;
-
-//import java.util.Scanner;
 
 public class login {
 //    private boolean loggedin;
@@ -12,6 +9,7 @@ public class login {
     private static final String stdUser = "Username";
     private static final String stdPass = "Password";
     private static String usernameF;
+    private static String accesslevelF;
 //    private static String password;
 //    private static Scanner in = new Scanner(System.in);
 
@@ -30,14 +28,18 @@ public class login {
 //    }
 
     public static boolean main(String username, String password){
-            Credentials credentials = new Credentials(username, password);
+            Credentials credentials = new Credentials(username, password, null);
             if(credentials.getUsername().equals(stdUser) && credentials.getPassword().equals(stdPass)){
                 System.out.println("Welcome to AddressBook3");
                 usernameF = username;
+                accesslevelF = "0";
                 return true;
             }else if(credentials.validateCredentials()){
                 System.out.println("2Welcome to AddressBook3");
                 usernameF = username;
+                credentials.validateAccessLevel();
+                accesslevelF = credentials.getAccessLevel();
+                System.out.println("accesslevel is " + accesslevelF );
                 return true;
             }else{
 //                credentials = null;
@@ -49,5 +51,8 @@ public class login {
 
     public static String getUsernameF(){
         return usernameF;
+    }
+    public static String getAccesslevelF(){
+        return accesslevelF;
     }
 }

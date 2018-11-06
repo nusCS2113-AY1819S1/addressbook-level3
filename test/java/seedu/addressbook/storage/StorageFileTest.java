@@ -93,6 +93,7 @@ public class StorageFileTest {
     private AddressBook getTestAddressBook() throws Exception {
         AddressBook ab = new AddressBook();
         ab.addPerson(new Person(new Name("John Doe"),
+                                new Nric("S4567911A", false),
                                 new Phone("98765432", false),
                                 new Email("johnd@gmail.com", false),
                                 new Address("John street, block 123, #01-01", false),
@@ -101,6 +102,7 @@ public class StorageFileTest {
                                 Collections.emptySet(),
                                 Collections.emptySet()));
         ab.addPerson(new Person(new Name("Betsy Crowe"),
+                                new Nric("S1112223Q", true),
                                 new Phone("1234567", true),
                                 new Email("betsycrowe@gmail.com", false),
                                 new Address("Newgate Prison", true),

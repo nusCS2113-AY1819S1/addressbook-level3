@@ -28,6 +28,8 @@ public class AdaptedPerson {
     @XmlElement(required = true)
     private String name;
     @XmlElement(required = true)
+    private AdaptedContactDetail nric;
+    @XmlElement(required = true)
     private AdaptedContactDetail phone;
     @XmlElement(required = true)
     private AdaptedContactDetail email;
@@ -58,6 +60,10 @@ public class AdaptedPerson {
      */
     public AdaptedPerson(ReadOnlyPerson source) {
         name = source.getName().fullName;
+
+        nric = new AdaptedContactDetail();
+        nric.isPrivate = source.getNric().isPrivate();
+        nric.value = source.getNric().NRIC;
 
         phone = new AdaptedContactDetail();
         phone.isPrivate = source.getPhone().isPrivate();
@@ -132,10 +138,11 @@ public class AdaptedPerson {
             associateds.add(associate.toModelType());
         }
         final Name name = new Name(this.name);
+        final Nric nric = new Nric(this.nric.value, this.nric.isPrivate);
         final Phone phone = new Phone(this.phone.value, this.phone.isPrivate);
         final Email email = new Email(this.email.value, this.email.isPrivate);
         final Address address = new Address(this.address.value, this.address.isPrivate);
         final Title title = new Title(this.title.value, this.title.isPrivate);
-        return new Person(name, phone, email, address, title, schedules, tags, associateds);
+        return new Person(name, nric, phone, email, address, title, schedules, tags, associateds);
     }
 }

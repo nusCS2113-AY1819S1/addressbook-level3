@@ -136,13 +136,13 @@ public class LogicTest {
     @Test
     public void execute_add_invalidPersonData() throws Exception {
         assertCommandBehavior(
-                "add []\\[;] p/12345 e/valid@e.mail a/valid, address s/Doctor d/01-01-2001", Name.MESSAGE_NAME_CONSTRAINTS);
+                "add []\\[;] n/S7778889T p/12345 e/valid@e.mail a/valid, address s/Doctor d/01-01-2001", Name.MESSAGE_NAME_CONSTRAINTS);
         assertCommandBehavior(
-                "add Valid Name p/not_numbers e/valid@e.mail a/valid, address s/Doctor d/01-01-2001", Phone.MESSAGE_PHONE_CONSTRAINTS);
+                "add Valid Name n/S7778889T p/not_numbers e/valid@e.mail a/valid, address s/Doctor d/01-01-2001", Phone.MESSAGE_PHONE_CONSTRAINTS);
         assertCommandBehavior(
-                "add Valid Name p/12345 e/notAnEmail a/valid, address s/Doctor d/01-01-2001", Email.MESSAGE_EMAIL_CONSTRAINTS);
+                "add Valid Name n/S7778889T p/12345 e/notAnEmail a/valid, address s/Doctor d/01-01-2001", Email.MESSAGE_EMAIL_CONSTRAINTS);
         assertCommandBehavior(
-                "add Valid Name p/12345 e/valid@e.mail a/valid, address s/Doctor d/01-01-2001 t/invalid_-[.tag", Tag.MESSAGE_TAG_CONSTRAINTS);
+                "add Valid Name n/S7778889T p/12345 e/valid@e.mail a/valid, address s/Doctor d/01-01-2001 t/invalid_-[.tag", Tag.MESSAGE_TAG_CONSTRAINTS);
 
     }
 
@@ -513,6 +513,7 @@ public class LogicTest {
 
         Person adam() throws Exception {
             Name name = new Name("Adam Brown");
+            Nric nric = new Nric("S4567891T", true);
             Phone privatePhone = new Phone("111111", true);
             Email email = new Email("adam@gmail.com", false);
             Address privateAddress = new Address("111, alpha street", true);
@@ -524,7 +525,7 @@ public class LogicTest {
             Tag tag2 = new Tag("tag2");
             Set<Tag> tags = new HashSet<>(Arrays.asList(tag1, tag2));
             Set<Associated> associated= new HashSet<>();
-            return new Person(name, privatePhone, email, privateAddress, title, schedules, tags, associated);
+            return new Person(name, nric, privatePhone, email, privateAddress, title, schedules, tags, associated);
         }
 
         /**
@@ -538,6 +539,7 @@ public class LogicTest {
         Person generatePerson(int seed, boolean isAllFieldsPrivate) throws Exception {
             return new Person(
                     new Name("Person " + seed),
+                    new Nric("S1234321Y", isAllFieldsPrivate),
                     new Phone("" + Math.abs(seed), isAllFieldsPrivate),
                     new Email(seed + "@email", isAllFieldsPrivate),
                     new Address("House of " + seed, isAllFieldsPrivate),
@@ -555,6 +557,7 @@ public class LogicTest {
             cmd.add("add");
 
             cmd.add(p.getName().toString());
+            cmd.add((p.getNric().isPrivate() ? "pn/" : "p/") + p.getNric());
             cmd.add((p.getPhone().isPrivate() ? "pp/" : "p/") + p.getPhone());
             cmd.add((p.getEmail().isPrivate() ? "pe/" : "e/") + p.getEmail());
             cmd.add((p.getAddress().isPrivate() ? "pa/" : "a/") + p.getAddress());
@@ -642,6 +645,7 @@ public class LogicTest {
          Person generatePersonWithName(String name) throws Exception {
             return new Person(
                     new Name(name),
+                    new Nric("S9876543P", false),
                     new Phone("1", false),
                     new Email("1@email", false),
                     new Address("House of 1", false),

@@ -28,10 +28,11 @@ public class ChangePasswordCommand extends Command {
     @Override
     public CommandResult execute() {
         String username = login.getUsernameF();
+        String accesslevel = login.getAccesslevelF();
         if(!next.equals(confirm)){
             return new CommandResult(MESSAGE_DIFF_PASSWORD + "abc" + current + "abc" + next + "abc" + confirm + "abc");
         }else if(WorkWithLoginStorage.compareCredentials(username, current)){
-            Credentials credentials = new Credentials(username, next);
+            Credentials credentials = new Credentials(username, next, accesslevel);
             WorkWithLoginStorage.editLogin(credentials);
             if(credentials.validateCredentials()){
                 return new CommandResult(MESSAGE_SUCCESS);

@@ -16,9 +16,9 @@ public class AddCommand extends UndoAbleCommand {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ":\n" + "Adds a person to the address book. "
             + "Contact details can be marked private by prepending 'p' to the prefix.\n\t"
-            + "Parameters: NAME [p]p/PHONE [p]e/EMAIL [p]a/ADDRESS [p]s/TITLE [d/SCHEDULE]... [t/TAG]...\n\t"
+            + "Parameters: NAME [p]p/NRIC [p]p/PHONE [p]e/EMAIL [p]a/ADDRESS [p]s/TITLE [d/SCHEDULE]... [t/TAG]...\n\t"
             + "Example: " + COMMAND_WORD
-            + " John Doe p/98765432 e/johnd@gmail.com a/311, Clementi Ave 2, #02-25 s/Doctor d/31-10-2018 t/friends t/owesMoney";
+            + " John Doe n/S1239875U p/98765432 e/johnd@gmail.com a/311, Clementi Ave 2, #02-25 s/Doctor d/31-10-2018 t/friends t/owesMoney";
 
     public static final String MESSAGE_SUCCESS = "New person added: %1$s";
     public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the address book";
@@ -31,6 +31,7 @@ public class AddCommand extends UndoAbleCommand {
      * @throws IllegalValueException if any of the raw values are invalid
      */
     public AddCommand(String name,
+                      String nric, boolean isNricPrivate,
                       String phone, boolean isPhonePrivate,
                       String email, boolean isEmailPrivate,
                       String address, boolean isAddressPrivate,
@@ -49,6 +50,7 @@ public class AddCommand extends UndoAbleCommand {
         final Set<Associated> associatedSet = new HashSet<>();
         this.toAdd = new Person(
                 new Name(name),
+                new Nric(nric, isNricPrivate),
                 new Phone(phone, isPhonePrivate),
                 new Email(email, isEmailPrivate),
                 new Address(address, isAddressPrivate),
