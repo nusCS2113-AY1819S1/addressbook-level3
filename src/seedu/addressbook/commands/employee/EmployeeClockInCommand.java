@@ -68,8 +68,7 @@ public class EmployeeClockInCommand extends Command {
 
             rms.updateAttendance(oldAttendance, newAttendance);
             return new CommandResult(String.format(MESSAGE_SUCCESS, name, this.currentDate, this.currentTime));
-        }
-        catch (IndexOutOfBoundsException ie) {
+        } catch (IndexOutOfBoundsException ie) {
             return new CommandResult(Messages.MESSAGE_EMPLOYEE_NOT_IN_RMS);
         }
     }
