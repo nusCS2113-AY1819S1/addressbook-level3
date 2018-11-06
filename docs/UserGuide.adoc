@@ -80,7 +80,7 @@ When the application is first started, users have to choose
 
 Shows a list of menu categories available. +
 
-Format: `showMainMenu`
+Format: `showmainmenu`
 
 ==== List Menu
 
@@ -94,28 +94,42 @@ Format: `listmenu`
 
 ==== List Menu According to Category
 
-Shows a list of the menu items of a particular category type (e.g Main, Sides). +
+Shows a list of the menu items of a particular category type, as shown in the Main Menu (e.g main, sides). +
 
 Each menu item include details of: menu item, price, type and any relevant tags. +
 
-Format: `listmenubytype TYPE`
+Format: `listmenutype TYPE`
 
 * List the current menu items of a particular category in the menu
+
+Example: +
+`listmenutype main` +
+System shows all the main dishes in the menu.
 
 ==== View All Menu
 
 Shows the detail of the a menu item with a particular index. +
 Format: `viewallmenu INDEX`
 
+* The command is only executable after running the `listmenutype TYPE` or `findmenu KEYWORD` commands
+
+Example: +
+`listmenutype main` +
+`viewallmenu 1` +
+System shows 1st menu item of category type main.
+
 ==== Add Menu
 
 Add a new item to the menu. +
-Format: `addmenu NAME p/PRICE type/TYPE [t/TAG]`
+Format: `addmenu NAME p/PRICE type/TYPE [t/TAG]...`
 
 * Adds the new menu item into the menu list
+* Price must start with a $ sign and must be integer or float in value of 2 decimal places
+* Type should only be of the following categories: main, sides, beverage, dessert, others, set meal
+* A new food item can have multiple tags (including 0)
 
 Example: +
-add Cheese Fries p/$3.50 type/sides t/New item +
+`addmenu Cheese Fries p/$3.50 type/sides t/newItem t/seasonalSpecial` +
 System adds Cheese Fries to the existing menu.
 //
 //
@@ -139,12 +153,15 @@ Format: `deletemenu INDEX`
 * Deletes the menu item in that particular index
 
 Example: +
-viewallmenu +
-deletemenu 1 +
-System deletes food item in index 1 from the menu. +
-findmenu Cheese Fries +
-deletemenu 3 +
-System deletes Cheese Fries in index 3 from the menu.
+`listmenutype main` +
+`deletemenu 1` +
+System deletes menu item in index 1 from the displayed menu of main dishes. +
+`listmenutype main` +
+`deletemenu 1` +
+System deletes the menu item in index 1 from the displayed menu of main dishes. +
+`findmenu Cheese Fries` +
+`deletemenu 3` +
+System deletes Cheese Fries in index 3 from the displayed menu of items found with `Cheese Fries` keyword.
 
 ==== Find Menu
 
@@ -152,12 +169,14 @@ Finds the menu item(s) related to the keywords typed in by the user. +
 Format: `findmenu KEYWORD [MORE KEYWORDS]`
 
 * A list of menu items with names related to the keyword(s) will be displayed.
-* The command is case sensitive.
+* The search is case insensitive eg. `cheese` will match `Cheese`.
 * Order of keywords do not matter.
+* Only full words will be matched. eg `burg` will not match `Burger`
+* Menu items matching atleast one key word will be returned. eg '`cheese` will return `Cheese Fries`, `Cheese Burger`.
 
 Example: +
-findmenu Burger Coke Fries +
-Returns Double Cheese Burger, Veggie Burger, Coke, Coke Zero, Fries, Curly Fries
+`findmenu Burger Coke Fries` +
+Returns Double Cheese burger, Veggie Burger, Coke, coke zero, Fries, Curly Fries
 // end::menucommands[]
 //==== Update Menu
 //

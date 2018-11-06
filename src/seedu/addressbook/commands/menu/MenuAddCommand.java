@@ -24,7 +24,16 @@ public class MenuAddCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ":\n" + "Adds a food item to the Rms. "
             + "Parameters: NAME p/PRICE type/TYPE [t/TAG]...\n\t"
             + "Example: " + COMMAND_WORD
-            + " Cheese Burger p/$5.00 type/main t/newAddition t/hotSeller";
+            + " Cheese Burger p/$5.00 type/main t/newAddition t/hotSeller"
+            + "    \n\n\tNote:"
+            + "    \n\t-PRICE must start with a $ sign and must be integer or float in value of 2 decimal places"
+            + "    \n\t-TYPE should only be one of the few Category:"
+            + "         \n\t" + " main"
+            + "         \n\t" + " sides"
+            + "         \n\t" + " beverage"
+            + "         \n\t" + " dessert"
+            + "         \n\t" + " others"
+            + "         \n\t" + " set meal";
 
     public static final String MESSAGE_SUCCESS = "New food item added: %1$s";
     public static final String MESSAGE_DUPLICATE_MENU_ITEM = "This food item already exists in the Rms";
