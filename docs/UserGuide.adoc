@@ -10,7 +10,7 @@ ifdef::env-github[]
 endif::[]
 
 == 1 Introduction
-The MediBook v1.2 allows healthcare professionals to keep track of patients’ details, arrange their schedule based on their patients’ appointments and communicate efficiently between colleagues.
+The MediBook v1.3 allows healthcare professionals to keep track of patients’ details, arrange their schedule based on their patients’ appointments and communicate efficiently between colleagues.
 
 == 2 About
 This user guide provides an overview for healthcare professionals on the usage of MediBook once MediBook is set up.
