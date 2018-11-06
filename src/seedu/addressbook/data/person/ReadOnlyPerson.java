@@ -3,6 +3,7 @@ package seedu.addressbook.data.person;
 import java.util.Set;
 
 import seedu.addressbook.data.tag.Tag;
+import seedu.addressbook.login.login;
 
 /**
  * A read-only immutable interface for a Person in the addressbook.
@@ -64,8 +65,13 @@ public interface ReadOnlyPerson {
         if (getAddress().isPrivate()) {
             builder.append(detailIsPrivate);
         }
-        builder.append(getAddress())
-                .append(" Title: ");
+        if(login.getAccesslevelF() < getAddress().getAccessLevel()) {
+            System.out.println("hide getAsTextShowAll");
+            builder.append(getAddress())
+                    .append(" Title: ");
+        }else{
+            builder.append(" HIDDEN").append(" Title: ");
+        }
         if (getTitle().isPrivate()) {
             builder.append(detailIsPrivate);
         }
@@ -101,7 +107,11 @@ public interface ReadOnlyPerson {
             builder.append(" Email: ").append(getEmail());
         }
         if (!getAddress().isPrivate()) {
-            builder.append(" Address: ").append(getAddress());
+            if(login.getAccesslevelF() < getAddress().getAccessLevel()){
+                builder.append(" Address: ").append(getAddress());
+            }else{
+                builder.append(" Address: ").append(" HIDDEN");
+            }
         }
         if (!getTitle().isPrivate()) {
             builder.append(" Title: ").append(getTitle());
