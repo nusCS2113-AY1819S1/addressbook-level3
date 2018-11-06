@@ -46,7 +46,7 @@ public class Member implements ReadOnlyMember {
      * Copy constructor.
      */
     public Member(ReadOnlyMember source) {
-        this(source.getName(), source.getPoints(), source.getDate(), source.getMemberTier());
+        this(source.getName(), source.getCurrentPoints(), source.getDate(), source.getMemberTier());
     }
 
     @Override
@@ -55,20 +55,24 @@ public class Member implements ReadOnlyMember {
     }
 
     @Override
-    public Points getPoints() {
+    public Points getCurrentPoints() {
         return points;
     }
 
-    public void setPoints(int value) {
-        points.setPoints(value);
+    public void setCurrentPoints(int value) {
+        points.setCurrentPoints(value);
     }
 
-    public Points updatePoints(double price, int pointsToRedeem) {
+    public Points updateCurrentPoints(double price, int pointsToRedeem) {
         return this.points.updatePoints(price, pointsToRedeem);
     }
 
     public int getPointsValue() {
-        return points.getPoints();
+        return points.getCurrentPoints();
+    }
+
+    public int getTotalPointsValue() {
+        return points.getTotalPoints();
     }
 
     public Date getDate() {
@@ -91,7 +95,7 @@ public class Member implements ReadOnlyMember {
      */
 
     public void updatePointsAndTier(double price, int pointsToRedeem) {
-        Points newPoints = updatePoints(price, pointsToRedeem);
+        Points newPoints = updateCurrentPoints(price, pointsToRedeem);
         updateTier(newPoints);
     }
 

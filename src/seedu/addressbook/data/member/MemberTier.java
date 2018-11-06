@@ -26,7 +26,7 @@ public class MemberTier {
      * @return MemberTier object with the updated tier value
      */
     public MemberTier updateTier(Points points) {
-        int value = points.getPoints();
+        int value = points.getCurrentPoints();
         if (value > 100) {
             this.tier = "Gold";
             return this;

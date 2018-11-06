@@ -10,14 +10,15 @@ import java.util.Date;
 public interface ReadOnlyMember {
 
     MemberName getName();
-    Points getPoints();
-    Points updatePoints(double price, int pointsToRedeem);
+    Points getCurrentPoints();
+    Points updateCurrentPoints(double price, int pointsToRedeem);
     void updatePointsAndTier(double price, int pointsToRedeem);
     Date getDate();
     MemberTier getMemberTier();
     MemberTier updateTier(Points points);
     int getPointsValue();
-    void setPoints(int value);
+    int getTotalPointsValue();
+    void setCurrentPoints(int value);
 
 
     /**
@@ -43,12 +44,14 @@ public interface ReadOnlyMember {
         final StringBuilder builder = new StringBuilder();
         final String detailIsPrivate = "(private) ";
         builder.append(getName())
-                .append(" Points: ");
-        builder.append(getPoints())
-                .append(" Date: ");
-        builder.append(getDate())
-                .append(" Tier: ");
-        builder.append(getMemberTier().toString());
+                .append(" | Available Points: ");
+        builder.append(getCurrentPoints())
+                .append(" | Total Points: ");
+        builder.append(getTotalPointsValue())
+                .append(" | Tier: ");
+        builder.append(getMemberTier().toString())
+                .append(" | Date: ");
+        builder.append(getDate());
         return builder.toString();
     }
 
@@ -58,9 +61,11 @@ public interface ReadOnlyMember {
     default String getAsTextHidePrivate() {
         final StringBuilder builder = new StringBuilder();
         builder.append(getName());
-        builder.append(" Points: ").append(getPoints());
-        builder.append(" Date: ").append(getDate());
-        builder.append(" Tier: ").append(getMemberTier().toString());
+        builder.append(" | Available Points: ").append(getCurrentPoints());
+        builder.append(" | Total Points: ").append(getTotalPointsValue());
+        builder.append(" | Tier: ").append(getMemberTier().toString());
+        builder.append(" | Date: ").append(getDate());
+        builder.append("\n");
         return builder.toString();
     }
 
@@ -70,7 +75,7 @@ public interface ReadOnlyMember {
     default String getAsTextInOrderList() {
         final StringBuilder builder = new StringBuilder();
         builder.append(getName());
-        builder.append(" Points: ").append(getPoints());
+        builder.append(" Points: ").append(getCurrentPoints());
         builder.append(" Tier: ").append(getMemberTier().toString());
         return builder.toString();
     }

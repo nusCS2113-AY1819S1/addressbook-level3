@@ -102,7 +102,7 @@ class TestDataHelper {
      * Generate empty points to redeem for testing purpose
      */
     int pointsToRedeem() throws Exception {
-        return new Points().getPoints();
+        return new Points().getCurrentPoints();
     };
 
     /**
@@ -225,7 +225,7 @@ class TestDataHelper {
                 generateMember(seed),
                 new Date(Math.abs(seed)),
                 generateDishItems(seed),
-                new Points().getPoints()
+                new Points().getCurrentPoints()
         );
     }
 
@@ -603,7 +603,7 @@ class TestDataHelper {
                 generateMemberWithName(name),
                 new Date(5000),
                 generateDishItemsWithName(name),
-                new Points().getPoints()
+                new Points().getCurrentPoints()
         );
     }
 

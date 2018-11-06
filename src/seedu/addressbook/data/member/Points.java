@@ -9,14 +9,22 @@ import seedu.addressbook.data.exception.IllegalValueException;
  */
 public class Points {
 
-    private int value;
+    private int currentPoints;
+    private int totalPoints;
 
     public Points() {
-        this.value = 0;
+        this.currentPoints = 0;
+        this.totalPoints = 0;
     }
 
-    public Points(int points) {
-        this.value = points;
+    public Points (int pointsToRedeem) {
+        this.currentPoints = pointsToRedeem;
+        this.totalPoints = 0;
+    }
+    
+    public Points(int currentPoints, int totalPoints) {
+        this.currentPoints = currentPoints;
+        this.totalPoints = totalPoints;
     }
 
     // public final String MESSAGE_NEGATIVE_POINTS = "Update points cannot result in negative points.";
@@ -27,37 +35,55 @@ public class Points {
      */
     protected Points updatePoints(double price, int pointsToRedeem) {
         try {
-            this.value += ((int) price) / 10;
-            this.value -= pointsToRedeem;
-            if (this.value < 0) {
+            final int pointsToAdd = ((int) price / 10);
+            this.currentPoints += pointsToAdd;
+            this.totalPoints += pointsToAdd;
+            this.currentPoints -= pointsToRedeem;
+            if (!isValidPoints(currentPoints)) {
                 throw new IllegalValueException(MESSAGE_NEGATIVE_POINTS);
             }
             return this;
         } catch (IllegalValueException e) {
-            this.value = 0;
+            this.currentPoints = 0;
             return this;
         }
 
     }
 
-    public int getPoints() {
-        return this.value;
+    public int getCurrentPoints() {
+        return this.currentPoints;
     }
 
-    public void setPoints(int points) {
-        this.value = points;
+    public int getTotalPoints() {
+        return this.totalPoints;
+    }
+
+    public void setCurrentPoints(int points) {
+        this.currentPoints = points;
+    }
+
+    /**
+     * checks the points are valid
+     * @param points
+     * @return false if points are negative, true if points are positive or zero
+     */
+    public boolean isValidPoints(int points) {
+        if (points >= 0) {
+            return true;
+        }
+        return false;
     }
 
     @Override
     public String toString() {
-        return Integer.toString(value);
+        return Integer.toString(currentPoints);
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof Points // instanceof handles nulls
-                && this.toString().equals(((Points) other).value)); // state check
+                && this.toString().equals(((Points) other).currentPoints)); // state check
     }
 
     @Override

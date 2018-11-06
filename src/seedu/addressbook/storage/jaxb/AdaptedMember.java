@@ -51,7 +51,10 @@ public class AdaptedMember {
     private String name;
 
     @XmlElement(required = true)
-    private String points;
+    private int points;
+
+    @XmlElement(required = true)
+    private int totalPoints;
 
     @XmlElement(required = true)
     private long date;
@@ -72,7 +75,8 @@ public class AdaptedMember {
      */
     public AdaptedMember(ReadOnlyMember source) {
         name = source.getName().fullName;
-        points = source.getPoints().toString();
+        points = source.getPointsValue();
+        totalPoints = source.getTotalPointsValue();
         date = source.getDate().getTime();
         tier = source.getMemberTier().toString();
     }
@@ -99,7 +103,7 @@ public class AdaptedMember {
     }
 
     /**
-     * Converts this jaxb-friendly adapted person object into the Person object.
+     * Converts this jaxb-friendly adapted member object into the member object.
      *
      * @throws IllegalValueException if there were any data constraints violated in the adapted person
      */
@@ -111,7 +115,7 @@ public class AdaptedMember {
         }
         */
         final MemberName name = new MemberName(this.name);
-        final Points points = new Points(Integer.parseInt(this.points));
+        final Points points = new Points(this.points, this.totalPoints);
         final Date date = new Date(this.date);
         final MemberTier tier = new MemberTier(this.tier);
 

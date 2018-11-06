@@ -34,7 +34,7 @@ public class DraftOrderEditPointsCommand extends Command {
     public CommandResult execute() {
         try {
             final ReadOnlyMember member = rms.getMemberFromDraftOrder();
-            final int points = toRedeem.getPoints();
+            final int points = toRedeem.getCurrentPoints();
             final ReadOnlyMember emptyMember = new Member();
             if (member.getName().equals(emptyMember.getName())) {
                 throw new IllegalValueException("Member needs to be added first!");

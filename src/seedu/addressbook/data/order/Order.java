@@ -107,19 +107,19 @@ public class Order implements ReadOnlyOrder {
 
     @Override
     public int getPoints() {
-        return points.getPoints();
+        return points.getCurrentPoints();
     }
 
     public int getPointsEarned() {
         if (customer.getName().equals(new Member().getName())) {
-            return points.getPoints();
+            return points.getCurrentPoints();
         }
         return (int) price / 10;
     }
 
     @Override
     public void setPoints(int value) {
-        points.setPoints(value);
+        points.setCurrentPoints(value);
     }
 
     @Override
@@ -176,7 +176,7 @@ public class Order implements ReadOnlyOrder {
         } else if (quantity > 0) {
             dishItems.put(dish, quantity);
         }
-        price = calculatePrice(points.getPoints());
+        price = calculatePrice(points.getCurrentPoints());
     }
 
     @Override
