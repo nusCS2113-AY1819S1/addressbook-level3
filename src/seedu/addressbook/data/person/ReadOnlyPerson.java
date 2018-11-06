@@ -11,6 +11,7 @@ import seedu.addressbook.data.tag.Tag;
 public interface ReadOnlyPerson {
     Person getPerson();
     Name getName();
+    Nric getNric();
     Phone getPhone();
     Email getEmail();
     Address getAddress();
@@ -30,6 +31,7 @@ public interface ReadOnlyPerson {
         return other == this // short circuit if same object
                 || (other != null // this is first to avoid NPE below
                 && other.getName().equals(this.getName()) // state checks here onwards
+                && other.getNric().equals(this.getNric())
                 && other.getPhone().equals(this.getPhone())
                 && other.getEmail().equals(this.getEmail())
                 && other.getAddress().equals(this.getAddress())
@@ -43,7 +45,11 @@ public interface ReadOnlyPerson {
     default String getAsTextShowAll() {
         final StringBuilder builder = new StringBuilder();
         final String detailIsPrivate = "(private) ";
-        builder.append(getName())
+        builder.append(getName()).append(" NRIC: ");
+        if (getNric().isPrivate()){
+            builder.append(detailIsPrivate);
+        }
+        builder.append(getNric())
                 .append(" Phone: ");
         if (getPhone().isPrivate()) {
             builder.append(detailIsPrivate);
@@ -85,6 +91,9 @@ public interface ReadOnlyPerson {
     default String getAsTextHidePrivate() {
         final StringBuilder builder = new StringBuilder();
         builder.append(getName());
+        if(!getNric().isPrivate()) {
+            builder.append(" NRIC: ").append(getNric());
+        }
         if (!getPhone().isPrivate()) {
             builder.append(" Phone: ").append(getPhone());
         }

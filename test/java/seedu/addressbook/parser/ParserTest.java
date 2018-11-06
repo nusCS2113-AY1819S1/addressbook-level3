@@ -281,6 +281,7 @@ public class ParserTest {
         try {
             return new Person(
                 new Name(Name.EXAMPLE),
+                new Nric(Nric.EXAMPLE, true),
                 new Phone(Phone.EXAMPLE, true),
                 new Email(Email.EXAMPLE, false),
                 new Address(Address.EXAMPLE, true),
@@ -297,6 +298,7 @@ public class ParserTest {
     private static String convertPersonToMinimumAddCommandString(ReadOnlyPerson person) {
         String addCommand = "add "
                 + person.getName().fullName
+                + (person.getNric().isPrivate() ? " pn/" : " n/") + person.getNric().NRIC
                 + (person.getPhone().isPrivate() ? " pp/" : " p/") + person.getPhone().value
                 + (person.getEmail().isPrivate() ? " pe/" : " e/") + person.getEmail().value
                 + (person.getAddress().isPrivate() ? " pa/" : " a/") + person.getAddress().value
@@ -308,6 +310,7 @@ public class ParserTest {
     private static String convertPersonToTaglessAddCommandString(ReadOnlyPerson person) {
         String addCommand = "add "
                 + person.getName().fullName
+                + (person.getNric().isPrivate() ? " pn/" : " n/") + person.getNric().NRIC
                 + (person.getPhone().isPrivate() ? " pp/" : " p/") + person.getPhone().value
                 + (person.getEmail().isPrivate() ? " pe/" : " e/") + person.getEmail().value
                 + (person.getAddress().isPrivate() ? " pa/" : " a/") + person.getAddress().value
@@ -323,6 +326,7 @@ public class ParserTest {
     private static String convertPersonToAddCommandString(ReadOnlyPerson person) {
         String addCommand = "add "
                 + person.getName().fullName
+                + (person.getNric().isPrivate() ? " pn/" : " n/") + person.getNric().NRIC
                 + (person.getPhone().isPrivate() ? " pp/" : " p/") + person.getPhone().value
                 + (person.getEmail().isPrivate() ? " pe/" : " e/") + person.getEmail().value
                 + (person.getAddress().isPrivate() ? " pa/" : " a/") + person.getAddress().value
