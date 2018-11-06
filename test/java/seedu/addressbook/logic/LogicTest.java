@@ -542,7 +542,7 @@ public class LogicTest {
         Employee e1 = helper.generateEmployee(1);
         Employee e2 = helper.generateEmployee(2);
         List<Employee> lastShownList = helper.generateEmployeeList(e1, e2);
-        String arbitaryParameter = "p/98765432";
+        String arbitraryParameter = "p/98765432";
 
         logic.setLastShownEmployeeList(lastShownList);
 
