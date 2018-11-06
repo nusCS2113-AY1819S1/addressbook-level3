@@ -13,7 +13,7 @@ We are a team based in the http://www.comp.nus.edu.sg[School of Computing, Natio
 
 === Tay Kang Ming
 image::kangmingtay.png[width="150", align="left"]
-{empty} [https://github.com/kangmingtay[github]] [<<kangming#, portfolio>>]
+{empty} [https://github.com/kangmingtay[github]] [<<kangmingtay#, portfolio>>]
 
 Role: Team Leader +
 Responsibilities: Responsible for overall project coordination.
@@ -22,7 +22,7 @@ Responsibilities: Responsible for overall project coordination.
 
 === Salsabil Tasnia Ali Nikita MD
 image::salsabiltasnia.png[width="150", align="left"]
-{empty}[https://github.com/SalsabilTasnia[github]] [<<salsabil#, portfolio>>]
+{empty}[https://github.com/SalsabilTasnia[github]] [<<salsabiltasnia#, portfolio>>]
 
 Role: Developer, Documentation Lead +
 Responsibilities: Responsible for the menu feature.
@@ -49,7 +49,7 @@ Responsibilities: In charge of the Statistics feature
 
 === Lim Kian Hong
 image::kianhong95.png[width="150", align="left"]
-{empty}[https://github.com/kianhong95[github]] [<<kianhong#, portfolio>>]
+{empty}[https://github.com/kianhong95[github]] [<<kianhong95#, portfolio>>]
 
 Role: Developer +
 Responsibilities: In charge of Employee Feature
