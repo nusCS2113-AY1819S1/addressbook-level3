@@ -1,0 +1,75 @@
+= Kang Ming - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: Restaurant Management System
+
+---
+
+== Overview of the Restaurant Management System
+
+Restaurant Management System (RMS) is a restaurant management solution that helps restauranteurs make more money, deliver great customer experience and bring honest and meaningful statistics to the table. The RMS was designed to improve the efficiency of completing mundane processes such as taking orders and counting the cash so that you can focus on the important things that matter - serving your customers with great food.
+
+This application is created by my team, which comprises of 5 people including myself, for the NUS module CS2113T titled, Software Engineering & Object-Oriented Programming. The project lasted for around 10 weeks and we were expected to work with an existing sample codebase given by the module. The objective was to innovate and develop the existing codebase into a desktop application for a specific group of users - restaurant owners.
+
+Below shows a screenshot of the basic and simple command-line-interface of the RMS:
+
+image::Ui.png[]
+
+_If you are looking for a detailed tutorial on how to use the RMS, please refer to our <<UserGuide#,*User Guide*>>._ +
+_If you are looking for the detailed architecture and design of the RMS or wish to contribute code to this application, please refer to our <<DeveloperGuide#,*Developer Guide*>>_
+
+
+== Summary of contributions
+
+The workflow of the RMS closely resembles that of an Agile framework. At the beginning of the project, we started off with an initial architectural modeling. The project required us to release a working version of our product almost every fortnightly. Within the team, we set weekly milestones and meetings to ensure that everyone is always on track with the development of the RMS. My role in the team was to be their team leader and be responsible for the overall project coordination. Throughout this development cycle, I have made various contributions to the team, from creating new features to be added into the RMS to writing tests and ensuring that each release is functional.
+
+* *Major enhancement*: Created a membership platform for the RMS
+** `What it does`: The membership platform allows the restaurant to keep track of its existing members and accumulate their membership points. It also allows the restaurant manager / cashier to list, add and delete members from the system.
+** `Justification`: This feature improves the product significantly because it is an innovative way for restaurants to retain their customers.
+** `Highlights`: It is essential that the membership system is well integrated together with the order system. This is to ensure that when an order is made by an existing member, the member's membership points will correspondingly be updated. Also, the commands implemented should be easy to understand and use for a non-tech savvy audience. It is important that the invalid command formats are properly taken care of in a way that it guides the user with examples on how to properly use the platform.
+** `Credits`: https://github.com/nusCS2113-AY1819S1/addressbook-level3
+
+* *Code contributed*: https://github.com/CS2113-AY1819S1-F09-2/main[Project Github Page]
+
+** Project Management:
+*** Managed releases v1.1 - v1.3 (3 releases) on GitHub
+
+** Membership Platform Enhancement:
+*** Addition of membership platform: https://github.com/CS2113-AY1819S1-F09-2/main/pull/32[#32], https://github.com/CS2113-AY1819S1-F09-2/main/pull/69[#69], https://github.com/CS2113-AY1819S1-F09-2/main/pull/86[#86], https://github.com/CS2113-AY1819S1-F09-2/main/pull/99[#99], https://github.com/CS2113-AY1819S1-F09-2/main/pull/125[#125]
+
+** Tests for membership features:
+*** Addition of tests for membership feature: https://github.com/CS2113-AY1819S1-F09-2/main/pull/70[#70]
+
+** Documentation:
+*** Addition of content to User Guide: https://github.com/CS2113-AY1819S1-F09-2/main/pull/3[#3], https://github.com/CS2113-AY1819S1-F09-2/main/pull/4[#4], https://github.com/CS2113-AY1819S1-F09-2/main/pull/74[#74]
+
+*** Addition of content to Developer Guide: https://github.com/CS2113-AY1819S1-F09-2/main/pull/85[#85]
+
+** Community:
+*** PRs reviewed (with non-trivial review comments): https://github.com/CS2113-AY1819S1-F09-2/main/pull/72[#72], https://github.com/CS2113-AY1819S1-F09-2/main/pull/116[#116]
+
+** Tools:
+*** Set up continuous integration using Travis.
+*** Set up auto-publishing of documentation using Travis to deploy docs to gh-pages.
+
+== Contributions to the User Guide
+
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+include::../UserGuide.adoc[tag=membercommands]
+
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+include::../DeveloperGuide.adoc[tag=architecture]
+include::../DeveloperGuide.adoc[tag=MemberUseCases]
+
