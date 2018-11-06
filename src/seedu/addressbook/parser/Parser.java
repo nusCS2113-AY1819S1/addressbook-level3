@@ -82,7 +82,7 @@ public class Parser {
 
     // '/' forward slashes are reserved for delimiter prefixes
     public static final Pattern EMPLOYEE_EDIT_DATA_ARGS_FORMAT =
-            Pattern.compile("(?<targetIndex>.+ )"
+            Pattern.compile("(?<targetIndex>\\d+ )"
                     + "((p/(?<phone>[^/]+))?)"
                     + "((e/(?<email>[^/]+))?)"
                     + "((a/(?<address>[^/]+))?)"
