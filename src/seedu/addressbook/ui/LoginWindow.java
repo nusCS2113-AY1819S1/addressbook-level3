@@ -81,7 +81,6 @@ public class LoginWindow {
             message.setText("Incorrect Username/Password! Please Try Again! " + tries + " left.");
         }else{
             Main.change();
-
         }
         if(tries==0) {
             exitApp();
