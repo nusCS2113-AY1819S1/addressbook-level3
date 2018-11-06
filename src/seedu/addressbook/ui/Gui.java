@@ -72,7 +72,6 @@ public class Gui {
     }
 
     public void setAccount(){
-
         this.mainWindow.setAccount(login.getUsernameF(), login.getAccesslevelF());
     }
 

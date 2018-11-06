@@ -102,11 +102,11 @@ public class WorkWithLoginStorage {
         System.out.println("PASSWORD IS "+ PASSWORD);
     }
 
-    public static String retrieveAccessLevel(String username){
+    public static int retrieveAccessLevel(String username){
         openScanner();
         retrieveUsername(username);
         sc.next();
-        return sc.next();
+        return sc.nextInt();
     }
 
 //    public static void retrieveSalt(){

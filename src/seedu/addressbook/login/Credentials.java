@@ -12,11 +12,11 @@ public class Credentials {
 
     private String PASSWORD;
     private String USERNAME;
-    private String ACCESSLEVEL;
+    private int ACCESSLEVEL;
 //    private String salt;
 //    private  int authLevel;
 
-    public Credentials(String username, String password, String accesslevel){
+    public Credentials(String username, String password, int accesslevel){
 //        if(isValidUsername(username)){
             USERNAME = username;
 //            if(isValidPassword(password)){
@@ -109,10 +109,10 @@ public class Credentials {
         return PASSWORD;
     }
 
-    public String getAccessLevel(){
+    public int getAccessLevel(){
         return ACCESSLEVEL;
     }
-    public void setAccessLevel(String accesslevel){
+    public void setAccessLevel(int accesslevel){
         ACCESSLEVEL = accesslevel;
     }
 

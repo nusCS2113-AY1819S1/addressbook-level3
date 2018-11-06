@@ -60,7 +60,7 @@ public class MainWindow {
         }
     }
 
-    public void setAccount(String username, String accesslevel){
+    public void setAccount(String username, int accesslevel){
         userAccount.setText("\n Logged in as " + username + " with level " + accesslevel);
     }
 
