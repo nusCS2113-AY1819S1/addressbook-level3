@@ -2,7 +2,9 @@ package seedu.addressbook.logic;
 
 import static junit.framework.TestCase.assertEquals;
 
+import java.text.SimpleDateFormat;
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 
 import org.junit.Before;
@@ -15,6 +17,8 @@ import seedu.addressbook.commands.CommandResult;
 import seedu.addressbook.commands.ExitCommand;
 import seedu.addressbook.commands.HelpCommand;
 import seedu.addressbook.commands.employee.EmployeeAddCommand;
+import seedu.addressbook.commands.employee.EmployeeClockInCommand;
+import seedu.addressbook.commands.employee.EmployeeClockOutCommand;
 import seedu.addressbook.commands.employee.EmployeeDeleteCommand;
 import seedu.addressbook.commands.member.MemberAddCommand;
 import seedu.addressbook.commands.member.MemberDeleteCommand;
@@ -589,6 +593,134 @@ public class LogicTest {
                 expectedRms,
                 false,
                 threeEmployees);
+    }
+
+    @Test
+    public void execute_clockinEmployee_success() throws Exception {
+        TestDataHelper helper = new TestDataHelper();
+        Employee e1 = helper.generateEmployee(1);
+        Employee e2 = helper.generateEmployee(2);
+        Employee e3 = helper.generateEmployee(3);
+        Attendance a1 = helper.generateAttendance(1);
+        Attendance a2 = helper.generateAttendance(2);
+        Attendance a3 = helper.generateAttendance(3);
+
+        List<Employee> lastShowEmployeeList = helper.generateEmployeeList(e1, e2, e3);
+        List<Attendance> lastShownAttendanceList = helper.generateAttendanceList(a1, a2, a3);
+
+        Rms expectedRms = helper.generateRmsEmployeesAndAttendances(lastShowEmployeeList, lastShownAttendanceList);
+
+        SimpleDateFormat dateFormatter = new SimpleDateFormat("dd/MM/yyyy");
+        SimpleDateFormat timeFormatter = new SimpleDateFormat("HH:mm:ss");
+        Date date = new Date();
+        String currentTime = timeFormatter.format(date);
+        String currentDate = dateFormatter.format(date);
+
+        helper.addEmployeesToRms(rms, lastShowEmployeeList);
+        helper.addAttendancesToRms(rms, lastShownAttendanceList);
+        logic.setLastShownEmployeeList(lastShowEmployeeList);
+        logic.setLastShownAttendanceList(lastShownAttendanceList);
+
+        assertEmployeeAttendanceCommandBehavior("clockin Employee 2",
+                String.format(EmployeeClockInCommand.MESSAGE_SUCCESS, e2.getName(), currentDate, currentTime),
+                expectedRms,
+                false,
+                false,
+                lastShowEmployeeList,
+                lastShownAttendanceList);
+    }
+
+    @Test
+    public void execute_clockinEmployee_invalidEmployee() throws Exception {
+        TestDataHelper helper = new TestDataHelper();
+        Employee e1 = helper.generateEmployee(1);
+        Employee e2 = helper.generateEmployee(2);
+        Employee e3 = helper.generateEmployee(3);
+        Attendance a1 = helper.generateAttendance(1);
+        Attendance a2 = helper.generateAttendance(2);
+        Attendance a3 = helper.generateAttendance(3);
+
+        List<Employee> lastShowEmployeeList = helper.generateEmployeeList(e1, e2, e3);
+        List<Attendance> lastShownAttendanceList = helper.generateAttendanceList(a1, a2, a3);
+
+        Rms expectedRms = helper.generateRmsEmployeesAndAttendances(lastShowEmployeeList, lastShownAttendanceList);
+        helper.addEmployeesToRms(rms, lastShowEmployeeList);
+        helper.addAttendancesToRms(rms, lastShownAttendanceList);
+        logic.setLastShownEmployeeList(lastShowEmployeeList);
+        logic.setLastShownAttendanceList(lastShownAttendanceList);
+
+        assertEmployeeAttendanceCommandBehavior("clockin Employee 5",
+                String.format(Messages.MESSAGE_EMPLOYEE_NOT_IN_RMS),
+                expectedRms,
+                false,
+                false,
+                lastShowEmployeeList,
+                lastShownAttendanceList);
+    }
+
+    @Test
+    public void execute_clockoutEmployee_success() throws Exception {
+        TestDataHelper helper = new TestDataHelper();
+        Employee e1 = helper.generateEmployee(1);
+        Employee e2 = helper.generateEmployee(2);
+        Employee e3 = helper.generateEmployee(3);
+        Attendance a1 = helper.generateAttendance(1);
+        Attendance a2 = helper.generateAttendance(2);
+        Attendance a3 = helper.generateAttendance(3);
+
+        List<Employee> lastShowEmployeeList = helper.generateEmployeeList(e1, e2, e3);
+        List<Attendance> lastShownAttendanceList = helper.generateAttendanceList(a1, a2, a3);
+
+        Rms expectedRms = helper.generateRmsEmployeesAndAttendances(lastShowEmployeeList, lastShownAttendanceList);
+
+        SimpleDateFormat dateFormatter = new SimpleDateFormat("dd/MM/yyyy");
+        SimpleDateFormat timeFormatter = new SimpleDateFormat("HH:mm:ss");
+        Date date = new Date();
+        String currentTime = timeFormatter.format(date);
+        String currentDate = dateFormatter.format(date);
+
+        helper.addEmployeesToRms(rms, lastShowEmployeeList);
+        helper.addAttendancesToRms(rms, lastShownAttendanceList);
+        logic.setLastShownEmployeeList(lastShowEmployeeList);
+        logic.setLastShownAttendanceList(lastShownAttendanceList);
+        logic.execute("clockin Employee 2");
+
+        assertEmployeeAttendanceCommandBehavior("clockout Employee 2",
+                String.format(EmployeeClockOutCommand.MESSAGE_SUCCESS, e2.getName(), currentDate, currentTime),
+                expectedRms,
+                false,
+                false,
+                lastShowEmployeeList,
+                lastShownAttendanceList);
+    }
+
+    @Test
+    public void execute_clockoutEmployee_invalidEmployee() throws Exception {
+        TestDataHelper helper = new TestDataHelper();
+        Employee e1 = helper.generateEmployee(1);
+        Employee e2 = helper.generateEmployee(2);
+        Employee e3 = helper.generateEmployee(3);
+        Attendance a1 = helper.generateAttendance(1);
+        Attendance a2 = helper.generateAttendance(2);
+        Attendance a3 = helper.generateAttendance(3);
+
+        List<Employee> lastShowEmployeeList = helper.generateEmployeeList(e1, e2, e3);
+        List<Attendance> lastShownAttendanceList = helper.generateAttendanceList(a1, a2, a3);
+
+        Rms expectedRms = helper.generateRmsEmployeesAndAttendances(lastShowEmployeeList, lastShownAttendanceList);
+
+        helper.addEmployeesToRms(rms, lastShowEmployeeList);
+        helper.addAttendancesToRms(rms, lastShownAttendanceList);
+        logic.setLastShownEmployeeList(lastShowEmployeeList);
+        logic.setLastShownAttendanceList(lastShownAttendanceList);
+
+        assertEmployeeAttendanceCommandBehavior("clockout Employee 5",
+                String.format(Messages.MESSAGE_EMPLOYEE_NOT_IN_RMS),
+                expectedRms,
+                false,
+                false,
+                lastShowEmployeeList,
+                lastShownAttendanceList);
     }
 
     @Test
