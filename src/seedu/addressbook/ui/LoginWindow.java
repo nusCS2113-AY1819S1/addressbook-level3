@@ -16,6 +16,7 @@ import seedu.addressbook.commands.ExitCommand;
 import seedu.addressbook.data.person.ReadOnlyPerson;
 import seedu.addressbook.logic.Logic;
 import seedu.addressbook.login.login;
+import seedu.addressbook.ui.MainWindow;
 
 import java.util.List;
 import java.util.Optional;
@@ -80,6 +81,7 @@ public class LoginWindow {
             message.setText("Incorrect Username/Password! Please Try Again! " + tries + " left.");
         }else{
             Main.change();
+
         }
         if(tries==0) {
             exitApp();

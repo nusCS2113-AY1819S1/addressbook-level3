@@ -40,6 +40,7 @@ public class Main extends Application implements Stoppable{
     }
 
     public static void  change(){
+        gui.setAccount();
         window.setScene(gui.MainScene);
     }
 
