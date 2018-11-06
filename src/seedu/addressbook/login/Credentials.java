@@ -16,11 +16,12 @@ public class Credentials {
 //    private String salt;
 //    private  int authLevel;
 
-    public Credentials(String username, String password){
+    public Credentials(String username, String password, String accesslevel){
 //        if(isValidUsername(username)){
             USERNAME = username;
 //            if(isValidPassword(password)){
                 PASSWORD = password;
+                ACCESSLEVEL = accesslevel;
 //            }
 //            WorkWithLoginStorage.addLogin(this);
 //        }
@@ -79,10 +80,17 @@ public class Credentials {
 //        sc.close();
     }
 
+    private String hashPassword(String toBeHashed){
+        return hashing.hashIt(toBeHashed);
+    }
+
+    public void validateAccessLevel(){
+        setAccessLevel(WorkWithLoginStorage.retrieveAccessLevel(this.getUsername()));
+    }
+
     private boolean isValidUsername(String username){
         return username.matches(USERNAME_VALIDATION_REGEX);
     }
-
     private boolean isValidPassword(String password){
         return password.matches(PASSWORD_VALIDATION_REGEX);
     }
@@ -90,20 +98,13 @@ public class Credentials {
     public void setUsername(String username){
             USERNAME = username;
     }
-
     public String getUsername(){
         return USERNAME;
     }
 
     public void setPassword(String password) {
-//            PASSWORD = hashPassword(password);
         PASSWORD=password;
     }
-
-    private String hashPassword(String toBeHashed){
-        return hashing.hashIt(toBeHashed);
-    }
-
     public String getPassword(){
         return PASSWORD;
     }
@@ -111,14 +112,10 @@ public class Credentials {
     public String getAccessLevel(){
         return ACCESSLEVEL;
     }
-
     public void setAccessLevel(String accesslevel){
         ACCESSLEVEL = accesslevel;
     }
 
-    public void validateAccessLevel(){
-        setAccessLevel(WorkWithLoginStorage.retrieveAccessLevel(this.getUsername()));
-    }
 
     private void deletePassword(){
         PASSWORD = null;

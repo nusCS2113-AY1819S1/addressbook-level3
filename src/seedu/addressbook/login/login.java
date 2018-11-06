@@ -28,7 +28,7 @@ public class login {
 //    }
 
     public static boolean main(String username, String password){
-            Credentials credentials = new Credentials(username, password);
+            Credentials credentials = new Credentials(username, password, null);
             if(credentials.getUsername().equals(stdUser) && credentials.getPassword().equals(stdPass)){
                 System.out.println("Welcome to AddressBook3");
                 usernameF = username;
@@ -51,5 +51,8 @@ public class login {
 
     public static String getUsernameF(){
         return usernameF;
+    }
+    public static String getAccesslevelF(){
+        return accesslevelF;
     }
 }

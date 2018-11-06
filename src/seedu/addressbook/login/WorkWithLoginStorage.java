@@ -45,7 +45,7 @@ public class WorkWithLoginStorage {
     public static boolean addLogin(Credentials username) {
         try {
             PrintWriter pw = new PrintWriter(new FileWriter(logins, true));
-            pw.print("\n" + username.getUsername() + " " + hashing.hashIt(username.getPassword()));
+            pw.print("\n" + username.getUsername() + " " + hashing.hashIt(username.getPassword()) + " " + username.getAccessLevel());
             pw.close();
         } catch (IOException e){
             System.out.println("cannot create file");
