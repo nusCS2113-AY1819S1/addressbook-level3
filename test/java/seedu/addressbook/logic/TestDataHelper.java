@@ -312,19 +312,19 @@ class TestDataHelper {
         cmd.add(index);
 
         if (editParam == "phone") {
-            cmd.add(" p/" + editDetail);
+            cmd.add("p/" + editDetail);
         }
 
         if (editParam == "email") {
-            cmd.add(" e/" + editDetail);
+            cmd.add("e/" + editDetail);
         }
 
         if (editParam == "address") {
-            cmd.add(" a/" + editDetail);
+            cmd.add("a/" + editDetail);
         }
 
         if (editParam == "position") {
-            cmd.add(" pos/" + editDetail);
+            cmd.add("pos/" + editDetail);
         }
 
         return cmd.toString();

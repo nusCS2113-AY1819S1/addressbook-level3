@@ -534,7 +534,9 @@ public class LogicTest {
      * @param commandWord to test assuming it targets a single employee in the last shown list based on visible index.
      */
     private void assertInvalidIndexBehaviorForEmployeeEditCommand(String commandWord) throws Exception {
-        String expectedMessage = Messages.MESSAGE_INVALID_EMPLOYEE_DISPLAYED_INDEX;
+        String invalidFormat = String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT,
+                EmployeeEditCommand.MESSAGE_USAGE);
+        String invalidIndexMessage = Messages.MESSAGE_INVALID_EMPLOYEE_DISPLAYED_INDEX;
         TestDataHelper helper = new TestDataHelper();
 
         Employee e1 = helper.generateEmployee(1);
@@ -544,11 +546,11 @@ public class LogicTest {
 
         logic.setLastShownEmployeeList(lastShownList);
 
-        assertEmployeeCommandBehavior(commandWord + " -1 " + arbitaryParameter, expectedMessage,
+        assertEmployeeCommandBehavior(commandWord + " -1 " + arbitaryParameter, invalidFormat,
                 Rms.empty(), false, lastShownList);
-        assertEmployeeCommandBehavior(commandWord + " 0 " + arbitaryParameter, expectedMessage,
+        assertEmployeeCommandBehavior(commandWord + " 0 " + arbitaryParameter, invalidIndexMessage,
                 Rms.empty(), false, lastShownList);
-        assertEmployeeCommandBehavior(commandWord + " 3 " + arbitaryParameter, expectedMessage,
+        assertEmployeeCommandBehavior(commandWord + " 3 " + arbitaryParameter, invalidIndexMessage,
                 Rms.empty(), false, lastShownList);
     }
 
