@@ -59,24 +59,27 @@ public class Member implements ReadOnlyMember {
         return points;
     }
 
+    @Override
+    public int getPointsValue() {
+        return points.getPoints();
+    }
+
+    @Override
+    public Date getDate() {
+        return date;
+    }
+
+    @Override
+    public MemberTier getMemberTier() {
+        return tier;
+    }
+
     public void setPoints(int value) {
         points.setPoints(value);
     }
 
     public Points updatePoints(double price, int pointsToRedeem) {
         return this.points.updatePoints(price, pointsToRedeem);
-    }
-
-    public int getPointsValue() {
-        return points.getPoints();
-    }
-
-    public Date getDate() {
-        return date;
-    }
-
-    public MemberTier getMemberTier() {
-        return tier;
     }
 
     public MemberTier updateTier(Points points) {
@@ -89,7 +92,6 @@ public class Member implements ReadOnlyMember {
      * Updates the points and membership tier of the member
      * @param price
      */
-
     public void updatePointsAndTier(double price, int pointsToRedeem) {
         Points newPoints = updatePoints(price, pointsToRedeem);
         updateTier(newPoints);

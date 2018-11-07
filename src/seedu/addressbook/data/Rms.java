@@ -336,12 +336,11 @@ public class Rms {
         return draftOrder;
     }
 
+    /**
+     * Set a member to be the customer of the draft order
+     */
     public void editDraftOrderCustomer(ReadOnlyMember customer) {
         draftOrder.setCustomer(customer);
-    }
-
-    public ReadOnlyMember getMemberFromDraftOrder() {
-        return draftOrder.getCustomer();
     }
 
     /**
@@ -356,7 +355,16 @@ public class Rms {
      */
     public void editDraftOrderPoints(int points) {
         draftOrder.setPoints(points);
-        draftOrder.setPrice(draftOrder.calculatePrice(points));
+    }
+
+    /**
+     * Update the member points of a customer
+     * @param customer the ReadOnlyMember interface of the Member object to update points
+     * @param price the price of the added order made by the customer
+     * @param points the redeemed points the customer used in the order
+     */
+    public void updatePointsOfCustomer(ReadOnlyMember customer, double price, int points) {
+        allMembers.updatePointsOfCustomer(customer, price, points);
     }
 
     public void clearDraftOrder() {

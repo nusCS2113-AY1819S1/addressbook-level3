@@ -942,10 +942,10 @@ public class LogicTest {
     @Test
     public void updateMemberPoints() throws Exception {
         TestDataHelper helper = new TestDataHelper();
-        Points expectedPoints = new Points();
+        Points expectedPoints = new Points(500);
 
         Member m1 = helper.eve();
-        m1.updatePoints(-50, 0);
+        m1.updatePoints(50, 0);
         Points actualPoints = m1.getPoints();
 
         assertEquals(expectedPoints.getPoints(), actualPoints.getPoints());

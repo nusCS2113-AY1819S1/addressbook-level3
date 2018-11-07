@@ -274,8 +274,8 @@ of class `Order`. It is initialize with an empty list of dish and a pseudo-empty
 * By using the draft order command classes, the ordering draft can be edited (e.g. picking the customer from the member
 list if they present their membership card, pick the dish from the menu list one by one before confirming the order).
 * Once an order is confirmed, the ordering time is recorded and the total price is calculated to create a new `Order`
-object that has the same customer and list of dishes fields as the ordering draft to be added to the order list, and
-the ordering draft is cleared afterward.
+object that has the same customer and list of dishes fields as the ordering draft to be added to the order list, the
+member points of the customer is updated, and the ordering draft is cleared afterward.
 
 === Saving and Loading the order list
 
