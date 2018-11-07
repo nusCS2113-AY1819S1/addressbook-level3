@@ -16,7 +16,7 @@ public class DraftOrderEditPointsCommand extends Command {
     public static final String COMMAND_WORD = "draftpoints";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ":\n"
-            + "Add the amount of member points to be redeemed."
+            + "Add the amount of member points to be redeemed.\n\t"
             + "Parameters: POINTS\n\t"
             + "Example: " + COMMAND_WORD + " 50";
 
