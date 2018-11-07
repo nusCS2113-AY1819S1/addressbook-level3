@@ -5,6 +5,7 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import seedu.addressbook.logic.Logic;
 import seedu.addressbook.Main;
+import seedu.addressbook.login.login;
 
 import java.io.File;
 import java.io.IOException;
@@ -68,6 +69,10 @@ public class Gui {
         LoginWindow loginWindow = loader.getController();
         loginWindow.setMainApp(mainApp);
         return loginWindow;
+    }
+
+    public void setAccount(){
+        this.mainWindow.setAccount(login.getUsernameF(), login.getAccesslevelF());
     }
 
 }

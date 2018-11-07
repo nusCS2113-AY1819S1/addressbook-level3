@@ -40,6 +40,8 @@ public class MainWindow {
     @FXML
     private TextField commandInput;
 
+    @FXML
+    public TextArea userAccount;
 
     @FXML
     void onCommand(ActionEvent event) {
@@ -56,6 +58,10 @@ public class MainWindow {
             display(e.getMessage());
             throw new RuntimeException(e);
         }
+    }
+
+    public void setAccount(String username, int accesslevel){
+        userAccount.setText("\n Logged in as " + username + " with level " + accesslevel);
     }
 
     private void exitApp() throws Exception {

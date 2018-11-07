@@ -20,15 +20,15 @@ public class ChangePasswordCommand extends Command {
     private final String current, next, confirm;
 
     public ChangePasswordCommand(String current, String next, String confirm) {
-        this.current = current;
-        this.next = next;
-        this.confirm = confirm;
+        this.current = current.trim();
+        this.next = next.trim();
+        this.confirm = confirm.trim();
     }
 
     @Override
     public CommandResult execute() {
         String username = login.getUsernameF();
-        String accesslevel = login.getAccesslevelF();
+        int accesslevel = login.getAccesslevelF();
         if(!next.equals(confirm)){
             return new CommandResult(MESSAGE_DIFF_PASSWORD + "abc" + current + "abc" + next + "abc" + confirm + "abc");
         }else if(WorkWithLoginStorage.compareCredentials(username, current)){
