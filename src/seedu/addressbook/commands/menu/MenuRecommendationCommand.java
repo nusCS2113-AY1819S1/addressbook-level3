@@ -1,9 +1,7 @@
 package seedu.addressbook.commands.menu;
 
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 import seedu.addressbook.commands.Command;
 import seedu.addressbook.commands.CommandResult;
@@ -21,11 +19,10 @@ public class MenuRecommendationCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ":\n"
             + "Displays the best seller items as the recommendations of the month.\n\t";
 
-    private final Set<String> typeSet = new HashSet<>();
-
     /**
      * Displays all the best selling items of each category in the menu, if the items in those categories are sold
-     * The best selling items are obtained from the statistics that determine the best and worst selling items of the month
+     * The best selling items are obtained from the statistics that determine the best and worst selling items of
+     * the month
      *
      * @return the best selling items of each category
      */
@@ -42,9 +39,6 @@ public class MenuRecommendationCommand extends Command {
         return builder.toString();
 
     }
-
-
-
 
     @Override
     public CommandResult execute() {

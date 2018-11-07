@@ -10,6 +10,7 @@ import seedu.addressbook.commands.menu.MenuDeleteCommand;
 import seedu.addressbook.commands.menu.MenuFindCommand;
 import seedu.addressbook.commands.menu.MenuListByTypeCommand;
 import seedu.addressbook.commands.menu.MenuListCommand;
+import seedu.addressbook.commands.menu.MenuRecommendationCommand;
 import seedu.addressbook.commands.menu.MenuShowMainMenuCommand;
 import seedu.addressbook.commands.menu.MenuViewAllCommand;
 import seedu.addressbook.commands.order.DraftOrderClearCommand;
@@ -51,6 +52,7 @@ public class HelpCommand extends Command {
             + "\n" + MenuListCommand.MESSAGE_USAGE
             + "\n" + MenuShowMainMenuCommand.MESSAGE_USAGE
             + "\n" + MenuListByTypeCommand.MESSAGE_USAGE
+            + "\n" + MenuRecommendationCommand.MESSAGE_USAGE
             + "\n" + MenuViewAllCommand.MESSAGE_USAGE
             + "\n" + MenuClearCommand.MESSAGE_USAGE
 
