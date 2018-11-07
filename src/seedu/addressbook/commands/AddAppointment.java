@@ -6,9 +6,9 @@ import seedu.addressbook.common.Messages;
 import seedu.addressbook.data.person.Person;
 import seedu.addressbook.data.person.ReadOnlyPerson;
 import seedu.addressbook.data.person.Schedule;
+import seedu.addressbook.data.person.UniquePersonList;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 public class AddAppointment extends Command{
 
@@ -19,7 +19,7 @@ public class AddAppointment extends Command{
             + "Parameters: DD-MM-YYYY\n\t"
             + "Example: " + COMMAND_WORD + " 01-01-2019";
 
-    public static final String MESSAGE_EDIT_PERSON_APPOINTMENT = "%1$s has a new appointment date on %2$s";
+    public static final String MESSAGE_EDIT_PERSON_APPOINTMENT = "%1$s has new appointment date(s)";
 
     //public static final String MESSAGE_SUCCESS = "New person added: %1$s";
 
@@ -64,15 +64,16 @@ public class AddAppointment extends Command{
     public CommandResult execute() {
         //return new CommandResult("command under construct, tbc ");
         try {
-            commandHistory.addHistory("(edit-appointment " + checkEditingPersonIndex() + ") " + COMMAND_WORD + " " + getTargetIndex()); //CHECK EFFECT
+            commandHistory.addHistory("(edit-appointment " + checkEditingPersonIndex() + ") " + COMMAND_WORD + " "); //CHECK EFFECT
             this.setTargetIndex(checkEditingPersonIndex());
             final ReadOnlyPerson target = getTargetPerson();
-            Set<Schedule> scheduleSetThatExist = target.getSchedules();
-            Set<Schedule> finalScheduleSet = scheduleSetThatExist;
+            //Set<Schedule> scheduleSetThatExist = target.getSchedules();
+
+            Set<Schedule> finalScheduleSet = target.getSchedules();//scheduleSetThatExist;
             boolean hasChanges = finalScheduleSet.addAll(scheduleSetToAdd);
 
             //if(hasChanges == false){ throw new OnlyDuplicateScheduleException();}
-            if(hasChanges == false){
+            if (!hasChanges) {
                 return new CommandResult("Operation does not make changes to the set of appointments");
             }
 
@@ -86,16 +87,36 @@ public class AddAppointment extends Command{
                 }
             }
             */
+            Person updatedSchedulePerson = new Person(target);
+            updatedSchedulePerson.setSchedule(finalScheduleSet);
 
             //finalScheduleSet make changes
+            addressBook.editPerson(target, updatedSchedulePerson);
 
-            return new CommandResult(String.format(MESSAGE_EDIT_PERSON_APPOINTMENT, target.getName(), "00-00-0000"));
+            List<ReadOnlyPerson> editablePersonList = this.getEditableLastShownList();
+            /*
+            int index = editablePersonList.indexOf(updatedSchedulePerson);
+            if (index == -1) {
+                throw new UniquePersonList.PersonNotFoundException();
+            }
+            editablePersonList.set(index, updatedSchedulePerson);
+            */
+            //editablePersonList.set(checkEditingPersonIndex(), updatedSchedulePerson);
+
+
+
+            return new CommandResult(String.format(MESSAGE_EDIT_PERSON_APPOINTMENT, target.getName()) );//, scheduleSetToAdd); //editablePersonList);//, true);
 
             //return new CommandResult(String.format("Successful schedule size of %1$d parser edit!", scheduleSetToAdd.size()));
 
         } catch (IndexOutOfBoundsException ie) {
             return new CommandResult(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
-        } //catch (UniquePersonList.PersonNotFoundException pnfe) {
+        } catch (UniquePersonList.PersonNotFoundException pnfe) {
+            return new CommandResult(Messages.MESSAGE_PERSON_NOT_IN_ADDRESSBOOK);
+        }// catch (UniquePersonList.DuplicatePersonException dpe) {
+        //    return new CommandResult("Operation also does not make changes to the set of appointments");
+        //}
+        //catch (UniquePersonList.PersonNotFoundException pnfe) {
         // return new CommandResult(Messages.MESSAGE_PERSON_NOT_IN_ADDRESSBOOK);
         //}
 

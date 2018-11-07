@@ -55,6 +55,15 @@ public class AddressBook {
     }
 
     /**
+     * Edit a person in the address book.
+     *
+     * @throws PersonNotFoundException if no such person could be found in the list.
+     */
+    public void editPerson(ReadOnlyPerson toRemove, Person toAdd) throws PersonNotFoundException{//, DuplicatePersonException {
+        allPersons.edit(toRemove, toAdd);
+    }
+
+    /**
      * Checks if an equivalent person exists in the address book.
      */
     public boolean containsPerson(ReadOnlyPerson key) {

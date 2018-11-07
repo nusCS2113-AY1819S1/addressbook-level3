@@ -4,10 +4,9 @@ import seedu.addressbook.common.Messages;
 import seedu.addressbook.data.AddressBook;
 import seedu.addressbook.data.CommandHistory;
 import seedu.addressbook.data.CommandStack;
-import seedu.addressbook.data.person.Name;
-import seedu.addressbook.data.person.ReadOnlyPerson;
-import seedu.addressbook.data.person.Schedule;
+import seedu.addressbook.data.person.*;
 
+import java.io.PrintStream;
 import java.util.List;
 import java.util.Set;
 
@@ -21,6 +20,7 @@ public abstract class Command {
     protected CommandHistory commandHistory;
     protected CommandStack commandStack;
     protected List<? extends ReadOnlyPerson> relevantPersons;
+    protected List<ReadOnlyPerson> editableLastShownList;
     private int targetIndex = -1;
     private int targetIndex2 = -1;
     private static boolean isEditingAppointment = false;
@@ -83,12 +83,14 @@ public abstract class Command {
     /**
      * Supplies the data the command will operate on.
      */
-    public void setData(AddressBook addressBook, List<? extends ReadOnlyPerson> relevantPersons) {
+    public void setData(AddressBook addressBook, List<? extends ReadOnlyPerson> relevantPersons, List<ReadOnlyPerson> editableLastShownList) {
         this.addressBook = addressBook;
         this.commandHistory = addressBook.getCommandHistory();
         this.commandStack = addressBook.getCommandStack();
         this.relevantPersons = relevantPersons;
+        this.editableLastShownList = editableLastShownList;
     }
+
 
     /**
      * Extracts the the target person in the last shown list from the given arguments.
@@ -97,6 +99,10 @@ public abstract class Command {
      */
     protected ReadOnlyPerson getTargetPerson() throws IndexOutOfBoundsException {
         return relevantPersons.get(getTargetIndex() - DISPLAYED_INDEX_OFFSET);
+    }
+
+    public List<ReadOnlyPerson> getEditableLastShownList() {
+        return editableLastShownList;
     }
 
     public int getTargetIndex() {
