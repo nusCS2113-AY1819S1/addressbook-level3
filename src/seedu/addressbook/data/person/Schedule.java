@@ -29,7 +29,6 @@ public class Schedule {
      * @throws IllegalValueException if given phone string is invalid.
      */
     public Schedule(String schedule) throws IllegalValueException {
-
         schedule = schedule.trim();
         if (!isValidSchedule(schedule)) {
             throw new IllegalValueException(MESSAGE_SCHEDULE_CONSTRAINTS);
