@@ -58,7 +58,9 @@ public interface ReadOnlyOrder {
                     .append("($").append(dishPrice.toString()).append(") \t\t")
                     .append("x").append(quantity);
         }
-        builder.append("\n\t\tPoints to be redeemed: ").append(getPoints());
+        if (hasCustomerField()) {
+            builder.append("\n\t\tRedeemed points: ").append(getPoints());
+        }
         builder.append("\n\t\tTotal price: ");
         builder.append(Price.convertPricetoString(getPrice()));
         return builder.toString();
@@ -86,7 +88,9 @@ public interface ReadOnlyOrder {
                     .append("($").append(dishPrice.toString()).append(") \t\t")
                     .append("x").append(quantity);
         }
-        builder.append("\n\t\tPoints to be redeemed: ").append(getPoints());
+        if (hasCustomerField()) {
+            builder.append("\n\t\tRedeemed points: ").append(getPoints());
+        }
         builder.append("\n\t\tTotal price: ");
         builder.append(Price.convertPricetoString(getPrice()));
         return builder.toString();
@@ -121,7 +125,9 @@ public interface ReadOnlyOrder {
         } else {
             builder.append("<empty>");
         }
-        builder.append("\n\t\tPoints to be redeemed: ").append(getPoints());
+        if (hasCustomerField()) {
+            builder.append("\n\t\tRedeemed points: ").append(getPoints());
+        }
         builder.append("\n\t\tTotal price: ");
         builder.append(Price.convertPricetoString(getPrice()));
         return builder.toString();
