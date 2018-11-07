@@ -3,9 +3,9 @@ package seedu.addressbook.commands.order;
 import seedu.addressbook.commands.Command;
 import seedu.addressbook.commands.CommandResult;
 import seedu.addressbook.data.exception.IllegalValueException;
-import seedu.addressbook.data.member.Member;
 import seedu.addressbook.data.member.Points;
 import seedu.addressbook.data.member.ReadOnlyMember;
+import seedu.addressbook.data.order.ReadOnlyOrder;
 
 /**
  * Edit the amount of points to redeem from the customer of the draft order.
@@ -33,14 +33,20 @@ public class DraftOrderEditPointsCommand extends Command {
     @Override
     public CommandResult execute() {
         try {
-            final ReadOnlyMember member = rms.getMemberFromDraftOrder();
-            final int points = toRedeem.getPoints();
-            final ReadOnlyMember emptyMember = new Member();
-            if (member.getName().equals(emptyMember.getName())) {
+            final ReadOnlyOrder draftOrder = rms.getDraftOrder();
+            final ReadOnlyMember customer = draftOrder.getCustomer();
+            int points = toRedeem.getPoints();
+            if (!draftOrder.hasCustomerField()) {
                 throw new IllegalValueException("Member needs to be added first!");
-            } else if (member.getPointsValue() < points) {
+            } else if (customer.getPointsValue() < points) {
                 throw new IllegalValueException("Member does not have sufficient points to redeem!");
+            } else if (points < 0) {
+                throw new IllegalValueException("Points to be redeemed must not be a negative value");
             } else {
+                int maxPointsRedeemable = draftOrder.getMaxPointsRedeemable();
+                if (points > maxPointsRedeemable) {
+                    points = maxPointsRedeemable;
+                }
                 rms.editDraftOrderPoints(points);
                 String message = MESSAGE_SUCCESS + "\n" + getDraftOrderAsString();
                 return new CommandResult(message);

@@ -112,6 +112,27 @@ public class UniqueMemberList implements Iterable<Member> {
     }
 
     /**
+     *  Checks if a member in another feature is in a list of members
+     *  Returns the member if found, else create a new Member using the data from the member in the order
+     */
+    public static Member retrieveMember(ReadOnlyMember target, List<Member> memberList) {
+        for (Member member : memberList) {
+            if (target.isSameStateAs(member)) {
+                return member;
+            }
+        }
+        return new Member(target);
+    }
+
+    /**
+     *  Checks if a member in another feature is in this list of members
+     *  Returns the member if found, else create a new Member using the data from the member in the order
+     */
+    public Member retrieveMemberFromList(ReadOnlyMember target) {
+        return retrieveMember(target, internalList);
+    }
+
+    /**
      * Clears all members in list.
      */
     public void clear() {
