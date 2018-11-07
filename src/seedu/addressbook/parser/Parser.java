@@ -34,6 +34,7 @@ import seedu.addressbook.commands.menu.MenuDeleteCommand;
 import seedu.addressbook.commands.menu.MenuFindCommand;
 import seedu.addressbook.commands.menu.MenuListByTypeCommand;
 import seedu.addressbook.commands.menu.MenuListCommand;
+import seedu.addressbook.commands.menu.MenuRecommendationCommand;
 import seedu.addressbook.commands.menu.MenuShowMainMenuCommand;
 import seedu.addressbook.commands.menu.MenuViewAllCommand;
 import seedu.addressbook.commands.order.DraftOrderClearCommand;
@@ -184,6 +185,9 @@ public class Parser {
 
         case MenuListByTypeCommand.COMMAND_WORD:
             return prepareMenuListByType(arguments);
+
+        case MenuRecommendationCommand.COMMAND_WORD:
+            return new MenuRecommendationCommand();
 
         case MenuViewAllCommand.COMMAND_WORD:
             return prepareViewAllMenu(arguments);

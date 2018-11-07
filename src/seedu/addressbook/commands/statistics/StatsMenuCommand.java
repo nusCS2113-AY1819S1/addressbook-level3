@@ -153,7 +153,7 @@ public class StatsMenuCommand extends Command {
         return calendar.getTime();
     }
 
-    private static Map<String, ReadOnlyMenus> getBs(List<ReadOnlyOrder> allOrders, List<ReadOnlyMenus> allMenu) {
+    public static Map<String, ReadOnlyMenus> getBs(List<ReadOnlyOrder> allOrders, List<ReadOnlyMenus> allMenu) {
         if (allOrders.isEmpty()) {
             return null;
         }
