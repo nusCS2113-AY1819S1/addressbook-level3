@@ -350,9 +350,9 @@ Assign member points to be redeemed as discount for the draft order.
 Format: `draftpoints POINTS`
 +
  ** The points redeemed must be a non-negative integer.
- ** The points redeemed must not be larger than the amounts of points the assigned member has
- ** If the redeemed discount is more than the original price, the points redeemed will be set back to the
- limit value where the price after discount is not less than 0.
+ ** The limit to the redeemable points is set as the smaller value between the amount of points the customer currently
+ has and the maximum amount of points can be deduced such that the final price is not less than zero.
+ ** If the assigned redeemed points is more than the limit, then it will be set back to the limit.
 
 * *Clear Draft* +
 +

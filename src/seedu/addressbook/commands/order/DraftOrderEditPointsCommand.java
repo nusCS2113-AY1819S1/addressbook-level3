@@ -42,7 +42,7 @@ public class DraftOrderEditPointsCommand extends Command {
             } else if (points < 0) {
                 throw new IllegalValueException(MESSAGE_NEGATIVE_POINTS);
             } else {
-                int maxPointsRedeemable = draftOrder.getMaxPointsRedeemable();
+                final int maxPointsRedeemable = draftOrder.getMaxPointsRedeemable();
                 if (points > maxPointsRedeemable) {
                     points = maxPointsRedeemable;
                 }
