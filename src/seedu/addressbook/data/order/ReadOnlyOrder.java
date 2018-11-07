@@ -127,6 +127,7 @@ public interface ReadOnlyOrder {
         }
         if (hasCustomerField()) {
             builder.append("\n\t\tRedeemed points: ").append(getPoints());
+            builder.append(" / ").append(getMaxPointsRedeemable());
         }
         builder.append("\n\t\tTotal price: ");
         builder.append(Price.convertPricetoString(getPrice()));
