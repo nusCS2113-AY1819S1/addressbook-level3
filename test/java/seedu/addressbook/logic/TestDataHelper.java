@@ -167,6 +167,46 @@ class TestDataHelper {
         );
     }
 
+    /** Generates a new employee based on the detail given */
+    Employee generateEditEmployee(Employee e, String editParam, String editDetail) throws Exception {
+        EmployeePhone phone;
+        EmployeeEmail email;
+        EmployeeAddress address;
+        EmployeePosition position;
+
+        if (editParam == "phone") {
+            phone = new EmployeePhone(editDetail);
+        } else {
+            phone = e.getPhone();
+        }
+
+        if (editParam == "email") {
+            email = new EmployeeEmail(editDetail);
+        } else {
+            email = e.getEmail();
+        }
+
+        if (editParam == "address") {
+            address = new EmployeeAddress(editDetail);
+        } else {
+            address = e.getAddress();
+        }
+
+        if (editParam == "position") {
+            position = new EmployeePosition(editDetail);
+        } else {
+            position = e.getPosition();
+        }
+
+        return new Employee(
+                e.getName(),
+                phone,
+                email,
+                address,
+                position
+                );
+    }
+
     /**
      * Generates a valid attendance using the given seed.
      * Running this function with the same parameter values guarantees the returned attendance will have the same state.
@@ -248,7 +288,7 @@ class TestDataHelper {
         return cmd.toString();
     }
 
-    /** Generates the correct add command based on the person given */
+    /** Generates the correct add command based on the employee given */
     String generateAddEmpCommand(Employee e) {
         StringJoiner cmd = new StringJoiner(" ");
 
@@ -259,6 +299,33 @@ class TestDataHelper {
         cmd.add("e/" + e.getEmail().toString());
         cmd.add("a/" + e.getAddress().toString());
         cmd.add("pos/" + e.getPosition().toString());
+
+        return cmd.toString();
+    }
+
+    /** Generates the correct edit command based on the employee given */
+    String generateEditEmpCommand(String index, String editParam, String editDetail) {
+        StringJoiner cmd = new StringJoiner(" ");
+
+        cmd.add("editemp");
+
+        cmd.add(index);
+
+        if (editParam == "phone") {
+            cmd.add("p/" + editDetail);
+        }
+
+        if (editParam == "email") {
+            cmd.add("e/" + editDetail);
+        }
+
+        if (editParam == "address") {
+            cmd.add("a/" + editDetail);
+        }
+
+        if (editParam == "position") {
+            cmd.add("pos/" + editDetail);
+        }
 
         return cmd.toString();
     }

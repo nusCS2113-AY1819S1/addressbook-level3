@@ -20,6 +20,7 @@ import seedu.addressbook.commands.employee.EmployeeAddCommand;
 import seedu.addressbook.commands.employee.EmployeeClockInCommand;
 import seedu.addressbook.commands.employee.EmployeeClockOutCommand;
 import seedu.addressbook.commands.employee.EmployeeDeleteCommand;
+import seedu.addressbook.commands.employee.EmployeeEditCommand;
 import seedu.addressbook.commands.member.MemberAddCommand;
 import seedu.addressbook.commands.member.MemberDeleteCommand;
 import seedu.addressbook.commands.menu.MenuAddCommand;
@@ -512,7 +513,7 @@ public class LogicTest {
      * targeting a single employee in the last shown list, using visible index.
      * @param commandWord to test assuming it targets a single employee in the last shown list based on visible index.
      */
-    private void assertInvalidIndexBehaviorForEmployeeCommand(String commandWord) throws Exception {
+    private void assertInvalidIndexBehaviorForEmployeeDeleteCommand(String commandWord) throws Exception {
         String expectedMessage = Messages.MESSAGE_INVALID_EMPLOYEE_DISPLAYED_INDEX;
         TestDataHelper helper = new TestDataHelper();
 
@@ -527,6 +528,32 @@ public class LogicTest {
         assertEmployeeCommandBehavior(commandWord + " 3", expectedMessage, Rms.empty(), false, lastShownList);
     }
 
+    /**
+     * Confirms the 'invalid argument index number behaviour' for the given command
+     * targeting a single employee in the last shown list, using visible index.
+     * @param commandWord to test assuming it targets a single employee in the last shown list based on visible index.
+     */
+    private void assertInvalidIndexBehaviorForEmployeeEditCommand(String commandWord) throws Exception {
+        String invalidFormat = String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT,
+                EmployeeEditCommand.MESSAGE_USAGE);
+        String invalidIndexMessage = Messages.MESSAGE_INVALID_EMPLOYEE_DISPLAYED_INDEX;
+        TestDataHelper helper = new TestDataHelper();
+
+        Employee e1 = helper.generateEmployee(1);
+        Employee e2 = helper.generateEmployee(2);
+        List<Employee> lastShownList = helper.generateEmployeeList(e1, e2);
+        String arbitraryParameter = "p/98765432";
+
+        logic.setLastShownEmployeeList(lastShownList);
+
+        assertEmployeeCommandBehavior(commandWord + " -1 " + arbitraryParameter, invalidFormat,
+                Rms.empty(), false, lastShownList);
+        assertEmployeeCommandBehavior(commandWord + " 0 " + arbitraryParameter, invalidIndexMessage,
+                Rms.empty(), false, lastShownList);
+        assertEmployeeCommandBehavior(commandWord + " 3 " + arbitraryParameter, invalidIndexMessage,
+                Rms.empty(), false, lastShownList);
+    }
+
     @Test
     public void execute_delemp_invalidArgsFormat() throws Exception {
         String expectedMessage = String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT,
@@ -537,7 +564,7 @@ public class LogicTest {
 
     @Test
     public void execute_delemp_invalidIndex() throws Exception {
-        assertInvalidIndexBehaviorForEmployeeCommand("delemp");
+        assertInvalidIndexBehaviorForEmployeeDeleteCommand("delemp");
     }
 
     @Test
@@ -550,16 +577,16 @@ public class LogicTest {
         Attendance a2 = helper.generateAttendance(2);
         Attendance a3 = helper.generateAttendance(3);
 
-        List<Employee> lastShowEmployeeList = helper.generateEmployeeList(e1, e2, e3);
+        List<Employee> lastShownEmployeeList = helper.generateEmployeeList(e1, e2, e3);
         List<Attendance> lastShownAttendanceList = helper.generateAttendanceList(a1, a2, a3);
 
-        Rms expectedRms = helper.generateRmsEmployeesAndAttendances(lastShowEmployeeList, lastShownAttendanceList);
+        Rms expectedRms = helper.generateRmsEmployeesAndAttendances(lastShownEmployeeList, lastShownAttendanceList);
         expectedRms.removeEmployee(e2);
 
 
-        helper.addEmployeesToRms(rms, lastShowEmployeeList);
+        helper.addEmployeesToRms(rms, lastShownEmployeeList);
         helper.addAttendancesToRms(rms, lastShownAttendanceList);
-        logic.setLastShownEmployeeList(lastShowEmployeeList);
+        logic.setLastShownEmployeeList(lastShownEmployeeList);
         logic.setLastShownAttendanceList(lastShownAttendanceList);
 
         assertEmployeeAttendanceCommandBehavior("delemp 2",
@@ -567,7 +594,7 @@ public class LogicTest {
                 expectedRms,
                 false,
                 false,
-                lastShowEmployeeList,
+                lastShownEmployeeList,
                 lastShownAttendanceList);
     }
 
@@ -605,10 +632,10 @@ public class LogicTest {
         Attendance a2 = helper.generateAttendance(2);
         Attendance a3 = helper.generateAttendance(3);
 
-        List<Employee> lastShowEmployeeList = helper.generateEmployeeList(e1, e2, e3);
+        List<Employee> lastShownEmployeeList = helper.generateEmployeeList(e1, e2, e3);
         List<Attendance> lastShownAttendanceList = helper.generateAttendanceList(a1, a2, a3);
 
-        Rms expectedRms = helper.generateRmsEmployeesAndAttendances(lastShowEmployeeList, lastShownAttendanceList);
+        Rms expectedRms = helper.generateRmsEmployeesAndAttendances(lastShownEmployeeList, lastShownAttendanceList);
 
         SimpleDateFormat dateFormatter = new SimpleDateFormat("dd/MM/yyyy");
         SimpleDateFormat timeFormatter = new SimpleDateFormat("HH:mm:ss");
@@ -616,9 +643,9 @@ public class LogicTest {
         String currentTime = timeFormatter.format(date);
         String currentDate = dateFormatter.format(date);
 
-        helper.addEmployeesToRms(rms, lastShowEmployeeList);
+        helper.addEmployeesToRms(rms, lastShownEmployeeList);
         helper.addAttendancesToRms(rms, lastShownAttendanceList);
-        logic.setLastShownEmployeeList(lastShowEmployeeList);
+        logic.setLastShownEmployeeList(lastShownEmployeeList);
         logic.setLastShownAttendanceList(lastShownAttendanceList);
 
         assertEmployeeAttendanceCommandBehavior("clockin Employee 2",
@@ -626,7 +653,7 @@ public class LogicTest {
                 expectedRms,
                 false,
                 false,
-                lastShowEmployeeList,
+                lastShownEmployeeList,
                 lastShownAttendanceList);
     }
 
@@ -640,13 +667,13 @@ public class LogicTest {
         Attendance a2 = helper.generateAttendance(2);
         Attendance a3 = helper.generateAttendance(3);
 
-        List<Employee> lastShowEmployeeList = helper.generateEmployeeList(e1, e2, e3);
+        List<Employee> lastShownEmployeeList = helper.generateEmployeeList(e1, e2, e3);
         List<Attendance> lastShownAttendanceList = helper.generateAttendanceList(a1, a2, a3);
 
-        Rms expectedRms = helper.generateRmsEmployeesAndAttendances(lastShowEmployeeList, lastShownAttendanceList);
-        helper.addEmployeesToRms(rms, lastShowEmployeeList);
+        Rms expectedRms = helper.generateRmsEmployeesAndAttendances(lastShownEmployeeList, lastShownAttendanceList);
+        helper.addEmployeesToRms(rms, lastShownEmployeeList);
         helper.addAttendancesToRms(rms, lastShownAttendanceList);
-        logic.setLastShownEmployeeList(lastShowEmployeeList);
+        logic.setLastShownEmployeeList(lastShownEmployeeList);
         logic.setLastShownAttendanceList(lastShownAttendanceList);
 
         assertEmployeeAttendanceCommandBehavior("clockin Employee 5",
@@ -654,7 +681,7 @@ public class LogicTest {
                 expectedRms,
                 false,
                 false,
-                lastShowEmployeeList,
+                lastShownEmployeeList,
                 lastShownAttendanceList);
     }
 
@@ -668,10 +695,10 @@ public class LogicTest {
         Attendance a2 = helper.generateAttendance(2);
         Attendance a3 = helper.generateAttendance(3);
 
-        List<Employee> lastShowEmployeeList = helper.generateEmployeeList(e1, e2, e3);
+        List<Employee> lastShownEmployeeList = helper.generateEmployeeList(e1, e2, e3);
         List<Attendance> lastShownAttendanceList = helper.generateAttendanceList(a1, a2, a3);
 
-        Rms expectedRms = helper.generateRmsEmployeesAndAttendances(lastShowEmployeeList, lastShownAttendanceList);
+        Rms expectedRms = helper.generateRmsEmployeesAndAttendances(lastShownEmployeeList, lastShownAttendanceList);
 
         SimpleDateFormat dateFormatter = new SimpleDateFormat("dd/MM/yyyy");
         SimpleDateFormat timeFormatter = new SimpleDateFormat("HH:mm:ss");
@@ -679,9 +706,9 @@ public class LogicTest {
         String currentTime = timeFormatter.format(date);
         String currentDate = dateFormatter.format(date);
 
-        helper.addEmployeesToRms(rms, lastShowEmployeeList);
+        helper.addEmployeesToRms(rms, lastShownEmployeeList);
         helper.addAttendancesToRms(rms, lastShownAttendanceList);
-        logic.setLastShownEmployeeList(lastShowEmployeeList);
+        logic.setLastShownEmployeeList(lastShownEmployeeList);
         logic.setLastShownAttendanceList(lastShownAttendanceList);
         logic.execute("clockin Employee 2");
 
@@ -690,7 +717,7 @@ public class LogicTest {
                 expectedRms,
                 false,
                 false,
-                lastShowEmployeeList,
+                lastShownEmployeeList,
                 lastShownAttendanceList);
     }
 
@@ -704,14 +731,14 @@ public class LogicTest {
         Attendance a2 = helper.generateAttendance(2);
         Attendance a3 = helper.generateAttendance(3);
 
-        List<Employee> lastShowEmployeeList = helper.generateEmployeeList(e1, e2, e3);
+        List<Employee> lastShownEmployeeList = helper.generateEmployeeList(e1, e2, e3);
         List<Attendance> lastShownAttendanceList = helper.generateAttendanceList(a1, a2, a3);
 
-        Rms expectedRms = helper.generateRmsEmployeesAndAttendances(lastShowEmployeeList, lastShownAttendanceList);
+        Rms expectedRms = helper.generateRmsEmployeesAndAttendances(lastShownEmployeeList, lastShownAttendanceList);
 
-        helper.addEmployeesToRms(rms, lastShowEmployeeList);
+        helper.addEmployeesToRms(rms, lastShownEmployeeList);
         helper.addAttendancesToRms(rms, lastShownAttendanceList);
-        logic.setLastShownEmployeeList(lastShowEmployeeList);
+        logic.setLastShownEmployeeList(lastShownEmployeeList);
         logic.setLastShownAttendanceList(lastShownAttendanceList);
 
         assertEmployeeAttendanceCommandBehavior("clockout Employee 5",
@@ -719,8 +746,65 @@ public class LogicTest {
                 expectedRms,
                 false,
                 false,
-                lastShowEmployeeList,
+                lastShownEmployeeList,
                 lastShownAttendanceList);
+    }
+
+    @Test
+    public void execute_editemp_successful() throws Exception {
+        TestDataHelper helper = new TestDataHelper();
+        Employee e1 = helper.generateEmployee(1);
+        Employee e2 = helper.generateEmployee(2);
+        Employee e3 = helper.generateEmployee(3);
+        Employee editedEmployee = helper.generateEditEmployee(e2, "phone", "91234567");
+
+        List<Employee> lastShownEmployeeList = helper.generateEmployeeList(e1, e2, e3);
+
+        Rms expectedRms = helper.generateRmsEmployees(lastShownEmployeeList);
+        expectedRms.editEmployee(e2, editedEmployee);
+
+
+        helper.addEmployeesToRms(rms, lastShownEmployeeList);
+        logic.setLastShownEmployeeList(lastShownEmployeeList);
+
+
+        assertEmployeeCommandBehavior(helper.generateEditEmpCommand("2", "phone", "91234567"),
+                String.format(EmployeeEditCommand.MESSAGE_EDIT_EMPLOYEE_SUCCESS, editedEmployee),
+                expectedRms,
+                false,
+                lastShownEmployeeList);
+
+    }
+
+    @Test
+    public void execute_editemp_invalidArgsFormat() throws Exception {
+        String expectedMessage = String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT,
+                EmployeeEditCommand.MESSAGE_USAGE);
+        assertEmployeeCommandBehavior("editemp ", expectedMessage);
+        assertEmployeeCommandBehavior("editemp arg not number", expectedMessage);
+    }
+
+    @Test
+    public void execute_editemp_noArgs() throws Exception {
+        TestDataHelper helper = new TestDataHelper();
+
+        Employee e1 = helper.generateEmployee(1);
+        Employee e2 = helper.generateEmployee(2);
+        Employee e3 = helper.generateEmployee(3);
+        List<Employee> lastShownList = helper.generateEmployeeList(e1, e2, e3);
+
+        logic.setLastShownEmployeeList(lastShownList);
+
+        assertEmployeeCommandBehavior(helper.generateEditEmpCommand("2", null, null),
+                String.format(EmployeeEditCommand.MESSAGE_NOARGS),
+                Rms.empty(),
+                false,
+                lastShownList);
+    }
+
+    @Test
+    public void execute_editemp_invalidIndex() throws Exception {
+        assertInvalidIndexBehaviorForEmployeeEditCommand("editemp");
     }
 
     @Test
@@ -858,10 +942,10 @@ public class LogicTest {
     @Test
     public void updateMemberPoints() throws Exception {
         TestDataHelper helper = new TestDataHelper();
-        Points expectedPoints = new Points();
+        Points expectedPoints = new Points(500);
 
         Member m1 = helper.eve();
-        m1.updatePoints(-50, 0);
+        m1.updatePoints(50, 0);
         Points actualPoints = m1.getPoints();
 
         assertEquals(expectedPoints.getPoints(), actualPoints.getPoints());

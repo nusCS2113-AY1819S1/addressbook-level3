@@ -112,6 +112,30 @@ public class UniqueMemberList implements Iterable<Member> {
     }
 
     /**
+     *  Checks if a member in another feature is in a list of members
+     *  Returns the member if found, else create a new Member using the data from the member in the order
+     */
+    public static Member retrieveMember(ReadOnlyMember target, List<Member> memberList) {
+        for (Member member : memberList) {
+            if (target.isSameStateAs(member)) {
+                return member;
+            }
+        }
+        return new Member(target);
+    }
+
+    /**
+     * Update the member points of a customer
+     * @param target the ReadOnlyMember interface of the Member object to update points
+     * @param price the price of the order made by the customer
+     * @param usedPoints the redeemed points the customer used in the order
+     */
+    public void updatePointsOfCustomer(ReadOnlyMember target, double price, int usedPoints) {
+        final Member customerToUpdatePoints = retrieveMember(target, internalList);
+        customerToUpdatePoints.updatePointsAndTier(price, usedPoints);
+    }
+
+    /**
      * Clears all members in list.
      */
     public void clear() {
