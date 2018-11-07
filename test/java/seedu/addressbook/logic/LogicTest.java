@@ -534,7 +534,9 @@ public class LogicTest {
      * @param commandWord to test assuming it targets a single employee in the last shown list based on visible index.
      */
     private void assertInvalidIndexBehaviorForEmployeeEditCommand(String commandWord) throws Exception {
-        String expectedMessage = Messages.MESSAGE_INVALID_EMPLOYEE_DISPLAYED_INDEX;
+        String invalidFormat = String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT,
+                EmployeeEditCommand.MESSAGE_USAGE);
+        String invalidIndexMessage = Messages.MESSAGE_INVALID_EMPLOYEE_DISPLAYED_INDEX;
         TestDataHelper helper = new TestDataHelper();
 
         Employee e1 = helper.generateEmployee(1);
@@ -544,11 +546,11 @@ public class LogicTest {
 
         logic.setLastShownEmployeeList(lastShownList);
 
-        assertEmployeeCommandBehavior(commandWord + " -1 " + arbitraryParameter, expectedMessage,
+        assertEmployeeCommandBehavior(commandWord + " -1 " + arbitraryParameter, invalidFormat,
                 Rms.empty(), false, lastShownList);
-        assertEmployeeCommandBehavior(commandWord + " 0 " + arbitraryParameter, expectedMessage,
+        assertEmployeeCommandBehavior(commandWord + " 0 " + arbitraryParameter, invalidIndexMessage,
                 Rms.empty(), false, lastShownList);
-        assertEmployeeCommandBehavior(commandWord + " 3 " + arbitraryParameter, expectedMessage,
+        assertEmployeeCommandBehavior(commandWord + " 3 " + arbitraryParameter, invalidIndexMessage,
                 Rms.empty(), false, lastShownList);
     }
 
@@ -748,7 +750,6 @@ public class LogicTest {
                 lastShownAttendanceList);
     }
 
-    /*
     @Test
     public void execute_editemp_successful() throws Exception {
         TestDataHelper helper = new TestDataHelper();
@@ -774,7 +775,6 @@ public class LogicTest {
                 lastShownEmployeeList);
 
     }
-    */
 
     @Test
     public void execute_editemp_invalidArgsFormat() throws Exception {
@@ -802,12 +802,10 @@ public class LogicTest {
                 lastShownList);
     }
 
-    /*
     @Test
     public void execute_editemp_invalidIndex() throws Exception {
         assertInvalidIndexBehaviorForEmployeeEditCommand("editemp");
     }
-    */
 
     @Test
     public void execute_addmember_invalidArgsFormat() throws Exception {
