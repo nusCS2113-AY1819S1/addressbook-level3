@@ -126,6 +126,10 @@ public class Parser {
                 case AddAppointment.COMMAND_WORD:
                     return prepareAddAppointment(arguments);
 
+                case DeleteAppointment.COMMAND_WORD:
+                    return prepareDeleteAppointment(arguments);
+
+
                 //case EditAppointmentOperation.COMMAND_WORD:
                 //    return new EditAppointmentOperation(Command.checkEditingPersonIndex());
 
@@ -335,6 +339,25 @@ public class Parser {
         }
         try {
             return new AddAppointment(getScheduleArgs(matcher.group("scheduleArguments")));
+        } catch (IllegalValueException ive) {
+            return new IncorrectCommand(ive.getMessage());
+        }
+    }
+
+    /**
+     * Parses arguments in the context of the delete appointment for the selected person command.
+     *
+     * @param args full command args string
+     * @return the prepared command
+     */
+    private Command prepareDeleteAppointment(String args) {
+        final Matcher matcher = APPOINTMENT_DATA_ARGS_FORMAT.matcher(args.trim()); //CHECK THIS
+        // Validate arg string format
+        if (!matcher.matches()) {
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteAppointment.MESSAGE_USAGE));
+        }
+        try {
+            return new DeleteAppointment(getScheduleArgs(matcher.group("scheduleArguments")));
         } catch (IllegalValueException ive) {
             return new IncorrectCommand(ive.getMessage());
         }
