@@ -16,12 +16,11 @@ public class DraftOrderEditPointsCommand extends Command {
     public static final String COMMAND_WORD = "draftpoints";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ":\n"
-            + "Add the amount of points to be redeemed."
-            + "The customer is identified using the index from the last shown menu list. \n\t"
+            + "Add the amount of member points to be redeemed."
             + "Parameters: POINTS\n\t"
             + "Example: " + COMMAND_WORD + " 50";
 
-    public static final String MESSAGE_SUCCESS = "Points to be redeemed has been added into the draft";
+    public static final String MESSAGE_SUCCESS = "Points to be redeemed has been assigned into the draft";
 
     private final Points toRedeem;
 
