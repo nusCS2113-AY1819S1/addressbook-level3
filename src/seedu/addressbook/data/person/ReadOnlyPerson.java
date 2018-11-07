@@ -65,7 +65,7 @@ public interface ReadOnlyPerson {
         if (getAddress().isPrivate()) {
             builder.append(detailIsPrivate);
         }
-        if(login.getAccesslevelF() < getAddress().getAccessLevel()) {
+        if(login.getAccesslevelF() <= getAddress().getAccessLevel()) {
             System.out.println("hide getAsTextShowAll");
             builder.append(getAddress())
                     .append(" Title: ");
@@ -107,7 +107,8 @@ public interface ReadOnlyPerson {
             builder.append(" Email: ").append(getEmail());
         }
         if (!getAddress().isPrivate()) {
-            if(login.getAccesslevelF() < getAddress().getAccessLevel()){
+            if(login.getAccesslevelF() <= getAddress().getAccessLevel()){
+                System.out.println("hide getAsTextHidePrivate");
                 builder.append(" Address: ").append(getAddress());
             }else{
                 builder.append(" Address: ").append(" HIDDEN");

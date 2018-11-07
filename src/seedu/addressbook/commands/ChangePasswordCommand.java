@@ -20,9 +20,9 @@ public class ChangePasswordCommand extends Command {
     private final String current, next, confirm;
 
     public ChangePasswordCommand(String current, String next, String confirm) {
-        this.current = current;
-        this.next = next;
-        this.confirm = confirm;
+        this.current = current.trim();
+        this.next = next.trim();
+        this.confirm = confirm.trim();
     }
 
     @Override
