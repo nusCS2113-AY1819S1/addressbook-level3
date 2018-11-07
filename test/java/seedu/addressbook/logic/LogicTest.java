@@ -542,15 +542,15 @@ public class LogicTest {
         Employee e1 = helper.generateEmployee(1);
         Employee e2 = helper.generateEmployee(2);
         List<Employee> lastShownList = helper.generateEmployeeList(e1, e2);
-        String arbitaryParameter = "p/98765432";
+        String arbitraryParameter = "p/98765432";
 
         logic.setLastShownEmployeeList(lastShownList);
 
-        assertEmployeeCommandBehavior(commandWord + " -1 " + arbitaryParameter, invalidFormat,
+        assertEmployeeCommandBehavior(commandWord + " -1 " + arbitraryParameter, invalidFormat,
                 Rms.empty(), false, lastShownList);
-        assertEmployeeCommandBehavior(commandWord + " 0 " + arbitaryParameter, invalidIndexMessage,
+        assertEmployeeCommandBehavior(commandWord + " 0 " + arbitraryParameter, invalidIndexMessage,
                 Rms.empty(), false, lastShownList);
-        assertEmployeeCommandBehavior(commandWord + " 3 " + arbitaryParameter, invalidIndexMessage,
+        assertEmployeeCommandBehavior(commandWord + " 3 " + arbitraryParameter, invalidIndexMessage,
                 Rms.empty(), false, lastShownList);
     }
 
@@ -750,7 +750,6 @@ public class LogicTest {
                 lastShownAttendanceList);
     }
 
-    /*
     @Test
     public void execute_editemp_successful() throws Exception {
         TestDataHelper helper = new TestDataHelper();
@@ -776,7 +775,6 @@ public class LogicTest {
                 lastShownEmployeeList);
 
     }
-    */
 
     @Test
     public void execute_editemp_invalidArgsFormat() throws Exception {
@@ -804,12 +802,10 @@ public class LogicTest {
                 lastShownList);
     }
 
-    /*
     @Test
     public void execute_editemp_invalidIndex() throws Exception {
         assertInvalidIndexBehaviorForEmployeeEditCommand("editemp");
     }
-    */
 
     @Test
     public void execute_addmember_invalidArgsFormat() throws Exception {
