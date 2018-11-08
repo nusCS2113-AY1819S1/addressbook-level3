@@ -124,7 +124,7 @@ public class Order implements ReadOnlyOrder {
 
     @Override
     public int getMaxPointsRedeemable() {
-        int pointsLimitByPrice = Points.getEarnedPointsValue(getOriginalPrice());
+        int pointsLimitByPrice = Points.getRedeemedPointsValue(getOriginalPrice());
         int pointsLimitByMember = customer.getPointsValue();
         return Integer.min(pointsLimitByPrice, pointsLimitByMember);
     }
@@ -133,6 +133,8 @@ public class Order implements ReadOnlyOrder {
     public int getEarnedPointsValue(double price) {
         return Points.getEarnedPointsValue(price);
     }
+
+
 
     public void setCustomer(ReadOnlyMember customer) {
         this.customer = customer;

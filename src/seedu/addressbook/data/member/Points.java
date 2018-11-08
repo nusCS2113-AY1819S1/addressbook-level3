@@ -85,6 +85,10 @@ public class Points {
         return (int) (price * EARNED_POINTS_PER_DOLLAR);
     }
 
+    public static int getRedeemedPointsValue(double price) {
+        return (int) (price * REDEEMED_POINTS_PER_DOLLAR);
+    }
+
     @Override
     public String toString() {
         return Integer.toString(currentPoints);
