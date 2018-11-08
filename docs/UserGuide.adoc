@@ -177,6 +177,19 @@ Format: `findmenu KEYWORD [MORE KEYWORDS]`
 Example: +
 `findmenu Burger Coke Fries` +
 Returns Double Cheese burger, Veggie Burger, Coke, coke zero, Fries, Curly Fries
+
+==== Menu Recommendations
+
+Displays the best selling items of each category, if they are sold, as the recommended items of the restaurant. +
+Format: `recommendations`
+
+* For a particular category, if no menu items are sold, items from that category will not be displayed under recommendations.
+* Atleast one item from each category must be sold in order for recommendations to reflect items from that category.
+
+Example: +
+`recommendations` +
+Returns Main: Double Cheese Burger, Sides: French Fries, Beverage: Sprite
+
 // end::menucommands[]
 //==== Update Menu
 //

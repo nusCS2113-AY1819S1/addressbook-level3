@@ -1079,6 +1079,18 @@ Actor: Cashier
 2.  RMS shows the menu items that contain those keywords.
 
 Use case ends.
+
+=== Use case: Menu Recommendations
+System: Restaurant Management System (RMS) +
+Use Case: Menu Recommendations +
+Actor: Cashier
+
+*MSS*
+
+1.  User chooses to view the recommended items from the different categories.
+2.  System displays the best seller items from each category as recommendations.
+
+Use case ends.
 // end::menuusecase[]
 
 //tag::employeeusecase[]
