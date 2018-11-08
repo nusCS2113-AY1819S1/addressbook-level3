@@ -129,6 +129,10 @@ public class Order implements ReadOnlyOrder {
         return Integer.min(pointsLimitByPrice, pointsLimitByMember);
     }
 
+    public int getEarnedPointsValue(double price) {
+        return Points.getEarnedPointsValue(price);
+    }
+
     public void setCustomer(ReadOnlyMember customer) {
         this.customer = customer;
     }

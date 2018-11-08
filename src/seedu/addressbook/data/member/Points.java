@@ -24,7 +24,6 @@ public class Points {
 
     public Points (int pointsToRedeem) {
         this.currentPoints = pointsToRedeem;
-        this.totalPoints = 0;
     }
     public Points(int currentPoints, int totalPoints) {
         this.currentPoints = currentPoints;
@@ -42,8 +41,10 @@ public class Points {
             if (this.currentPoints < pointsToRedeem) {
                 throw new IllegalValueException(MESSAGE_NEGATIVE_POINTS);
             }
+            final int pointsEarned = getEarnedPointsValue(price);
             this.currentPoints -= pointsToRedeem;
-            this.currentPoints += getEarnedPointsValue(price);
+            this.currentPoints += pointsEarned;
+            this.totalPoints += pointsEarned;
             return this;
         } catch (IllegalValueException e) {
             return this;
@@ -81,10 +82,6 @@ public class Points {
 
     public static int getEarnedPointsValue(double price) {
         return (int) (price * EARNED_POINTS_PER_DOLLAR);
-    }
-
-    public static int getRedeemedPointsValue(double price) {
-        return (int) (price * REDEEMED_POINTS_PER_DOLLAR);
     }
 
     @Override

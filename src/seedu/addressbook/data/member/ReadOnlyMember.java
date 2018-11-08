@@ -71,8 +71,7 @@ public interface ReadOnlyMember {
     default String getAsTextInOrderList() {
         final StringBuilder builder = new StringBuilder();
         builder.append(getName());
-        builder.append(" Points: ").append(getCurrentPoints());
-        builder.append(" Tier: ").append(getMemberTier().toString());
+        builder.append(" | Tier: ").append(getMemberTier().toString());
         return builder.toString();
     }
 }
