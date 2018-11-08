@@ -130,7 +130,7 @@ public class Order implements ReadOnlyOrder {
     }
 
     @Override
-    public int getEarnedPointsValue(double price) {
+    public int getEarnedPointsValue() {
         return Points.getEarnedPointsValue(price);
     }
 
