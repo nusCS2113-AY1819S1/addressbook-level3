@@ -20,7 +20,7 @@ public class DeleteCommand extends UndoAbleCommand {
 
     public static final String MESSAGE_DELETE_PERSON_SUCCESS = "Deleted Person: %1$s";
 
-    public static Person backup;
+    private Person backup;
 
 
     public DeleteCommand(int targetVisibleIndex) {
@@ -32,7 +32,7 @@ public class DeleteCommand extends UndoAbleCommand {
     public CommandResult execute() {
         try {
             final ReadOnlyPerson target = getTargetPerson();
-            backup = target.getPerson();
+            this.backup = target.getPerson();
             addressBook.removePerson(target);
             commandStack.checkForAction(this);
             commandHistory.addHistory(COMMAND_WORD + " " + getTargetIndex());
@@ -46,11 +46,11 @@ public class DeleteCommand extends UndoAbleCommand {
     }
     @Override
     public void executeUndo() throws Exception{
-        addressBook.addPerson(backup);
+        addressBook.addPerson(this.backup);
     }
 
     @Override
     public void executeRedo() throws Exception{
-        addressBook.removePerson(backup);
+        addressBook.removePerson(this.backup);
     }
 }

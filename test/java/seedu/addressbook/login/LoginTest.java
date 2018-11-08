@@ -18,7 +18,7 @@ public class LoginTest {
 
     @Before
     public void setup() {
-        credentials = new Credentials("S0000000A", "S0000000a");
+        credentials = new Credentials("S0000000A", "S0000000a", 2);
     }
 
     @Test

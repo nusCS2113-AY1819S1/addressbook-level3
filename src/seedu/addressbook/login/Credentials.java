@@ -1,7 +1,6 @@
 package seedu.addressbook.login;
 
 import seedu.addressbook.data.exception.IllegalValueException;
-import seedu.addressbook.login.hashing;
 import java.io.IOException;
 import java.util.Scanner;
 
@@ -13,14 +12,16 @@ public class Credentials {
 
     private String PASSWORD;
     private String USERNAME;
+    private int ACCESSLEVEL;
 //    private String salt;
 //    private  int authLevel;
 
-    public Credentials(String username, String password){
+    public Credentials(String username, String password, int accesslevel){
 //        if(isValidUsername(username)){
             USERNAME = username;
 //            if(isValidPassword(password)){
                 PASSWORD = password;
+                ACCESSLEVEL = accesslevel;
 //            }
 //            WorkWithLoginStorage.addLogin(this);
 //        }
@@ -79,10 +80,17 @@ public class Credentials {
 //        sc.close();
     }
 
+    private String hashPassword(String toBeHashed){
+        return hashing.hashIt(toBeHashed);
+    }
+
+    public void validateAccessLevel(){
+        setAccessLevel(WorkWithLoginStorage.retrieveAccessLevel(this.getUsername()));
+    }
+
     private boolean isValidUsername(String username){
         return username.matches(USERNAME_VALIDATION_REGEX);
     }
-
     private boolean isValidPassword(String password){
         return password.matches(PASSWORD_VALIDATION_REGEX);
     }
@@ -90,23 +98,24 @@ public class Credentials {
     public void setUsername(String username){
             USERNAME = username;
     }
-
     public String getUsername(){
         return USERNAME;
     }
 
     public void setPassword(String password) {
-//            PASSWORD = hashPassword(password);
         PASSWORD=password;
     }
-
-    private String hashPassword(String toBeHashed){
-        return hashing.hashIt(toBeHashed);
-    }
-
     public String getPassword(){
         return PASSWORD;
     }
+
+    public int getAccessLevel(){
+        return ACCESSLEVEL;
+    }
+    public void setAccessLevel(int accesslevel){
+        ACCESSLEVEL = accesslevel;
+    }
+
 
     private void deletePassword(){
         PASSWORD = null;

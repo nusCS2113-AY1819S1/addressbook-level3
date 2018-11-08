@@ -37,7 +37,6 @@ public class hashing {
 //        return bytes;
 //    }
 
-
     private static String bytesToStringHex(byte[] bytes) {
         char[] hexChars = new char[bytes.length * 2];
         for(int j=0; j<bytes.length; j++){

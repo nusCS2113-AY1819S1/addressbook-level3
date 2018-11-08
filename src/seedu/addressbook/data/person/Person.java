@@ -13,6 +13,7 @@ import seedu.addressbook.data.tag.Tag;
 public class Person implements ReadOnlyPerson {
 
     private Name name;
+    private Nric nric;
     private Phone phone;
     private Email email;
     private Address address;
@@ -25,8 +26,9 @@ public class Person implements ReadOnlyPerson {
     /**
      * Assumption: Every field must be present and not null.
      */
-    public Person(Name name, Phone phone, Email email, Address address, Title title, Set<Schedule> schedules, Set<Tag> tags, Set<Associated> associated) {
+    public Person(Name name, Nric nric, Phone phone, Email email, Address address, Title title, Set<Schedule> schedules, Set<Tag> tags, Set<Associated> associated) {
         this.name = name;
+        this.nric = nric;
         this.phone = phone;
         this.email = email;
         this.address = address;
@@ -40,7 +42,7 @@ public class Person implements ReadOnlyPerson {
      * Copy constructor.
      */
     public Person(ReadOnlyPerson source) {
-        this(source.getName(), source.getPhone(), source.getEmail(), source.getAddress(), source.getTitle(), source.getSchedules(), source.getTags(), source.getAssociateList());
+        this(source.getName(), source.getNric(), source.getPhone(), source.getEmail(), source.getAddress(), source.getTitle(), source.getSchedules(), source.getTags(), source.getAssociateList());
     }
     @Override
     public Person getPerson() {return this;}
@@ -48,6 +50,11 @@ public class Person implements ReadOnlyPerson {
     @Override
     public Name getName() {
         return name;
+    }
+
+    @Override
+    public Nric getNric() {
+        return nric;
     }
 
     @Override

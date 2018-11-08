@@ -1,4 +1,4 @@
-= User Guide
+﻿= User Guide
 :site-section: UserGuide
 :toc:
 :toc-title: An Overview of the User Guide:
@@ -10,12 +10,12 @@ ifdef::env-github[]
 endif::[]
 
 == 1 Introduction
-The Health Booklet v1.2 allows healthcare professionals to keep track of patients’ details, arrange their schedule based on their patients’ appointments and communicate efficiently between colleagues.
+The MediBook v1.3 allows healthcare professionals to keep track of patients’ details, arrange their schedule based on their patients’ appointments and communicate efficiently between colleagues.
 
 == 2 About
-This user guide provides an overview for healthcare professionals on the usage of Health Booklet once Health Booklet is set up.
+This user guide provides an overview for healthcare professionals on the usage of MediBook once MediBook is set up.
 
-However, setting up this Health Booklet requires basic familiarity with integrated developer environment (IDE) as there is no user-friendly installer. Please seek help from the technician staff or refer to the <<DeveloperGuide#setting-up, Setting up>> section to learn how to set up the project.
+However, setting up this MediBook requires basic familiarity with integrated developer environment (IDE) as there is no user-friendly installer. Please seek help from the technician staff or refer to the <<DeveloperGuide#setting-up, Setting up>> section to learn how to set up the project.
 
 == 3 Starting the program
 
@@ -23,13 +23,15 @@ However, setting up this Health Booklet requires basic familiarity with integrat
 . Open up `src/seedu.addressbook` folder
 . Right click on `Main`
 . Click `Run Main.main()`
-. Enter your Username and Password according to the prompts
-. Upon successful login, `Welcome to Health Booklet` will appear, program will exit upon login failure, i.e. 3 incorrect username/password tries
 . The GUI should appear in a few seconds
+. Enter "Username" in the username field and "Password" in the password field according to the prompts
+. Upon successful login, GUI `Welcome to MediBook` will appear.
+. If incorrect username and password is entered, both fields will be cleared and you can try logging in again.
+//ignore: program will exit upon login failure, i.e. 3 incorrect username/password tries
 +
 image::Ui.png[]
 
-== 4 Features of the Health Booklet
+== 4 Features of the MediBook
 
 === 4.1 Viewing help : `help`
 
@@ -42,7 +44,7 @@ Help is also shown if you enter an incorrect command e.g. `abcd`
 
 === 4.2 Adding a person: `add`
 
-Adds a person to the Health Booklet. +
+Adds a person to the MediBook. +
 Format: `add NAME [p]p/PHONE_NUMBER [p]e/EMAIL [p]a/ADDRESS [p]s/TITLE [d/DD-MM-YYYY]... [t/TAG]...`
 
 ****
@@ -62,7 +64,7 @@ Examples:
 
 === 4.3 Listing all persons : `list`
 
-Shows a list of all persons in the Health Booklet. +
+Shows a list of all persons in the MediBook. +
 Format: `list`
 
 === 4.4 Finding all persons containing any keyword in their name: `find`
@@ -86,7 +88,7 @@ Returns Any person having names `Betsy`, `Tim`, or `John`.
 
 === 4.5 Deleting a person : `delete`
 
-Deletes the specified person from the Health Booklet. Reversible within the session using the undo command (section 4.6). +
+Deletes the specified person from the MediBook. Reversible within the session using the undo command (section 4.6). +
 Format: `delete INDEX`
 
 ****
@@ -104,7 +106,7 @@ Examples:
 
 * `list` +
 `delete 2` +
-Deletes the 2nd person in the Health Booklet.
+Deletes the 2nd person in the MediBook.
 
 * `find Betsy` +
 `delete 1` +
@@ -129,7 +131,7 @@ Examples:
 
 * `list` +
 `view 2` +
-Views the 2nd person in the Health Booklet.
+Views the 2nd person in the MediBook.
 
 * `find Betsy` +
 `view 1` +
@@ -154,7 +156,7 @@ Examples:
 
 * `list` +
 `viewall 2` +
-Views all details of the 2nd person in the Health Booklet.
+Views all details of the 2nd person in the MediBook.
 
 * `find Betsy` +
 `viewall 1` +
@@ -168,7 +170,7 @@ Format: `undo` +
 Format: `redo`
 
 ****
-Commands are undo-able if they are made within the browsing session.
+Commands are undo-able if they make changes to the data and are made within the browsing session.
 Commands are redo-able if undo are made without other commands called.
 This two commands are especially useful when an erroneous command, such as delete, is made which causes change to the data.
 ****
@@ -183,11 +185,11 @@ Examples:
 
 * `list` +
 `delete 2` +
-Deletes the 2nd person in the Health Booklet. +
+Deletes the 2nd person in the MediBook. +
 `undo` +
 Undo the deletion of the deleted person. +
 `redo` +
-Redo the deletion of 2nd person in the Health Booklet.
+Redo the deletion of 2nd person in the MediBook.
 
 * `find Betsy` +
 `delete 1` +
@@ -196,6 +198,12 @@ Deletes the 1st person in the results of the `find` command. +
 Undo the deletion of the deleted person. +
 `redo` +
 Redo the deletion of 1st person in the results of the `find` command.
+
+
+[NOTE]
+====
+Undo/Redo command currently is only implemented for `add`/`delete`/`clear`/`link` as other commands that make changes to the data might be incomplete
+====
 
 
 === 4.9 Selecting a person to edit his/her appointment: `edit-appointment`
@@ -219,7 +227,7 @@ Similar to viewall, view and delete, it requires list or find command to be call
 Examples:
 * `list` +
 `edit-appointment 2` +
-Access to the 2nd person in the Health Booklet.
+Access to the 2nd person in the MediBook.
 
 * `find Betsy` +
 `edit-appointment 1` +
@@ -237,7 +245,7 @@ Help is also shown if you enter an incorrect command e.g. `abcd`
 
 ==== 4.9.2 Listing the appointment of the selected person: `list` (more coming soon)
 
-Shows a list of all appointment of the selected person in the Health Booklet. +
+Shows a list of all appointment of the selected person in the MediBook. +
 Format: `list`
 
 ==== 4.9.3 Adding appointment to the selected person: (Coming soon)
@@ -251,18 +259,68 @@ Format: `list`
 Exits the edit-appointment session. +
 Format: `done`
 
+=== 4.10 Create an associate between a doctor and a patient: `link`
 
-=== 4.10 Clearing all entries : `clear`
+Create an association between person specified at INDEX1 and the person specified at INDEX2  +
+Format: `link INDEX1 INDEX2`
 
-Clears all entries from the Health Booklet. +
+****
+Links the person at the specified `INDEX1` with the person at the specified `INDEX2`.
+One of them must be a doctor and the other one must be a patient
+The index refers to the index number shown in the most recent listing.
+****
+
+[NOTE]
+====
+Similar to viewall, view and delete, it requires list or find command to be called at least once in the session for an index reference to edit-appointment.
+====
+
+Examples:
+
+* `list` +
+`link 1 2` +
+Associate the 1st person in the MediBook with 2nd person in the MediBook.
+
+=== 4.11 Listing all persons associated: `associatelist`
+
+Shows a list of all persons associated with the specified person  +
+Format: `associatelist INDEX`
+
+****
+Show the people associate with the person at the specified `INDEX`.
+The index refers to the index number shown in the most recent listing.
+****
+
+[NOTE]
+====
+Similar to viewall, view and delete, it requires list or find command to be called at least once in the session for an index reference to edit-appointment.
+====
+
+Examples:
+
+* `list` +
+`associatelist 2` +
+Views all persons associated with the 2nd person in the MediBook.
+
+=== 4.12 Clearing all entries : `clear`
+
+Clears all entries from the MediBook. +
 Format: `clear`
 
-=== 4.11 Listing all executed commands : `history`
+=== 4.13 Listing all executed commands : `history`
 
 Shows a list of all executed commands in the current session. +
 Format: `history`
 
-=== 4.12 Opening MediChat : `chat`
+
+[NOTE]
+====
+As some commands are incomplete, they might not be be reflected in `history` eventhough they are executed.
+If you encounter this, please feel free to let us know. Thank you!
+====
+
+
+=== 4.14 Opening MediChat : `chat` (Coming soon in v1.4)
 
 Opens up MediChat, an instant messaging client to instantly contact your colleagues.
 
@@ -271,35 +329,36 @@ To simulate chatting, multiple MediChat windows have to be opened.
 
 Format: `chat` `localhost`
 
-=== 4.13 Exiting the program : `exit`
+=== 4.15 Exiting the program : `exit`
 
 Exits the program. +
 Format: `exit`
 
-=== 4.14 Saving the data
+=== 4.16 Saving the data
 
-Health Booklet data are saved in the hard disk automatically after any command that changes the data. As such, there is no need to save the data manually. These data are saved in a file called addressbook.txt in the project root folder.
+MediBook data are saved in the hard disk automatically after any command that changes the data. As such, there is no need to save the data manually. These data are saved in a file called addressbook.txt in the project root folder.
 
 However, the history of commands made are only available within the browsing session and would no longer be available after the exit or the program is closed. Undo and Redo commands are also only applicable within the browsing session.
 
 == 5 A Compact Summary
 
 * `help` : Shows the help screen
-* `add` : Adds a person into the Health Booklet
+* `add` : Adds a person into the MediBook
 * `list` : Shows a list of all persons in the Heath Booklet.
 * `find` : Finds persons whose names contain any of the given keywords
-* `delete` : Delete a person in the Health Booklet
-* `view` : View the information of a person in the Health Booklet
-* `viewall` : View all information of a person in the Health Booklet
+* `delete` : Delete a person in the MediBook
+* `view` : View the information of a person in the MediBook
+* `viewall` : View all information of a person in the MediBook
 * `undo` : Undo a change made previously
 * `redo` : Redo a change that was undone
 * `edit-appointment` : Selects a person to edit his/her appointment
 ** `help` : Shows the help screen for the edit-appointment session
 ** `list` : Shows a list of all appointments for the selected persons (Coming soon)
 ** `done` : Exit the edit-appointment session
-* `clear` : Clear all entries in the Health Booklet
+* `clear` : Clear all entries in the MediBook
 * `history` : Shows a list of all executed commands
-* `association` : Coming soon in v1.3
+* `link` : Create an associate between a doctor and a patient
+* `associatelist` : List all persons associated
 * `chat` : Opens MediChat
 * `exit` : Exits the program
 
@@ -311,3 +370,7 @@ However, the history of commands made are only available within the browsing ses
 |At Login: Maximum login attempts attempted. Please try again later |You have attempted to login unsuccessfully in successive tries |Please wait for 5 mins before trying again. If urgent access is needed, please contact the system administrator for your hospital
 |===========================================================================================================================================
 
+== 7 Known Bugs
+
+* `undo` command might show the error message "An error has occurred with the undo command"
+** if you encounter this, please let us know the steps that leads up to that point so we can replicate it

@@ -102,7 +102,6 @@ public class ChatCommand extends Command {
         } catch (Exception e) {
             System.out.println("fk dis shit");
         }
-        commandHistory.checkForAction();
         commandHistory.addHistory(COMMAND_WORD);
         return new CommandResult(MESSAGE_SUCCESS);
     }

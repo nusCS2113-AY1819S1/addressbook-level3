@@ -21,6 +21,7 @@ public class Parser {
 
     public static final Pattern PERSON_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
             Pattern.compile("(?<name>[^/]+)"
+                    + " (?<isNricPrivate>p?)n/(?<nric>[^/]+)"
                     + " (?<isPhonePrivate>p?)p/(?<phone>[^/]+)"
                     + " (?<isEmailPrivate>p?)e/(?<email>[^/]+)"
                     + " (?<isAddressPrivate>p?)a/(?<address>[^/]+)"
@@ -32,6 +33,8 @@ public class Parser {
             Pattern.compile("(?<scheduleArguments>.+)"); // variable number of schedule
 
     public static final Pattern PERSON_INDEX_ARGS_FORMAT2 = Pattern.compile("(?<targetIndex>[^ ]+)" + " (?<targetIndex2>.+)");
+
+    public static final Pattern USER_PASSWORD_ARGS_FORMAT = Pattern.compile("pw/(?<currentpassword>[^/]+)" + "npw/(?<password>[^/]+)" + "cpw/(?<confirmpassword>[^/]+)");
     /**
      * Signals that the user input could not be parsed.
      */
@@ -105,8 +108,8 @@ public class Parser {
                 case AssociateListCommand.COMMAND_WORD:
                     return prepareAssociateList(arguments);
 
-//              case ChangePasswordCommand.COMMAND_WORD:
-//                  return ChangePasswordCommand.Chan
+              case ChangePasswordCommand.COMMAND_WORD:
+                  return prepareChangePassword(arguments);
 
                 case ChatCommand.COMMAND_WORD:
                     return new ChatCommand();
@@ -140,6 +143,16 @@ public class Parser {
         }
     }
 
+    private Command prepareChangePassword(String args){
+        final Matcher matcher = USER_PASSWORD_ARGS_FORMAT.matcher(args.trim());
+        if(!matcher.matches()){
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ChangePasswordCommand.MESSAGE_USAGE));
+        }
+        return new ChangePasswordCommand(
+                matcher.group("currentpassword"), matcher.group("password"), matcher.group("confirmpassword")
+        );
+    }
+
     /**
      * Parses arguments in the context of the add person command.
      *
@@ -155,6 +168,9 @@ public class Parser {
         try {
             return new AddCommand(
                     matcher.group("name"),
+
+                    matcher.group("nric"),
+                    isPrivatePrefixPresent(matcher.group("isNricPrivate")),
 
                     matcher.group("phone"),
                     isPrivatePrefixPresent(matcher.group("isPhonePrivate")),

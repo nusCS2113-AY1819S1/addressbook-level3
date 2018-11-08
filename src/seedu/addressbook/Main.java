@@ -7,6 +7,9 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 //import org.gradle.internal.impldep.org.apache.commons.lang.WordUtils;
+import seedu.addressbook.commands.CommandResult;
+import seedu.addressbook.common.Messages;
+import seedu.addressbook.communications.ChatServer;
 import seedu.addressbook.data.exception.IllegalValueException;
 import seedu.addressbook.communications.ChatClient;
 import seedu.addressbook.logic.Logic;
@@ -37,6 +40,7 @@ public class Main extends Application implements Stoppable{
     }
 
     public static void  change(){
+        gui.setAccount();
         window.setScene(gui.MainScene);
     }
 
@@ -48,10 +52,11 @@ public class Main extends Application implements Stoppable{
     }
 
     public static void main(String[] args) {
-            launch(args);
-            System.exit(0);
-        }
+        launch(args);
+        new CommandResult("sdsafadsfadf");
+        System.exit(0);
     }
+}
 
 
 

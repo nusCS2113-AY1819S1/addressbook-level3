@@ -6,22 +6,23 @@ import seedu.addressbook.login.hashing;
 import seedu.addressbook.login.Credentials;
 
 public class WorkWithLoginStorage {
-    private static boolean debug = true;
+    private static boolean debug = false;
     private static File logins = new File("src/seedu/addressbook/login/loginstorage.txt");
     private static Scanner sc;
     private static String USERNAME;
     private static String PASSWORD;
+    private static int POSITION;
 
-    private static void openScanner(){
-        try{
+    private static void openScanner()   {
+        try {
+            logins.createNewFile();
             sc = new Scanner(logins);
-        } catch (FileNotFoundException f){
-            System.out.println("file not found");
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
-//    public static boolean compareCredentials(String username, String password) {
-    public static boolean compareCredentials(String username, String password) {
+    public static boolean compareCredentials(String username, String password)   {
         openScanner();
 
         if(debug) System.out.println(logins.getAbsolutePath());
@@ -44,7 +45,7 @@ public class WorkWithLoginStorage {
     public static boolean addLogin(Credentials username) {
         try {
             PrintWriter pw = new PrintWriter(new FileWriter(logins, true));
-            pw.print("\n" + username.getUsername() + " " + hashing.hashIt(username.getPassword()));
+            pw.print("\n" + username.getUsername() + " " + hashing.hashIt(username.getPassword()) + " " + username.getAccessLevel());
             pw.close();
         } catch (IOException e){
             System.out.println("cannot create file");
@@ -99,6 +100,13 @@ public class WorkWithLoginStorage {
     private static void retrieveStoredHash() {
         PASSWORD = sc.next();
         System.out.println("PASSWORD IS "+ PASSWORD);
+    }
+
+    public static int retrieveAccessLevel(String username){
+        openScanner();
+        retrieveUsername(username);
+        sc.next();
+        return sc.nextInt();
     }
 
 //    public static void retrieveSalt(){
