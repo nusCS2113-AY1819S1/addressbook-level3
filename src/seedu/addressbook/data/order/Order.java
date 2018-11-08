@@ -129,6 +129,7 @@ public class Order implements ReadOnlyOrder {
         return Integer.min(pointsLimitByPrice, pointsLimitByMember);
     }
 
+    @Override
     public int getEarnedPointsValue(double price) {
         return Points.getEarnedPointsValue(price);
     }

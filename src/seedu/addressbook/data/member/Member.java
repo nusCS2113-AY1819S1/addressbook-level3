@@ -74,6 +74,7 @@ public class Member implements ReadOnlyMember {
         return points.getCurrentPoints();
     }
 
+    @Override
     public int getTotalPointsValue() {
         return points.getTotalPoints();
     }

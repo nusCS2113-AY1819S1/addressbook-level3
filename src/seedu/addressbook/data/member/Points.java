@@ -24,6 +24,7 @@ public class Points {
 
     public Points (int pointsToRedeem) {
         this.currentPoints = pointsToRedeem;
+        this.totalPoints = pointsToRedeem;
     }
     public Points(int currentPoints, int totalPoints) {
         this.currentPoints = currentPoints;
