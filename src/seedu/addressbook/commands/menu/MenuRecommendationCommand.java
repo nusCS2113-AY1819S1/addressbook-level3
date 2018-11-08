@@ -17,7 +17,8 @@ public class MenuRecommendationCommand extends Command {
     public static final String COMMAND_WORD = "recommendations";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ":\n"
-            + "Displays the best seller items as the recommendations of the month.\n\t";
+            + "Displays the best seller items as the recommendations of the month.\n\t"
+            + "Example: " + COMMAND_WORD;
 
     /**
      * Displays all the best selling items of each category in the menu, if the items in those categories are sold
