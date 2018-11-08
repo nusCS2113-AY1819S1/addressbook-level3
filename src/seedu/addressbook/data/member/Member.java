@@ -12,8 +12,10 @@ import seedu.addressbook.data.exception.IllegalValueException;
 public class Member implements ReadOnlyMember {
 
     public static final String EMPTY_NAME_STRING = "baLpcbImfjsHuIhCnEKM";
+    public static final String EMPTY_EMAIL_STRING = "Example2018@rms.com";
 
     private MemberName name;
+    private MemberEmail email;
     private Points points;
     private Date date;
     private MemberTier tier;
@@ -21,23 +23,27 @@ public class Member implements ReadOnlyMember {
     public Member() {
         try {
             this.name = new MemberName(EMPTY_NAME_STRING);
+            this.email = new MemberEmail(EMPTY_EMAIL_STRING);
         } catch (IllegalValueException ie) {
             this.name = null;
+            this.email = null;
         }
         this.points = new Points();
         this.date = new Date();
         this.tier = new MemberTier();
     }
 
-    public Member(MemberName name) {
+    public Member(MemberName name, MemberEmail email) {
         this.name = name;
+        this.email = email;
         this.points = new Points();
         this.date = new Date();
         this.tier = new MemberTier();
     }
 
-    public Member(MemberName name, Points points, Date date, MemberTier tier) {
+    public Member(MemberName name, MemberEmail email, Points points, Date date, MemberTier tier) {
         this.name = name;
+        this.email = email;
         this.points = points;
         this.date = date;
         this.tier = tier;
@@ -46,12 +52,16 @@ public class Member implements ReadOnlyMember {
      * Copy constructor.
      */
     public Member(ReadOnlyMember source) {
-        this(source.getName(), source.getCurrentPoints(), source.getDate(), source.getMemberTier());
+        this(source.getName(), source.getEmail(), source.getCurrentPoints(), source.getDate(), source.getMemberTier());
     }
 
     @Override
     public MemberName getName() {
         return name;
+    }
+
+    public MemberEmail getEmail() {
+        return email;
     }
 
     @Override

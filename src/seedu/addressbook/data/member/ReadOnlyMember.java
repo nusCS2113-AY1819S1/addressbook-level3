@@ -10,6 +10,7 @@ import java.util.Date;
 public interface ReadOnlyMember {
 
     MemberName getName();
+    MemberEmail getEmail();
     Points getCurrentPoints();
     Date getDate();
     MemberTier getMemberTier();
@@ -30,7 +31,8 @@ public interface ReadOnlyMember {
     default boolean isSameStateAs(ReadOnlyMember other) {
         return other == this // short circuit if same object
                 || (other != null // this is first to avoid NPE below
-                && other.getName().equals(this.getName())); // state checks here onwards
+                && other.getName().equals(this.getName())
+                && other.getEmail().equals(this.getEmail())); // state checks here onwards
     }
 
     /**
@@ -40,6 +42,8 @@ public interface ReadOnlyMember {
         final StringBuilder builder = new StringBuilder();
         final String detailIsPrivate = "(private) ";
         builder.append(getName())
+                .append(" | Email: ");
+        builder.append(getEmail())
                 .append(" | Available Points: ");
         builder.append(getCurrentPoints())
                 .append(" | Total Points: ");
@@ -57,6 +61,7 @@ public interface ReadOnlyMember {
     default String getAsTextHidePrivate() {
         final StringBuilder builder = new StringBuilder();
         builder.append(getName());
+        builder.append(" | Email: ").append(getEmail());
         builder.append(" | Available Points: ").append(getCurrentPoints());
         builder.append(" | Total Points: ").append(getTotalPointsValue());
         builder.append(" | Tier: ").append(getMemberTier().toString());

@@ -8,12 +8,7 @@ import javax.xml.bind.annotation.XmlValue;
 
 import seedu.addressbook.common.Utils;
 import seedu.addressbook.data.exception.IllegalValueException;
-import seedu.addressbook.data.member.Member;
-import seedu.addressbook.data.member.MemberName;
-import seedu.addressbook.data.member.MemberTier;
-import seedu.addressbook.data.member.Points;
-import seedu.addressbook.data.member.ReadOnlyMember;
-
+import seedu.addressbook.data.member.*;
 
 
 /**
@@ -51,6 +46,9 @@ public class AdaptedMember {
     private String name;
 
     @XmlElement(required = true)
+    private String email;
+
+    @XmlElement(required = true)
     private int points;
 
     @XmlElement(required = true)
@@ -75,6 +73,7 @@ public class AdaptedMember {
      */
     public AdaptedMember(ReadOnlyMember source) {
         name = source.getName().fullName;
+        email = source.getEmail().toString();
         points = source.getPointsValue();
         totalPoints = source.getTotalPointsValue();
         date = source.getDate().getTime();
@@ -115,10 +114,11 @@ public class AdaptedMember {
         }
         */
         final MemberName name = new MemberName(this.name);
+        final MemberEmail email = new MemberEmail(this.email);
         final Points points = new Points(this.points, this.totalPoints);
         final Date date = new Date(this.date);
         final MemberTier tier = new MemberTier(this.tier);
 
-        return new Member(name, points, date, tier);
+        return new Member(name, email, points, date, tier);
     }
 }

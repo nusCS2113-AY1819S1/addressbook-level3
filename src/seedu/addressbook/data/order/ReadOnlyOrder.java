@@ -64,6 +64,7 @@ public interface ReadOnlyOrder {
         }
         builder.append("\n\t\tTotal price: ");
         builder.append(Price.convertPricetoString(getPrice()));
+        builder.append("\n\t\tPoints Earned: ").append(getEarnedPointsValue(getPrice()));
         return builder.toString();
     }
 
@@ -94,6 +95,7 @@ public interface ReadOnlyOrder {
         }
         builder.append("\n\t\tTotal price: ");
         builder.append(Price.convertPricetoString(getPrice()));
+        builder.append("\n\t\tPoints Earned: ").append(getEarnedPointsValue(getPrice()));
         return builder.toString();
     }
 
@@ -132,7 +134,6 @@ public interface ReadOnlyOrder {
         }
         builder.append("\n\n\t\tTotal price: ");
         builder.append(Price.convertPricetoString(getPrice()));
-        builder.append("\n\t\tPoints Earned: ").append(getEarnedPointsValue(getPrice()));
         return builder.toString();
     }
 }
