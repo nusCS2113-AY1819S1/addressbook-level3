@@ -4,9 +4,8 @@ import static org.junit.Assert.assertEquals;
 import static seedu.addressbook.util.TestUtil.assertTextFilesEqual;
 
 import java.nio.file.Paths;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.HashSet;
+import java.util.LinkedHashSet;
+import java.util.Set;
 
 import org.junit.Rule;
 import org.junit.Test;
@@ -14,13 +13,15 @@ import org.junit.rules.ExpectedException;
 import org.junit.rules.TemporaryFolder;
 
 import seedu.addressbook.data.Rms;
+import seedu.addressbook.data.employee.Attendance;
+import seedu.addressbook.data.employee.Employee;
+import seedu.addressbook.data.employee.EmployeeAddress;
+import seedu.addressbook.data.employee.EmployeeEmail;
+import seedu.addressbook.data.employee.EmployeeName;
+import seedu.addressbook.data.employee.EmployeePhone;
+import seedu.addressbook.data.employee.EmployeePosition;
+import seedu.addressbook.data.employee.Timing;
 import seedu.addressbook.data.exception.IllegalValueException;
-import seedu.addressbook.data.person.Address;
-import seedu.addressbook.data.person.Email;
-import seedu.addressbook.data.person.Name;
-import seedu.addressbook.data.person.Person;
-import seedu.addressbook.data.person.Phone;
-import seedu.addressbook.data.tag.Tag;
 import seedu.addressbook.storage.StorageFile.StorageOperationException;
 
 public class StorageFileTest {
@@ -55,27 +56,30 @@ public class StorageFileTest {
     @Test
     public void load_validFormat() throws Exception {
         Rms actualRms = getStorage("ValidData.txt").load();
-        Rms expectedRms = getTestAddressBook();
+        Rms expectedRms = getTestRms();
 
         // ensure loaded Rms is properly constructed with test data
         // overwrite equals method in Rms class and replace with equals method below
-        assertEquals(actualRms.getAllPersons(), expectedRms.getAllPersons());
+        assertEquals(actualRms.getAllAttendance(), expectedRms.getAllAttendance());
+        assertEquals(actualRms.getAllEmployees(), expectedRms.getAllEmployees());
+        assertEquals(actualRms.getAllMembers(), expectedRms.getAllMembers());
         assertEquals(actualRms.getAllMenus(), expectedRms.getAllMenus());
+        assertEquals(actualRms.getAllOrders(), expectedRms.getAllOrders());
 
     }
 
     @Test
-    public void save_nullAddressBook_exceptionThrown() throws Exception {
+    public void save_nullRms_exceptionThrown() throws Exception {
         StorageFile storage = getTempStorage();
         thrown.expect(NullPointerException.class);
         storage.save(null);
     }
 
     @Test
-    public void save_validAddressBook() throws Exception {
-        Rms ab = getTestAddressBook();
+    public void save_validRms() throws Exception {
+        Rms rms = getTestRms();
         StorageFile storage = getTempStorage();
-        storage.save(ab);
+        storage.save(rms);
 
         assertStorageFilesEqual(storage, getStorage("ValidData.txt"));
     }
@@ -97,19 +101,56 @@ public class StorageFileTest {
         return new StorageFile(testFolder.getRoot().getPath() + "/" + "temp.txt");
     }
 
-    private Rms getTestAddressBook() throws Exception {
-        Rms ab = new Rms();
-        ab.addPerson(new Person(new Name("John Doe"),
+    private Rms getTestRms() throws Exception {
+        Rms rms = new Rms();
+        /*
+        rms.addPerson(new Person(new Name("John Doe"),
                                 new Phone("98765432", false),
                                 new Email("johnd@gmail.com", false),
                                 new Address("John street, block 123, #01-01", false),
                                 Collections.emptySet()));
-        ab.addPerson(new Person(new Name("Betsy Crowe"),
+        rms.addPerson(new Person(new Name("Betsy Crowe"),
                                 new Phone("1234567", true),
                                 new Email("betsycrowe@gmail.com", false),
                                 new Address("Newgate Prison", true),
                                 new HashSet<>(Arrays.asList(new Tag("friend"), new Tag("criminal")))));
-        // ab.addMenu(new Menu(new Name("Pizza"), new Price("5"), Collections.emptySet()));
-        return ab;
+        */
+        generateEmployeeList(rms);
+        generateAttendanceList(rms);
+        return rms;
     }
+
+    /**
+     * Add a list of employee to the specified rms for testing
+     */
+    private void generateEmployeeList(Rms rms) throws Exception {
+        Employee emp1 = new Employee(
+                new EmployeeName("Tay"),
+                new EmployeePhone("11111111"),
+                new EmployeeEmail("11111111@gmail.com"),
+                new EmployeeAddress("11111111 Street"),
+                new EmployeePosition("Cashier"));
+        Employee emp2 = new Employee(
+                new EmployeeName("Lim"),
+                new EmployeePhone("22222222"),
+                new EmployeeEmail("22222222@gmail.com"),
+                new EmployeeAddress("22222222 Street"),
+                new EmployeePosition("Cashier"));
+        rms.addEmployee(emp1);
+        rms.addEmployee(emp2);
+    }
+
+    /**
+     * Add a list of attendance to the specified rms for testing
+     */
+    private void generateAttendanceList(Rms rms) {
+        Set<Timing> timings = new LinkedHashSet<>();
+        timings.add(new Timing("00:00", "11/08/2018", true));
+        Attendance atd1 = new Attendance("Tay", true, timings);
+        Attendance atd2 = new Attendance("Lim", true, timings);
+        rms.addAttendance(atd1);
+        rms.addAttendance(atd2);
+    }
+
+
 }
