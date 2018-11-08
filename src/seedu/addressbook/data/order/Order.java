@@ -189,6 +189,7 @@ public class Order implements ReadOnlyOrder {
         return !(dishItems.isEmpty());
     }
 
+    @Override
     public boolean hasPoints() {
         if (customer.getCurrentPointsValue() == 0) {
             return false;
