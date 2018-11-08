@@ -73,6 +73,7 @@ public class StatsOrderCommand extends Command {
             }
             dataRow[i] = "$" + Utils.formatCurrency((dateTable.getMonthRevenue(calendar.getTime())));
         }
+        dataRow = rotateRight(dataRow, 12 - currentMonth);
         table.addRow(dataRow);
         sb.append(table.toString());
         return sb.toString();
