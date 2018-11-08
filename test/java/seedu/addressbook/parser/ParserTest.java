@@ -38,6 +38,7 @@ import seedu.addressbook.commands.statistics.StatsOrderCommand;
 import seedu.addressbook.common.Messages;
 import seedu.addressbook.data.exception.IllegalValueException;
 import seedu.addressbook.data.member.Member;
+import seedu.addressbook.data.member.MemberEmail;
 import seedu.addressbook.data.member.MemberName;
 import seedu.addressbook.data.member.ReadOnlyMember;
 import seedu.addressbook.data.menu.Menu;
@@ -480,7 +481,7 @@ public class ParserTest {
      */
     private static Member generateTestMember() {
         try {
-            return new Member(new MemberName(MemberName.EXAMPLE));
+            return new Member(new MemberName(MemberName.EXAMPLE), new MemberEmail(MemberEmail.EXAMPLE));
         } catch (IllegalValueException ie) {
             throw new RuntimeException("test member data should be valid by definition");
         }
@@ -491,7 +492,8 @@ public class ParserTest {
      */
     private static String convertMemberToAddCommandString(ReadOnlyMember member) {
         String addCommand = "addmember "
-                + member.getName().fullName;
+                + member.getName().fullName
+                + " e/" + member.getEmail().value;
 
         return addCommand;
     }

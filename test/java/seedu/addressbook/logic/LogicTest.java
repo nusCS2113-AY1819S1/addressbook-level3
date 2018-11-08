@@ -45,10 +45,7 @@ import seedu.addressbook.data.employee.EmployeeName;
 import seedu.addressbook.data.employee.EmployeePhone;
 import seedu.addressbook.data.employee.EmployeePosition;
 import seedu.addressbook.data.employee.ReadOnlyEmployee;
-import seedu.addressbook.data.member.Member;
-import seedu.addressbook.data.member.MemberName;
-import seedu.addressbook.data.member.Points;
-import seedu.addressbook.data.member.ReadOnlyMember;
+import seedu.addressbook.data.member.*;
 import seedu.addressbook.data.menu.Menu;
 import seedu.addressbook.data.menu.MenuName;
 import seedu.addressbook.data.menu.Price;
@@ -816,8 +813,23 @@ public class LogicTest {
 
     @Test
     public void execute_addmember_invalidMemberData() throws Exception {
+        String expectedMessage = String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, MemberAddCommand.MESSAGE_USAGE);
         assertMemberCommandBehavior(
-                "addmember []\\[;]", MemberName.MESSAGE_NAME_CONSTRAINTS);
+                "addmember []\\[;]", expectedMessage);
+    }
+
+    @Test
+    public void execute_addmember_invalidNameData() throws Exception {
+        String expectedMessage = String.format(MemberName.MESSAGE_NAME_CONSTRAINTS);
+        assertMemberCommandBehavior(
+                "addmember []; e/valid@email", expectedMessage);
+    }
+
+    @Test
+    public void execute_addmember_invalidEmailData() throws Exception {
+        String expectedMessage = String.format(MemberEmail.MESSAGE_EMAIL_CONSTRAINTS);
+        assertMemberCommandBehavior(
+                "addmember Valid Name e/invalid email", expectedMessage);
     }
 
     @Test
