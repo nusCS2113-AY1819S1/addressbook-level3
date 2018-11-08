@@ -20,6 +20,7 @@ import seedu.addressbook.data.employee.EmployeeName;
 import seedu.addressbook.data.employee.EmployeePhone;
 import seedu.addressbook.data.employee.EmployeePosition;
 import seedu.addressbook.data.member.Member;
+import seedu.addressbook.data.member.MemberEmail;
 import seedu.addressbook.data.member.MemberName;
 import seedu.addressbook.data.member.Points;
 import seedu.addressbook.data.menu.Menu;
@@ -73,7 +74,8 @@ class TestDataHelper {
      */
     Member eve() throws Exception {
         MemberName name = new MemberName("Eve");
-        return new Member(name);
+        MemberEmail email = new MemberEmail("eve@gmail.com");
+        return new Member(name, email);
     }
 
     /**
@@ -102,7 +104,7 @@ class TestDataHelper {
      * Generate empty points to redeem for testing purpose
      */
     int pointsToRedeem() throws Exception {
-        return new Points().getPoints();
+        return new Points().getCurrentPoints();
     };
 
     /**
@@ -227,7 +229,8 @@ class TestDataHelper {
      */
     Member generateMember(int seed) throws Exception {
         return new Member(
-                new MemberName("Member " + seed)
+                new MemberName("Member " + seed),
+                new MemberEmail(seed + "@email")
         );
     }
 
@@ -265,7 +268,7 @@ class TestDataHelper {
                 generateMember(seed),
                 new Date(Math.abs(seed)),
                 generateDishItems(seed),
-                new Points().getPoints()
+                new Points().getCurrentPoints()
         );
     }
 
@@ -337,6 +340,7 @@ class TestDataHelper {
         cmd.add("addmember");
 
         cmd.add(e.getName().toString());
+        cmd.add(("e/") + e.getEmail());
 
         return cmd.toString();
     }
@@ -625,7 +629,8 @@ class TestDataHelper {
      */
     Member generateMemberWithName(String name) throws Exception {
         return new Member(
-                new MemberName(name)
+                new MemberName(name),
+                new MemberEmail(name + "@email")
         );
     }
 
@@ -670,7 +675,7 @@ class TestDataHelper {
                 generateMemberWithName(name),
                 new Date(5000),
                 generateDishItemsWithName(name),
-                new Points().getPoints()
+                new Points().getCurrentPoints()
         );
     }
 
