@@ -9,8 +9,13 @@ import seedu.addressbook.data.exception.IllegalValueException;
  */
 public class Points {
 
+    public static final int EARNED_POINTS_PER_DOLLAR = 10;
+    public static final int REDEEMED_POINTS_PER_DOLLAR = 100;
+
     private int currentPoints;
     private int totalPoints;
+
+
 
     public Points() {
         this.currentPoints = 0;
@@ -34,16 +39,13 @@ public class Points {
      */
     protected Points updatePoints(double price, int pointsToRedeem) {
         try {
-            final int pointsToAdd = ((int) price / 10);
-            this.currentPoints += pointsToAdd;
-            this.totalPoints += pointsToAdd;
-            this.currentPoints -= pointsToRedeem;
-            if (!isValidPoints(currentPoints)) {
+            if (this.currentPoints < pointsToRedeem) {
                 throw new IllegalValueException(MESSAGE_NEGATIVE_POINTS);
             }
+            this.currentPoints -= pointsToRedeem;
+            this.currentPoints += getEarnedPointsValue(price);
             return this;
         } catch (IllegalValueException e) {
-            this.currentPoints = 0;
             return this;
         }
 
@@ -71,6 +73,18 @@ public class Points {
             return true;
         }
         return false;
+    }
+
+    public double getRedeemedDiscount() {
+        return (((double) currentPoints) / REDEEMED_POINTS_PER_DOLLAR);
+    }
+
+    public static int getEarnedPointsValue(double price) {
+        return (int) (price * EARNED_POINTS_PER_DOLLAR);
+    }
+
+    public static int getRedeemedPointsValue(double price) {
+        return (int) (price * REDEEMED_POINTS_PER_DOLLAR);
     }
 
     @Override

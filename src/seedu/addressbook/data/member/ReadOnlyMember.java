@@ -11,14 +11,10 @@ public interface ReadOnlyMember {
 
     MemberName getName();
     Points getCurrentPoints();
-    Points updateCurrentPoints(double price, int pointsToRedeem);
-    void updatePointsAndTier(double price, int pointsToRedeem);
     Date getDate();
     MemberTier getMemberTier();
-    MemberTier updateTier(Points points);
     int getPointsValue();
     int getTotalPointsValue();
-    void setCurrentPoints(int value);
 
 
     /**

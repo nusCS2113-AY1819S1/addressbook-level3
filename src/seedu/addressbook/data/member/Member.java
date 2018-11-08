@@ -59,14 +59,7 @@ public class Member implements ReadOnlyMember {
         return points;
     }
 
-    public void setCurrentPoints(int value) {
-        points.setCurrentPoints(value);
-    }
-
-    public Points updateCurrentPoints(double price, int pointsToRedeem) {
-        return this.points.updatePoints(price, pointsToRedeem);
-    }
-
+    @Override
     public int getPointsValue() {
         return points.getCurrentPoints();
     }
@@ -75,12 +68,22 @@ public class Member implements ReadOnlyMember {
         return points.getTotalPoints();
     }
 
+    @Override
     public Date getDate() {
         return date;
     }
 
+    @Override
     public MemberTier getMemberTier() {
         return tier;
+    }
+
+    public void setPoints(int value) {
+        points.setCurrentPoints(value);
+    }
+
+    public Points updatePoints(double price, int pointsToRedeem) {
+        return this.points.updatePoints(price, pointsToRedeem);
     }
 
     public MemberTier updateTier(Points points) {
@@ -93,9 +96,8 @@ public class Member implements ReadOnlyMember {
      * Updates the points and membership tier of the member
      * @param price
      */
-
     public void updatePointsAndTier(double price, int pointsToRedeem) {
-        Points newPoints = updateCurrentPoints(price, pointsToRedeem);
+        Points newPoints = updatePoints(price, pointsToRedeem);
         updateTier(newPoints);
     }
 
