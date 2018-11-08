@@ -14,7 +14,7 @@ public interface ReadOnlyMember {
     Points getCurrentPoints();
     Date getDate();
     MemberTier getMemberTier();
-    int getPointsValue();
+    int getCurrentPointsValue();
     int getTotalPointsValue();
 
 

@@ -125,7 +125,7 @@ public class Order implements ReadOnlyOrder {
     @Override
     public int getMaxPointsRedeemable() {
         int pointsLimitByPrice = Points.getRedeemedPointsValue(getOriginalPrice());
-        int pointsLimitByMember = customer.getPointsValue();
+        int pointsLimitByMember = customer.getCurrentPointsValue();
         return Integer.min(pointsLimitByPrice, pointsLimitByMember);
     }
 
@@ -187,6 +187,13 @@ public class Order implements ReadOnlyOrder {
     @Override
     public boolean hasDishItems() {
         return !(dishItems.isEmpty());
+    }
+
+    public boolean hasPoints() {
+        if (customer.getCurrentPointsValue() == 0) {
+            return false;
+        }
+        return true;
     }
 
     @Override

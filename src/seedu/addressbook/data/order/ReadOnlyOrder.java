@@ -24,6 +24,7 @@ public interface ReadOnlyOrder {
 
     boolean hasCustomerField();
     boolean hasDishItems();
+    boolean hasPoints();
 
     /**
      * Returns true if the values inside this object is same as those of the other

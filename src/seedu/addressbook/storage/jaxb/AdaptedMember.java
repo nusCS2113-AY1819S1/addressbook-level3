@@ -79,7 +79,7 @@ public class AdaptedMember {
     public AdaptedMember(ReadOnlyMember source) {
         name = source.getName().fullName;
         email = source.getEmail().toString();
-        points = source.getPointsValue();
+        points = source.getCurrentPointsValue();
         totalPoints = source.getTotalPointsValue();
         date = source.getDate().getTime();
         tier = source.getMemberTier().toString();

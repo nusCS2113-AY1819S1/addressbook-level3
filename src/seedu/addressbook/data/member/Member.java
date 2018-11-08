@@ -70,7 +70,7 @@ public class Member implements ReadOnlyMember {
     }
 
     @Override
-    public int getPointsValue() {
+    public int getCurrentPointsValue() {
         return points.getCurrentPoints();
     }
 

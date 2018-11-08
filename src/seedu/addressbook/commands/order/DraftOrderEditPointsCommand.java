@@ -23,7 +23,11 @@ public class DraftOrderEditPointsCommand extends Command {
 
     public static final String MESSAGE_EMPTY_CUSTOMER_FIELD = "Member needs to be added first!";
 
-    public static final String MESSAGE_NEGATIVE_POINTS = "Points to be redeemed must not be a negative value";
+    public static final String MESSAGE_EMPTY_DISH_FIELD = "At least one dish needs to be added first!";
+
+    public static final String MESSAGE_NO_REDEEMABLE_POINTS = "Member does not have any points to redeem!";
+
+    public static final String MESSAGE_NEGATIVE_POINTS = "Points to be redeemed must not be a negative value!";
 
     private final Points toRedeem;
 
@@ -39,8 +43,10 @@ public class DraftOrderEditPointsCommand extends Command {
             int points = toRedeem.getCurrentPoints();
             if (!draftOrder.hasCustomerField()) {
                 throw new IllegalValueException(MESSAGE_EMPTY_CUSTOMER_FIELD);
-            } else if (points < 0) {
-                throw new IllegalValueException(MESSAGE_NEGATIVE_POINTS);
+            } else if (!draftOrder.hasDishItems()) {
+                throw new IllegalValueException(MESSAGE_EMPTY_DISH_FIELD);
+            } else if (!draftOrder.hasPoints()) {
+                throw new IllegalValueException(MESSAGE_NO_REDEEMABLE_POINTS);
             } else {
                 final int maxPointsRedeemable = draftOrder.getMaxPointsRedeemable();
                 if (points > maxPointsRedeemable) {
