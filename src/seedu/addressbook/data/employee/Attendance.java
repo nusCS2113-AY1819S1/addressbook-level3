@@ -64,6 +64,14 @@ public class Attendance {
         return getAsTextShowAll();
     }
 
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof Attendance // instanceof handles nulls
+                && this.name.equals(((Attendance) other).name)
+                && this.isClockedIn == ((Attendance) other).isClockedIn)
+                && this.timings.equals(((Attendance) other).timings); // state check
+    }
 
     /**
      * Formats the attendance as text, showing all check in and check out timings.
