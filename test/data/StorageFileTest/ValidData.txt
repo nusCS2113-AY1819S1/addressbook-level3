@@ -1,5 +1,29 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <Rms>
+    <menus>
+        <name>Burger</name>
+        <price>$5.00</price>
+        <type>main</type>
+        <tagged>best</tagged>
+    </menus>
+    <menus>
+        <name>Fries</name>
+        <price>$2.00</price>
+        <type>sides</type>
+        <tagged>best</tagged>
+    </menus>
+    <members>
+        <name>Ang</name>
+        <points>0</points>
+        <date>1000</date>
+        <tier>Bronze</tier>
+    </members>
+    <members>
+        <name>Salsabil</name>
+        <points>10000</points>
+        <date>1000</date>
+        <tier>Gold</tier>
+    </members>
     <employees>
         <name>Tay</name>
         <phone>11111111</phone>
@@ -14,6 +38,64 @@
         <address>22222222 Street</address>
         <position>Cashier</position>
     </employees>
+    <orders>
+        <customer>
+            <name>Ang</name>
+            <points>0</points>
+            <date>1000</date>
+            <tier>Bronze</tier>
+        </customer>
+        <date>1000</date>
+        <price>9.0</price>
+        <points>0</points>
+        <dishItems>
+            <dish>
+                <name>Burger</name>
+                <price>$5.00</price>
+                <type>main</type>
+                <tagged>best</tagged>
+            </dish>
+            <quantity>1</quantity>
+        </dishItems>
+        <dishItems>
+            <dish>
+                <name>Fries</name>
+                <price>$2.00</price>
+                <type>sides</type>
+                <tagged>best</tagged>
+            </dish>
+            <quantity>2</quantity>
+        </dishItems>
+    </orders>
+    <orders>
+        <customer>
+            <name>Salsabil</name>
+            <points>10000</points>
+            <date>1000</date>
+            <tier>Gold</tier>
+        </customer>
+        <date>1000</date>
+        <price>8.0</price>
+        <points>100</points>
+        <dishItems>
+            <dish>
+                <name>Burger</name>
+                <price>$5.00</price>
+                <type>main</type>
+                <tagged>best</tagged>
+            </dish>
+            <quantity>1</quantity>
+        </dishItems>
+        <dishItems>
+            <dish>
+                <name>Fries</name>
+                <price>$2.00</price>
+                <type>sides</type>
+                <tagged>best</tagged>
+            </dish>
+            <quantity>2</quantity>
+        </dishItems>
+    </orders>
     <attendance isClockedIn="true">
         <name>Tay</name>
         <timings isClockIn="true" date="11/08/2018">00:00</timings>
