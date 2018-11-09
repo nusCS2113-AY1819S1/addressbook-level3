@@ -7,6 +7,7 @@ import seedu.addressbook.data.CommandStack;
 import seedu.addressbook.data.person.*;
 
 import java.io.PrintStream;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -99,6 +100,10 @@ public abstract class Command {
      */
     protected ReadOnlyPerson getTargetPerson() throws IndexOutOfBoundsException {
         return relevantPersons.get(getTargetIndex() - DISPLAYED_INDEX_OFFSET);
+    }
+
+    protected List<ReadOnlyPerson> getPersonList() {
+        return new ArrayList<>(relevantPersons);
     }
 
     public List<ReadOnlyPerson> getEditableLastShownList() {

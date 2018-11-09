@@ -123,8 +123,8 @@ public class Parser {
                 case ExitEditAppointment.COMMAND_WORD:
                     return new ExitEditAppointment(Command.checkEditingPersonIndex());
 
-                //case ListAppointment.COMMAND_WORD:
-                //    return new ListAppointment();
+                case ListAppointment.COMMAND_WORD:
+                    return new ListAppointment();
 
                 case AddAppointment.COMMAND_WORD:
                     return prepareAddAppointment(arguments);

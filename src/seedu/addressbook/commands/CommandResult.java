@@ -52,7 +52,7 @@ public class CommandResult {
 
     public CommandResult(String feedbackToUser, List<ReadOnlyPerson> relevantPersons, boolean isNotForPrintingUsers) {
         this.feedbackToUser = feedbackToUser;
-        this.relevantPersons = null;//srelevantPersons;
+        this.relevantPersons = null;//relevantPersons;
         schedulesOfPerson = null;
         editableRelevantPersons = relevantPersons;
         this.isNotForPrintingUsers = isNotForPrintingUsers;

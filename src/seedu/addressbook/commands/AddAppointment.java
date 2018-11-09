@@ -10,6 +10,8 @@ import seedu.addressbook.data.person.UniquePersonList;
 
 import java.util.*;
 
+import static seedu.addressbook.ui.Gui.DISPLAYED_INDEX_OFFSET;
+
 public class AddAppointment extends Command{
 
     public static final String COMMAND_WORD = "add";
@@ -67,13 +69,11 @@ public class AddAppointment extends Command{
             commandHistory.addHistory("(edit-appointment " + checkEditingPersonIndex() + ") " + COMMAND_WORD + " "); //CHECK EFFECT
             this.setTargetIndex(checkEditingPersonIndex());
             final ReadOnlyPerson target = getTargetPerson();
-            //Set<Schedule> scheduleSetThatExist = target.getSchedules();
 
-            Set<Schedule> finalScheduleSet = target.getSchedules();//scheduleSetThatExist;
-            boolean hasChanges = finalScheduleSet.addAll(scheduleSetToAdd);
+            Set<Schedule> finalScheduleSet = target.getSchedules();
+            boolean hasChanges = finalScheduleSet.addAll(scheduleSetToAdd); //latest set of schedules
 
-            //if(hasChanges == false){ throw new OnlyDuplicateScheduleException();}
-            if (!hasChanges) {
+            if (!hasChanges) { //check for changes
                 return new CommandResult("Operation does not make changes to the set of appointments");
             }
 
@@ -89,11 +89,13 @@ public class AddAppointment extends Command{
             */
             Person updatedSchedulePerson = new Person(target);
             updatedSchedulePerson.setSchedule(finalScheduleSet);
-
-            //finalScheduleSet make changes
             addressBook.editPerson(target, updatedSchedulePerson);
 
+
+            //List<ReadOnlyPerson> editPersonsList = getPersonList();
+            //editPersonList.set(checkEditingPersonIndex() - DISPLAYED_INDEX_OFFSET, (ReadOnlyPerson) updatedSchedulePerson);
             List<ReadOnlyPerson> editablePersonList = this.getEditableLastShownList();
+            ReadOnlyPerson updatedReadOnlyPerson = updatedSchedulePerson;
             /*
             int index = editablePersonList.indexOf(updatedSchedulePerson);
             if (index == -1) {
@@ -101,9 +103,7 @@ public class AddAppointment extends Command{
             }
             editablePersonList.set(index, updatedSchedulePerson);
             */
-            //editablePersonList.set(checkEditingPersonIndex(), updatedSchedulePerson);
-
-
+            //editablePersonList.remove(checkEditingPersonIndex() - DISPLAYED_INDEX_OFFSET);//, updatedReadOnlyPerson);
 
             return new CommandResult(String.format(MESSAGE_EDIT_PERSON_APPOINTMENT, target.getName()) );//, scheduleSetToAdd); //editablePersonList);//, true);
 
@@ -113,7 +113,16 @@ public class AddAppointment extends Command{
             return new CommandResult(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
         } catch (UniquePersonList.PersonNotFoundException pnfe) {
             return new CommandResult(Messages.MESSAGE_PERSON_NOT_IN_ADDRESSBOOK);
-        }// catch (UniquePersonList.DuplicatePersonException dpe) {
+        } catch (NullPointerException nu) {
+            return new CommandResult("Null pointer: Error in executing result.");
+        }catch (UnsupportedOperationException nu) {
+            return new CommandResult("Unsupported Operation: Error executing result.");
+        }catch (ClassCastException nu) {
+            return new CommandResult("Class Cast: Error executing result.");
+        }//catch (IllegalValueException nu) {
+         //   return new CommandResult("error executing result");
+        //}
+        // catch (UniquePersonList.DuplicatePersonException dpe) {
         //    return new CommandResult("Operation also does not make changes to the set of appointments");
         //}
         //catch (UniquePersonList.PersonNotFoundException pnfe) {
