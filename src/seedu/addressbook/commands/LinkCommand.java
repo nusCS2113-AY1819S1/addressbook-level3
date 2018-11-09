@@ -24,8 +24,7 @@ public class LinkCommand extends UndoAbleCommand{
             final ReadOnlyPerson target = getTargetPerson();
             final ReadOnlyPerson target2 = getTargetPerson2();
             addressBook.linkTwoPerson(target, target2);
-            commandStack.checkForAction(this);
-            commandHistory.addHistory(COMMAND_WORD + " " + getTargetIndex() + " " + getTargetIndex2());
+            saveUndoableToHistory(COMMAND_WORD + " " + getTargetIndex() + " " + getTargetIndex2());
             return new CommandResult(String.format(MESSAGE_SUCCESS, target.getName() ,target2.getName()));
 
         } catch (IndexOutOfBoundsException ie) {

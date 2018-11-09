@@ -73,8 +73,7 @@ public class AddCommand extends UndoAbleCommand {
     public CommandResult execute() {
         try {
             addressBook.addPerson(toAdd);
-            commandStack.checkForAction(this);
-            commandHistory.addHistory(COMMAND_WORD + " " + toAdd.toString());
+            saveUndoableToHistory(COMMAND_WORD + " " + toAdd.toString());
             return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
         } catch (UniquePersonList.DuplicatePersonException dpe) {
             return new CommandResult(MESSAGE_DUPLICATE_PERSON);
