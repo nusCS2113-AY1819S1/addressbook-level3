@@ -37,7 +37,6 @@ public interface ReadOnlyPerson {
                 && other.getEmail().equals(this.getEmail())
                 && other.getAddress().equals(this.getAddress())
                 && other.getTitle().equals(this.getTitle()) );
-                //&& other.getSchedule().equals(this.getSchedule()) );
     }
 
     /**

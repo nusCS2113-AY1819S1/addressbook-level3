@@ -1,6 +1,5 @@
 package seedu.addressbook.commands;
 
-import seedu.addressbook.data.exception.DuplicateDataException;
 import seedu.addressbook.data.exception.IllegalValueException;
 import seedu.addressbook.common.Messages;
 import seedu.addressbook.data.person.Person;
@@ -25,26 +24,13 @@ public class AddAppointment extends Command{
 
     public static final String MESSAGE_EDIT_PERSON_APPOINTMENT = "%1$s has new appointment date(s)";
 
-    //public static final String MESSAGE_SUCCESS = "New person added: %1$s";
+    public static final String MESSAGE_NO_CHANGE_MADE = "No changes made to the set of appointment(s) "
+            + "as the appointment date(s) were already recorded";
 
-    //public static final String MESSAGE_DUPLICATE_SCHEDULE = "This person already exists in the address book";
-
-   // private final Person toAdd;
     private final Set<Schedule> scheduleSetToAdd;
-    private final String inputForHistory;
-        //private final Set<Schedule> scheduleSetThatExist;
-        //private Set<Schedule> finalScheduleSet;
-    //private Set<Schedule> addedScheduleSet;
-    //private Set<Schedule> duplicateScheduleSet;
 
-    /**
-     * Signals that an operation would have violated the 'no duplicates' property of the list.
-     */
-    /*public static class OnlyDuplicateScheduleException extends DuplicateDataException {
-        protected OnlyDuplicateScheduleException() {
-            super("Operation does not make changes to the set of appointments");
-        }
-    }*/
+    private final String inputForHistory;
+
 
     /**
      * Convenience constructor using raw values.
@@ -60,16 +46,10 @@ public class AddAppointment extends Command{
         this.scheduleSetToAdd = scheduleSet;
 
         inputForHistory = String.join(" ", schedule);
-
     }
-
-    //public ReadOnlyPerson getPerson() {
-    //    return toAdd;
-    //}
 
     @Override
     public CommandResult execute() {
-        //return new CommandResult("command under construct, tbc ");
         try {
             saveHistory("(edit-appointment " + checkEditingPersonIndex() + ") " + COMMAND_WORD + " " + inputForHistory);
             this.setTargetIndex(checkEditingPersonIndex());
@@ -79,8 +59,7 @@ public class AddAppointment extends Command{
             boolean hasChanges = finalScheduleSet.addAll(scheduleSetToAdd); //latest set of schedules
 
             if (!hasChanges) { //check for changes
-                return new CommandResult("Operation does not make changes to the set of appointment(s) "
-                        + "as the appointment date(s) are already recorded");
+                return new CommandResult(MESSAGE_NO_CHANGE_MADE);
             }
 
             /*Set<Schedule> addedScheduleSet = new Set<Schedule>;
@@ -93,52 +72,25 @@ public class AddAppointment extends Command{
                 }
             }
             */
-            Person updatedSchedulePerson = new Person(target);
-            updatedSchedulePerson.setSchedule(finalScheduleSet);
-            addressBook.editPerson(target, updatedSchedulePerson);
+            Person updatedPerson = new Person(target);
+            updatedPerson.setSchedule(finalScheduleSet);
+            addressBook.editPerson(target, updatedPerson);
 
-            //ReadOnlyPerson help = new Person(updatedSchedulePerson);
-
-            //List<ReadOnlyPerson> editPersonsList = getPersonList();
-            //editPersonList.set(checkEditingPersonIndex() - DISPLAYED_INDEX_OFFSET, (ReadOnlyPerson) updatedSchedulePerson);
             List<ReadOnlyPerson> editablePersonList = this.getEditableLastShownList();
-            editablePersonList.set(checkEditingPersonIndex() - DISPLAYED_INDEX_OFFSET, updatedSchedulePerson);
-            //List<ReadOnlyPerson> editedReadOnlyPersonList = editablePersonList;
-
-            /*
-            int index = editablePersonList.indexOf(updatedSchedulePerson);
-            if (index == -1) {
-                throw new UniquePersonList.PersonNotFoundException();
-            }
-            editablePersonList.set(index, updatedSchedulePerson);
-            */
-            //editablePersonList.remove(checkEditingPersonIndex() - DISPLAYED_INDEX_OFFSET);//, updatedReadOnlyPerson);
-
+            editablePersonList.set(checkEditingPersonIndex() - DISPLAYED_INDEX_OFFSET, updatedPerson);
             return new CommandResult(String.format(MESSAGE_EDIT_PERSON_APPOINTMENT, target.getName()), editablePersonList, editablePersonList, false);//, scheduleSetToAdd); //editablePersonList);//, true);
-
-            //return new CommandResult(String.format("Successful schedule size of %1$d parser edit!", scheduleSetToAdd.size()));
 
         } catch (IndexOutOfBoundsException ie) {
             return new CommandResult(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
         } catch (UniquePersonList.PersonNotFoundException pnfe) {
             return new CommandResult(Messages.MESSAGE_PERSON_NOT_IN_ADDRESSBOOK);
         } catch (NullPointerException nu) {
-            return new CommandResult("Null pointer: Error in executing result.");
+            return new CommandResult("Null pointer: Error in executing result. Report to developers.");
         }catch (UnsupportedOperationException nu) {
-            return new CommandResult("Unsupported Operation: Error executing result.");
+            return new CommandResult("Unsupported Operation: Error executing result. Report to developers.");
         }catch (ClassCastException nu) {
-            return new CommandResult("Class Cast: Error executing result.");
-        }//catch (IllegalValueException nu) {
-         //   return new CommandResult("error executing result");
-        //}
-        // catch (UniquePersonList.DuplicatePersonException dpe) {
-        //    return new CommandResult("Operation also does not make changes to the set of appointments");
-        //}
-        //catch (UniquePersonList.PersonNotFoundException pnfe) {
-        // return new CommandResult(Messages.MESSAGE_PERSON_NOT_IN_ADDRESSBOOK);
-        //}
-
+            return new CommandResult("Class Cast: Error executing result. Report to developers.");
+        }
     }
 
 }
-

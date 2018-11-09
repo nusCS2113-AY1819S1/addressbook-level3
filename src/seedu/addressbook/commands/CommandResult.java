@@ -1,6 +1,5 @@
 package seedu.addressbook.commands;
 
-import seedu.addressbook.data.person.Person;
 import seedu.addressbook.data.person.ReadOnlyPerson;
 import seedu.addressbook.data.person.Schedule;
 
@@ -35,13 +34,6 @@ public class CommandResult {
         schedulesOfPerson = null;
         editableRelevantPersons = null;
     }
-
-    /*public CommandResult(String feedbackToUser, List<ReadOnlyPerson> relevantPersons) {
-        this.feedbackToUser = feedbackToUser;
-        this.relevantPersons = relevantPersons;
-        schedulesOfPerson = null;
-        editableRelevantPersons = null;
-    }*/
 
     public CommandResult(String feedbackToUser, Set<? extends Schedule> schedulesOfPerson) {
         this.feedbackToUser = feedbackToUser;
@@ -87,7 +79,7 @@ public class CommandResult {
     }
 
     /**
-     * Returns a boolean that determines if the list of persons relevant to the command gets printed
+     * Returns a boolean that determines if the list of persons relevant to the command gets printed.
      */
     public boolean canPrint() {
         return toPrint;
