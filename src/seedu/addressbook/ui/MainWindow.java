@@ -72,7 +72,7 @@ public class MainWindow {
 
     /** Returns true of the result given is the result of an exit command */
     private boolean isExitCommand(CommandResult result) {
-        return result.feedbackToUser.equals(ExitCommand.MESSAGE_EXIT_ACKNOWEDGEMENT);
+        return result.feedbackToUser.equals(ExitCommand.MESSAGE_EXIT_ACKNOWLEDGEMENT);
     }
 
     /** Clears the command input box */
@@ -90,7 +90,7 @@ public class MainWindow {
         clearOutputConsole();
         final Optional<List<? extends ReadOnlyPerson>> resultPersons = result.getRelevantPersons();
         final Optional<Set<? extends Schedule>> scheduleSet = result.getRelevantAppointments();
-        if (resultPersons.isPresent()) {
+        if (resultPersons.isPresent() && result.canPrint()) {
             display(resultPersons.get());
         }else if(scheduleSet.isPresent()) {
             display(scheduleSet.get());

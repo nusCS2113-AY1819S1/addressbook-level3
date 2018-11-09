@@ -31,6 +31,7 @@ public class AddAppointment extends Command{
 
    // private final Person toAdd;
     private final Set<Schedule> scheduleSetToAdd;
+    private final String inputForHistory;
         //private final Set<Schedule> scheduleSetThatExist;
         //private Set<Schedule> finalScheduleSet;
     //private Set<Schedule> addedScheduleSet;
@@ -58,6 +59,8 @@ public class AddAppointment extends Command{
         }
         this.scheduleSetToAdd = scheduleSet;
 
+        inputForHistory = String.join(" ", schedule);
+
     }
 
     //public ReadOnlyPerson getPerson() {
@@ -68,7 +71,7 @@ public class AddAppointment extends Command{
     public CommandResult execute() {
         //return new CommandResult("command under construct, tbc ");
         try {
-            commandHistory.addHistory("(edit-appointment " + checkEditingPersonIndex() + ") " + COMMAND_WORD + " "); //CHECK EFFECT
+            commandHistory.addHistory("(edit-appointment " + checkEditingPersonIndex() + ") " + COMMAND_WORD + " " + inputForHistory);
             this.setTargetIndex(checkEditingPersonIndex());
             final ReadOnlyPerson target = getTargetPerson();
 
@@ -76,7 +79,8 @@ public class AddAppointment extends Command{
             boolean hasChanges = finalScheduleSet.addAll(scheduleSetToAdd); //latest set of schedules
 
             if (!hasChanges) { //check for changes
-                return new CommandResult("Operation does not make changes to the set of appointments");
+                return new CommandResult("Operation does not make changes to the set of appointment(s) "
+                        + "as the appointment date(s) are already recorded");
             }
 
             /*Set<Schedule> addedScheduleSet = new Set<Schedule>;
@@ -110,7 +114,7 @@ public class AddAppointment extends Command{
             */
             //editablePersonList.remove(checkEditingPersonIndex() - DISPLAYED_INDEX_OFFSET);//, updatedReadOnlyPerson);
 
-            return new CommandResult(String.format(MESSAGE_EDIT_PERSON_APPOINTMENT, target.getName()), editablePersonList, editablePersonList);//, scheduleSetToAdd); //editablePersonList);//, true);
+            return new CommandResult(String.format(MESSAGE_EDIT_PERSON_APPOINTMENT, target.getName()), editablePersonList, editablePersonList, false);//, scheduleSetToAdd); //editablePersonList);//, true);
 
             //return new CommandResult(String.format("Successful schedule size of %1$d parser edit!", scheduleSetToAdd.size()));
 

@@ -24,7 +24,7 @@ public class DeleteAppointment extends Command {
             + "Example 1: " + COMMAND_WORD + " 01-01-2019 \n\t"
             + "Example 2: " + COMMAND_WORD + " 01-01-2019" + " 01-02-2019" + " 01-03-2019";
 
-    public static final String MESSAGE_EDIT_PERSON_APPOINTMENT = "The appointment date(s) successfully deleted for %1$s";
+    public static final String MESSAGE_EDIT_PERSON_APPOINTMENT = "%1$s has deleted appointment date(s)";
 
     //public static final String MESSAGE_SUCCESS = "New person added: %1$s";
 
@@ -32,6 +32,7 @@ public class DeleteAppointment extends Command {
 
     // private final Person toAdd;
     private final Set<Schedule> scheduleSetToDelete;
+    private final String inputForHistory;
     //private final Set<Schedule> scheduleSetThatExist;
     //private Set<Schedule> finalScheduleSet;
     //private Set<Schedule> addedScheduleSet;
@@ -59,6 +60,8 @@ public class DeleteAppointment extends Command {
         }
         this.scheduleSetToDelete = scheduleSet;
 
+        inputForHistory = String.join(" ", schedule);
+
     }
 
     //public ReadOnlyPerson getPerson() {
@@ -69,7 +72,7 @@ public class DeleteAppointment extends Command {
     public CommandResult execute() {
         //return new CommandResult("command under construct, tbc ");
         try {
-            commandHistory.addHistory("(edit-appointment " + checkEditingPersonIndex() + ") " + COMMAND_WORD + " "); //CHECK EFFECT
+            commandHistory.addHistory("(edit-appointment " + checkEditingPersonIndex() + ") " + COMMAND_WORD + " " + inputForHistory);
             this.setTargetIndex(checkEditingPersonIndex());
             final ReadOnlyPerson target = getTargetPerson();
             //Set<Schedule> scheduleSetThatExist = target.getSchedules();
@@ -80,8 +83,8 @@ public class DeleteAppointment extends Command {
 
             //if(hasChanges == false){ throw new OnlyDuplicateScheduleException();}
             if (!hasChanges) {
-                return new CommandResult("Operation does not make changes to the set of appointments "
-                +"as there are no appointment made on these day(s)");
+                return new CommandResult("Operation does not make changes to the set of appointment(s) "
+                + "as there are no appointment made on the day(s)");
             }
 
             /*Set<Schedule> addedScheduleSet = new Set<Schedule>;
@@ -115,7 +118,7 @@ public class DeleteAppointment extends Command {
 
 
 
-            return new CommandResult(String.format(MESSAGE_EDIT_PERSON_APPOINTMENT, target.getName()), editablePersonList, editablePersonList);//, scheduleSetToAdd); //editablePersonList);//, true);
+            return new CommandResult(String.format(MESSAGE_EDIT_PERSON_APPOINTMENT, target.getName()), editablePersonList, editablePersonList, false);
 
             //return new CommandResult(String.format("Successful schedule size of %1$d parser edit!", scheduleSetToAdd.size()));
 

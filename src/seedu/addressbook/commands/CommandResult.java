@@ -25,6 +25,9 @@ public class CommandResult {
     /** The editable list of persons that was produced by the command */
     private final List<ReadOnlyPerson> editableRelevantPersons;
 
+    /** A boolean that determines if the list of person present get printed */
+    private boolean toPrint = true;
+
 
     public CommandResult(String feedbackToUser) {
         this.feedbackToUser = feedbackToUser;
@@ -33,12 +36,12 @@ public class CommandResult {
         editableRelevantPersons = null;
     }
 
-    public CommandResult(String feedbackToUser, List<ReadOnlyPerson> relevantPersons) {
+    /*public CommandResult(String feedbackToUser, List<ReadOnlyPerson> relevantPersons) {
         this.feedbackToUser = feedbackToUser;
         this.relevantPersons = relevantPersons;
         schedulesOfPerson = null;
         editableRelevantPersons = null;
-    }
+    }*/
 
     public CommandResult(String feedbackToUser, Set<? extends Schedule> schedulesOfPerson) {
         this.feedbackToUser = feedbackToUser;
@@ -50,8 +53,16 @@ public class CommandResult {
     public CommandResult(String feedbackToUser, List<ReadOnlyPerson> relevantPersons, List<ReadOnlyPerson> editableRelevantPersons) {
         this.feedbackToUser = feedbackToUser;
         this.relevantPersons = relevantPersons;
-        schedulesOfPerson = null;
         this.editableRelevantPersons = editableRelevantPersons;
+        schedulesOfPerson = null;
+    }
+
+    public CommandResult(String feedbackToUser, List<ReadOnlyPerson> relevantPersons, List<ReadOnlyPerson> editableRelevantPersons, boolean toPrint) {
+        this.feedbackToUser = feedbackToUser;
+        this.relevantPersons = relevantPersons;
+        this.editableRelevantPersons = editableRelevantPersons;
+        schedulesOfPerson = null;
+        this.toPrint = toPrint;
     }
 
     /**
@@ -74,4 +85,12 @@ public class CommandResult {
     public Optional<List<ReadOnlyPerson>> getEditableRelevantPersons() {
         return Optional.ofNullable(editableRelevantPersons);
     }
+
+    /**
+     * Returns a boolean that determines if the list of persons relevant to the command gets printed
+     */
+    public boolean canPrint() {
+        return toPrint;
+    }
+
 }
