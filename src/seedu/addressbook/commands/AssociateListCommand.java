@@ -29,6 +29,7 @@ public class AssociateListCommand extends Command {
         try {
             final ReadOnlyPerson target = getTargetPerson();
              Set<Associated> associateList= target.getAssociateList();
+             saveHistory(COMMAND_WORD);
             return new CommandResult(MESSAGE_SUCCESS + associateList.toString());
         } catch (IndexOutOfBoundsException ie) {
             return new CommandResult(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);

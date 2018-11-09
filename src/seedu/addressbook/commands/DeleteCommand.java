@@ -3,6 +3,7 @@ package seedu.addressbook.commands;
 import seedu.addressbook.common.Messages;
 import seedu.addressbook.data.person.Person;
 import seedu.addressbook.data.person.ReadOnlyPerson;
+import seedu.addressbook.data.person.UniquePersonList;
 import seedu.addressbook.data.person.UniquePersonList.PersonNotFoundException;
 
 
@@ -31,11 +32,8 @@ public class DeleteCommand extends UndoAbleCommand {
     @Override
     public CommandResult execute() {
         try {
-            final ReadOnlyPerson target = getTargetPerson();
-            this.backup = target.getPerson();
-            addressBook.removePerson(target);
-            commandStack.checkForAction(this);
-            commandHistory.addHistory(COMMAND_WORD + " " + getTargetIndex());
+            final ReadOnlyPerson target = getAndRemoveROP();
+            saveUndoableToHistory(COMMAND_WORD + " " + getTargetIndex());
             return new CommandResult(String.format(MESSAGE_DELETE_PERSON_SUCCESS, target));
 
         } catch (IndexOutOfBoundsException ie) {
@@ -44,6 +42,14 @@ public class DeleteCommand extends UndoAbleCommand {
             return new CommandResult(Messages.MESSAGE_PERSON_NOT_IN_ADDRESSBOOK);
         }
     }
+
+    public ReadOnlyPerson getAndRemoveROP() throws PersonNotFoundException {
+        final ReadOnlyPerson target = getTargetPerson();
+        this.backup = target.getPerson();
+        addressBook.removePerson(target);
+        return target;
+    }
+
     @Override
     public void executeUndo() throws Exception{
         addressBook.addPerson(this.backup);
@@ -52,5 +58,9 @@ public class DeleteCommand extends UndoAbleCommand {
     @Override
     public void executeRedo() throws Exception{
         addressBook.removePerson(this.backup);
+    }
+
+    public void setBackup(Person forTest){
+        backup = forTest;
     }
 }

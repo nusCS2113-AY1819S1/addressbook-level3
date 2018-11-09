@@ -19,8 +19,7 @@ public class ClearCommand extends UndoAbleCommand {
     public CommandResult execute() {
         copied = addressBook.getAllPersons();
         addressBook.clear();
-        commandStack.checkForAction(this);
-        commandHistory.addHistory(COMMAND_WORD);
+        saveUndoableToHistory(COMMAND_WORD);
         return new CommandResult(MESSAGE_SUCCESS);
     }
 
@@ -32,5 +31,9 @@ public class ClearCommand extends UndoAbleCommand {
     @Override
     public void executeRedo(){
         addressBook.clear();
+    }
+
+    public void setCopied(UniquePersonList forTest){
+        copied = forTest;
     }
 }

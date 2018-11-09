@@ -17,9 +17,8 @@ public class UndoCommand extends Command {
     @Override
     public CommandResult execute() {
         try {
-            UndoAbleCommand toUndo = commandStack.undoLast();
-            toUndo.executeUndo();
-            commandHistory.addHistory(COMMAND_WORD);
+            prepUndo();
+            saveHistory(COMMAND_WORD);
             List<ReadOnlyPerson> allPersons = addressBook.getAllPersons().immutableListView();
             return new CommandResult(MESSAGE_SUCCESS, allPersons);
         } catch (CommandStack.HistoryOutOfBoundException hoobe){
@@ -27,5 +26,10 @@ public class UndoCommand extends Command {
         } catch (Exception e){
             return new CommandResult(MESSAGE_FAILURE);
         }
+    }
+
+    public void prepUndo() throws Exception {
+        UndoAbleCommand toUndo = commandStack.undoLast();
+        toUndo.executeUndo();
     }
 }

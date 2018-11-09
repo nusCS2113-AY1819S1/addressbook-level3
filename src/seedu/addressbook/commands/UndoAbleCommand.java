@@ -15,4 +15,9 @@ public abstract class UndoAbleCommand extends Command{
     public abstract void executeUndo() throws Exception;
 
     public abstract void executeRedo() throws Exception;
+
+    public void saveUndoableToHistory(String fullCommand){
+        saveHistory(fullCommand);
+        commandStack.checkForAction(this);
+    }
 }
