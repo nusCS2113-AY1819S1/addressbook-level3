@@ -17,9 +17,8 @@ public class RedoCommand extends Command{
     @Override
     public CommandResult execute() {
         try {
-            UndoAbleCommand toRedo = commandStack.redoLast();
-            toRedo.executeRedo();
-            commandHistory.addHistory(COMMAND_WORD);
+            prepRedo();
+            saveHistory(COMMAND_WORD);
             List<ReadOnlyPerson> allPersons = addressBook.getAllPersons().immutableListView();
             List<ReadOnlyPerson> editableAllPersons = addressBook.getAllPersons().mutableListView();
             return new CommandResult(MESSAGE_SUCCESS, allPersons, editableAllPersons);
@@ -28,5 +27,10 @@ public class RedoCommand extends Command{
         } catch (Exception e){
             return new CommandResult(MESSAGE_FAILURE);
         }
+    }
+
+    public void prepRedo() throws Exception {
+        UndoAbleCommand toRedo = commandStack.redoLast();
+        toRedo.executeRedo();
     }
 }

@@ -10,6 +10,7 @@ import seedu.addressbook.commands.*;
 import seedu.addressbook.common.Messages;
 import seedu.addressbook.data.AddressBook;
 import seedu.addressbook.data.CommandHistory;
+import seedu.addressbook.data.CommandStack;
 import seedu.addressbook.data.person.*;
 import seedu.addressbook.data.tag.Tag;
 import seedu.addressbook.storage.StorageFile;
@@ -392,35 +393,137 @@ public class LogicTest {
     }
 
     @Test
+    public void execute_link_success() throws Exception {
+        TestDataHelper helper = new TestDataHelper();
+        Person p1 = helper.generatePersonWithTitle(1, "Doctor");
+        Person p2 = helper.generatePersonWithTitle(2, "Patient");
+
+        List<Person> twoPersons = helper.generatePersonList(p1, p2);
+
+        helper.addToAddressBook(addressBook, twoPersons);
+        logic.setLastShownList(twoPersons);
+
+        AddressBook expectedAB = helper.generateAddressBook(twoPersons);
+        String expectedMessage = String.format(LinkCommand.MESSAGE_SUCCESS, p1.getName(), p2.getName());
+        assertCommandBehavior("link 1 2", expectedMessage, expectedAB, false, twoPersons);
+    }
+
+    @Test
+    public void execute_link_duplicateAssociation() throws Exception {
+        TestDataHelper helper = new TestDataHelper();
+        Person p1 = helper.generatePersonWithTitle(1, "Doctor");
+        Person p2 = helper.generatePersonWithTitle(2, "Patient");
+
+        List<Person> twoPersons = helper.generatePersonList(p1, p2);
+
+        helper.addToAddressBook(addressBook, twoPersons);
+        logic.setLastShownList(twoPersons);
+        addressBook.linkTwoPerson(p1, p2);
+        AddressBook expectedAB = helper.generateAddressBook(twoPersons);
+        String expectedMessage = String.format(LinkCommand.MESSAGE_DUPLICATE_ASSOCIATION);
+        assertCommandBehavior("link 1 2", expectedMessage, expectedAB, false, twoPersons);
+    }
+
+    @Test
+    public void execute_link_sameTitle() throws Exception {
+        TestDataHelper helper = new TestDataHelper();
+        Person p1 = helper.generatePersonWithTitle(1, "Doctor");
+        Person p2 = helper.generatePersonWithTitle(2, "Doctor");
+
+        List<Person> twoPersons = helper.generatePersonList(p1, p2);
+
+        helper.addToAddressBook(addressBook, twoPersons);
+        logic.setLastShownList(twoPersons);
+        AddressBook expectedAB = helper.generateAddressBook(twoPersons);
+        String expectedMessage = String.format(LinkCommand.MESSAGE_SAME_TITLE_FAILURE);
+        assertCommandBehavior("link 1 2", expectedMessage, expectedAB, false, twoPersons);
+    }
+
+    @Test
     public void execute_undo_nothingToUndo() throws Exception {
         String expectedMessage = String.format(UndoCommand.MESSAGE_NO_COMMAND);
         assertCommandBehavior("undo", expectedMessage);
     }
 
-//    @Test
-//    public void execute_undo_undoOneCommand() throws Exception {
-//        TestDataHelper helper = new TestDataHelper();
-//        Person p1 = helper.generatePerson(1, false);
-//        Person p2 = helper.generatePerson(2, false);
-//        Person p3 = helper.generatePerson(3, false);
-//
-//        List<Person> onePersons = helper.generatePersonList(p3);
-//        List<Person> twoPersons = helper.generatePersonList(p1, p2);
-//
-//        CommandHistory CH = addressBook.getCommandHistory();
-//        CH.moveIteratorForward();
-//        helper.addToAddressBook(addressBook, twoPersons);
-//        CH.checkForAction();
-//        helper.addToAddressBook(addressBook, onePersons);
-//        CH.checkForAction();
-//        CH.undoLast();
-//
-//
-//        AddressBook expectedAB = helper.generateAddressBook(twoPersons);
-//        logic.setLastShownList(twoPersons);
-//        String expectedMessage = String.format(UndoCommand.MESSAGE_SUCCESS);
-//        assertCommandBehavior("undo", expectedMessage, expectedAB, true, twoPersons);
-//    }
+    @Test
+    public void execute_undo_undoAddCommand() throws Exception {
+        TestDataHelper helper = new TestDataHelper();
+        Person p1 = helper.generatePerson(1, false);
+        Person p2 = helper.generatePerson(2, false);
+        Person p3 = helper.generatePerson(3, false);
+
+        List<Person> threePersons = helper.generatePersonList(p1, p2, p3);
+        List<Person> twoPersons = helper.generatePersonList(p1, p2);
+
+
+        helper.addToAddressBook(addressBook, threePersons);
+        AddCommand testAdd = new AddCommand(p3);
+        testAdd.setData(addressBook,null,null);
+        testAdd.saveUndoableToHistory("test");
+        AddressBook expectedAB = helper.generateAddressBook(twoPersons);
+        logic.setLastShownList(twoPersons);
+        String expectedMessage = String.format(UndoCommand.MESSAGE_SUCCESS);
+        assertCommandBehavior("undo", expectedMessage, expectedAB, true, twoPersons);
+        assertEquals(addressBook.containsPerson(p3), false);
+    }
+
+    @Test
+    public void execute_undo_undoClearCommand() throws Exception {
+        TestDataHelper helper = new TestDataHelper();
+        Person p1 = helper.generatePerson(1, false);
+        List<Person> onePerson = helper.generatePersonList(p1);
+
+        helper.addToAddressBook(addressBook, onePerson);
+        ClearCommand testClear = new ClearCommand();
+        testClear.setData(addressBook, null, null);
+        testClear.setCopied(addressBook.getAllPersons());
+        testClear.saveUndoableToHistory("test");
+        addressBook.clear();
+        AddressBook expectedAB = helper.generateAddressBook(onePerson);
+        String expectedMessage = String.format(UndoCommand.MESSAGE_SUCCESS);
+        assertCommandBehavior("undo", expectedMessage, expectedAB, true, onePerson);
+        assertEquals(addressBook.containsPerson(p1), true);
+    }
+
+    @Test
+    public void execute_undo_undoDelete() throws Exception {
+        TestDataHelper helper = new TestDataHelper();
+        Person p1 = helper.generatePerson(1, false);
+
+        List<Person> onePerson = helper.generatePersonList(p1);
+
+        AddressBook expectedAB = helper.generateAddressBook(onePerson);
+        DeleteCommand testDelete = new DeleteCommand(-1);
+        testDelete.setData(addressBook, null, null);
+        testDelete.setBackup(p1);
+        testDelete.saveUndoableToHistory("test");
+        String expectedMessage = String.format(UndoCommand.MESSAGE_SUCCESS);
+        assertCommandBehavior("undo", expectedMessage, expectedAB, true, onePerson);
+        assertEquals(addressBook.containsPerson(p1), true);
+    }
+
+    @Test
+    public void execute_undo_undoLink() throws Exception {
+        TestDataHelper helper = new TestDataHelper();
+        Person p1 = helper.generatePersonWithTitle(1, "Doctor");
+        Person p2 = helper.generatePersonWithTitle(2, "Patient");
+
+        List<Person> twoPersons = helper.generatePersonList(p1, p2);
+
+        helper.addToAddressBook(addressBook, twoPersons);
+        logic.setLastShownList(twoPersons);
+
+        addressBook.linkTwoPerson(p1, p2);
+        LinkCommand testLink = new LinkCommand(-1,-1);
+        testLink.setData(addressBook, null, null);
+        testLink.setTargets(p1, p2);
+        testLink.saveUndoableToHistory("test");
+        String expectedMessage = String.format(UndoCommand.MESSAGE_SUCCESS);
+        AddressBook expectedAB = helper.generateAddressBook(twoPersons);
+        assertCommandBehavior("undo", expectedMessage, expectedAB, true, twoPersons);
+        assertEquals(p1.getAssociateList().contains(p2), false);
+        assertEquals(p2.getAssociateList().contains(p1), false);
+    }
 
     @Test
     public void execute_redo_nothingToRedo() throws Exception {
@@ -431,6 +534,15 @@ public class LogicTest {
     @Test
     public void execute_history_noHistory() throws Exception {
         String expectedMessage = String.format(HistoryCommand.MESSAGE_NO_HISTORY);
+        assertCommandBehavior("history", expectedMessage);
+    }
+
+    @Test
+    public void execute_history_showHistory() throws Exception {
+        ListCommand test = new ListCommand();
+        test.setData(addressBook, null, null);
+        test.saveHistory(ListCommand.COMMAND_WORD);
+        String expectedMessage = String.format(ListCommand.COMMAND_WORD + "\n");
         assertCommandBehavior("history", expectedMessage);
     }
 
@@ -544,6 +656,27 @@ public class LogicTest {
                     new Email(seed + "@email", isAllFieldsPrivate),
                     new Address("House of " + seed, isAllFieldsPrivate),
                     new Title("Doctor", isAllFieldsPrivate),
+                    new HashSet<>(Arrays.asList(new Schedule("26-01-2019"), new Schedule("19-02-2019"))),
+                    new HashSet<>(Arrays.asList(new Tag("tag" + Math.abs(seed)), new Tag("tag" + Math.abs(seed + 1)))),
+                    new HashSet<>(Arrays.asList(new Associated("associate1")))
+            );
+        }
+        /**
+         * Generates a valid person using the given seed.
+         * Running this function with the same parameter values guarantees the returned person will have the same state.
+         * Each unique seed will generate a unique Person object.
+         *
+         * @param seed used to generate the person data field values
+         * @param title determines if the person is created as a doctor or patient
+         */
+        Person generatePersonWithTitle(int seed, String title) throws Exception {
+            return new Person(
+                    new Name("Person " + seed),
+                    new Nric("S1234321Y", false),
+                    new Phone("" + Math.abs(seed), false),
+                    new Email(seed + "@email", false),
+                    new Address("House of " + seed, false),
+                    new Title(title, false),
                     new HashSet<>(Arrays.asList(new Schedule("26-01-2019"), new Schedule("19-02-2019"))),
                     new HashSet<>(Arrays.asList(new Tag("tag" + Math.abs(seed)), new Tag("tag" + Math.abs(seed + 1)))),
                     new HashSet<>(Arrays.asList(new Associated("associate1")))

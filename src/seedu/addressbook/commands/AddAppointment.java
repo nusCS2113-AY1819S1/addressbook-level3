@@ -71,7 +71,7 @@ public class AddAppointment extends Command{
     public CommandResult execute() {
         //return new CommandResult("command under construct, tbc ");
         try {
-            commandHistory.addHistory("(edit-appointment " + checkEditingPersonIndex() + ") " + COMMAND_WORD + " " + inputForHistory);
+            saveHistory("(edit-appointment " + checkEditingPersonIndex() + ") " + COMMAND_WORD + " " + inputForHistory);
             this.setTargetIndex(checkEditingPersonIndex());
             final ReadOnlyPerson target = getTargetPerson();
 

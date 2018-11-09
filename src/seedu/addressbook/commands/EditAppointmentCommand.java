@@ -36,7 +36,7 @@ public class EditAppointmentCommand extends Command {
             if (!addressBook.containsPerson(target)) {
                 return new CommandResult(Messages.MESSAGE_PERSON_NOT_IN_ADDRESSBOOK);
             }
-            commandHistory.addHistory(COMMAND_WORD + " " + getTargetIndex());
+            saveHistory(COMMAND_WORD + " " + getTargetIndex());
             //return new CommandResult(String.format(MESSAGE_EDIT_PERSON_APPOINTMENT, target.getAsTextHidePrivate()));
             //command.setdata(addressBook, lastShownList);
             //Command command = new EditAppointmentOperation(getTargetIndex());

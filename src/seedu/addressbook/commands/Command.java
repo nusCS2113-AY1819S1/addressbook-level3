@@ -134,4 +134,8 @@ public abstract class Command {
     public void setTargetIndex2(int targetIndex2) {
         this.targetIndex2 = targetIndex2;
     }
+
+    public void saveHistory(String fullCommand) {
+        commandHistory.addHistory(fullCommand);
+    }
 }

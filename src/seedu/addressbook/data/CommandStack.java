@@ -39,6 +39,10 @@ public class CommandStack {
         if(undoStack.isEmpty()){
             throw new HistoryOutOfBoundException();
         }
+        return undoLogic();
+    }
+
+    public UndoAbleCommand undoLogic() {
         UndoAbleCommand toUndo = undoStack.peek();
         redoStack.push(toUndo);
         undoStack.pop();
@@ -50,6 +54,10 @@ public class CommandStack {
             throw new HistoryOutOfBoundException();
         }
         UndoAbleCommand toRedo = redoStack.peek();
+        return redoLogic(toRedo);
+    }
+
+    public UndoAbleCommand redoLogic(UndoAbleCommand toRedo) {
         undoStack.push(toRedo);
         redoStack.pop();
         return toRedo;
