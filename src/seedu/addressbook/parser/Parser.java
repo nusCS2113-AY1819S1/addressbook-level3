@@ -132,10 +132,6 @@ public class Parser {
                 case DeleteAppointment.COMMAND_WORD:
                     return prepareDeleteAppointment(arguments);
 
-
-                //case EditAppointmentOperation.COMMAND_WORD:
-                //    return new EditAppointmentOperation(Command.checkEditingPersonIndex());
-
                 case HelpEditAppointment.COMMAND_WORD:
                 default:
                     return new HelpEditAppointment();
@@ -356,7 +352,7 @@ public class Parser {
         try {
             return new AddAppointment(getScheduleArgs(matcher.group("scheduleArguments")));
         } catch (IllegalValueException ive) {
-            return new IncorrectCommand(ive.getMessage());
+            return new IncorrectCommand(ive.getMessage() + "\nand there should only be one spacing between multiple appointment dates.");
         }
     }
 
@@ -375,7 +371,7 @@ public class Parser {
         try {
             return new DeleteAppointment(getScheduleArgs(matcher.group("scheduleArguments")));
         } catch (IllegalValueException ive) {
-            return new IncorrectCommand(ive.getMessage());
+            return new IncorrectCommand(ive.getMessage() + "\nand there should only be one spacing between multiple appointment dates.");
         }
     }
 

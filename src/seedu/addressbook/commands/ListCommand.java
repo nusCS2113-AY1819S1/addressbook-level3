@@ -1,5 +1,6 @@
 package seedu.addressbook.commands;
 
+import seedu.addressbook.data.person.Person;
 import seedu.addressbook.data.person.ReadOnlyPerson;
 
 import java.util.List;
@@ -21,6 +22,7 @@ public class ListCommand extends Command {
     public CommandResult execute() {
         commandHistory.addHistory(COMMAND_WORD);
         List<ReadOnlyPerson> allPersons = addressBook.getAllPersons().immutableListView();
-        return new CommandResult(getMessageForPersonListShownSummary(allPersons), allPersons);
+        List<ReadOnlyPerson> allMutablePersons = addressBook.getAllPersons().mutableListView();
+        return new CommandResult(getMessageForPersonListShownSummary(allPersons), allPersons, allMutablePersons);
     }
 }

@@ -11,16 +11,20 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import static seedu.addressbook.ui.Gui.DISPLAYED_INDEX_OFFSET;
+
 public class DeleteAppointment extends Command {
 
     public static final String COMMAND_WORD = "delete";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + "\n"
-            + "Delete the appointment date for selected person.\n\t"
-            + "Parameters: DD-MM-YYYY\n\t"
-            + "Example: " + COMMAND_WORD + " 01-01-2019";
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ":\n"
+            + "Delete the appointment date(s) for the selected person.\n"
+            + "Note that multiple appointment dates are accepted\n\t"
+            + "Parameters: DD-MM-YYYY...\n\t"
+            + "Example 1: " + COMMAND_WORD + " 01-01-2019 \n\t"
+            + "Example 2: " + COMMAND_WORD + " 01-01-2019" + " 01-02-2019" + " 01-03-2019";
 
-    public static final String MESSAGE_EDIT_PERSON_APPOINTMENT = "The appointment date(s) are successfully deleted for %1$s";
+    public static final String MESSAGE_EDIT_PERSON_APPOINTMENT = "The appointment date(s) successfully deleted for %1$s";
 
     //public static final String MESSAGE_SUCCESS = "New person added: %1$s";
 
@@ -96,6 +100,9 @@ public class DeleteAppointment extends Command {
             //finalScheduleSet make changes
             addressBook.editPerson(target, updatedSchedulePerson);
 
+            List<ReadOnlyPerson> editablePersonList = this.getEditableLastShownList();
+            editablePersonList.set(checkEditingPersonIndex() - DISPLAYED_INDEX_OFFSET, updatedSchedulePerson);
+
             //List<ReadOnlyPerson> editablePersonList = this.getEditableLastShownList();
             /*
             int index = editablePersonList.indexOf(updatedSchedulePerson);
@@ -108,7 +115,7 @@ public class DeleteAppointment extends Command {
 
 
 
-            return new CommandResult(String.format(MESSAGE_EDIT_PERSON_APPOINTMENT, target.getName()) );//, scheduleSetToAdd); //editablePersonList);//, true);
+            return new CommandResult(String.format(MESSAGE_EDIT_PERSON_APPOINTMENT, target.getName()), editablePersonList, editablePersonList);//, scheduleSetToAdd); //editablePersonList);//, true);
 
             //return new CommandResult(String.format("Successful schedule size of %1$d parser edit!", scheduleSetToAdd.size()));
 

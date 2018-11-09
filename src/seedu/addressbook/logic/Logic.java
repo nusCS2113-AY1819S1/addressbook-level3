@@ -3,6 +3,7 @@ package seedu.addressbook.logic;
 import seedu.addressbook.commands.Command;
 import seedu.addressbook.commands.CommandResult;
 import seedu.addressbook.data.AddressBook;
+import seedu.addressbook.data.person.Person;
 import seedu.addressbook.data.person.ReadOnlyPerson;
 import seedu.addressbook.data.person.Schedule;
 import seedu.addressbook.data.person.UniquePersonList;
@@ -27,7 +28,7 @@ public class Logic {
     private List<? extends ReadOnlyPerson> lastShownList = Collections.emptyList();
 
     /** The list of editable person shown to the user most recently.  */
-    private List<ReadOnlyPerson> editableLastShownList = Collections.emptyList();
+    private List<ReadOnlyPerson> editableRelevantPersons = Collections.emptyList();
 
     /** The set of appointments the selected person has that is shown to the user most recently. */
     //private Set<? extends Schedule> appointmentOfPerson = Collections.emptySet();
@@ -73,7 +74,7 @@ public class Logic {
      * modifiable list of the current last shown list.
      */
     public List<ReadOnlyPerson> getEditableLastShownList() {
-        return editableLastShownList;
+        return editableRelevantPersons;
     }
 
     protected void setLastShownList(List<? extends ReadOnlyPerson> newList) {
@@ -81,7 +82,7 @@ public class Logic {
     }
 
     protected void setEditableLastShownList(List<ReadOnlyPerson> newList) {
-        editableLastShownList = newList;
+        editableRelevantPersons = newList;
     }
 
     /**
@@ -103,13 +104,13 @@ public class Logic {
      * @throws Exception if there was any problem during command execution.
      */
     private CommandResult execute(Command command) throws Exception {
-        command.setData(addressBook, lastShownList, editableLastShownList);
+        command.setData(addressBook, lastShownList, editableRelevantPersons);
         CommandResult result = command.execute();
         storage.save(addressBook);
         return result;
     }
 
-    /** Updates the {@link #lastShownList} and {@link #editableLastShownList}if the result contains a list of Persons.
+    /** Updates the {@link #lastShownList} and {@link #editableRelevantPersons}if the result contains a list of Persons.
      * as well as the set of appointment for the selected person*/
     private void recordResult(CommandResult result) {
         final Optional<List<? extends ReadOnlyPerson>> personList = result.getRelevantPersons();
@@ -119,7 +120,7 @@ public class Logic {
             lastShownList = personList.get();
         }
         if (editablePersonList.isPresent()) {
-            editableLastShownList = editablePersonList.get();
+            editableRelevantPersons = editablePersonList.get();
         }
 
         //else if(scheduleList.isPresent()) {

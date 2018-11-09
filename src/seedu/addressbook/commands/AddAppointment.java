@@ -16,16 +16,18 @@ public class AddAppointment extends Command{
 
     public static final String COMMAND_WORD = "add";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + "\n"
-            + "Add in an appointment date for the selected person.\n\t"
-            + "Parameters: DD-MM-YYYY\n\t"
-            + "Example: " + COMMAND_WORD + " 01-01-2019";
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ":\n"
+            + "Add in an appointment date for the selected person.\n"
+            + "Note that multiple appointment dates are accepted\n\t"
+            + "Parameters: DD-MM-YYYY...\n\t"
+            + "Example 1: " + COMMAND_WORD + " 01-01-2019\n\t"
+            + "Example 2: " + COMMAND_WORD + " 01-01-2019" + " 01-02-2019" + " 01-03-2019";
 
     public static final String MESSAGE_EDIT_PERSON_APPOINTMENT = "%1$s has new appointment date(s)";
 
     //public static final String MESSAGE_SUCCESS = "New person added: %1$s";
 
-    public static final String MESSAGE_DUPLICATE_SCHEDULE = "This person already exists in the address book";
+    //public static final String MESSAGE_DUPLICATE_SCHEDULE = "This person already exists in the address book";
 
    // private final Person toAdd;
     private final Set<Schedule> scheduleSetToAdd;
@@ -91,11 +93,14 @@ public class AddAppointment extends Command{
             updatedSchedulePerson.setSchedule(finalScheduleSet);
             addressBook.editPerson(target, updatedSchedulePerson);
 
+            //ReadOnlyPerson help = new Person(updatedSchedulePerson);
 
             //List<ReadOnlyPerson> editPersonsList = getPersonList();
             //editPersonList.set(checkEditingPersonIndex() - DISPLAYED_INDEX_OFFSET, (ReadOnlyPerson) updatedSchedulePerson);
             List<ReadOnlyPerson> editablePersonList = this.getEditableLastShownList();
-            ReadOnlyPerson updatedReadOnlyPerson = updatedSchedulePerson;
+            editablePersonList.set(checkEditingPersonIndex() - DISPLAYED_INDEX_OFFSET, updatedSchedulePerson);
+            //List<ReadOnlyPerson> editedReadOnlyPersonList = editablePersonList;
+
             /*
             int index = editablePersonList.indexOf(updatedSchedulePerson);
             if (index == -1) {
@@ -105,7 +110,7 @@ public class AddAppointment extends Command{
             */
             //editablePersonList.remove(checkEditingPersonIndex() - DISPLAYED_INDEX_OFFSET);//, updatedReadOnlyPerson);
 
-            return new CommandResult(String.format(MESSAGE_EDIT_PERSON_APPOINTMENT, target.getName()) );//, scheduleSetToAdd); //editablePersonList);//, true);
+            return new CommandResult(String.format(MESSAGE_EDIT_PERSON_APPOINTMENT, target.getName()), editablePersonList, editablePersonList);//, scheduleSetToAdd); //editablePersonList);//, true);
 
             //return new CommandResult(String.format("Successful schedule size of %1$d parser edit!", scheduleSetToAdd.size()));
 

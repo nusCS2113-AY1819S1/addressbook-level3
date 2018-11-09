@@ -88,10 +88,9 @@ public class MainWindow {
     /** Displays the result of a command execution to the user. */
     public void displayResult(CommandResult result) {
         clearOutputConsole();
-        boolean notForPrintingUsers = result.checkNotForPrintingUsers();
         final Optional<List<? extends ReadOnlyPerson>> resultPersons = result.getRelevantPersons();
         final Optional<Set<? extends Schedule>> scheduleSet = result.getRelevantAppointments();
-        if (resultPersons.isPresent() && !notForPrintingUsers) {
+        if (resultPersons.isPresent()) {
             display(resultPersons.get());
         }else if(scheduleSet.isPresent()) {
             display(scheduleSet.get());
