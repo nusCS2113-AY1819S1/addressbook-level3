@@ -28,11 +28,6 @@ import seedu.addressbook.data.menu.Price;
 import seedu.addressbook.data.menu.ReadOnlyMenus;
 import seedu.addressbook.data.menu.Type;
 import seedu.addressbook.data.order.Order;
-import seedu.addressbook.data.person.Address;
-import seedu.addressbook.data.person.Email;
-import seedu.addressbook.data.person.Name;
-import seedu.addressbook.data.person.Person;
-import seedu.addressbook.data.person.Phone;
 import seedu.addressbook.data.tag.Tag;
 
 /**
@@ -493,44 +488,6 @@ class TestDataHelper {
     }
 
     /**
-     * Creates a list of Persons based on the give Person objects.
-     */
-    List<Person> generatePersonList(Person... persons) throws Exception {
-        List<Person> personList = new ArrayList<>();
-        for (Person p: persons) {
-            personList.add(p);
-        }
-        return personList;
-    }
-
-    /**
-     * Generates a list of Persons based on the flags.
-     * @param isPrivateStatuses flags to indicate if all contact details of respective persons should be set to
-     *                          private.
-     */
-    List<Person> generatePersonList(Boolean... isPrivateStatuses) throws Exception {
-        List<Person> persons = new ArrayList<>();
-        int i = 1;
-        for (Boolean p: isPrivateStatuses) {
-            persons.add(generatePerson(i++, p));
-        }
-        return persons;
-    }
-
-    /**
-     * Generates a Person object with given name. Other fields will have some dummy values.
-     */
-    Person generatePersonWithName(String name) throws Exception {
-        return new Person(
-                new Name(name),
-                new Phone("1", false),
-                new Email("1@email", false),
-                new Address("House of 1", false),
-                Collections.singleton(new Tag("tag"))
-        );
-    }
-
-    /**
      * Generates a Member object with given name. Other fields will have some dummy values.
      */
     Member generateMemberWithName(String name) throws Exception {
@@ -560,27 +517,6 @@ class TestDataHelper {
                 new Price("$5.00"),
                 new Type(type),
                 Collections.singleton(new Tag("tag"))
-        );
-    }
-
-    /**
-     * Generates a Person object with given name. Other fields will have some dummy values.
-     */
-    Map<ReadOnlyMenus, Integer> generateDishItemsWithName(String name) throws Exception {
-        Map<ReadOnlyMenus, Integer> dishItems = new HashMap<>();
-        dishItems.put(generateMenuWithName(name), 3);
-        return dishItems;
-    }
-
-    /**
-     * Generates an Order object with given name. Other fields will have some dummy values.
-     */
-    Order generateOrderWithName(String name) throws Exception {
-        return new Order(
-                generateMemberWithName(name),
-                new Date(5000),
-                generateDishItemsWithName(name),
-                new Points().getPoints()
         );
     }
 
