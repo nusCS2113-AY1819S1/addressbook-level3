@@ -523,7 +523,6 @@ public class LogicTest {
         assertCommandBehavior("undo", expectedMessage, expectedAB, true, twoPersons);
         assertEquals(p1.getAssociateList().contains(p2), false);
         assertEquals(p2.getAssociateList().contains(p1), false);
-
     }
 
     @Test
@@ -535,6 +534,15 @@ public class LogicTest {
     @Test
     public void execute_history_noHistory() throws Exception {
         String expectedMessage = String.format(HistoryCommand.MESSAGE_NO_HISTORY);
+        assertCommandBehavior("history", expectedMessage);
+    }
+
+    @Test
+    public void execute_history_showHistory() throws Exception {
+        ListCommand test = new ListCommand();
+        test.setData(addressBook, null, null);
+        test.saveHistory(ListCommand.COMMAND_WORD);
+        String expectedMessage = String.format(ListCommand.COMMAND_WORD + "\n");
         assertCommandBehavior("history", expectedMessage);
     }
 
