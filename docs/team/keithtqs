@@ -1,0 +1,82 @@
+= Keith Tan - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: AddressBook - Level 3
+
+---
+
+== Overview
+MediBook is adapted from Software Engineering Education’s (SE-EDU) AddressBook Level 3 application and it has been designed specifically for healthcare professionals. It contains approximately three thousand lines of code (LoC) and it is written in an object-oriented programming (OOP) fashion of the Java programming language.
+
+== Summary of contributions
+
+Together with my project group mates, Xi Yi, Nicholas and Jia Jian, MediBook was born. The following is a summary of my contributions.
+
+* *Major enhancement*: *MediChat* - allows instant messaging between healthcare professionals
+** What it does:
+*** Allows users to send messages instantly in a chatroom for multiple users to view
+*** View previously sent messages after logging back in (coming soon)
+*** Opens in a separate window so that users can continue working in MediBook without the need to close MediChat
+** Justification:
+*** Healthcare professionals are often overloaded and thus do not have time to spend on email threads which are confusing.
+*** Colleagues might also get accidentally left out receiving the carbon copy and thus cause a communication breakdown.
+*** Although there are instant messaging channels already available such as WhatsApp and Telegram, MediChat is meant to be used within the facility’s network so that there is minimal risk of a data breach.
+** Highlights:
+*** As instant messaging channels are readily available already, there is little documentation available regarding the implementation of this feature.
+** Credits: _{mention here if you reused any code/ideas from elsewhere or if a third-party library is heavily used in the feature so that a reader can make a more accurate judgement of how much effort went into the feature}_
+
+////
+* *Minor enhancement*: added a history command that allows the user to navigate to previous commands using up/down keys.
+
+* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
+
+* *Other contributions*:
+
+** Project management:
+*** Managed releases `v1.3` - `v1.5rc` (3 releases) on GitHub
+** Enhancements to existing features:
+*** Updated the GUI color scheme (Pull requests https://github.com[#33], https://github.com[#34])
+*** Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests https://github.com[#36], https://github.com[#38])
+** Documentation:
+*** Did cosmetic tweaks to existing contents of the User Guide: https://github.com[#14]
+** Community:
+*** PRs reviewed (with non-trivial review comments): https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
+*** Contributed to forum discussions (examples:  https://github.com[1], https://github.com[2], https://github.com[3], https://github.com[4])
+*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
+*** Some parts of the history feature I added was adopted by several other class mates (https://github.com[1], https://github.com[2])
+** Tools:
+*** Integrated a third party library (Natty) to the project (https://github.com[#42])
+*** Integrated a new Github plugin (CircleCI) to the team repo
+
+_{you can add/remove categories in the list above}_
+
+== Contributions to the User Guide
+
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+include::../UserGuide.adoc[tag=undoredo]
+
+include::../UserGuide.adoc[tag=dataencryption]
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+include::../DeveloperGuide.adoc[tag=undoredo]
+
+include::../DeveloperGuide.adoc[tag=dataencryption]
+
+
+== PROJECT: PowerPointLabs
+
+---
+
+_{Optionally, you may include other projects in your portfolio.}_
+/*
