@@ -1,36 +1,35 @@
 package seedu.addressbook.commands;
 
-import seedu.addressbook.data.exception.DuplicateDataException;
-import seedu.addressbook.data.exception.IllegalValueException;
 import seedu.addressbook.common.Messages;
+import seedu.addressbook.data.exception.IllegalValueException;
 import seedu.addressbook.data.person.Person;
 import seedu.addressbook.data.person.ReadOnlyPerson;
 import seedu.addressbook.data.person.Schedule;
 import seedu.addressbook.data.person.UniquePersonList;
 
-import java.util.*;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
-import static seedu.addressbook.ui.Gui.DISPLAYED_INDEX_OFFSET;
+public class DeleteAppointment extends Command {
 
-public class AddAppointment extends Command{
-
-    public static final String COMMAND_WORD = "add";
+    public static final String COMMAND_WORD = "delete";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + "\n"
-            + "Add in an appointment date for the selected person.\n\t"
+            + "Delete the appointment date for selected person.\n\t"
             + "Parameters: DD-MM-YYYY\n\t"
             + "Example: " + COMMAND_WORD + " 01-01-2019";
 
-    public static final String MESSAGE_EDIT_PERSON_APPOINTMENT = "%1$s has new appointment date(s)";
+    public static final String MESSAGE_EDIT_PERSON_APPOINTMENT = "The appointment date(s) are successfully deleted for %1$s";
 
     //public static final String MESSAGE_SUCCESS = "New person added: %1$s";
 
-    public static final String MESSAGE_DUPLICATE_SCHEDULE = "This person already exists in the address book";
+    //public static final String MESSAGE_DUPLICATE_SCHEDULE = "This person already exists in the address book";
 
-   // private final Person toAdd;
-    private final Set<Schedule> scheduleSetToAdd;
-        //private final Set<Schedule> scheduleSetThatExist;
-        //private Set<Schedule> finalScheduleSet;
+    // private final Person toAdd;
+    private final Set<Schedule> scheduleSetToDelete;
+    //private final Set<Schedule> scheduleSetThatExist;
+    //private Set<Schedule> finalScheduleSet;
     //private Set<Schedule> addedScheduleSet;
     //private Set<Schedule> duplicateScheduleSet;
 
@@ -48,13 +47,13 @@ public class AddAppointment extends Command{
      *
      * @throws IllegalValueException if any of the raw values are invalid
      */
-    public AddAppointment(Set<String> schedule) throws IllegalValueException{
+    public DeleteAppointment(Set<String> schedule) throws IllegalValueException{
 
         final Set<Schedule> scheduleSet = new HashSet<>();
         for (String scheduleDate : schedule) {
             scheduleSet.add(new Schedule(scheduleDate));
         }
-        this.scheduleSetToAdd = scheduleSet;
+        this.scheduleSetToDelete = scheduleSet;
 
     }
 
@@ -69,12 +68,16 @@ public class AddAppointment extends Command{
             commandHistory.addHistory("(edit-appointment " + checkEditingPersonIndex() + ") " + COMMAND_WORD + " "); //CHECK EFFECT
             this.setTargetIndex(checkEditingPersonIndex());
             final ReadOnlyPerson target = getTargetPerson();
+            //Set<Schedule> scheduleSetThatExist = target.getSchedules();
 
-            Set<Schedule> finalScheduleSet = target.getSchedules();
-            boolean hasChanges = finalScheduleSet.addAll(scheduleSetToAdd); //latest set of schedules
+            Set<Schedule> finalScheduleSet = target.getSchedules();//scheduleSetThatExist;
 
-            if (!hasChanges) { //check for changes
-                return new CommandResult("Operation does not make changes to the set of appointments");
+            boolean hasChanges = finalScheduleSet.removeAll(scheduleSetToDelete);
+
+            //if(hasChanges == false){ throw new OnlyDuplicateScheduleException();}
+            if (!hasChanges) {
+                return new CommandResult("Operation does not make changes to the set of appointments "
+                +"as there are no appointment made on these day(s)");
             }
 
             /*Set<Schedule> addedScheduleSet = new Set<Schedule>;
@@ -89,13 +92,11 @@ public class AddAppointment extends Command{
             */
             Person updatedSchedulePerson = new Person(target);
             updatedSchedulePerson.setSchedule(finalScheduleSet);
+
+            //finalScheduleSet make changes
             addressBook.editPerson(target, updatedSchedulePerson);
 
-
-            //List<ReadOnlyPerson> editPersonsList = getPersonList();
-            //editPersonList.set(checkEditingPersonIndex() - DISPLAYED_INDEX_OFFSET, (ReadOnlyPerson) updatedSchedulePerson);
-            List<ReadOnlyPerson> editablePersonList = this.getEditableLastShownList();
-            ReadOnlyPerson updatedReadOnlyPerson = updatedSchedulePerson;
+            //List<ReadOnlyPerson> editablePersonList = this.getEditableLastShownList();
             /*
             int index = editablePersonList.indexOf(updatedSchedulePerson);
             if (index == -1) {
@@ -103,7 +104,9 @@ public class AddAppointment extends Command{
             }
             editablePersonList.set(index, updatedSchedulePerson);
             */
-            //editablePersonList.remove(checkEditingPersonIndex() - DISPLAYED_INDEX_OFFSET);//, updatedReadOnlyPerson);
+            //editablePersonList.set(checkEditingPersonIndex(), updatedSchedulePerson);
+
+
 
             return new CommandResult(String.format(MESSAGE_EDIT_PERSON_APPOINTMENT, target.getName()) );//, scheduleSetToAdd); //editablePersonList);//, true);
 
@@ -113,16 +116,7 @@ public class AddAppointment extends Command{
             return new CommandResult(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
         } catch (UniquePersonList.PersonNotFoundException pnfe) {
             return new CommandResult(Messages.MESSAGE_PERSON_NOT_IN_ADDRESSBOOK);
-        } catch (NullPointerException nu) {
-            return new CommandResult("Null pointer: Error in executing result.");
-        }catch (UnsupportedOperationException nu) {
-            return new CommandResult("Unsupported Operation: Error executing result.");
-        }catch (ClassCastException nu) {
-            return new CommandResult("Class Cast: Error executing result.");
-        }//catch (IllegalValueException nu) {
-         //   return new CommandResult("error executing result");
-        //}
-        // catch (UniquePersonList.DuplicatePersonException dpe) {
+        }// catch (UniquePersonList.DuplicatePersonException dpe) {
         //    return new CommandResult("Operation also does not make changes to the set of appointments");
         //}
         //catch (UniquePersonList.PersonNotFoundException pnfe) {
@@ -130,6 +124,4 @@ public class AddAppointment extends Command{
         //}
 
     }
-
 }
-

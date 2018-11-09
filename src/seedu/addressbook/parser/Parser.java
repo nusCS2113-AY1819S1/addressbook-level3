@@ -26,8 +26,11 @@ public class Parser {
                     + " (?<isEmailPrivate>p?)e/(?<email>[^/]+)"
                     + " (?<isAddressPrivate>p?)a/(?<address>[^/]+)"
                     + " (?<isTitlePrivate>p?)s/(?<title>[^/]+)"
-                    + "(?<scheduleArguments>(?: d/[^/]+)*)" //Check this
+                    + "(?<scheduleArguments>(?: d/[^/]+)*)" //variable number of schedule (including 0)
                     + "(?<tagArguments>(?: t/[^/]+)*)"); // variable number of tags
+
+    public static final Pattern APPOINTMENT_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
+            Pattern.compile("(?<scheduleArguments>.+)"); // variable number of schedule
 
     public static final Pattern PERSON_INDEX_ARGS_FORMAT2 = Pattern.compile("(?<targetIndex>[^ ]+)" + " (?<targetIndex2>.+)");
 
@@ -120,8 +123,15 @@ public class Parser {
                 case ExitEditAppointment.COMMAND_WORD:
                     return new ExitEditAppointment(Command.checkEditingPersonIndex());
 
-                case ListAppoinment.COMMAND_WORD:
-                    return new ListAppoinment();
+                case ListAppointment.COMMAND_WORD:
+                    return new ListAppointment();
+
+                case AddAppointment.COMMAND_WORD:
+                    return prepareAddAppointment(arguments);
+
+                case DeleteAppointment.COMMAND_WORD:
+                    return prepareDeleteAppointment(arguments);
+
 
                 //case EditAppointmentOperation.COMMAND_WORD:
                 //    return new EditAppointmentOperation(Command.checkEditingPersonIndex());
@@ -330,6 +340,56 @@ public class Parser {
         } /* catch () {
             return new IncorrectCommand(String.format("WRONG"));
         }*/
+    }
+    /**
+     * Parses arguments in the context of the add appointment for the selected person command.
+     *
+     * @param args full command args string
+     * @return the prepared command
+     */
+    private Command prepareAddAppointment(String args){
+        final Matcher matcher = APPOINTMENT_DATA_ARGS_FORMAT.matcher(args.trim()); //CHECK THIS
+        // Validate arg string format
+        if (!matcher.matches()) {
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddAppointment.MESSAGE_USAGE));
+        }
+        try {
+            return new AddAppointment(getScheduleArgs(matcher.group("scheduleArguments")));
+        } catch (IllegalValueException ive) {
+            return new IncorrectCommand(ive.getMessage());
+        }
+    }
+
+    /**
+     * Parses arguments in the context of the delete appointment for the selected person command.
+     *
+     * @param args full command args string
+     * @return the prepared command
+     */
+    private Command prepareDeleteAppointment(String args) {
+        final Matcher matcher = APPOINTMENT_DATA_ARGS_FORMAT.matcher(args.trim()); //CHECK THIS
+        // Validate arg string format
+        if (!matcher.matches()) {
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteAppointment.MESSAGE_USAGE));
+        }
+        try {
+            return new DeleteAppointment(getScheduleArgs(matcher.group("scheduleArguments")));
+        } catch (IllegalValueException ive) {
+            return new IncorrectCommand(ive.getMessage());
+        }
+    }
+
+    /**
+     * Extracts the new schedule input in the edit-appointment mode of the selected person's schedule.
+     * Merges duplicate tag strings.
+     */
+    private static Set<String> getScheduleArgs(String scheduleArguments) throws IllegalValueException {
+        //if (scheduleArguments.isEmpty()) {
+        //    return Collections.emptySet();
+        //}
+        // replace first delimiter prefix, then split
+        final Collection<String> scheduleStrings = Arrays.asList(scheduleArguments.split(" "));
+        return new HashSet<>(scheduleStrings);
     }
 
     /**
