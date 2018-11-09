@@ -56,7 +56,6 @@ import seedu.addressbook.data.menu.ReadOnlyMenus;
 import seedu.addressbook.data.menu.Type;
 import seedu.addressbook.data.order.Order;
 import seedu.addressbook.data.order.ReadOnlyOrder;
-import seedu.addressbook.data.person.ReadOnlyPerson;
 import seedu.addressbook.data.tag.Tag;
 import seedu.addressbook.storage.StorageFile;
 
@@ -103,10 +102,10 @@ public class LogicTest {
     /**
      * Executes the command and confirms that the result message is correct.
      * Both the 'address book' and the 'last shown list' are expected to be empty.
-     * @see #assertCommandBehavior(String, String, Rms, boolean, List)
+     * @see #assertCommandBehavior(String, String, Rms)
      */
     private void assertCommandBehavior(String inputCommand, String expectedMessage) throws Exception {
-        assertCommandBehavior(inputCommand, expectedMessage, Rms.empty(), false, Collections.emptyList());
+        assertCommandBehavior(inputCommand, expectedMessage, Rms.empty());
     }
 
     /**
@@ -116,25 +115,17 @@ public class LogicTest {
      *      - the internal 'last shown list' matches the {@code expectedLastList} <br>
      *      - the storage file content matches data in {@code expectedRms} <br>
      */
-    private void assertCommandBehavior(String inputCommand,
-                                       String expectedMessage,
-                                       Rms expectedRms,
-                                       boolean isRelevantPersonsExpected,
-                                       List<? extends ReadOnlyPerson> lastShownList) throws Exception {
+
+    private void assertCommandBehavior(String inputCommand, String expectedMessage, Rms expectedRms) throws Exception {
 
         //Execute the command
         CommandResult r = logic.execute(inputCommand);
 
         //Confirm the result contains the right data
         assertEquals(expectedMessage, r.feedbackToUser);
-        assertEquals(r.getRelevantPersons().isPresent(), isRelevantPersonsExpected);
-        if (isRelevantPersonsExpected) {
-            assertEquals(lastShownList, r.getRelevantPersons().get());
-        }
 
         //Confirm the state of data is as expected
         assertEquals(expectedRms, rms);
-        assertEquals(lastShownList, logic.getLastShownList());
         assertEquals(rms, saveFile.load());
     }
 
@@ -395,7 +386,7 @@ public class LogicTest {
         assertEmployeeCommandBehavior(
                 "addemp Valid Name p/12345 e/valid@email.butNoAddressPrefix valid, address pos/validPos",
                 expectedMessage);
-        assertCommandBehavior(
+        assertEmployeeCommandBehavior(
                 "addemp Valid Name p/12345 e/valid@email a/butNoAddressPrefix valid, address butNoPositionPrefix",
                 expectedMessage);
     }
@@ -1075,12 +1066,12 @@ public class LogicTest {
                 false,
                 expectedList);
     }
-    /*
+
+    /**
      * Test case to check if the argument entered is one of the following or not:
      *     main, sides, beverage, dessert, others, set meals
      * If the arguments are not one of the following, then the argument is Invalid
      */
-
     @Test
     public void execute_menulistByType_invalidArgs() throws Exception {
         TestDataHelper helper = new TestDataHelper();
@@ -1107,7 +1098,6 @@ public class LogicTest {
       * @param commandWord to test
       *     assuming it targets a single menu item in the last shown menu list based on visible index.
       */
-
     private void assertInvalidIndexBehaviorForMenuCommand(String commandWord) throws Exception {
         String expectedMessage = Messages.MESSAGE_INVALID_MENU_ITEM_DISPLAYED_INDEX;
         TestDataHelper helper = new TestDataHelper();
@@ -1579,9 +1569,7 @@ public class LogicTest {
     public void execute_confirmorder_missingDishes() throws Exception {
         TestDataHelper helper = new TestDataHelper();
 
-        Rms expectedRms = helper.generateRms();
         Order expectedDraftOrder = helper.foodOrderWithoutDishes();
-        expectedRms.addOrder(expectedDraftOrder);
 
         rms.editDraftOrderCustomer(helper.eve());
 
