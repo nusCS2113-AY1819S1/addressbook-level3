@@ -21,7 +21,7 @@ public class ListAppointment extends Command {
 
     @Override
     public CommandResult execute() {
-        saveHistory(COMMAND_WORD); //CHECK EFFECT
+        //saveHistory("(edit-appointment " + checkEditingPersonIndex() + ") " + COMMAND_WORD);
         this.setTargetIndex(checkEditingPersonIndex());
         final ReadOnlyPerson target = getTargetPerson();
         Set<Schedule> appointments = target.getSchedules();

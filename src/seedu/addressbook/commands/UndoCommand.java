@@ -20,7 +20,8 @@ public class UndoCommand extends Command {
             prepUndo();
             saveHistory(COMMAND_WORD);
             List<ReadOnlyPerson> allPersons = addressBook.getAllPersons().immutableListView();
-            return new CommandResult(MESSAGE_SUCCESS, allPersons);
+            List<ReadOnlyPerson> editableAllPersons = addressBook.getAllPersons().mutableListView();
+            return new CommandResult(MESSAGE_SUCCESS, allPersons, editableAllPersons);
         } catch (CommandStack.HistoryOutOfBoundException hoobe){
             return new CommandResult(MESSAGE_NO_COMMAND);
         } catch (Exception e){

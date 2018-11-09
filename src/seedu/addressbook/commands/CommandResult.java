@@ -1,5 +1,6 @@
 package seedu.addressbook.commands;
 
+import seedu.addressbook.data.person.Person;
 import seedu.addressbook.data.person.ReadOnlyPerson;
 import seedu.addressbook.data.person.Schedule;
 
@@ -15,8 +16,6 @@ public class CommandResult {
     /** The feedback message to be shown to the user. Contains a description of the execution result */
     public final String feedbackToUser;
 
-    private boolean isNotForPrintingUsers;
-
     /** The list of persons that was produced by the command */
     private final List<? extends ReadOnlyPerson> relevantPersons;
 
@@ -26,36 +25,44 @@ public class CommandResult {
     /** The editable list of persons that was produced by the command */
     private final List<ReadOnlyPerson> editableRelevantPersons;
 
+    /** A boolean that determines if the list of person present get printed */
+    private boolean toPrint = true;
+
+
     public CommandResult(String feedbackToUser) {
         this.feedbackToUser = feedbackToUser;
         relevantPersons = null;
         schedulesOfPerson = null;
         editableRelevantPersons = null;
-        isNotForPrintingUsers = false;
     }
 
-    public CommandResult(String feedbackToUser, List<ReadOnlyPerson> relevantPersons) {
+    /*public CommandResult(String feedbackToUser, List<ReadOnlyPerson> relevantPersons) {
         this.feedbackToUser = feedbackToUser;
         this.relevantPersons = relevantPersons;
         schedulesOfPerson = null;
-        editableRelevantPersons = relevantPersons;
-        isNotForPrintingUsers = false;
-    }
+        editableRelevantPersons = null;
+    }*/
 
     public CommandResult(String feedbackToUser, Set<? extends Schedule> schedulesOfPerson) {
         this.feedbackToUser = feedbackToUser;
         this.schedulesOfPerson = schedulesOfPerson;
         relevantPersons = null;
         editableRelevantPersons = null;
-        isNotForPrintingUsers = false;
     }
 
-    public CommandResult(String feedbackToUser, List<ReadOnlyPerson> relevantPersons, boolean isNotForPrintingUsers) {
+    public CommandResult(String feedbackToUser, List<ReadOnlyPerson> relevantPersons, List<ReadOnlyPerson> editableRelevantPersons) {
         this.feedbackToUser = feedbackToUser;
-        this.relevantPersons = null;//relevantPersons;
+        this.relevantPersons = relevantPersons;
+        this.editableRelevantPersons = editableRelevantPersons;
         schedulesOfPerson = null;
-        editableRelevantPersons = relevantPersons;
-        this.isNotForPrintingUsers = isNotForPrintingUsers;
+    }
+
+    public CommandResult(String feedbackToUser, List<ReadOnlyPerson> relevantPersons, List<ReadOnlyPerson> editableRelevantPersons, boolean toPrint) {
+        this.feedbackToUser = feedbackToUser;
+        this.relevantPersons = relevantPersons;
+        this.editableRelevantPersons = editableRelevantPersons;
+        schedulesOfPerson = null;
+        this.toPrint = toPrint;
     }
 
     /**
@@ -79,8 +86,11 @@ public class CommandResult {
         return Optional.ofNullable(editableRelevantPersons);
     }
 
-    public boolean checkNotForPrintingUsers(){
-        return isNotForPrintingUsers;
+    /**
+     * Returns a boolean that determines if the list of persons relevant to the command gets printed
+     */
+    public boolean canPrint() {
+        return toPrint;
     }
 
 }
