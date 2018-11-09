@@ -14,13 +14,17 @@
     </menus>
     <members>
         <name>Ang</name>
+        <email>Ang@gmail.com</email>
         <points>0</points>
+        <totalPoints>0</totalPoints>
         <date>1000</date>
         <tier>Bronze</tier>
     </members>
     <members>
         <name>Salsabil</name>
+        <email>Salsabil@gmail.com</email>
         <points>10000</points>
+        <totalPoints>10000</totalPoints>
         <date>1000</date>
         <tier>Gold</tier>
     </members>
@@ -41,7 +45,9 @@
     <orders>
         <customer>
             <name>Ang</name>
+            <email>Ang@gmail.com</email>
             <points>0</points>
+            <totalPoints>0</totalPoints>
             <date>1000</date>
             <tier>Bronze</tier>
         </customer>
@@ -70,7 +76,9 @@
     <orders>
         <customer>
             <name>Salsabil</name>
+            <email>Salsabil@gmail.com</email>
             <points>10000</points>
+            <totalPoints>10000</totalPoints>
             <date>1000</date>
             <tier>Gold</tier>
         </customer>

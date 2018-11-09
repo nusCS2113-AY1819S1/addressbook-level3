@@ -29,6 +29,7 @@ import seedu.addressbook.commands.menu.MenuDeleteCommand;
 import seedu.addressbook.commands.menu.MenuFindCommand;
 import seedu.addressbook.commands.menu.MenuListByTypeCommand;
 import seedu.addressbook.commands.menu.MenuListCommand;
+import seedu.addressbook.commands.menu.MenuRecommendationCommand;
 import seedu.addressbook.commands.menu.MenuShowMainMenuCommand;
 import seedu.addressbook.commands.menu.MenuViewAllCommand;
 import seedu.addressbook.commands.order.DraftOrderClearCommand;
@@ -84,7 +85,9 @@ public class Parser {
             Pattern.compile("(?<name>[^/]+)");
 
     public static final Pattern MEMBER_DATA_ARGS_FORMAT =
-            Pattern.compile("(?<name>[^/]+)"); // variable number of tags
+            Pattern.compile("(?<name>[^/]+)"
+                    + "e/(?<email>[^/]+)"
+            ); // variable number of tags
 
     // '/' forward slashes are reserved for delimiter prefixes
     public static final Pattern MENU_DATA_ARGS_FORMAT =
@@ -172,6 +175,9 @@ public class Parser {
         case MenuListByTypeCommand.COMMAND_WORD:
             return prepareMenuListByType(arguments);
 
+        case MenuRecommendationCommand.COMMAND_WORD:
+            return new MenuRecommendationCommand();
+
         case MenuViewAllCommand.COMMAND_WORD:
             return prepareViewAllMenu(arguments);
 
@@ -251,7 +257,8 @@ public class Parser {
         }
         try {
             return new MemberAddCommand(
-                    matcher.group("name")
+                    matcher.group("name"),
+                    matcher.group("email")
             );
         } catch (IllegalValueException ive) {
             return new IncorrectCommand(ive.getMessage());

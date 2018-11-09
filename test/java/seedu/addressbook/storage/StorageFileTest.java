@@ -27,6 +27,7 @@ import seedu.addressbook.data.employee.EmployeePosition;
 import seedu.addressbook.data.employee.Timing;
 import seedu.addressbook.data.exception.IllegalValueException;
 import seedu.addressbook.data.member.Member;
+import seedu.addressbook.data.member.MemberEmail;
 import seedu.addressbook.data.member.MemberName;
 import seedu.addressbook.data.member.MemberTier;
 import seedu.addressbook.data.member.Points;
@@ -176,11 +177,13 @@ public class StorageFileTest {
 
         Member member1 = new Member(
                 new MemberName("Ang"),
+                new MemberEmail("Ang@gmail.com"),
                 new Points(),
                 new Date(1000),
                 new MemberTier("Bronze"));
         Member member2 = new Member(
                 new MemberName("Salsabil"),
+                new MemberEmail("Salsabil@gmail.com"),
                 new Points(10000),
                 new Date(1000),
                 new MemberTier("Gold"));

@@ -19,10 +19,12 @@ public interface ReadOnlyOrder {
     double getOriginalPrice();
     int getPoints();
     int getMaxPointsRedeemable();
+    int getEarnedPointsValue();
     Map<ReadOnlyMenus, Integer> getDishItems();
 
     boolean hasCustomerField();
     boolean hasDishItems();
+    boolean hasPoints();
 
     /**
      * Returns true if the values inside this object is same as those of the other
@@ -63,6 +65,7 @@ public interface ReadOnlyOrder {
         }
         builder.append("\n\t\tTotal price: ");
         builder.append(Price.convertPricetoString(getPrice()));
+        builder.append("\n\t\tPoints Earned: ").append(getEarnedPointsValue());
         return builder.toString();
     }
 
@@ -93,6 +96,7 @@ public interface ReadOnlyOrder {
         }
         builder.append("\n\t\tTotal price: ");
         builder.append(Price.convertPricetoString(getPrice()));
+        builder.append("\n\t\tPoints Earned: ").append(getEarnedPointsValue());
         return builder.toString();
     }
 
@@ -129,7 +133,7 @@ public interface ReadOnlyOrder {
             builder.append("\n\t\tRedeemed points: ").append(getPoints());
             builder.append(" / ").append(getMaxPointsRedeemable());
         }
-        builder.append("\n\t\tTotal price: ");
+        builder.append("\n\n\t\tTotal price: ");
         builder.append(Price.convertPricetoString(getPrice()));
         return builder.toString();
     }
