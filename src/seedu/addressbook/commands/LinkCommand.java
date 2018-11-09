@@ -14,6 +14,9 @@ public class LinkCommand extends UndoAbleCommand{
     public static final String MESSAGE_DUPLICATE_ASSOCIATION = "Association already exists!\n";
     public static final String MESSAGE_SAME_TITLE_FAILURE = "Only able to associate 2 person with different title!\n";
 
+    private ReadOnlyPerson target;
+    private ReadOnlyPerson target2;
+
     public LinkCommand(int targetVisibleIndex, int targetVisibleIndex2) {
         super(targetVisibleIndex, targetVisibleIndex2);
     }
@@ -21,8 +24,8 @@ public class LinkCommand extends UndoAbleCommand{
     @Override
     public CommandResult execute() {
         try {
-            final ReadOnlyPerson target = getTargetPerson();
-            final ReadOnlyPerson target2 = getTargetPerson2();
+            target = getTargetPerson();
+            target2 = getTargetPerson2();
             addressBook.linkTwoPerson(target, target2);
             saveUndoableToHistory(COMMAND_WORD + " " + getTargetIndex() + " " + getTargetIndex2());
             return new CommandResult(String.format(MESSAGE_SUCCESS, target.getName() ,target2.getName()));
@@ -38,15 +41,16 @@ public class LinkCommand extends UndoAbleCommand{
 
     @Override
     public void executeUndo() throws Exception{
-        final ReadOnlyPerson target = getTargetPerson();
-        final ReadOnlyPerson target2 = getTargetPerson2();
         addressBook.unlinkTwoPerson(target, target2);
     }
 
     @Override
     public void executeRedo() throws Exception{
-        final ReadOnlyPerson target = getTargetPerson();
-        final ReadOnlyPerson target2 = getTargetPerson2();
         addressBook.linkTwoPerson(target, target2);
+    }
+
+    public void setTargets(ReadOnlyPerson target, ReadOnlyPerson target2) {
+        this.target = target;
+        this.target2 = target2;
     }
 }
