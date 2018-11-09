@@ -32,4 +32,8 @@ public class ClearCommand extends UndoAbleCommand {
     public void executeRedo(){
         addressBook.clear();
     }
+
+    public void setCopied(UniquePersonList forTest){
+        copied = forTest;
+    }
 }
