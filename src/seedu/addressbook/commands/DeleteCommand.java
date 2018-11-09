@@ -59,4 +59,8 @@ public class DeleteCommand extends UndoAbleCommand {
     public void executeRedo() throws Exception{
         addressBook.removePerson(this.backup);
     }
+
+    public void setBackup(Person forTest){
+        backup = forTest;
+    }
 }
