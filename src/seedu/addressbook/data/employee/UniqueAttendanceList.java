@@ -90,6 +90,13 @@ public class UniqueAttendanceList implements Iterable<Attendance> {
     }
 
     @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof UniqueAttendanceList // instanceof handles nulls
+                && this.attendanceInternalList.equals(((UniqueAttendanceList) other).attendanceInternalList));
+    }
+
+    @Override
     public int hashCode() {
         return attendanceInternalList.hashCode();
     }

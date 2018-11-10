@@ -7,7 +7,7 @@ import seedu.addressbook.data.menu.ReadOnlyMenus;
 
 
 /**
- * Shows all details of the person identified using the last displayed index.
+ * Shows all details of the menu identified using the last displayed index.
  * Private contact details are shown.
  */
 public class MenuViewAllCommand extends Command {

@@ -7,7 +7,7 @@ import seedu.addressbook.commands.CommandResult;
 import seedu.addressbook.data.menu.ReadOnlyMenus;
 
 /**
- * Lists all food items in the address book to the user.
+ * Lists all food items in the menu list to the user.
  */
 public class MenuShowMainMenuCommand extends Command {
 
@@ -19,7 +19,7 @@ public class MenuShowMainMenuCommand extends Command {
     public static final String MAIN_MENU_DISPLAY = "RMS Main Menu" + "\n"
             + "==================================================================================="
             + "\n\n" + "Item Category:"
-            + "\n\n" + "-Main : key in 'listmenutype main' to view all Main items"
+            + "\n\n" + " -Main : key in 'listmenutype main' to view all Main items"
             + "\n" + " -Sides : key in 'listmenutype sides' to view all Sides"
             + "\n" + " -Beverages : key in 'listmenutype beverage' to view all Beverage"
             + "\n" + " -Dessert : key in 'listmenutype dessert' to view all Dessert"

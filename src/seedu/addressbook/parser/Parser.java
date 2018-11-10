@@ -10,15 +10,10 @@ import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import seedu.addressbook.commands.AddCommand;
 import seedu.addressbook.commands.Command;
-import seedu.addressbook.commands.DeleteCommand;
 import seedu.addressbook.commands.ExitCommand;
-import seedu.addressbook.commands.FindCommand;
 import seedu.addressbook.commands.HelpCommand;
 import seedu.addressbook.commands.IncorrectCommand;
-import seedu.addressbook.commands.ViewAllCommand;
-import seedu.addressbook.commands.ViewCommand;
 import seedu.addressbook.commands.employee.EmployeeAddCommand;
 import seedu.addressbook.commands.employee.EmployeeClockInCommand;
 import seedu.addressbook.commands.employee.EmployeeClockOutCommand;
@@ -34,6 +29,7 @@ import seedu.addressbook.commands.menu.MenuDeleteCommand;
 import seedu.addressbook.commands.menu.MenuFindCommand;
 import seedu.addressbook.commands.menu.MenuListByTypeCommand;
 import seedu.addressbook.commands.menu.MenuListCommand;
+import seedu.addressbook.commands.menu.MenuRecommendationCommand;
 import seedu.addressbook.commands.menu.MenuShowMainMenuCommand;
 import seedu.addressbook.commands.menu.MenuViewAllCommand;
 import seedu.addressbook.commands.order.DraftOrderClearCommand;
@@ -65,14 +61,6 @@ public class Parser {
     public static final Pattern ITEMWORD_ARGS_FORMAT = Pattern.compile("(?<type>[^/]+)"); //one keyword only
 
     // '/' forward slashes are reserved for delimiter prefixes
-    public static final Pattern PERSON_DATA_ARGS_FORMAT =
-            Pattern.compile("(?<name>[^/]+)"
-                    + " (?<isPhonePrivate>p?)p/(?<phone>[^/]+)"
-                    + " (?<isEmailPrivate>p?)e/(?<email>[^/]+)"
-                    + " (?<isAddressPrivate>p?)a/(?<address>[^/]+)"
-                    + "(?<tagArguments>(?: t/[^/]+)*)"); // variable number of tags
-
-    // '/' forward slashes are reserved for delimiter prefixes
     public static final Pattern EMPLOYEE_DATA_ARGS_FORMAT =
             Pattern.compile("(?<name>[^/]+)"
                     + "p/(?<phone>[^/]+)"
@@ -97,7 +85,9 @@ public class Parser {
             Pattern.compile("(?<name>[^/]+)");
 
     public static final Pattern MEMBER_DATA_ARGS_FORMAT =
-            Pattern.compile("(?<name>[^/]+)"); // variable number of tags
+            Pattern.compile("(?<name>[^/]+)"
+                    + "e/(?<email>[^/]+)"
+            ); // variable number of tags
 
     // '/' forward slashes are reserved for delimiter prefixes
     public static final Pattern MENU_DATA_ARGS_FORMAT =
@@ -185,6 +175,9 @@ public class Parser {
         case MenuListByTypeCommand.COMMAND_WORD:
             return prepareMenuListByType(arguments);
 
+        case MenuRecommendationCommand.COMMAND_WORD:
+            return new MenuRecommendationCommand();
+
         case MenuViewAllCommand.COMMAND_WORD:
             return prepareViewAllMenu(arguments);
 
@@ -251,38 +244,6 @@ public class Parser {
     }
 
     /**
-     * Parses arguments in the context of the add person command.
-     *
-     * @param args full command args string
-     * @return the prepared command
-     */
-    private Command prepareAdd(String args) {
-        final Matcher matcher = PERSON_DATA_ARGS_FORMAT.matcher(args.trim());
-        // Validate arg string format
-        if (!matcher.matches()) {
-            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
-        }
-        try {
-            return new AddCommand(
-                    matcher.group("name"),
-
-                    matcher.group("phone"),
-                    isPrivatePrefixPresent(matcher.group("isPhonePrivate")),
-
-                    matcher.group("email"),
-                    isPrivatePrefixPresent(matcher.group("isEmailPrivate")),
-
-                    matcher.group("address"),
-                    isPrivatePrefixPresent(matcher.group("isAddressPrivate")),
-
-                    getTagsFromArgs(matcher.group("tagArguments"))
-            );
-        } catch (IllegalValueException ive) {
-            return new IncorrectCommand(ive.getMessage());
-        }
-    }
-
-    /**
      * Parses arguments in the context of the add member command.
      * @param args full command args string
      * @return the prepared command
@@ -296,7 +257,8 @@ public class Parser {
         }
         try {
             return new MemberAddCommand(
-                    matcher.group("name")
+                    matcher.group("name"),
+                    matcher.group("email")
             );
         } catch (IllegalValueException ive) {
             return new IncorrectCommand(ive.getMessage());
@@ -491,7 +453,7 @@ public class Parser {
     }
 
     /**
-     *      * Extracts the new person's tags from the add command's tag arguments string.
+     *      * Extracts the new menu's tags from the add command's tag arguments string.
      *      * Merges duplicate tag strings.
      */
     private static Set<String> getTagsFromArgs(String tagArguments) throws IllegalValueException {
@@ -503,22 +465,6 @@ public class Parser {
         final Collection<String> tagStrings = Arrays.asList(tagArguments.replaceFirst(" t/", "").split(" t/"));
         return new HashSet<>(tagStrings);
     }
-
-    /**
-     * Parses arguments in the context of the delete person command.
-     *
-     * @param args full command args string
-     * @return the prepared command
-     */
-    private Command prepareDelete(String args) {
-        try {
-            final int targetIndex = parseArgsAsDisplayedIndex(args);
-            return new DeleteCommand(targetIndex);
-        } catch (ParseException | NumberFormatException e) {
-            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
-        }
-    }
-
 
     /**
      * Parses arguments in the context of the delete menu item command.
@@ -552,40 +498,6 @@ public class Parser {
     }
 
     /**
-     * Parses arguments in the context of the view command.
-     *
-     * @param args full command args string
-     * @return the prepared command
-     */
-    private Command prepareView(String args) {
-
-        try {
-            final int targetIndex = parseArgsAsDisplayedIndex(args);
-            return new ViewCommand(targetIndex);
-        } catch (ParseException | NumberFormatException e) {
-            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                    ViewCommand.MESSAGE_USAGE));
-        }
-    }
-
-    /**
-     * Parses arguments in the context of the view all command.
-     *
-     * @param args full command args string
-     * @return the prepared command
-     */
-    private Command prepareViewAll(String args) {
-
-        try {
-            final int targetIndex = parseArgsAsDisplayedIndex(args);
-            return new ViewAllCommand(targetIndex);
-        } catch (ParseException | NumberFormatException e) {
-            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                    ViewAllCommand.MESSAGE_USAGE));
-        }
-    }
-
-    /**
      * Parses arguments in the context of the view all menu item command.
      *
      * @param args full command args string
@@ -602,24 +514,6 @@ public class Parser {
         }
     }
 
-    /**
-     * Parses arguments in the context of the find person command.
-     *
-     * @param args full command args string
-     * @return the prepared command
-     */
-    private Command prepareFind(String args) {
-        final Matcher matcher = KEYWORDS_ARGS_FORMAT.matcher(args.trim());
-        if (!matcher.matches()) {
-            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                    FindCommand.MESSAGE_USAGE));
-        }
-
-        // keywords delimited by whitespace
-        final String[] keywords = matcher.group("keywords").split("\\s+");
-        final Set<String> keywordSet = new HashSet<>(Arrays.asList(keywords));
-        return new FindCommand(keywordSet);
-    }
 
     /**
      * Parses arguments in the context of the find menu command.

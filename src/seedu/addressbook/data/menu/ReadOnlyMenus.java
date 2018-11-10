@@ -36,11 +36,11 @@ public interface ReadOnlyMenus {
     default String getAsTextShowAll() {
         final StringBuilder builder = new StringBuilder();
         builder.append(getName())
-                .append(" Price: ");
+                .append(" | Price: ");
         builder.append(getPrice())
-                .append(" Type: ");
+                .append(" | Type: ");
         builder.append(getType())
-                .append(" Tags: ");
+                .append(" | Tags: ");
         for (Tag tag : getTags()) {
             builder.append(tag);
         }
@@ -53,7 +53,7 @@ public interface ReadOnlyMenus {
     default String getAsTextShowMenuAndPrice() {
         final StringBuilder builder = new StringBuilder();
         builder.append(getName())
-                .append(" Price: ");
+                .append(" | Price: ");
         builder.append(getPrice());
         return builder.toString();
     }
@@ -63,11 +63,11 @@ public interface ReadOnlyMenus {
      */
     default String getAsTextHidePrivate() {
         final StringBuilder builder = new StringBuilder();
-        builder.append(getName()).append(" Price ").append(getPrice()).append(" Type: ").append(getType());
+        builder.append(getName()).append(" | Price ").append(getPrice()).append(" | Type: ").append(getType());
         /*if (!getPrice().isPrivate()) {
             builder.append(" Price: ").append(getPrice());
         }*/
-        builder.append(" Tags: ");
+        builder.append(" | Tags: ");
         for (Tag tag : getTags()) {
             builder.append(tag);
         }

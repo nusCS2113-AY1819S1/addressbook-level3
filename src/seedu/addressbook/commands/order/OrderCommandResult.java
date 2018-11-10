@@ -11,6 +11,6 @@ import seedu.addressbook.data.order.ReadOnlyOrder;
 public class OrderCommandResult extends CommandResult {
 
     public OrderCommandResult(String feedbackToUser, List<? extends ReadOnlyOrder> relevantOrders) {
-        super(feedbackToUser, null, null, relevantOrders, null, null, null);
+        super(feedbackToUser, null, relevantOrders, null, null, null);
     }
 }

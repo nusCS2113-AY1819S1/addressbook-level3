@@ -30,9 +30,9 @@ public class EmployeeEditCommand extends Command {
             + "[a/ADDRESS] "
             + "[pos/POSITION]\n"
             + "Example: " + COMMAND_WORD + " 1 "
-            + " p/" + EmployeePhone.EXAMPLE;
+            + "p/" + EmployeePhone.EXAMPLE;
 
-    public static final String MESSAGE_EDIT_EMPLOYEE_SUCCESS = "Edited Person: %1$s";
+    public static final String MESSAGE_EDIT_EMPLOYEE_SUCCESS = "Edited Employee: %1$s";
     public static final String MESSAGE_NOARGS = "At least one field to edit must be provided.";
     public static final String EMPTY_EMPLOYEE_PHONE = "00000000";
     public static final String EMPTY_EMPLOYEE_EMAIL = "noargs@noargs.com";
@@ -54,7 +54,6 @@ public class EmployeeEditCommand extends Command {
         this.editEmployeeDescriptor = new EditEmployeeDescriptor(phone, email, address, position);
     }
 
-    // check for any non null parameters should already be done, probably in parser
     @Override
     public CommandResult execute() {
         try {

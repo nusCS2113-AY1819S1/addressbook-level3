@@ -20,6 +20,7 @@ import seedu.addressbook.data.employee.EmployeeName;
 import seedu.addressbook.data.employee.EmployeePhone;
 import seedu.addressbook.data.employee.EmployeePosition;
 import seedu.addressbook.data.member.Member;
+import seedu.addressbook.data.member.MemberEmail;
 import seedu.addressbook.data.member.MemberName;
 import seedu.addressbook.data.member.Points;
 import seedu.addressbook.data.menu.Menu;
@@ -28,11 +29,6 @@ import seedu.addressbook.data.menu.Price;
 import seedu.addressbook.data.menu.ReadOnlyMenus;
 import seedu.addressbook.data.menu.Type;
 import seedu.addressbook.data.order.Order;
-import seedu.addressbook.data.person.Address;
-import seedu.addressbook.data.person.Email;
-import seedu.addressbook.data.person.Name;
-import seedu.addressbook.data.person.Person;
-import seedu.addressbook.data.person.Phone;
 import seedu.addressbook.data.tag.Tag;
 
 /**
@@ -41,20 +37,6 @@ import seedu.addressbook.data.tag.Tag;
 class TestDataHelper {
 
     public static final int FOOD_QUANTITY = 1;
-
-    /**
-     * Generate a person for testing purpose
-     */
-    Person adam() throws Exception {
-        Name name = new Name("Adam Brown");
-        Phone privatePhone = new Phone("111111", true);
-        Email email = new Email("adam@gmail.com", false);
-        Address privateAddress = new Address("111, alpha street", true);
-        Tag tag1 = new Tag("tag1");
-        Tag tag2 = new Tag("tag2");
-        Set<Tag> tags = new HashSet<>(Arrays.asList(tag1, tag2));
-        return new Person(name, privatePhone, email, privateAddress, tags);
-    }
 
     /**
      * Generate an employee for testing purpose
@@ -73,7 +55,8 @@ class TestDataHelper {
      */
     Member eve() throws Exception {
         MemberName name = new MemberName("Eve");
-        return new Member(name);
+        MemberEmail email = new MemberEmail("eve@gmail.com");
+        return new Member(name, email);
     }
 
     /**
@@ -102,7 +85,7 @@ class TestDataHelper {
      * Generate empty points to redeem for testing purpose
      */
     int pointsToRedeem() throws Exception {
-        return new Points().getPoints();
+        return new Points().getCurrentPoints();
     };
 
     /**
@@ -133,24 +116,6 @@ class TestDataHelper {
     }
 
     /**
-     * Generates a valid person using the given seed.
-     * Running this function with the same parameter values guarantees the returned person will have the same state.
-     * Each unique seed will generate a unique Person object.
-     *
-     * @param seed used to generate the person data field values
-     * @param isAllFieldsPrivate determines if private-able fields (phone, email, address) will be private
-     */
-    Person generatePerson(int seed, boolean isAllFieldsPrivate) throws Exception {
-        return new Person(
-                new Name("Person " + seed),
-                new Phone("" + Math.abs(seed), isAllFieldsPrivate),
-                new Email(seed + "@email", isAllFieldsPrivate),
-                new Address("House of " + seed, isAllFieldsPrivate),
-                new HashSet<>(Arrays.asList(new Tag("tag" + Math.abs(seed)), new Tag("tag" + Math.abs(seed + 1))))
-        );
-    }
-
-    /**
      * Generates a valid employee using the given seed.
      * Running this function with the same parameter values guarantees the returned employee will have the same state.
      * Each unique seed will generate a unique Employee object.
@@ -165,6 +130,46 @@ class TestDataHelper {
                 new EmployeeAddress("House of " + seed),
                 new EmployeePosition("Position " + seed)
         );
+    }
+
+    /** Generates a new employee based on the detail given */
+    Employee generateEditEmployee(Employee e, String editParam, String editDetail) throws Exception {
+        EmployeePhone phone;
+        EmployeeEmail email;
+        EmployeeAddress address;
+        EmployeePosition position;
+
+        if (editParam == "phone") {
+            phone = new EmployeePhone(editDetail);
+        } else {
+            phone = e.getPhone();
+        }
+
+        if (editParam == "email") {
+            email = new EmployeeEmail(editDetail);
+        } else {
+            email = e.getEmail();
+        }
+
+        if (editParam == "address") {
+            address = new EmployeeAddress(editDetail);
+        } else {
+            address = e.getAddress();
+        }
+
+        if (editParam == "position") {
+            position = new EmployeePosition(editDetail);
+        } else {
+            position = e.getPosition();
+        }
+
+        return new Employee(
+                e.getName(),
+                phone,
+                email,
+                address,
+                position
+                );
     }
 
     /**
@@ -187,7 +192,8 @@ class TestDataHelper {
      */
     Member generateMember(int seed) throws Exception {
         return new Member(
-                new MemberName("Member " + seed)
+                new MemberName("Member " + seed),
+                new MemberEmail(seed + "@email")
         );
     }
 
@@ -225,30 +231,11 @@ class TestDataHelper {
                 generateMember(seed),
                 new Date(Math.abs(seed)),
                 generateDishItems(seed),
-                new Points().getPoints()
+                new Points().getCurrentPoints()
         );
     }
 
-    /** Generates the correct add command based on the person given */
-    String generateAddCommand(Person p) {
-        StringJoiner cmd = new StringJoiner(" ");
-
-        cmd.add("add");
-
-        cmd.add(p.getName().toString());
-        cmd.add((p.getPhone().isPrivate() ? "pp/" : "p/") + p.getPhone());
-        cmd.add((p.getEmail().isPrivate() ? "pe/" : "e/") + p.getEmail());
-        cmd.add((p.getAddress().isPrivate() ? "pa/" : "a/") + p.getAddress());
-
-        Set<Tag> tags = p.getTags();
-        for (Tag t: tags) {
-            cmd.add("t/" + t.tagName);
-        }
-
-        return cmd.toString();
-    }
-
-    /** Generates the correct add command based on the person given */
+    /** Generates the correct add command based on the employee given */
     String generateAddEmpCommand(Employee e) {
         StringJoiner cmd = new StringJoiner(" ");
 
@@ -263,6 +250,33 @@ class TestDataHelper {
         return cmd.toString();
     }
 
+    /** Generates the correct edit command based on the employee given */
+    String generateEditEmpCommand(String index, String editParam, String editDetail) {
+        StringJoiner cmd = new StringJoiner(" ");
+
+        cmd.add("editemp");
+
+        cmd.add(index);
+
+        if (editParam == "phone") {
+            cmd.add("p/" + editDetail);
+        }
+
+        if (editParam == "email") {
+            cmd.add("e/" + editDetail);
+        }
+
+        if (editParam == "address") {
+            cmd.add("a/" + editDetail);
+        }
+
+        if (editParam == "position") {
+            cmd.add("pos/" + editDetail);
+        }
+
+        return cmd.toString();
+    }
+
     /** Generates the correct add member command based on the member given */
     String generateAddMemberCommand(Member e) {
         StringJoiner cmd = new StringJoiner(" ");
@@ -270,6 +284,7 @@ class TestDataHelper {
         cmd.add("addmember");
 
         cmd.add(e.getName().toString());
+        cmd.add(("e/") + e.getEmail());
 
         return cmd.toString();
     }
@@ -302,26 +317,6 @@ class TestDataHelper {
         cmd.add("q/" + quantity);
 
         return cmd.toString();
-    }
-
-    /**
-     * Generates an Rms with auto-generated persons.
-     * @param isPrivateStatuses flags to indicate if all contact details of respective persons should be set to
-     *                          private.
-     */
-    Rms generateRms(Boolean... isPrivateStatuses) throws Exception {
-        Rms rms = new Rms();
-        addToRms(rms, isPrivateStatuses);
-        return rms;
-    }
-
-    /**
-     * Generates an Rms based on the list of Persons given.
-     */
-    Rms generateRms(List<Person> persons) throws Exception {
-        Rms rms = new Rms();
-        addToRms(rms, persons);
-        return rms;
     }
 
     /**
@@ -374,25 +369,6 @@ class TestDataHelper {
         Rms rms = new Rms();
         addOrdersToRms(rms, integers);
         return rms;
-    }
-
-    /**
-     * Adds auto-generated Person objects to the given Rms
-     * @param rms The Rms to which the Persons will be added
-     * @param isPrivateStatuses flags to indicate if all contact details of generated persons should be set to
-     *                          private.
-     */
-    void addToRms(Rms rms, Boolean... isPrivateStatuses) throws Exception {
-        addToRms(rms, generatePersonList(isPrivateStatuses));
-    }
-
-    /**
-     * Adds the given list of Persons to the given Rms
-     */
-    void addToRms(Rms rms, List<Person> personsToAdd) throws Exception {
-        for (Person p: personsToAdd) {
-            rms.addPerson(p);
-        }
     }
 
     /**
@@ -516,49 +492,12 @@ class TestDataHelper {
     }
 
     /**
-     * Creates a list of Persons based on the give Person objects.
-     */
-    List<Person> generatePersonList(Person... persons) throws Exception {
-        List<Person> personList = new ArrayList<>();
-        for (Person p: persons) {
-            personList.add(p);
-        }
-        return personList;
-    }
-
-    /**
-     * Generates a list of Persons based on the flags.
-     * @param isPrivateStatuses flags to indicate if all contact details of respective persons should be set to
-     *                          private.
-     */
-    List<Person> generatePersonList(Boolean... isPrivateStatuses) throws Exception {
-        List<Person> persons = new ArrayList<>();
-        int i = 1;
-        for (Boolean p: isPrivateStatuses) {
-            persons.add(generatePerson(i++, p));
-        }
-        return persons;
-    }
-
-    /**
-     * Generates a Person object with given name. Other fields will have some dummy values.
-     */
-    Person generatePersonWithName(String name) throws Exception {
-        return new Person(
-                new Name(name),
-                new Phone("1", false),
-                new Email("1@email", false),
-                new Address("House of 1", false),
-                Collections.singleton(new Tag("tag"))
-        );
-    }
-
-    /**
      * Generates a Member object with given name. Other fields will have some dummy values.
      */
     Member generateMemberWithName(String name) throws Exception {
         return new Member(
-                new MemberName(name)
+                new MemberName(name),
+                new MemberEmail(name + "@email")
         );
     }
 
@@ -586,25 +525,5 @@ class TestDataHelper {
         );
     }
 
-    /**
-     * Generates a Person object with given name. Other fields will have some dummy values.
-     */
-    Map<ReadOnlyMenus, Integer> generateDishItemsWithName(String name) throws Exception {
-        Map<ReadOnlyMenus, Integer> dishItems = new HashMap<>();
-        dishItems.put(generateMenuWithName(name), 3);
-        return dishItems;
-    }
-
-    /**
-     * Generates an Order object with given name. Other fields will have some dummy values.
-     */
-    Order generateOrderWithName(String name) throws Exception {
-        return new Order(
-                generateMemberWithName(name),
-                new Date(5000),
-                generateDishItemsWithName(name),
-                new Points().getPoints()
-        );
-    }
 
 }
