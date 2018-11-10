@@ -106,18 +106,6 @@ Example: +
 `listmenutype main` +
 System shows all the main dishes in the menu.
 
-==== View All Menu
-
-Shows the detail of the a menu item with a particular index. +
-Format: `viewallmenu INDEX`
-
-* The command is only executable after running the `listmenutype TYPE` or `findmenu KEYWORD` commands
-
-Example: +
-`listmenutype main` +
-`viewallmenu 1` +
-System shows 1st menu item of category type main.
-
 ==== Add Menu
 
 Add a new item to the menu. +
@@ -470,8 +458,6 @@ There is no need to save manually.
 
 *Show Main Menu Page* : `showMainMenu`
 
-*View Menu* : `viewallmenu INDEX`
-
 *Find Menu* : `findmenu KEYWORD [MORE KEYWORDS]`
 
 *Add Item* : `addmenu NAME p/PRICE type/TYPE [t/TAG]`
@@ -481,6 +467,8 @@ There is no need to save manually.
 *List Menu* : `listmenu`
 
 *List Menu According to Category* : `listmenubytype TYPE`
+
+*See Recommended Menu Items* : `recommendations`
 // end::menucommandsummary[]
 
 === Employees

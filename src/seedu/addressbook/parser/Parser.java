@@ -31,7 +31,6 @@ import seedu.addressbook.commands.menu.MenuListByTypeCommand;
 import seedu.addressbook.commands.menu.MenuListCommand;
 import seedu.addressbook.commands.menu.MenuRecommendationCommand;
 import seedu.addressbook.commands.menu.MenuShowMainMenuCommand;
-import seedu.addressbook.commands.menu.MenuViewAllCommand;
 import seedu.addressbook.commands.order.DraftOrderClearCommand;
 import seedu.addressbook.commands.order.DraftOrderConfirmCommand;
 import seedu.addressbook.commands.order.DraftOrderEditCustomerCommand;
@@ -175,9 +174,6 @@ public class Parser {
 
         case MenuRecommendationCommand.COMMAND_WORD:
             return new MenuRecommendationCommand();
-
-        case MenuViewAllCommand.COMMAND_WORD:
-            return prepareViewAllMenu(arguments);
 
         case MenuDeleteCommand.COMMAND_WORD:
             return prepareMenuDelete(arguments);
@@ -491,23 +487,6 @@ public class Parser {
         } catch (ParseException | NumberFormatException e) {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     OrderDeleteCommand.MESSAGE_USAGE));
-        }
-    }
-
-    /**
-     * Parses arguments in the context of the view all menu item command.
-     *
-     * @param args full command args string
-     * @return the prepared command
-     */
-    private Command prepareViewAllMenu(String args) {
-
-        try {
-            final int targetIndex = parseArgsAsDisplayedIndex(args);
-            return new MenuViewAllCommand(targetIndex);
-        } catch (ParseException | NumberFormatException e) {
-            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                    MenuViewAllCommand.MESSAGE_USAGE));
         }
     }
 

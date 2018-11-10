@@ -16,13 +16,7 @@ import seedu.addressbook.commands.HelpCommand;
 import seedu.addressbook.commands.IncorrectCommand;
 import seedu.addressbook.commands.member.MemberAddCommand;
 import seedu.addressbook.commands.member.MemberListCommand;
-import seedu.addressbook.commands.menu.MenuAddCommand;
-import seedu.addressbook.commands.menu.MenuClearCommand;
-import seedu.addressbook.commands.menu.MenuDeleteCommand;
-import seedu.addressbook.commands.menu.MenuFindCommand;
-import seedu.addressbook.commands.menu.MenuListByTypeCommand;
-import seedu.addressbook.commands.menu.MenuListCommand;
-import seedu.addressbook.commands.menu.MenuViewAllCommand;
+import seedu.addressbook.commands.menu.*;
 import seedu.addressbook.commands.order.DraftOrderClearCommand;
 import seedu.addressbook.commands.order.DraftOrderConfirmCommand;
 import seedu.addressbook.commands.order.DraftOrderEditCustomerCommand;
@@ -92,14 +86,27 @@ public class ParserTest {
     }
 
     @Test
-    public void menuListByTypeCommand_invalidArgs() {
+    public void menuRecommendationCommand_parsedCorrectly() {
+        final String input = "recommendations";
+        parseAndAssertCommandType(input, MenuRecommendationCommand.class);
+    }
+
+    @Test
+    public void menuShowMainMenuCommand_parsedCorrectly() {
+        final String input = "showmainmenu";
+        parseAndAssertCommandType(input, MenuShowMainMenuCommand.class);
+    }
+
+    @Test
+    public void menuListByTypeCommand_noArgs() {
         // no keywords
         final String inputs = "listmenutype";
         final String resultMessage =
-                String.format(MenuListByTypeCommand.MESSAGE_ERROR, MenuListByTypeCommand.MESSAGE_USAGE);
-        //parseAndAssertIncorrectWithMessage(resultMessage, inputs);
-        parseAndAssertCommandType(inputs, IncorrectCommand.class);
+                String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, MenuListByTypeCommand.MESSAGE_USAGE);
+
+        parseAndAssertIncorrectWithMessage(resultMessage, inputs);
     }
+
     @Test
     public void menuListByTypeCommand_validArgs_parsedCorrectly() {
         final String type = "main";
@@ -202,30 +209,6 @@ public class ParserTest {
         final int testIndex = 1;
         final String input = "deletemenu " + testIndex;
         final MenuDeleteCommand result = parseAndAssertCommandType(input, MenuDeleteCommand.class);
-        assertEquals(result.getTargetIndex(), testIndex);
-    }
-
-    @Test
-    public void menuViewAllCommand_noArgs() {
-        final String[] inputs = { "viewallmenu", "viewallmenu " };
-        final String resultMessage =
-                String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, MenuViewAllCommand.MESSAGE_USAGE);
-        parseAndAssertIncorrectWithMessage(resultMessage, inputs);
-    }
-
-    @Test
-    public void menuViewAllCommand_argsIsNotSingleNumber() {
-        final String[] inputs = { "viewallmenu notAnumber ", "viewallmenu 8*wh12", "viewallmenu 1 2 3 4 5" };
-        final String resultMessage = String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT,
-                MenuViewAllCommand.MESSAGE_USAGE);
-        parseAndAssertIncorrectWithMessage(resultMessage, inputs);
-    }
-
-    @Test
-    public void menuViewAllCommand_numericArg_indexParsedCorrectly() {
-        final int testIndex = 3;
-        final String input = "viewallmenu " + testIndex;
-        final MenuViewAllCommand result = parseAndAssertCommandType(input, MenuViewAllCommand.class);
         assertEquals(result.getTargetIndex(), testIndex);
     }
 
