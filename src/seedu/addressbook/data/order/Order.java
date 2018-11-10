@@ -103,7 +103,7 @@ public class Order implements ReadOnlyOrder {
 
     @Override
     public int getPoints() {
-        return points.getPoints();
+        return points.getCurrentPoints();
     }
 
     @Override
@@ -124,17 +124,24 @@ public class Order implements ReadOnlyOrder {
 
     @Override
     public int getMaxPointsRedeemable() {
-        int pointsLimitByPrice = Points.getEarnedPointsValue(getOriginalPrice());
-        int pointsLimitByMember = customer.getPointsValue();
+        int pointsLimitByPrice = Points.getRedeemedPointsValue(getOriginalPrice());
+        int pointsLimitByMember = customer.getCurrentPointsValue();
         return Integer.min(pointsLimitByPrice, pointsLimitByMember);
     }
+
+    @Override
+    public int getEarnedPointsValue() {
+        return Points.getEarnedPointsValue(price);
+    }
+
+
 
     public void setCustomer(ReadOnlyMember customer) {
         this.customer = customer;
     }
 
     public void setPoints(int value) {
-        points.setPoints(value);
+        points.setCurrentPoints(value);
         price = calculatePrice();
     }
 
@@ -180,6 +187,14 @@ public class Order implements ReadOnlyOrder {
     @Override
     public boolean hasDishItems() {
         return !(dishItems.isEmpty());
+    }
+
+    @Override
+    public boolean hasPoints() {
+        if (customer.getCurrentPointsValue() == 0) {
+            return false;
+        }
+        return true;
     }
 
     @Override

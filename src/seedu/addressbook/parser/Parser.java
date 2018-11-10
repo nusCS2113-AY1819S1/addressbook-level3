@@ -84,7 +84,9 @@ public class Parser {
             Pattern.compile("(?<name>[^/]+)");
 
     public static final Pattern MEMBER_DATA_ARGS_FORMAT =
-            Pattern.compile("(?<name>[^/]+)"); // variable number of tags
+            Pattern.compile("(?<name>[^/]+)"
+                    + "e/(?<email>[^/]+)"
+            ); // variable number of tags
 
     // '/' forward slashes are reserved for delimiter prefixes
     public static final Pattern MENU_DATA_ARGS_FORMAT =
@@ -251,7 +253,8 @@ public class Parser {
         }
         try {
             return new MemberAddCommand(
-                    matcher.group("name")
+                    matcher.group("name"),
+                    matcher.group("email")
             );
         } catch (IllegalValueException ive) {
             return new IncorrectCommand(ive.getMessage());
@@ -402,10 +405,10 @@ public class Parser {
             final int targetIndex = parseArgsAsDisplayedIndex(matcher.group("targetIndex"));
             return new EmployeeEditCommand(
                     targetIndex,
-                    prepareEditArg(matcher.group("phone"), "phone"),
-                    prepareEditArg(matcher.group("email"), "email"),
-                    prepareEditArg(matcher.group("address"), "address"),
-                    prepareEditArg(matcher.group("position"), "position")
+                    matcher.group("phone"),
+                    matcher.group("email"),
+                    matcher.group("address"),
+                    matcher.group("position")
             );
         } catch (ParseException | NumberFormatException e) {
             return new IncorrectCommand(String.format(
@@ -417,28 +420,6 @@ public class Parser {
     }
 
     /**
-     * Returns new information to be edited if it is not empty,
-     * else returns a placeholder string indicating that there is no new information
-     */
-    private static String prepareEditArg(String toCheck, String argumentType) {
-        if (toCheck == null || toCheck.isEmpty()) {
-            switch(argumentType) {
-            case "phone":
-                toCheck = "00000000";
-                break;
-            case "email":
-                toCheck = "noargs@noargs.com";
-                break;
-            default:
-                toCheck = "noargs";
-                break;
-            }
-            return toCheck;
-        }
-        return toCheck;
-    }
-
-    /**
      * Checks whether the private prefix of a contact detail in the add command's arguments string is present.
      */
     private static boolean isPrivatePrefixPresent(String matchedPrefix) {
@@ -446,7 +427,7 @@ public class Parser {
     }
 
     /**
-     *      * Extracts the new person's tags from the add command's tag arguments string.
+     *      * Extracts the new menu's tags from the add command's tag arguments string.
      *      * Merges duplicate tag strings.
      */
     private static Set<String> getTagsFromArgs(String tagArguments) throws IllegalValueException {

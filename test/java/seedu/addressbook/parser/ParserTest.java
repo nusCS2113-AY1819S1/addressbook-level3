@@ -32,6 +32,7 @@ import seedu.addressbook.commands.statistics.StatsOrderCommand;
 import seedu.addressbook.common.Messages;
 import seedu.addressbook.data.exception.IllegalValueException;
 import seedu.addressbook.data.member.Member;
+import seedu.addressbook.data.member.MemberEmail;
 import seedu.addressbook.data.member.MemberName;
 import seedu.addressbook.data.member.ReadOnlyMember;
 import seedu.addressbook.data.menu.Menu;
@@ -144,7 +145,7 @@ public class ParserTest {
 
     @Test
     public void memberListCommand_parsedCorrectly() {
-        final String input = "listmembers";
+        final String input = "listmember";
         parseAndAssertCommandType(input, MemberListCommand.class);
     }
 
@@ -190,7 +191,7 @@ public class ParserTest {
 
     @Test
     public void menuDeleteCommand_noArgs() {
-        final String[] inputs = { "deletemenu", "deletemenu " };
+        final String[] inputs = { "delmenu", "delmenu " };
         final String resultMessage = String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT,
                 MenuDeleteCommand.MESSAGE_USAGE);
         parseAndAssertIncorrectWithMessage(resultMessage, inputs);
@@ -198,7 +199,7 @@ public class ParserTest {
 
     @Test
     public void menuDeleteCommand_argsIsNotSingleNumber() {
-        final String[] inputs = { "deletemenu notAnumber ", "deletemenu 8*wh12", "deletemenu 1 2 3 4 5" };
+        final String[] inputs = { "delmenu notAnumber ", "delmenu 8*wh12", "delmenu 1 2 3 4 5" };
         final String resultMessage = String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT,
                 MenuDeleteCommand.MESSAGE_USAGE);
         parseAndAssertIncorrectWithMessage(resultMessage, inputs);
@@ -207,7 +208,7 @@ public class ParserTest {
     @Test
     public void menuDeleteCommand_numericArg_indexParsedCorrectly() {
         final int testIndex = 1;
-        final String input = "deletemenu " + testIndex;
+        final String input = "delmenu " + testIndex;
         final MenuDeleteCommand result = parseAndAssertCommandType(input, MenuDeleteCommand.class);
         assertEquals(result.getTargetIndex(), testIndex);
     }
@@ -463,7 +464,7 @@ public class ParserTest {
      */
     private static Member generateTestMember() {
         try {
-            return new Member(new MemberName(MemberName.EXAMPLE));
+            return new Member(new MemberName(MemberName.EXAMPLE), new MemberEmail(MemberEmail.EXAMPLE));
         } catch (IllegalValueException ie) {
             throw new RuntimeException("test member data should be valid by definition");
         }
@@ -474,7 +475,8 @@ public class ParserTest {
      */
     private static String convertMemberToAddCommandString(ReadOnlyMember member) {
         String addCommand = "addmember "
-                + member.getName().fullName;
+                + member.getName().fullName
+                + " e/" + member.getEmail().value;
 
         return addCommand;
     }

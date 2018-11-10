@@ -8,11 +8,11 @@ import seedu.addressbook.data.menu.UniqueMenuList.MenuNotFoundException;
 
 
 /**
- * Deletes a person identified using it's last displayed index from the address book.
+ * Deletes a menu item identified using it's last displayed index from the Rms.
  */
 public class MenuDeleteCommand extends Command {
 
-    public static final String COMMAND_WORD = "deletemenu";
+    public static final String COMMAND_WORD = "delmenu";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ":\n"
             + "Deletes the menu item identified by the index number used in the last menu listing.\n\t"

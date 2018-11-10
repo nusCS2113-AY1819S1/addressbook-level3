@@ -9,10 +9,17 @@ import seedu.addressbook.data.exception.IllegalValueException;
 public class EmployeeEmail {
     public static final String EXAMPLE = "Example2018@rms.com";
     public static final String MESSAGE_EMAIL_CONSTRAINTS =
-            "Person emails should be 2 alphanumeric/period strings separated by '@'";
+            "Employee emails should be 2 alphanumeric/period strings separated by '@'";
     public static final String EMAIL_VALIDATION_REGEX = "[\\w\\.]+@[\\w\\.]+";
 
     public final String value;
+
+    /**
+     * Empty constructor
+     */
+    public EmployeeEmail() {
+        this.value = new String();
+    }
 
     /**
      * Validates given email.

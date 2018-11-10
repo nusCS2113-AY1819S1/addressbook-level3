@@ -2,6 +2,7 @@ package seedu.addressbook.storage.jaxb;
 
 import javax.xml.bind.annotation.XmlElement;
 
+import seedu.addressbook.common.Utils;
 import seedu.addressbook.data.employee.Employee;
 import seedu.addressbook.data.employee.EmployeeAddress;
 import seedu.addressbook.data.employee.EmployeeEmail;
@@ -43,6 +44,18 @@ public class AdaptedEmployee {
         address = source.getAddress().value;
 
         position = source.getPosition().value;
+    }
+
+    /**
+     * Returns true if any required field is missing.
+     *
+     * JAXB does not enforce (required = true) without a given XML schema.
+     * Since we do most of our validation using the data class constructors, the only extra logic we need
+     * is to ensure that every xml element in the document is present. JAXB sets missing elements as null,
+     * so we check for that.
+     */
+    public boolean isAnyRequiredFieldMissing() {
+        return Utils.isAnyNull(name, phone, email, address, position);
     }
 
     /**

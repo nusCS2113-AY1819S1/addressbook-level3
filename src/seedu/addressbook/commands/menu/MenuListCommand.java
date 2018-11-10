@@ -9,7 +9,7 @@ import seedu.addressbook.commands.CommandResult;
 import seedu.addressbook.data.menu.ReadOnlyMenus;
 
 /**
- * Lists all food items in the address book to the user.
+ * Lists all food items in the Rms to the user.
  */
 public class MenuListCommand extends Command {
 
