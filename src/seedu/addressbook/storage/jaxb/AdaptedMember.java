@@ -74,7 +74,7 @@ public class AdaptedMember {
     /**
      * Converts a given Person into this class for JAXB use.
      *
-     * @param source future changes to this will not affect the created AdaptedPerson
+     * @param source future changes to this will not affect the created AdaptedMember
      */
     public AdaptedMember(ReadOnlyMember source) {
         name = source.getName().fullName;
