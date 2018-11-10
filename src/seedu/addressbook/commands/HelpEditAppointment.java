@@ -18,8 +18,8 @@ public class HelpEditAppointment extends Command{
             + "\n" + ListAppointment.MESSAGE_USAGE + "\n"
             + "\n" + AddAppointment.MESSAGE_USAGE + "\n"
             + "\n" + DeleteAppointment.MESSAGE_USAGE + "\n"
-            + "\n" + HelpEditAppointment.MESSAGE_USAGE + "\n"
-            + "\n" + ExitEditAppointment.MESSAGE_USAGE;
+            + "\n" + ExitEditAppointment.MESSAGE_USAGE + "\n"
+            + "\n" + HelpEditAppointment.MESSAGE_USAGE ;
 
     @Override
     public CommandResult execute() {
