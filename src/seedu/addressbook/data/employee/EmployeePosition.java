@@ -20,6 +20,13 @@ public class EmployeePosition {
     public final String value;
 
     /**
+     * Empty constructor
+     */
+    public EmployeePosition() {
+        this.value = new String();
+    }
+
+    /**
      * Validates given name.
      *
      * @throws IllegalValueException if given name string is invalid.
