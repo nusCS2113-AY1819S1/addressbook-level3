@@ -33,7 +33,7 @@ public class ChangePasswordCommand extends Command {
             return new CommandResult(MESSAGE_DIFF_PASSWORD + "abc" + current + "abc" + next + "abc" + confirm + "abc");
         }else if(WorkWithLoginStorage.compareCredentials(username, current)){
             Credentials credentials = new Credentials(username, next, accesslevel);
-            WorkWithLoginStorage.editLogin(credentials);
+            credentials.changePassword();
             if(credentials.validateCredentials()){
                 return new CommandResult(MESSAGE_SUCCESS);
             }else{
