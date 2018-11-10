@@ -1,6 +1,7 @@
 package seedu.addressbook.data;
 
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 import seedu.addressbook.data.employee.Attendance;
@@ -26,9 +27,6 @@ import seedu.addressbook.data.order.ReadOnlyOrder;
 import seedu.addressbook.data.order.UniqueOrderList;
 import seedu.addressbook.data.order.UniqueOrderList.DuplicateOrderException;
 import seedu.addressbook.data.order.UniqueOrderList.OrderNotFoundException;
-import seedu.addressbook.data.person.Person;
-import seedu.addressbook.data.person.ReadOnlyPerson;
-import seedu.addressbook.data.person.UniquePersonList;
 
 /**
  * Represents the entire address book. Contains the data of the address book.
@@ -37,7 +35,6 @@ public class Rms {
 
     private static Set<Type> typeSet = new HashSet<>();
 
-    private final UniquePersonList allPersons;
     private final UniqueEmployeeList allEmployees;
     private final UniqueMemberList allMembers;
     private final UniqueMenuList allFoodItems;
@@ -50,7 +47,6 @@ public class Rms {
      * Creates an empty address book.
      */
     public Rms() {
-        allPersons = new UniquePersonList();
         allEmployees = new UniqueEmployeeList();
         allMembers = new UniqueMemberList();
         allFoodItems = new UniqueMenuList();
@@ -60,16 +56,12 @@ public class Rms {
 
     /**
      * Constructs an address book with the given data.
-     *
-     * @param persons external changes to this will not affect this address book
      */
-    public Rms(UniquePersonList persons,
-               UniqueMenuList menus,
+    public Rms(UniqueMenuList menus,
                UniqueEmployeeList employees,
                UniqueOrderList orders,
                UniqueMemberList members,
                UniqueAttendanceList attendances) {
-        this.allPersons = new UniquePersonList(persons);
         this.allEmployees = new UniqueEmployeeList(employees);
         this.allMembers = new UniqueMemberList(members);
         this.allFoodItems = new UniqueMenuList(menus);
@@ -79,15 +71,6 @@ public class Rms {
 
     public static Rms empty() {
         return new Rms();
-    }
-
-    /**
-     * Adds a person to the address book.
-     *
-     * @throws Exception if an equivalent person already exists.
-     */
-    public void addPerson(Person toAdd) throws Exception {
-        allPersons.add(toAdd);
     }
 
     /**
@@ -156,25 +139,10 @@ public class Rms {
     }
 
     /**
-     * Checks if an equivalent person exists in the address book.
-     */
-    public boolean containsPerson(ReadOnlyPerson key) {
-        return allPersons.contains(key);
-    }
-
-    /**
      * Checks if an equivalent menu item exists in the address book.
      */
     public boolean containsMenus(ReadOnlyMenus key) {
         return allFoodItems.contains(key);
-    }
-
-
-    /**
-     * Checks if an equivalent order exists in the order list.
-     */
-    public boolean containsOrder(ReadOnlyOrder key) {
-        return allOrders.contains(key);
     }
 
     /**
@@ -184,22 +152,11 @@ public class Rms {
         return allMembers.contains(key);
     }
 
-
     /**
      * Checks if an equivalent employee exists in the Rms.
      */
     public boolean containsEmployee(ReadOnlyEmployee key) {
         return allEmployees.containsDuplicate(key);
-    }
-
-
-    /**
-     * Removes the equivalent person from the address book.
-     *
-     * @throws Exception if no such Person could be found.
-     */
-    public void removePerson(ReadOnlyPerson toRemove) throws Exception {
-        allPersons.remove(toRemove);
     }
 
     /**
@@ -255,13 +212,6 @@ public class Rms {
     }
 
     /**
-     * Clears all persons from the address book.
-     */
-    public void clear() {
-        allPersons.clear();
-    }
-
-    /**
      * Clears all members from the address book.
      */
     public void clearMembers() {
@@ -287,13 +237,6 @@ public class Rms {
      */
     public void clearOrderList() {
         allOrders.clear();
-    }
-
-    /**
-     * Defensively copied UniquePersonList of all persons in the address book at the time of the call.
-     */
-    public UniquePersonList getAllPersons() {
-        return new UniquePersonList(allPersons);
     }
 
     /**
@@ -375,12 +318,16 @@ public class Rms {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof Rms // instanceof handles nulls
-                && this.allPersons.equals(((Rms) other).allPersons));
+                && this.allAttendance.equals(((Rms) other).allAttendance)
+                && this.allEmployees.equals(((Rms) other).allEmployees)
+                && this.allFoodItems.equals(((Rms) other).allFoodItems)
+                && this.allMembers.equals(((Rms) other).allMembers)
+                && this.allOrders.equals(((Rms) other).allOrders));
     }
 
     @Override
     public int hashCode() {
-        return allPersons.hashCode();
+        return Objects.hash(allAttendance, allEmployees, allFoodItems, allMembers, allOrders);
     }
 }
 
