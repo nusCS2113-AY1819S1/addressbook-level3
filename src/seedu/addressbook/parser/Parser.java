@@ -105,6 +105,9 @@ public class Parser {
                 case LinkCommand.COMMAND_WORD:
                     return prepareLink(arguments);
 
+                case UnLinkCommand.COMMAND_WORD:
+                    return prepareUnLink(arguments);
+
                 case AssociateListCommand.COMMAND_WORD:
                     return prepareAssociateList(arguments);
 
@@ -324,6 +327,22 @@ public class Parser {
             final int targetIndex = Integer.parseInt(matcher.group("targetIndex"));
             final int targetIndex2 = Integer.parseInt(matcher.group("targetIndex2"));
             return new LinkCommand(targetIndex, targetIndex2);
+        } catch (NumberFormatException e) {
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    LinkCommand.MESSAGE_USAGE));
+        }
+    }
+
+    private Command prepareUnLink(String args) {
+        final Matcher matcher = PERSON_INDEX_ARGS_FORMAT2.matcher(args.trim());
+        if (!matcher.matches()) {
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    UnLinkCommand.MESSAGE_USAGE));
+        }
+        try {
+            final int targetIndex = Integer.parseInt(matcher.group("targetIndex"));
+            final int targetIndex2 = Integer.parseInt(matcher.group("targetIndex2"));
+            return new UnLinkCommand(targetIndex, targetIndex2);
         } catch (NumberFormatException e) {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     LinkCommand.MESSAGE_USAGE));

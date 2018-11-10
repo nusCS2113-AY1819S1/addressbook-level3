@@ -118,7 +118,7 @@ public class AddressBook {
         targetObject2.addAnAssociate(target);
     }
 
-    public void unlinkTwoPerson(ReadOnlyPerson target, ReadOnlyPerson target2) throws Exception{
+    public void unlinkTwoPerson(ReadOnlyPerson target, ReadOnlyPerson target2) throws Associated.NoAssociationException, Associated.SameTitleException{
         Person targetObject = target.getPerson();
         Person targetObject2 = target2.getPerson();
         targetObject.removeAnAssociate(target2);
