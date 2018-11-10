@@ -23,7 +23,7 @@ public class HelpCommand extends Command {
             + "\n" + UndoCommand.MESSAGE_USAGE + "\n"
             + "\n" + RedoCommand.MESSAGE_USAGE + "\n"
             + "\n" + EditAppointmentCommand.MESSAGE_USAGE + "\n"
-            + "\n" + ChatCommand.MESSAGE_USAGE;
+            + "\n" + SortCommand.MESSAGE_USAGE;
 
     @Override
     public CommandResult execute() {
