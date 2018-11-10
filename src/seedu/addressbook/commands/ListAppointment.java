@@ -3,12 +3,10 @@ package seedu.addressbook.commands;
 import seedu.addressbook.data.person.ReadOnlyPerson;
 import seedu.addressbook.data.person.Schedule;
 
-import java.util.List;
 import java.util.Set;
 
-
 /**
- * Lists all appointment of the person selected in the address book to the user.
+ * Lists all appointments of the selected person to the user.
  */
 public class ListAppointment extends Command {
 
@@ -26,8 +24,6 @@ public class ListAppointment extends Command {
         final ReadOnlyPerson target = getTargetPerson();
         Set<Schedule> appointments = target.getSchedules();
         return new CommandResult(getMessageForAppointmentMadeByPerson(appointments, target.getName()), appointments);
-        //List<ReadOnlyPerson> allPersons = addressBook.getAllPersons().immutableListView();
-        //return new CommandResult(getMessageForPersonListShownSummary(allPersons), allPersons);
     }
 
 }

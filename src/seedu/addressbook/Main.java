@@ -27,7 +27,7 @@ public class Main extends Application implements Stoppable{
 
     /** Version info of the program. */
 
-    public static final String VERSION = "MediBook - Version 1.3";
+    public static final String VERSION = "MediBook - Version 1.4";
     private static Gui gui;
     public static Stage window;
 
