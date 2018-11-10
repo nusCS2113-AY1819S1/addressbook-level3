@@ -453,7 +453,7 @@ public class Parser {
     }
 
     /**
-     *      * Extracts the new person's tags from the add command's tag arguments string.
+     *      * Extracts the new menu's tags from the add command's tag arguments string.
      *      * Merges duplicate tag strings.
      */
     private static Set<String> getTagsFromArgs(String tagArguments) throws IllegalValueException {

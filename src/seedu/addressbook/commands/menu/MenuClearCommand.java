@@ -4,7 +4,7 @@ import seedu.addressbook.commands.Command;
 import seedu.addressbook.commands.CommandResult;
 
 /**
- * Clears the address book.
+ * Clears the menu list.
  */
 public class MenuClearCommand extends Command {
 

@@ -7,7 +7,6 @@ import seedu.addressbook.data.employee.ReadOnlyEmployee;
 import seedu.addressbook.data.member.ReadOnlyMember;
 import seedu.addressbook.data.menu.ReadOnlyMenus;
 import seedu.addressbook.data.order.ReadOnlyOrder;
-import seedu.addressbook.data.person.ReadOnlyPerson;
 
 
 /**
@@ -37,15 +36,6 @@ public class Formatter {
             sb.append(LINE_PREFIX + m.replace("\n", LS + LINE_PREFIX) + LS);
         }
         return sb.toString();
-    }
-
-    /** Formats the given list of persons for displaying to the user. */
-    public String format(List<? extends ReadOnlyPerson> persons) {
-        final List<String> formattedPersons = new ArrayList<>();
-        for (ReadOnlyPerson person : persons) {
-            formattedPersons.add(person.getAsTextHidePrivate());
-        }
-        return format(asIndexedList(formattedPersons));
     }
 
     /** Formats the given list of menus for displaying to the user. */

@@ -11,7 +11,7 @@ import seedu.addressbook.commands.CommandResult;
 import seedu.addressbook.data.menu.ReadOnlyMenus;
 
 /**
- * Finds and lists all persons in address book whose name contains any of the argument keywords.
+ * Finds and lists all menu items which name contains any of the argument keywords.
  * Keyword matching is case sensitive.
  */
 public class MenuFindCommand extends Command {
@@ -43,10 +43,10 @@ public class MenuFindCommand extends Command {
     }
 
     /**
-     * Retrieve all persons in the address book whose names contain some of the specified keywords.
+     * Retrieve all menu items in the Rms which names contain some of the specified keywords.
      *
      * @param keywords for searching
-     * @return list of persons found
+     * @return list of menu items found
      */
     private List<ReadOnlyMenus> getMenuItemsWithNameContainingAnyKeyword(Set<String> keywords) {
         final List<ReadOnlyMenus> matchedMenuItems = new ArrayList<>();

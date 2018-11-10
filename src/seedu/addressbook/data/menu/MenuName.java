@@ -6,7 +6,7 @@ import java.util.List;
 import seedu.addressbook.data.exception.IllegalValueException;
 
 /**
- * Represents a Person's name in the address book.
+ * Represents a Menu's name in the Menu list.
  * Guarantees: immutable; is valid as declared in {@link #isValidName(String)}
  */
 public class MenuName {

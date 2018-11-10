@@ -6,13 +6,13 @@ import java.util.List;
 import seedu.addressbook.data.exception.IllegalValueException;
 
 /**
- * Represents a Person's name in the address book.
+ * Represents a Person's name in the Rms.
  * Guarantees: immutable; is valid as declared in {@link #isValidName(String)}
  */
 public class Name {
 
     public static final String EXAMPLE = "John Doe";
-    public static final String MESSAGE_NAME_CONSTRAINTS = "Person names should be spaces or alphanumeric characters";
+    public static final String MESSAGE_NAME_CONSTRAINTS = "Names should be spaces or alphanumeric characters";
     public static final String NAME_VALIDATION_REGEX = "[\\p{Alnum} ]+";
 
     public final String fullName;

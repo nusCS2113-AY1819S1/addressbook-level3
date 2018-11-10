@@ -22,7 +22,7 @@ import seedu.addressbook.storage.jaxb.AdaptedRms;
 
 
 /**
- * Represents the file used to store address book data.
+ * Represents the file used to store Rms data.
  */
 public class StorageFile {
 
@@ -108,7 +108,7 @@ public class StorageFile {
         } catch (IOException ioe) {
             throw new StorageOperationException("Error writing to file: " + path + " error: " + ioe.getMessage());
         } catch (JAXBException jaxbe) {
-            throw new StorageOperationException("Error converting address book into storage format");
+            throw new StorageOperationException("Error converting Rms into storage format");
         }
     }
 
