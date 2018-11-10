@@ -15,7 +15,7 @@ import seedu.addressbook.data.menu.UniqueMenuList;
 import seedu.addressbook.data.tag.Tag;
 
 /**
- * Adds a menu item to the address book.
+ * Adds a menu item to the Rms.
  */
 public class MenuAddCommand extends Command {
 

@@ -126,7 +126,7 @@ public class Member implements ReadOnlyMember {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name);
+        return Objects.hash(name, email);
     }
 
     @Override

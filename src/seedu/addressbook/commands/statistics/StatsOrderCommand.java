@@ -13,7 +13,7 @@ import seedu.addressbook.data.statistics.AsciiTable;
 import seedu.addressbook.data.statistics.OrderDateTable;
 
 /**
- * Lists all food items in the address book to the user.
+ * Lists all order statistics in the Rms to the user.
  */
 public class StatsOrderCommand extends Command {
 

@@ -11,7 +11,7 @@ import seedu.addressbook.data.menu.ReadOnlyMenus;
 import seedu.addressbook.data.menu.Type;
 
 /**
- * Lists all food items in the address book to the user.
+ * Lists all food items of a certain type in the menu list to the user.
  */
 public class MenuListByTypeCommand extends Command {
 

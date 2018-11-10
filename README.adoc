@@ -32,7 +32,7 @@ image::Ui.png[]
 == Acknowledgements
 
 * Restaurant Management System was developed based on the souce code of an
-https://github.com/se-edu/addressbook-level4[Address Book] created by
+https://github.com/se-edu/addressbook-level3[Address Book] created by
 SE-EDU initiative.
 * Some parts of this sample application was inspired by the excellent
 http://code.makery.ch/library/javafx-8-tutorial/[Java FX tutorial] by Marco Jakob
