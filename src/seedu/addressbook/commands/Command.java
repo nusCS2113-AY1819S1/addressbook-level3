@@ -41,6 +41,10 @@ public abstract class Command {
         this.setTargetIndex(targetIndex);
     }
 
+    /**
+     * @param targetIndex last visible listing index of the target person
+     * @param targetIndex2 last visible listing index of second target person
+     */
     public Command(int targetIndex, int targetIndex2) {
         this.setTargetIndex(targetIndex);
         this.setTargetIndex2(targetIndex2);
@@ -129,6 +133,11 @@ public abstract class Command {
         this.targetIndex2 = targetIndex2;
     }
 
+    /**
+     * Saves fullCommand into commandHistory
+     *
+     * @param fullCommand is the command word and the arguments that will be shown when 'history' command is called
+     */
     public void saveHistory(String fullCommand) {
         commandHistory.addHistory(fullCommand);
     }
