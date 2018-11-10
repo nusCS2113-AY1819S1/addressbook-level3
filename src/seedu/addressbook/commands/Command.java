@@ -10,7 +10,6 @@ import seedu.addressbook.data.employee.ReadOnlyEmployee;
 import seedu.addressbook.data.member.ReadOnlyMember;
 import seedu.addressbook.data.menu.ReadOnlyMenus;
 import seedu.addressbook.data.order.ReadOnlyOrder;
-import seedu.addressbook.data.person.ReadOnlyPerson;
 
 /**
  * Represents an executable command.
