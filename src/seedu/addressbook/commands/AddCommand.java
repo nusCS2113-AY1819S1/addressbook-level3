@@ -23,6 +23,7 @@ public class AddCommand extends UndoAbleCommand {
             + " John Doe n/S1239875U p/98765432 e/johnd@gmail.com a/311, Clementi Ave 2, #02-25 s/Patient d/01-01-2019 t/hasDiabetesType2 t/onInsulinTherapy";
 
     public static final String MESSAGE_SUCCESS = "New person added: %1$s";
+
     public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the address book";
 
     private final Person toAdd;

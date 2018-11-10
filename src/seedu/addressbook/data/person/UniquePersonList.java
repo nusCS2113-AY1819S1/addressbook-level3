@@ -75,9 +75,7 @@ public class UniquePersonList implements Iterable<Person> {
     }
 
     /**
-     * Modifiable java List view with elements cast as immutable {@link ReadOnlyPerson}s.
-     * For use with other methods/libraries.
-     * Any changes to the internal list/elements are immediately visible in the returned list.
+     * Modifiable java List view with elements cast as mutable {@link ReadOnlyPerson}s.
      */
     public List<ReadOnlyPerson> mutableListView() {
         return new ArrayList<>(internalList);
@@ -106,17 +104,12 @@ public class UniquePersonList implements Iterable<Person> {
      * Replace the equivalent person from the list.
      *
      * @throws PersonNotFoundException if no such person could be found in the list.
-     * @throws DuplicatePersonException if there is no change made tp the schedule in the list.
      */
-    public void edit(ReadOnlyPerson toRemove, Person toAdd) throws PersonNotFoundException{//, DuplicatePersonException {
+    public void edit(ReadOnlyPerson toRemove, Person toAdd) throws PersonNotFoundException{
         int index = internalList.indexOf(toRemove);
-        //final boolean personFoundAndDeleted = internalList.remove(toRemove);
-        //if (!internalList.contains(toRemove)) {
         if (index == -1) {
             throw new PersonNotFoundException();
-        }//else if (contains(toAdd)) { //OR NO CHANGES
-         //   throw new DuplicatePersonException();
-        //}
+        }
         internalList.set(index, toAdd);
     }
 

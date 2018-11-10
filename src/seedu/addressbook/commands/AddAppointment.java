@@ -1,6 +1,5 @@
 package seedu.addressbook.commands;
 
-import seedu.addressbook.data.exception.DuplicateDataException;
 import seedu.addressbook.data.exception.IllegalValueException;
 import seedu.addressbook.common.Messages;
 import seedu.addressbook.data.person.Person;
@@ -23,28 +22,19 @@ public class AddAppointment extends Command{
             + "Example 1: " + COMMAND_WORD + " 01-01-2019\n\t"
             + "Example 2: " + COMMAND_WORD + " 01-01-2019" + " 01-02-2019" + " 01-03-2019";
 
-    public static final String MESSAGE_EDIT_PERSON_APPOINTMENT = "%1$s has new appointment date(s)";
+    private static final String MESSAGE_NO_CHANGE_MADE = "No changes made to the %1$s's set of appointment(s) "
+            + "as appointment date(s) on %2$s are already recorded";
 
-    //public static final String MESSAGE_SUCCESS = "New person added: %1$s";
+    private static final String MESSAGE_ADDED_PERSON_APPOINTMENT = "%1$s has new appointment date(s)\n";
 
-    //public static final String MESSAGE_DUPLICATE_SCHEDULE = "This person already exists in the address book";
+    private static final String MESSAGE_FOR_ADDED_APPOINTMENTS = "\nAdded appointments on: %1$s\n";
 
-   // private final Person toAdd;
+    private static final String MESSAGE_FOR_DUPLICATE_APPOINTMENTS = "Appointments that already exist: %1$s";
+
     private final Set<Schedule> scheduleSetToAdd;
-    private final String inputForHistory;
-        //private final Set<Schedule> scheduleSetThatExist;
-        //private Set<Schedule> finalScheduleSet;
-    //private Set<Schedule> addedScheduleSet;
-    //private Set<Schedule> duplicateScheduleSet;
 
-    /**
-     * Signals that an operation would have violated the 'no duplicates' property of the list.
-     */
-    /*public static class OnlyDuplicateScheduleException extends DuplicateDataException {
-        protected OnlyDuplicateScheduleException() {
-            super("Operation does not make changes to the set of appointments");
-        }
-    }*/
+    private final String inputForHistory;
+
 
     /**
      * Convenience constructor using raw values.
@@ -60,85 +50,70 @@ public class AddAppointment extends Command{
         this.scheduleSetToAdd = scheduleSet;
 
         inputForHistory = String.join(" ", schedule);
-
     }
-
-    //public ReadOnlyPerson getPerson() {
-    //    return toAdd;
-    //}
 
     @Override
     public CommandResult execute() {
-        //return new CommandResult("command under construct, tbc ");
         try {
             saveHistory("(edit-appointment " + checkEditingPersonIndex() + ") " + COMMAND_WORD + " " + inputForHistory);
             this.setTargetIndex(checkEditingPersonIndex());
             final ReadOnlyPerson target = getTargetPerson();
+            Set<Schedule> scheduleSet = target.getSchedules();
 
-            Set<Schedule> finalScheduleSet = target.getSchedules();
-            boolean hasChanges = finalScheduleSet.addAll(scheduleSetToAdd); //latest set of schedules
+            String detailsMessage = getDetailedMessage(scheduleSet, target.getName().toString());
+            boolean hasChanges = scheduleSet.addAll(scheduleSetToAdd);
 
             if (!hasChanges) { //check for changes
-                return new CommandResult("Operation does not make changes to the set of appointment(s) "
-                        + "as the appointment date(s) are already recorded");
+                return new CommandResult(String.format(MESSAGE_NO_CHANGE_MADE, target.getName(), inputForHistory));
             }
 
-            /*Set<Schedule> addedScheduleSet = new Set<Schedule>;
-            Set<Schedule> duplicateScheduleSet = new Set<Schedule>;
-            for(Schedule scheduleAdd : scheduleSetToAdd) {
-                if(scheduleSetThatExist.contains(scheduleAdd)){
-                    duplicateScheduleSet.add(scheduleAdd);
-                }else{
-                    addedScheduleSet.add(scheduleAdd);
-                }
-            }
-            */
-            Person updatedSchedulePerson = new Person(target);
-            updatedSchedulePerson.setSchedule(finalScheduleSet);
-            addressBook.editPerson(target, updatedSchedulePerson);
+            Person updatedPerson = new Person(target);
+            updatedPerson.setSchedule(scheduleSet);
+            addressBook.editPerson(target, updatedPerson);
 
-            //ReadOnlyPerson help = new Person(updatedSchedulePerson);
-
-            //List<ReadOnlyPerson> editPersonsList = getPersonList();
-            //editPersonList.set(checkEditingPersonIndex() - DISPLAYED_INDEX_OFFSET, (ReadOnlyPerson) updatedSchedulePerson);
             List<ReadOnlyPerson> editablePersonList = this.getEditableLastShownList();
-            editablePersonList.set(checkEditingPersonIndex() - DISPLAYED_INDEX_OFFSET, updatedSchedulePerson);
-            //List<ReadOnlyPerson> editedReadOnlyPersonList = editablePersonList;
-
-            /*
-            int index = editablePersonList.indexOf(updatedSchedulePerson);
-            if (index == -1) {
-                throw new UniquePersonList.PersonNotFoundException();
-            }
-            editablePersonList.set(index, updatedSchedulePerson);
-            */
-            //editablePersonList.remove(checkEditingPersonIndex() - DISPLAYED_INDEX_OFFSET);//, updatedReadOnlyPerson);
-
-            return new CommandResult(String.format(MESSAGE_EDIT_PERSON_APPOINTMENT, target.getName()), editablePersonList, editablePersonList, false);//, scheduleSetToAdd); //editablePersonList);//, true);
-
-            //return new CommandResult(String.format("Successful schedule size of %1$d parser edit!", scheduleSetToAdd.size()));
+            editablePersonList.set(checkEditingPersonIndex() - DISPLAYED_INDEX_OFFSET, updatedPerson);
+            return new CommandResult(detailsMessage, editablePersonList, editablePersonList, false);
 
         } catch (IndexOutOfBoundsException ie) {
             return new CommandResult(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
         } catch (UniquePersonList.PersonNotFoundException pnfe) {
             return new CommandResult(Messages.MESSAGE_PERSON_NOT_IN_ADDRESSBOOK);
         } catch (NullPointerException nu) {
-            return new CommandResult("Null pointer: Error in executing result.");
+            return new CommandResult("Null pointer: Error in executing result. Report to developers.");
         }catch (UnsupportedOperationException nu) {
-            return new CommandResult("Unsupported Operation: Error executing result.");
+            return new CommandResult("Unsupported Operation: Error executing result. Report to developers.");
         }catch (ClassCastException nu) {
-            return new CommandResult("Class Cast: Error executing result.");
-        }//catch (IllegalValueException nu) {
-         //   return new CommandResult("error executing result");
-        //}
-        // catch (UniquePersonList.DuplicatePersonException dpe) {
-        //    return new CommandResult("Operation also does not make changes to the set of appointments");
-        //}
-        //catch (UniquePersonList.PersonNotFoundException pnfe) {
-        // return new CommandResult(Messages.MESSAGE_PERSON_NOT_IN_ADDRESSBOOK);
-        //}
+            return new CommandResult("Class Cast: Error executing result. Report to developers.");
+        }
+    }
 
+    /**
+     * Constructs a feedback message that details the effects of the input appointment dates.
+     *
+     * @param initialScheduleSet the original schedule of the user
+     * @param name the name tobe printed in the message
+     * @return a message that shows which appointments are added
+     * and which appointments are not (as they are duplicated) for the person
+     */
+    private String getDetailedMessage(Set<Schedule> initialScheduleSet, String name){
+        StringBuilder addedAppointments = new StringBuilder();
+        StringBuilder duplicateAppointments = new StringBuilder();
+
+        for(Schedule scheduleAdd : scheduleSetToAdd) {
+            if(initialScheduleSet.contains(scheduleAdd)){
+                duplicateAppointments.append(scheduleAdd.toString());
+                duplicateAppointments.append(" ");
+            }else{
+                addedAppointments.append(scheduleAdd.toString());
+                addedAppointments.append(" ");
+            }
+        }
+        String detailsMessage = String.format(MESSAGE_ADDED_PERSON_APPOINTMENT, name);
+        detailsMessage +=  String.format(MESSAGE_FOR_ADDED_APPOINTMENTS, addedAppointments);
+        if (duplicateAppointments.length() > 0) detailsMessage += String.format(MESSAGE_FOR_DUPLICATE_APPOINTMENTS, duplicateAppointments);
+
+        return detailsMessage;
     }
 
 }
-
