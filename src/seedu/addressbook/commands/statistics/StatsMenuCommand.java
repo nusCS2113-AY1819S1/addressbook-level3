@@ -19,7 +19,7 @@ import seedu.addressbook.data.statistics.AsciiTable;
 import seedu.addressbook.data.statistics.QuantityRevenuePair;
 
 /**
- * Lists all food items in the address book to the user.
+ * Lists all menu statistics in the Rms to the user.
  */
 public class StatsMenuCommand extends Command {
 

@@ -20,7 +20,7 @@ import seedu.addressbook.data.order.Order;
 import seedu.addressbook.data.order.UniqueOrderList;
 
 /**
- * JAXB-friendly adapted address book data holder class.
+ * JAXB-friendly adapted Rms data holder class.
  */
 @XmlRootElement(name = "Rms")
 public class AdaptedRms {

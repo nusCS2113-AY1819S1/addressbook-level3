@@ -85,7 +85,6 @@ public class LogicTest {
         //Constructor is called in the setup() method which executes before every test, no need to call it here again.
 
         //Confirm the last shown list is empty
-        assertEquals(Collections.emptyList(), logic.getLastShownList());
         assertEquals(Collections.emptyList(), logic.getLastShownMenuList());
         assertEquals(Collections.emptyList(), logic.getLastShownEmployeeList());
         assertEquals(Collections.emptyList(), logic.getLastShownAttendanceList());
@@ -102,7 +101,7 @@ public class LogicTest {
 
     /**
      * Executes the command and confirms that the result message is correct.
-     * Both the 'address book' and the 'last shown list' are expected to be empty.
+     * Both the 'Rms' and the 'last shown list' are expected to be empty.
      * @see #assertCommandBehavior(String, String, Rms)
      */
     private void assertCommandBehavior(String inputCommand, String expectedMessage) throws Exception {
@@ -112,7 +111,7 @@ public class LogicTest {
     /**
      * Executes the command and confirms that the result message is correct and
      * also confirms that the following three parts of the Logic object's state are as expected:<br>
-     *      - the internal address book data are same as those in the {@code expectedRms} <br>
+     *      - the internal Rms data are same as those in the {@code expectedRms} <br>
      *      - the internal 'last shown list' matches the {@code expectedLastList} <br>
      *      - the storage file content matches data in {@code expectedRms} <br>
      */
@@ -216,7 +215,7 @@ public class LogicTest {
     /**
      * Executes the command and confirms that the result message is correct and
      * also confirms that the following three parts of the Logic object's state are as expected:<br>
-     *      - the internal address book data are same as those in the {@code expectedRms} <br>
+     *      - the internal Rms data are same as those in the {@code expectedRms} <br>
      *      - the internal 'last shown list' matches the {@code expectedLastList} <br>
      *      - the storage file content matches data in {@code expectedRms} <br>
      */
@@ -302,7 +301,7 @@ public class LogicTest {
 
     /**
      * Executes the menu command and confirms that the result message is correct.
-     * Both the 'address book' and the 'last shown menu list' are expected to be empty.
+     * Both the 'Rms' and the 'last shown menu list' are expected to be empty.
      * @see #assertMenuCommandBehavior(String, String, Rms, boolean, List)
      */
     private void assertMenuCommandBehavior(String inputCommand, String expectedMessage) throws Exception {
@@ -312,7 +311,7 @@ public class LogicTest {
     /**
      * Executes the menu command and confirms that the result message is correct and
      * also confirms that the following three parts of the Logic object's state are as expected:<br>
-     *      - the internal address book data are same as those in the {@code expectedRms} <br>
+     *      - the internal Rms data are same as those in the {@code expectedRms} <br>
      *      - the internal 'last shown menu list' matches the {@code expectedLastList} <br>
      *      - the storage file content matches data in {@code expectedRms} <br>
      */
@@ -494,7 +493,7 @@ public class LogicTest {
         Rms expectedRms = helper.generateRmsEmployees(lastShownList);
         List<? extends ReadOnlyEmployee> expectedList = expectedRms.getAllEmployees().immutableListView();
 
-        // prepare address book state
+        // prepare Rms state
         helper.addEmployeesToRms(rms, lastShownList);
 
         assertEmployeeCommandBehavior("listemp",
@@ -880,7 +879,7 @@ public class LogicTest {
         Rms expectedRms = helper.generateRmsMember(lastShownList);
         List<? extends ReadOnlyMember> expectedList = expectedRms.getAllMembers().immutableListView();
 
-        // prepare address book state
+        // prepare Rms state
         helper.addMembersToRms(rms, lastShownList);
 
         assertMemberCommandBehavior("listmembers",
@@ -1032,7 +1031,7 @@ public class LogicTest {
         Rms expectedRms = new Rms();
         List<? extends ReadOnlyMenus> expectedMenuList = expectedRms.getAllMenus().immutableListView();
 
-        // prepare address book state
+        // prepare Rms state
         //helper.addToRMS(rms, expectedMenuList);
 
         assertMenuCommandBehavior("listmenu",
@@ -1278,7 +1277,7 @@ public class LogicTest {
         Rms expectedRms = helper.generateRmsOrder(1, 2, 3, 4);
         List<? extends ReadOnlyOrder> expectedList = expectedRms.getAllOrders().immutableListView();
 
-        // prepare address book state
+        // prepare Rms state
         helper.addOrdersToRms(rms, 1, 2, 3, 4);
 
         assertOrderCommandBehavior("listorder",

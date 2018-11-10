@@ -29,7 +29,7 @@ import seedu.addressbook.data.order.UniqueOrderList.DuplicateOrderException;
 import seedu.addressbook.data.order.UniqueOrderList.OrderNotFoundException;
 
 /**
- * Represents the entire address book. Contains the data of the address book.
+ * Represents the entire Rms. Contains the data of the Rms.
  */
 public class Rms {
 
@@ -44,7 +44,7 @@ public class Rms {
     private Order draftOrder = new Order();
 
     /**
-     * Creates an empty address book.
+     * Creates an empty Rms.
      */
     public Rms() {
         allEmployees = new UniqueEmployeeList();
@@ -55,7 +55,7 @@ public class Rms {
     }
 
     /**
-     * Constructs an address book with the given data.
+     * Constructs an Rms with the given data.
      */
     public Rms(UniqueMenuList menus,
                UniqueEmployeeList employees,
@@ -111,7 +111,7 @@ public class Rms {
         allAttendance.setAttendance(oldAttendance, newAttendance); }
 
     /**
-     * Adds a member to the address book.
+     * Adds a member to the Member list.
      *
      * @throws DuplicateMemberException if an equivalent member already exists.
      */
@@ -132,21 +132,21 @@ public class Rms {
     /**
      * Adds an order to the order list.
      *
-     * @throws DuplicateOrderException if an equivalent person already exists.
+     * @throws DuplicateOrderException if an equivalent order already exists.
      */
     public void addOrder(Order toAdd) throws DuplicateOrderException {
         allOrders.add(toAdd);
     }
 
     /**
-     * Checks if an equivalent menu item exists in the address book.
+     * Checks if an equivalent menu item exists in the menu list.
      */
     public boolean containsMenus(ReadOnlyMenus key) {
         return allFoodItems.contains(key);
     }
 
     /**
-     * Checks if an equivalent member exists in the address book.
+     * Checks if an equivalent member exists in the member list.
      */
     public boolean containsMember(ReadOnlyMember key) {
         return allMembers.contains(key);
@@ -178,7 +178,7 @@ public class Rms {
     }
 
     /**
-     * Removes the equivalent member from the address book.
+     * Removes the equivalent member from the member list.
      *
      * @throws MemberNotFoundException if no such Member could be found.
      */
@@ -212,7 +212,7 @@ public class Rms {
     }
 
     /**
-     * Clears all members from the address book.
+     * Clears all members from the member list.
      */
     public void clearMembers() {
         allMembers.clear();

@@ -32,7 +32,7 @@ public class CommandResult {
     /** The list of orders that was produced by the order command */
     private final List<? extends ReadOnlyOrder> relevantOrders;
 
-    /** Old AB3 command result constructor for result which do not return person list*/
+    /** Constructor for result which do not return any list*/
     public CommandResult(String feedbackToUser) {
         this.feedbackToUser = feedbackToUser;
         relevantMenus = null;

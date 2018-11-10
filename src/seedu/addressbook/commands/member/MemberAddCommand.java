@@ -11,20 +11,20 @@ import seedu.addressbook.data.member.UniqueMemberList;
 
 
 /**
- * Adds a person to the address book.
+ * Adds a member to the member list.
  */
 public class MemberAddCommand extends Command {
 
     public static final String COMMAND_WORD = "addmember";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ":\n" + "Adds a member to the address book. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ":\n" + "Adds a member to the Member list. "
             + "Contact details can be marked private by prepending 'p' to the prefix.\n\t"
             + "Parameters: NAME e/EMAIL \n\t"
             + "Example: " + COMMAND_WORD
             + " John Doe e/Example123@gmail.com";
 
     public static final String MESSAGE_SUCCESS = "New member added: %1$s";
-    public static final String MESSAGE_DUPLICATE_MEMBER = "This member already exists in the address book";
+    public static final String MESSAGE_DUPLICATE_MEMBER = "This member already exists in the member list";
 
     private final Member toAdd;
 

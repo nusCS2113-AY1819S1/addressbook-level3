@@ -37,7 +37,7 @@ public class Type {
     }
 
     /**
-     * Returns true if a given string is a valid person name.
+     * Returns true if a given string is a valid dish type.
      */
     public static boolean isValidTypeName(String test) {
         return (test.equals("main") == true

@@ -10,7 +10,7 @@ import seedu.addressbook.data.menu.ReadOnlyMenus;
 import seedu.addressbook.data.order.ReadOnlyOrder;
 
 /**
- * Lists all food items in the address book to the user.
+ * Lists recommended food items in the menu list to the user.
  */
 public class MenuRecommendationCommand extends Command {
 

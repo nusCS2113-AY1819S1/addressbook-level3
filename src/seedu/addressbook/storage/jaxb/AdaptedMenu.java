@@ -18,7 +18,7 @@ import seedu.addressbook.data.menu.Type;
 import seedu.addressbook.data.tag.Tag;
 
 /**
- * JAXB-friendly adapted person data holder class.
+ * JAXB-friendly adapted menu data holder class.
  */
 public class AdaptedMenu {
 
@@ -96,9 +96,9 @@ public class AdaptedMenu {
     }
 
     /**
-     * Converts this jaxb-friendly adapted person object into the Menu object.
+     * Converts this jaxb-friendly adapted menu object into the Menu object.
      *
-     * @throws IllegalValueException if there were any data constraints violated in the adapted person
+     * @throws IllegalValueException if there were any data constraints violated in the adapted menu
      */
     public Menu toModelType() throws IllegalValueException {
         final Set<Tag> tags = new HashSet<>();
