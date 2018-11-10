@@ -32,6 +32,8 @@ public class LogicTest {
     private StorageFile saveFile;
     private AddressBook addressBook;
     private Logic logic;
+    private Random rand = new Random();
+
 
     @Before
     public void setup() throws Exception {
@@ -651,7 +653,7 @@ public class LogicTest {
         Person generatePerson(int seed, boolean isAllFieldsPrivate) throws Exception {
             return new Person(
                     new Name("Person " + seed),
-                    new Nric("S1234321Y", isAllFieldsPrivate),
+                    new Nric("S12343" + seed + seed + "Y", isAllFieldsPrivate),
                     new Phone("" + Math.abs(seed), isAllFieldsPrivate),
                     new Email(seed + "@email", isAllFieldsPrivate),
                     new Address("House of " + seed, isAllFieldsPrivate),
@@ -672,7 +674,7 @@ public class LogicTest {
         Person generatePersonWithTitle(int seed, String title) throws Exception {
             return new Person(
                     new Name("Person " + seed),
-                    new Nric("S1234321Y", false),
+                    new Nric("S12343" + seed + seed + "Y", false),
                     new Phone("" + Math.abs(seed), false),
                     new Email(seed + "@email", false),
                     new Address("House of " + seed, false),
@@ -778,7 +780,7 @@ public class LogicTest {
          Person generatePersonWithName(String name) throws Exception {
             return new Person(
                     new Name(name),
-                    new Nric("S9876543P", false),
+                    new Nric("S98765" + (rand.nextInt(89) + 10) + "P", false),
                     new Phone("1", false),
                     new Email("1@email", false),
                     new Address("House of 1", false),
