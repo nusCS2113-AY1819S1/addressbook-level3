@@ -6,8 +6,6 @@ import seedu.addressbook.data.CommandHistory;
 import seedu.addressbook.data.CommandStack;
 import seedu.addressbook.data.person.*;
 
-import java.io.PrintStream;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -21,7 +19,7 @@ public abstract class Command {
     protected CommandHistory commandHistory;
     protected CommandStack commandStack;
     protected List<? extends ReadOnlyPerson> relevantPersons;
-    protected List<ReadOnlyPerson> editableLastShownList;
+    protected List<ReadOnlyPerson> editableRelevantPersons;
     private int targetIndex = -1;
     private int targetIndex2 = -1;
     private static boolean isEditingAppointment = false;
@@ -84,12 +82,12 @@ public abstract class Command {
     /**
      * Supplies the data the command will operate on.
      */
-    public void setData(AddressBook addressBook, List<? extends ReadOnlyPerson> relevantPersons, List<ReadOnlyPerson> editableLastShownList) {
+    public void setData(AddressBook addressBook, List<? extends ReadOnlyPerson> relevantPersons, List<ReadOnlyPerson> editableRelevantPersons) {
         this.addressBook = addressBook;
         this.commandHistory = addressBook.getCommandHistory();
         this.commandStack = addressBook.getCommandStack();
         this.relevantPersons = relevantPersons;
-        this.editableLastShownList = editableLastShownList;
+        this.editableRelevantPersons = editableRelevantPersons;
     }
 
 
@@ -102,12 +100,8 @@ public abstract class Command {
         return relevantPersons.get(getTargetIndex() - DISPLAYED_INDEX_OFFSET);
     }
 
-    protected List<ReadOnlyPerson> getPersonList() {
-        return new ArrayList<>(relevantPersons);
-    }
-
     public List<ReadOnlyPerson> getEditableLastShownList() {
-        return editableLastShownList;
+        return editableRelevantPersons;
     }
 
     public int getTargetIndex() {

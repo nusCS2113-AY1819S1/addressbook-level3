@@ -18,9 +18,10 @@ public class AddCommand extends UndoAbleCommand {
             + "Contact details can be marked private by prepending 'p' to the prefix.\n\t"
             + "Parameters: NAME [p]p/NRIC [p]p/PHONE [p]e/EMAIL [p]a/ADDRESS [p]s/TITLE [d/SCHEDULE]... [t/TAG]...\n\t"
             + "Example: " + COMMAND_WORD
-            + " John Doe n/S1239875U p/98765432 e/johnd@gmail.com a/311, Clementi Ave 2, #02-25 s/Doctor d/31-10-2018 t/friends t/owesMoney";
+            + " John Doe n/S1239875U p/98765432 e/johnd@gmail.com a/311, Clementi Ave 2, #02-25 s/Patient d/01-01-2019 t/hasDiabetesType2 t/onInsulinTherapy";
 
     public static final String MESSAGE_SUCCESS = "New person added: %1$s";
+
     public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the address book";
 
     private final Person toAdd;

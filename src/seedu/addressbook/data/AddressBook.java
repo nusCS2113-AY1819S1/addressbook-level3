@@ -1,6 +1,5 @@
 package seedu.addressbook.data;
 
-import seedu.addressbook.commands.Command;
 import seedu.addressbook.data.person.Associated;
 import seedu.addressbook.data.person.Person;
 import seedu.addressbook.data.person.ReadOnlyPerson;
@@ -59,7 +58,7 @@ public class AddressBook {
      *
      * @throws PersonNotFoundException if no such person could be found in the list.
      */
-    public void editPerson(ReadOnlyPerson toRemove, Person toAdd) throws PersonNotFoundException{//, DuplicatePersonException {
+    public void editPerson(ReadOnlyPerson toRemove, Person toAdd) throws PersonNotFoundException{
         allPersons.edit(toRemove, toAdd);
     }
 

@@ -36,4 +36,5 @@ public class ClearCommand extends UndoAbleCommand {
     public void setCopied(UniquePersonList forTest){
         copied = forTest;
     }
+
 }
