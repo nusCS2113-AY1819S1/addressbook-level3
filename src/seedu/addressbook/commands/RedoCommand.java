@@ -5,6 +5,9 @@ import seedu.addressbook.data.person.ReadOnlyPerson;
 
 import java.util.List;
 
+/**
+ * Undo an UndoAbleCommand at the top of undoStack in commandStack
+ */
 public class RedoCommand extends Command{
     public static final String COMMAND_WORD = "redo";
     public static final String MESSAGE_USAGE = COMMAND_WORD + ":\n" + "Redo previous undid action.\n\t"
@@ -29,6 +32,10 @@ public class RedoCommand extends Command{
         }
     }
 
+    /**
+     * Gets the UndoAbleCommand object to be redone and execute its redo
+     * @throws Exception if something goes wrong with redo-ing
+     */
     public void prepRedo() throws Exception {
         UndoAbleCommand toRedo = commandStack.redoLast();
         toRedo.executeRedo();
