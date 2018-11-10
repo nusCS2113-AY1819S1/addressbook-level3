@@ -112,7 +112,7 @@ Add a new item to the menu. +
 Format: `addmenu NAME p/PRICE type/TYPE [t/TAG]...`
 
 * Adds the new menu item into the menu list
-* Price must start with a $ sign and must be integer or float in value of 2 decimal places
+* Price must start with a $ sign and be less than $10,000 and must be integer or float in value of 2 decimal places
 * Type should only be of the following categories: main, sides, beverage, dessert, others, set meal
 * A new food item can have multiple tags (including 0)
 
