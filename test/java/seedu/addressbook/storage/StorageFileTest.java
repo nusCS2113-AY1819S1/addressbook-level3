@@ -359,6 +359,26 @@ public class StorageFileTest {
     }
 
     @Test
+    public void syncAddressBookExamBook_inaccurateExamInExamBook_exceptionThrown() throws Exception {
+        TestDataHelper helper = new TestDataHelper();
+        Exam e1 = helper.generateExam(1, false, 5);
+        Exam e2 = helper.generateExam(2, true, 2);
+        Exam e3 = helper.generateExam(3, false, 1);
+        List<Exam> threeExams = helper.generateExamList(e1, e2, e3);
+        ExamBook eb = helper.generateExamBook(threeExams);
+
+        Person p1 = helper.generatePerson(1, true, 2, true, 2);
+        Person p2 = helper.generatePerson(2, true, 2, true, 2);
+        Person p3 = helper.generatePerson(3, true, 3, false, 1);
+        List<Person> threePersons = helper.generatePersonList(p1, p2, p3);
+        AddressBook ab = helper.generateAddressBook(threePersons);
+
+        StorageFile storage = getTempStorage();
+        thrown.expect(StorageOperationException.class);
+        storage.syncAddressBookExamBook(ab, eb);
+    }
+
+    @Test
     public void load_validAttendance() throws Exception {
         AddressBook actual = getStorage("ValidDataWithAttendance.txt").load();
         AddressBook expected = getTestAddressBookWithAttendance();
