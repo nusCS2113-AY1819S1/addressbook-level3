@@ -18,9 +18,6 @@ public class CommandResult {
     /** The feedback message to be shown to the user. Contains a description of the execution result */
     public final String feedbackToUser;
 
-    /** The list of persons that was produced by the command */
-    private final List<? extends ReadOnlyPerson> relevantPersons;
-
     /** The list of employees that was produced by the command */
     private final List<? extends ReadOnlyEmployee> relevantEmployees;
 
@@ -39,7 +36,6 @@ public class CommandResult {
     /** Old AB3 command result constructor for result which do not return person list*/
     public CommandResult(String feedbackToUser) {
         this.feedbackToUser = feedbackToUser;
-        relevantPersons = null;
         relevantMenus = null;
         relevantOrders = null;
         relevantMembers = null;
@@ -47,39 +43,19 @@ public class CommandResult {
         relevantAttendances = null;
     }
 
-    /** Old AB3 command result constructor for result which return person list*/
-    public CommandResult(String feedbackToUser, List<? extends ReadOnlyPerson> relevantPersons) {
-        this.feedbackToUser = feedbackToUser;
-        this.relevantPersons = relevantPersons;
-        this.relevantMenus = null;
-        this.relevantOrders = null;
-        this.relevantMembers = null;
-        this.relevantEmployees = null;
-        this.relevantAttendances = null;
-    }
-
     /** Command result constructor used by child classes for Rms commands*/
     public CommandResult(String feedbackToUser,
-                         List<? extends ReadOnlyPerson> relevantPersons,
                          List<? extends ReadOnlyMenus> relevantMenus,
                          List<? extends ReadOnlyOrder> relevantOrders,
                          List<? extends ReadOnlyMember> relevantMembers,
                          List<? extends ReadOnlyEmployee> relevantEmployees,
                          List<? extends Attendance> relevantAttendances) {
         this.feedbackToUser = feedbackToUser;
-        this.relevantPersons = relevantPersons;
         this.relevantMenus = relevantMenus;
         this.relevantOrders = relevantOrders;
         this.relevantMembers = relevantMembers;
         this.relevantEmployees = relevantEmployees;
         this.relevantAttendances = relevantAttendances;
-    }
-
-    /**
-     * Returns list of persons relevant to the command result, if any.
-     */
-    public Optional<List<? extends ReadOnlyPerson>> getRelevantPersons() {
-        return Optional.ofNullable(relevantPersons);
     }
 
     /**
