@@ -19,6 +19,7 @@ public class Attendance {
 
     public Attendance(String name) {
         this.name = name.trim();
+        this.isClockedIn = false;
     }
 
     public Attendance(String name, boolean isClockedIn, Set<Timing> timings) {
@@ -56,7 +57,7 @@ public class Attendance {
 
     @Override
     public int hashCode() {
-        return Objects.hash(name, timings);
+        return Objects.hash(name, isClockedIn , timings);
     }
 
     @Override
@@ -69,8 +70,8 @@ public class Attendance {
         return other == this // short circuit if same object
                 || (other instanceof Attendance // instanceof handles nulls
                 && this.name.equals(((Attendance) other).name)
-                && this.isClockedIn == ((Attendance) other).isClockedIn)
-                && this.timings.equals(((Attendance) other).timings); // state check
+                && this.isClockedIn == ((Attendance) other).isClockedIn
+                && this.timings.equals(((Attendance) other).timings)); // state check
     }
 
     /**

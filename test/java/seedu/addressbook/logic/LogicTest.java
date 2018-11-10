@@ -414,8 +414,10 @@ public class LogicTest {
         // setup expectations
         TestDataHelper helper = new TestDataHelper();
         Employee toBeAdded = helper.peter();
+        Attendance toBeAddedAttendance = new Attendance(toBeAdded.getName().toString());
         Rms expectedRms = new Rms();
         expectedRms.addEmployee(toBeAdded);
+        expectedRms.addAttendance(toBeAddedAttendance);
 
         // execute command and verify result
         assertEmployeeCommandBehavior(helper.generateAddEmpCommand(toBeAdded),
@@ -463,8 +465,10 @@ public class LogicTest {
         // setup expectations
         TestDataHelper helper = new TestDataHelper();
         Employee toBeAdded = helper.peter();
+        Attendance toBeAddedAttendace = new Attendance(toBeAdded.getName().toString());
         Rms expectedRms = new Rms();
         expectedRms.addEmployee(toBeAdded);
+        expectedRms.addAttendance(toBeAddedAttendace);
 
         // setup starting state
         logic.execute(helper.generateAddEmpCommand(toBeAdded)); //employee already in Rms
@@ -574,7 +578,7 @@ public class LogicTest {
 
         Rms expectedRms = helper.generateRmsEmployeesAndAttendances(lastShownEmployeeList, lastShownAttendanceList);
         expectedRms.removeEmployee(e2);
-
+        expectedRms.removeAttendance(a2);
 
         helper.addEmployeesToRms(rms, lastShownEmployeeList);
         helper.addAttendancesToRms(rms, lastShownAttendanceList);
