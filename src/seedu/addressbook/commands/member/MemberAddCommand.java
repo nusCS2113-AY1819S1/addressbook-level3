@@ -18,8 +18,8 @@ public class MemberAddCommand extends Command {
     public static final String COMMAND_WORD = "addmember";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ":\n" + "Adds a member to the address book. "
-            + "Contact details can be marked private by prepending 'p' to the prefix.\n\t"
-            + "Parameters: NAME e/EMAIL \n\t"
+            + "Contact details can be marked private by prepending 'p' to the prefix.\n\n"
+            + "Parameters: NAME e/EMAIL \n"
             + "Example: " + COMMAND_WORD
             + " John Doe e/Example123@gmail.com";
 
