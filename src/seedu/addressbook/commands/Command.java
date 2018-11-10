@@ -101,10 +101,6 @@ public abstract class Command {
         return relevantPersons.get(getTargetIndex() - DISPLAYED_INDEX_OFFSET);
     }
 
-    protected List<ReadOnlyPerson> getPersonList() {
-        return new ArrayList<>(relevantPersons);
-    }
-
     public List<ReadOnlyPerson> getEditableLastShownList() {
         return editableRelevantPersons;
     }

@@ -24,10 +24,15 @@ public class DeleteAppointment extends Command {
             + "Example 1: " + COMMAND_WORD + " 01-01-2019 \n\t"
             + "Example 2: " + COMMAND_WORD + " 01-01-2019" + " 01-02-2019" + " 01-03-2019";
 
-    public static final String MESSAGE_EDIT_PERSON_APPOINTMENT = "%1$s has deleted appointment date(s)";
+    private static final String MESSAGE_NO_CHANGE_MADE = "No changes made to the %1$s set of appointment(s) "
+            + "as no appointment date(s) were made on %2$s";
 
-    public static final String MESSAGE_NO_CHANGE_MADE = "No changes made to the set of appointment(s) "
-            + "as no appointment date(s) were made on the indicated day(s)";
+    private static final String MESSAGE_DELETE_PERSON_APPOINTMENT = "%1$s has deleted appointment date(s)";
+
+    private static final String MESSAGE_FOR_DELETED_APPOINTMENTS = "\nDeleted appointments for: %1$s\n";
+
+    private static final String MESSAGE_FOR_MISSING_APPOINTMENTS = "Appointments that does not exist: %1$s";
+
 
     private final Set<Schedule> scheduleSetToDelete;
 
@@ -56,37 +61,57 @@ public class DeleteAppointment extends Command {
             saveHistory("(edit-appointment " + checkEditingPersonIndex() + ") " + COMMAND_WORD + " " + inputForHistory);
             this.setTargetIndex(checkEditingPersonIndex());
             final ReadOnlyPerson target = getTargetPerson();
+            Set<Schedule> scheduleSet = target.getSchedules();
 
-            Set<Schedule> finalScheduleSet = target.getSchedules();
-            boolean hasChanges = finalScheduleSet.removeAll(scheduleSetToDelete);
+            String detailsMessage = getDetailedMessage(scheduleSet, target.getName().toString());
+            boolean hasChanges = scheduleSet.removeAll(scheduleSetToDelete);
 
             if (!hasChanges) {
-                return new CommandResult(MESSAGE_NO_CHANGE_MADE);
+                return new CommandResult(String.format(MESSAGE_NO_CHANGE_MADE, target.getName(), inputForHistory));
             }
 
-            /*Set<Schedule> addedScheduleSet = new Set<Schedule>;
-            Set<Schedule> duplicateScheduleSet = new Set<Schedule>;
-            for(Schedule scheduleAdd : scheduleSetToAdd) {
-                if(scheduleSetThatExist.contains(scheduleAdd)){
-                    duplicateScheduleSet.add(scheduleAdd);
-                }else{
-                    addedScheduleSet.add(scheduleAdd);
-                }
-            }
-            */
             Person updatedPerson = new Person(target);
-            updatedPerson.setSchedule(finalScheduleSet);
+            updatedPerson.setSchedule(scheduleSet);
             addressBook.editPerson(target, updatedPerson);
 
             List<ReadOnlyPerson> editablePersonList = this.getEditableLastShownList();
             editablePersonList.set(checkEditingPersonIndex() - DISPLAYED_INDEX_OFFSET, updatedPerson);
-            return new CommandResult(String.format(MESSAGE_EDIT_PERSON_APPOINTMENT, target.getName()), editablePersonList, editablePersonList, false);
+            return new CommandResult(String.format(detailsMessage, target.getName()), editablePersonList, editablePersonList, false);
 
         } catch (IndexOutOfBoundsException ie) {
             return new CommandResult(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
         } catch (UniquePersonList.PersonNotFoundException pnfe) {
             return new CommandResult(Messages.MESSAGE_PERSON_NOT_IN_ADDRESSBOOK);
         }
+    }
+
+
+    /**
+     * Constructs a feedback message that details the effects of the input appointment dates.
+     *
+     * @param initialScheduleSet the original schedule of the user
+     * @param name the name tobe printed in the message
+     * @return a message that shows which appointments are deleted
+     * and which appointments are not (as they are missing) for the person
+     */
+    private String getDetailedMessage(Set<Schedule> initialScheduleSet, String name) {
+        StringBuilder deletedAppointments = new StringBuilder();
+        StringBuilder missingAppointments = new StringBuilder();
+
+        for(Schedule scheduleDelete : scheduleSetToDelete) {
+            if(initialScheduleSet.contains(scheduleDelete)){
+                deletedAppointments.append(scheduleDelete.toString());
+                deletedAppointments.append(" ");
+            }else{
+                missingAppointments.append(scheduleDelete.toString());
+                missingAppointments.append(" ");
+            }
+        }
+        String detailsMessage = String.format(MESSAGE_DELETE_PERSON_APPOINTMENT, name);
+        detailsMessage +=  String.format(MESSAGE_FOR_DELETED_APPOINTMENTS, deletedAppointments);
+        if (missingAppointments.length() > 0) detailsMessage += String.format(MESSAGE_FOR_MISSING_APPOINTMENTS, missingAppointments);
+
+        return detailsMessage;
     }
 
 }
