@@ -23,13 +23,15 @@ However, setting up this MediBook requires basic familiarity with integrated dev
 . Open up `src/seedu.addressbook` folder
 . Right click on `Main`
 . Click `Run Main.main()`
-. The GUI should appear in a few seconds
-. Enter "Username" in the username field and "Password" in the password field according to the prompts
-. Upon successful login, GUI `Welcome to MediBook` will appear.
-. If incorrect username and password is entered, both fields will be cleared and you can try logging in again.
-//ignore: program will exit upon login failure, i.e. 3 incorrect username/password tries
+. The login GUI should appear in a few seconds
 +
-image::Ui.png[]
+image::loginUI.png[]
+. Enter "Username" in the username field and "Password" in the password field according to the prompts
+. If incorrect username and password is entered, both fields will be cleared and you can try logging in again.
+Program will exit upon login failure, i.e. 3 incorrect username/password tries
+. Upon successful login, main GUI `Welcome to MediBook` will appear.
++
+image::mainUI.png[]
 
 == 4 Features of the MediBook
 
