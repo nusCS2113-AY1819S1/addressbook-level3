@@ -17,11 +17,7 @@ import seedu.addressbook.data.person.ReadOnlyPerson;
  */
 public abstract class Command {
 
-
-    //protected List<? extends ReadOnlyPerson> relevantPersons;
-
     protected Rms rms;
-    protected List<? extends ReadOnlyPerson> relevantPersons;
     protected List<? extends ReadOnlyMenus> relevantMenus;
     protected List<? extends ReadOnlyMember> relevantMembers;
     protected List<? extends ReadOnlyOrder> relevantOrders;
@@ -37,16 +33,6 @@ public abstract class Command {
     }
 
     protected Command() {
-    }
-
-    /**
-     * Constructs a feedback message to summarise an operation that displayed a listing of persons.
-     *
-     * @param personsDisplayed used to generate summary
-     * @return summary message for persons displayed
-     */
-    public static String getMessageForPersonListShownSummary(List<? extends ReadOnlyPerson> personsDisplayed) {
-        return String.format(Messages.MESSAGE_PERSONS_LISTED_OVERVIEW, personsDisplayed.size());
     }
 
     /**
@@ -114,26 +100,15 @@ public abstract class Command {
      * Supplies the data the command will operate on.
      */
     public void setData(Rms rms,
-                        List<? extends ReadOnlyPerson> relevantPersons,
                         List<? extends ReadOnlyMenus> relevantMenus,
                         List<? extends ReadOnlyOrder> relevantOrders,
                         List<? extends ReadOnlyMember> relevantMembers,
                         List<? extends ReadOnlyEmployee> relevantEmployees) {
         this.rms = rms;
-        this.relevantPersons = relevantPersons;
         this.relevantMenus = relevantMenus;
         this.relevantOrders = relevantOrders;
         this.relevantMembers = relevantMembers;
         this.relevantEmployees = relevantEmployees;
-    }
-
-    /**
-     * Extracts the the target person in the last shown list from the given arguments.
-     *
-     * @throws IndexOutOfBoundsException if the target index is out of bounds of the last viewed listing
-     */
-    protected ReadOnlyPerson getTargetPerson() throws IndexOutOfBoundsException {
-        return relevantPersons.get(getTargetIndex() - DISPLAYED_INDEX_OFFSET);
     }
 
     /**
