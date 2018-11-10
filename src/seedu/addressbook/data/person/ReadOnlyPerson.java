@@ -76,10 +76,6 @@ public interface ReadOnlyPerson {
         }
         builder.append(getTitle())
                 .append(" Schedule: ");
-        /*if (getSchedule().isPrivate()) {
-            builder.append(detailIsPrivate);
-        }
-        builder.append(getSchedule())*/
         for(Schedule schedule : getSchedules()){
             builder.append(schedule);
         }
@@ -116,9 +112,6 @@ public interface ReadOnlyPerson {
         if (!getTitle().isPrivate()) {
             builder.append(" Title: ").append(getTitle());
         }
-        /*if (!getSchedule().isPrivate()) {
-            builder.append(" Schedule: ").append(getSchedule());
-        }*/
         builder.append(" Schedule: ");
         for(Schedule schedule : getSchedules()){
             builder.append(schedule);
