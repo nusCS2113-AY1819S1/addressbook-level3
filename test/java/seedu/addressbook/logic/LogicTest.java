@@ -15,8 +15,6 @@ import seedu.addressbook.commands.CommandResult;
 import seedu.addressbook.commands.ExitCommand;
 import seedu.addressbook.commands.HelpCommand;
 import seedu.addressbook.commands.employee.EmployeeAddCommand;
-import seedu.addressbook.commands.employee.EmployeeClockInCommand;
-import seedu.addressbook.commands.employee.EmployeeClockOutCommand;
 import seedu.addressbook.commands.employee.EmployeeDeleteCommand;
 import seedu.addressbook.commands.employee.EmployeeEditCommand;
 import seedu.addressbook.commands.member.MemberAddCommand;
