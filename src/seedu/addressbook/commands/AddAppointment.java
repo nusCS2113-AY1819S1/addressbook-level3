@@ -22,14 +22,14 @@ public class AddAppointment extends Command{
             + "Example 1: " + COMMAND_WORD + " 01-01-2019\n\t"
             + "Example 2: " + COMMAND_WORD + " 01-01-2019" + " 01-02-2019" + " 01-03-2019";
 
-    private static final String MESSAGE_NO_CHANGE_MADE = "No changes made to the %1$s's set of appointment(s) "
-            + "as appointment date(s) on %2$s are already recorded";
+    private static final String MESSAGE_NO_CHANGE_MADE = "No changes made to the %1$s's set of appointment "
+            + "\nas appointment date(s) was already recorded for %2$s";
 
     private static final String MESSAGE_ADDED_PERSON_APPOINTMENT = "%1$s has new appointment date(s)\n";
 
-    private static final String MESSAGE_FOR_ADDED_APPOINTMENTS = "\nAdded appointments on: %1$s\n";
+    private static final String MESSAGE_FOR_ADDED_APPOINTMENTS = "\nAdded appointment on: %1$s\n";
 
-    private static final String MESSAGE_FOR_DUPLICATE_APPOINTMENTS = "Appointments that already exist: %1$s";
+    private static final String MESSAGE_FOR_DUPLICATE_APPOINTMENTS = "Appointment not added (already exist): %1$s";
 
     private final Set<Schedule> scheduleSetToAdd;
 

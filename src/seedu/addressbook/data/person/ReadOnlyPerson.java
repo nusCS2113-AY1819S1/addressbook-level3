@@ -81,10 +81,6 @@ public interface ReadOnlyPerson {
         }
         builder.append(getTitle())
                 .append(" Schedule: ");
-        /*if (getSchedule().isPrivate()) {
-            builder.append(detailIsPrivate);
-        }
-        builder.append(getSchedule())*/
         for(Schedule schedule : getSchedules()){
             builder.append(schedule);
         }
@@ -121,9 +117,6 @@ public interface ReadOnlyPerson {
         if (!getTitle().isPrivate()) {
             builder.append(" Title: ").append(getTitle());
         }
-        /*if (!getSchedule().isPrivate()) {
-            builder.append(" Schedule: ").append(getSchedule());
-        }*/
         builder.append(" Schedule: ");
         for(Schedule schedule : getSchedules()){
             builder.append(schedule);
@@ -131,6 +124,22 @@ public interface ReadOnlyPerson {
         builder.append(" Tags: ");
         for (Tag tag : getTags()) {
             builder.append(tag);
+        }
+        return builder.toString();
+    }
+
+    /**
+     * Formats a person as text, showing minimal details - name, NRIC and Schedule.
+     */
+    default String getAsTextShowMinimal() {
+        final StringBuilder builder = new StringBuilder();
+        builder.append(getName());
+        if(!getNric().isPrivate()) {
+            builder.append("\t\tNRIC: ").append(getNric());
+        }
+        builder.append("\n\tSchedule: ");
+        for(Schedule schedule : getSchedules()){
+            builder.append(schedule);
         }
         return builder.toString();
     }

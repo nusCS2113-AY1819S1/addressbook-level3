@@ -110,7 +110,6 @@ public class Logic {
      */
     private void recordResult(CommandResult result) {
         final Optional<List<? extends ReadOnlyPerson>> personList = result.getRelevantPersons();
-        //final Optional<Set<? extends Schedule>> scheduleList = result.getRelevantAppointments();
         final Optional<List<ReadOnlyPerson>> editablePersonList = result.getEditableRelevantPersons();
         if (personList.isPresent()) {
             lastShownList = personList.get();
