@@ -72,7 +72,7 @@ public class AdaptedMember {
 
 
     /**
-     * Converts a given Person into this class for JAXB use.
+     * Converts a given Member into this class for JAXB use.
      *
      * @param source future changes to this will not affect the created AdaptedMember
      */

@@ -56,7 +56,7 @@ public class AdaptedMenu {
 
 
     /**
-     * Converts a given Person into this class for JAXB use.
+     * Converts a given Menu into this class for JAXB use.
      *
      * @param source future changes to this will not affect the created AdaptedMenu
      */
@@ -96,7 +96,7 @@ public class AdaptedMenu {
     }
 
     /**
-     * Converts this jaxb-friendly adapted person object into the Person object.
+     * Converts this jaxb-friendly adapted person object into the Menu object.
      *
      * @throws IllegalValueException if there were any data constraints violated in the adapted person
      */
