@@ -122,6 +122,22 @@ public interface ReadOnlyPerson {
         }
         return builder.toString();
     }
+
+    /**
+     * Formats a person as text, showing minimal details - name, NRIC and Schedule.
+     */
+    default String getAsTextShowMinimal() {
+        final StringBuilder builder = new StringBuilder();
+        builder.append(getName());
+        if(!getNric().isPrivate()) {
+            builder.append("\t\tNRIC: ").append(getNric());
+        }
+        builder.append("\n\tSchedule: ");
+        for(Schedule schedule : getSchedules()){
+            builder.append(schedule);
+        }
+        return builder.toString();
+    }
 }
 
 
