@@ -55,29 +55,14 @@ public class Credentials {
         return WorkWithLoginStorage.compareCredentials(getUsername(), getPassword());
     }
 
-    public void editPassword() throws IOException {
-        Scanner sc = new Scanner(System.in);
-        System.out.println("Enter current password: ");
-        PASSWORD = sc.next();
-        if(WorkWithLoginStorage.compareCredentials(this.getUsername(), this.getPassword())){
-            System.out.println("Enter new password: ");
-            String password1 = sc.next();
-            System.out.println("Re-enter new password: ");
-            String password2 = sc.next();
-            if(password1.equals(password2)){
-                System.out.println("This action cannot be undone! Are you sure you want to change your password? \n EnterY/N to confirm.");
-                String confirm = sc.next();
-                if(confirm.equals("Y")){
-                    WorkWithLoginStorage.editLogin(this);
-                }else if(confirm.equals("N")){
-                    System.out.println("Then why waste my time trying to change your password?");
-                }else{
-                    System.out.println("Invalid input, please try again");
-                }
-            }
-        }
-        deletePassword();
-//        sc.close();
+    public void changePassword(){
+        WorkWithLoginStorage.editLogin(this);
+    }
+
+    public void newLogin(){
+        WorkWithLoginStorage.addLogin(this);
+        System.out.println("newLogin called");
+
     }
 
     private String hashPassword(String toBeHashed){

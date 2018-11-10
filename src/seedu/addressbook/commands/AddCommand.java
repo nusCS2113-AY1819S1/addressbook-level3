@@ -3,6 +3,8 @@ package seedu.addressbook.commands;
 import seedu.addressbook.data.exception.IllegalValueException;
 import seedu.addressbook.data.person.*;
 import seedu.addressbook.data.tag.Tag;
+import seedu.addressbook.login.Credentials;
+import seedu.addressbook.login.login;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -60,6 +62,12 @@ public class AddCommand extends UndoAbleCommand {
                 tagSet,
                 associatedSet
         );
+        System.out.println("newlogin condiitonadadss fulfilled");
+
+        if(login.getAccesslevelF()==0 && title.equals("Doctor ")){
+            System.out.println("newlogin condiitons fulfilled");
+            AddDoctorLogin(nric);
+        }
     }
 
     public AddCommand(Person toAdd) {
@@ -68,6 +76,12 @@ public class AddCommand extends UndoAbleCommand {
 
     public ReadOnlyPerson getPerson() {
         return toAdd;
+    }
+
+    private void AddDoctorLogin(String nric){
+        Credentials credentials = new Credentials(nric, "StandardPass123!", 2);
+        credentials.newLogin();
+        System.out.println("AddDoctorLogin called");
     }
 
     @Override
