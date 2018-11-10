@@ -17,6 +17,8 @@ public class Associated {
     public static class DuplicateAssociationException extends Exception {}
 
     public static class SameTitleException extends Exception {}
+
+    public static class NoAssociationException extends Exception {}
 //
 //    public void addToAssociated (ReadOnlyPerson toAdd) throws DuplicateAssociationException{
 //        if(associates.contains(toAdd)) throw new DuplicateAssociationException();
@@ -43,9 +45,9 @@ public class Associated {
      *
      * @throws SameTitleException if the person to add has the same title as the target.
      */
-    public Associated(Name toAddName, Title toAddTitle, Title ownTitle) throws SameTitleException{
+    public Associated(String toAddName, Title toAddTitle, Title ownTitle) throws SameTitleException{
         if(toAddTitle.equals(ownTitle)) throw new SameTitleException();
-        this.value = toAddName.toString();
+        this.value = toAddName;
     }
 
     /**
