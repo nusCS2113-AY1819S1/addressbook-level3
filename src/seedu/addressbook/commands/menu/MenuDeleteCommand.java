@@ -12,7 +12,7 @@ import seedu.addressbook.data.menu.UniqueMenuList.MenuNotFoundException;
  */
 public class MenuDeleteCommand extends Command {
 
-    public static final String COMMAND_WORD = "deletemenu";
+    public static final String COMMAND_WORD = "delmenu";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ":\n"
             + "Deletes the menu item identified by the index number used in the last menu listing.\n\t"

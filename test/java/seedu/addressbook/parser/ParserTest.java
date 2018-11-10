@@ -138,7 +138,7 @@ public class ParserTest {
 
     @Test
     public void memberListCommand_parsedCorrectly() {
-        final String input = "listmembers";
+        final String input = "listmember";
         parseAndAssertCommandType(input, MemberListCommand.class);
     }
 
@@ -184,7 +184,7 @@ public class ParserTest {
 
     @Test
     public void menuDeleteCommand_noArgs() {
-        final String[] inputs = { "deletemenu", "deletemenu " };
+        final String[] inputs = { "delmenu", "delmenu " };
         final String resultMessage = String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT,
                 MenuDeleteCommand.MESSAGE_USAGE);
         parseAndAssertIncorrectWithMessage(resultMessage, inputs);
@@ -192,7 +192,7 @@ public class ParserTest {
 
     @Test
     public void menuDeleteCommand_argsIsNotSingleNumber() {
-        final String[] inputs = { "deletemenu notAnumber ", "deletemenu 8*wh12", "deletemenu 1 2 3 4 5" };
+        final String[] inputs = { "delmenu notAnumber ", "delmenu 8*wh12", "delmenu 1 2 3 4 5" };
         final String resultMessage = String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT,
                 MenuDeleteCommand.MESSAGE_USAGE);
         parseAndAssertIncorrectWithMessage(resultMessage, inputs);
@@ -201,7 +201,7 @@ public class ParserTest {
     @Test
     public void menuDeleteCommand_numericArg_indexParsedCorrectly() {
         final int testIndex = 1;
-        final String input = "deletemenu " + testIndex;
+        final String input = "delmenu " + testIndex;
         final MenuDeleteCommand result = parseAndAssertCommandType(input, MenuDeleteCommand.class);
         assertEquals(result.getTargetIndex(), testIndex);
     }

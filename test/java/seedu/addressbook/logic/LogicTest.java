@@ -882,7 +882,7 @@ public class LogicTest {
         // prepare Rms state
         helper.addMembersToRms(rms, lastShownList);
 
-        assertMemberCommandBehavior("listmembers",
+        assertMemberCommandBehavior("listmember",
                 Command.getMessageForMemberListShownSummary(expectedList),
                 expectedRms,
                 true,
@@ -1147,13 +1147,13 @@ public class LogicTest {
     public void execute_deletemenu_invalidArgsFormat() throws Exception {
         String expectedMessage = String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT,
                 MenuDeleteCommand.MESSAGE_USAGE);
-        assertMenuCommandBehavior("deletemenu ", expectedMessage);
-        assertMenuCommandBehavior("deletemenu arg not number", expectedMessage);
+        assertMenuCommandBehavior("delmenu ", expectedMessage);
+        assertMenuCommandBehavior("delmenu arg not number", expectedMessage);
     }
 
     @Test
     public void execute_deletemenu_invalidIndex() throws Exception {
-        assertInvalidIndexBehaviorForMenuCommand("deletemenu");
+        assertInvalidIndexBehaviorForMenuCommand("delmenu");
     }
 
     @Test
@@ -1167,7 +1167,7 @@ public class LogicTest {
         expectedRms.removeMenuItem(m2);
         helper.addToRmsMenu(rms, threeMenus);
         logic.setLastShownMenuList(threeMenus);
-        assertMenuCommandBehavior("deletemenu 2",
+        assertMenuCommandBehavior("delmenu 2",
                 String.format(MenuDeleteCommand.MESSAGE_DELETE_MENU_ITEM_SUCCESS, m2),
                 expectedRms,
                 false,
@@ -1186,7 +1186,7 @@ public class LogicTest {
         helper.addToRmsMenu(rms, threeMenus);
         rms.removeMenuItem(m2);
         logic.setLastShownMenuList(threeMenus);
-        assertMenuCommandBehavior("deletemenu 2",
+        assertMenuCommandBehavior("delmenu 2",
                 Messages.MESSAGE_MENU_ITEM_NOT_IN_ADDRESSBOOK,
                 expectedRms,
                 false,
