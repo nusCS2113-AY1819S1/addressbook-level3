@@ -123,13 +123,14 @@ public class Person implements ReadOnlyPerson {
     }
 
     public void addAnAssociate(ReadOnlyPerson target) throws Associated.DuplicateAssociationException, Associated.SameTitleException {
-        Associated toAdd = new Associated(target.getName(), target.getTitle(), this.title);
+        Associated toAdd = new Associated(target.getName() + " " + target.getNric(), target.getTitle(), this.title);
         if(associated.contains(toAdd)) throw new Associated.DuplicateAssociationException();
         associated.add(toAdd);
     }
 
-    public void removeAnAssociate(ReadOnlyPerson target) throws Exception {
-        Associated toRemove = new Associated(target.getName(), target.getTitle(), this.title);
+    public void removeAnAssociate(ReadOnlyPerson target) throws Associated.NoAssociationException, Associated.SameTitleException{
+        Associated toRemove = new Associated(target.getName() + " " + target.getNric(), target.getTitle(), this.title);
+        if(!associated.contains(toRemove)) throw new Associated.NoAssociationException();
         associated.remove(toRemove);
     }
 }

@@ -6,7 +6,7 @@ import seedu.addressbook.login.*;
 import javax.security.auth.login.CredentialNotFoundException;
 import java.io.IOException;
 
-public class ChangePasswordCommand extends Command {
+public class ChangePasswordCommand extends UndoAbleCommand {
     public static final String COMMAND_WORD = "change-pass";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ":\n" + "Changes password of current user.\n"
@@ -18,6 +18,7 @@ public class ChangePasswordCommand extends Command {
     public static final String MESSAGE_DIFF_PASSWORD = "entered passwords must be the same";
 
     private final String current, next, confirm;
+    private Credentials credentials;
 
     public ChangePasswordCommand(String current, String next, String confirm) {
         this.current = current.trim();
@@ -32,14 +33,27 @@ public class ChangePasswordCommand extends Command {
         if(!next.equals(confirm)){
             return new CommandResult(MESSAGE_DIFF_PASSWORD + "abc" + current + "abc" + next + "abc" + confirm + "abc");
         }else if(WorkWithLoginStorage.compareCredentials(username, current)){
-            Credentials credentials = new Credentials(username, next, accesslevel);
+            credentials = new Credentials(username, next, accesslevel);
             credentials.changePassword();
             if(credentials.validateCredentials()){
+                saveUndoableToHistory(COMMAND_WORD + " "+ current + " " + next + " " + confirm);
                 return new CommandResult(MESSAGE_SUCCESS);
             }else{
                 return new CommandResult(MESSAGE_FAILED);
             }
         }
     return new CommandResult(MESSAGE_FAILED);
+    }
+
+    @Override
+    public void executeUndo(){
+        credentials.setPassword(current);
+        credentials.changePassword();
+    }
+
+    @Override
+    public void executeRedo(){
+        credentials.setPassword(next);
+        credentials.changePassword();
     }
 }
