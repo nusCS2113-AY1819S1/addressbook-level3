@@ -66,7 +66,7 @@ public class Parser {
         final String commandWord = matcher.group("commandWord");
         final String arguments = matcher.group("arguments");
         if(!Command.checkEditingAppointmentState()) {
-            switch (commandWord) {
+            switch (commandWord.toLowerCase()) {
 
                 case AddCommand.COMMAND_WORD:
                     return prepareAdd(arguments);
@@ -124,7 +124,7 @@ public class Parser {
                     return new HelpCommand();
             }
         }else{
-            switch (commandWord) {
+            switch (commandWord.toLowerCase()) {
                 case ExitEditAppointment.COMMAND_WORD:
                     return new ExitEditAppointment();
 

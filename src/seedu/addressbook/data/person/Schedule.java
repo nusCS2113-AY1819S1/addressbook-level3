@@ -10,8 +10,8 @@ public class Schedule {
 
     public static final String EXAMPLE = "31-01-2018";
     public static final String EXAMPLE2 = "31-12-2018";
-    public static final String MESSAGE_SCHEDULE_CONSTRAINTS = "The day of appointment should be written in the form of DD-MM-YYYY";
-    public static final String SCHEDULE_VALIDATION_REGEX = "(((0[1-9]|[1-2][0-9]|3[0-1])-(0[13578]|(10|12)))|((0[1-9]|[1-2][0-9])-02)|((0[1-9]|[1-2][0-9]|30)-(0[469]|11)))-[0-9]{4}";
+    public static final String MESSAGE_SCHEDULE_CONSTRAINTS = "The day of appointment should be written in the form of DD-MM-YYYY. Year should also be in the 20th or 21th Century ";
+    public static final String SCHEDULE_VALIDATION_REGEX = "(((0[1-9]|[1-2][0-9]|3[0-1])-(0[13578]|(10|12)))|((0[1-9]|[1-2][0-9])-02)|((0[1-9]|[1-2][0-9]|30)-(0[469]|11)))-(19[0-9]{2}|20[0-9]{2}|2100)";
 
     public final String value;
 
@@ -21,12 +21,12 @@ public class Schedule {
      *
      * @throws IllegalValueException if given phone string is invalid.
      */
-    public Schedule(String schedule) throws IllegalValueException {
-        schedule = schedule.trim();
-        if (!isValidSchedule(schedule)) {
+    public Schedule(String date) throws IllegalValueException {
+        date = date.trim();
+        if (!isValidSchedule(date)) {
             throw new IllegalValueException(MESSAGE_SCHEDULE_CONSTRAINTS);
         }
-        this.value = schedule;
+        this.value = date;
     }
 
     /**

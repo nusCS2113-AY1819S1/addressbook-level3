@@ -28,15 +28,20 @@ public interface ReadOnlyPerson {
     /**
      * Returns true if the values inside this object is same as those of the other (Note: interfaces cannot override .equals)
      */
+//    default boolean isSameStateAs(ReadOnlyPerson other) {
+//        return other == this // short circuit if same object
+//                || (other != null // this is first to avoid NPE below
+//                && other.getName().equals(this.getName()) // state checks here onwards
+//                && other.getNric().equals(this.getNric())
+//                && other.getPhone().equals(this.getPhone())
+//                && other.getEmail().equals(this.getEmail())
+//                && other.getAddress().equals(this.getAddress())
+//                && other.getTitle().equals(this.getTitle()) );
+//    }
     default boolean isSameStateAs(ReadOnlyPerson other) {
         return other == this // short circuit if same object
                 || (other != null // this is first to avoid NPE below
-                && other.getName().equals(this.getName()) // state checks here onwards
-                && other.getNric().equals(this.getNric())
-                && other.getPhone().equals(this.getPhone())
-                && other.getEmail().equals(this.getEmail())
-                && other.getAddress().equals(this.getAddress())
-                && other.getTitle().equals(this.getTitle()) );
+                && other.getNric().equals(this.getNric()));
     }
 
     /**
@@ -76,10 +81,6 @@ public interface ReadOnlyPerson {
         }
         builder.append(getTitle())
                 .append(" Schedule: ");
-        /*if (getSchedule().isPrivate()) {
-            builder.append(detailIsPrivate);
-        }
-        builder.append(getSchedule())*/
         for(Schedule schedule : getSchedules()){
             builder.append(schedule);
         }
@@ -116,9 +117,6 @@ public interface ReadOnlyPerson {
         if (!getTitle().isPrivate()) {
             builder.append(" Title: ").append(getTitle());
         }
-        /*if (!getSchedule().isPrivate()) {
-            builder.append(" Schedule: ").append(getSchedule());
-        }*/
         builder.append(" Schedule: ");
         for(Schedule schedule : getSchedules()){
             builder.append(schedule);
@@ -126,6 +124,22 @@ public interface ReadOnlyPerson {
         builder.append(" Tags: ");
         for (Tag tag : getTags()) {
             builder.append(tag);
+        }
+        return builder.toString();
+    }
+
+    /**
+     * Formats a person as text, showing minimal details - name, NRIC and Schedule.
+     */
+    default String getAsTextShowMinimal() {
+        final StringBuilder builder = new StringBuilder();
+        builder.append(getName());
+        if(!getNric().isPrivate()) {
+            builder.append("\t\tNRIC: ").append(getNric());
+        }
+        builder.append("\n\tSchedule: ");
+        for(Schedule schedule : getSchedules()){
+            builder.append(schedule);
         }
         return builder.toString();
     }
