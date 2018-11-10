@@ -19,7 +19,7 @@ import seedu.addressbook.data.statistics.AsciiTable;
 import seedu.addressbook.data.statistics.QuantityRevenuePair;
 
 /**
- * Lists all food items in the address book to the user.
+ * Lists all menu statistics in the Rms to the user.
  */
 public class StatsMenuCommand extends Command {
 
@@ -153,7 +153,7 @@ public class StatsMenuCommand extends Command {
         return calendar.getTime();
     }
 
-    private static Map<String, ReadOnlyMenus> getBs(List<ReadOnlyOrder> allOrders, List<ReadOnlyMenus> allMenu) {
+    public static Map<String, ReadOnlyMenus> getBs(List<ReadOnlyOrder> allOrders, List<ReadOnlyMenus> allMenu) {
         if (allOrders.isEmpty()) {
             return null;
         }

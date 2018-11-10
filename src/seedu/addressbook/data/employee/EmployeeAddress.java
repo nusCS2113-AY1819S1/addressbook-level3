@@ -20,6 +20,7 @@ public class EmployeeAddress {
      * @throws IllegalValueException if given address string is invalid.
      */
     public EmployeeAddress(String address) throws IllegalValueException {
+        address = address.trim();
         if (!isValidAddress(address)) {
             throw new IllegalValueException(MESSAGE_ADDRESS_CONSTRAINTS);
         }

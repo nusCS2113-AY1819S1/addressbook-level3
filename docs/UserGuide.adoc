@@ -308,7 +308,8 @@ To add a new order to the order list, a draft must be completed before adding it
 To do so, dishes must be added into the draft before it can be added into the order list after
 the draft is confirmed.
 
-If the customer happens to be a member, the customer's information can be found in the member list and can be added into the order draft to accumulate member points
+If the customer is a registered member, the customer's information can be found in the member list and can be added
+into the order draft to use and accumulate member points
 once the order is confirmed.
 
 * *Display Draft And Instruction For Adding New Order* +
@@ -317,6 +318,20 @@ Displays the current draft, steps to add an order and the list of order draft co
 +
 Format: `addorder`
 
+* *Edit A Dish Item Of The Draft* +
++
+By picking a dish from the last shown menu and state the quantity to be added,
+a dish item can be added, deleted or edited in the draft order. +
++
+ ** If the quantity is set to 0, then the dish will be removed from the draft.
+ ** If the quantity of a dish that is currently not in the draft is set to a
+ positive integer, then the dish and its quantity will be added into the draft.
+ ** If the quantity of a dish that is currently in the draft is set to a positive
+ integer, then its quantity will be adjusted to the new value.
++
+Format: `draftdish INDEX q/QUANTITY`
+
+** The index refers to the index number shown in the last shown menu list.
 
 * *Select A Member As The Customer Of The Draft* +
 _This step is only necessary if the customer is a member._
@@ -324,25 +339,20 @@ _This step is only necessary if the customer is a member._
 Select a member from the last shown member list to be the customer of the draft order. +
 +
 Format: `draftcustomer INDEX`
++
+ ** The index refers to the index number shown in the last shown member list.
 
-** The index refers to the index number shown in the last shown member list.
-
-* *Edit A Dish Item Of The Draft* +
+* *Redeems member points in the draft order* +
+_This step can only be done if a member is assigned as the customer of the draft order_
 +
-By picking a dish from the last shown menu and state the quantity to be added,
-a dish item can be added, deleted or edited in the draft order. +
+Assign member points to be redeemed as discount for the draft order.
 +
- ** If the quantity is set to 0, then the dish will be removed from the draft.
+Format: `draftpoints POINTS`
 +
- ** If the quantity of a dish that is currently not in the draft is set to a
- positive integer, then the dish and its quantity will be added into the draft.
-+
- ** If the quantity of a dish that is currently in the draft is set to a positive
- integer, then its quantity will be adjusted to the new value.
-+
-Format: `draftdish INDEX q/QUANTITY`
-
-** The index refers to the index number shown in the last shown menu list.
+ ** The points redeemed must be a non-negative integer.
+ ** The limit to the redeemable points is set as the smaller value between the amount of points the customer currently
+ has and the maximum amount of points can be deduced such that the final price is not less than zero.
+ ** If the assigned redeemed points is more than the limit, then it will be set back to the limit.
 
 * *Clear Draft* +
 +
@@ -493,11 +503,14 @@ There is no need to save manually.
 
 ** *Display Add Order Commands*: `addorder`
 
-** *Select Member As Customer Of The Draft*: `draftcustomer INDEX` +
+** *Edit Draft Dishes*: `draftdish INDEX q/QUANTITY` +
+e.g. `draftdish 4 q/1`
+
+** *Select Draft Customer*: `draftcustomer INDEX` +
 e.g. `draftcustomer 2`
 
-** *Edit Dishes In The Draft*: `draftdish INDEX q/QUANTITY` +
-e.g. `draftdish 4 q/1`
+** *Redeem Member Points*: `draftpoints POINTS` +
+e.g. `draftpoints 100`
 
 ** *Clear The Draft*: `cleardraft`
 

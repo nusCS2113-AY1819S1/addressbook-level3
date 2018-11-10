@@ -45,8 +45,8 @@ public class Order implements ReadOnlyOrder {
     public Order(ReadOnlyMember customer, Map<ReadOnlyMenus, Integer> dishItems, int pointsToRedeem) {
         this.customer = customer;
         this.dishItems.putAll(dishItems);
-        this.price = calculatePrice(pointsToRedeem);
         this.points = new Points(pointsToRedeem);
+        this.price = calculatePrice();
         this.date = new Date();
     }
 
@@ -56,8 +56,8 @@ public class Order implements ReadOnlyOrder {
     public Order(ReadOnlyMember customer, Date date, Map<ReadOnlyMenus, Integer> dishItems, int pointsToRedeem) {
         this.customer = customer;
         this.dishItems.putAll(dishItems);
-        this.price = calculatePrice(pointsToRedeem);
         this.points = new Points(pointsToRedeem);
+        this.price = calculatePrice();
         this.date = date;
     }
 
@@ -71,8 +71,8 @@ public class Order implements ReadOnlyOrder {
                  int pointsToRedeem) {
         this.customer = customer;
         this.dishItems.putAll(dishItems);
-        this.price = price;
         this.points = new Points(pointsToRedeem);
+        this.price = price;
         this.date = date;
     }
 
@@ -101,25 +101,9 @@ public class Order implements ReadOnlyOrder {
         return price;
     }
 
-    public void setPrice(double value) {
-        price = value;
-    }
-
     @Override
     public int getPoints() {
-        return points.getPoints();
-    }
-
-    public int getPointsEarned() {
-        if (customer.getName().equals(new Member().getName())) {
-            return points.getPoints();
-        }
-        return (int) price / 10;
-    }
-
-    @Override
-    public void setPoints(int value) {
-        points.setPoints(value);
+        return points.getCurrentPoints();
     }
 
     @Override
@@ -127,30 +111,46 @@ public class Order implements ReadOnlyOrder {
         return new HashMap<>(dishItems);
     }
 
-    public void setCustomer(ReadOnlyMember customer) {
-        this.customer = customer;
-    }
-
-    /**
-     * Replaces the list of dish items with the dish items in {@code replacement}.
-     */
-    public void setDishItems(Map<ReadOnlyMenus, Integer> replacement, int pointsToRedeem) {
-        dishItems.clear();
-        dishItems.putAll(replacement);
-        price = calculatePrice(pointsToRedeem);
-    }
-
-    /**
-     * Calculate and return the total price of an order.
-     */
-    public double calculatePrice(int points) {
+    @Override
+    public double getOriginalPrice() {
         double result = 0;
         for (Map.Entry<ReadOnlyMenus, Integer> m: getDishItems().entrySet()) {
             double dishPrice = m.getKey().getPrice().convertValueOfPricetoDouble();
             int dishQuantity = m.getValue();
             result += (dishPrice * dishQuantity);
         }
-        result -= points; // 10 points = $1
+        return result;
+    }
+
+    @Override
+    public int getMaxPointsRedeemable() {
+        int pointsLimitByPrice = Points.getRedeemedPointsValue(getOriginalPrice());
+        int pointsLimitByMember = customer.getCurrentPointsValue();
+        return Integer.min(pointsLimitByPrice, pointsLimitByMember);
+    }
+
+    @Override
+    public int getEarnedPointsValue() {
+        return Points.getEarnedPointsValue(price);
+    }
+
+
+
+    public void setCustomer(ReadOnlyMember customer) {
+        this.customer = customer;
+    }
+
+    public void setPoints(int value) {
+        points.setCurrentPoints(value);
+        price = calculatePrice();
+    }
+
+    /**
+     * Calculate and return the total price of an order.
+     */
+    public double calculatePrice() {
+        double result = getOriginalPrice();
+        result -= points.getRedeemedDiscount();
         return result;
     }
 
@@ -176,7 +176,7 @@ public class Order implements ReadOnlyOrder {
         } else if (quantity > 0) {
             dishItems.put(dish, quantity);
         }
-        price = calculatePrice(points.getPoints());
+        price = calculatePrice();
     }
 
     @Override
@@ -190,8 +190,11 @@ public class Order implements ReadOnlyOrder {
     }
 
     @Override
-    public boolean hasPointsField() {
-        return !(points.equals(new Points()));
+    public boolean hasPoints() {
+        if (customer.getCurrentPointsValue() == 0) {
+            return false;
+        }
+        return true;
     }
 
     @Override
@@ -204,7 +207,7 @@ public class Order implements ReadOnlyOrder {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(customer, date, price, dishItems);
+        return Objects.hash(customer, date, price, dishItems, points);
     }
 
     @Override

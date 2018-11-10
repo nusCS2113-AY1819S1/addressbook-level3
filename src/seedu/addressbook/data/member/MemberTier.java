@@ -5,6 +5,11 @@ package seedu.addressbook.data.member;
  */
 
 public class MemberTier {
+
+    public static final int GOLD_TIER = 400;
+    public static final int SILVER_TIER = 200;
+    public static final int BRONZE_TIER = 0;
+
     private String tier;
 
     public MemberTier() {
@@ -26,16 +31,17 @@ public class MemberTier {
      * @return MemberTier object with the updated tier value
      */
     public MemberTier updateTier(Points points) {
-        int value = points.getPoints();
-        if (value > 100) {
+        int value = points.getCurrentPoints();
+        if (value > GOLD_TIER) {
             this.tier = "Gold";
             return this;
-        } else if (value > 50) {
+        } else if (value > SILVER_TIER) {
             this.tier = "Silver";
             return this;
-        } else {
+        } else if (value >= BRONZE_TIER) {
             this.tier = "Bronze";
             return this;
         }
+        return this;
     }
 }

@@ -10,14 +10,12 @@ import java.util.Date;
 public interface ReadOnlyMember {
 
     MemberName getName();
-    Points getPoints();
-    Points updatePoints(double price, int pointsToRedeem);
-    void updatePointsAndTier(double price, int pointsToRedeem);
+    MemberEmail getEmail();
+    Points getCurrentPoints();
     Date getDate();
     MemberTier getMemberTier();
-    MemberTier updateTier(Points points);
-    int getPointsValue();
-    void setPoints(int value);
+    int getCurrentPointsValue();
+    int getTotalPointsValue();
 
 
     /**
@@ -33,7 +31,8 @@ public interface ReadOnlyMember {
     default boolean isSameStateAs(ReadOnlyMember other) {
         return other == this // short circuit if same object
                 || (other != null // this is first to avoid NPE below
-                && other.getName().equals(this.getName())); // state checks here onwards
+                && other.getName().equals(this.getName())
+                && other.getEmail().equals(this.getEmail())); // state checks here onwards
     }
 
     /**
@@ -43,12 +42,16 @@ public interface ReadOnlyMember {
         final StringBuilder builder = new StringBuilder();
         final String detailIsPrivate = "(private) ";
         builder.append(getName())
-                .append(" Points: ");
-        builder.append(getPoints())
-                .append(" Date: ");
-        builder.append(getDate())
-                .append(" Tier: ");
-        builder.append(getMemberTier().toString());
+                .append(" | Email: ");
+        builder.append(getEmail())
+                .append(" | Available Points: ");
+        builder.append(getCurrentPoints())
+                .append(" | Total Points: ");
+        builder.append(getTotalPointsValue())
+                .append(" | Tier: ");
+        builder.append(getMemberTier().toString())
+                .append(" | Date: ");
+        builder.append(getDate());
         return builder.toString();
     }
 
@@ -58,9 +61,12 @@ public interface ReadOnlyMember {
     default String getAsTextHidePrivate() {
         final StringBuilder builder = new StringBuilder();
         builder.append(getName());
-        builder.append(" Points: ").append(getPoints());
-        builder.append(" Date: ").append(getDate());
-        builder.append(" Tier: ").append(getMemberTier().toString());
+        builder.append(" | Email: ").append(getEmail());
+        builder.append(" | Available Points: ").append(getCurrentPoints());
+        builder.append(" | Total Points: ").append(getTotalPointsValue());
+        builder.append(" | Tier: ").append(getMemberTier().toString());
+        builder.append(" | Date: ").append(getDate());
+        builder.append("\n");
         return builder.toString();
     }
 
@@ -70,8 +76,7 @@ public interface ReadOnlyMember {
     default String getAsTextInOrderList() {
         final StringBuilder builder = new StringBuilder();
         builder.append(getName());
-        builder.append(" Points: ").append(getPoints());
-        builder.append(" Tier: ").append(getMemberTier().toString());
+        builder.append(" | Tier: ").append(getMemberTier().toString());
         return builder.toString();
     }
 }

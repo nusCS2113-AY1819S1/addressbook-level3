@@ -16,15 +16,15 @@ public interface ReadOnlyOrder {
     ReadOnlyMember getCustomer();
     Date getDate();
     double getPrice();
+    double getOriginalPrice();
     int getPoints();
-    int getPointsEarned();
-    void setPoints(int value);
-    void setPrice(double value);
+    int getMaxPointsRedeemable();
+    int getEarnedPointsValue();
     Map<ReadOnlyMenus, Integer> getDishItems();
 
     boolean hasCustomerField();
     boolean hasDishItems();
-    boolean hasPointsField();
+    boolean hasPoints();
 
     /**
      * Returns true if the values inside this object is same as those of the other
@@ -60,10 +60,12 @@ public interface ReadOnlyOrder {
                     .append("($").append(dishPrice.toString()).append(") \t\t")
                     .append("x").append(quantity);
         }
-        builder.append("\n\t\tPoints used: ").append(getPoints());
-        builder.append("\n\t\tPoints earned: ").append(getPointsEarned());
+        if (hasCustomerField()) {
+            builder.append("\n\t\tRedeemed points: ").append(getPoints());
+        }
         builder.append("\n\t\tTotal price: ");
         builder.append(Price.convertPricetoString(getPrice()));
+        builder.append("\n\t\tPoints Earned: ").append(getEarnedPointsValue());
         return builder.toString();
     }
 
@@ -89,10 +91,12 @@ public interface ReadOnlyOrder {
                     .append("($").append(dishPrice.toString()).append(") \t\t")
                     .append("x").append(quantity);
         }
-        builder.append("\n\t\tPoints used: ").append(getPoints());
-        builder.append("\n\t\tPoints earned: ").append(getPointsEarned());
+        if (hasCustomerField()) {
+            builder.append("\n\t\tRedeemed points: ").append(getPoints());
+        }
         builder.append("\n\t\tTotal price: ");
         builder.append(Price.convertPricetoString(getPrice()));
+        builder.append("\n\t\tPoints Earned: ").append(getEarnedPointsValue());
         return builder.toString();
     }
 
@@ -125,14 +129,11 @@ public interface ReadOnlyOrder {
         } else {
             builder.append("<empty>");
         }
-        builder.append("\n\t\tPoints used: ");
-        if (hasPointsField()) {
-            builder.append(getPoints());
-        } else {
-            builder.append("<empty>");
+        if (hasCustomerField()) {
+            builder.append("\n\t\tRedeemed points: ").append(getPoints());
+            builder.append(" / ").append(getMaxPointsRedeemable());
         }
-        builder.append("\n\t\tPoints earned: ").append(getPointsEarned());
-        builder.append("\n\t\tTotal price: ");
+        builder.append("\n\n\t\tTotal price: ");
         builder.append(Price.convertPricetoString(getPrice()));
         return builder.toString();
     }
