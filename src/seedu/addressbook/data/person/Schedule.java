@@ -21,12 +21,12 @@ public class Schedule {
      *
      * @throws IllegalValueException if given phone string is invalid.
      */
-    public Schedule(String schedule) throws IllegalValueException {
-        schedule = schedule.trim();
-        if (!isValidSchedule(schedule)) {
+    public Schedule(String date) throws IllegalValueException {
+        date = date.trim();
+        if (!isValidSchedule(date)) {
             throw new IllegalValueException(MESSAGE_SCHEDULE_CONSTRAINTS);
         }
-        this.value = schedule;
+        this.value = date;
     }
 
     /**
