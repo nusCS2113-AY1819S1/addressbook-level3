@@ -10,7 +10,7 @@
 == Overview of the Restaurant Management System
 
 
-====== Restaurant Management System (RMS) is a restaurant management solution that helps restauranteurs make more money, deliver great customer experience and bring honest and meaningful statistics to the table. The RMS was designed to improve the efficiency of completing mundane processes such as taking orders and counting the cash so that you can focus on the important things that matter - serving your customers with great food.
+Restaurant Management System (RMS) is a restaurant management solution that helps restauranteurs make more money, deliver great customer experience and bring honest and meaningful statistics to the table. The RMS was designed to improve the efficiency of completing mundane processes such as taking orders and counting the cash so that you can focus on the important things that matter - serving your customers with great food.
 
 
 This application is created by my team, which comprises of 5 people including myself, for the NUS module CS2113T titled, Software Engineering & Object-Oriented Programming. The project lasted for around 10 weeks and we were expected to work with an existing sample codebase given by the module. The objective was to innovate and develop the existing codebase into a desktop application for a specific group of users - restaurant owners.
