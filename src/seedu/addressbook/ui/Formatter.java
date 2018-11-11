@@ -42,7 +42,7 @@ public class Formatter {
     public String formatMenuResult(List<? extends ReadOnlyMenus> menus) {
         final List<String> formattedMenus = new ArrayList<>();
         for (ReadOnlyMenus menu : menus) {
-            formattedMenus.add(menu.getAsTextHidePrivate());
+            formattedMenus.add(menu.getAsText());
         }
         return format(asIndexedList(formattedMenus));
     }
