@@ -21,6 +21,8 @@ public class StatsMemberCommand extends Command {
             + "Displays statistics information for members.\n\t"
             + "Example: " + COMMAND_WORD;
 
+    public static final String MESSAGE_NO_MEMBERS = "There are no members in the system.";
+
 
     @Override
     public CommandResult execute() {
@@ -31,7 +33,7 @@ public class StatsMemberCommand extends Command {
         StringBuilder res = new StringBuilder();
         List<ReadOnlyMember> allMembers = rms.getAllMembers().immutableListView();
         if (allMembers.isEmpty()) {
-            return "There are no members in the system.";
+            return MESSAGE_NO_MEMBERS;
         }
         MemberDateTable dateTable = new MemberDateTable();
         int[] tierCount = new int[]{0, 0, 0};

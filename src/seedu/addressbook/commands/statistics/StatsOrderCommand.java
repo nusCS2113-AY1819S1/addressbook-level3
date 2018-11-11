@@ -23,6 +23,8 @@ public class StatsOrderCommand extends Command {
             + "Displays statistics information for orders.\n\t"
             + "Example: " + COMMAND_WORD;
 
+    public static final String MESSAGE_NO_ORDER = "There are no orders in the system.";
+
 
     @Override
     public CommandResult execute() {
@@ -33,7 +35,7 @@ public class StatsOrderCommand extends Command {
         StringBuilder sb = new StringBuilder();
         List<ReadOnlyOrder> allOrders = rms.getAllOrders().immutableListView();
         if (allOrders.isEmpty()) {
-            return "There are no orders in the system.";
+            return MESSAGE_NO_ORDER;
         }
 
         OrderDateTable dateTable = new OrderDateTable();

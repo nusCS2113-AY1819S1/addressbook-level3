@@ -23,6 +23,7 @@ public class StatsEmployeeCommand extends Command {
             + "Displays statistics information for employees.\n\t"
             + "Example: " + COMMAND_WORD;
 
+    public static final String MESSAGE_NO_EMPLOYEE = "There are no employees in the system.";
 
     @Override
     public CommandResult execute() {
@@ -34,7 +35,7 @@ public class StatsEmployeeCommand extends Command {
         List<ReadOnlyEmployee> allEmployees = rms.getAllEmployees().immutableListView();
         UniqueAttendanceList allAttendance = rms.getAllAttendance();
         if (allEmployees.isEmpty()) {
-            return "There are no employees in the system.";
+            return MESSAGE_NO_EMPLOYEE;
         }
         res.append("Number of employees: " + allEmployees.size() + "\n\n");
         res.append("Currently on duty employees: ");

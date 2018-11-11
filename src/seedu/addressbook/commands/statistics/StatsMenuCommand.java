@@ -30,6 +30,8 @@ public class StatsMenuCommand extends Command {
             + "Select date range from ddmmyyyy to ddmmyyyy with f/ddmmyyyy and t/ddmmyyyy\n\t"
             + "Example: " + COMMAND_WORD + " [f/24102018] [t/26102018]";
 
+    public static final String MESSAGE_NO_ORDER = "There are no orders in the system to calculate menu stats.";
+
     private Date dateFrom;
     private Date dateTo;
     private String heading;
@@ -63,7 +65,7 @@ public class StatsMenuCommand extends Command {
         StringBuilder sb = new StringBuilder();
         List<ReadOnlyOrder> allOrders = rms.getAllOrders().immutableListView();
         if (allOrders.isEmpty()) {
-            return "There are no orders in the system to calculate menu stats.";
+            return MESSAGE_NO_ORDER;
         }
         List<ReadOnlyMenus> allMenu = rms.getAllMenus().immutableListView();
         Map<ReadOnlyMenus, QuantityRevenuePair> allMenuSales = new TreeMap<>();
