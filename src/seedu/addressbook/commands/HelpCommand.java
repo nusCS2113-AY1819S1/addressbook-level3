@@ -12,7 +12,6 @@ import seedu.addressbook.commands.menu.MenuListByTypeCommand;
 import seedu.addressbook.commands.menu.MenuListCommand;
 import seedu.addressbook.commands.menu.MenuRecommendationCommand;
 import seedu.addressbook.commands.menu.MenuShowMainMenuCommand;
-import seedu.addressbook.commands.menu.MenuViewAllCommand;
 import seedu.addressbook.commands.order.DraftOrderClearCommand;
 import seedu.addressbook.commands.order.DraftOrderConfirmCommand;
 import seedu.addressbook.commands.order.DraftOrderEditCustomerCommand;
@@ -54,25 +53,24 @@ public class HelpCommand extends Command {
             + "\n\n10. " + MenuShowMainMenuCommand.MESSAGE_USAGE
             + "\n\n11. " + MenuListByTypeCommand.MESSAGE_USAGE
             + "\n\n12. " + MenuRecommendationCommand.MESSAGE_USAGE
-            + "\n\n13. " + MenuViewAllCommand.MESSAGE_USAGE
-            + "\n\n14. " + MenuClearCommand.MESSAGE_USAGE
+            + "\n\n13. " + MenuClearCommand.MESSAGE_USAGE
 
-            + "\n\n15. " + OrderAddCommand.MESSAGE_USAGE
-            + "\n\n16. " + OrderDeleteCommand.MESSAGE_USAGE
-            + "\n\n17. " + OrderClearCommand.MESSAGE_USAGE
-            + "\n\n18. " + OrderListCommand.MESSAGE_USAGE
-            + "\n\n19. " + DraftOrderEditCustomerCommand.MESSAGE_USAGE
-            + "\n\n20. " + DraftOrderEditDishCommand.MESSAGE_USAGE
-            + "\n\n21. " + DraftOrderEditPointsCommand.MESSAGE_USAGE
-            + "\n\n22. " + DraftOrderClearCommand.MESSAGE_USAGE
-            + "\n\n23. " + DraftOrderConfirmCommand.MESSAGE_USAGE
+            + "\n\n14. " + OrderAddCommand.MESSAGE_USAGE
+            + "\n\n15. " + OrderDeleteCommand.MESSAGE_USAGE
+            + "\n\n16. " + OrderClearCommand.MESSAGE_USAGE
+            + "\n\n17. " + OrderListCommand.MESSAGE_USAGE
+            + "\n\n18. " + DraftOrderEditCustomerCommand.MESSAGE_USAGE
+            + "\n\n19. " + DraftOrderEditDishCommand.MESSAGE_USAGE
+            + "\n\n20. " + DraftOrderEditPointsCommand.MESSAGE_USAGE
+            + "\n\n21. " + DraftOrderClearCommand.MESSAGE_USAGE
+            + "\n\n22. " + DraftOrderConfirmCommand.MESSAGE_USAGE
 
-            + "\n\n24. " + StatsEmployeeCommand.MESSAGE_USAGE
-            + "\n\n25. " + StatsMenuCommand.MESSAGE_USAGE
-            + "\n\n26. " + StatsMemberCommand.MESSAGE_USAGE
-            + "\n\n27. " + StatsOrderCommand.MESSAGE_USAGE
+            + "\n\n23. " + StatsEmployeeCommand.MESSAGE_USAGE
+            + "\n\n24. " + StatsMenuCommand.MESSAGE_USAGE
+            + "\n\n25. " + StatsMemberCommand.MESSAGE_USAGE
+            + "\n\n26. " + StatsOrderCommand.MESSAGE_USAGE
 
-            + "\n\n28. " + ExitCommand.MESSAGE_USAGE;
+            + "\n\n27. " + ExitCommand.MESSAGE_USAGE;
 
     @Override
     public CommandResult execute() {

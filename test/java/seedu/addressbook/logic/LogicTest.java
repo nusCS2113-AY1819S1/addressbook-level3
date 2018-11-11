@@ -23,7 +23,7 @@ import seedu.addressbook.commands.menu.MenuAddCommand;
 import seedu.addressbook.commands.menu.MenuDeleteCommand;
 import seedu.addressbook.commands.menu.MenuFindCommand;
 import seedu.addressbook.commands.menu.MenuListByTypeCommand;
-import seedu.addressbook.commands.menu.MenuViewAllCommand;
+import seedu.addressbook.commands.menu.MenuShowMainMenuCommand;
 import seedu.addressbook.commands.order.DraftOrderClearCommand;
 import seedu.addressbook.commands.order.DraftOrderConfirmCommand;
 import seedu.addressbook.commands.order.DraftOrderEditCustomerCommand;
@@ -1137,16 +1137,6 @@ public class LogicTest {
 
     }
 
-
-    //test for MenuViewAll Command testing for valid arguments
-    @Test
-    public void execute_menuviewall_invalidArgsFormat() throws Exception {
-        String expectedMessage = String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT,
-                MenuViewAllCommand.MESSAGE_USAGE);
-        assertMenuCommandBehavior("viewallmenu ", expectedMessage);
-        assertMenuCommandBehavior("viewallmenu arg not number", expectedMessage);
-    }
-
     @Test
     public void execute_deletemenu_invalidArgsFormat() throws Exception {
         String expectedMessage = String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT,
@@ -1257,6 +1247,12 @@ public class LogicTest {
                 expectedRms,
                 true,
                 expectedList);
+    }
+
+    @Test
+    public void execute_showMainMenu_validArgsFormat() throws Exception {
+        String expectedMessage = MenuShowMainMenuCommand.MAIN_MENU_DISPLAY;
+        assertMenuCommandBehavior("showmainmenu", expectedMessage);
     }
 
     @Test
@@ -1433,7 +1429,7 @@ public class LogicTest {
     @Test
     public void execute_draftdish_invalidArgsFormat() throws Exception {
         String expectedMessage = String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT,
-                DraftOrderEditDishCommand.MESSAGE_USAGE);
+                DraftOrderEditDishCommand.MESSAGE_INVALID_FORMAT);
         assertOrderCommandBehavior("draftdish", expectedMessage);
         assertOrderCommandBehavior("draftdish ", expectedMessage);
         assertOrderCommandBehavior("draftdish wrong args wrong args", expectedMessage);
@@ -1443,6 +1439,9 @@ public class LogicTest {
         assertOrderCommandBehavior("draftdish q/2", expectedMessage);
         assertOrderCommandBehavior("draftdish a q/2", expectedMessage);
         assertOrderCommandBehavior("draftdish 1 q/b", expectedMessage);
+        assertOrderCommandBehavior("draftdish -1 q/2", expectedMessage);
+        assertOrderCommandBehavior("draftdish 1 q/-2", expectedMessage);
+        assertOrderCommandBehavior("draftdish 1 q/1000", expectedMessage);
     }
 
     @Test
@@ -1455,7 +1454,6 @@ public class LogicTest {
 
         logic.setLastShownMenuList(lastShownMenuList);
 
-        assertMenuCommandBehavior("draftdish" + " -1 " + "q/1", expectedMessage, Rms.empty(), false, lastShownMenuList);
         assertMenuCommandBehavior("draftdish" + " 0 " + "q/1", expectedMessage, Rms.empty(), false, lastShownMenuList);
         assertMenuCommandBehavior("draftdish" + " 3 " + "q/1", expectedMessage, Rms.empty(), false, lastShownMenuList);
     }
