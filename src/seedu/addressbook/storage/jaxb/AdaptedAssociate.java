@@ -5,6 +5,9 @@ import seedu.addressbook.data.person.Associated;
 
 import javax.xml.bind.annotation.XmlValue;
 
+/**
+ * JAXB-friendly adapted associate data holder class.
+ */
 public class AdaptedAssociate {
     @XmlValue
     public String value;
@@ -36,7 +39,7 @@ public class AdaptedAssociate {
     }
 
     /**
-     * Converts this jaxb-friendly adapted tag object into the Associated object.
+     * Converts this jaxb-friendly adapted associate object into the Associated object.
      */
     public Associated toModelType(){
         return new Associated(value);

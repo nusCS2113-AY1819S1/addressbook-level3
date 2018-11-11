@@ -581,7 +581,7 @@ public class LogicTest {
     }
 
     @Test
-    public void execute_find_isCaseSensitive() throws Exception {
+    public void execute_find_isCaseInsensitive() throws Exception {
         TestDataHelper helper = new TestDataHelper();
         Person pTarget1 = helper.generatePersonWithName("bla bla KEY bla");
         Person pTarget2 = helper.generatePersonWithName("bla KEY bla bceofeia");
@@ -590,7 +590,7 @@ public class LogicTest {
 
         List<Person> fourPersons = helper.generatePersonList(p1, pTarget1, p2, pTarget2);
         AddressBook expectedAB = helper.generateAddressBook(fourPersons);
-        List<Person> expectedList = helper.generatePersonList(pTarget1, pTarget2);
+        List<Person> expectedList = helper.generatePersonList(p1, pTarget1, p2, pTarget2);
         helper.addToAddressBook(addressBook, fourPersons);
 
         assertCommandBehavior("find KEY",
@@ -610,7 +610,7 @@ public class LogicTest {
 
         List<Person> fourPersons = helper.generatePersonList(p1, pTarget1, p2, pTarget2);
         AddressBook expectedAB = helper.generateAddressBook(fourPersons);
-        List<Person> expectedList = helper.generatePersonList(pTarget1, pTarget2);
+        List<Person> expectedList = helper.generatePersonList(p1, pTarget1, p2, pTarget2);
         helper.addToAddressBook(addressBook, fourPersons);
 
         assertCommandBehavior("find KEY rAnDoM",
@@ -631,7 +631,7 @@ public class LogicTest {
             Phone privatePhone = new Phone("111111", true);
             Email email = new Email("adam@gmail.com", false);
             Address privateAddress = new Address("111, alpha street", true);
-            Title title = new Title("Patient", false);
+            Title title = new Title("Patient");
             Schedule schedule1 = new Schedule("25-12-2019-11:00");
             Schedule schedule2 = new Schedule("25-03-2018-23:00");
             Set<Schedule> schedules = new HashSet<>(Arrays.asList(schedule1, schedule2));
@@ -657,7 +657,7 @@ public class LogicTest {
                     new Phone("" + Math.abs(seed), isAllFieldsPrivate),
                     new Email(seed + "@email", isAllFieldsPrivate),
                     new Address("House of " + seed, isAllFieldsPrivate),
-                    new Title("Doctor", isAllFieldsPrivate),
+                    new Title("Doctor"),
                     new HashSet<>(Arrays.asList(new Schedule("26-01-2019-11:00"), new Schedule("19-02-2019-23:00"))),
                     new HashSet<>(Arrays.asList(new Tag("tag" + Math.abs(seed)), new Tag("tag" + Math.abs(seed + 1)))),
                     new HashSet<>(Arrays.asList(new Associated("associate1")))
@@ -678,7 +678,7 @@ public class LogicTest {
                     new Phone("" + Math.abs(seed), false),
                     new Email(seed + "@email", false),
                     new Address("House of " + seed, false),
-                    new Title(title, false),
+                    new Title(title),
                     new HashSet<>(Arrays.asList(new Schedule("26-01-2019-11:00"), new Schedule("19-02-2019-23:00"))),
                     new HashSet<>(Arrays.asList(new Tag("tag" + Math.abs(seed)), new Tag("tag" + Math.abs(seed + 1)))),
                     new HashSet<>(Arrays.asList(new Associated("associate1")))
@@ -696,7 +696,7 @@ public class LogicTest {
             cmd.add((p.getPhone().isPrivate() ? "pp/" : "p/") + p.getPhone());
             cmd.add((p.getEmail().isPrivate() ? "pe/" : "e/") + p.getEmail());
             cmd.add((p.getAddress().isPrivate() ? "pa/" : "a/") + p.getAddress());
-            cmd.add((p.getTitle().isPrivate() ? "ps/" : "s/") + p.getTitle());
+            cmd.add(("s/") + p.getTitle());
 
             Set<Schedule> schedules = p.getSchedules();
             for(Schedule t: schedules){
@@ -784,7 +784,7 @@ public class LogicTest {
                     new Phone("1", false),
                     new Email("1@email", false),
                     new Address("House of 1", false),
-                    new Title("Doctor", false),
+                    new Title("Doctor"),
                     Collections.singleton(new Schedule( "27-01-2019-23:00")),
                     Collections.singleton(new Tag("tag")),
                     Collections.singleton(new Associated("associate1"))

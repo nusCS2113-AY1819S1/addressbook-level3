@@ -155,6 +155,11 @@ public class StorageFile {
         return path.toString();
     }
 
+    /**
+     * Generates 20 test person
+     * @return the UniquePersonList of the 20 generated persons
+     * @throws Exception if something went wrong while generating the list
+     */
     public UniquePersonList generateTestPersons() throws Exception{
         UniquePersonList builder = new UniquePersonList();
         for(int i = 0; i < 20; i++){
@@ -164,18 +169,23 @@ public class StorageFile {
         return builder;
     }
 
-    public Person generatePerson(int i) throws Exception{
+    /**
+     * Generate unique person with given seed. Providing the same seed will guarantee the same generated person
+     * @param seed for generating person
+     * @return the generated test person
+     * @throws Exception if something went wrong while generating a person
+     */
+    public Person generatePerson(int seed) throws Exception{
         String[] names = {"John Doe", "Christina Rogers", "Tan Ah Hock", "Christopher Wong", "Tan Ah Gao", "Rosie Benitez", "Alicja Calhoun", "Fiona Romero", "Sadie Lindsey", "Elena Person", "Kameron Floyd", "Cynthia Nguyen", "Ayesha Christensen", "Paris Palacios", "Benjamin Cain", "Charles Vance", "Raja Wise", "Thierry Valencia", "Rio Gray", "Juliet Murillo"};
-        String title = alternateTitle(i);
-        Random pop = new Random();
-        int temp = 10 + pop.nextInt(89);
+        String title = alternateTitle(seed);
+        int temp = 10 + seed;
         return new Person(
-                new Name(names[i]),
+                new Name(names[seed]),
                 new Nric("S12332" + temp + "Y", false),
                 new Phone("816546" + temp, false),
                 new Email(temp + "@gmail", false),
-                new Address("House of " + names[i], false),
-                new Title(title, false),
+                new Address("House of " + names[seed], false),
+                new Title(title),
                 new HashSet<>(Arrays.asList()),
                 new HashSet<>(Arrays.asList()),
                 new HashSet<>(Arrays.asList())

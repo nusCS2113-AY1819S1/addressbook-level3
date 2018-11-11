@@ -76,9 +76,6 @@ public interface ReadOnlyPerson {
         }else{
             builder.append(" HIDDEN").append(" Title: ");
         }
-        if (getTitle().isPrivate()) {
-            builder.append(detailIsPrivate);
-        }
         builder.append(getTitle())
                 .append(" Schedule: ");
         for(Schedule schedule : getSchedules()){
@@ -114,9 +111,8 @@ public interface ReadOnlyPerson {
                 builder.append(" Address: ").append(" HIDDEN");
             }
         }
-        if (!getTitle().isPrivate()) {
-            builder.append(" Title: ").append(getTitle());
-        }
+        builder.append(" Title: ").append(getTitle());
+
         builder.append(" Schedule: ");
         for(Schedule schedule : getSchedules()){
             builder.append(schedule);
@@ -137,6 +133,7 @@ public interface ReadOnlyPerson {
         if(!getNric().isPrivate()) {
             builder.append("\t\tNRIC: ").append(getNric());
         }
+        builder.append("\t\tTitle: ").append(getTitle());
         builder.append("\n\tSchedule: ");
         for(Schedule schedule : getSchedules()){
             builder.append(schedule);

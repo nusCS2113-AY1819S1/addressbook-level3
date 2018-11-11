@@ -23,10 +23,11 @@ public class HelpCommand extends Command {
             //link
             //unlink
             //association list
-            + "\n" + ChatCommand.MESSAGE_USAGE + "\n"
             //change password
             + "\n" + UndoCommand.MESSAGE_USAGE + "\n"
             + "\n" + RedoCommand.MESSAGE_USAGE + "\n"
+            + "\n" + EditAppointmentCommand.MESSAGE_USAGE + "\n"
+            + "\n" + SortCommand.MESSAGE_USAGE
             //history
             + "\n" + ExitCommand.MESSAGE_USAGE;
 
