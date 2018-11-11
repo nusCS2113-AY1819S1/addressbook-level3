@@ -59,10 +59,14 @@ image::MainMenu.png[]
 *** Addition of content to User Guide: https://github.com/CS2113-AY1819S1-F09-2/main/pull/73[#73]
 https://github.com/CS2113-AY1819S1-F09-2/main/pull/135[#135]
 https://github.com/CS2113-AY1819S1-F09-2/main/pull/144[#144]
+https://github.com/CS2113-AY1819S1-F09-2/main/pull/202[#202]
+https://github.com/CS2113-AY1819S1-F09-2/main/pull/214[#214]
 *** Addition of content to Developer Guide: https://github.com/CS2113-AY1819S1-F09-2/main/pull/73[#73]
 https://github.com/CS2113-AY1819S1-F09-2/main/pull/135[#135]
+https://github.com/CS2113-AY1819S1-F09-2/main/pull/202[#202]
+https://github.com/CS2113-AY1819S1-F09-2/main/pull/214[#214]
 ** Community:
-*** PRs reviewed (with non-trivial review comments): https://github.com/CS2113-AY1819S1-F09-2/main/pull/109[#109], https://github.com/CS2113-AY1819S1-F09-2/main/pull/91[#91], https://github.com/CS2113-AY1819S1-F09-2/main/pull/37[#37], https://github.com/CS2113-AY1819S1-F09-2/main/pull/36[36],
+*** PRs reviewed (with non-trivial review comments): https://github.com/CS2113-AY1819S1-F09-2/main/pull/109[#109], https://github.com/CS2113-AY1819S1-F09-2/main/pull/91[#91], https://github.com/CS2113-AY1819S1-F09-2/main/pull/37[#37], https://github.com/CS2113-AY1819S1-F09-2/main/pull/36[36], https://github.com/CS2113-AY1819S1-F09-2/main/pull/208[#208], https://github.com/CS2113-AY1819S1-F09-2/main/pull/209[#209], https://github.com/CS2113-AY1819S1-F09-2/main/pull/206[#206]
 *** Assisted class mates from other groups in debugging their codes
 
 == Contributions to the User Guide
