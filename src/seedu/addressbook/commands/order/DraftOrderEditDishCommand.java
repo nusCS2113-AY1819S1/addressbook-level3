@@ -23,7 +23,7 @@ public class DraftOrderEditDishCommand extends Command {
 
     public static final String MESSAGE_INVALID_FORMAT = "The entered command does not follow the format\n"
             + "INDEX must be a non-negative integer\n"
-            + "QUANTITY must be a non-negative integer of 1 to 3 digits\n"
+            + "QUANTITY must be a non-negative integer of 1-3 digits\n"
             + MESSAGE_USAGE;
 
     private int quantity;
