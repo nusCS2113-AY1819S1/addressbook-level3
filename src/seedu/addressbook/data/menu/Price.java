@@ -10,9 +10,9 @@ import seedu.addressbook.data.exception.IllegalValueException;
 public class Price {
 
     public static final String EXAMPLE = "$4.40";
-    public static final String MESSAGE_PRICE_CONSTRAINTS = "Price must start with a $ sign "
-                                                          + "and must not be more than a 3 digit integer or "
-                                                          + "a float in value of up to 2 decimal places";
+    public static final String MESSAGE_PRICE_CONSTRAINTS = "Price must follow "
+            + "the format $A.BC, where A is a number of 1-3 digits and B and C are 1 digit each, "
+            + "or just $A";
 
     public static final String PRICE_VALIDATION_REGEX = "\\$[1-9][0-9]{0,2}(\\.[0-9]{2})?|\\$0{1}\\.[0-9]{2}|\\$0";
     //"^\\$\\d+([.][0-9]+)?$";
