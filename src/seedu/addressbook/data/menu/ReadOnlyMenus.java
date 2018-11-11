@@ -48,17 +48,6 @@ public interface ReadOnlyMenus {
     }
 
     /**
-     * Formats the menu name and price as text, showing all relevant details.
-     */
-    default String getAsTextShowMenuAndPrice() {
-        final StringBuilder builder = new StringBuilder();
-        builder.append(getName())
-                .append(" | Price: ");
-        builder.append(getPrice());
-        return builder.toString();
-    }
-
-    /**
      * Formats a menu item as text, showing all contact details.
      */
     default String getMenuAsText() {
