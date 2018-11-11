@@ -1,5 +1,6 @@
 package seedu.addressbook.logic;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -525,5 +526,48 @@ class TestDataHelper {
         );
     }
 
+    /** Generates the correct stats employee command */
+    String generateStatsEmpCommand() {
+        StringJoiner cmd = new StringJoiner(" ");
 
+        cmd.add("statsemp");
+
+        return cmd.toString();
+    }
+
+    /** Generates the correct stats member command */
+    String generateStatsMemberCommand() {
+        StringJoiner cmd = new StringJoiner(" ");
+
+        cmd.add("statsmember");
+
+        return cmd.toString();
+    }
+
+    /** Generates the correct stats menu command based on the to and from dates given */
+    String generateStatsMenuCommand(Date from, Date to) {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("ddMMYYYY");
+
+        StringJoiner cmd = new StringJoiner(" ");
+
+        cmd.add("statsmenu");
+
+        if (from != null) {
+            cmd.add("f/" + dateFormat.format(from));
+        }
+        if (to != null) {
+            cmd.add("t/" + dateFormat.format(to));
+        }
+
+        return cmd.toString();
+    }
+
+    /** Generates the correct stats order command */
+    String generateStatsOrderCommand() {
+        StringJoiner cmd = new StringJoiner(" ");
+
+        cmd.add("statsorder");
+
+        return cmd.toString();
+    }
 }

@@ -1,10 +1,15 @@
 package seedu.addressbook.common;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
+import java.util.AbstractMap;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.junit.Test;
 
@@ -60,6 +65,44 @@ public class UtilsTest {
         assertNotUnique(null, 1, Integer.valueOf(1));
         assertNotUnique(null, null);
         assertNotUnique(null, "a", "b", null);
+    }
+
+    @Test
+    public void sortByValue() throws Exception {
+        Map<String, Integer> input = new HashMap<>();
+        input.put("3", 5);
+        input.put("6", 12);
+        input.put("8", 51);
+        input.put("7", 32);
+        input.put("1", 2);
+        input.put("5", 8);
+        input.put("2", 3);
+        input.put("4", 6);
+        List<Map.Entry<String, Integer>> expected = new ArrayList<>();
+        expected.add(new AbstractMap.SimpleEntry<>("1", 2));
+        expected.add(new AbstractMap.SimpleEntry<>("2", 3));
+        expected.add(new AbstractMap.SimpleEntry<>("3", 5));
+        expected.add(new AbstractMap.SimpleEntry<>("4", 6));
+        expected.add(new AbstractMap.SimpleEntry<>("5", 8));
+        expected.add(new AbstractMap.SimpleEntry<>("6", 12));
+        expected.add(new AbstractMap.SimpleEntry<>("7", 32));
+        expected.add(new AbstractMap.SimpleEntry<>("8", 51));
+        assertEquals(expected, Utils.sortByValue(input));
+    }
+
+    @Test
+    public void formatCurrency() throws Exception {
+        double input = 9999.2;
+        String expected = "9999.20";
+        assertEquals(expected, Utils.formatCurrency((input)));
+
+        input = 0.5;
+        expected = "0.50";
+        assertEquals(expected, Utils.formatCurrency((input)));
+
+        input = 1;
+        expected = "1.00";
+        assertEquals(expected, Utils.formatCurrency((input)));
     }
 
     private void assertAreUnique(Object... objects) {
