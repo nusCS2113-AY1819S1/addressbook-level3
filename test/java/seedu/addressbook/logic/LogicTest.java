@@ -50,7 +50,7 @@ public class LogicTest {
     }
 
     @Test
-    public void execute_invalid() throws Exception {
+    public void executeInvalid() throws Exception {
         String invalidCommand = "       ";
         assertCommandBehavior(invalidCommand,
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
@@ -96,7 +96,7 @@ public class LogicTest {
 
 
     @Test
-    public void execute_unknownCommandWord() throws Exception {
+    public void executeUnknownCommandWord() throws Exception {
         String unknownCommand = "uicfhmowqewca";
         assertCommandBehavior(unknownCommand, HelpCommand.MESSAGE_ALL_USAGES);
     }
@@ -233,7 +233,7 @@ public class LogicTest {
     }
 
     @Test
-    public void execute_view_onlyShowsNonPrivate() throws Exception {
+    public void executeViewOnlyShowsNonPrivate() throws Exception {
 
         TestDataHelper helper = new TestDataHelper();
         Person p1 = helper.generatePerson(1, true);
