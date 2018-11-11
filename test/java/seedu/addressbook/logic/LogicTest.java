@@ -34,6 +34,7 @@ import seedu.addressbook.commands.order.DraftOrderClearCommand;
 import seedu.addressbook.commands.order.DraftOrderConfirmCommand;
 import seedu.addressbook.commands.order.DraftOrderEditCustomerCommand;
 import seedu.addressbook.commands.order.DraftOrderEditDishCommand;
+import seedu.addressbook.commands.order.DraftOrderEditPointsCommand;
 import seedu.addressbook.commands.order.OrderAddCommand;
 import seedu.addressbook.commands.order.OrderClearCommand;
 import seedu.addressbook.commands.order.OrderDeleteCommand;
@@ -54,6 +55,7 @@ import seedu.addressbook.data.employee.Timing;
 import seedu.addressbook.data.member.Member;
 import seedu.addressbook.data.member.MemberEmail;
 import seedu.addressbook.data.member.MemberName;
+import seedu.addressbook.data.member.MemberTier;
 import seedu.addressbook.data.member.Points;
 import seedu.addressbook.data.member.ReadOnlyMember;
 import seedu.addressbook.data.menu.Menu;
@@ -445,27 +447,6 @@ public class LogicTest {
         assertMenuCommandBehavior(
                 "statsmenu f/062017 t/2018", expectedMessage);
     }
-
-    /*
-    @Test
-    public void invalidMemberInOrder() throws Exception {
-        TestDataHelper helper = new TestDataHelper();
-        Member m1 = helper.generateMember(1);
-        Member toBeAdded = helper.eve();
-        Rms expectedRms = new Rms();
-        expectedRms.addMember(toBeAdded);
-        expectedRms.findMemberInOrder(m1);
-    }
-
-    @Test
-    public void validMemberInOrder() throws Exception {
-        TestDataHelper helper = new TestDataHelper();
-        Member m1 = helper.generateMember(1);
-        Rms expectedRms = new Rms();
-        expectedRms.addMember(m1);
-        expectedRms.findMemberInOrder(m1);
-    }
-    */
 
     @Test
     public void execute_addempDuplicate_notAllowed() throws Exception {
@@ -988,6 +969,33 @@ public class LogicTest {
         Points actualPoints = m1.getCurrentPoints();
 
         assertEquals(expectedPoints.getCurrentPoints(), actualPoints.getCurrentPoints());
+
+        m1.updatePoints(200000000, 0);
+        actualPoints = m1.getCurrentPoints();
+        assertEquals(expectedPoints.MAX_CURRENT_POINTS, actualPoints.getCurrentPoints());
+    }
+
+    /**
+     * Test to check if the member tier is being updated correctly
+     * @throws Exception
+     */
+    @Test
+    public void testUpdatePointsAndTier() throws Exception {
+        TestDataHelper test = new TestDataHelper();
+        Member testMember = test.eve();
+        MemberTier testTier = testMember.getMemberTier();
+
+        testMember.updatePointsAndTier(0, 0);
+        String expectedTier1 = "Bronze";
+        assertEquals(expectedTier1, testTier.toString());
+
+        testMember.updatePointsAndTier(21, 0);
+        String expectedTier2 = "Silver";
+        assertEquals(expectedTier2, testTier.toString());
+
+        testMember.updatePointsAndTier(41, 0);
+        String expectedTier3 = "Gold";
+        assertEquals(expectedTier3, testTier.toString());
     }
 
     //@@author SalsabilTasnia
@@ -1619,7 +1627,6 @@ public class LogicTest {
         TestDataHelper helper = new TestDataHelper();
 
         Order expectedDraftOrder = helper.foodOrderWithoutDishes();
-
         rms.editDraftOrderCustomer(helper.eve());
 
         String expectedMessage = DraftOrderConfirmCommand.MESSAGE_DRAFT_INCOMPLETE
@@ -1627,6 +1634,80 @@ public class LogicTest {
                 + "\n" + expectedDraftOrder.getDraftDetailsAsText();
 
         assertOrderCommandBehavior("confirmdraft", expectedMessage);
+    }
+
+    @Test
+    public void execute_draftpoints_success() throws Exception {
+        TestDataHelper helper = new TestDataHelper();
+
+        Order expectedDraftOrder = helper.foodOrderWithReturningCustomer();
+        rms.editDraftOrderCustomer(helper.david());
+        rms.editDraftOrderDishItem(helper.burger(), helper.FOOD_QUANTITY);
+        rms.editDraftOrderPoints(helper.pointsToRedeem());
+
+        String expectedMessage = DraftOrderEditPointsCommand.MESSAGE_SUCCESS
+                + "\n" + Messages.MESSAGE_DRAFT_ORDER_DETAILS
+                + "\n" + expectedDraftOrder.getDraftDetailsAsText();
+
+        assertOrderCommandBehavior("draftpoints 0", expectedMessage);
+    }
+
+    @Test
+    public void execute_draftpoints_missingCustomer() throws Exception {
+        TestDataHelper helper = new TestDataHelper();
+
+        Order expectedDraftOrder = helper.foodOrderWithoutCustomer();
+        rms.editDraftOrderDishItem(helper.burger(), helper.FOOD_QUANTITY);
+
+        String expectedMessage = DraftOrderEditPointsCommand.MESSAGE_EMPTY_CUSTOMER_FIELD
+                + "\n" + Messages.MESSAGE_DRAFT_ORDER_DETAILS
+                + "\n" + expectedDraftOrder.getDraftDetailsAsText();
+
+        assertOrderCommandBehavior("draftpoints 50", expectedMessage);
+    }
+
+    @Test
+    public void execute_draftpoints_missingDishes() throws Exception {
+        TestDataHelper helper = new TestDataHelper();
+
+        Order expectedDraftOrder = helper.foodOrderWithoutDishes();
+        rms.editDraftOrderCustomer(helper.eve());
+
+        String expectedMessage = DraftOrderEditPointsCommand.MESSAGE_EMPTY_DISH_FIELD
+                + "\n" + Messages.MESSAGE_DRAFT_ORDER_DETAILS
+                + "\n" + expectedDraftOrder.getDraftDetailsAsText();
+
+        assertOrderCommandBehavior("draftpoints 50", expectedMessage);
+    }
+
+    @Test
+    public void execute_draftpoints_invalidPoints() throws Exception {
+        TestDataHelper helper = new TestDataHelper();
+
+        Order expectedDraftOrder = helper.foodOrder();
+        rms.editDraftOrderCustomer(helper.eve());
+        rms.editDraftOrderDishItem(helper.burger(), helper.FOOD_QUANTITY);
+
+        String expectedMessage = DraftOrderEditPointsCommand.MESSAGE_NO_REDEEMABLE_POINTS
+                + "\n" + Messages.MESSAGE_DRAFT_ORDER_DETAILS
+                + "\n" + expectedDraftOrder.getDraftDetailsAsText();
+
+        assertOrderCommandBehavior("draftpoints 50", expectedMessage);
+    }
+
+    @Test
+    public void execute_draftpoints_isNegative() throws Exception {
+        TestDataHelper helper = new TestDataHelper();
+
+        Order expectedDraftOrder = helper.foodOrderWithReturningCustomer();
+        rms.editDraftOrderCustomer(helper.david());
+        rms.editDraftOrderDishItem(helper.burger(), helper.FOOD_QUANTITY);
+
+        String expectedMessage = DraftOrderEditPointsCommand.MESSAGE_NEGATIVE_POINTS
+                + "\n" + Messages.MESSAGE_DRAFT_ORDER_DETAILS
+                + "\n" + expectedDraftOrder.getDraftDetailsAsText();
+
+        assertOrderCommandBehavior("draftpoints -50", expectedMessage);
     }
 
     /*

@@ -5,7 +5,9 @@ import static seedu.addressbook.common.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -95,8 +97,8 @@ public class Parser {
                     + "type/(?<type>[^/]+)"
                     + "(?<tagArguments>(?: t/[^/]+)*)"); // variable number of tags
 
-    public static final Pattern ORDER_DISH_ARGS_FORMAT =
-            Pattern.compile("(?<targetIndex>\\d+)\\s+q/(?<quantity>\\d{1,3})");
+    public static final Pattern DRAFT_DISH_ARGS_FORMAT =
+            Pattern.compile("\\d+\\s+q/\\d{1,3}(?:\\s+\\d+\\s+q/\\d{1,3})*");
 
     public static final Pattern REDEEM_POINTS_ARGS_FORMAT = Pattern.compile("(?<points>[^/]+)");
 
@@ -524,17 +526,37 @@ public class Parser {
      */
     private Command prepareDraftOrderEditDish(String args) {
         try {
-            final Matcher matcher = ORDER_DISH_ARGS_FORMAT.matcher(args.trim());
+            args = args.trim();
+            final Matcher matcher = DRAFT_DISH_ARGS_FORMAT.matcher(args);
             // Validate arg string format
             if (!matcher.matches()) {
-                throw new ParseException("Could not find index number and quantity to parse");
+                throw new ParseException("Could not find index numbers and quantities to parse");
             }
-            final int targetIndex = Integer.parseInt(matcher.group("targetIndex"));
-            final int quantity = Integer.parseInt(matcher.group("quantity"));
-            return new DraftOrderEditDishCommand(targetIndex, quantity);
+            Map<Integer, Integer> indexQuantityPairs = new HashMap<>();
+            int i = 0;
+            int index = 0;
+            int quantity;
+            for (String argument: args.split("\\s+")) {
+                if (!argument.isEmpty()) {
+                    if (i % 2 == 0) {
+                        index = Integer.parseInt(argument);
+                        if (indexQuantityPairs.containsKey(index)) {
+                            throw new IllegalValueException("Duplicate indexes detected");
+                        }
+                    } else {
+                        quantity = Integer.parseInt(argument.substring(2));
+                        indexQuantityPairs.put(index, quantity);
+                    }
+                    i++;
+                }
+            }
+            return new DraftOrderEditDishCommand(indexQuantityPairs);
         } catch (ParseException | NumberFormatException e) {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     DraftOrderEditDishCommand.MESSAGE_INVALID_FORMAT));
+        } catch (IllegalValueException ive) {
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    DraftOrderEditDishCommand.MESSAGE_DUPLICATE_INDEX));
         }
     }
 

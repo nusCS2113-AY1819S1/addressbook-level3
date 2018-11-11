@@ -62,6 +62,17 @@ class TestDataHelper {
     }
 
     /**
+     * Generate a member with existing points for testing purpose
+     */
+    Member david() throws Exception {
+        MemberName name = new MemberName("David");
+        MemberEmail email = new MemberEmail("David@gmail.com");
+        Member david = new Member(name, email);
+        david.setPoints(100);
+        return david;
+    }
+
+    /**
      * Generate a menu item for testing purpose
      */
     Menu burger() throws Exception {
@@ -88,7 +99,15 @@ class TestDataHelper {
      */
     int pointsToRedeem() throws Exception {
         return new Points().getCurrentPoints();
-    };
+    }
+
+    /**
+     * Generate empty points to redeem for testing purpose
+     */
+    int pointsToRedeemLimit() throws Exception {
+        final int points = Integer.MAX_VALUE;
+        return new Points(points).getCurrentPoints();
+    }
 
     /**
      * Generate an order for testing purpose
@@ -97,6 +116,15 @@ class TestDataHelper {
         long orderingTime = 1000;
         Date orderingDate = new Date(orderingTime);
         return new Order(eve(), orderingDate, foodItems(), pointsToRedeem());
+    }
+
+    /**
+     * Generate an order with a customer with points for testing purpose
+     */
+    Order foodOrderWithReturningCustomer() throws Exception {
+        long orderingTime = 1000;
+        Date orderingDate = new Date(orderingTime);
+        return new Order(david(), orderingDate, foodItems(), pointsToRedeem());
     }
 
     /**

@@ -302,20 +302,18 @@ Format: `addorder`
 
 * *Edit A Dish Item Of The Draft* +
 +
-By picking a dish from the last shown menu and state the quantity to be added,
-a dish item can be added, deleted or edited in the draft order. +
+By picking dishes from the last shown menu and state the quantity to be added,
+te dish items can be added, deleted or edited in the draft order. +
 +
  ** If the quantity is set to 0, then the dish will be removed from the draft.
- ** If the quantity of a dish that is currently not in the draft is set to a
- positive integer, then the dish and its quantity will be added into the draft.
- ** If the quantity of a dish that is currently in the draft is set to a positive
- integer, then its quantity will be adjusted to the new value.
+ ** If the quantity is a positive integer, then the quantity of the dish will be set to quantity.
 +
-Format: `draftdish INDEX q/QUANTITY`
+Format: `draftdish INDEX q/QUANTITY [INDEX q/QUANTITY]...`
 
-** The index refers to the index number shown in the last shown menu list.
-** The index must be a non-negative integer.
-** The quantity must be a non-negative integer of 1-3 digits.
+** There must be no duplicated index in the input command.
+** The indexes refer to the index numbers shown in the last shown menu list.
+** The indexes must be non-negative integers.
+** The quantities must be non-negative integers of 1-3 digits.
 
 * *Select A Member As The Customer Of The Draft* +
 _This step is only necessary if the customer is a member._
