@@ -19,7 +19,7 @@ Below shows a screenshot of the simple command-line-interface of the RMS and som
 
 image::Ui.png[]
 
-_If you wish to experience a more hands-on approach to use the RMS, please key in `help` upon running the application to get the full list of commands.
+_If you wish to experience a more hands-on approach to use the RMS, please key in `help` upon running the application to get the full list of commands._
 
 _If you are looking for a detailed tutorial on how to use the RMS, please refer to our https://github.com/CS2113-AY1819S1-F09-2/main/tree/master/docs/UserGuide.adoc[User Guide]._ +
 
@@ -37,27 +37,28 @@ _If you are looking for the detailed architecture and design of the RMS or wish 
 ** `Justification`: This feature improves the product significantly because it is an innovative way for restaurants to retain their customers.
 ** `Highlights`: It is essential that the membership system is well integrated together with the order system. This is to ensure that when an order is made by an existing member, the member's membership points will correspondingly be updated. Also, the commands implemented should be easy to understand and use for a non-tech savvy audience. It is important that the invalid command formats are properly taken care of in a way that it guides the user with examples on how to properly use the platform.
 ** `Credits`: https://github.com/nusCS2113-AY1819S1/addressbook-level3
-
+** Below shows a series of images that are meant to aid the understanding of the features that I have developed:
 
 image::AddMember.png[]
 
-* The Restaurant Manager / Cashier can easily add a new customer as a member of the restaurant to the RMS easily.
+ Firstly, the Restaurant Manager / Cashier can easily add a new customer as a member of the restaurant to the RMS easily.
+
 
 image::ListOrder.png[]
 
-* When a member's order is confirmed , the RMS will display the amount of points earned from the order. This allows the Cashier to inform the member how many points he/she has earned.
+ Next, when a member's order is confirmed , the RMS will display the amount of points earned from the order. This allows the Cashier to inform the member how many points he/she has earned.
 
 image::OrderBeforeRedemption.png[]
 
-* When a member places an order, the RMS will display the amount of points that can be redeemed.
+ When a member places an order, the RMS will display the amount of points that can be redeemed.
 
 image::OrderAfterRedemption.png[]
 
-* The Cashier can simply enter the amount of points that the member wishes to redeem. The redeemed points will then translate into a discount for the final price that has to be paid. For illustration purposes, a 100 points is equivalent to $1.
+ The Cashier can then simply enter the amount of points that the member wishes to redeem. The redeemed points will then translate into a discount for the final price that has to be paid. For illustration purposes, a 100 points is equivalent to $1.
 
 image::PointsEarned.png[]
 
-* Regardless of whether the member decides to redeem points, the member will earn points based on the final price of the order. For illustration purposes, $1 is equivalent to 10 points.
+  Regardless of whether the member decides to redeem points, the member will earn points based on the final price of the order. For illustration purposes, $1 is equivalent to 10 points.
 
 * *Code contributed*: https://nuscs2113-ay1819s1.github.io/dashboard/#=undefined&search=kangmingtay
 
