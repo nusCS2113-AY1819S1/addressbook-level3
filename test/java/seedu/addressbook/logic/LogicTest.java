@@ -408,6 +408,8 @@ public class LogicTest {
         AddressBook expectedAB = helper.generateAddressBook(twoPersons);
         String expectedMessage = String.format(LinkCommand.MESSAGE_SUCCESS, p1.getName(), p2.getName());
         assertCommandBehavior("link 1 2", expectedMessage, expectedAB, false, twoPersons);
+        assertEquals(true, p1.getAssociateList().contains(new Associated(p2.getName()+" "+p2.getNric(), p2.getTitle(), p1.getTitle())));
+        assertEquals(true, p2.getAssociateList().contains(new Associated(p1.getName()+" "+p1.getNric(), p1.getTitle(), p2.getTitle())));
     }
 
     @Test
@@ -442,6 +444,41 @@ public class LogicTest {
     }
 
     @Test
+    public void execute_unlink_success() throws Exception{
+        TestDataHelper helper = new TestDataHelper();
+        Person p1 = helper.generatePersonWithTitle(1, "Doctor");
+        Person p2 = helper.generatePersonWithTitle(2, "Patient");
+
+        List<Person> twoPersons = helper.generatePersonList(p1, p2);
+
+        helper.addToAddressBook(addressBook, twoPersons);
+        logic.setLastShownList(twoPersons);
+
+        addressBook.linkTwoPerson(p1, p2);
+        AddressBook expectedAB = helper.generateAddressBook(twoPersons);
+        String expectedMessage = String.format(UnLinkCommand.MESSAGE_SUCCESS, p1.getName(), p2.getName());
+        assertCommandBehavior("unlink 1 2", expectedMessage, expectedAB, false, twoPersons);
+        assertEquals(false, p1.getAssociateList().contains(new Associated(p2.getName()+" "+p2.getNric(), p2.getTitle(), p1.getTitle())));
+        assertEquals(false, p2.getAssociateList().contains(new Associated(p1.getName()+" "+p1.getNric(), p1.getTitle(), p2.getTitle())));
+    }
+
+    @Test
+    public void execute_unlink_noAssociation() throws Exception{
+        TestDataHelper helper = new TestDataHelper();
+        Person p1 = helper.generatePersonWithTitle(1, "Doctor");
+        Person p2 = helper.generatePersonWithTitle(2, "Patient");
+
+        List<Person> twoPersons = helper.generatePersonList(p1, p2);
+
+        helper.addToAddressBook(addressBook, twoPersons);
+        logic.setLastShownList(twoPersons);
+
+        AddressBook expectedAB = helper.generateAddressBook(twoPersons);
+        String expectedMessage = String.format(UnLinkCommand.MESSAGE_NO_ASSOCIATION);
+        assertCommandBehavior("unlink 1 2", expectedMessage, expectedAB, false, twoPersons);
+    }
+
+    @Test
     public void execute_undo_nothingToUndo() throws Exception {
         String expectedMessage = String.format(UndoCommand.MESSAGE_NO_COMMAND);
         assertCommandBehavior("undo", expectedMessage);
@@ -466,7 +503,7 @@ public class LogicTest {
         logic.setLastShownList(twoPersons);
         String expectedMessage = String.format(UndoCommand.MESSAGE_SUCCESS);
         assertCommandBehavior("undo", expectedMessage, expectedAB, true, twoPersons);
-        assertEquals(addressBook.containsPerson(p3), false);
+        assertEquals(false, addressBook.containsPerson(p3));
     }
 
     @Test
@@ -484,7 +521,7 @@ public class LogicTest {
         AddressBook expectedAB = helper.generateAddressBook(onePerson);
         String expectedMessage = String.format(UndoCommand.MESSAGE_SUCCESS);
         assertCommandBehavior("undo", expectedMessage, expectedAB, true, onePerson);
-        assertEquals(addressBook.containsPerson(p1), true);
+        assertEquals(true, addressBook.containsPerson(p1));
     }
 
     @Test
@@ -501,7 +538,7 @@ public class LogicTest {
         testDelete.saveUndoableToHistory("test");
         String expectedMessage = String.format(UndoCommand.MESSAGE_SUCCESS);
         assertCommandBehavior("undo", expectedMessage, expectedAB, true, onePerson);
-        assertEquals(addressBook.containsPerson(p1), true);
+        assertEquals(true, addressBook.containsPerson(p1));
     }
 
     @Test
@@ -523,8 +560,29 @@ public class LogicTest {
         String expectedMessage = String.format(UndoCommand.MESSAGE_SUCCESS);
         AddressBook expectedAB = helper.generateAddressBook(twoPersons);
         assertCommandBehavior("undo", expectedMessage, expectedAB, true, twoPersons);
-        assertEquals(p1.getAssociateList().contains(p2), false);
-        assertEquals(p2.getAssociateList().contains(p1), false);
+        assertEquals(false, p1.getAssociateList().contains(new Associated(p2.getName()+" "+p2.getNric(), p2.getTitle(), p1.getTitle())));
+        assertEquals(false, p2.getAssociateList().contains(new Associated(p1.getName()+" "+p1.getNric(), p1.getTitle(), p2.getTitle())));
+    }
+
+    @Test
+    public void execute_undo_undoUnLink() throws Exception {
+        TestDataHelper helper = new TestDataHelper();
+        Person p1 = helper.generatePersonWithTitle(1, "Doctor");
+        Person p2 = helper.generatePersonWithTitle(2, "Patient");
+
+        List<Person> twoPersons = helper.generatePersonList(p1, p2);
+
+        helper.addToAddressBook(addressBook, twoPersons);
+        logic.setLastShownList(twoPersons);
+        UnLinkCommand testUnLink = new UnLinkCommand(-1, -1);
+        testUnLink.setData(addressBook, null, null);
+        testUnLink.setTargets(p1, p2);
+        testUnLink.saveUndoableToHistory("test");
+        String expectedMessage = String.format(UndoCommand.MESSAGE_SUCCESS);
+        AddressBook expectedAB = helper.generateAddressBook(twoPersons);
+        assertCommandBehavior("undo", expectedMessage, expectedAB, true, twoPersons);
+        assertEquals(true, p1.getAssociateList().contains(new Associated(p2.getName()+" "+p2.getNric(), p2.getTitle(), p1.getTitle())));
+        assertEquals(true, p2.getAssociateList().contains(new Associated(p1.getName()+" "+p1.getNric(), p1.getTitle(), p2.getTitle())));
     }
 
     @Test
