@@ -120,6 +120,7 @@ public class Rms {
         allMembers.add(toAdd);
     }
 
+    //@@author SalsabilTasnia
     /**
      * Adds a menu item to the menu list.
      *
@@ -138,6 +139,7 @@ public class Rms {
         allOrders.add(toAdd);
     }
 
+    //@@author SalsabilTasnia
     /**
      * Checks if an equivalent menu item exists in the menu list.
      */
@@ -159,6 +161,7 @@ public class Rms {
         return allEmployees.containsDuplicate(key);
     }
 
+    //@@author SalsabilTasnia
     /**
      * Removes the equivalent menu item from the menu.
      *
@@ -225,6 +228,7 @@ public class Rms {
         allEmployees.clear();
     }
 
+    //@@author SalsabilTasnia
     /**
      * Clears all menu items from the menu.
      */
@@ -261,6 +265,7 @@ public class Rms {
         return new UniqueAttendanceList(allAttendance);
     }
 
+    //@@author SalsabilTasnia
     /**
      * Defensively copied UniqueMenuList of all menu items in the menu at the time of the call.
      */

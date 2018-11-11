@@ -5,6 +5,7 @@ import java.util.List;
 
 import seedu.addressbook.data.exception.IllegalValueException;
 
+//@@author SalsabilTasnia
 /**
  * Represents a Menu type in the Menu list.
  * Guarantees: immutable; is valid as declared in {@link #isValidTypeName(String)}
@@ -34,6 +35,10 @@ public class Type {
             throw new IllegalValueException(MESSAGE_TYPE_CONSTRAINTS);
         }
         this.value = name;
+    }
+
+    public String getValue(){
+        return value;
     }
 
     /**

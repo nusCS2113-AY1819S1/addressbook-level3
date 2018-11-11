@@ -38,6 +38,7 @@ public class Formatter {
         return sb.toString();
     }
 
+    //@@author SalsabilTasnia
     /** Formats the given list of menus for displaying to the user. */
     public String formatMenuResult(List<? extends ReadOnlyMenus> menus) {
         final List<String> formattedMenus = new ArrayList<>();
@@ -47,6 +48,7 @@ public class Formatter {
         return format(asIndexedList(formattedMenus));
     }
 
+    //@@author
     /** Formats the given list of orders for displaying to the user. */
     public String formatOrderResult(List<? extends ReadOnlyOrder> orders) {
         final List<String> formattedOrders = new ArrayList<>();

@@ -3,6 +3,7 @@ package seedu.addressbook.data.menu;
 import seedu.addressbook.data.exception.IllegalValueException;
 
 
+//@@author SalsabilTasnia
 /**
  * Price of a particular menu item in the Restaurant Management System.
  * Guarantees: immutable; is valid as declared in {@link #isValidPrice(String)}
@@ -32,7 +33,7 @@ public class Price {
     }
 
     /**
-     * Convert value from String to double
+     * Convert price value from String to double
      */
     public double convertValueOfPricetoDouble() {
         String doublevalue = this.value.substring(1);

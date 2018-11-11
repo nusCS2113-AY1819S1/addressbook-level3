@@ -84,7 +84,7 @@ Format: `showmainmenu`
 
 ==== List Menu
 
-Shows a list of all the menu items. +
+Shows a list of all the menu items that exists in the restaurant's menu database. +
 
 Each menu item include details of: menu item, price, type and any relevant tags. +
 
@@ -94,7 +94,7 @@ Format: `listmenu`
 
 ==== List Menu According to Category
 
-Shows a list of the menu items of a particular category type, as shown in the Main Menu (e.g main, sides). +
+Shows a list of the menu items of a particular category type. The category types are shown in the Main Menu (e.g main, sides). +
 
 Each menu item include details of: menu item, price, type and any relevant tags. +
 
@@ -119,19 +119,6 @@ Format: `addmenu NAME p/PRICE type/TYPE [t/TAG]...`
 Example: +
 `addmenu Cheese Fries p/$3.50 type/sides t/newItem t/seasonalSpecial` +
 System adds Cheese Fries to the existing menu.
-//
-//
-//==== Edit Menu Item
-//
-//Edit a menu item on the menu +
-//Format: `editmenu INDEX [n/NAME] //[p/PRICE] [t/TAG]`
-//
-//* Edits the name, price and tag of //food item in that particular index //(User able to edit either one or all //three attributes of the particular //food item)
-//
-//Example: +
-//edit 3 Cheese Fries with bacon p/5.00 //t/Limited Offer +
-//System updates Cheese Fries, which is //in index 3, to Cheese Fries with //bacon and changes the price from //$3.50 to $5.00
-//
 
 ==== Delete Menu
 
@@ -139,6 +126,7 @@ Delete an item on the menu +
 Format: `deletemenu INDEX`
 
 * Deletes the menu item in that particular index
+* Note that the user must perform 'List Menu' , 'List Menu According to Category' or 'Find Menu' first before performing 'Delete Menu'
 
 Example: +
 `listmenutype main` +
@@ -179,13 +167,6 @@ Example: +
 Returns Main: Double Cheese Burger, Sides: French Fries, Beverage: Sprite
 
 // end::menucommands[]
-//==== Update Menu
-//
-//Shows options that you can use to update the menu. +
-//Format: update
-//
-//* Update Menu will show user what he/ she can do to update menu.
-//* Menu is updated by adding, editing or deleting food items from menu list.
 
 [[MemberCommands]]
 // tag::membercommands[]
@@ -456,7 +437,7 @@ There is no need to save manually.
 
 === Menu
 
-*Show Main Menu Page* : `showMainMenu`
+*Show Main Menu Page* : `showmainmenu`
 
 *Find Menu* : `findmenu KEYWORD [MORE KEYWORDS]`
 

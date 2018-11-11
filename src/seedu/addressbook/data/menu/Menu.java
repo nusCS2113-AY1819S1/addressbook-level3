@@ -6,6 +6,7 @@ import java.util.Set;
 
 import seedu.addressbook.data.tag.Tag;
 
+//@@author SalsabilTasnia
 /**
  * Represents a Menu in the Rms.
  * Guarantees: details are present and not null, field values are validated.
@@ -55,14 +56,6 @@ public class Menu implements ReadOnlyMenus, Comparable<Menu> {
         return new HashSet<>(tags);
     }
 
-    /**
-     * Replaces this menu item's tags with the tags in {@code replacement}.
-     */
-    public void setTags(Set<Tag> replacement) {
-        tags.clear();
-        tags.addAll(replacement);
-    }
-
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
@@ -83,6 +76,6 @@ public class Menu implements ReadOnlyMenus, Comparable<Menu> {
 
     @Override
     public int compareTo(Menu target) {
-        return this.name.fullName.compareTo(target.name.fullName);
+        return this.name.toString().compareTo(target.name.toString());
     }
 }

@@ -6,6 +6,7 @@ import seedu.addressbook.commands.Command;
 import seedu.addressbook.commands.CommandResult;
 import seedu.addressbook.data.menu.ReadOnlyMenus;
 
+//@@author SalsabilTasnia
 /**
  * Lists all food items in the menu list to the user.
  */
@@ -28,7 +29,6 @@ public class MenuShowMainMenuCommand extends Command {
 
     @Override
     public CommandResult execute() {
-        List<ReadOnlyMenus> allMenus = rms.getAllMenus().immutableListView();
         return new MenuCommandResult(MAIN_MENU_DISPLAY);
     }
 }
