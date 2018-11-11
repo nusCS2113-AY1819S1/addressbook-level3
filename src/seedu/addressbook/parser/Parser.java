@@ -95,7 +95,8 @@ public class Parser {
                     + "type/(?<type>[^/]+)"
                     + "(?<tagArguments>(?: t/[^/]+)*)"); // variable number of tags
 
-    public static final Pattern ORDER_DISH_ARGS_FORMAT = Pattern.compile("(?<targetIndex>.+)\\s+q/(?<quantity>.+)");
+    public static final Pattern ORDER_DISH_ARGS_FORMAT =
+            Pattern.compile("(?<targetIndex>\\d+)\\s+q/(?<quantity>\\d{1,3})");
 
     public static final Pattern REDEEM_POINTS_ARGS_FORMAT = Pattern.compile("(?<points>[^/]+)");
 
@@ -525,7 +526,7 @@ public class Parser {
             return new DraftOrderEditDishCommand(targetIndex, quantity);
         } catch (ParseException | NumberFormatException e) {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                    DraftOrderEditDishCommand.MESSAGE_USAGE));
+                    DraftOrderEditDishCommand.MESSAGE_INVALID_FORMAT));
         }
     }
 
