@@ -13,6 +13,7 @@ public class HelpCommand extends Command {
 
     public static final String MESSAGE_ALL_USAGES = HelpCommand.MESSAGE_USAGE + "\n"
             + "\n" + ListCommand.MESSAGE_USAGE + "\n"
+            + "\n" + SortCommand.MESSAGE_USAGE + "\n"
             + "\n" + ClearCommand.MESSAGE_USAGE + "\n"
             + "\n" + FindCommand.MESSAGE_USAGE + "\n"
             + "\n" + AddCommand.MESSAGE_USAGE + "\n"
@@ -27,7 +28,6 @@ public class HelpCommand extends Command {
             + "\n" + UndoCommand.MESSAGE_USAGE + "\n"
             + "\n" + RedoCommand.MESSAGE_USAGE + "\n"
             + "\n" + EditAppointmentCommand.MESSAGE_USAGE + "\n"
-            + "\n" + SortCommand.MESSAGE_USAGE
             //history
             + "\n" + ExitCommand.MESSAGE_USAGE;
 
