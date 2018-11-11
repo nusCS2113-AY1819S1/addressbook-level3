@@ -446,27 +446,6 @@ public class LogicTest {
                 "statsmenu f/062017 t/2018", expectedMessage);
     }
 
-    /*
-    @Test
-    public void invalidMemberInOrder() throws Exception {
-        TestDataHelper helper = new TestDataHelper();
-        Member m1 = helper.generateMember(1);
-        Member toBeAdded = helper.eve();
-        Rms expectedRms = new Rms();
-        expectedRms.addMember(toBeAdded);
-        expectedRms.findMemberInOrder(m1);
-    }
-
-    @Test
-    public void validMemberInOrder() throws Exception {
-        TestDataHelper helper = new TestDataHelper();
-        Member m1 = helper.generateMember(1);
-        Rms expectedRms = new Rms();
-        expectedRms.addMember(m1);
-        expectedRms.findMemberInOrder(m1);
-    }
-    */
-
     @Test
     public void execute_addempDuplicate_notAllowed() throws Exception {
         // setup expectations
