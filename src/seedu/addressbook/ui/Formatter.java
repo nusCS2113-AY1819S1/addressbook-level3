@@ -42,7 +42,7 @@ public class Formatter {
     public String formatMenuResult(List<? extends ReadOnlyMenus> menus) {
         final List<String> formattedMenus = new ArrayList<>();
         for (ReadOnlyMenus menu : menus) {
-            formattedMenus.add(menu.getAsTextHidePrivate());
+            formattedMenus.add(menu.getAsText());
         }
         return format(asIndexedList(formattedMenus));
     }
@@ -51,7 +51,7 @@ public class Formatter {
     public String formatOrderResult(List<? extends ReadOnlyOrder> orders) {
         final List<String> formattedOrders = new ArrayList<>();
         for (ReadOnlyOrder order : orders) {
-            formattedOrders.add(order.getAsTextHidePrivate());
+            formattedOrders.add(order.getAsText());
         }
         return format(asIndexedList(formattedOrders));
     }
@@ -60,7 +60,7 @@ public class Formatter {
     public String formatMemberResult(List<? extends ReadOnlyMember> members) {
         final List<String> formattedMembers = new ArrayList<>();
         for (ReadOnlyMember member : members) {
-            formattedMembers.add(member.getAsTextHidePrivate());
+            formattedMembers.add(member.getAsText());
         }
         return format(asIndexedList(formattedMembers));
     }
