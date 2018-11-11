@@ -30,7 +30,7 @@ public class EmployeeClockOutCommand extends Command {
     private final String name;
 
     private SimpleDateFormat dateFormatter = new SimpleDateFormat("dd/MM/yyyy");
-    private SimpleDateFormat timeFormatter = new SimpleDateFormat("HH:mm:ss");
+    private SimpleDateFormat timeFormatter = new SimpleDateFormat("HH:mm");
     private Date date = new Date();
     private final String currentTime = timeFormatter.format(date);
     private final String currentDate = dateFormatter.format(date);

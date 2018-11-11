@@ -1,5 +1,6 @@
 package seedu.addressbook.logic;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -19,6 +20,7 @@ import seedu.addressbook.data.employee.EmployeeEmail;
 import seedu.addressbook.data.employee.EmployeeName;
 import seedu.addressbook.data.employee.EmployeePhone;
 import seedu.addressbook.data.employee.EmployeePosition;
+import seedu.addressbook.data.employee.Timing;
 import seedu.addressbook.data.member.Member;
 import seedu.addressbook.data.member.MemberEmail;
 import seedu.addressbook.data.member.MemberName;
@@ -177,10 +179,21 @@ class TestDataHelper {
      * Running this function with the same parameter values guarantees the returned attendance will have the same state.
      * Each unique seed will generate a unique Attendance object.
      *
-     * @param seed used to generate the attendnace data field values
+     * @param seed used to generate the attendance data field values
      */
     Attendance generateAttendance(int seed) throws Exception {
         return new Attendance("Employee " + seed);
+    }
+
+    /**
+     * Generates a valid attendance using the given seed.
+     * Running this function with the same parameter values guarantees the returned attendance will have the same state.
+     * Each unique seed will generate a unique Attendance object.
+     *
+     * @param seed used to generate the attendance data field values
+     */
+    Attendance generateAttendanceWithTime(int seed, boolean isClockedIn, Set<Timing> timings) throws Exception {
+        return new Attendance("Employee " + seed, isClockedIn, timings);
     }
 
     /**
@@ -525,5 +538,48 @@ class TestDataHelper {
         );
     }
 
+    /** Generates the correct stats employee command */
+    String generateStatsEmpCommand() {
+        StringJoiner cmd = new StringJoiner(" ");
 
+        cmd.add("statsemp");
+
+        return cmd.toString();
+    }
+
+    /** Generates the correct stats member command */
+    String generateStatsMemberCommand() {
+        StringJoiner cmd = new StringJoiner(" ");
+
+        cmd.add("statsmember");
+
+        return cmd.toString();
+    }
+
+    /** Generates the correct stats menu command based on the to and from dates given */
+    String generateStatsMenuCommand(Date from, Date to) {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("ddMMYYYY");
+
+        StringJoiner cmd = new StringJoiner(" ");
+
+        cmd.add("statsmenu");
+
+        if (from != null) {
+            cmd.add("f/" + dateFormat.format(from));
+        }
+        if (to != null) {
+            cmd.add("t/" + dateFormat.format(to));
+        }
+
+        return cmd.toString();
+    }
+
+    /** Generates the correct stats order command */
+    String generateStatsOrderCommand() {
+        StringJoiner cmd = new StringJoiner(" ");
+
+        cmd.add("statsorder");
+
+        return cmd.toString();
+    }
 }

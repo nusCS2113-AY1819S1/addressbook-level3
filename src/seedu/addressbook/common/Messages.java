@@ -6,6 +6,7 @@ package seedu.addressbook.common;
 public class Messages {
 
     public static final String MESSAGE_INVALID_COMMAND_FORMAT = "Invalid command format! \n%1$s";
+    public static final String MESSAGE_ENTERED_COMMAND_FORMAT = "Entered command: %1$s\n";
 
     public static final String MESSAGE_INVALID_EMPLOYEE_DISPLAYED_INDEX = "The employee index provided is invalid.";
     public static final String MESSAGE_EMPLOYEE_NOT_IN_RMS = "Employee could not be found in Rms.";
@@ -30,10 +31,10 @@ public class Messages {
             + "java seedu.addressbook.Main [STORAGE_FILE_PATH]";
     public static final String MESSAGE_WELCOME = "Welcome to Restaurant Management System! \n"
             + "- To access EMPLOYEE DATABASE, key in 'listemp'\n"
-            + "- To access MEMBER DATABASE, key in 'listmembers'\n"
+            + "- To access MEMBER DATABASE, key in 'listmember'\n"
             + "- To access MENU, key in 'listmenu'\n"
             + "- To access ORDER, key in 'listorder'\n"
-            + "- To access STATISITCS information, key in 'statisitics'\n"
+            + "- To access STATISITCS information, key in 'statistics'\n"
             + "- For further assistance, key in 'help'\n"
             + "----------------------------------------------------------";
     public static final String MESSAGE_USING_STORAGE_FILE = "Using storage file : %1$s";

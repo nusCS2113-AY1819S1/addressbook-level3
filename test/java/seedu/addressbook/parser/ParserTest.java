@@ -33,6 +33,7 @@ import seedu.addressbook.commands.order.OrderClearCommand;
 import seedu.addressbook.commands.order.OrderDeleteCommand;
 import seedu.addressbook.commands.order.OrderListCommand;
 import seedu.addressbook.commands.statistics.StatsEmployeeCommand;
+import seedu.addressbook.commands.statistics.StatsHelpCommand;
 import seedu.addressbook.commands.statistics.StatsMemberCommand;
 import seedu.addressbook.commands.statistics.StatsMenuCommand;
 import seedu.addressbook.commands.statistics.StatsOrderCommand;
@@ -148,6 +149,12 @@ public class ParserTest {
     public void statsOrderCommand_parsedCorrectly() {
         final String input = "statsorder";
         parseAndAssertCommandType(input, StatsOrderCommand.class);
+    }
+
+    @Test
+    public void statsHelpCommand_parsedCorrectly() {
+        final String input = "statistics";
+        parseAndAssertCommandType(input, StatsHelpCommand.class);
     }
 
     @Test

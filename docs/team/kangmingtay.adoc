@@ -9,29 +9,69 @@
 
 == Overview of the Restaurant Management System
 
+
 Restaurant Management System (RMS) is a restaurant management solution that helps restauranteurs make more money, deliver great customer experience and bring honest and meaningful statistics to the table. The RMS was designed to improve the efficiency of completing mundane processes such as taking orders and counting the cash so that you can focus on the important things that matter - serving your customers with great food.
+
 
 This application is created by my team, which comprises of 5 people including myself, for the NUS module CS2113T titled, Software Engineering & Object-Oriented Programming. The project lasted for around 10 weeks and we were expected to work with an existing sample codebase given by the module. The objective was to innovate and develop the existing codebase into a desktop application for a specific group of users - restaurant owners.
 
-Below shows a screenshot of the basic and simple command-line-interface of the RMS:
+The workflow of the RMS closely resembles that of a Scrum-Agile framework. At the beginning of the project, we started off with an initial architectural modeling. The project required us to release a working version of our product almost every fortnightly. Within the team, we set weekly milestones and meetings to ensure that everyone is always on track with the development of the RMS. My role in the team was to be the team leader and I was responsible for the overall project coordination. Throughout this development cycle, I have made various contributions to the team, from creating new features, writing tests and documentation and ensuring that each release is functional.
+
+Below shows a screenshot of the simple command-line-interface of the RMS and some of the main commands to get started:
 
 image::Ui.png[]
 
-_If you are looking for a detailed tutorial on how to use the RMS, please refer to our <<UserGuide#,*User Guide*>>._ +
-_If you are looking for the detailed architecture and design of the RMS or wish to contribute code to this application, please refer to our <<DeveloperGuide#,*Developer Guide*>>_
+_If you wish to experience a more hands-on approach to use the RMS, please key in `help` upon running the application to get the full list of commands._
+
+_If you are looking for a detailed tutorial on how to use the RMS, please refer to our https://github.com/CS2113-AY1819S1-F09-2/main/tree/master/docs/UserGuide.adoc[User Guide]._ +
+
+_If you are looking for the detailed architecture and design of the RMS or wish to contribute code to this application, please refer to our https://github.com/CS2113-AY1819S1-F09-2/main/tree/master/docs/DeveloperGuide.adoc[Developer Guide]_
 
 
 == Summary of contributions
 
-The workflow of the RMS closely resembles that of an Agile framework. At the beginning of the project, we started off with an initial architectural modeling. The project required us to release a working version of our product almost every fortnightly. Within the team, we set weekly milestones and meetings to ensure that everyone is always on track with the development of the RMS. My role in the team was to be their team leader and be responsible for the overall project coordination. Throughout this development cycle, I have made various contributions to the team, from creating new features to be added into the RMS to writing tests and ensuring that each release is functional.
+|===
+|_Given below are various code contributions I have made. They showcase my coding ability as well as my ability to work in a team effectively._ +
+|===
 
 * *Major enhancement*: Created a membership platform for the RMS
 ** `What it does`: The membership platform allows the restaurant to keep track of its existing members and accumulate their membership points. It also allows the restaurant manager / cashier to list, add and delete members from the system.
 ** `Justification`: This feature improves the product significantly because it is an innovative way for restaurants to retain their customers.
 ** `Highlights`: It is essential that the membership system is well integrated together with the order system. This is to ensure that when an order is made by an existing member, the member's membership points will correspondingly be updated. Also, the commands implemented should be easy to understand and use for a non-tech savvy audience. It is important that the invalid command formats are properly taken care of in a way that it guides the user with examples on how to properly use the platform.
 ** `Credits`: https://github.com/nusCS2113-AY1819S1/addressbook-level3
+** Below shows a series of images that are meant to aid the understanding of the features that I have developed:
 
-* *Code contributed*: https://github.com/CS2113-AY1819S1-F09-2/main[Project Github Page]
+image::AddMember.png[]
+
+|===
+Firstly, the Restaurant Manager / Cashier can easily add a new customer as a member of the restaurant to the RMS easily.
+|===
+
+image::ListOrder.png[]
+
+|===
+ Next, when a member's order is confirmed , the RMS will display the amount of points earned from the order. This allows the Cashier to inform the member how many points he/she has earned.
+|===
+
+image::OrderBeforeRedemption.png[]
+
+|===
+ When a member places an order, the RMS will display the amount of points that can be redeemed.
+|===
+
+image::OrderAfterRedemption.png[]
+
+|===
+ The Cashier can then simply enter the amount of points that the member wishes to redeem. The redeemed points will then translate into a discount for the final price that has to be paid. For illustration purposes, a 100 points is equivalent to $1.
+|===
+
+image::PointsEarned.png[]
+
+|===
+  Regardless of whether the member decides to redeem points, the member will earn points based on the final price of the order. For illustration purposes, $1 is equivalent to 10 points.
+|===
+
+* *Code contributed*: https://nuscs2113-ay1819s1.github.io/dashboard/#=undefined&search=kangmingtay
 
 ** Project Management:
 *** Managed releases v1.1 - v1.3 (3 releases) on GitHub
