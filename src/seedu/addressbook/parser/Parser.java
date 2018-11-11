@@ -133,8 +133,9 @@ public class Parser {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
         }
 
-        final String commandWord = matcher.group("commandWord");
+        final String commandWord = matcher.group("commandWord").toLowerCase();
         final String arguments = matcher.group("arguments");
+
         switch (commandWord) {
         case EmployeeAddCommand.COMMAND_WORD:
             return prepareEmployeeAdd(arguments);
@@ -186,7 +187,6 @@ public class Parser {
 
         case MenuClearCommand.COMMAND_WORD:
             return new MenuClearCommand();
-
 
         case OrderAddCommand.COMMAND_WORD:
             return new OrderAddCommand();
