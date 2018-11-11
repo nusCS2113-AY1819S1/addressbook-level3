@@ -30,10 +30,10 @@ public class Messages {
             + "java seedu.addressbook.Main [STORAGE_FILE_PATH]";
     public static final String MESSAGE_WELCOME = "Welcome to Restaurant Management System! \n"
             + "- To access EMPLOYEE DATABASE, key in 'listemp'\n"
-            + "- To access MEMBER DATABASE, key in 'listmembers'\n"
+            + "- To access MEMBER DATABASE, key in 'listmember'\n"
             + "- To access MENU, key in 'listmenu'\n"
             + "- To access ORDER, key in 'listorder'\n"
-            + "- To access STATISITCS information, key in 'statisitics'\n"
+            + "- To access STATISITCS information, key in 'statistics'\n"
             + "- For further assistance, key in 'help'\n"
             + "----------------------------------------------------------";
     public static final String MESSAGE_USING_STORAGE_FILE = "Using storage file : %1$s";
