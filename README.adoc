@@ -2,7 +2,7 @@ ifdef::env-github,env-browser[:relfileprefix: docs/]
 ifdef::env-github,env-browser[:imagesDir: docs/images]
 
 https://travis-ci.org/CS2113-AY1819S1-F09-2/main[image:https://travis-ci.org/CS2113-AY1819S1-F09-2/main.svg?branch=master[Build Status]]
-https://www.codacy.com/app/se-edu/addressbook-level3?utm_source=github.com&utm_medium=referral&utm_content=se-edu/addressbook-level3&utm_campaign=Badge_Grade[image:https://api.codacy.com/project/badge/Grade/d4a0954383444a8db8cb26e5f5b7302c[Codacy Badge]]
+https://app.codacy.com/project/CS2113-AY1819S1-F09-2/main/dashboard[image:https://api.codacy.com/project/badge/Grade/e4ce38384d584d61bc91c56dcdacbd70["Codacy code quality", link="https://www.codacy.com/app/CS2113-AY1819S1-F09-2/main?utm_source=github.com&utm_medium=referral&utm_content=CS2113-AY1819S1-F09-2/main&utm_campaign=Badge_Grade"]]
 https://coveralls.io/github/CS2113-AY1819S1-F09-2/main?branch=master[image:https://coveralls.io/repos/github/CS2113-AY1819S1-F09-2/main/badge.svg?branch=master[Coverage Status]]
 
 image::homepage.png[]
@@ -32,7 +32,7 @@ image::Ui.png[]
 == Acknowledgements
 
 * Restaurant Management System was developed based on the souce code of an
-https://github.com/se-edu/addressbook-level4[Address Book] created by
+https://github.com/se-edu/addressbook-level3[Address Book] created by
 SE-EDU initiative.
 * Some parts of this sample application was inspired by the excellent
 http://code.makery.ch/library/javafx-8-tutorial/[Java FX tutorial] by Marco Jakob

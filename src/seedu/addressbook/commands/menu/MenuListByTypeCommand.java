@@ -11,7 +11,7 @@ import seedu.addressbook.data.menu.ReadOnlyMenus;
 import seedu.addressbook.data.menu.Type;
 
 /**
- * Lists all food items in the address book to the user.
+ * Lists all food items of a certain type in the menu list to the user.
  */
 public class MenuListByTypeCommand extends Command {
 
@@ -19,10 +19,12 @@ public class MenuListByTypeCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ":\n"
             + "Displays all food item of a specific category in the Rms system as a list with index numbers.\n\t"
-            + "Example: " + COMMAND_WORD;
-    public static final String MESSAGE_ERROR = "Invalid menu type searched! "
-            + "\n" + "Only the following types are available: main, sides, beverage, dessert, others, set meals."
-            + "\n" + "Only one type search allowed at a time!";
+            + "Example: " + COMMAND_WORD + " main";
+
+    public static final String MESSAGE_ERROR = "Invalid menu type searched! " + "\n"
+             + "Only the following types are available: main, sides, beverage, dessert, others, set meal." + "\n"
+             + "Only one type search allowed at a time!";
+
     private final String itemword;
     private final List<ReadOnlyMenus> matchedFoodItems = new ArrayList<>();
     private final Set<String> typeSet = new HashSet<>();
@@ -31,14 +33,11 @@ public class MenuListByTypeCommand extends Command {
     public MenuListByTypeCommand(String itemword) {
         this.itemword = itemword;
     }
-
-    /*
     public String getItemword() {
-         return
+        return itemword;
     }
-    */
 
-    private List<ReadOnlyMenus> getFoodItemsBurger(String itemword) {
+    private List<ReadOnlyMenus> getFoodItems(String itemword) {
         for (ReadOnlyMenus menuItem : rms.getAllMenus()) {
             //final Set<String> wordsInName = new HashSet<>(burger.getType().getWordsInTypeName());
             final String wordsInItemName = menuItem.getType().value;
@@ -80,7 +79,7 @@ public class MenuListByTypeCommand extends Command {
 
     @Override
     public CommandResult execute() {
-        final List<ReadOnlyMenus> itemsFound = getFoodItemsBurger(itemword);
+        final List<ReadOnlyMenus> itemsFound = getFoodItems(itemword);
         if (Type.isValidTypeName(itemword) == false) {
             return new MenuCommandResult(MESSAGE_ERROR);
         }

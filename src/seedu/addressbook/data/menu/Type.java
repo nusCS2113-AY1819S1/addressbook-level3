@@ -6,7 +6,7 @@ import java.util.List;
 import seedu.addressbook.data.exception.IllegalValueException;
 
 /**
- * Represents a Person's name in the address book.
+ * Represents a Menu type in the Menu list.
  * Guarantees: immutable; is valid as declared in {@link #isValidTypeName(String)}
  */
 public class Type {
@@ -37,7 +37,7 @@ public class Type {
     }
 
     /**
-     * Returns true if a given string is a valid person name.
+     * Returns true if a given string is a valid dish type.
      */
     public static boolean isValidTypeName(String test) {
         return (test.equals("main") == true

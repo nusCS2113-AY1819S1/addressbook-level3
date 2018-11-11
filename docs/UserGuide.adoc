@@ -36,11 +36,16 @@ image::Ui.png[]
 .  Some example commands you can try:
 
 * *`listmenu`* : lists all menu items
-* **`addmember`**`n/John Doe p/98765432 e/johnd@example.com d/10182017` : adds a member named `John Doe` to the Restaurant Management System.
+* **`addmember`**`John Doe` : adds a member named `John Doe` to the Restaurant Management System.
 * *`listorder`* : lists all orders in the order list.
 * **`deleteorder`**`3` : deletes the 3rd order shown in the last shown order list
 * *`exit`* : exits the app
 .  Refer to <<Features>> for details of each command.
+
+== Important Terminology
+.  _A customer is anyone who wants to place an order._
+. _A member in the RMS is a registered customer who enjoys more benefits than an unregistered customer._
+. _A dish is a food item on the menu._
 
 [[Features]]
 == Features
@@ -68,32 +73,63 @@ When the application is first started, users have to choose
 * Items in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
 ====
 
+// tag::menucommands[]
 === Menu
+
+==== Show Main Menu
+
+Shows a list of menu categories available. +
+
+Format: `showmainmenu`
 
 ==== List Menu
 
 Shows a list of all the menu items. +
 
-Each menu item include details of: menu item, price and any relevant tags. +
+Each menu item include details of: menu item, price, type and any relevant tags. +
 
 Format: `listmenu`
+
+* List the current menu items in the menu
+
+==== List Menu According to Category
+
+Shows a list of the menu items of a particular category type, as shown in the Main Menu (e.g main, sides). +
+
+Each menu item include details of: menu item, price, type and any relevant tags. +
+
+Format: `listmenutype TYPE`
+
+* List the current menu items of a particular category in the menu
+
+Example: +
+`listmenutype main` +
+System shows all the main dishes in the menu.
 
 ==== View All Menu
 
 Shows the detail of the a menu item with a particular index. +
 Format: `viewallmenu INDEX`
 
-* List the current food items in the menu
-
-==== Add Menu Item
-
-Add a new item to the menu. +
-Format: `addmenu NAME p/PRICE [t/TAG]`
-
-* Adds the new menu item into the menu list
+* The command is only executable after running the `listmenutype TYPE` or `findmenu KEYWORD` commands
 
 Example: +
-add Cheese Fries p/3.50 t/New item +
+`listmenutype main` +
+`viewallmenu 1` +
+System shows 1st menu item of category type main.
+
+==== Add Menu
+
+Add a new item to the menu. +
+Format: `addmenu NAME p/PRICE type/TYPE [t/TAG]...`
+
+* Adds the new menu item into the menu list
+* Price must start with a $ sign and must be integer or float in value of 2 decimal places
+* Type should only be of the following categories: main, sides, beverage, dessert, others, set meal
+* A new food item can have multiple tags (including 0)
+
+Example: +
+`addmenu Cheese Fries p/$3.50 type/sides t/newItem t/seasonalSpecial` +
 System adds Cheese Fries to the existing menu.
 //
 //
@@ -109,7 +145,7 @@ System adds Cheese Fries to the existing menu.
 //System updates Cheese Fries, which is //in index 3, to Cheese Fries with //bacon and changes the price from //$3.50 to $5.00
 //
 
-==== Delete Item
+==== Delete Menu
 
 Delete an item on the menu +
 Format: `deletemenu INDEX`
@@ -117,12 +153,15 @@ Format: `deletemenu INDEX`
 * Deletes the menu item in that particular index
 
 Example: +
-view menu +
-delete 1 +
-System deletes food item in index 1 from the menu. +
-find Cheese Fries +
-Delete 3 +
-System deletes Cheese Fries in index 3 from the menu.
+`listmenutype main` +
+`deletemenu 1` +
+System deletes menu item in index 1 from the displayed menu of main dishes. +
+`listmenutype main` +
+`deletemenu 1` +
+System deletes the menu item in index 1 from the displayed menu of main dishes. +
+`findmenu Cheese Fries` +
+`deletemenu 3` +
+System deletes Cheese Fries in index 3 from the displayed menu of items found with `Cheese Fries` keyword.
 
 ==== Find Menu
 
@@ -130,13 +169,15 @@ Finds the menu item(s) related to the keywords typed in by the user. +
 Format: `findmenu KEYWORD [MORE KEYWORDS]`
 
 * A list of menu items with names related to the keyword(s) will be displayed.
-* The command is case insensitive.
+* The search is case insensitive eg. `cheese` will match `Cheese`.
 * Order of keywords do not matter.
+* Only full words will be matched. eg `burg` will not match `Burger`
+* Menu items matching atleast one key word will be returned. eg '`cheese` will return `Cheese Fries`, `Cheese Burger`.
 
 Example: +
-find Burger COKE fries +
-Returns Double Cheese Burger, Veggie Burger, Coke, Coke Zero, Fries, Curly Fries
-
+`findmenu Burger Coke Fries` +
+Returns Double Cheese burger, Veggie Burger, Coke, coke zero, Fries, Curly Fries
+// end::menucommands[]
 //==== Update Menu
 //
 //Shows options that you can use to update the menu. +
@@ -145,33 +186,31 @@ Returns Double Cheese Burger, Veggie Burger, Coke, Coke Zero, Fries, Curly Fries
 //* Update Menu will show user what he/ she can do to update menu.
 //* Menu is updated by adding, editing or deleting food items from menu list.
 
-
+[[MemberCommands]]
+// tag::membercommands[]
 === Members
 
 ==== Add Member
 
 Add a new member to the RMS +
-Format: addmember NAME
+Format: `addmember` NAME
+
+Example: +
+`addmember kang ming` +
+Returns: New member added: kangming Points: 0 Date: Wed Oct 31 20:30:50 SRET 2018 Tier: Bronze
+
 
 ==== List Member
 
-Shows a list of all the members in the RMS. Displays the NAME and POINTS of each member. +
-Format: listmembers
-
-==== Edit Member
-
-Edit membership details of a member in the RMS +
-Format: edit NAME [p/PHONE_NUMBER] [e/EMAIL_ADDRESS][d/DATE_JOINED][pt/POINTS]
+Shows a list of all the members in the RMS. Displays the NAME, POINTS, DATE JOINED, MEMBERSHIP TIER of each member. +
+Format: `listmembers`
 
 ===== Delete Member
 
 Delete membership details of a member in the RMS +
-Format: delete NAME
+Format: `delmember INDEX`
 
-==== Find Member
-
-Find membership details of a member in the RMS +
-Format: find NAME
+// end::membercommands[]
 
 // tag::employeecommands[]
 === Employees
@@ -183,7 +222,9 @@ Format: `listemp`
 ==== Add Employee
 
 Adds a new employee to the RMS. +
-Format: `addemp n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS pos/POSITION`
+Format: `addemp NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS pos/POSITION`
+
+* Employees with same name are not allowed irregardless of it being in upper or lower case.
 
 Example: +
  `addemp John Doe p/91234567 e/Example2018@rms.com a/Clementi Ave 2, Blk 543 #13-12 pos/Cashier` +
@@ -245,6 +286,8 @@ Example: +
 `clockOut John Doe` +
 Clocks out for the employee John Doe.
 
+// end::employeecommands[]
+
 //==== Calculate Wages
 
 //Calculates the wage of an employee. +
@@ -253,46 +296,63 @@ Clocks out for the employee John Doe.
 //Examples: +
 //`calcwage Joe Bob`
 
-
+// tag::orderuserguide[]
 === Order
 
 ==== Add Order
 
-To add new order to the order list, a draft must be completed before adding it to the order list. +
+image::AddOrderInstruction.png[]
 
-To do so, dishes must be added into the draft, and then it can be added into the order list after
+To add a new order to the order list, a draft must be completed before adding it to the order list. +
+
+To do so, dishes must be added into the draft before it can be added into the order list after
 the draft is confirmed.
 
-Registered customer of the member list can be added into the order draft to accumulate member points
+If the customer is a registered member, the customer's information can be found in the member list and can be added
+into the order draft to use and accumulate member points
 once the order is confirmed.
 
-* *Display Draft And List Of Commands For Adding* +
+* *Display Draft And Instruction For Adding New Order* +
 +
-Display the current draft and the list of order draft commands used for adding a new order +
+Displays the current draft, steps to add an order and the list of order draft commands that can be used +
 +
 Format: `addorder`
-
-* *Pick A Member As The Customer Of The Draft* +
-+
-Select a member from the last shown member list to be the customer of the draft order. +
-+
-The customer is retrieved with the index of last displayed member list. +
-+
-Format: `draftcustomer INDEX`
 
 * *Edit A Dish Item Of The Draft* +
 +
 By picking a dish from the last shown menu and state the quantity to be added,
 a dish item can be added, deleted or edited in the draft order. +
 +
-The dish item is retrieved with the index of last displayed menu. +
-+
- ** If the quantity is set to 0, then the dish will be removed from the draft. +
-+
+ ** If the quantity is set to 0, then the dish will be removed from the draft.
  ** If the quantity of a dish that is currently not in the draft is set to a
  positive integer, then the dish and its quantity will be added into the draft.
+ ** If the quantity of a dish that is currently in the draft is set to a positive
+ integer, then its quantity will be adjusted to the new value.
 +
 Format: `draftdish INDEX q/QUANTITY`
+
+** The index refers to the index number shown in the last shown menu list.
+
+* *Select A Member As The Customer Of The Draft* +
+_This step is only necessary if the customer is a member._
++
+Select a member from the last shown member list to be the customer of the draft order. +
++
+Format: `draftcustomer INDEX`
++
+ ** The index refers to the index number shown in the last shown member list.
+
+* *Redeems member points in the draft order* +
+_This step can only be done if a member is assigned as the customer of the draft order_
++
+Assign member points to be redeemed as discount for the draft order.
++
+Format: `draftpoints POINTS`
++
+ ** The points redeemed must be a non-negative integer.
+ ** The limit to the redeemable points is set as the smaller value between the amount of points the customer currently
+ has and the maximum amount of points can be deduced such that the final price is not less than zero.
+ ** If the assigned redeemed points is more than the limit, then it will be set back to the limit.
 
 * *Clear Draft* +
 +
@@ -317,6 +377,8 @@ The deleted order is specified by the index of that order on the last displayed 
 
 Format: `deleteorder INDEX`
 
+* The index refers to the index number shown in the last shown order list.
+
 ==== Clear Order
 
 Clear the entire order list. +
@@ -332,8 +394,10 @@ Each order include details of: customer, ordered time, total price and the list 
 Only the non-private data of customer will be showed. +
 
 Format: `listorder`
+// end::orderuserguide[]
 
 
+// tag::statisticscommands[]
 === Statistics
 
 ==== View Employee Statistics
@@ -372,6 +436,8 @@ Format: statsorder
 Examples: +
 `statsorder`
 
+// end::statisticscommands[]
+
 === Saving the data
 
 Data from the Restaurant Management System are saved in the hard disk automatically after any command that changes the data. +
@@ -384,25 +450,31 @@ There is no need to save manually.
 
 == Command Summary
 
+// tag::menucommandsummary[]
+
+
 === Menu
 
-*View Menu* : `viewmenu`
+*Show Main Menu Page* : `showMainMenu`
+
+*View Menu* : `viewallmenu INDEX`
 
 *Find Menu* : `findmenu KEYWORD [MORE KEYWORDS]`
-//
-//*Update Menu* : `update`
 
-*Add Item* : `addmenu NAME p/PRICE [t/TAG]`
-
-*Edit Item* : `editmenu INDEX [n/NAME] [p/PRICE] [t/TAG]`
+*Add Item* : `addmenu NAME p/PRICE type/TYPE [t/TAG]`
 
 *Delete Item* : `deletemenu INDEX`
+
+*List Menu* : `listmenu`
+
+*List Menu According to Category* : `listmenubytype TYPE`
+// end::menucommandsummary[]
 
 === Employees
 
 *List Emplyees* : `listemp`
 
-*Add Employee* : `addemp INDEX p/PHONE_NUMBER e/EMAIL a/ADDRESS pos/POSITION`
+*Add Employee* : `addemp NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS pos/POSITION`
 
 *Edit Employee* : `editemp INDEX [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [pos/POSITION]`
 
@@ -420,21 +492,25 @@ There is no need to save manually.
 
 *Edit Member* : `editmember NAME`
 
-*Delete Member* : `deletemember NAME`
+*Delete Member* : `delmember INDEX`
 
 *Find Member* : `findmember NAME`
 
+// tag::ordercommandsummary[]
 === Order
 
 * *Add Order:*
 
 ** *Display Add Order Commands*: `addorder`
 
-** *Select Member As Customer Of The Draft*: `draftcustomer INDEX` +
+** *Edit Draft Dishes*: `draftdish INDEX q/QUANTITY` +
+e.g. `draftdish 4 q/1`
+
+** *Select Draft Customer*: `draftcustomer INDEX` +
 e.g. `draftcustomer 2`
 
-** *Edit Dishes In The Draft*: `draftdish INDEX q/QUANTITY` +
-e.g. `draftdish 4 q/1`
+** *Redeem Member Points*: `draftpoints POINTS` +
+e.g. `draftpoints 100`
 
 ** *Clear The Draft*: `cleardraft`
 
@@ -446,6 +522,7 @@ e.g. `deleteorder 3`
 * *Clear Order List* : `clearorder`
 
 * *List All Orders* : `listorder`
+// end::ordercommandsummary[]
 
 === Statistics
 

@@ -11,6 +11,6 @@ import seedu.addressbook.data.employee.ReadOnlyEmployee;
 public class EmployeeCommandResult extends CommandResult {
 
     public EmployeeCommandResult(String feedbackToUser, List<? extends ReadOnlyEmployee> relevantEmployees) {
-        super(feedbackToUser, null, null, null, null, relevantEmployees, null);
+        super(feedbackToUser, null, null, null, relevantEmployees, null);
     }
 }

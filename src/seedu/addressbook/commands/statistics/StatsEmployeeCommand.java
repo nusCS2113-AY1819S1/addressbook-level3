@@ -12,7 +12,7 @@ import seedu.addressbook.data.employee.UniqueAttendanceList;
 import seedu.addressbook.data.statistics.AsciiTable;
 
 /**
- * Lists all food items in the address book to the user.
+ * Lists all employee statistics to the user.
  */
 public class StatsEmployeeCommand extends Command {
 

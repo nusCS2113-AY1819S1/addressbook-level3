@@ -5,16 +5,12 @@ package seedu.addressbook.common;
  */
 public class Messages {
 
-    public static final String MESSAGE_ERROR = "Error!";
-
     public static final String MESSAGE_INVALID_COMMAND_FORMAT = "Invalid command format! \n%1$s";
-    public static final String MESSAGE_INVALID_PERSON_DISPLAYED_INDEX = "The person index provided is invalid";
-    public static final String MESSAGE_PERSON_NOT_IN_ADDRESSBOOK = "Person could not be found in address book";
-    public static final String MESSAGE_PERSONS_LISTED_OVERVIEW = "%1$d persons listed!";
 
-    public static final String MESSAGE_INVALID_EMPLOYEE_DISPLAYED_INDEX = "The employee index provided is invalid";
-    public static final String MESSAGE_EMPLOYEE_NOT_IN_RMS = "Employee could not be found in Rms";
-    public static final String MESSAGE_EMPLOYEES_LISTED_OVERVIEW = "%1$d employees listed!";
+    public static final String MESSAGE_INVALID_EMPLOYEE_DISPLAYED_INDEX = "The employee index provided is invalid.";
+    public static final String MESSAGE_EMPLOYEE_NOT_IN_RMS = "Employee could not be found in Rms.";
+    public static final String MESSAGE_EMPLOYEES_LISTED_OVERVIEW = "%1$d employees listed.";
+    public static final String MESSAGE_NO_EMPLOYEES_IN_SYSTEM = "There are currently no employees added in the system.";
 
     public static final String MESSAGE_INVALID_MEMBER_DISPLAYED_INDEX = "The member index provided is invalid";
     public static final String MESSAGE_MEMBER_NOT_IN_RMS = "Member could not be found in Rms";
@@ -26,18 +22,17 @@ public class Messages {
     public static final String MESSAGE_MENUS_LISTED_OVERVIEW = "%1$d food items listed!";
 
     public static final String MESSAGE_INVALID_ORDER_DISPLAYED_INDEX = "The order index provided is invalid";
-    public static final String MESSAGE_DRAFT_ORDER_DETAILS = "Viewing current draft order: ";
+    public static final String MESSAGE_DRAFT_ORDER_DETAILS = "Current draft order: ";
     public static final String MESSAGE_ORDER_NOT_IN_ORDER_LIST = "Order could not be found in order list";
     public static final String MESSAGE_ORDERS_LISTED_OVERVIEW = "%1$d orders listed!";
     public static final String MESSAGE_USING_ORDER_LIST_STORAGE_FILE = "Using order list storage file : %1$s";
-
     public static final String MESSAGE_PROGRAM_LAUNCH_ARGS_USAGE = "Launch command format: "
             + "java seedu.addressbook.Main [STORAGE_FILE_PATH]";
     public static final String MESSAGE_WELCOME = "Welcome to Restaurant Management System! \n"
-            + "- To access EMPLOYEE DATABASE, key in 'employee'\n"
-            + "- To access MEMBER DATABASE, key in 'customer'\n"
-            + "- To access MENU, key in 'menu\n"
-            + "- To access ORDER, key in 'order'\n"
+            + "- To access EMPLOYEE DATABASE, key in 'listemp'\n"
+            + "- To access MEMBER DATABASE, key in 'listmembers'\n"
+            + "- To access MENU, key in 'listmenu'\n"
+            + "- To access ORDER, key in 'listorder'\n"
             + "- To access STATISITCS information, key in 'statisitics'\n"
             + "- For further assistance, key in 'help'\n"
             + "----------------------------------------------------------";

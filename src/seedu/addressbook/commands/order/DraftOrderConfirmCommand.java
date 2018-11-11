@@ -4,7 +4,6 @@ import java.util.List;
 
 import seedu.addressbook.commands.Command;
 import seedu.addressbook.commands.CommandResult;
-import seedu.addressbook.data.member.ReadOnlyMember;
 import seedu.addressbook.data.order.Order;
 import seedu.addressbook.data.order.ReadOnlyOrder;
 import seedu.addressbook.data.order.UniqueOrderList;
@@ -29,13 +28,15 @@ public class DraftOrderConfirmCommand extends Command {
         try {
             final ReadOnlyOrder draftOrder = rms.getDraftOrder();
             String message;
-            if (draftOrder.hasCustomerField()) {
-                final ReadOnlyMember customerOfOrderToAdd = draftOrder.getCustomer();
-                final Order toAdd = new Order(customerOfOrderToAdd, draftOrder.getDishItems());
-                if (rms.containsMember(customerOfOrderToAdd)) {
-                    customerOfOrderToAdd.updatePointsAndTier(toAdd.getPrice());
-                }
+            if (draftOrder.hasDishItems()) {
+                final Order toAdd = new Order(
+                        draftOrder.getCustomer(),
+                        draftOrder.getDishItems(),
+                        draftOrder.getPoints());
                 rms.addOrder(toAdd);
+                if (draftOrder.hasCustomerField()) {
+                    rms.updatePointsOfCustomer(toAdd.getCustomer(), toAdd.getPrice(), toAdd.getPoints());
+                }
                 rms.clearDraftOrder();
                 List<ReadOnlyOrder> allOrders = rms.getAllOrders().immutableListView();
                 message = MESSAGE_SUCCESS + "\n" + getMessageForOrderListShownSummary(allOrders);

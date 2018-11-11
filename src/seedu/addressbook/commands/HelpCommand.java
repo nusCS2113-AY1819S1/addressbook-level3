@@ -8,7 +8,9 @@ import seedu.addressbook.commands.menu.MenuAddCommand;
 import seedu.addressbook.commands.menu.MenuClearCommand;
 import seedu.addressbook.commands.menu.MenuDeleteCommand;
 import seedu.addressbook.commands.menu.MenuFindCommand;
+import seedu.addressbook.commands.menu.MenuListByTypeCommand;
 import seedu.addressbook.commands.menu.MenuListCommand;
+import seedu.addressbook.commands.menu.MenuRecommendationCommand;
 import seedu.addressbook.commands.menu.MenuShowMainMenuCommand;
 import seedu.addressbook.commands.menu.MenuViewAllCommand;
 import seedu.addressbook.commands.order.DraftOrderClearCommand;
@@ -36,14 +38,7 @@ public class HelpCommand extends Command {
             + "Shows program usage instructions.\n\t"
             + "Example: " + COMMAND_WORD;
 
-    public static final String MESSAGE_ALL_USAGES = AddCommand.MESSAGE_USAGE
-            + "\n" + DeleteCommand.MESSAGE_USAGE
-            + "\n" + ClearCommand.MESSAGE_USAGE
-            + "\n" + FindCommand.MESSAGE_USAGE
-            + "\n" + ListCommand.MESSAGE_USAGE
-            + "\n" + ViewCommand.MESSAGE_USAGE
-            + "\n" + ViewAllCommand.MESSAGE_USAGE
-            + "\n" + HelpCommand.MESSAGE_USAGE
+    public static final String MESSAGE_ALL_USAGES = HelpCommand.MESSAGE_USAGE
 
             + "\n" + EmployeeListCommand.MESSAGE_USAGE
             + "\n" + EmployeeAddCommand.MESSAGE_USAGE
@@ -56,6 +51,8 @@ public class HelpCommand extends Command {
             + "\n" + MenuFindCommand.MESSAGE_USAGE
             + "\n" + MenuListCommand.MESSAGE_USAGE
             + "\n" + MenuShowMainMenuCommand.MESSAGE_USAGE
+            + "\n" + MenuListByTypeCommand.MESSAGE_USAGE
+            + "\n" + MenuRecommendationCommand.MESSAGE_USAGE
             + "\n" + MenuViewAllCommand.MESSAGE_USAGE
             + "\n" + MenuClearCommand.MESSAGE_USAGE
 

@@ -6,7 +6,7 @@ import java.util.List;
 import seedu.addressbook.data.exception.IllegalValueException;
 
 /**
- * Represents a Person's name in the address book.
+ * Represents a Menu's name in the Menu list.
  * Guarantees: immutable; is valid as declared in {@link #isValidName(String)}
  */
 public class MenuName {
@@ -41,7 +41,7 @@ public class MenuName {
      * Retrieves a listing of every word in the name, in order.
      */
     public List<String> getWordsInName() {
-        return Arrays.asList(fullName.split("\\s+"));
+        return Arrays.asList(fullName.toLowerCase().split("\\s+"));
     }
 
     @Override

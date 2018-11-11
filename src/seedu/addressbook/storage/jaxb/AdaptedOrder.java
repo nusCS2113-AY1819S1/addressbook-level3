@@ -12,6 +12,7 @@ import seedu.addressbook.common.Utils;
 import seedu.addressbook.data.exception.IllegalValueException;
 import seedu.addressbook.data.member.Member;
 import seedu.addressbook.data.member.ReadOnlyMember;
+import seedu.addressbook.data.member.UniqueMemberList;
 import seedu.addressbook.data.menu.ReadOnlyMenus;
 import seedu.addressbook.data.order.Order;
 import seedu.addressbook.data.order.ReadOnlyOrder;
@@ -53,6 +54,8 @@ public class AdaptedOrder {
     private long date;
     @XmlElement(required = true)
     private double price;
+    @XmlElement(required = true)
+    private int points;
 
     @XmlElement
     private List<AdaptedDishItem> dishItems = new ArrayList<>();
@@ -63,7 +66,7 @@ public class AdaptedOrder {
     public AdaptedOrder() {}
 
     /**
-     * Converts a given Person into this class for JAXB use.
+     * Converts a given Order into this class for JAXB use.
      *
      * @param source future changes to this will not affect the created AdaptedOrder
      */
@@ -71,6 +74,7 @@ public class AdaptedOrder {
         customer = new AdaptedMember(source.getCustomer());
         date = source.getDate().getTime();
         price = source.getPrice();
+        points = source.getPoints();
 
         dishItems = new ArrayList<>();
         for (Map.Entry<ReadOnlyMenus, Integer> m: source.getDishItems().entrySet()) {
@@ -109,23 +113,12 @@ public class AdaptedOrder {
             dishItems.put(dishItem.getDish().toModelType(), dishItem.getQuantity());
         }
         ReadOnlyMember customerClone = this.customer.toModelType();
-        final ReadOnlyMember customer = retrieveMember(customerClone, memberList);
+        final ReadOnlyMember customer = UniqueMemberList.retrieveMember(customerClone, memberList);
         final Date date = new Date(this.date);
         final double price = this.price;
-        return new Order(customer, date, price, dishItems);
+        final int pointsToRedeem = this.points;
+        return new Order(customer, date, price, dishItems, pointsToRedeem);
     }
 
-    /**
-     *  Checks if a member in another feature is in a list of members
-     *  Returns the member if found, else create a new Member using the data from the member in the order
-     */
-    public Member retrieveMember(ReadOnlyMember target, List<Member> memberList) {
-        for (Member member : memberList) {
-            if (target.isSameStateAs(member)) {
-                return member;
-            }
-        }
-        return new Member(target);
-    }
 
 }

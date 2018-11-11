@@ -16,10 +16,15 @@ public interface ReadOnlyOrder {
     ReadOnlyMember getCustomer();
     Date getDate();
     double getPrice();
+    double getOriginalPrice();
+    int getPoints();
+    int getMaxPointsRedeemable();
+    int getEarnedPointsValue();
     Map<ReadOnlyMenus, Integer> getDishItems();
 
     boolean hasCustomerField();
     boolean hasDishItems();
+    boolean hasPoints();
 
     /**
      * Returns true if the values inside this object is same as those of the other
@@ -39,7 +44,7 @@ public interface ReadOnlyOrder {
     default String getAsTextShowAll() {
         final StringBuilder builder = new StringBuilder();
         if (hasCustomerField()) {
-            builder.append("\tCustomer: ").append(getCustomer().getAsTextShowAll()).append("\n\t");
+            builder.append("\tCustomer: ").append(getCustomer().getAsTextInOrderList()).append("\n\t");
         }
         builder.append("\tDate: ").append(getDate());
         int i = 0;
@@ -55,8 +60,12 @@ public interface ReadOnlyOrder {
                     .append("($").append(dishPrice.toString()).append(") \t\t")
                     .append("x").append(quantity);
         }
-        builder.append("\n\t\tPrice: $");
+        if (hasCustomerField()) {
+            builder.append("\n\t\tRedeemed points: ").append(getPoints());
+        }
+        builder.append("\n\t\tTotal price: ");
         builder.append(Price.convertPricetoString(getPrice()));
+        builder.append("\n\t\tPoints Earned: ").append(getEarnedPointsValue());
         return builder.toString();
     }
 
@@ -66,7 +75,7 @@ public interface ReadOnlyOrder {
     default String getAsTextHidePrivate() {
         final StringBuilder builder = new StringBuilder();
         if (hasCustomerField()) {
-            builder.append("\tCustomer: ").append(getCustomer().getAsTextHidePrivate()).append("\n\t");
+            builder.append("\tCustomer: ").append(getCustomer().getAsTextInOrderList()).append("\n\t");
         }
         builder.append("\tDate: ").append(getDate());
         int i = 0;
@@ -82,8 +91,12 @@ public interface ReadOnlyOrder {
                     .append("($").append(dishPrice.toString()).append(") \t\t")
                     .append("x").append(quantity);
         }
-        builder.append("\n\t\tPrice: $");
+        if (hasCustomerField()) {
+            builder.append("\n\t\tRedeemed points: ").append(getPoints());
+        }
+        builder.append("\n\t\tTotal price: ");
         builder.append(Price.convertPricetoString(getPrice()));
+        builder.append("\n\t\tPoints Earned: ").append(getEarnedPointsValue());
         return builder.toString();
     }
 
@@ -94,7 +107,7 @@ public interface ReadOnlyOrder {
         final StringBuilder builder = new StringBuilder();
         builder.append("\t\tCustomer: ");
         if (hasCustomerField()) {
-            builder.append(getCustomer().getAsTextShowAll());
+            builder.append(getCustomer().getAsTextInOrderList());
         } else {
             builder.append("<empty>");
         }
@@ -110,12 +123,18 @@ public interface ReadOnlyOrder {
                 builder.append("\t\t\t")
                         .append(i).append(". ")
                         .append(dishName.toString()).append("\t")
-                        .append("($").append(dishPrice.toString()).append(") \t\t")
+                        .append("(").append(dishPrice.toString()).append(") \t\t")
                         .append("x").append(quantity);
             }
         } else {
             builder.append("<empty>");
         }
+        if (hasCustomerField()) {
+            builder.append("\n\t\tRedeemed points: ").append(getPoints());
+            builder.append(" / ").append(getMaxPointsRedeemable());
+        }
+        builder.append("\n\n\t\tTotal price: ");
+        builder.append(Price.convertPricetoString(getPrice()));
         return builder.toString();
     }
 }
