@@ -535,6 +535,9 @@ public class Parser {
                 if (!argument.isEmpty()) {
                     if (i % 2 == 0) {
                         index = Integer.parseInt(argument);
+                        if (indexQuantityPairs.containsKey(index)) {
+                            throw new IllegalValueException("Duplicate index detected");
+                        }
                     } else {
                         quantity = Integer.parseInt(argument.substring(2));
                         indexQuantityPairs.put(index, quantity);
@@ -546,6 +549,9 @@ public class Parser {
         } catch (ParseException | NumberFormatException e) {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     DraftOrderEditDishCommand.MESSAGE_INVALID_FORMAT));
+        } catch (IllegalValueException ive) {
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    DraftOrderEditDishCommand.MESSAGE_DUPLICATE_INDEX));
         }
     }
 

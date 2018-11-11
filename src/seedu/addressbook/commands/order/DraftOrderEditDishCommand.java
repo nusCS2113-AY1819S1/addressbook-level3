@@ -29,6 +29,8 @@ public class DraftOrderEditDishCommand extends Command {
             + "QUANTITY must be a non-negative integer of 1-3 digits\n"
             + MESSAGE_USAGE;
 
+    public static final String MESSAGE_DUPLICATE_INDEX = "There are duplicate index in the input command";
+
     private Map<Integer, Integer> indexQuantityPairs = new HashMap<>();
 
     public DraftOrderEditDishCommand(Map<Integer, Integer> indexQuantityPairs) {
