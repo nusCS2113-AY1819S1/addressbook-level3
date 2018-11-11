@@ -333,6 +333,8 @@ a dish item can be added, deleted or edited in the draft order. +
 Format: `draftdish INDEX q/QUANTITY`
 
 ** The index refers to the index number shown in the last shown menu list.
+** The index must be a non-negative integer.
+** The quantity must be a non-negative integer of 1-3 digits.
 
 * *Select A Member As The Customer Of The Draft* +
 _This step is only necessary if the customer is a member._

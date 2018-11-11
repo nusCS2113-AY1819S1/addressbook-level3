@@ -550,7 +550,7 @@ public class ParserTest {
             "draftdish 1 2"
         };
         final String resultMessage = String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT,
-                DraftOrderEditDishCommand.MESSAGE_USAGE);
+                DraftOrderEditDishCommand.MESSAGE_INVALID_FORMAT);
         parseAndAssertIncorrectWithMessage(resultMessage, inputs);
     }
 
