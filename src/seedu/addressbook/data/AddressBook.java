@@ -110,6 +110,13 @@ public class AddressBook {
 
     public CommandStack getCommandStack() { return commandStack;}
 
+    /**
+     * Link two person
+     * @param target
+     * @param target2
+     * @throws Associated.DuplicateAssociationException if there is already an association between target and target2
+     * @throws Associated.SameTitleException if target and target 2 have the same tittle
+     */
     public void linkTwoPerson(ReadOnlyPerson target, ReadOnlyPerson target2) throws Associated.DuplicateAssociationException, Associated.SameTitleException {
         Person targetObject = target.getPerson();
         Person targetObject2 = target2.getPerson();
@@ -117,6 +124,13 @@ public class AddressBook {
         targetObject2.addAnAssociate(target);
     }
 
+    /**
+     * Unlink two person
+     * @param target
+     * @param target2
+     * @throws Associated.NoAssociationException if there is no association between target and target2
+     * @throws Associated.SameTitleException if target and target 2 have the same tittle
+     */
     public void unlinkTwoPerson(ReadOnlyPerson target, ReadOnlyPerson target2) throws Associated.NoAssociationException, Associated.SameTitleException{
         Person targetObject = target.getPerson();
         Person targetObject2 = target2.getPerson();
