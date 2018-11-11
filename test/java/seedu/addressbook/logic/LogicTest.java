@@ -967,6 +967,10 @@ public class LogicTest {
         Points actualPoints = m1.getCurrentPoints();
 
         assertEquals(expectedPoints.getCurrentPoints(), actualPoints.getCurrentPoints());
+
+        m1.updatePoints(200000000, 0);
+        actualPoints = m1.getCurrentPoints();
+        assertEquals(expectedPoints.MAX_CURRENT_POINTS, actualPoints.getCurrentPoints());
     }
 
     /**
