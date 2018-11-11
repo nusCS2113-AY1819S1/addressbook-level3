@@ -233,14 +233,14 @@ public class StorageFileTest {
     }
 
     @Test
-    public void save_nullExamBook_exceptionThrown() throws Exception {
+    public void saveExam_nullExamBook_exceptionThrown() throws Exception {
         StorageFile storage = getTempStorage();
         thrown.expect(NullPointerException.class);
         storage.saveExam(null);
     }
 
     @Test
-    public void save_nullStatisticsBook_exceptionThrown() throws Exception {
+    public void saveStatistics_nullStatisticsBook_exceptionThrown() throws Exception {
         StorageFile storage = getTempStorage();
         thrown.expect(NullPointerException.class);
         storage.saveStatistics(null);
@@ -249,12 +249,8 @@ public class StorageFileTest {
     @Test
     public void save_validAddressBook() throws Exception {
         AddressBook ab = getTestAddressBook(true, false);
-        ExamBook eb = getTestExamBook();
-        StatisticsBook sb = getTestStatisticsBook();
         StorageFile storage = getTempStorage();
-        storage.saveExam(eb);
         storage.save(ab);
-        storage.saveStatistics(sb);
         // Checks that the password and isPerm is saved as a new field
         assertStorageFilesEqual(storage, getStorage("ValidDataWithDefaultPassword.txt"));
 
@@ -273,23 +269,19 @@ public class StorageFileTest {
     }
 
     @Test
-    public void save_validExamBook() throws Exception {
+    public void saveExam_validExamBook() throws Exception {
         ExamBook eb = getTestExamBook();
-        AddressBook ab = getTestAddressBook();
         StorageFile storage = getTempStorage();
         storage.saveExam(eb);
-        storage.save(ab);
         assertExamsFilesEqual(storage, getStorage("ValidData.txt", "ValidExamData.txt",
                 "ValidStatisticsData.txt"));
     }
 
     @Test
-    public void save_validStatisticsBook() throws Exception {
+    public void saveStatistics_validStatisticsBook() throws Exception {
         StatisticsBook sb = getTestStatisticsBook();
-        AddressBook ab = getTestAddressBook();
         StorageFile storage = getTempStorage();
         storage.saveStatistics(sb);
-        storage.save(ab);
         assertStatisticsFilesEqual(storage, getStorage("ValidData.txt", "ValidExamData.txt",
                 "ValidStatisticsData.txt"));
     }
@@ -298,12 +290,8 @@ public class StorageFileTest {
     @Test
     public void save_validAddressBookWithAssessments() throws Exception {
         AddressBook ab = getTestAddressBookWithAssessment(true, false);
-        ExamBook eb = getTestExamBook();
-        StatisticsBook sb = getTestStatisticsBook();
         StorageFile storage = getTempStorage();
-        storage.saveExam(eb);
         storage.save(ab);
-        storage.saveStatistics(sb);
         // Checks that the password and isPerm is saved as a new field
         assertStorageFilesEqual(storage, getStorage("ValidDataWithAssessments.txt"));
 
@@ -323,7 +311,7 @@ public class StorageFileTest {
 
 
     @Test
-    public void personHasMissingExamInExamBook_exceptionThrown() throws Exception {
+    public void syncAddressBookExamBook_personHasMissingExamInExamBook_exceptionThrown() throws Exception {
         ExamBook eb = getTestExamBook();
         AddressBook ab = getTestAddressBook();
         TestDataHelper helper = new TestDataHelper();
@@ -340,7 +328,7 @@ public class StorageFileTest {
     }
 
     @Test
-    public void personHasAllExamsInExamBook() throws Exception {
+    public void syncAddressBookExamBook_personHasAllExamsInExamBook() throws Exception {
         TestDataHelper helper = new TestDataHelper();
         Exam e1 = helper.generateExam(1, false, 0);
         Exam e2 = helper.generateExam(2, true, 2);
