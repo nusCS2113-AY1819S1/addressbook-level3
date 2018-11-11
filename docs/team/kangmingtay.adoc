@@ -31,7 +31,7 @@ The workflow of the RMS closely resembles that of an Agile framework. At the beg
 ** `Highlights`: It is essential that the membership system is well integrated together with the order system. This is to ensure that when an order is made by an existing member, the member's membership points will correspondingly be updated. Also, the commands implemented should be easy to understand and use for a non-tech savvy audience. It is important that the invalid command formats are properly taken care of in a way that it guides the user with examples on how to properly use the platform.
 ** `Credits`: https://github.com/nusCS2113-AY1819S1/addressbook-level3
 
-* *Code contributed*: https://github.com/CS2113-AY1819S1-F09-2/main[Project Github Page]
+* *Code contributed*: https://nuscs2113-ay1819s1.github.io/dashboard/#=undefined&search=kangmingtay
 
 ** Project Management:
 *** Managed releases v1.1 - v1.3 (3 releases) on GitHub
