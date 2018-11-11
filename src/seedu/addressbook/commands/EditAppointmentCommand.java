@@ -12,12 +12,12 @@ public class EditAppointmentCommand extends Command {
     public static final String COMMAND_WORD = "edit-appointment";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ":\n"
-            + "Selects the person to edit appointment(s) and enters edit-appointment mode.\n\t"
+            + "Selects the person to edit appointment and enters edit-appointment mode.\n\t"
             + "Parameters: INDEX\n\t"
             + "Example: " + COMMAND_WORD + " 1";
 
     public static final String MESSAGE_EDIT_APPOINTMENT_MODE = "Enters edit-appointment mode - "
-            + "accessed to %1$s's appointment(s): ";
+            + "accessed to %1$s's appointment: ";
 
 
     public EditAppointmentCommand(int targetVisibleIndex) {

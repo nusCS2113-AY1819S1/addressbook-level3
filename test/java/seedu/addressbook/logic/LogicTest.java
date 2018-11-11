@@ -139,13 +139,13 @@ public class LogicTest {
     @Test
     public void execute_add_invalidPersonData() throws Exception {
         assertCommandBehavior(
-                "add []\\[;] n/S7778889T p/12345 e/valid@e.mail a/valid, address s/Doctor d/01-01-2001", Name.MESSAGE_NAME_CONSTRAINTS);
+                "add []\\[;] n/S7778889T p/12345 e/valid@e.mail a/valid, address s/Doctor d/01-01-2001-11:00", Name.MESSAGE_NAME_CONSTRAINTS);
         assertCommandBehavior(
-                "add Valid Name n/S7778889T p/not_numbers e/valid@e.mail a/valid, address s/Doctor d/01-01-2001", Phone.MESSAGE_PHONE_CONSTRAINTS);
+                "add Valid Name n/S7778889T p/not_numbers e/valid@e.mail a/valid, address s/Doctor d/01-01-2001-11:00", Phone.MESSAGE_PHONE_CONSTRAINTS);
         assertCommandBehavior(
-                "add Valid Name n/S7778889T p/12345 e/notAnEmail a/valid, address s/Doctor d/01-01-2001", Email.MESSAGE_EMAIL_CONSTRAINTS);
+                "add Valid Name n/S7778889T p/12345 e/notAnEmail a/valid, address s/Doctor d/01-01-2001-11:00", Email.MESSAGE_EMAIL_CONSTRAINTS);
         assertCommandBehavior(
-                "add Valid Name n/S7778889T p/12345 e/valid@e.mail a/valid, address s/Doctor d/01-01-2001 t/invalid_-[.tag", Tag.MESSAGE_TAG_CONSTRAINTS);
+                "add Valid Name n/S7778889T p/12345 e/valid@e.mail a/valid, address s/Doctor d/01-01-2001-11:00 t/invalid_-[.tag", Tag.MESSAGE_TAG_CONSTRAINTS);
 
     }
 
@@ -632,8 +632,8 @@ public class LogicTest {
             Email email = new Email("adam@gmail.com", false);
             Address privateAddress = new Address("111, alpha street", true);
             Title title = new Title("Patient", false);
-            Schedule schedule1 = new Schedule("25-12-2019");
-            Schedule schedule2 = new Schedule("25-03-2018");
+            Schedule schedule1 = new Schedule("25-12-2019-11:00");
+            Schedule schedule2 = new Schedule("25-03-2018-23:00");
             Set<Schedule> schedules = new HashSet<>(Arrays.asList(schedule1, schedule2));
             Tag tag1 = new Tag("tag1");
             Tag tag2 = new Tag("tag2");
@@ -658,7 +658,7 @@ public class LogicTest {
                     new Email(seed + "@email", isAllFieldsPrivate),
                     new Address("House of " + seed, isAllFieldsPrivate),
                     new Title("Doctor", isAllFieldsPrivate),
-                    new HashSet<>(Arrays.asList(new Schedule("26-01-2019"), new Schedule("19-02-2019"))),
+                    new HashSet<>(Arrays.asList(new Schedule("26-01-2019-11:00"), new Schedule("19-02-2019-23:00"))),
                     new HashSet<>(Arrays.asList(new Tag("tag" + Math.abs(seed)), new Tag("tag" + Math.abs(seed + 1)))),
                     new HashSet<>(Arrays.asList(new Associated("associate1")))
             );
@@ -679,7 +679,7 @@ public class LogicTest {
                     new Email(seed + "@email", false),
                     new Address("House of " + seed, false),
                     new Title(title, false),
-                    new HashSet<>(Arrays.asList(new Schedule("26-01-2019"), new Schedule("19-02-2019"))),
+                    new HashSet<>(Arrays.asList(new Schedule("26-01-2019-11:00"), new Schedule("19-02-2019-23:00"))),
                     new HashSet<>(Arrays.asList(new Tag("tag" + Math.abs(seed)), new Tag("tag" + Math.abs(seed + 1)))),
                     new HashSet<>(Arrays.asList(new Associated("associate1")))
             );
@@ -785,7 +785,7 @@ public class LogicTest {
                     new Email("1@email", false),
                     new Address("House of 1", false),
                     new Title("Doctor", false),
-                    Collections.singleton(new Schedule( "27-01-2019")),
+                    Collections.singleton(new Schedule( "27-01-2019-23:00")),
                     Collections.singleton(new Tag("tag")),
                     Collections.singleton(new Associated("associate1"))
             );
