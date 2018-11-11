@@ -13,8 +13,8 @@ public class Points {
 
     public static final int EARNED_POINTS_PER_DOLLAR = 10;
     public static final int REDEEMED_POINTS_PER_DOLLAR = 100;
-    public static final int MAX_CURRENT_POINTS = 20000;
-    public static final int MAX_TOTAL_POINTS = 20000;
+    public static final int MAX_CURRENT_POINTS = 2000000000;
+    public static final int MAX_TOTAL_POINTS = 2000000000;
 
     private int currentPoints;
     private int totalPoints;
