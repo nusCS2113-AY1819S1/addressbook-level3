@@ -37,7 +37,7 @@ public class Type {
         this.value = name;
     }
 
-    public String getValue(){
+    public String getValue() {
         return value;
     }
 

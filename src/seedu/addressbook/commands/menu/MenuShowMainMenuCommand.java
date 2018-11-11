@@ -1,10 +1,7 @@
 package seedu.addressbook.commands.menu;
 
-import java.util.List;
-
 import seedu.addressbook.commands.Command;
 import seedu.addressbook.commands.CommandResult;
-import seedu.addressbook.data.menu.ReadOnlyMenus;
 
 //@@author SalsabilTasnia
 /**
