@@ -93,7 +93,9 @@ public class AddressBook {
     public UniquePersonList getAllPersons() {
         return new UniquePersonList(allPersons);
     }
-
+    /**
+     * Defensively copied UniquePersonList of all persons in the address book at the time of the call and returns the mutableListView of it
+     */
     public List<ReadOnlyPerson> getMutableListView() {
         return new UniquePersonList(allPersons).mutableListView();
     }
