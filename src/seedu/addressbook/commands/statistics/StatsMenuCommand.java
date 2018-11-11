@@ -58,7 +58,12 @@ public class StatsMenuCommand extends Command {
 
     @Override
     public CommandResult execute() {
-        return new StatsCommandResult(heading + getMenuStats());
+        if (getMenuStats().equalsIgnoreCase(MESSAGE_NO_ORDER)) {
+            return new StatsCommandResult(MESSAGE_NO_ORDER);
+        }
+        else {
+            return new StatsCommandResult(heading + getMenuStats());
+        }
     }
 
     private String getMenuStats() {
