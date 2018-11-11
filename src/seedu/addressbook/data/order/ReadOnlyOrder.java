@@ -61,7 +61,7 @@ public interface ReadOnlyOrder {
             String dishPrice = "(" + m.getKey().getPrice().toString() + ")";
             String dishQuantity = "" + m.getValue();
             dishQuantity = MULTIPLY_SIGN
-                    + Utils.blankSpace( MAX_DISH_QUANTITY_DIGITS - dishQuantity.length())
+                    + Utils.blankSpace(MAX_DISH_QUANTITY_DIGITS - dishQuantity.length())
                     + dishQuantity;
             builder.append("\n\t\t");
             builder.append(i).append(". ");
@@ -77,10 +77,47 @@ public interface ReadOnlyOrder {
             builder.append(dishQuantity);
         }
         if (hasCustomerField()) {
-            builder.append("\n\t   Redeemed points: ").append(getPoints());
+            builder.append("\n\t   Redeemed points:\t").append(getPoints());
         }
-        builder.append("\n\t   Total price: ");
+        builder.append("\n\t   Total price:\t\t");
         builder.append(Price.convertPricetoString(getPrice()));
+        return builder.toString();
+    }
+
+    default String getAsTextAfterAdd() {
+        final StringBuilder builder = new StringBuilder();
+        if (hasCustomerField()) {
+            builder.append("\tCustomer: ").append(getCustomer().getAsTextInOrderList()).append("\n");
+        }
+        builder.append("\tDate: ").append(getDate());
+        int i = 0;
+        for (Map.Entry<ReadOnlyMenus, Integer> m: getDishItems().entrySet()) {
+            i++;
+            String dishName = m.getKey().getName().toString();
+            String dishPrice = "(" + m.getKey().getPrice().toString() + ")";
+            String dishQuantity = "" + m.getValue();
+            dishQuantity = MULTIPLY_SIGN
+                    + Utils.blankSpace(MAX_DISH_QUANTITY_DIGITS - dishQuantity.length())
+                    + dishQuantity;
+            builder.append("\n\t\t");
+            builder.append(i).append(". ");
+            builder.append(dishName);
+            if (dishName.length() > MAX_DISH_NAME_DISPLAY_LENGTH) {
+                builder.append("\n\t\t").append("   ");
+                builder.append(Utils.blankSpace(MAX_DISH_NAME_DISPLAY_LENGTH));
+            } else {
+                builder.append(Utils.blankSpace(dishName, MAX_DISH_NAME_DISPLAY_LENGTH));
+            }
+            builder.append(dishPrice);
+            builder.append(Utils.blankSpace(dishPrice, MAX_DISH_PRICE_DISPLAY_LENGTH));
+            builder.append(dishQuantity);
+        }
+        if (hasCustomerField()) {
+            builder.append("\n\tRedeemed points:\t\t").append(getPoints());
+        }
+        builder.append("\n\tTotal price:\t\t");
+        builder.append(Price.convertPricetoString(getPrice()));
+        builder.append("\n\tEarned points:\t\t").append(getEarnedPointsValue());
         return builder.toString();
     }
 
@@ -125,10 +162,10 @@ public interface ReadOnlyOrder {
             builder.append("<empty>");
         }
         if (hasCustomerField() && getMaxPointsRedeemable() != 0) {
-            builder.append("\n\tRedeemed points: ").append(getPoints());
+            builder.append("\n\tRedeemed points:\t\t").append(getPoints());
             builder.append(" / ").append(getMaxPointsRedeemable());
         }
-        builder.append("\n\tTotal price: ");
+        builder.append("\n\tTotal price:\t\t");
         builder.append(Price.convertPricetoString(getPrice()));
         return builder.toString();
     }
