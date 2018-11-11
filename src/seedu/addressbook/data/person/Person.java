@@ -122,14 +122,28 @@ public class Person implements ReadOnlyPerson {
         return getAsTextShowAll();
     }
 
+    /**
+     * Add target to associated
+     * @param target to be linked
+     * @throws Associated.DuplicateAssociationException if there is already an association between target and target2
+     * @throws Associated.SameTitleException if target and target 2 have the same tittle
+     */
     public void addAnAssociate(ReadOnlyPerson target) throws Associated.DuplicateAssociationException, Associated.SameTitleException {
-        Associated toAdd = new Associated(target.getName() + " " + target.getNric(), target.getTitle(), this.title);
+        String nameAndNric = String.format(target.getName() + " " + target.getNric());
+        Associated toAdd = new Associated(nameAndNric, target.getTitle(), this.title);
         if(associated.contains(toAdd)) throw new Associated.DuplicateAssociationException();
         associated.add(toAdd);
     }
 
+    /**
+     * Remove target from associated
+     * @param target to be unlinked
+     * @throws Associated.NoAssociationException if there is no association between target and target2
+     * @throws Associated.SameTitleException if target and target 2 have the same tittle
+     */
     public void removeAnAssociate(ReadOnlyPerson target) throws Associated.NoAssociationException, Associated.SameTitleException{
-        Associated toRemove = new Associated(target.getName() + " " + target.getNric(), target.getTitle(), this.title);
+        String nameAndNric = String.format(target.getName() + " " + target.getNric());
+        Associated toRemove = new Associated(nameAndNric, target.getTitle(), this.title);
         if(!associated.contains(toRemove)) throw new Associated.NoAssociationException();
         associated.remove(toRemove);
     }
