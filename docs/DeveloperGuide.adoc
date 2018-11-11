@@ -7,7 +7,7 @@
 :experimental:
 
 == 1 Introduction
-The Health Booklet v1.2 is an application that function as an advance logbook for in healthcare settings. It allows healthcare professionals to keep track of patients’ details, arrange their schedule based on their patients’ appointments and communicate efficiently between colleagues through instant messaging.
+MediBook v1.4 is an application that function as an advance logbook for in healthcare settings. It allows healthcare professionals to keep track of patients’ details, arrange their schedule based on their patients’ appointments and communicate efficiently between colleagues through instant messaging.
 
 This Developer Guide is intended for users with basic technical background as it details the setting up of our application, the design of our software architecture, describe the implementation of our key features, and the testing involved in our software. Appendix includes user stories and use case for reference.
 
@@ -46,15 +46,15 @@ image::mainClassDiagram.png[]
 This section describes some noteworthy details on how certain features are implemented.
 
 === 4.1  State control (undo/redo)
-The state control feature allows the user to manipulate the different states of the Health Booklet in the current session with the undo and redo command. This section will describe the implementation of this feature.
+The state control feature allows the user to manipulate the different states of MediBook in the current session with the undo and redo command. This section will describe the implementation of this feature.
 
 ==== 4.1.1  Current implementation
 
-The state control mechanism is managed by the CommandHistory class. It stores the various states of the Health Booklet in an arraylist `*addressBookStates*` with the `*stateIterator*` pointing to the latest state in the `*addressBookStates*`.
+The state control mechanism is managed by the CommandHistory class. It stores the various states of MediBook in an arraylist `*addressBookStates*` with the `*stateIterator*` pointing to the latest state in the `*addressBookStates*`.
 
 *The following core methods are in place to assist in the mechanism:*
 
-* `*saveInitialState()*`- Saves the initial state of the Health Booklet state on start-up in addressBookStates. +
+* `*saveInitialState()*`- Saves the initial state of MediBook state on start-up in addressBookStates. +
 * `*addCurrentState()*`- Saves the current Health Booklet state in addressBookStates and move the stateIterator forward. +
 * `*undoLast()*`- Restores the previous Health Booklet state from addressBookStates. +
 * `*redoLast()*`- Restores a previously undone Health Booklet state from addressBookStates. +
@@ -67,26 +67,26 @@ The state control mechanism is managed by the CommandHistory class. It stores th
 
 *1. On start-up:*
 
-CommandHistory will be initialised with the initial state of the Health Booklet with `*saveInitialState()*` and the `*stateIterator*` will be initialised to 0.
+CommandHistory will be initialised with the initial state of MediBook with `*saveInitialState()*` and the `*stateIterator*` will be initialised to 0.
 
-*2. User executes a command that make changes to the Health Booklet (e.g add John Doe...):*
+*2. User executes a command that make changes to MediBook (e.g add John Doe...):*
 
 The `add` command calls `*CommandHistory.checkForAction()*` which will determine whether this command was made following an `undo` command and therefore requires `*truncateOldPath()*` to be called (in this case it won't be called). After which the `*addCurrentState()*` method will be called, which moves the `*stateIterator*` forward from 0 to 1 and saves the current Health Booklet state in `*addressBookStates*` arraylist.
 
-Note: `*CommandHistory.checkForAction()*` will only be called if the command has been executed successfully. If it fails its execution, the Health Booklet state will not be saved into the `*addressBookStates*`.
+Note: `*CommandHistory.checkForAction()*` will only be called if the command has been executed successfully. If it fails its execution, MediBook state will not be saved into the `*addressBookStates*`.
 
 *3. User wants to undo the change they just made and executes the `undo` command:*
 
-The undo command calls `*CommandHistory.undoLast()*` which will move the `*stateIterator*` from 1 to 0 and restores the Health Booklet state stored in `*addressBookStates[0]*`.
+The undo command calls `*CommandHistory.undoLast()*` which will move the `*stateIterator*` from 1 to 0 and restores MediBook state stored in `*addressBookStates[0]*`.
 
 Note: If the user execute `undo` command when the `*stateIterator*` is at 0, the `*undoLast()*` method will throw a `*HistoryOutOfBoundException()*` which will be caught in the UndoCommand class and will display an error to the user instead.
 
-*4. User executes another command that make changes to the Health Booklet after the undo (e.g delete 1):*
+*4. User executes another command that make changes to MediBook after the undo (e.g delete 1):*
 
 The `delete` command calls `*CommandHistory.checkForAction()*` which determines that this command was made following an `undo` command and therefore requires `*truncateOldPath()*` to be called. In this case, all states saved in the `*addressBookStates*` after index 0 will be cleared and will be unable to redone. After which the `*addCurrentState()*` method will be called, which moves the `*stateIterator*` forward from 0 to 1 and saves the current Health Booklet state in `*addressBookStates*` arraylist.
 
 ==== 4.1.2  Reason for this implementation
-Storing the different states of the Health Booklet is relatively easy to implement and it is less prone to errors. However, a drawback for this implementation is the high memory usage required which might cause performance issues.
+Storing the different states of MediBook is relatively easy to implement and it is less prone to errors. However, a drawback for this implementation is the high memory usage required which might cause performance issues.
 
 ==== 4.1.3  Alternative consideration
 An alternative to the current implementation is to save the list of commands executed in the arraylist instead of the whole Health Booklet and reverse them when attempting to undo. However, this requires implemented class to know how to reverse each command. For example, undo-ing a `delete` command requires the class to perform `add` and the class has to remember all the arguments required to create the same person that was deleted.
@@ -108,7 +108,7 @@ Java Authentication and Authorisation System (JAAS) was also considered when dec
 
 
 === 4.3 Scheduling
-Scheduling allows appointment to be stored in Health Booklet. The Health Booklet recognise a schedule date with the tag 'd/'.
+Scheduling allows appointment to be stored in Health Booklet. MediBook recognise a schedule date with the tag 'd/'.
 
 ==== 4.3.1 Current Implementation
 The schedule feature currently accepts dates from the users as an input category under the add command. Input must be in the format DD-MM-YYYY for it to be accepted as a proper schedule date input. For each person added, multiple schedule dates can be added and it is also not a compulsory field to fill.
@@ -127,19 +127,27 @@ In future versions, the following details would be slowly incremented to ensure 
 . A command to view all or list the appointments in a chronological order following the reference date.
 . A doctor can view their respective patients appointment
 
-==== 4.4 Instant Messaging
-Once fully implemented, users will be able to chat over the internet using a separate chat client.
+=== 4.4 Data Organisation
+Sorts entries in MediBook according to alphabetical order
 
-Instant messaging is implemented using a Swing-based client for the chat server.
-Graphically it is a frame with a text field for entering messages and a text area to see the whole dialog.
-The client follows the Chat Protocol which is as follows.
+=== 4.4.1 Current Implementation
+When the sort command is entered, the integrated sort function is called on the list of persons from UniquePersonList, using alphabetical order as the comparator.
 
-When the server sends "SUBMITNAME" the client replies with the desired screen name.  The server will keep sending "SUBMITNAME" requests as long as the client submits screen names that are already in use.
-When the server sends a line beginning with "NAMEACCEPTED" the client is now allowed to startsending the server arbitrary strings to be broadcast to all chatters connected to the server.
-When the server sends a line beginning with "MESSAGE " then all characters following this string should be displayed in its message area.
+The sort command does not access the stored data directly.
+
+=== 4.4.2 Reason for Implementation
+The sort feature provides an avenue for users to view their MediBook entries in an organised manner and allows them to find their patient/colleague in a shorter time should they ever forget their name entirely (hence be unable to use the find feature).
+
+=== 4.4.3 Future/Alternative Implementation
+In the future, the sort feature can be further enhanced in the following ways.
+
+. Sort according to appointment date with earliest appointment first
+. Sort according to a chosen tag (e.g. by patient/doctor)
+
+
 
 == 5.Testing
-Testing the Health Booklet is important as it verifies that the Health Booklet is functioning and up-to-date. This can be done so by going into IntelliJ, right-click on the test folder and choose Run 'All Tests'.
+Testing MediBook is important as it verifies that MediBook is functioning and up-to-date. This can be done so by going into IntelliJ, right-click on the test folder and choose Run 'All Tests'.
 
 
 [appendix]
@@ -157,15 +165,15 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |`* * *` |user |delete a person |remove entries that I no longer need
 |`* * *` |user |find a person by name |locate details of persons without having to go through the entire list
 |`* * *` |user |undo/redo changes made |revert changes that are unwanted
+|`* * *` |user |organise many persons in MediBook |sort persons by name |locate a person easily
 |`* *` |user |hide <<private-contact-detail, private contact details>> by default |minimize chance of someone else seeing them by accident
-|`*` |user with many persons in the Health Booklet |sort persons by name |locate a person easily
-|`*` |user |see history of commands made |identify changes that were made to the Health Booklet
+|`*` |user |see history of commands made |identify changes that were made to MediBook
 |===========================================================================================================================================
 
 [appendix]
 == Use Cases
 
-(For all use cases below, the *System* is the `Health Booklet` and the *Actor* is the `user`, unless specified otherwise)
+(For all use cases below, the *System* is the `MediBook` and the *Actor* is the `user`, unless specified otherwise)
 
 === Use case: UC01 - Login
 
