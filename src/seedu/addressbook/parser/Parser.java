@@ -533,7 +533,7 @@ public class Parser {
                     if (i % 2 == 0) {
                         index = Integer.parseInt(argument);
                         if (indexQuantityPairs.containsKey(index)) {
-                            throw new IllegalValueException("Duplicate index detected");
+                            throw new IllegalValueException("Duplicate indexes detected");
                         }
                     } else {
                         quantity = Integer.parseInt(argument.substring(2));

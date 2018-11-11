@@ -17,12 +17,12 @@ public class DraftOrderEditDishCommand extends Command {
     public static final String COMMAND_WORD = "draftdish";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ":\n"
-            + "Add a dish to the draft order. "
-            + "The dish is identified using the index from the last shown menu list. \n\t"
-            + "Parameters: INDEX q/QUANTITY\n\t"
-            + "Example: " + COMMAND_WORD + " 3 q/4";
+            + "Add dishes to the draft order. "
+            + "The dishes are identified using the indexes from the last shown menu list. \n\t"
+            + "Parameters: INDEX q/QUANTITY [INDEX q/QUANTITY]...\n\t"
+            + "Example: " + COMMAND_WORD + " 1 q/4 3 q/2";
 
-    public static final String MESSAGE_SUCCESS = "The dish is edited in the draft order.";
+    public static final String MESSAGE_SUCCESS = "The dishes are edited in the draft order.";
 
     public static final String MESSAGE_INVALID_FORMAT = "The entered command does not follow the format\n"
             + "INDEX must be a non-negative integer\n"
