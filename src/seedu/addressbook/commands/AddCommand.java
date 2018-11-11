@@ -21,7 +21,7 @@ public class AddCommand extends UndoAbleCommand {
             + "Person must be either a 'Patient' or a 'Doctor' by specifying 'Patient' or 'Doctor' in the TITLE parameter. \n\t"
             + "Parameters: NAME [p]p/NRIC [p]p/PHONE [p]e/EMAIL [p]a/ADDRESS s/TITLE [d/SCHEDULE]... [t/TAG]...\n\t"
             + "Example: " + COMMAND_WORD
-            + " John Doe n/S1239875U p/98765432 e/johnd@gmail.com a/311, Clementi Ave 2, #02-25 s/Patient d/01-01-2019 t/hasDiabetesType2 t/onInsulinTherapy";
+            + " John Doe n/S1239875U p/98765432 e/johnd@gmail.com a/311, Clementi Ave 2, #02-25 s/Patient d/01-01-2019-13:00 t/hasDiabetesType2 t/onInsulinTherapy";
 
     public static final String MESSAGE_SUCCESS = "New person added: %1$s";
 

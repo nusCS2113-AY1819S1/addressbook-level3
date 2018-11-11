@@ -16,16 +16,16 @@ public class AddAppointment extends Command{
     public static final String COMMAND_WORD = "add";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ":\n"
-            + "Add in an appointment date for the selected person.\n"
-            + "Note that multiple appointment dates are accepted\n\t"
-            + "Parameters: DD-MM-YYYY...\n\t"
-            + "Example 1: " + COMMAND_WORD + " 01-01-2019\n\t"
-            + "Example 2: " + COMMAND_WORD + " 01-01-2019" + " 01-02-2019" + " 01-03-2019";
+            + "Add in appointment for the selected person.\n"
+            + "Note that multiple appointment dates with timing are accepted\n\t"
+            + "Parameters: DD-MM-YYYY-HH:MM...\n\t"
+            + "Example 1: " + COMMAND_WORD + " 01-01-2019-13:00\n\t"
+            + "Example 2: " + COMMAND_WORD + " 01-01-2019-13:00" + " 01-02-2019-14:00" + " 01-03-2019-15:00";
 
     private static final String MESSAGE_NO_CHANGE_MADE = "No changes made to the %1$s's set of appointment "
-            + "\nas appointment date(s) was already recorded for %2$s";
+            + "as appointment was already recorded for %2$s";
 
-    private static final String MESSAGE_ADDED_PERSON_APPOINTMENT = "%1$s has new appointment date(s)\n";
+    private static final String MESSAGE_ADDED_PERSON_APPOINTMENT = "%1$s has new appointment!\n";
 
     private static final String MESSAGE_FOR_ADDED_APPOINTMENTS = "\nAdded appointment on: %1$s\n";
 

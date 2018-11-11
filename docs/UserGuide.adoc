@@ -77,7 +77,16 @@ Returns Any person having names `Betsy`, `Tim`, or `John`.
 === 4.5 Adding a person: `add`
 
 Adds a person to the MediBook. +
-Format: `add NAME n/NRIC [p]p/PHONE_NUMBER [p]e/EMAIL [p]a/ADDRESS [p]s/TITLE [d/DD-MM-YYYY]... [t/TAG]...`
+Format: `add NAME n/NRIC [p]p/PHONE_NUMBER [p]e/EMAIL [p]a/ADDRESS [p]s/TITLE [d/DD-MM-YYYY-HH:MM]... [t/TAG]...`
+
+[NOTE]
+====
+TITLE is used to differentiate Doctor and Patient.
+
+DD-MM-YYYY-HH:MM is used to record appointment dates and their starting time.
+
+TAG is used to tag medical conditions and other important information
+====
 
 ****
 Words in `UPPER_CASE` are the parameters, items in `SQUARE_BRACKETS` are optional,
@@ -86,13 +95,13 @@ items with `...` after them can have multiple instances. Order of parameters are
 Put a `p` before the phone / email / address / title prefixes to mark it as `private`. `private` details can only
 be seen using the `viewall` command.
 
-Persons can have any number of schedule dates and tags (including 0)
+Persons can have any number of appointment dates and tags (including 0)
 ****
 
 Examples:
 
-* `add John Doe n/S1239875U p/98765432 e/johnd@gmail.com a/311, Clementi Ave 2, #02-25 s/Patient d/01-01-2019 t/hasDiabetesType2 t/onInsulinTherapy`
-* `add Betsy Crowe n/S7654321T pp/1234567 e/betsycrowe@gmail.com pa/Newgate Prison s/Doctor d/04-10-2018 d/09-11-2018`
+* `add John Doe n/S1239875U p/98765432 e/johnd@gmail.com a/311, Clementi Ave 2, #02-25 s/Patient d/01-01-2019-13:00 d/09-11-2018-14:00 t/hasDiabetesType2 t/onInsulinTherapy`
+* `add Betsy Crowe n/S7654321T pp/1234567 e/betsycrowe@gmail.com pa/Newgate Prison s/Doctor`
 
 === 4.6 Deleting a person : `delete`
 
@@ -208,33 +217,33 @@ Format: `list`
 ==== 4.9.3 Adding appointment to the selected person: `add`
 
 Adds appointments to the selected person in MediBook. +
-Format: `add DD-MM-YYYY...`
+Format: `add DD-MM-YYYY-HH:MM...`
 
 ****
-`...` indicated that therevcan have multiple instances.
+`...` indicated that there can have multiple appointment.
 
 Appointments that are already reorded (and duplicates) would not be added.
 ****
 
 Examples:
 
-* `add 01-01-2019`
-* `add 01-01-2019 02-01-2019 03-01-2019`
+* `add 01-01-2019-13:00`
+* `add 01-01-2019-13:00 02-01-2019-14:00 03-01-2019-15:00`
 
 
 ==== 4.9.4 Deleting appointment of the selected person: `delete`
 
 Deletes appointments from the selected person in MediBook. +
-Format: `delete DD-MM-YYY...`
+Format: `delete DD-MM-YYY-HH:MM...`
 
 ****
-`...` indicated that therevcan have multiple instances.
+`...` indicated that there can have multiple appointment.
 ****
 
 Examples:
 
-* `delete 01-01-2019`
-* `delete 01-01-2019 02-01-2019 03-01-2019`
+* `delete 01-01-2019-13:00`
+* `delete 01-01-2019-13:00 02-01-2019-14:00 03-01-2019-15:00`
 
 ==== 4.9.5 Exiting the edit-appointment session: `done`
 
