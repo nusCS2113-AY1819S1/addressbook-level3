@@ -78,7 +78,7 @@ public class Menu implements ReadOnlyMenus, Comparable<Menu> {
 
     @Override
     public String toString() {
-        return this.name.fullName;
+        return getAsText();
     }
 
     @Override

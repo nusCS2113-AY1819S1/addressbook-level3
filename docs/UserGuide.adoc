@@ -390,13 +390,11 @@ Format: `clearorder`
 
 ==== List Orders
 
-Shows a list of all the current orders. +
+Shows a list of all the current orders.
 
-Each order include details of: customer, ordered time, total price and the list of dish items and quantities ordered +
+Each order include details of: customer, ordered time, total price and the list of dish items and quantities ordered
 
-Only the non-private data of customer will be showed. +
-
-Format: `listorder`
+Format: `listorder`.
 // end::orderuserguide[]
 
 

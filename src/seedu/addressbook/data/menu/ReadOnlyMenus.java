@@ -31,26 +31,9 @@ public interface ReadOnlyMenus {
     }
 
     /**
-     * Formats the food item as text, showing all relevant details.
-     */
-    default String getAsTextShowAll() {
-        final StringBuilder builder = new StringBuilder();
-        builder.append(getName())
-                .append(" | Price: ");
-        builder.append(getPrice())
-                .append(" | Type: ");
-        builder.append(getType())
-                .append(" | Tags: ");
-        for (Tag tag : getTags()) {
-            builder.append(tag);
-        }
-        return builder.toString();
-    }
-
-    /**
      * Formats a menu item as text, showing all contact details.
      */
-    default String getMenuAsText() {
+    default String getAsText() {
         final StringBuilder builder = new StringBuilder();
         builder.append(getName()).append(" | Price ").append(getPrice()).append(" | Type: ").append(getType());
         builder.append(" | Tags: ");

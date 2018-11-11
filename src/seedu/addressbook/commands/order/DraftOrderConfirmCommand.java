@@ -1,7 +1,5 @@
 package seedu.addressbook.commands.order;
 
-import java.util.List;
-
 import seedu.addressbook.commands.Command;
 import seedu.addressbook.commands.CommandResult;
 import seedu.addressbook.data.order.Order;
@@ -19,7 +17,7 @@ public class DraftOrderConfirmCommand extends Command {
             + "Confirm the order and put it into the order list. Clear the draft order afterward.\n\t"
             + "Example: " + COMMAND_WORD;
 
-    public static final String MESSAGE_SUCCESS = "The order has been added.";
+    public static final String MESSAGE_SUCCESS = "The order has been added:\n%1$s";
     public static final String MESSAGE_DRAFT_INCOMPLETE = "The draft needs to be completed before confirming.";
     public static final String MESSAGE_DUPLICATE_ORDER = "This order already exists in the order list";
 
@@ -38,9 +36,7 @@ public class DraftOrderConfirmCommand extends Command {
                     rms.updatePointsOfCustomer(toAdd.getCustomer(), toAdd.getPrice(), toAdd.getPoints());
                 }
                 rms.clearDraftOrder();
-                List<ReadOnlyOrder> allOrders = rms.getAllOrders().immutableListView();
-                message = MESSAGE_SUCCESS + "\n" + getMessageForOrderListShownSummary(allOrders);
-                return new OrderCommandResult(message, allOrders);
+                return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd.getAsTextAfterAdd()));
             } else {
                 message = MESSAGE_DRAFT_INCOMPLETE + "\n" + getDraftOrderAsString();
                 return new CommandResult(message);

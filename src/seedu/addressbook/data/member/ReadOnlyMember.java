@@ -36,29 +36,9 @@ public interface ReadOnlyMember {
     }
 
     /**
-     * Formats the person as text, showing all contact details.
+     * Formats a member as text, showing all details.
      */
-    default String getAsTextShowAll() {
-        final StringBuilder builder = new StringBuilder();
-        final String detailIsPrivate = "(private) ";
-        builder.append(getName())
-                .append(" | Email: ");
-        builder.append(getEmail())
-                .append(" | Available Points: ");
-        builder.append(getCurrentPoints())
-                .append(" | Total Points: ");
-        builder.append(getTotalPointsValue())
-                .append(" | Tier: ");
-        builder.append(getMemberTier().toString())
-                .append(" | Date: ");
-        builder.append(getDate());
-        return builder.toString();
-    }
-
-    /**
-     * Formats a person as text, showing only non-private contact details.
-     */
-    default String getAsTextHidePrivate() {
+    default String getAsText() {
         final StringBuilder builder = new StringBuilder();
         builder.append(getName());
         builder.append(" | Email: ").append(getEmail());
@@ -71,11 +51,12 @@ public interface ReadOnlyMember {
     }
 
     /**
-     * Formats a person as text, showing only non-private contact details and hide membership date.
+     * Formats a member as text, showing only contact details and member tier.
      */
     default String getAsTextInOrderList() {
         final StringBuilder builder = new StringBuilder();
         builder.append(getName());
+        builder.append(" | Email: ").append(getEmail());
         builder.append(" | Tier: ").append(getMemberTier().toString());
         return builder.toString();
     }
