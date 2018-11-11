@@ -18,7 +18,7 @@ public class AddCommand extends UndoAbleCommand {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ":\n" + "Adds a person to the address book. "
             + "Contact details can be marked private by prepending 'p' to the prefix.\n\t"
-            + "Parameters: NAME [p]p/NRIC [p]p/PHONE [p]e/EMAIL [p]a/ADDRESS [p]s/TITLE [d/SCHEDULE]... [t/TAG]...\n\t"
+            + "Parameters: NAME [p]p/NRIC [p]p/PHONE [p]e/EMAIL [p]a/ADDRESS s/TITLE [d/SCHEDULE]... [t/TAG]...\n\t"
             + "Example: " + COMMAND_WORD
             + " John Doe n/S1239875U p/98765432 e/johnd@gmail.com a/311, Clementi Ave 2, #02-25 s/Patient d/01-01-2019 t/hasDiabetesType2 t/onInsulinTherapy";
 
