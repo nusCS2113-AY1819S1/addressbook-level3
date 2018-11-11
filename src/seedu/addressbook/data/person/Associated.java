@@ -41,7 +41,7 @@ public class Associated {
 //        return builder.toString();
 //    }
     /**
-     * Validates given tag name.
+     * Validates given associate.
      *
      * @throws SameTitleException if the person to add has the same title as the target.
      */
