@@ -60,7 +60,7 @@ public class Formatter {
     public String formatMemberResult(List<? extends ReadOnlyMember> members) {
         final List<String> formattedMembers = new ArrayList<>();
         for (ReadOnlyMember member : members) {
-            formattedMembers.add(member.getAsTextHidePrivate());
+            formattedMembers.add(member.getAsText());
         }
         return format(asIndexedList(formattedMembers));
     }
