@@ -22,22 +22,22 @@ public class RedoCommand extends Command{
         try {
             prepRedo();
             saveHistory(COMMAND_WORD);
-            List<ReadOnlyPerson> allPersons = addressBook.getAllPersons().immutableListView();
-            List<ReadOnlyPerson> editableAllPersons = addressBook.getAllPersons().mutableListView();
+            List<ReadOnlyPerson> allPersons = addressBook.getMutableListView();
+            List<ReadOnlyPerson> editableAllPersons = addressBook.getMutableListView();
             return new CommandResult(MESSAGE_SUCCESS, allPersons, editableAllPersons);
         } catch (CommandStack.HistoryOutOfBoundException hoobe){
             return new CommandResult(MESSAGE_NO_COMMAND_TO_REDO);
-        } catch (Exception e){
+        } catch (CommandStack.ImplementationErrorException iie){
             return new CommandResult(MESSAGE_FAILURE);
         }
     }
 
     /**
-     * Gets the UndoAbleCommand object to be redone and execute its redo
-     * @throws Exception if something goes wrong with redo-ing
+     * Call the redo logic in command stack
+     * @throws CommandStack.HistoryOutOfBoundException if there is no command to be redone
+     * @throws CommandStack.ImplementationErrorException if something went wrong while executing redo logic
      */
-    public void prepRedo() throws Exception {
-        UndoAbleCommand toRedo = commandStack.redoLast();
-        toRedo.executeRedo();
+    public void prepRedo() throws CommandStack.HistoryOutOfBoundException, CommandStack.ImplementationErrorException {
+        commandStack.redoLast();
     }
 }

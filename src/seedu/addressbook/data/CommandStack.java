@@ -21,6 +21,8 @@ public class CommandStack {
 
     public static class HistoryOutOfBoundException extends Exception {}
 
+    public static class ImplementationErrorException extends Exception {}
+
     /**
      * Push a UndoAbleCommand into the undo stack
      * @param toStack is the command to be pushed
@@ -55,14 +57,19 @@ public class CommandStack {
 
     /**
      * Undo the last executed command
-     * @return the command to be undone
      * @throws HistoryOutOfBoundException if there is no command to be undone
+     * @throws ImplementationErrorException if something went wrong while executing executeUndo
      */
-    public UndoAbleCommand undoLast() throws HistoryOutOfBoundException {
+    public void undoLast() throws HistoryOutOfBoundException, ImplementationErrorException {
         if(undoStack.isEmpty()){
             throw new HistoryOutOfBoundException();
         }
-        return undoLogic();
+        UndoAbleCommand toUndo = undoLogic();
+        try{
+            toUndo.executeUndo();
+        } catch (Exception e){
+            throw new ImplementationErrorException();
+        }
     }
 
     /**
@@ -78,14 +85,19 @@ public class CommandStack {
 
     /**
      * Redo the last command that was undone
-     * @return the command to be redone
      * @throws HistoryOutOfBoundException if there is no command to be redone
+     * @throws ImplementationErrorException if something went wrong while executing executeRedo
      */
-    public UndoAbleCommand redoLast() throws HistoryOutOfBoundException {
+    public void redoLast() throws HistoryOutOfBoundException, ImplementationErrorException {
         if(redoStack.isEmpty()){
             throw new HistoryOutOfBoundException();
         }
-        return redoLogic();
+        UndoAbleCommand toRedo = redoLogic();
+        try{
+            toRedo.executeRedo();
+        } catch (Exception e){
+            throw new ImplementationErrorException();
+        }
     }
 
     /**
