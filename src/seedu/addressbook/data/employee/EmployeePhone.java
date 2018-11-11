@@ -15,6 +15,13 @@ public class EmployeePhone {
     public final String value;
 
     /**
+    * Empty constructor
+     */
+    public EmployeePhone() {
+        this.value = new String();
+    }
+
+    /**
      * Validates given phone number.
      *
      * @throws IllegalValueException if given phone string is invalid.

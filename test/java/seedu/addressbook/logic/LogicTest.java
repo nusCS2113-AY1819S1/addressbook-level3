@@ -979,7 +979,11 @@ public class LogicTest {
         assertMenuCommandBehavior(
                 "addmenu Valid Name p/not_numbers type/valid, type", Price.MESSAGE_PRICE_CONSTRAINTS);
         assertMenuCommandBehavior(
-                "addmenu Valid Name p/$12345 type/@#%&", Type.MESSAGE_TYPE_CONSTRAINTS);
+                "addmenu Valid Name p/.99, type/main", Price.MESSAGE_PRICE_CONSTRAINTS);
+        assertMenuCommandBehavior(
+                "addmenu Valid Name p/00, type/main", Price.MESSAGE_PRICE_CONSTRAINTS);
+        assertMenuCommandBehavior(
+                "addmenu Valid Name p/$123 type/@#%&", Type.MESSAGE_TYPE_CONSTRAINTS);
         assertMenuCommandBehavior(
                 "addmenu Valid Name p/$12345 type/valid, type t/invalid_-[.tag", Tag.MESSAGE_TAG_CONSTRAINTS);
 
