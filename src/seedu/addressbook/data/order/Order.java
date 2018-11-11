@@ -212,7 +212,7 @@ public class Order implements ReadOnlyOrder {
 
     @Override
     public String toString() {
-        return getAsTextShowAll();
+        return getAsText();
     }
 
 }

@@ -66,4 +66,29 @@ public class Utils {
         DecimalFormat df = new DecimalFormat("0.00");
         return df.format(input);
     }
+
+    /**
+     * Create blank space to position the next String at an exact distance compared to the start of the prefix String.
+     * @param prefix the String after which the blank space is inserted.
+     * @param distance the distance between the start of the two String that the blank space between them aims to fill.
+     * @return the filler space required
+     */
+    public static String blankSpace(String prefix, int distance) {
+        String fillingSpace;
+        int fillingSpaceLength = distance - prefix.length();
+        if (fillingSpaceLength > 0) {
+            fillingSpace = "";
+            for (int i = 0; i < fillingSpaceLength; i++) {
+                fillingSpace += " ";
+            }
+        } else {
+            fillingSpace = "\t";
+        }
+        return fillingSpace;
+    }
+
+    public static String blankSpace(int distance) {
+        return blankSpace("", distance);
+    }
+
 }
