@@ -31,7 +31,10 @@ import seedu.addressbook.commands.order.DraftOrderEditDishCommand;
 import seedu.addressbook.commands.order.OrderAddCommand;
 import seedu.addressbook.commands.order.OrderClearCommand;
 import seedu.addressbook.commands.order.OrderDeleteCommand;
+import seedu.addressbook.commands.statistics.StatsEmployeeCommand;
+import seedu.addressbook.commands.statistics.StatsMemberCommand;
 import seedu.addressbook.commands.statistics.StatsMenuCommand;
+import seedu.addressbook.commands.statistics.StatsOrderCommand;
 import seedu.addressbook.common.Messages;
 import seedu.addressbook.data.Rms;
 import seedu.addressbook.data.employee.Attendance;
@@ -1624,6 +1627,93 @@ public class LogicTest {
                 threeOrders);
     }
     */
+
+    /**
+     * Executes the command and confirms that the result message is correct
+     */
+    private void assertStatisticsCommandBehavior(String inputCommand,
+                                                 String expectedMessage, boolean isEquals) throws Exception {
+
+        //Execute the command
+        CommandResult r = logic.execute(inputCommand);
+
+        //Confirm the result contains the right data
+        if (isEquals) {
+            assertEquals(expectedMessage, r.feedbackToUser);
+        }
+        else {
+            org.junit.Assert.assertNotEquals(expectedMessage, r.feedbackToUser);
+        }
+
+    }
+
+    @Test
+    public void test_statistics_employee() throws Exception {
+        TestDataHelper helper = new TestDataHelper();
+
+        // Test employee statistics when there are no employees
+        assertStatisticsCommandBehavior(helper.generateStatsEmpCommand(),
+                String.format(StatsEmployeeCommand.MESSAGE_NO_EMPLOYEE), true);
+
+        // Test employee statistics when there are employees
+        Employee toBeAdded = helper.peter();
+        Attendance toBeAddedAttendace = new Attendance(toBeAdded.getName().toString());
+        rms.addEmployee(toBeAdded);
+        rms.addAttendance(toBeAddedAttendace);
+        assertStatisticsCommandBehavior(helper.generateStatsEmpCommand(),
+                String.format(StatsEmployeeCommand.MESSAGE_NO_EMPLOYEE), false);
+    }
+
+    @Test
+    public void test_statistics_member() throws Exception {
+        TestDataHelper helper = new TestDataHelper();
+
+        // Test member statistics when there are no members
+        assertStatisticsCommandBehavior(helper.generateStatsMemberCommand(),
+                String.format(StatsMemberCommand.MESSAGE_NO_MEMBERS), true);
+
+        // Test member statistics when there are members
+        Member toBeAdded = helper.generateMember(1);
+        rms.addMember(toBeAdded);
+        assertStatisticsCommandBehavior(helper.generateStatsMemberCommand(),
+                String.format(StatsMemberCommand.MESSAGE_NO_MEMBERS), false);
+    }
+
+    @Test
+    public void test_statistics_menu() throws Exception {
+        TestDataHelper helper = new TestDataHelper();
+
+        // Test menu statistics when there are no orders
+        assertStatisticsCommandBehavior(helper.generateStatsMenuCommand(null, null),
+                String.format(StatsMenuCommand.MESSAGE_NO_ORDER), true);
+
+        // Test menu statistics when there are orders
+        Order toBeAddedOrder = helper.generateOrder(1);
+        rms.addOrder(toBeAddedOrder);
+        toBeAddedOrder = helper.generateOrder(2);
+        rms.addOrder(toBeAddedOrder);
+        Menu toBeAddedMenu = helper.generateMenuItem(1);
+        rms.addMenu(toBeAddedMenu);
+        assertStatisticsCommandBehavior(helper.generateStatsMenuCommand(null, null),
+                String.format(StatsMenuCommand.MESSAGE_NO_ORDER), false);
+    }
+
+    @Test
+    public void test_statistics_order() throws Exception {
+        TestDataHelper helper = new TestDataHelper();
+
+        // Test order statistics when there are no orders
+        assertStatisticsCommandBehavior(helper.generateStatsOrderCommand(),
+                String.format(StatsOrderCommand.MESSAGE_NO_ORDER), true);
+
+        // Test order statistics when there are orders
+        Order toBeAdded = helper.generateOrder(1);
+        rms.addOrder(toBeAdded);
+        toBeAdded = helper.generateOrder(2);
+        rms.addOrder(toBeAdded);
+        assertStatisticsCommandBehavior(helper.generateStatsOrderCommand(),
+                String.format(StatsOrderCommand.MESSAGE_NO_ORDER), false);
+    }
 
 }
 
