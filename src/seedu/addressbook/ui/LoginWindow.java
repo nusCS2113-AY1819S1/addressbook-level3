@@ -3,7 +3,7 @@ package seedu.addressbook.ui;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.TextArea;
+//import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
@@ -13,12 +13,12 @@ import javafx.scene.input.KeyEvent;
 import seedu.addressbook.Main;
 import seedu.addressbook.commands.CommandResult;
 import seedu.addressbook.commands.ExitCommand;
-import seedu.addressbook.data.person.ReadOnlyPerson;
+//import seedu.addressbook.data.person.ReadOnlyPerson;
 import seedu.addressbook.logic.Logic;
 import seedu.addressbook.login.login;
 import seedu.addressbook.ui.MainWindow;
 
-import java.util.List;
+//import java.util.List;
 import java.util.Optional;
 
 import static seedu.addressbook.common.Messages.*;
