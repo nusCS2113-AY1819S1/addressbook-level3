@@ -4,7 +4,9 @@ import static junit.framework.TestCase.assertEquals;
 import static junit.framework.TestCase.assertTrue;
 
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 
 import org.junit.Before;
@@ -327,10 +329,10 @@ public class ParserTest {
             "addmenu",
             "addmenu ",
             "addmenu wrong args format",
-                // no price prefix
-                String.format("addmenu $s $s type/$s", MenuName.EXAMPLE, Price.EXAMPLE, Type.EXAMPLE),
-                // no type prefix
-                String.format("addmenu $s p/$s $s", MenuName.EXAMPLE, Price.EXAMPLE, Type.EXAMPLE)
+            // no price prefix
+            String.format("addmenu $s $s type/$s", MenuName.EXAMPLE, Price.EXAMPLE, Type.EXAMPLE),
+            // no type prefix
+            String.format("addmenu $s p/$s $s", MenuName.EXAMPLE, Price.EXAMPLE, Type.EXAMPLE)
         };
         final String resultMessage = String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT,
                 MenuAddCommand.MESSAGE_USAGE);
@@ -539,8 +541,11 @@ public class ParserTest {
             "draftdish",
             "draftdish ",
             "draftdish wrong args format",
+            "draftdish 1 q/2 wrong args format",
             // no index
             "draftdish q/15",
+            "draftdish 1 q/2 q/15",
+            "draftdish q/1 3 q/2",
             // index is not a single number
             "draftdish a q/15",
             "draftdish * q/15",
@@ -548,31 +553,57 @@ public class ParserTest {
             // no quantity
             "draftdish 1 q/",
             "draftdish 1 q/ ",
+            "draftdish 1 q/ 2 q/3",
             // quantity is not a single number
             "draftdish 1 q/a",
             "draftdish 1 q/*",
             "draftdish 1 q/1 2 3 4",
             // no quantity prefix
             "draftdish 1",
-            "draftdish 1 2"
+            "draftdish 1 2",
+            // quantity is not a 1-3 digits integer
+            "draftdish 1 q/1000"
         };
         final String resultMessage = String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT,
                 DraftOrderEditDishCommand.MESSAGE_INVALID_FORMAT);
         parseAndAssertIncorrectWithMessage(resultMessage, inputs);
     }
 
-    /*
+    @Test
+    public void draftOrderEditDishCommand_duplicateIndexes() {
+        final Map<Integer, Integer> indexQuantityPairs = new HashMap<>();
+        indexQuantityPairs.put(1, 0);
+        indexQuantityPairs.put(2, 1);
+        String input = generateDraftDishCommand(indexQuantityPairs) + " 1 q/999";
+        final IncorrectCommand result = parseAndAssertCommandType(input, IncorrectCommand.class);
+        String expectedFeedback = String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT,
+                DraftOrderEditDishCommand.MESSAGE_DUPLICATE_INDEX);
+        assertEquals(result.feedbackToUser, expectedFeedback);
+    }
+
     @Test
     public void draftOrderEditDishCommand_validArgs_parsedCorrectly() {
-        final int testIndex = 1;
-        final int testQuantity = 15;
-        final String input = "draftdish " + testIndex + " q/" + testQuantity;
+        final Map<Integer, Integer> indexQuantityPairs = new HashMap<>();
+        indexQuantityPairs.put(1, 0);
+        indexQuantityPairs.put(2, 1);
+        indexQuantityPairs.put(3, 999);
+        String input = generateDraftDishCommand(indexQuantityPairs);
         final DraftOrderEditDishCommand result = parseAndAssertCommandType(input, DraftOrderEditDishCommand.class);
-        assertEquals(result.getTargetIndex(), testIndex);
-        assertEquals(result.getQuantity(), testQuantity);
+        assertEquals(result.getIndexQuantityPairs(), indexQuantityPairs);
     }
-    */
 
+    /**
+     * Generate a draftdish command based on the given pairs of index and quantity.
+     * @param indexQuantityPairs the map containing the pairs of index and quantity
+     * @return
+     */
+    public String generateDraftDishCommand(Map<Integer, Integer> indexQuantityPairs) {
+        String input = "draftdish";
+        for (Map.Entry<Integer, Integer> entry: indexQuantityPairs.entrySet()) {
+            input += " " + entry.getKey() + " q/" + entry.getValue();
+        }
+        return input;
+    }
 
     /**
      * Utility methods

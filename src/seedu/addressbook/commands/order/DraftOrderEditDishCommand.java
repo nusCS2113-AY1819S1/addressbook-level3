@@ -64,4 +64,7 @@ public class DraftOrderEditDishCommand extends Command {
         }
     }
 
+    public Map<Integer, Integer> getIndexQuantityPairs() {
+        return indexQuantityPairs;
+    }
 }
