@@ -34,6 +34,7 @@ import seedu.addressbook.commands.order.DraftOrderClearCommand;
 import seedu.addressbook.commands.order.DraftOrderConfirmCommand;
 import seedu.addressbook.commands.order.DraftOrderEditCustomerCommand;
 import seedu.addressbook.commands.order.DraftOrderEditDishCommand;
+import seedu.addressbook.commands.order.DraftOrderEditPointsCommand;
 import seedu.addressbook.commands.order.OrderAddCommand;
 import seedu.addressbook.commands.order.OrderClearCommand;
 import seedu.addressbook.commands.order.OrderDeleteCommand;
@@ -1618,7 +1619,6 @@ public class LogicTest {
         TestDataHelper helper = new TestDataHelper();
 
         Order expectedDraftOrder = helper.foodOrderWithoutDishes();
-
         rms.editDraftOrderCustomer(helper.eve());
 
         String expectedMessage = DraftOrderConfirmCommand.MESSAGE_DRAFT_INCOMPLETE
@@ -1626,6 +1626,80 @@ public class LogicTest {
                 + "\n" + expectedDraftOrder.getDraftDetailsAsText();
 
         assertOrderCommandBehavior("confirmdraft", expectedMessage);
+    }
+
+    @Test
+    public void execute_draftpoints_success() throws Exception {
+        TestDataHelper helper = new TestDataHelper();
+
+        Order expectedDraftOrder = helper.foodOrderWithReturningCustomer();
+        rms.editDraftOrderCustomer(helper.david());
+        rms.editDraftOrderDishItem(helper.burger(), helper.FOOD_QUANTITY);
+        rms.editDraftOrderPoints(helper.pointsToRedeem());
+
+        String expectedMessage = DraftOrderEditPointsCommand.MESSAGE_SUCCESS
+                + "\n" + Messages.MESSAGE_DRAFT_ORDER_DETAILS
+                + "\n" + expectedDraftOrder.getDraftDetailsAsText();
+
+        assertOrderCommandBehavior("draftpoints 0", expectedMessage);
+    }
+
+    @Test
+    public void execute_draftpoints_missingCustomer() throws Exception {
+        TestDataHelper helper = new TestDataHelper();
+
+        Order expectedDraftOrder = helper.foodOrderWithoutCustomer();
+        rms.editDraftOrderDishItem(helper.burger(), helper.FOOD_QUANTITY);
+
+        String expectedMessage = DraftOrderEditPointsCommand.MESSAGE_EMPTY_CUSTOMER_FIELD
+                + "\n" + Messages.MESSAGE_DRAFT_ORDER_DETAILS
+                + "\n" + expectedDraftOrder.getDraftDetailsAsText();
+
+        assertOrderCommandBehavior("draftpoints 50", expectedMessage);
+    }
+
+    @Test
+    public void execute_draftpoints_missingDishes() throws Exception {
+        TestDataHelper helper = new TestDataHelper();
+
+        Order expectedDraftOrder = helper.foodOrderWithoutDishes();
+        rms.editDraftOrderCustomer(helper.eve());
+
+        String expectedMessage = DraftOrderEditPointsCommand.MESSAGE_EMPTY_DISH_FIELD
+                + "\n" + Messages.MESSAGE_DRAFT_ORDER_DETAILS
+                + "\n" + expectedDraftOrder.getDraftDetailsAsText();
+
+        assertOrderCommandBehavior("draftpoints 50", expectedMessage);
+    }
+
+    @Test
+    public void execute_draftpoints_invalidPoints() throws Exception {
+        TestDataHelper helper = new TestDataHelper();
+
+        Order expectedDraftOrder = helper.foodOrder();
+        rms.editDraftOrderCustomer(helper.eve());
+        rms.editDraftOrderDishItem(helper.burger(), helper.FOOD_QUANTITY);
+
+        String expectedMessage = DraftOrderEditPointsCommand.MESSAGE_NO_REDEEMABLE_POINTS
+                + "\n" + Messages.MESSAGE_DRAFT_ORDER_DETAILS
+                + "\n" + expectedDraftOrder.getDraftDetailsAsText();
+
+        assertOrderCommandBehavior("draftpoints 50", expectedMessage);
+    }
+
+    @Test
+    public void execute_draftpoints_isNegative() throws Exception {
+        TestDataHelper helper = new TestDataHelper();
+
+        Order expectedDraftOrder = helper.foodOrderWithReturningCustomer();
+        rms.editDraftOrderCustomer(helper.david());
+        rms.editDraftOrderDishItem(helper.burger(), helper.FOOD_QUANTITY);
+
+        String expectedMessage = DraftOrderEditPointsCommand.MESSAGE_NEGATIVE_POINTS
+                + "\n" + Messages.MESSAGE_DRAFT_ORDER_DETAILS
+                + "\n" + expectedDraftOrder.getDraftDetailsAsText();
+
+        assertOrderCommandBehavior("draftpoints -50", expectedMessage);
     }
 
     /*
