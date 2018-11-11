@@ -34,10 +34,6 @@ public class EmployeeEditCommand extends Command {
 
     public static final String MESSAGE_EDIT_EMPLOYEE_SUCCESS = "Edited Employee: %1$s";
     public static final String MESSAGE_NOARGS = "At least one field to edit must be provided.";
-    public static final String EMPTY_EMPLOYEE_PHONE = "00000000";
-    public static final String EMPTY_EMPLOYEE_EMAIL = "noargs@noargs.com";
-    public static final String EMPTY_EMPLOYEE_ADDRESS = "noargs";
-    public static final String EMPTY_EMPLOYEE_POSITION = "noargs";
 
     private final EditEmployeeDescriptor editEmployeeDescriptor;
 
@@ -93,7 +89,7 @@ public class EmployeeEditCommand extends Command {
     * Check for new phone value.
     */
     private static EmployeePhone checkPhone(EmployeePhone newEdit, EmployeePhone oldInfo) {
-        if (newEdit.value == EMPTY_EMPLOYEE_PHONE) {
+        if (newEdit.value.isEmpty()) {
             return oldInfo;
         }
         return newEdit;
@@ -103,7 +99,7 @@ public class EmployeeEditCommand extends Command {
      * Check for new email value.
      */
     private static EmployeeEmail checkEmail(EmployeeEmail newEdit, EmployeeEmail oldInfo) {
-        if (newEdit.value == EMPTY_EMPLOYEE_EMAIL) {
+        if (newEdit.value.isEmpty()) {
             return oldInfo;
         }
         return newEdit;
@@ -113,7 +109,7 @@ public class EmployeeEditCommand extends Command {
      * Check for new address value.
      */
     private static EmployeeAddress checkAddress(EmployeeAddress newEdit, EmployeeAddress oldInfo) {
-        if (newEdit.value == EMPTY_EMPLOYEE_ADDRESS) {
+        if (newEdit.value.isEmpty()) {
             return oldInfo;
         }
         return newEdit;
@@ -123,7 +119,7 @@ public class EmployeeEditCommand extends Command {
      * Check for new position value.
      */
     private static EmployeePosition checkPosition(EmployeePosition newEdit, EmployeePosition oldInfo) {
-        if (newEdit.value == EMPTY_EMPLOYEE_POSITION) {
+        if (newEdit.value.isEmpty()) {
             return oldInfo;
         }
         return newEdit;
