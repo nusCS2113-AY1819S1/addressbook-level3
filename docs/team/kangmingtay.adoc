@@ -13,17 +13,24 @@ Restaurant Management System (RMS) is a restaurant management solution that help
 
 This application is created by my team, which comprises of 5 people including myself, for the NUS module CS2113T titled, Software Engineering & Object-Oriented Programming. The project lasted for around 10 weeks and we were expected to work with an existing sample codebase given by the module. The objective was to innovate and develop the existing codebase into a desktop application for a specific group of users - restaurant owners.
 
-Below shows a screenshot of the basic and simple command-line-interface of the RMS:
+The workflow of the RMS closely resembles that of a Scrum-Agile framework. At the beginning of the project, we started off with an initial architectural modeling. The project required us to release a working version of our product almost every fortnightly. Within the team, we set weekly milestones and meetings to ensure that everyone is always on track with the development of the RMS. My role in the team was to be the team leader and I was responsible for the overall project coordination. Throughout this development cycle, I have made various contributions to the team, from creating new features, writing tests and documentation and ensuring that each release is functional.
+
+Below shows a screenshot of the simple command-line-interface of the RMS and some of the main commands to get started:
 
 image::Ui.png[]
 
-_If you are looking for a detailed tutorial on how to use the RMS, please refer to our <<UserGuide#,*User Guide*>>._ +
-_If you are looking for the detailed architecture and design of the RMS or wish to contribute code to this application, please refer to our <<DeveloperGuide#,*Developer Guide*>>_
+_If you wish to experience a more hands-on approach to use the RMS, please key in `help` upon running the application to get the full list of commands.
+
+_If you are looking for a detailed tutorial on how to use the RMS, please refer to our https://github.com/CS2113-AY1819S1-F09-2/main/tree/master/docs/UserGuide.adoc[User Guide]._ +
+
+_If you are looking for the detailed architecture and design of the RMS or wish to contribute code to this application, please refer to our https://github.com/CS2113-AY1819S1-F09-2/main/tree/master/docs/DeveloperGuide.adoc[Developer Guide]_
 
 
 == Summary of contributions
 
-The workflow of the RMS closely resembles that of an Agile framework. At the beginning of the project, we started off with an initial architectural modeling. The project required us to release a working version of our product almost every fortnightly. Within the team, we set weekly milestones and meetings to ensure that everyone is always on track with the development of the RMS. My role in the team was to be their team leader and be responsible for the overall project coordination. Throughout this development cycle, I have made various contributions to the team, from creating new features to be added into the RMS to writing tests and ensuring that each release is functional.
+|===
+|_Given below are various code contributions I have made. They showcase my coding ability as well as my ability to work in a team effectively._
+|===
 
 * *Major enhancement*: Created a membership platform for the RMS
 ** `What it does`: The membership platform allows the restaurant to keep track of its existing members and accumulate their membership points. It also allows the restaurant manager / cashier to list, add and delete members from the system.
