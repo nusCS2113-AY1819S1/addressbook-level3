@@ -2,8 +2,12 @@ package seedu.addressbook.logic;
 
 import static junit.framework.TestCase.assertEquals;
 
+import java.text.SimpleDateFormat;
 import java.util.Collections;
+import java.util.Date;
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.junit.Before;
 import org.junit.Rule;
@@ -15,6 +19,8 @@ import seedu.addressbook.commands.CommandResult;
 import seedu.addressbook.commands.ExitCommand;
 import seedu.addressbook.commands.HelpCommand;
 import seedu.addressbook.commands.employee.EmployeeAddCommand;
+import seedu.addressbook.commands.employee.EmployeeClockInCommand;
+import seedu.addressbook.commands.employee.EmployeeClockOutCommand;
 import seedu.addressbook.commands.employee.EmployeeDeleteCommand;
 import seedu.addressbook.commands.employee.EmployeeEditCommand;
 import seedu.addressbook.commands.member.MemberAddCommand;
@@ -41,6 +47,7 @@ import seedu.addressbook.data.employee.EmployeeName;
 import seedu.addressbook.data.employee.EmployeePhone;
 import seedu.addressbook.data.employee.EmployeePosition;
 import seedu.addressbook.data.employee.ReadOnlyEmployee;
+import seedu.addressbook.data.employee.Timing;
 import seedu.addressbook.data.member.Member;
 import seedu.addressbook.data.member.MemberEmail;
 import seedu.addressbook.data.member.MemberName;
@@ -613,9 +620,15 @@ public class LogicTest {
                 threeEmployees);
     }
 
-    /*
+
     @Test
     public void execute_clockinEmployee_success() throws Exception {
+        SimpleDateFormat dateFormatter = new SimpleDateFormat("dd/MM/yyyy");
+        SimpleDateFormat timeFormatter = new SimpleDateFormat("HH:mm");
+        Date date = new Date();
+        String currentTime = timeFormatter.format(date);
+        String currentDate = dateFormatter.format(date);
+
         TestDataHelper helper = new TestDataHelper();
         Employee e1 = helper.generateEmployee(1);
         Employee e2 = helper.generateEmployee(2);
@@ -624,31 +637,32 @@ public class LogicTest {
         Attendance a2 = helper.generateAttendance(2);
         Attendance a3 = helper.generateAttendance(3);
 
+        Set<Timing> expectedTimings = new LinkedHashSet<>();
+        Timing currentTiming = new Timing(currentTime, currentDate, true);
+        expectedTimings.add(currentTiming);
+        Attendance expectedAttendance = helper.generateAttendanceWithTime(3, true, expectedTimings);
+
         List<Employee> lastShownEmployeeList = helper.generateEmployeeList(e1, e2, e3);
         List<Attendance> lastShownAttendanceList = helper.generateAttendanceList(a1, a2, a3);
 
         Rms expectedRms = helper.generateRmsEmployeesAndAttendances(lastShownEmployeeList, lastShownAttendanceList);
-
-        SimpleDateFormat dateFormatter = new SimpleDateFormat("dd/MM/yyyy");
-        SimpleDateFormat timeFormatter = new SimpleDateFormat("HH:mm:ss");
-        Date date = new Date();
-        String currentTime = timeFormatter.format(date);
-        String currentDate = dateFormatter.format(date);
+        expectedRms.removeAttendance(a3);
+        expectedRms.addAttendance(expectedAttendance);
 
         helper.addEmployeesToRms(rms, lastShownEmployeeList);
         helper.addAttendancesToRms(rms, lastShownAttendanceList);
         logic.setLastShownEmployeeList(lastShownEmployeeList);
         logic.setLastShownAttendanceList(lastShownAttendanceList);
 
-        assertEmployeeAttendanceCommandBehavior("clockin Employee 2",
-                String.format(EmployeeClockInCommand.MESSAGE_SUCCESS, e2.getName(), currentDate, currentTime),
+        assertEmployeeAttendanceCommandBehavior("clockin Employee 3",
+                String.format(EmployeeClockInCommand.MESSAGE_SUCCESS, e3.getName(), currentDate, currentTime),
                 expectedRms,
                 false,
                 false,
                 lastShownEmployeeList,
                 lastShownAttendanceList);
     }
-    */
+
 
     @Test
     public void execute_clockinEmployee_invalidEmployee() throws Exception {
@@ -678,9 +692,15 @@ public class LogicTest {
                 lastShownAttendanceList);
     }
 
-    /*
+
     @Test
     public void execute_clockoutEmployee_success() throws Exception {
+        SimpleDateFormat dateFormatter = new SimpleDateFormat("dd/MM/yyyy");
+        SimpleDateFormat timeFormatter = new SimpleDateFormat("HH:mm");
+        Date date = new Date();
+        String currentTime = timeFormatter.format(date);
+        String currentDate = dateFormatter.format(date);
+
         TestDataHelper helper = new TestDataHelper();
         Employee e1 = helper.generateEmployee(1);
         Employee e2 = helper.generateEmployee(2);
@@ -689,32 +709,36 @@ public class LogicTest {
         Attendance a2 = helper.generateAttendance(2);
         Attendance a3 = helper.generateAttendance(3);
 
+        Set<Timing> expectedTimings = new LinkedHashSet<>();
+        Timing clockinTiming = new Timing(currentTime, currentDate, true);
+        Timing clockoutTiming = new Timing(currentTime, currentDate, false);
+        expectedTimings.add(clockinTiming);
+        expectedTimings.add(clockoutTiming);
+        Attendance expectedAttendance = helper.generateAttendanceWithTime(3, false, expectedTimings);
+
         List<Employee> lastShownEmployeeList = helper.generateEmployeeList(e1, e2, e3);
         List<Attendance> lastShownAttendanceList = helper.generateAttendanceList(a1, a2, a3);
 
         Rms expectedRms = helper.generateRmsEmployeesAndAttendances(lastShownEmployeeList, lastShownAttendanceList);
+        expectedRms.removeAttendance(a3);
+        expectedRms.addAttendance(expectedAttendance);
 
-        SimpleDateFormat dateFormatter = new SimpleDateFormat("dd/MM/yyyy");
-        SimpleDateFormat timeFormatter = new SimpleDateFormat("HH:mm:ss");
-        Date date = new Date();
-        String currentTime = timeFormatter.format(date);
-        String currentDate = dateFormatter.format(date);
 
         helper.addEmployeesToRms(rms, lastShownEmployeeList);
         helper.addAttendancesToRms(rms, lastShownAttendanceList);
         logic.setLastShownEmployeeList(lastShownEmployeeList);
         logic.setLastShownAttendanceList(lastShownAttendanceList);
-        logic.execute("clockin Employee 2");
+        logic.execute("clockin Employee 3");
 
-        assertEmployeeAttendanceCommandBehavior("clockout Employee 2",
-                String.format(EmployeeClockOutCommand.MESSAGE_SUCCESS, e2.getName(), currentDate, currentTime),
+        assertEmployeeAttendanceCommandBehavior("clockout Employee 3",
+                String.format(EmployeeClockOutCommand.MESSAGE_SUCCESS, e3.getName(), currentDate, currentTime),
                 expectedRms,
                 false,
                 false,
                 lastShownEmployeeList,
                 lastShownAttendanceList);
     }
-    */
+
 
     @Test
     public void execute_clockoutEmployee_invalidEmployee() throws Exception {

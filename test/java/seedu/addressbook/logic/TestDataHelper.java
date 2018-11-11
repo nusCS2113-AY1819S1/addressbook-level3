@@ -6,6 +6,7 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -19,6 +20,7 @@ import seedu.addressbook.data.employee.EmployeeEmail;
 import seedu.addressbook.data.employee.EmployeeName;
 import seedu.addressbook.data.employee.EmployeePhone;
 import seedu.addressbook.data.employee.EmployeePosition;
+import seedu.addressbook.data.employee.Timing;
 import seedu.addressbook.data.member.Member;
 import seedu.addressbook.data.member.MemberEmail;
 import seedu.addressbook.data.member.MemberName;
@@ -177,10 +179,21 @@ class TestDataHelper {
      * Running this function with the same parameter values guarantees the returned attendance will have the same state.
      * Each unique seed will generate a unique Attendance object.
      *
-     * @param seed used to generate the attendnace data field values
+     * @param seed used to generate the attendance data field values
      */
     Attendance generateAttendance(int seed) throws Exception {
         return new Attendance("Employee " + seed);
+    }
+
+    /**
+     * Generates a valid attendance using the given seed.
+     * Running this function with the same parameter values guarantees the returned attendance will have the same state.
+     * Each unique seed will generate a unique Attendance object.
+     *
+     * @param seed used to generate the attendance data field values
+     */
+    Attendance generateAttendanceWithTime(int seed, boolean isClockedIn, Set<Timing> timings) throws Exception {
+        return new Attendance("Employee " + seed, isClockedIn, timings);
     }
 
     /**

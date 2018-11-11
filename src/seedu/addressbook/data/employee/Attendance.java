@@ -80,7 +80,7 @@ public class Attendance {
     public String getAsTextShowAll() {
         final StringBuilder builder = new StringBuilder();
         builder.append(getName())
-                .append("Timings: ");
+                .append(" Timings: ");
         for (Timing timing : getTimings()) {
             builder.append(timing);
         }
