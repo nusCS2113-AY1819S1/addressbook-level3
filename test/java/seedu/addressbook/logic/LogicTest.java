@@ -30,7 +30,6 @@ public class LogicTest {
     private StorageFile saveFile;
     private AddressBook addressBook;
     private Logic logic;
-    private Random rand = new Random();
 
 
     @Before
@@ -442,7 +441,7 @@ public class LogicTest {
     }
 
     @Test
-    public void execute_unlink_success() throws Exception{
+    public void executeUnlinkSuccess() throws Exception{
         TestDataHelper helper = new TestDataHelper();
         Person p1 = helper.generatePersonWithTitle(1, "Doctor");
         Person p2 = helper.generatePersonWithTitle(2, "Patient");
@@ -461,7 +460,7 @@ public class LogicTest {
     }
 
     @Test
-    public void execute_unlink_noAssociation() throws Exception{
+    public void executeUnlinkNoAssociation() throws Exception{
         TestDataHelper helper = new TestDataHelper();
         Person p1 = helper.generatePersonWithTitle(1, "Doctor");
         Person p2 = helper.generatePersonWithTitle(2, "Patient");
@@ -563,7 +562,7 @@ public class LogicTest {
     }
 
     @Test
-    public void execute_undo_undoUnLink() throws Exception {
+    public void executeUndoUnLink() throws Exception {
         TestDataHelper helper = new TestDataHelper();
         Person p1 = helper.generatePersonWithTitle(1, "Doctor");
         Person p2 = helper.generatePersonWithTitle(2, "Patient");
