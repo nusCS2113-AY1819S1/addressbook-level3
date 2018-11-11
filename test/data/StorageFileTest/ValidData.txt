@@ -15,8 +15,8 @@
         <email isPrivate="false">betsycrowe@gmail.com</email>
         <address isPrivate="true">Newgate Prison</address>
         <title isPrivate="false">Patient</title>
-        <scheduled>01-05-1995</scheduled>
-        <scheduled>04-06-2020</scheduled>
+        <scheduled>01-05-2019-11:00</scheduled>
+        <scheduled>04-06-2020-13:00</scheduled>
         <associates>associate1</associates>
         <tagged>friend</tagged>
         <tagged>criminal</tagged>

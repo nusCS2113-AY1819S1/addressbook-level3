@@ -107,7 +107,7 @@ public class StorageFileTest {
                                 new Email("betsycrowe@gmail.com", false),
                                 new Address("Newgate Prison", true),
                                 new Title("Patient"),
-                                new HashSet<>(Arrays.asList(new Schedule("01-05-1995"), new Schedule("04-06-2020") )),
+                                new HashSet<>(Arrays.asList(new Schedule("01-05-2019-11:00"), new Schedule("04-06-2020-13:00") )),
                                 new HashSet<>(Arrays.asList(new Tag("friend"), new Tag("criminal"))),
                                 new HashSet<>(Arrays.asList(new Associated("associate1")))));
         return ab;

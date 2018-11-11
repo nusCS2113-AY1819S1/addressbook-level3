@@ -1,4 +1,4 @@
-= Health Booklet
+= MediBook
 ifdef::env-github,env-browser[:relfileprefix: docs/]
 ifdef::env-github,env-browser[:imagesDir: docs/images]
 
@@ -16,7 +16,7 @@ Features
  * Essential and relevant patients' information with just a click
  * Check your coworkers schedule
  * Undo/Redo - no need to fret over accidentally deleting your patients' information
- * Online integrated communication  
+ * Easily sort and view organised information
 
 
 
@@ -45,7 +45,7 @@ Scheduling
 image::keithtqs.png[]
 
 Keith Tan Qisheng +
-Communication
+Organisation
 
 == Acknowledgements
 

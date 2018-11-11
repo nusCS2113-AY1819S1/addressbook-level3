@@ -18,16 +18,16 @@ public class DeleteAppointment extends Command {
     public static final String COMMAND_WORD = "delete";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ":\n"
-            + "Delete the appointment date(s) for the selected person.\n"
-            + "Note that multiple appointment dates are accepted\n\t"
-            + "Parameters: DD-MM-YYYY...\n\t"
-            + "Example 1: " + COMMAND_WORD + " 01-01-2019 \n\t"
-            + "Example 2: " + COMMAND_WORD + " 01-01-2019" + " 01-02-2019" + " 01-03-2019";
+            + "Delete appointment for the selected person.\n"
+            + "Note that multiple appointment dates with timing are accepted\n\t"
+            + "Parameters: DD-MM-YYYY-HH:MM...\n\t"
+            + "Example 1: " + COMMAND_WORD + " 01-01-2019-13:00 \n\t"
+            + "Example 2: " + COMMAND_WORD + " 01-01-2019-13:00" + " 01-02-2019-14:00" + " 01-03-2019-15:00";
 
     private static final String MESSAGE_NO_CHANGE_MADE = "No changes made to the %1$s set of appointment "
-            + "\nas no appointment date(s) were made on %2$s";
+            + "as no appointment were made on %2$s";
 
-    private static final String MESSAGE_DELETE_PERSON_APPOINTMENT = "%1$s has deleted appointment date(s)\n";
+    private static final String MESSAGE_DELETE_PERSON_APPOINTMENT = "%1$s has deleted appointment!\n";
 
     private static final String MESSAGE_FOR_DELETED_APPOINTMENTS = "\nDeleted appointment for: %1$s\n";
 

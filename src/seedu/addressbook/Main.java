@@ -3,20 +3,20 @@ package seedu.addressbook;
 import javafx.application.Application;
 import javafx.application.Platform;
 
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
+//import javafx.fxml.FXMLLoader;
+//import javafx.scene.Scene;
 import javafx.stage.Stage;
 //import org.gradle.internal.impldep.org.apache.commons.lang.WordUtils;
 import seedu.addressbook.commands.CommandResult;
-import seedu.addressbook.common.Messages;
-import seedu.addressbook.data.exception.IllegalValueException;
+//import seedu.addressbook.common.Messages;
+//import seedu.addressbook.data.exception.IllegalValueException;
 import seedu.addressbook.logic.Logic;
-import seedu.addressbook.login.WorkWithLoginStorage;
+//import seedu.addressbook.login.WorkWithLoginStorage;
 import seedu.addressbook.ui.Gui;
-import seedu.addressbook.ui.LoginWindow;
+//import seedu.addressbook.ui.LoginWindow;
 import seedu.addressbook.ui.Stoppable;
-import seedu.addressbook.login.login;
-import seedu.addressbook.login.Credentials;
+//import seedu.addressbook.login.login;
+//import seedu.addressbook.login.Credentials;
 
 /**
  * Main entry point to the application.

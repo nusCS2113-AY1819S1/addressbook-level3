@@ -8,13 +8,11 @@ import seedu.addressbook.data.exception.IllegalValueException;
  */
 public class Schedule {
 
-    public static final String EXAMPLE = "31-01-2018";
-    public static final String EXAMPLE2 = "31-12-2018";
-    public static final String MESSAGE_SCHEDULE_CONSTRAINTS = "The day of appointment should be written in the form of DD-MM-YYYY. Year should also be in the 20th or 21th Century ";
-    public static final String SCHEDULE_VALIDATION_REGEX = "(((0[1-9]|[1-2][0-9]|3[0-1])-(0[13578]|(10|12)))|((0[1-9]|[1-2][0-9])-02)|((0[1-9]|[1-2][0-9]|30)-(0[469]|11)))-(19[0-9]{2}|20[0-9]{2}|2100)";
-
-    // "\\s([0-1][0-9]|2[0-3])[0-5][0-9]";
-
+    public static final String EXAMPLE = "31-01-2018-11:00";
+    public static final String EXAMPLE2 = "31-12-2018-16:00";
+    public static final String MESSAGE_SCHEDULE_CONSTRAINTS = "The appointment should be written in the form of " +
+            "DD-MM-YYYY-HH:MM. Year should also be in the 20th or 21th Century. Time should be in 24-hour clock format";
+    public static final String SCHEDULE_VALIDATION_REGEX = "(((0[1-9]|[1-2][0-9]|3[0-1])-(0[13578]|(10|12)))|((0[1-9]|[1-2][0-9])-02)|((0[1-9]|[1-2][0-9]|30)-(0[469]|11)))-(19[0-9]{2}|20[0-9]{2}|2100)-([0-1][0-9]|2[0-3]):[0-5][0-9]";
 
     public final String value;
 

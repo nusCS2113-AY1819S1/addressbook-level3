@@ -133,6 +133,7 @@ public interface ReadOnlyPerson {
         if(!getNric().isPrivate()) {
             builder.append("\t\tNRIC: ").append(getNric());
         }
+        builder.append("\t\tTitle: ").append(getTitle());
         builder.append("\n\tSchedule: ");
         for(Schedule schedule : getSchedules()){
             builder.append(schedule);
