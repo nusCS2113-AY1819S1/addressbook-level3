@@ -79,6 +79,15 @@ Returns Any person having names `Betsy`, `Tim`, or `John`.
 Adds a person to the MediBook. +
 Format: `add NAME n/NRIC [p]p/PHONE_NUMBER [p]e/EMAIL [p]a/ADDRESS [p]s/TITLE [d/DD-MM-YYYY-HH:MM]... [t/TAG]...`
 
+[NOTE]
+====
+TITLE is used to differentiate Doctor and Patient.
+
+DD-MM-YYYY-HH:MM is used to record appointment dates and their starting time.
+
+TAG is used to tag medical conditions and other important information
+====
+
 ****
 Words in `UPPER_CASE` are the parameters, items in `SQUARE_BRACKETS` are optional,
 items with `...` after them can have multiple instances. Order of parameters are fixed.
@@ -86,7 +95,7 @@ items with `...` after them can have multiple instances. Order of parameters are
 Put a `p` before the phone / email / address / title prefixes to mark it as `private`. `private` details can only
 be seen using the `viewall` command.
 
-Persons can have any number of schedule dates and tags (including 0)
+Persons can have any number of appointment dates and tags (including 0)
 ****
 
 Examples:
