@@ -38,7 +38,7 @@ public class StatsMemberCommand extends Command {
         for (ReadOnlyMember member : allMembers) {
             Date signupDate = member.getDate();
             dateTable.addData(signupDate);
-            String tier = member.getMemberTier().toString();
+            String tier = getTier(member);
             if (tier.equalsIgnoreCase("Bronze")) {
                 tierCount[0]++;
             } else if (tier.equalsIgnoreCase("Silver")) {
@@ -54,13 +54,26 @@ public class StatsMemberCommand extends Command {
         res.append("\n\n\n");
 
         res.append("Tier Table\n");
-        String[] headings = new String[]{"Bronze", "Silver", "Gold"};
-        AsciiTable table = new AsciiTable(headings);
-        String[] values = Arrays.toString(tierCount).replaceAll("[\\[\\]]", "").split("\\s*,\\s*");
+        AsciiTable table = createTierTable();
+        String[] values = convertIntArrToStrArr(tierCount);
         table.addRow(values);
         res.append(table.toString());
 
         return res.toString();
+    }
+
+    private AsciiTable createTierTable() {
+        String[] headings = new String[]{"Bronze", "Silver", "Gold"};
+        return new AsciiTable(headings);
+    }
+
+    private String[] convertIntArrToStrArr(int[] in) {
+        String listString = Arrays.toString(in);
+        return listString.replaceAll("[\\[\\]]", "").split("\\s*,\\s*");
+    }
+
+    private String getTier(ReadOnlyMember member) {
+        return member.getMemberTier().toString();
     }
 
 }

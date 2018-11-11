@@ -6,6 +6,7 @@ import java.util.Set;
 import seedu.addressbook.commands.Command;
 import seedu.addressbook.commands.CommandResult;
 import seedu.addressbook.data.employee.Attendance;
+import seedu.addressbook.data.employee.Employee;
 import seedu.addressbook.data.employee.ReadOnlyEmployee;
 import seedu.addressbook.data.employee.Timing;
 import seedu.addressbook.data.employee.UniqueAttendanceList;
@@ -37,15 +38,14 @@ public class StatsEmployeeCommand extends Command {
         }
         res.append("Number of employees: " + allEmployees.size() + "\n\n");
         res.append("Currently on duty employees: ");
-        String[] headings = new String[]{"Name", "Position", "Clocked in"};
-        AsciiTable onDuty = new AsciiTable(headings);
-        headings = new String[]{"Name", "Position", "Activity"};
-        AsciiTable recentAttendance = new AsciiTable(headings);
+        AsciiTable onDuty = createOnDutyTable();
+        AsciiTable recentAttendance = createRecentAttendanceTable();
+
         int count = 0;
         for (ReadOnlyEmployee emp : allEmployees) {
-            String name = emp.getName().fullName;
-            Attendance attendance = allAttendance.getAttendance(allAttendance.getAttendanceIndex(name));
-            Set<Timing> timings = attendance.getTimings();
+            String name = getEmpName(emp);
+            Attendance attendance = getAttendance(allAttendance, name);
+            Set<Timing> timings = getAttendanceTiming(attendance);
             Object[] timingArray = timings.toArray();
             int offset = 0;
             if (attendance.getClockedIn()) {
@@ -82,5 +82,28 @@ public class StatsEmployeeCommand extends Command {
         res.append("\n\n");
 
         return res.toString();
+    }
+
+    private String getEmpName(ReadOnlyEmployee emp) {
+        return emp.getName().fullName;
+    }
+
+    private Attendance getAttendance(UniqueAttendanceList allAttendance, String name) {
+        int index = allAttendance.getAttendanceIndex(name);
+        return allAttendance.getAttendance(index);
+    }
+
+    private Set<Timing> getAttendanceTiming(Attendance attendance) {
+        return attendance.getTimings();
+    }
+
+    private AsciiTable createOnDutyTable() {
+        String[] headings = new String[]{"Name", "Position", "Clocked in"};
+        return new AsciiTable(headings);
+    }
+
+    private AsciiTable createRecentAttendanceTable() {
+        String[] headings = new String[]{"Name", "Position", "Activity"};
+        return new AsciiTable(headings);
     }
 }
