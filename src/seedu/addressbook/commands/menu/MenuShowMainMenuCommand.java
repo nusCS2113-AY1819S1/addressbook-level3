@@ -26,49 +26,9 @@ public class MenuShowMainMenuCommand extends Command {
             + "\n" + " -Others : key in 'listmenutype others' to view all Others"
             + "\n" + " -Set Meals : key in 'listmenutype set meal' to view all Set Meal";
 
-
-    /*
-    private final Set<String> typeSet = new HashSet<>();
-    final List<ReadOnlyMenus> typeList = new ArrayList<>();
-    private List<ReadOnlyMenus> getFoodItemsBurger() {
-        for (ReadOnlyMenus menuItem : rms.getAllMenus()) {
-            //final Set<String> wordsInName = new HashSet<>(burger.getType().getWordsInTypeName());
-            final String wordsInItemName = menuItem.getType().value;
-            typeSet.add(wordsInItemName);
-            typeList.add(menuItem);
-            //System.out.println(wordsInItemName);
-            //boolean exist = wordsInName.contains(itemword);
-
-        }
-
-        for(String type: typeSet){
-            System.out.println(type);
-        }
-        return typeList;
-    }
-
-    private List<ReadOnlyMenus> getMenuItemsWithNameContainingAnyKeyword() {
-        final List<ReadOnlyMenus> matchedMenuItems = new ArrayList<>();
-        for (ReadOnlyMenus menu : rms.getAllMenus()){
-            typeSet.add(menu.getType().value);
-            System.out.println(menu.getType().value);
-        }
-        return matchedMenuItems;
-    }
-
-    private String ConstructDisplayMessage(){
-        String MainMenuDisplay = "Main Menu";
-        for (String typeName : typeSet){
-          //  MainMenuDisplay += "\n" + typeName.toUpperCase() + ":  key in listmenutype"
-          + typeName + "to view all" + typeName + "items";
-            //System.out.println(typeName);
-        }
-        return MainMenuDisplay;
-    }*/
     @Override
     public CommandResult execute() {
         List<ReadOnlyMenus> allMenus = rms.getAllMenus().immutableListView();
         return new MenuCommandResult(MAIN_MENU_DISPLAY);
-        //return new MenuCommandResult(getMessageForMenuListShownSummary(allMenus), allMenus);
     }
 }

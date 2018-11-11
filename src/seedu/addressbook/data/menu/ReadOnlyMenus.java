@@ -59,14 +59,11 @@ public interface ReadOnlyMenus {
     }
 
     /**
-     * Formats a menu item as text, showing only non-private contact details.
+     * Formats a menu item as text, showing all contact details.
      */
-    default String getAsTextHidePrivate() {
+    default String getMenuAsText() {
         final StringBuilder builder = new StringBuilder();
         builder.append(getName()).append(" | Price ").append(getPrice()).append(" | Type: ").append(getType());
-        /*if (!getPrice().isPrivate()) {
-            builder.append(" Price: ").append(getPrice());
-        }*/
         builder.append(" | Tags: ");
         for (Tag tag : getTags()) {
             builder.append(tag);

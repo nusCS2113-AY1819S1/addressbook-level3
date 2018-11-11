@@ -39,43 +39,14 @@ public class MenuListByTypeCommand extends Command {
 
     private List<ReadOnlyMenus> getFoodItems(String itemword) {
         for (ReadOnlyMenus menuItem : rms.getAllMenus()) {
-            //final Set<String> wordsInName = new HashSet<>(burger.getType().getWordsInTypeName());
             final String wordsInItemName = menuItem.getType().value;
             typeSet.add(wordsInItemName);
-            //System.out.println(wordsInItemName);
-            //boolean exist = wordsInName.contains(itemword);
             if (wordsInItemName.equals(itemword)) {
                 matchedFoodItems.add(menuItem);
-                //System.out.println(true);
             }
         }
         return matchedFoodItems;
     }
-
-    /*
-    private final Set<String> keywords;
-
-    public MenuListBurgerCommand(Set<String> keywords) {
-        this.keywords = keywords;
-    }
-
-    public Set<String> getKeywords() {
-        return new HashSet<>(keywords);
-    } //required for Parser Test later
-
-    //List<ReadOnlyMenus> allMenus = rms.getAllMenus().immutableListView();
-    private List<ReadOnlyMenus> getFoodItemsBurger(Set<String> keywords) {
-        final List<ReadOnlyMenus> matchedFoodItems = new ArrayList<>();
-        for (ReadOnlyMenus burger : rms.getAllMenus()) {
-            final Set<String> wordsInName = new HashSet<>(burger.getType().getWordsInTypeName());
-            if (!Collections.disjoint(wordsInName, keywords)) {
-                matchedFoodItems.add(burger);
-            }
-        }
-        return matchedFoodItems;
-    }
-    */
-
 
     @Override
     public CommandResult execute() {
@@ -85,13 +56,5 @@ public class MenuListByTypeCommand extends Command {
         }
 
         return new MenuCommandResult(getMessageForMenuListShownSummary(itemsFound), itemsFound);
-        /*
-        if(MenuListCommand.executeMenu == true) {
-            //executedMenutype = true;
-            final List<ReadOnlyMenus> itemsFound = getFoodItemsBurger(itemword);
-            return new MenuCommandResult(getMessageForMenuListShownSummary(itemsFound), itemsFound);
-        }
-        return new MenuCommandResult(Messages.MESSAGE_INVALID_COMMAND_FORMAT);
-        */
     }
 }

@@ -29,7 +29,6 @@ public class MenuListCommand extends Command {
     public CommandResult execute() {
         executeMenu = true;
         List<ReadOnlyMenus> allMenus = rms.getAllMenus().immutableListView();
-        //return new MenuCommandResult(MAIN_MENU_DISPLAY);
         return new MenuCommandResult(getMessageForMenuListShownSummary(allMenus), allMenus);
     }
 }
