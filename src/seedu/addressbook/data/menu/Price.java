@@ -14,7 +14,7 @@ public class Price {
             + "the format $A.BC or $A, "
             + "where A is a number of 1-3 digits and B and C are 1 digit each";
 
-    public static final String PRICE_VALIDATION_REGEX = "\\$[1-9][0-9]{0,2}(\\.[0-9]{2})?|\\$0{1}\\.[0-9]{2}|\\$0";
+    public static final String PRICE_VALIDATION_REGEX = "\\$[1-9][0-9]{0,2}(\\.[0-9]{2})?|\\$0\\.[0-9]{2}|\\$0";
     //"^\\$\\d+([.][0-9]+)?$";
 
     public final String value;

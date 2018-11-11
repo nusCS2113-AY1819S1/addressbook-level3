@@ -88,7 +88,7 @@ class TestDataHelper {
      */
     int pointsToRedeem() throws Exception {
         return new Points().getCurrentPoints();
-    };
+    }
 
     /**
      * Generate an order for testing purpose

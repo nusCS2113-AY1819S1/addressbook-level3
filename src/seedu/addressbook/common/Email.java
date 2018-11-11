@@ -10,7 +10,7 @@ public class Email {
     public static final String EXAMPLE = "Example2018@rms.com";
     public static final String MESSAGE_EMAIL_CONSTRAINTS =
             "Emails should be 2 alphanumeric/period strings separated by '@'";
-    public static final String EMAIL_VALIDATION_REGEX = "[\\w\\.]+@[\\w\\.]+";
+    public static final String EMAIL_VALIDATION_REGEX = "[\\w.]+@[\\w.]+";
 
     public final String value;
 

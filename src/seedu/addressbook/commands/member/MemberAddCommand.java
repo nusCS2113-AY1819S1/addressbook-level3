@@ -40,10 +40,6 @@ public class MemberAddCommand extends Command {
         );
     }
 
-    public MemberAddCommand(Member toAdd) {
-        this.toAdd = toAdd;
-    }
-
     public ReadOnlyMember getMember() {
         return toAdd;
     }
