@@ -185,7 +185,7 @@ public class StorageFile {
                 new Phone("816546" + temp, false),
                 new Email(temp + "@gmail", false),
                 new Address("House of " + names[seed], false),
-                new Title(title, false),
+                new Title(title),
                 new HashSet<>(Arrays.asList()),
                 new HashSet<>(Arrays.asList()),
                 new HashSet<>(Arrays.asList())
