@@ -97,9 +97,6 @@ public class Parser {
                     + "type/(?<type>[^/]+)"
                     + "(?<tagArguments>(?: t/[^/]+)*)"); // variable number of tags
 
-    public static final Pattern ORDER_DISH_ARGS_FORMAT =
-            Pattern.compile("(?<targetIndex>\\d+)\\s+q/(?<quantity>\\d{1,3})");
-
     public static final Pattern DRAFT_DISH_ARGS_FORMAT =
             Pattern.compile("\\d+\\s+q/\\d{1,3}(?:\\s+\\d+\\s+q/\\d{1,3})*");
 
