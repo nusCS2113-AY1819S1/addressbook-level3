@@ -55,6 +55,7 @@ import seedu.addressbook.data.employee.Timing;
 import seedu.addressbook.data.member.Member;
 import seedu.addressbook.data.member.MemberEmail;
 import seedu.addressbook.data.member.MemberName;
+import seedu.addressbook.data.member.MemberTier;
 import seedu.addressbook.data.member.Points;
 import seedu.addressbook.data.member.ReadOnlyMember;
 import seedu.addressbook.data.menu.Menu;
@@ -987,6 +988,29 @@ public class LogicTest {
         Points actualPoints = m1.getCurrentPoints();
 
         assertEquals(expectedPoints.getCurrentPoints(), actualPoints.getCurrentPoints());
+    }
+
+    /**
+     * Test to check if the member tier is being updated correctly
+     * @throws Exception
+     */
+    @Test
+    public void testUpdatePointsAndTier() throws Exception {
+        TestDataHelper test = new TestDataHelper();
+        Member testMember = test.eve();
+        MemberTier testTier = testMember.getMemberTier();
+
+        testMember.updatePointsAndTier(0, 0);
+        String expectedTier1 = "Bronze";
+        assertEquals(expectedTier1, testTier.toString());
+
+        testMember.updatePointsAndTier(21, 0);
+        String expectedTier2 = "Silver";
+        assertEquals(expectedTier2, testTier.toString());
+
+        testMember.updatePointsAndTier(41, 0);
+        String expectedTier3 = "Gold";
+        assertEquals(expectedTier3, testTier.toString());
     }
 
     @Test
