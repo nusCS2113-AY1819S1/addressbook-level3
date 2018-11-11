@@ -9,8 +9,6 @@ import seedu.addressbook.commands.CommandResult;
 import seedu.addressbook.commands.*;
 import seedu.addressbook.common.Messages;
 import seedu.addressbook.data.AddressBook;
-import seedu.addressbook.data.CommandHistory;
-import seedu.addressbook.data.CommandStack;
 import seedu.addressbook.data.person.*;
 import seedu.addressbook.data.tag.Tag;
 import seedu.addressbook.storage.StorageFile;
@@ -621,10 +619,10 @@ public class LogicTest {
     @Test
     public void execute_find_onlyMatchesFullWordsInNames() throws Exception {
         TestDataHelper helper = new TestDataHelper();
-        Person pTarget1 = helper.generatePersonWithName("bla bla KEY bla");
-        Person pTarget2 = helper.generatePersonWithName("bla KEY bla bceofeia");
-        Person p1 = helper.generatePersonWithName("KE Y");
-        Person p2 = helper.generatePersonWithName("KEYKEYKEY sduauo");
+        Person pTarget1 = helper.generatePersonWithName("bla bla KEY bla", 1);
+        Person pTarget2 = helper.generatePersonWithName("bla KEY bla bceofeia", 2);
+        Person p1 = helper.generatePersonWithName("KE Y", 3);
+        Person p2 = helper.generatePersonWithName("KEYKEYKEY sduauo", 4);
 
         List<Person> fourPersons = helper.generatePersonList(p1, pTarget1, p2, pTarget2);
         AddressBook expectedAB = helper.generateAddressBook(fourPersons);
@@ -641,10 +639,10 @@ public class LogicTest {
     @Test
     public void execute_find_isCaseInsensitive() throws Exception {
         TestDataHelper helper = new TestDataHelper();
-        Person pTarget1 = helper.generatePersonWithName("bla bla KEY bla");
-        Person pTarget2 = helper.generatePersonWithName("bla KEY bla bceofeia");
-        Person p1 = helper.generatePersonWithName("key key");
-        Person p2 = helper.generatePersonWithName("KEy sduauo");
+        Person pTarget1 = helper.generatePersonWithName("bla bla KEY bla", 1);
+        Person pTarget2 = helper.generatePersonWithName("bla KEY bla bceofeia", 2);
+        Person p1 = helper.generatePersonWithName("key key", 3);
+        Person p2 = helper.generatePersonWithName("KEy sduauo", 4);
 
         List<Person> fourPersons = helper.generatePersonList(p1, pTarget1, p2, pTarget2);
         AddressBook expectedAB = helper.generateAddressBook(fourPersons);
@@ -661,10 +659,10 @@ public class LogicTest {
     @Test
     public void execute_find_matchesIfAnyKeywordPresent() throws Exception {
         TestDataHelper helper = new TestDataHelper();
-        Person pTarget1 = helper.generatePersonWithName("bla bla KEY bla");
-        Person pTarget2 = helper.generatePersonWithName("bla rAnDoM bla bceofeia");
-        Person p1 = helper.generatePersonWithName("key key");
-        Person p2 = helper.generatePersonWithName("KEy sduauo");
+        Person pTarget1 = helper.generatePersonWithName("bla bla KEY bla", 1);
+        Person pTarget2 = helper.generatePersonWithName("bla rAnDoM bla bceofeia", 2);
+        Person p1 = helper.generatePersonWithName("key key", 3);
+        Person p2 = helper.generatePersonWithName("KEy sduauo", 4);
 
         List<Person> fourPersons = helper.generatePersonList(p1, pTarget1, p2, pTarget2);
         AddressBook expectedAB = helper.generateAddressBook(fourPersons);
@@ -835,10 +833,10 @@ public class LogicTest {
         /**
          * Generates a Person object with given name. Other fields will have some dummy values.
          */
-         Person generatePersonWithName(String name) throws Exception {
+         Person generatePersonWithName(String name, int seed) throws Exception {
             return new Person(
                     new Name(name),
-                    new Nric("S98765" + (rand.nextInt(89) + 10) + "P", false),
+                    new Nric("S98765" + seed + seed + "P", false),
                     new Phone("1", false),
                     new Email("1@email", false),
                     new Address("House of 1", false),
