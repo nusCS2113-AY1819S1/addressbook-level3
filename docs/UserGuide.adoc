@@ -10,14 +10,15 @@ ifdef::env-github[]
 endif::[]
 
 == 1 Introduction
-The MediBook v1.3 allows healthcare professionals to keep track of patients’ details, arrange their schedule based on their patients’ appointments and communicate efficiently between colleagues.
+The MediBook v1.4 optimises and streamline healthcare administration for a better heathcare experience for all.
+This is done so as MediBook allows healthcare professionals to keep track of patients’ details, arrange their schedule
+based on their patients’ appointments and communicate efficiently between colleagues.
+All of this is secured by the log in which also limits the user access level accordingly.
 
 == 2 About
-This user guide provides an overview for healthcare professionals on the usage of MediBook once MediBook is set up.
+This user guide provides an overview for healthcare professionals on the usage of MediBook.
 
-However, setting up this MediBook requires basic familiarity with integrated developer environment (IDE) as there is no user-friendly installer. Please seek help from the technician staff or refer to the <<DeveloperGuide#setting-up, Setting up>> section to learn how to set up the project.
-
-== 3 Starting the program
+== 3 Starting MediBook
 
 . Find the project pane (usually located at the left side)
 . Open up `src/seedu.addressbook` folder
@@ -33,7 +34,7 @@ Program will exit upon login failure, i.e. 3 incorrect username/password tries
 +
 image::mainUI.png[]
 
-== 4 Features of the MediBook
+== 4 Features of MediBook
 
 === 4.1 Viewing help : `help`
 
@@ -76,7 +77,7 @@ Returns Any person having names `Betsy`, `Tim`, or `John`.
 === 4.5 Adding a person: `add`
 
 Adds a person to the MediBook. +
-Format: `add NAME [p]p/PHONE_NUMBER [p]e/EMAIL [p]a/ADDRESS [p]s/TITLE [d/DD-MM-YYYY]... [t/TAG]...`
+Format: `add NAME n/NRIC [p]p/PHONE_NUMBER [p]e/EMAIL [p]a/ADDRESS [p]s/TITLE [d/DD-MM-YYYY]... [t/TAG]...`
 
 ****
 Words in `UPPER_CASE` are the parameters, items in `SQUARE_BRACKETS` are optional,
@@ -90,24 +91,21 @@ Persons can have any number of schedule dates and tags (including 0)
 
 Examples:
 
-* `add John Doe p/98765432 e/johnd@gmail.com a/John street, block 123, #01-01` s/Doctor
-* `add Betsy Crowe pp/1234567 e/betsycrowe@gmail.com pa/Newgate Prison s/Patient d/04-10-2018 d/09-11-2018 t/criminal t/friend`
+* `add John Doe n/S1239875U p/98765432 e/johnd@gmail.com a/311, Clementi Ave 2, #02-25 s/Patient d/01-01-2019 t/hasDiabetesType2 t/onInsulinTherapy`
+* `add Betsy Crowe n/S7654321T pp/1234567 e/betsycrowe@gmail.com pa/Newgate Prison s/Doctor d/04-10-2018 d/09-11-2018`
 
 === 4.6 Deleting a person : `delete`
 
-Deletes the specified person from the MediBook. Reversible within the session using the undo command (section 4.6). +
+Deletes the specified person from the MediBook. +
 Format: `delete INDEX`
 
 ****
 Deletes the person at the specified `INDEX`.
 The index refers to the index number shown in the most recent listing.
-****
 
-[NOTE]
-====
-Delete is based on the index of the latest listing. Hence, there is a need to list or find at least once
-in the session for delete can have an index reference to delete.
-====
+Hence, there is a need to `list` or `find` at least once
+in the session for `delete` can have an index reference to delete.
+****
 
 Examples:
 
@@ -127,12 +125,10 @@ Format: `view INDEX`
 ****
 Views the person at the specified `INDEX`.
 The index refers to the index number shown in the most recent listing.
-****
 
-[NOTE]
-====
-Similar to delete, it requires list or find command to be called at least once in the session for an index reference to view.
-====
+Similar to `delete`, it requires `list` or `find` command to be called at least
+ once in the session for an index reference to `view`.
+****
 
 Examples:
 
@@ -152,12 +148,10 @@ Format: `viewall INDEX`
 ****
 Views all details of the person at the specified `INDEX`.
 The index refers to the index number shown in the most recent listing.
-****
 
-[NOTE]
-====
-Similar to view and delete, it requires list or find command to be called at least once in the session for an index reference to viewall.
-====
+Similar to `view` and `delete`, it requires `list` or `find` command to be
+ called at least once in the session for an index reference to `viewall`.
+****
 
 Examples:
 
@@ -170,23 +164,22 @@ Views all details of the 2nd person in the MediBook.
 Views all details of the 1st person in the results of the `find` command.
 
 
-=== 4.9 Selecting a person to edit his/her appointment: `edit-appointment`
+=== 4.9 Selecting a person to edit appointment: `edit-appointment`
 
-Select the person to edit appointment. +
+Selects the person to edit appointment. +
 Format: 'edit-appointment INDEX'
 
 ****
 Access to the appointment of the person at the specified `INDEX`.
-The index refers to the index number shown in the most recent listing. +
+The index refers to the index number shown in the most recent listing.
 
-Once access, edits to the selected person's appoinments can be done repeated until user exits the
-edit-appointment session as detailed in 4.9.5.
+
+Similar to `viewall`, `view` and `delete`, it requires `list` or `find` command to be called
+ at least once in the session for an index reference to `edit-appointment`.
+
+Once access, edits can be done repeated to the selected person's appoinments until user exits the
+ edit-appointment session as detailed in 4.9.5.
 ****
-
-[NOTE]
-====
-Similar to viewall, view and delete, it requires list or find command to be called at least once in the session for an index reference to edit-appointment.
-====
 
 Examples:
 * `list` +
@@ -199,7 +192,7 @@ Access to the 1st person in the results of the `find` command.
 
 ==== 4.9.1 Viewing help : `help`
 
-Shows the help screen for the edit-appointment session
+Shows the help screen for the edit-appointment session. +
 Format: `help`
 
 [TIP]
@@ -207,17 +200,41 @@ Format: `help`
 Help is also shown if you enter an incorrect command e.g. `abcd`
 ====
 
-==== 4.9.2 Listing the appointment of the selected person: `list` (more coming soon)
+==== 4.9.2 Listing the appointment of the selected person: `list`
 
 Shows a list of all appointment of the selected person in the MediBook. +
 Format: `list`
 
-==== 4.9.3 Adding appointment to the selected person: (Coming soon)
+==== 4.9.3 Adding appointment to the selected person: `add`
+
+Adds appointments to the selected person in MediBook. +
+Format: `add DD-MM-YYYY...`
+
+****
+`...` indicated that therevcan have multiple instances.
+
+Appointments that are already reorded (and duplicates) would not be added.
+****
+
+Examples:
+
+* `add 01-01-2019`
+* `add 01-01-2019 02-01-2019 03-01-2019`
 
 
-==== 4.9.4 Deleting appointment of the selected person: (Coming soon)
+==== 4.9.4 Deleting appointment of the selected person: `delete`
 
+Deletes appointments from the selected person in MediBook. +
+Format: `delete DD-MM-YYY...`
 
+****
+`...` indicated that therevcan have multiple instances.
+****
+
+Examples:
+
+* `delete 01-01-2019`
+* `delete 01-01-2019 02-01-2019 03-01-2019`
 
 ==== 4.9.5 Exiting the edit-appointment session: `done`
 
@@ -343,9 +360,11 @@ Format: `exit`
 
 === 4.19 Saving the data
 
-MediBook data are saved in the hard disk automatically after any command that changes the data. As such, there is no need to save the data manually. These data are saved in a file called addressbook.txt in the project root folder.
+MediBook data are saved in the hard disk automatically after any command that changes the data. As such, there is no
+ need to save the data manually. These data are saved in a file called addressbook.txt in the project root folder.
 
-However, the history of commands made are only available within the browsing session and would no longer be available after the exit or the program is closed. Undo and Redo commands are also only applicable within the browsing session.
+However, the history of commands made are only available within the browsing session and would no longer be available
+ after the exit or the program is closed. Undo and Redo commands are also only applicable within the browsing session.
 
 == 5 A Compact Summary
 
