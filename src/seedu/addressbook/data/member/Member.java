@@ -131,6 +131,6 @@ public class Member implements ReadOnlyMember {
 
     @Override
     public String toString() {
-        return getAsTextKeyData();
+        return getAsText();
     }
 }

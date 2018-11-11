@@ -36,17 +36,6 @@ public interface ReadOnlyMember {
     }
 
     /**
-     * Formats a member as text, showing only contact details.
-     */
-    default String getAsTextKeyData() {
-        final StringBuilder builder = new StringBuilder();
-        builder.append(getName())
-                .append(" | Email: ");
-        builder.append(getEmail());
-        return builder.toString();
-    }
-
-    /**
      * Formats a member as text, showing all details.
      */
     default String getAsText() {
