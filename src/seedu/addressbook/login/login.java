@@ -4,7 +4,6 @@ package seedu.addressbook.login;
 
 public class login {
 //    private boolean loggedin;
-//    private static int tries = 0;
     private static final String stdUser = "Username";
     private static final String stdPass = "Password";
     private static String usernameF;
