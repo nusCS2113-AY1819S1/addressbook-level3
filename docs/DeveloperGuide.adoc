@@ -41,6 +41,9 @@ This Developer Guide is intended for users with basic technical background as it
 
 image::mainClassDiagram.png[]
 
+=== 3.2 Logic Component
+
+image::LogicComponentClassDiagram.png[]
 
 == 4. Implementation
 This section describes some noteworthy details on how certain features are implemented.
