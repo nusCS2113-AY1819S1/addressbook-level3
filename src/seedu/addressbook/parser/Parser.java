@@ -31,7 +31,6 @@ import seedu.addressbook.commands.menu.MenuListByTypeCommand;
 import seedu.addressbook.commands.menu.MenuListCommand;
 import seedu.addressbook.commands.menu.MenuRecommendationCommand;
 import seedu.addressbook.commands.menu.MenuShowMainMenuCommand;
-import seedu.addressbook.commands.menu.MenuViewAllCommand;
 import seedu.addressbook.commands.order.DraftOrderClearCommand;
 import seedu.addressbook.commands.order.DraftOrderConfirmCommand;
 import seedu.addressbook.commands.order.DraftOrderEditCustomerCommand;
@@ -96,7 +95,8 @@ public class Parser {
                     + "type/(?<type>[^/]+)"
                     + "(?<tagArguments>(?: t/[^/]+)*)"); // variable number of tags
 
-    public static final Pattern ORDER_DISH_ARGS_FORMAT = Pattern.compile("(?<targetIndex>.+)\\s+q/(?<quantity>.+)");
+    public static final Pattern ORDER_DISH_ARGS_FORMAT =
+            Pattern.compile("(?<targetIndex>\\d+)\\s+q/(?<quantity>\\d{1,3})");
 
     public static final Pattern REDEEM_POINTS_ARGS_FORMAT = Pattern.compile("(?<points>[^/]+)");
 
@@ -133,8 +133,9 @@ public class Parser {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
         }
 
-        final String commandWord = matcher.group("commandWord");
+        final String commandWord = matcher.group("commandWord").toLowerCase();
         final String arguments = matcher.group("arguments");
+
         switch (commandWord) {
         case EmployeeAddCommand.COMMAND_WORD:
             return prepareEmployeeAdd(arguments);
@@ -178,9 +179,6 @@ public class Parser {
         case MenuRecommendationCommand.COMMAND_WORD:
             return new MenuRecommendationCommand();
 
-        case MenuViewAllCommand.COMMAND_WORD:
-            return prepareViewAllMenu(arguments);
-
         case MenuDeleteCommand.COMMAND_WORD:
             return prepareMenuDelete(arguments);
 
@@ -189,7 +187,6 @@ public class Parser {
 
         case MenuClearCommand.COMMAND_WORD:
             return new MenuClearCommand();
-
 
         case OrderAddCommand.COMMAND_WORD:
             return new OrderAddCommand();
@@ -475,23 +472,6 @@ public class Parser {
         }
     }
 
-    /**
-     * Parses arguments in the context of the view all menu item command.
-     *
-     * @param args full command args string
-     * @return the prepared command
-     */
-    private Command prepareViewAllMenu(String args) {
-
-        try {
-            final int targetIndex = parseArgsAsDisplayedIndex(args);
-            return new MenuViewAllCommand(targetIndex);
-        } catch (ParseException | NumberFormatException e) {
-            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                    MenuViewAllCommand.MESSAGE_USAGE));
-        }
-    }
-
 
     /**
      * Parses arguments in the context of the find menu command.
@@ -546,7 +526,7 @@ public class Parser {
             return new DraftOrderEditDishCommand(targetIndex, quantity);
         } catch (ParseException | NumberFormatException e) {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                    DraftOrderEditDishCommand.MESSAGE_USAGE));
+                    DraftOrderEditDishCommand.MESSAGE_INVALID_FORMAT));
         }
     }
 

@@ -21,7 +21,10 @@ public class DraftOrderEditDishCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "The dish is edited in the draft order.";
 
-    public static final String MESSAGE_INVALID_QUANTITY = "The quantity entered is invalid.";
+    public static final String MESSAGE_INVALID_FORMAT = "The entered command does not follow the format\n"
+            + "INDEX must be a non-negative integer\n"
+            + "QUANTITY must be a non-negative integer of 1-3 digits\n"
+            + MESSAGE_USAGE;
 
     private int quantity;
 
@@ -42,13 +45,8 @@ public class DraftOrderEditDishCommand extends Command {
             if (!rms.containsMenus(target)) {
                 return new CommandResult(Messages.MESSAGE_MENU_ITEM_NOT_IN_ADDRESSBOOK);
             }
-            String message;
-            if (quantity >= 0) {
-                rms.editDraftOrderDishItem(target, quantity);
-                message = MESSAGE_SUCCESS + "\n" + getDraftOrderAsString();
-            } else {
-                message = MESSAGE_INVALID_QUANTITY + "\n" + getDraftOrderAsString();
-            }
+            rms.editDraftOrderDishItem(target, quantity);
+            String message = MESSAGE_SUCCESS + "\n" + getDraftOrderAsString();
             return new CommandResult(message);
         } catch (IndexOutOfBoundsException ie) {
             return new CommandResult(Messages.MESSAGE_INVALID_MENU_ITEM_DISPLAYED_INDEX);

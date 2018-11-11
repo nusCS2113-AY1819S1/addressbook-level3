@@ -26,8 +26,8 @@ public class MenuAddCommand extends Command {
             + "Example: " + COMMAND_WORD
             + " Cheese Burger p/$5.00 type/main t/newAddition t/hotSeller\n"
             + "Additional Notes:"
-            + "\n1. PRICE must start with a $ sign and must be integer or float in value of 2 decimal places"
-            + "\n2. TYPE should only be one of the following categories:"
+            + "\ni. PRICE must start with a $ sign and must be integer or float in value of 2 decimal places"
+            + "\nii. TYPE should only be one of the following categories:"
             + "\n" + "   -  main"
             + "\n" + "   -  sides"
             + "\n" + "   -  beverage"

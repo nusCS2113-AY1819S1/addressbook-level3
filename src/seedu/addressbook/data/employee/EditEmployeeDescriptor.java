@@ -20,27 +20,23 @@ public class EditEmployeeDescriptor {
                                   String position) throws IllegalValueException {
         if (phone == null) {
             this.phone = new EmployeePhone();
-        }
-        else {
+        } else {
             this.phone = new EmployeePhone(phone);
         }
 
         if (email == null) {
             this.email = new EmployeeEmail();
-        }
-        else {
+        } else {
             this.email = new EmployeeEmail(email);
         }
         if (address == null) {
             this.address = new EmployeeAddress();
-        }
-        else {
+        } else {
             this.address = new EmployeeAddress(address);
         }
         if (position == null) {
             this.position = new EmployeePosition();
-        }
-        else {
+        } else {
             this.position = new EmployeePosition(position);
         }
     }

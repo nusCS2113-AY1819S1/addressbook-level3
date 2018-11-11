@@ -2,8 +2,12 @@ package seedu.addressbook.logic;
 
 import static junit.framework.TestCase.assertEquals;
 
+import java.text.SimpleDateFormat;
 import java.util.Collections;
+import java.util.Date;
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.junit.Before;
 import org.junit.Rule;
@@ -15,6 +19,8 @@ import seedu.addressbook.commands.CommandResult;
 import seedu.addressbook.commands.ExitCommand;
 import seedu.addressbook.commands.HelpCommand;
 import seedu.addressbook.commands.employee.EmployeeAddCommand;
+import seedu.addressbook.commands.employee.EmployeeClockInCommand;
+import seedu.addressbook.commands.employee.EmployeeClockOutCommand;
 import seedu.addressbook.commands.employee.EmployeeDeleteCommand;
 import seedu.addressbook.commands.employee.EmployeeEditCommand;
 import seedu.addressbook.commands.member.MemberAddCommand;
@@ -23,7 +29,7 @@ import seedu.addressbook.commands.menu.MenuAddCommand;
 import seedu.addressbook.commands.menu.MenuDeleteCommand;
 import seedu.addressbook.commands.menu.MenuFindCommand;
 import seedu.addressbook.commands.menu.MenuListByTypeCommand;
-import seedu.addressbook.commands.menu.MenuViewAllCommand;
+import seedu.addressbook.commands.menu.MenuShowMainMenuCommand;
 import seedu.addressbook.commands.order.DraftOrderClearCommand;
 import seedu.addressbook.commands.order.DraftOrderConfirmCommand;
 import seedu.addressbook.commands.order.DraftOrderEditCustomerCommand;
@@ -31,7 +37,10 @@ import seedu.addressbook.commands.order.DraftOrderEditDishCommand;
 import seedu.addressbook.commands.order.OrderAddCommand;
 import seedu.addressbook.commands.order.OrderClearCommand;
 import seedu.addressbook.commands.order.OrderDeleteCommand;
+import seedu.addressbook.commands.statistics.StatsEmployeeCommand;
+import seedu.addressbook.commands.statistics.StatsMemberCommand;
 import seedu.addressbook.commands.statistics.StatsMenuCommand;
+import seedu.addressbook.commands.statistics.StatsOrderCommand;
 import seedu.addressbook.common.Messages;
 import seedu.addressbook.data.Rms;
 import seedu.addressbook.data.employee.Attendance;
@@ -41,6 +50,7 @@ import seedu.addressbook.data.employee.EmployeeName;
 import seedu.addressbook.data.employee.EmployeePhone;
 import seedu.addressbook.data.employee.EmployeePosition;
 import seedu.addressbook.data.employee.ReadOnlyEmployee;
+import seedu.addressbook.data.employee.Timing;
 import seedu.addressbook.data.member.Member;
 import seedu.addressbook.data.member.MemberEmail;
 import seedu.addressbook.data.member.MemberName;
@@ -613,9 +623,15 @@ public class LogicTest {
                 threeEmployees);
     }
 
-    /*
+
     @Test
     public void execute_clockinEmployee_success() throws Exception {
+        SimpleDateFormat dateFormatter = new SimpleDateFormat("dd/MM/yyyy");
+        SimpleDateFormat timeFormatter = new SimpleDateFormat("HH:mm");
+        Date date = new Date();
+        String currentTime = timeFormatter.format(date);
+        String currentDate = dateFormatter.format(date);
+
         TestDataHelper helper = new TestDataHelper();
         Employee e1 = helper.generateEmployee(1);
         Employee e2 = helper.generateEmployee(2);
@@ -624,31 +640,32 @@ public class LogicTest {
         Attendance a2 = helper.generateAttendance(2);
         Attendance a3 = helper.generateAttendance(3);
 
+        Set<Timing> expectedTimings = new LinkedHashSet<>();
+        Timing currentTiming = new Timing(currentTime, currentDate, true);
+        expectedTimings.add(currentTiming);
+        Attendance expectedAttendance = helper.generateAttendanceWithTime(3, true, expectedTimings);
+
         List<Employee> lastShownEmployeeList = helper.generateEmployeeList(e1, e2, e3);
         List<Attendance> lastShownAttendanceList = helper.generateAttendanceList(a1, a2, a3);
 
         Rms expectedRms = helper.generateRmsEmployeesAndAttendances(lastShownEmployeeList, lastShownAttendanceList);
-
-        SimpleDateFormat dateFormatter = new SimpleDateFormat("dd/MM/yyyy");
-        SimpleDateFormat timeFormatter = new SimpleDateFormat("HH:mm:ss");
-        Date date = new Date();
-        String currentTime = timeFormatter.format(date);
-        String currentDate = dateFormatter.format(date);
+        expectedRms.removeAttendance(a3);
+        expectedRms.addAttendance(expectedAttendance);
 
         helper.addEmployeesToRms(rms, lastShownEmployeeList);
         helper.addAttendancesToRms(rms, lastShownAttendanceList);
         logic.setLastShownEmployeeList(lastShownEmployeeList);
         logic.setLastShownAttendanceList(lastShownAttendanceList);
 
-        assertEmployeeAttendanceCommandBehavior("clockin Employee 2",
-                String.format(EmployeeClockInCommand.MESSAGE_SUCCESS, e2.getName(), currentDate, currentTime),
+        assertEmployeeAttendanceCommandBehavior("clockin Employee 3",
+                String.format(EmployeeClockInCommand.MESSAGE_SUCCESS, e3.getName(), currentDate, currentTime),
                 expectedRms,
                 false,
                 false,
                 lastShownEmployeeList,
                 lastShownAttendanceList);
     }
-    */
+
 
     @Test
     public void execute_clockinEmployee_invalidEmployee() throws Exception {
@@ -678,9 +695,15 @@ public class LogicTest {
                 lastShownAttendanceList);
     }
 
-    /*
+
     @Test
     public void execute_clockoutEmployee_success() throws Exception {
+        SimpleDateFormat dateFormatter = new SimpleDateFormat("dd/MM/yyyy");
+        SimpleDateFormat timeFormatter = new SimpleDateFormat("HH:mm");
+        Date date = new Date();
+        String currentTime = timeFormatter.format(date);
+        String currentDate = dateFormatter.format(date);
+
         TestDataHelper helper = new TestDataHelper();
         Employee e1 = helper.generateEmployee(1);
         Employee e2 = helper.generateEmployee(2);
@@ -689,32 +712,36 @@ public class LogicTest {
         Attendance a2 = helper.generateAttendance(2);
         Attendance a3 = helper.generateAttendance(3);
 
+        Set<Timing> expectedTimings = new LinkedHashSet<>();
+        Timing clockinTiming = new Timing(currentTime, currentDate, true);
+        Timing clockoutTiming = new Timing(currentTime, currentDate, false);
+        expectedTimings.add(clockinTiming);
+        expectedTimings.add(clockoutTiming);
+        Attendance expectedAttendance = helper.generateAttendanceWithTime(3, false, expectedTimings);
+
         List<Employee> lastShownEmployeeList = helper.generateEmployeeList(e1, e2, e3);
         List<Attendance> lastShownAttendanceList = helper.generateAttendanceList(a1, a2, a3);
 
         Rms expectedRms = helper.generateRmsEmployeesAndAttendances(lastShownEmployeeList, lastShownAttendanceList);
+        expectedRms.removeAttendance(a3);
+        expectedRms.addAttendance(expectedAttendance);
 
-        SimpleDateFormat dateFormatter = new SimpleDateFormat("dd/MM/yyyy");
-        SimpleDateFormat timeFormatter = new SimpleDateFormat("HH:mm:ss");
-        Date date = new Date();
-        String currentTime = timeFormatter.format(date);
-        String currentDate = dateFormatter.format(date);
 
         helper.addEmployeesToRms(rms, lastShownEmployeeList);
         helper.addAttendancesToRms(rms, lastShownAttendanceList);
         logic.setLastShownEmployeeList(lastShownEmployeeList);
         logic.setLastShownAttendanceList(lastShownAttendanceList);
-        logic.execute("clockin Employee 2");
+        logic.execute("clockin Employee 3");
 
-        assertEmployeeAttendanceCommandBehavior("clockout Employee 2",
-                String.format(EmployeeClockOutCommand.MESSAGE_SUCCESS, e2.getName(), currentDate, currentTime),
+        assertEmployeeAttendanceCommandBehavior("clockout Employee 3",
+                String.format(EmployeeClockOutCommand.MESSAGE_SUCCESS, e3.getName(), currentDate, currentTime),
                 expectedRms,
                 false,
                 false,
                 lastShownEmployeeList,
                 lastShownAttendanceList);
     }
-    */
+
 
     @Test
     public void execute_clockoutEmployee_invalidEmployee() throws Exception {
@@ -1137,16 +1164,6 @@ public class LogicTest {
 
     }
 
-
-    //test for MenuViewAll Command testing for valid arguments
-    @Test
-    public void execute_menuviewall_invalidArgsFormat() throws Exception {
-        String expectedMessage = String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT,
-                MenuViewAllCommand.MESSAGE_USAGE);
-        assertMenuCommandBehavior("viewallmenu ", expectedMessage);
-        assertMenuCommandBehavior("viewallmenu arg not number", expectedMessage);
-    }
-
     @Test
     public void execute_deletemenu_invalidArgsFormat() throws Exception {
         String expectedMessage = String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT,
@@ -1257,6 +1274,12 @@ public class LogicTest {
                 expectedRms,
                 true,
                 expectedList);
+    }
+
+    @Test
+    public void execute_showMainMenu_validArgsFormat() throws Exception {
+        String expectedMessage = MenuShowMainMenuCommand.MAIN_MENU_DISPLAY;
+        assertMenuCommandBehavior("showmainmenu", expectedMessage);
     }
 
     @Test
@@ -1433,7 +1456,7 @@ public class LogicTest {
     @Test
     public void execute_draftdish_invalidArgsFormat() throws Exception {
         String expectedMessage = String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT,
-                DraftOrderEditDishCommand.MESSAGE_USAGE);
+                DraftOrderEditDishCommand.MESSAGE_INVALID_FORMAT);
         assertOrderCommandBehavior("draftdish", expectedMessage);
         assertOrderCommandBehavior("draftdish ", expectedMessage);
         assertOrderCommandBehavior("draftdish wrong args wrong args", expectedMessage);
@@ -1443,6 +1466,9 @@ public class LogicTest {
         assertOrderCommandBehavior("draftdish q/2", expectedMessage);
         assertOrderCommandBehavior("draftdish a q/2", expectedMessage);
         assertOrderCommandBehavior("draftdish 1 q/b", expectedMessage);
+        assertOrderCommandBehavior("draftdish -1 q/2", expectedMessage);
+        assertOrderCommandBehavior("draftdish 1 q/-2", expectedMessage);
+        assertOrderCommandBehavior("draftdish 1 q/1000", expectedMessage);
     }
 
     @Test
@@ -1455,7 +1481,6 @@ public class LogicTest {
 
         logic.setLastShownMenuList(lastShownMenuList);
 
-        assertMenuCommandBehavior("draftdish" + " -1 " + "q/1", expectedMessage, Rms.empty(), false, lastShownMenuList);
         assertMenuCommandBehavior("draftdish" + " 0 " + "q/1", expectedMessage, Rms.empty(), false, lastShownMenuList);
         assertMenuCommandBehavior("draftdish" + " 3 " + "q/1", expectedMessage, Rms.empty(), false, lastShownMenuList);
     }
@@ -1624,6 +1649,92 @@ public class LogicTest {
                 threeOrders);
     }
     */
+
+    /**
+     * Executes the command and confirms that the result message is correct
+     */
+    private void assertStatisticsCommandBehavior(String inputCommand,
+                                                 String expectedMessage, boolean isEquals) throws Exception {
+
+        //Execute the command
+        CommandResult r = logic.execute(inputCommand);
+
+        //Confirm the result contains the right data
+        if (isEquals) {
+            assertEquals(expectedMessage, r.feedbackToUser);
+        } else {
+            org.junit.Assert.assertNotEquals(expectedMessage, r.feedbackToUser);
+        }
+
+    }
+
+    @Test
+    public void test_statistics_employee() throws Exception {
+        TestDataHelper helper = new TestDataHelper();
+
+        // Test employee statistics when there are no employees
+        assertStatisticsCommandBehavior(helper.generateStatsEmpCommand(),
+                String.format(StatsEmployeeCommand.MESSAGE_NO_EMPLOYEE), true);
+
+        // Test employee statistics when there are employees
+        Employee toBeAdded = helper.peter();
+        Attendance toBeAddedAttendace = new Attendance(toBeAdded.getName().toString());
+        rms.addEmployee(toBeAdded);
+        rms.addAttendance(toBeAddedAttendace);
+        assertStatisticsCommandBehavior(helper.generateStatsEmpCommand(),
+                String.format(StatsEmployeeCommand.MESSAGE_NO_EMPLOYEE), false);
+    }
+
+    @Test
+    public void test_statistics_member() throws Exception {
+        TestDataHelper helper = new TestDataHelper();
+
+        // Test member statistics when there are no members
+        assertStatisticsCommandBehavior(helper.generateStatsMemberCommand(),
+                String.format(StatsMemberCommand.MESSAGE_NO_MEMBERS), true);
+
+        // Test member statistics when there are members
+        Member toBeAdded = helper.generateMember(1);
+        rms.addMember(toBeAdded);
+        assertStatisticsCommandBehavior(helper.generateStatsMemberCommand(),
+                String.format(StatsMemberCommand.MESSAGE_NO_MEMBERS), false);
+    }
+
+    @Test
+    public void test_statistics_menu() throws Exception {
+        TestDataHelper helper = new TestDataHelper();
+
+        // Test menu statistics when there are no orders
+        assertStatisticsCommandBehavior(helper.generateStatsMenuCommand(null, null),
+                String.format(StatsMenuCommand.MESSAGE_NO_ORDER), true);
+
+        // Test menu statistics when there are orders
+        Order toBeAddedOrder = helper.generateOrder(1);
+        rms.addOrder(toBeAddedOrder);
+        toBeAddedOrder = helper.generateOrder(2);
+        rms.addOrder(toBeAddedOrder);
+        Menu toBeAddedMenu = helper.generateMenuItem(1);
+        rms.addMenu(toBeAddedMenu);
+        assertStatisticsCommandBehavior(helper.generateStatsMenuCommand(null, null),
+                String.format(StatsMenuCommand.MESSAGE_NO_ORDER), false);
+    }
+
+    @Test
+    public void test_statistics_order() throws Exception {
+        TestDataHelper helper = new TestDataHelper();
+
+        // Test order statistics when there are no orders
+        assertStatisticsCommandBehavior(helper.generateStatsOrderCommand(),
+                String.format(StatsOrderCommand.MESSAGE_NO_ORDER), true);
+
+        // Test order statistics when there are orders
+        Order toBeAdded = helper.generateOrder(1);
+        rms.addOrder(toBeAdded);
+        toBeAdded = helper.generateOrder(2);
+        rms.addOrder(toBeAdded);
+        assertStatisticsCommandBehavior(helper.generateStatsOrderCommand(),
+                String.format(StatsOrderCommand.MESSAGE_NO_ORDER), false);
+    }
 
 }
 
