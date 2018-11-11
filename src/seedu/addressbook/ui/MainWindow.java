@@ -14,6 +14,7 @@ import javafx.scene.control.TextField;
 
 import seedu.addressbook.commands.CommandResult;
 import seedu.addressbook.commands.ExitCommand;
+import seedu.addressbook.common.Messages;
 import seedu.addressbook.data.employee.ReadOnlyEmployee;
 import seedu.addressbook.data.member.ReadOnlyMember;
 import seedu.addressbook.data.menu.ReadOnlyMenus;
@@ -59,7 +60,7 @@ public class MainWindow {
                 exitApp();
                 return;
             }
-            displayResult(result);
+            displayResult(userCommandText, result);
             clearCommandInput();
         } catch (Exception e) {
             display(e.getMessage());
@@ -87,7 +88,7 @@ public class MainWindow {
     }
 
     /** Displays the result of a command execution to the user. */
-    public void displayResult(CommandResult result) {
+    public void displayResult(String input, CommandResult result) {
         clearOutputConsole();
         final Optional<List<? extends ReadOnlyMenus>> resultMenus = result.getRelevantMenus();
         final Optional<List<? extends ReadOnlyOrder>> resultOrders = result.getRelevantOrders();
@@ -102,7 +103,7 @@ public class MainWindow {
         } else if (resultEmployees.isPresent()) {
             displayEmployeeResult(resultEmployees.get());
         }
-        display(result.feedbackToUser);
+        display(String.format(Messages.MESSAGE_ENTERED_COMMAND_FORMAT, input), result.feedbackToUser);
     }
 
     /**

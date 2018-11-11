@@ -1638,8 +1638,7 @@ public class LogicTest {
         //Confirm the result contains the right data
         if (isEquals) {
             assertEquals(expectedMessage, r.feedbackToUser);
-        }
-        else {
+        } else {
             org.junit.Assert.assertNotEquals(expectedMessage, r.feedbackToUser);
         }
 

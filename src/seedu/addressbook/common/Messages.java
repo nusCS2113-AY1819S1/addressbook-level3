@@ -6,6 +6,7 @@ package seedu.addressbook.common;
 public class Messages {
 
     public static final String MESSAGE_INVALID_COMMAND_FORMAT = "Invalid command format! \n%1$s";
+    public static final String MESSAGE_ENTERED_COMMAND_FORMAT = "Entered command: %1$s\n";
 
     public static final String MESSAGE_INVALID_EMPLOYEE_DISPLAYED_INDEX = "The employee index provided is invalid.";
     public static final String MESSAGE_EMPLOYEE_NOT_IN_RMS = "Employee could not be found in Rms.";
