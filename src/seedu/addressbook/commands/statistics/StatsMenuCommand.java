@@ -60,8 +60,7 @@ public class StatsMenuCommand extends Command {
     public CommandResult execute() {
         if (getMenuStats().equalsIgnoreCase(MESSAGE_NO_ORDER)) {
             return new StatsCommandResult(MESSAGE_NO_ORDER);
-        }
-        else {
+        } else {
             return new StatsCommandResult(heading + getMenuStats());
         }
     }

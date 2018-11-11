@@ -6,7 +6,6 @@ import java.util.Set;
 import seedu.addressbook.commands.Command;
 import seedu.addressbook.commands.CommandResult;
 import seedu.addressbook.data.employee.Attendance;
-import seedu.addressbook.data.employee.Employee;
 import seedu.addressbook.data.employee.ReadOnlyEmployee;
 import seedu.addressbook.data.employee.Timing;
 import seedu.addressbook.data.employee.UniqueAttendanceList;
