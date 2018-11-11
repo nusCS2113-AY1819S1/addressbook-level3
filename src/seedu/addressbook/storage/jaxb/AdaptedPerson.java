@@ -78,6 +78,7 @@ public class AdaptedPerson {
         address.value = source.getAddress().value;
 
         title = new AdaptedContactDetail();
+        title.isPrivate = source.getTitle().isPrivate();
         title.value = source.getTitle().value;
 
         scheduled = new ArrayList<>();
@@ -141,7 +142,7 @@ public class AdaptedPerson {
         final Phone phone = new Phone(this.phone.value, this.phone.isPrivate);
         final Email email = new Email(this.email.value, this.email.isPrivate);
         final Address address = new Address(this.address.value, this.address.isPrivate);
-        final Title title = new Title(this.title.value);
+        final Title title = new Title(this.title.value, this.title.isPrivate);
         return new Person(name, nric, phone, email, address, title, schedules, tags, associateds);
     }
 }

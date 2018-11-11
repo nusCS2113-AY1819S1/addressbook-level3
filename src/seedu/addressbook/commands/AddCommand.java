@@ -38,7 +38,7 @@ public class AddCommand extends UndoAbleCommand {
                       String phone, boolean isPhonePrivate,
                       String email, boolean isEmailPrivate,
                       String address, boolean isAddressPrivate,
-                      String title,
+                      String title, boolean isTitlePrivate,
                       Set<String> schedule,
                       Set<String> tags) throws IllegalValueException {
 
@@ -57,7 +57,7 @@ public class AddCommand extends UndoAbleCommand {
                 new Phone(phone, isPhonePrivate),
                 new Email(email, isEmailPrivate),
                 new Address(address, isAddressPrivate),
-                new Title(title),
+                new Title(title, isTitlePrivate),
                 scheduleSet,
                 tagSet,
                 associatedSet

@@ -25,7 +25,7 @@ public class Parser {
                     + " (?<isPhonePrivate>p?)p/(?<phone>[^/]+)"
                     + " (?<isEmailPrivate>p?)e/(?<email>[^/]+)"
                     + " (?<isAddressPrivate>p?)a/(?<address>[^/]+)"
-                    + " s/(?<title>[^/]+)"
+                    + " (?<isTitlePrivate>p?)s/(?<title>[^/]+)"
                     + "(?<scheduleArguments>(?: d/[^/]+)*)" //variable number of schedule (including 0)
                     + "(?<tagArguments>(?: t/[^/]+)*)"); // variable number of tags (including 0)
 
@@ -183,6 +183,7 @@ public class Parser {
                     isPrivatePrefixPresent(matcher.group("isAddressPrivate")),
 
                     matcher.group("title"),
+                    isPrivatePrefixPresent(matcher.group("isTitlePrivate")),
 
                     getScheduleFromArgs(matcher.group("scheduleArguments")),
 

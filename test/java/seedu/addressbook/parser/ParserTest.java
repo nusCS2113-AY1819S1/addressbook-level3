@@ -285,7 +285,7 @@ public class ParserTest {
                 new Phone(Phone.EXAMPLE, true),
                 new Email(Email.EXAMPLE, false),
                 new Address(Address.EXAMPLE, true),
-                new Title(Title.EXAMPLE),
+                new Title(Title.EXAMPLE, true),
                 new HashSet<>(Arrays.asList(new Schedule(Schedule.EXAMPLE), new Schedule(Schedule.EXAMPLE2)) ),
                 new HashSet<>(Arrays.asList(new Tag("tag1"), new Tag("tag2"), new Tag("tag3"))),
                 new HashSet<>(Arrays.asList(new Associated("associate1"), new Associated("associated2")))
@@ -302,7 +302,7 @@ public class ParserTest {
                 + (person.getPhone().isPrivate() ? " pp/" : " p/") + person.getPhone().value
                 + (person.getEmail().isPrivate() ? " pe/" : " e/") + person.getEmail().value
                 + (person.getAddress().isPrivate() ? " pa/" : " a/") + person.getAddress().value
-                + (" s/") + person.getTitle().value;
+                + (person.getTitle().isPrivate() ? " ps/" : " s/") + person.getTitle().value;
 
         return addCommand;
     }
@@ -314,7 +314,7 @@ public class ParserTest {
                 + (person.getPhone().isPrivate() ? " pp/" : " p/") + person.getPhone().value
                 + (person.getEmail().isPrivate() ? " pe/" : " e/") + person.getEmail().value
                 + (person.getAddress().isPrivate() ? " pa/" : " a/") + person.getAddress().value
-                + (" s/") + person.getTitle().value;
+                + (person.getTitle().isPrivate() ? " ps/" : " s/") + person.getTitle().value;
 
         for (Schedule schedule : person.getSchedules()) {
             addCommand += " d/" + schedule.value;
@@ -330,7 +330,7 @@ public class ParserTest {
                 + (person.getPhone().isPrivate() ? " pp/" : " p/") + person.getPhone().value
                 + (person.getEmail().isPrivate() ? " pe/" : " e/") + person.getEmail().value
                 + (person.getAddress().isPrivate() ? " pa/" : " a/") + person.getAddress().value
-                + (" s/") + person.getTitle().value;
+                + (person.getTitle().isPrivate() ? " ps/" : " s/") + person.getTitle().value;
 
         for (Schedule schedule : person.getSchedules()) {
             addCommand += " d/" + schedule.value;
