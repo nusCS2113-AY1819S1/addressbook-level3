@@ -11,7 +11,7 @@ public class UnLinkCommand extends UndoAbleCommand {
             + "Parameters: INDEX1 INDEX2\n\t"
             + "Example: " + COMMAND_WORD + " 1" + " 2";
     public static final String MESSAGE_SUCCESS = "Unassociated %1$s and %2$s!\n";
-    public static final String MESSAGE_NoAssociation = "Association does not exist!\n";
+    public static final String MESSAGE_NO_ASSOCIATION = "Association does not exist!\n";
 
     private ReadOnlyPerson target;
     private ReadOnlyPerson target2;
@@ -32,9 +32,9 @@ public class UnLinkCommand extends UndoAbleCommand {
         } catch (IndexOutOfBoundsException ie) {
             return new CommandResult(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
         } catch (Associated.NoAssociationException nae) {
-            return new CommandResult(MESSAGE_NoAssociation);
+            return new CommandResult(MESSAGE_NO_ASSOCIATION);
         } catch (Associated.SameTitleException ste) {
-            return new CommandResult(MESSAGE_NoAssociation);
+            return new CommandResult(MESSAGE_NO_ASSOCIATION);
         }
     }
     @Override
