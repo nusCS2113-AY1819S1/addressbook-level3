@@ -71,10 +71,7 @@ public class Points {
      * @return false if points are negative, true if points are positive or zero
      */
     public boolean isValidPoints(int points) {
-        if (points >= 0) {
-            return true;
-        }
-        return false;
+        return points >= 0;
     }
 
     public double getRedeemedDiscount() {

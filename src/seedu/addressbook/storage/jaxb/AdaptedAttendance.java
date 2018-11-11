@@ -67,7 +67,7 @@ public class AdaptedAttendance {
     /**
      * Converts this jaxb-friendly adapted attendance object into the Attendance object.
      */
-    public Attendance toModelType() throws IllegalValueException {
+    public Attendance toModelType() {
         final String name = this.name;
         final boolean isClockedIn = this.isClockedIn;
 

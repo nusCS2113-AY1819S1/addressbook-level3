@@ -191,10 +191,7 @@ public class Order implements ReadOnlyOrder {
 
     @Override
     public boolean hasPoints() {
-        if (customer.getCurrentPointsValue() == 0) {
-            return false;
-        }
-        return true;
+        return customer.getCurrentPointsValue() != 0;
     }
 
     @Override

@@ -1486,7 +1486,7 @@ public class LogicTest {
                 + "\n" + Messages.MESSAGE_DRAFT_ORDER_DETAILS
                 + "\n" + expectedDraftOrder.getDraftDetailsAsText();
 
-        assertMenuCommandBehavior("draftdish 2 q/" + helper.FOOD_QUANTITY,
+        assertMenuCommandBehavior("draftdish 2 q/" + TestDataHelper.FOOD_QUANTITY,
                 expectedMessage,
                 expectedRms,
                 false,
@@ -1522,7 +1522,7 @@ public class LogicTest {
 
         Order expectedDraftOrder = new Order();
         rms.editDraftOrderCustomer(helper.eve());
-        rms.editDraftOrderDishItem(helper.burger(), helper.FOOD_QUANTITY);
+        rms.editDraftOrderDishItem(helper.burger(), TestDataHelper.FOOD_QUANTITY);
 
         String expectedMessage = DraftOrderClearCommand.MESSAGE_SUCCESS
                 + "\n" + Messages.MESSAGE_DRAFT_ORDER_DETAILS
@@ -1537,7 +1537,7 @@ public class LogicTest {
 
         Order expectedDraftOrder = helper.foodOrder();
         rms.editDraftOrderCustomer(helper.eve());
-        rms.editDraftOrderDishItem(helper.burger(), helper.FOOD_QUANTITY);
+        rms.editDraftOrderDishItem(helper.burger(), TestDataHelper.FOOD_QUANTITY);
 
         String expectedMessage = Messages.MESSAGE_DRAFT_ORDER_DETAILS
                 + "\n" + expectedDraftOrder.getDraftDetailsAsText()
@@ -1553,7 +1553,7 @@ public class LogicTest {
         TestDataHelper helper = new TestDataHelper();
 
         Order expectedDraftOrder = helper.foodOrderWithoutCustomer();
-        rms.editDraftOrderDishItem(helper.burger(), helper.FOOD_QUANTITY);
+        rms.editDraftOrderDishItem(helper.burger(), TestDataHelper.FOOD_QUANTITY);
 
         String expectedMessage = Messages.MESSAGE_DRAFT_ORDER_DETAILS
                 + "\n" + expectedDraftOrder.getDraftDetailsAsText()

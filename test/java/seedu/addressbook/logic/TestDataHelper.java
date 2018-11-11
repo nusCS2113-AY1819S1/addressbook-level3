@@ -86,7 +86,7 @@ class TestDataHelper {
     /**
      * Generate empty points to redeem for testing purpose
      */
-    int pointsToRedeem() throws Exception {
+    int pointsToRedeem() {
         return new Points().getCurrentPoints();
     }
 
@@ -181,7 +181,7 @@ class TestDataHelper {
      *
      * @param seed used to generate the attendance data field values
      */
-    Attendance generateAttendance(int seed) throws Exception {
+    Attendance generateAttendance(int seed) {
         return new Attendance("Employee " + seed);
     }
 
@@ -192,7 +192,7 @@ class TestDataHelper {
      *
      * @param seed used to generate the attendance data field values
      */
-    Attendance generateAttendanceWithTime(int seed, boolean isClockedIn, Set<Timing> timings) throws Exception {
+    Attendance generateAttendanceWithTime(int seed, boolean isClockedIn, Set<Timing> timings) {
         return new Attendance("Employee " + seed, isClockedIn, timings);
     }
 
@@ -405,7 +405,7 @@ class TestDataHelper {
     /**
      * Adds the given list of Employeees to the given Rms.
      */
-    void addAttendancesToRms(Rms rms, List<Attendance> attendancesToAdd) throws Exception {
+    void addAttendancesToRms(Rms rms, List<Attendance> attendancesToAdd) {
         for (Attendance a: attendancesToAdd) {
             rms.addAttendance(a);
         }
@@ -441,7 +441,7 @@ class TestDataHelper {
     /**
      * Creates a list of Employees based on the give Employee objects.
      */
-    List<Employee> generateEmployeeList(Employee... employees) throws Exception {
+    List<Employee> generateEmployeeList(Employee... employees) {
         List<Employee> employeeList = new ArrayList<>();
         for (Employee e: employees) {
             employeeList.add(e);
@@ -452,7 +452,7 @@ class TestDataHelper {
     /**
      * Creates a list of Attendances based on the give Attendance objects.
      */
-    List<Attendance> generateAttendanceList(Attendance... attendances) throws Exception {
+    List<Attendance> generateAttendanceList(Attendance... attendances) {
         List<Attendance> attendanceList = new ArrayList<>();
         for (Attendance a: attendances) {
             attendanceList.add(a);
@@ -463,7 +463,7 @@ class TestDataHelper {
     /**
      * Creates a list of Members based on the give Member objects.
      */
-    List<Member> generateMemberList(Member... members) throws Exception {
+    List<Member> generateMemberList(Member... members) {
         List<Member> memberList = new ArrayList<>();
         for (Member member: members) {
             memberList.add(member);
@@ -474,7 +474,7 @@ class TestDataHelper {
     /**
      * Creates a list of Menu Items based on the give Menu objects.
      */
-    List<Menu> generateMenuList(Menu... menus) throws Exception {
+    List<Menu> generateMenuList(Menu... menus) {
         List<Menu> menuList = new ArrayList<>();
         for (Menu m: menus) {
             menuList.add(m);
@@ -485,7 +485,7 @@ class TestDataHelper {
     /**
      * Creates a list of Orders based on the given Order objects.
      */
-    List<Order> generateOrderList(Order... orders) throws Exception {
+    List<Order> generateOrderList(Order... orders) {
         List<Order> orderList = new ArrayList<>();
         for (Order p: orders) {
             orderList.add(p);
