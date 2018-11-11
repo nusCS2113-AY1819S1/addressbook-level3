@@ -255,7 +255,7 @@ public class Parser {
     }
 
     /**
-     * Parses arguments in the context of the add person command.
+     * Parses arguments in the context of the Add person command.
      *
      * @param args full command args string
      * @return the prepared command
@@ -307,7 +307,7 @@ public class Parser {
         return new HashSet<>(tagStrings);
     }
     /**
-     * Parses arguments in the context of the EditFeesCommand command.
+     * Parses arguments in the context of the EditFees command
      *
      * @param args full command args string
      * @return the prepared command
@@ -352,7 +352,7 @@ public class Parser {
     }
 
     /**
-     * Parses arguments in the context of the viewFees command.
+     * Parses arguments in the context of the ViewFees command.
      */
     private Command prepareViewFees(String args) {
         try {
@@ -380,7 +380,7 @@ public class Parser {
     }
 
     /**
-     * Parses arguments in the context of the find person command.
+     * Parses arguments in the context of the Find person command.
      *
      * @param args full command args string
      * @return the prepared command
@@ -458,7 +458,6 @@ public class Parser {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     usageMessage));
         }
-
         // keywords delimited by whitespace
         final String[] keywords = matcher.group("keywords").split("\\s+");
         final int numRequiredArg = command.getNumRequiredArg();
@@ -482,7 +481,6 @@ public class Parser {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     AddAccountCommand.MESSAGE_USAGE));
         }
-
         // keywords delimited by whitespace
         final String[] keywords = matcher.group("keywords").split("\\s+");
         try {
@@ -523,7 +521,7 @@ public class Parser {
         try {
             final int targetPersonIndex = parseArgsAsDisplayedIndex(arr[0]);
             final int targetAssessmentIndex = parseArgsAsDisplayedIndex(arr[1]);
-            final int targetGrades = parseArgsAsDisplayedIndex(arr[2]);
+            final double targetGrades = Double.parseDouble(arr[2]);
             return new AddGradesCommand(targetPersonIndex, targetAssessmentIndex, targetGrades);
         } catch (ParseException | NumberFormatException e) {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
@@ -532,7 +530,7 @@ public class Parser {
     }
 
     /**
-     * Parses arguments in the context of the add exam command.
+     * Parses arguments in the context of the AddExam command.
      */
     private Command prepareAddExam(String args) {
         final Matcher matcher = EXAM_DATA_ARGS_FORMAT.matcher(args.trim());
@@ -556,7 +554,7 @@ public class Parser {
     }
 
     /**
-     * Parses arguments in the context of the update Attendance command.
+     * Parses arguments in the context of the UpdateAttendance command.
      */
     private Command prepareUpdateAttendance(String args) {
 
@@ -590,7 +588,7 @@ public class Parser {
     }
 
     /**
-     * Parses arguments in the context of the replaceAttendance command.
+     * Parses arguments in the context of the ReplaceAttendance command.
      */
     private Command prepareReplaceAttendance(String args) {
 
@@ -625,7 +623,7 @@ public class Parser {
     }
 
     /**
-     * Parses arguments in the context of the view attendance person command.
+     * Parses arguments in the context of the ViewAttendance by person command.
      */
     private Command prepareViewAttendance(String args) {
         final Matcher matcher = PERSON_INDEX_ARGS_FORMAT.matcher(args.trim());
@@ -644,7 +642,7 @@ public class Parser {
     }
 
     /**
-     * Parses arguments in the context of the view attendance date command.
+     * Parses arguments in the context of the ViewAttendance by date command.
      */
     private Command prepareViewDateAttendance(String args) {
         final Matcher matcher = ATTENDANCE_VIEW_DATE_FORMAT.matcher(args.trim());
@@ -664,7 +662,7 @@ public class Parser {
     }
 
     /**
-     * Parses arguments in the context of the delete grades command.
+     * Parses arguments in the context of the DeleteGrades command.
      *
      * @param args full command args string
      * @return the prepared command
@@ -693,7 +691,7 @@ public class Parser {
     }
 
     /**
-     * Parses arguments in the context of the edit exam command.
+     * Parses arguments in the context of the EditExam command.
      *
      * @param args full command args string
      * @return the prepared command
@@ -717,7 +715,7 @@ public class Parser {
     }
 
     /**
-     * Parses arguments in the context of the register exam command.
+     * Parses arguments in the context of the RegisterExam command.
      *
      * @param args full command args string
      * @return the prepared command
@@ -747,7 +745,7 @@ public class Parser {
     }
 
     /**
-     * Parses arguments in the context of the deregister exam command.
+     * Parses arguments in the context of the DeregisterExam command.
      *
      * @param args full command args string
      * @return the prepared command
@@ -777,7 +775,7 @@ public class Parser {
     }
 
     /**
-     * Parses arguments in the context of the add assessment command.
+     * Parses arguments in the context of the AddAssessment command.
      *
      * @param args full command args string
      * @return the prepared command
