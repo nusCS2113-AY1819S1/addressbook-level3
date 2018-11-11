@@ -1,5 +1,8 @@
 package seedu.addressbook.commands.order;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import seedu.addressbook.commands.Command;
 import seedu.addressbook.commands.CommandResult;
 import seedu.addressbook.common.Messages;
@@ -26,26 +29,32 @@ public class DraftOrderEditDishCommand extends Command {
             + "QUANTITY must be a non-negative integer of 1-3 digits\n"
             + MESSAGE_USAGE;
 
-    private int quantity;
+    private Map<Integer, Integer> indexQuantityPairs = new HashMap<>();
 
-    public DraftOrderEditDishCommand(int targetVisibleIndex, int quantity) {
-        super(targetVisibleIndex);
-        this.quantity = quantity;
-    }
-
-    public int getQuantity() {
-        return quantity;
+    public DraftOrderEditDishCommand(Map<Integer, Integer> indexQuantityPairs) {
+        super();
+        this.indexQuantityPairs.putAll(indexQuantityPairs);
     }
 
 
     @Override
     public CommandResult execute() {
         try {
-            final ReadOnlyMenus target = getTargetMenu();
-            if (!rms.containsMenus(target)) {
-                return new CommandResult(Messages.MESSAGE_MENU_ITEM_NOT_IN_ADDRESSBOOK);
+            for (Map.Entry<Integer, Integer> entry: indexQuantityPairs.entrySet()) {
+                int index = entry.getKey();
+                setTargetIndex(index);
+                ReadOnlyMenus target = getTargetMenu();
+                if (!rms.containsMenus(target)) {
+                    return new CommandResult(Messages.MESSAGE_MENU_ITEM_NOT_IN_ADDRESSBOOK);
+                }
             }
-            rms.editDraftOrderDishItem(target, quantity);
+            for (Map.Entry<Integer, Integer> entry: indexQuantityPairs.entrySet()) {
+                int index = entry.getKey();
+                int quantity = entry.getValue();
+                setTargetIndex(index);
+                ReadOnlyMenus target = getTargetMenu();
+                rms.editDraftOrderDishItem(target, quantity);
+            }
             String message = MESSAGE_SUCCESS + "\n" + getDraftOrderAsString();
             return new CommandResult(message);
         } catch (IndexOutOfBoundsException ie) {

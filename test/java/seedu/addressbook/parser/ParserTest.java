@@ -561,6 +561,7 @@ public class ParserTest {
         parseAndAssertIncorrectWithMessage(resultMessage, inputs);
     }
 
+    /*
     @Test
     public void draftOrderEditDishCommand_validArgs_parsedCorrectly() {
         final int testIndex = 1;
@@ -570,6 +571,7 @@ public class ParserTest {
         assertEquals(result.getTargetIndex(), testIndex);
         assertEquals(result.getQuantity(), testQuantity);
     }
+    */
 
 
     /**
