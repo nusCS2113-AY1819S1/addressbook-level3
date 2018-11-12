@@ -31,22 +31,29 @@ image::nichpang1.png[]
 
 Nicholas Pang Wey Shern +
 State Control & Association
-Portfolio: <<team/nichpang1#, nichpang1>>
+
+Portfolio: <<team/nichpang1#, link>>
 
 image::ongjiajian.png[]
 
 Ong Jia Jian +
 Authentication
 
+Portfolio: <<team/ongjiajian#, link>>
+
 image::c-e-ooi.png[]
 
 Ooi Xi Yi +
 Scheduling
 
+Portfolio: <<team/c-e-ooi#, link>>
+
 image::keithtqs.png[]
 
 Keith Tan Qisheng +
 Organisation
+
+Portfolio: <<team/keithtqs#, link>>
 
 == Acknowledgements
 
