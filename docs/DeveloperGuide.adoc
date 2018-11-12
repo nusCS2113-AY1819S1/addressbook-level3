@@ -217,7 +217,7 @@ This allows each Person to have zero to multiple Schedules. Furthermore, due to 
 Appointments are verified though the strict Schedule class which sets a regular expression (regex) that only accept valid appointments in the DD-MM-YYYY-HH:MM format.
  Non-existent dates, such as 30-02-2019-13:00 or 28-28-2019-15:00, and time, like 01-01-2019-25:80, would not be accepted.
 
-*Entering Edit-Appointment Mode:*
+*Entering Edit-Appointment Mode:* (And Exiting)
 
 As shown in the sequence diagram below, when the edit-appointment command is instantiated, the index input is used to identify the Person in the list to edit appointment.
 
@@ -227,9 +227,19 @@ image::EditAppointmentSeqenceDiagram.png[]
 
 Subsequently, when commands are made, the Parser check them against the edit-appointment mode commands and execute accordingly.
 
-This only stops when the user exits edit-appointment mode using the command `
+This only stops when the user exits edit-appointment mode using the command `done`. ExitAppointmentCommand would set the static boolean in Command class back to false
+using SetEditingAppoinmentState(false).
+
+
+*Add Appoinments in Edit-Appointment Mode:*
+
+When AddAppoinment is instantiated, it converts and stores the hashset of Schedule appointments.
+
+As shown in the sequence diagram below, in execute(), a Person copy of the original index person is made and updated with the latest schedule.
+editPerson() is used to replace the Person in the UniquePersonList of people in the AddressBook. Delete is also done in the similar manner.
 
 image::AddAppointmentSequenceDiagram.png[]
+
 
 ==== 4.3.2 Reason for Implementation
 Every time a command that takes effect on a single Person is called, AddressBook level 3 requires users to indicated the index of the Person.
@@ -239,12 +249,14 @@ This makes easier and more intuitive for users, especially as patients would hav
 make changes to their appointments.
 
 ==== 4.3.3 Alternative Consideration
-In future versions, the following details would be slowly incremented to ensure a smooth user experience while using the scheduling feature of MediBook.
-list, organise
-* use apiiiii
-. Edit the appointment dates only.
-. A command to view all or list the appointments in a chronological order following the reference date.
-. A doctor can view their respective patients appointment
+In future versions, the following details can be implemented for a better appointment feature for MediBook.
+
+* Use Calendar class in java.util. This allows precise date and time to be recorded, easier comparision between appointments
+and current date and time can be obtained. This class also provides additional fields and methods for implementing a concrete calendar system outside the package.
+* Organise the appointments in chronological order. Possible methods of achieving are to use a TreeSet instead of Hashset
+and to use the Calender Class mentioned.
+* A command feature to list all the appointments in a chronological order following the reference date.
+* A command feature for doctor to view their respective patients' appointments for the day or for specific days.
 // end::Appointment[]
 
 === 4.4 Data Organisation
