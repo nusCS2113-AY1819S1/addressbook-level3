@@ -123,7 +123,7 @@ System adds Cheese Fries to the existing menu.
 ==== Delete Menu
 
 Delete an item on the menu +
-Format: `delmenu INDEX`+
+Format: `delmenu INDEX` +
 Preconditions: The user must perform 'List Menu' , 'List Menu According to Category' or 'Find Menu' use cases first before performing 'Delete Menu'
 
 * Deletes the menu item in that particular index
