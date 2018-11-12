@@ -75,9 +75,15 @@ public class UniquePersonList implements Iterable<Person> {
     }
 
 
-    public List<ReadOnlyPerson> sortView() {
+    public List<ReadOnlyPerson> sortNameView() {
         internalList.sort(Comparator.comparing(t -> t.getName().fullName));
-        return Collections.unmodifiableList(internalList);
+        return new ArrayList<>(internalList);
+    }
+
+    public List<ReadOnlyPerson> sortTitleView() {
+        internalList.sort(Comparator.comparing(t -> t.getName().fullName));
+        internalList.sort(Comparator.comparing(t -> t.getTitle().value));
+        return new ArrayList<>(internalList);
     }
 
     /**

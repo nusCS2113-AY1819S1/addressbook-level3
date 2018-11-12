@@ -116,8 +116,11 @@ public class Parser {
                 case ChangePasswordCommand.COMMAND_WORD:
                   return prepareChangePassword(arguments);
 
-                case SortCommand.COMMAND_WORD:
-                    return new SortCommand();
+                case SortNameCommand.COMMAND_WORD:
+                    return new SortNameCommand();
+
+                case SortTitleCommand.COMMAND_WORD:
+                    return new SortTitleCommand();
 
                 case HelpCommand.COMMAND_WORD: // Fallthrough
                 default:
