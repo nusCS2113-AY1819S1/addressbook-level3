@@ -15,15 +15,23 @@ public class EmployeeAddress {
     public final String value;
 
     /**
+     * Empty constructor
+     */
+    public EmployeeAddress() {
+        this.value = "";
+    }
+
+    /**
      * Validates given address.
      *
      * @throws IllegalValueException if given address string is invalid.
      */
     public EmployeeAddress(String address) throws IllegalValueException {
-        if (!isValidAddress(address)) {
+        String trimmedAddress = address.trim();
+        if (!isValidAddress(trimmedAddress)) {
             throw new IllegalValueException(MESSAGE_ADDRESS_CONSTRAINTS);
         }
-        this.value = address;
+        this.value = trimmedAddress;
     }
 
     /**

@@ -184,7 +184,7 @@ link:{repoURL}/src/seedu/addressbook/logic/Logic.java[`Logic.java`]
 
 .  `Logic` uses the `Parser` class to parse the user command.
 .  This results in a `Command` object which is executed by `Logic`.
-.  The command execution can affect the `Model` (e.g. adding a new member) and/or raise events.
+.  The command execution can affect the `Data` (e.g. adding a new member) and/or raise events.
 .  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
 
 [NOTE]
@@ -274,8 +274,8 @@ of class `Order`. It is initialize with an empty list of dish and a pseudo-empty
 * By using the draft order command classes, the ordering draft can be edited (e.g. picking the customer from the member
 list if they present their membership card, pick the dish from the menu list one by one before confirming the order).
 * Once an order is confirmed, the ordering time is recorded and the total price is calculated to create a new `Order`
-object that has the same customer and list of dishes fields as the ordering draft to be added to the order list, and
-the ordering draft is cleared afterward.
+object that has the same customer and list of dishes fields as the ordering draft to be added to the order list, the
+member points of the customer is updated, and the ordering draft is cleared afterward.
 
 === Saving and Loading the order list
 
@@ -889,6 +889,10 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* * *` |Cashier |view all existing menu items of the restaurant |know which item the customer wants when taking an order
 
+|`* * *` |Cashier |view the recommended items in the menu |suggest customers on what to order of needed
+
+|`* * *` |Cashier |search for a menu item |find a particular item easily without viewing the menu lists
+
 |`* * *` |Manager |keep track of the restaurant business statistics such as daily revenue |understand if the restaurant is making a loss or not
 
 |`* * *` |Manager |keep track of employees wages | know how much I have to pay or how much I have paid to restaurant employees
@@ -1054,20 +1058,6 @@ Use case ends.
 Use case ends.
 
 [discrete]
-=== Use case: View A Menu Item
-System: Restaurant Management System (RMS) +
-Use Case: View A Menu Item +
-Actor: Cashier +
-Preconditions: User executes the List Menu By Type use case before using this use case.
-
-*MSS*
-
-1.  User chooses to view a particular menu item from the existing menu list.
-2.  RMS shows the menu item of that particular index.
-
-Use case ends.
-
-[discrete]
 === Use case: Find Menu
 System: Restaurant Management System (RMS) +
 Use Case: Find Menu +
@@ -1077,6 +1067,19 @@ Actor: Cashier
 
 1.  User chooses to find menu items containing some keywords.
 2.  RMS shows the menu items that contain those keywords.
+
+Use case ends.
+
+[discrete]
+=== Use case: Menu Recommendations
+System: Restaurant Management System (RMS) +
+Use Case: Menu Recommendations +
+Actor: Cashier
+
+*MSS*
+
+1.  User chooses to view the recommended items from the different categories.
+2.  System displays the best seller items from each category as recommendations.
 
 Use case ends.
 // end::menuusecase[]

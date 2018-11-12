@@ -55,14 +55,6 @@ public class Menu implements ReadOnlyMenus, Comparable<Menu> {
         return new HashSet<>(tags);
     }
 
-    /**
-     * Replaces this menu item's tags with the tags in {@code replacement}.
-     */
-    public void setTags(Set<Tag> replacement) {
-        tags.clear();
-        tags.addAll(replacement);
-    }
-
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
@@ -78,7 +70,7 @@ public class Menu implements ReadOnlyMenus, Comparable<Menu> {
 
     @Override
     public String toString() {
-        return this.name.fullName;
+        return getAsText();
     }
 
     @Override

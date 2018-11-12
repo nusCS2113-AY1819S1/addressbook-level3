@@ -1,0 +1,91 @@
+= Salsabil Tasnia - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: Restaurant Management System
+
+---
+image::homepage.png[width="600"]
+
+== Overview
+
+Restaurant Management System (RMS) is a desktop management App targeted to Fast Food Chains. It is an integrated system that caters to both front end and back end operations in a restaurant. This application is developed to be used by managers, cashiers and other employees in a restaurant.
+
+For this system, I have developed the Menu system. A system that is vital for day-to-day operations of any restaurant, this feature is primarily catered to cashiers and restaurant managers. It consists of a database that stores all the menu items of a restaurant and separates them into different categories: Main, Sides, Beverage, Others, Set Meals. The menu data base is accessed for multiple operations of a restaurant, such as taking orders and collating statistics. The menu is accessed through a set of commands that I have implemented to support different operations. Some of these commands accesses the menu base, while others modifies the existing database.
+
+RMS was created using Java and has a user interface that uses CLI. The project contains has about 10k Lines of Code and is thoroughly tested through multiple forms of testing. Through this project, I have gained experience in Java programming, learned how to effectively use Git Hub to collaborate with other programmers for a project and conduct thorough testing and documentation necessary for a programming project.
+
+
+== Summary of contributions
+
+|===
+|_This sections provides a summary of the various contributions I have made to the RMS project. These contributions include Major enhancement, Code contributions and Other contributions_
+|===
+
+* *Major Enhancement*: Added the *Menu Feature*
+
+image::MainMenu.png[width="600"]
+
+
+** Usage: Menu feature is mainly used by cashiers and managers for conducting separate set of operations
+
+       Cashiers:
+       Menu allows cashiers to view the menu items as a list (according to their categories) when taking an order. Using a search option, cashiers are able to find a particular menu item if they wish not to scroll through the different item categories to find one item. Finally, cashiers are also able to suggest items to customers by viewing the recommended items.
+
+       Managers:
+       Menu allows cashiers to add and delete items, individually, from the menu data base. It also allows them to clear all content of a menu if needed. Managers are also able to conduct the same operations as cashiers if needed.
+
+** Why the feature is important: The hassle of having separate systems for front-end and back-end operations is reduced with the RMS menu feature as it caters to both sides. With our menu feature, ordering is made easier and faster. Categorizing allows cashiers to navigate through the menu items much easily when taking an order. Furthermore, search option allows them to find a particular item in just one step, which increases efficiency when taking an order. Recommendations is useful when catering to first-time customers and customer service of a restaurant. Additionally, the feature caters to back-end operations, usually conducted by managers, such as updating the existing menu and clearing it if needed.
+
+** Highlights: This enhancement required me to understand the needs of a fast food chain and add, modify and improve existing commands to optimize day-to-day operations. The implementation was challenging as it required making major and minor changes to existing to morph into a menu system, while adding new commands to the feature.
+
+** Credits: https://github.com/nusCS2113-AY1819S1/addressbook-level3
+
+* *Code Contributed*: https://nuscs2113-ay1819s1.github.io/dashboard/#=undefined&search=salsabiltasnia&sort=displayName&since=2018-09-12&until=2018-11-04&timeframe=day&reverse=false&repoSort=true[Salsabil Tasnia Ali Nikita MD]
+
+* *Other Contributions*
+
+** Project Management
+*** Was in charge of creating the Readme.adoc file, which served as the homepage of our product.
+*** Managed the Git Hub Issue tracker by raising new issues.
+
+* *Enhancement to existing feature*
+*** Created test cases to test for the existing features to ensure every command functions as expected
+*** Wrote additional methods for team mate who required accessing the menu feature.
+
+** Documentation:
+
+*** Addition of content to User Guide: https://github.com/CS2113-AY1819S1-F09-2/main/pull/73[#73]
+https://github.com/CS2113-AY1819S1-F09-2/main/pull/135[#135]
+https://github.com/CS2113-AY1819S1-F09-2/main/pull/144[#144]
+*** Addition of content to Developer Guide: https://github.com/CS2113-AY1819S1-F09-2/main/pull/73[#73]
+https://github.com/CS2113-AY1819S1-F09-2/main/pull/135[#135]
+** Community:
+*** PRs reviewed (with non-trivial review comments): https://github.com/CS2113-AY1819S1-F09-2/main/pull/109[#109], https://github.com/CS2113-AY1819S1-F09-2/main/pull/91[#91], https://github.com/CS2113-AY1819S1-F09-2/main/pull/37[#37], https://github.com/CS2113-AY1819S1-F09-2/main/pull/36[36],
+*** Assisted class mates from other groups in debugging their codes
+
+== Contributions to the User Guide
+
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+include::../UserGuide.adoc[tag=menucommands]
+include::../UserGuide.adoc[tag=menucommandsummary]
+
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+include::../DeveloperGuide.adoc[tag=Data]
+
+include::../DeveloperGuide.adoc[tag=menuusecase]
+
+
+
+

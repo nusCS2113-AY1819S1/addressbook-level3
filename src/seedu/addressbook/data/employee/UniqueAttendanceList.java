@@ -61,8 +61,7 @@ public class UniqueAttendanceList implements Iterable<Attendance> {
     public int getAttendanceIndex(String target) {
         for (Attendance attendance : attendanceInternalList) {
             if (attendance.getName().equals(target)) {
-                int index = attendanceInternalList.indexOf(attendance);
-                return index;
+                return attendanceInternalList.indexOf(attendance);
             }
         }
         return -1;
@@ -87,6 +86,13 @@ public class UniqueAttendanceList implements Iterable<Attendance> {
     @Override
     public Iterator<Attendance> iterator() {
         return attendanceInternalList.iterator();
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof UniqueAttendanceList // instanceof handles nulls
+                && this.attendanceInternalList.equals(((UniqueAttendanceList) other).attendanceInternalList));
     }
 
     @Override

@@ -15,16 +15,25 @@ import seedu.addressbook.data.menu.UniqueMenuList;
 import seedu.addressbook.data.tag.Tag;
 
 /**
- * Adds a menu item to the address book.
+ * Adds a menu item to the Rms.
  */
 public class MenuAddCommand extends Command {
 
     public static final String COMMAND_WORD = "addmenu";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ":\n" + "Adds a food item to the Rms. "
-            + "Parameters: NAME p/PRICE type/TYPE [t/TAG]...\n\t"
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ":\n" + "Adds a food item to the Rms.\n\n"
+            + "Parameters: NAME p/PRICE type/TYPE [t/TAG]...\n"
             + "Example: " + COMMAND_WORD
-            + " Cheese Burger p/$5.00 type/main t/newAddition t/hotSeller";
+            + " Cheese Burger p/$5.00 type/main t/newAddition t/hotSeller\n"
+            + "Additional Notes:"
+            + "\ni. PRICE must start with a $ sign and must be integer or float in value of 2 decimal places"
+            + "\nii. TYPE should only be one of the following categories:"
+            + "\n" + "   -  main"
+            + "\n" + "   -  sides"
+            + "\n" + "   -  beverage"
+            + "\n" + "   -  dessert"
+            + "\n" + "   -  others"
+            + "\n" + "   -  set meal";
 
     public static final String MESSAGE_SUCCESS = "New food item added: %1$s";
     public static final String MESSAGE_DUPLICATE_MENU_ITEM = "This food item already exists in the Rms";

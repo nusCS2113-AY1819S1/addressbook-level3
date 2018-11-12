@@ -1,17 +1,14 @@
 package seedu.addressbook.commands.menu;
 
-import java.util.List;
-
 import seedu.addressbook.commands.Command;
 import seedu.addressbook.commands.CommandResult;
-import seedu.addressbook.data.menu.ReadOnlyMenus;
 
 /**
- * Lists all food items in the address book to the user.
+ * Lists all food items in the menu list to the user.
  */
 public class MenuShowMainMenuCommand extends Command {
 
-    public static final String COMMAND_WORD = "showMainMenu";
+    public static final String COMMAND_WORD = "showmainmenu";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ":\n"
             + "Displays all the categories of menu items in the Rms system.\n\t"
@@ -19,12 +16,12 @@ public class MenuShowMainMenuCommand extends Command {
     public static final String MAIN_MENU_DISPLAY = "RMS Main Menu" + "\n"
             + "==================================================================================="
             + "\n\n" + "Item Category:"
-            + "\n\n" + "-Main : key in 'listmenutype main' to view all Main items"
+            + "\n\n" + " -Main : key in 'listmenutype main' to view all Main items"
             + "\n" + " -Sides : key in 'listmenutype sides' to view all Sides"
             + "\n" + " -Beverages : key in 'listmenutype beverage' to view all Beverage"
             + "\n" + " -Dessert : key in 'listmenutype dessert' to view all Dessert"
             + "\n" + " -Others : key in 'listmenutype others' to view all Others"
-            + "\n" + " -Set Meals : key in 'listmenutype set meals' to view all Set Meals";
+            + "\n" + " -Set Meals : key in 'listmenutype set meal' to view all Set Meal";
 
 
     /*
@@ -32,7 +29,6 @@ public class MenuShowMainMenuCommand extends Command {
     final List<ReadOnlyMenus> typeList = new ArrayList<>();
     private List<ReadOnlyMenus> getFoodItemsBurger() {
         for (ReadOnlyMenus menuItem : rms.getAllMenus()) {
-            //final Set<String> wordsInName = new HashSet<>(burger.getType().getWordsInTypeName());
             final String wordsInItemName = menuItem.getType().value;
             typeSet.add(wordsInItemName);
             typeList.add(menuItem);
@@ -67,8 +63,6 @@ public class MenuShowMainMenuCommand extends Command {
     }*/
     @Override
     public CommandResult execute() {
-        List<ReadOnlyMenus> allMenus = rms.getAllMenus().immutableListView();
         return new MenuCommandResult(MAIN_MENU_DISPLAY);
-        //return new MenuCommandResult(getMessageForMenuListShownSummary(allMenus), allMenus);
     }
 }

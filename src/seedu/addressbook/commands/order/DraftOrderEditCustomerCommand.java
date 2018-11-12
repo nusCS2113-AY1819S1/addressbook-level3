@@ -33,6 +33,7 @@ public class DraftOrderEditCustomerCommand extends Command {
             if (!rms.containsMember(target)) {
                 return new CommandResult(Messages.MESSAGE_MEMBER_NOT_IN_RMS);
             }
+            rms.editDraftOrderPoints(0);
             rms.editDraftOrderCustomer(target);
             String message = MESSAGE_SUCCESS + "\n" + getDraftOrderAsString();
             return new CommandResult(message);

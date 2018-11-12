@@ -5,22 +5,17 @@ import static seedu.addressbook.common.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import seedu.addressbook.commands.AddCommand;
-import seedu.addressbook.commands.ClearCommand;
 import seedu.addressbook.commands.Command;
-import seedu.addressbook.commands.DeleteCommand;
 import seedu.addressbook.commands.ExitCommand;
-import seedu.addressbook.commands.FindCommand;
 import seedu.addressbook.commands.HelpCommand;
 import seedu.addressbook.commands.IncorrectCommand;
-import seedu.addressbook.commands.ListCommand;
-import seedu.addressbook.commands.ViewAllCommand;
-import seedu.addressbook.commands.ViewCommand;
 import seedu.addressbook.commands.employee.EmployeeAddCommand;
 import seedu.addressbook.commands.employee.EmployeeClockInCommand;
 import seedu.addressbook.commands.employee.EmployeeClockOutCommand;
@@ -36,12 +31,13 @@ import seedu.addressbook.commands.menu.MenuDeleteCommand;
 import seedu.addressbook.commands.menu.MenuFindCommand;
 import seedu.addressbook.commands.menu.MenuListByTypeCommand;
 import seedu.addressbook.commands.menu.MenuListCommand;
+import seedu.addressbook.commands.menu.MenuRecommendationCommand;
 import seedu.addressbook.commands.menu.MenuShowMainMenuCommand;
-import seedu.addressbook.commands.menu.MenuViewAllCommand;
 import seedu.addressbook.commands.order.DraftOrderClearCommand;
 import seedu.addressbook.commands.order.DraftOrderConfirmCommand;
 import seedu.addressbook.commands.order.DraftOrderEditCustomerCommand;
 import seedu.addressbook.commands.order.DraftOrderEditDishCommand;
+import seedu.addressbook.commands.order.DraftOrderEditPointsCommand;
 import seedu.addressbook.commands.order.OrderAddCommand;
 import seedu.addressbook.commands.order.OrderClearCommand;
 import seedu.addressbook.commands.order.OrderDeleteCommand;
@@ -58,20 +54,17 @@ import seedu.addressbook.data.exception.IllegalValueException;
  */
 public class Parser {
 
+    /**
+     * Used for initial separation of command word and args.
+     */
+    public static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
+
     public static final Pattern INDEX_ARGS_FORMAT = Pattern.compile("(?<targetIndex>.+)");
 
     public static final Pattern KEYWORDS_ARGS_FORMAT =
             Pattern.compile("(?<keywords>\\S+(?:\\s+\\S+)*)"); // one or more keywords separated by whitespace
 
     public static final Pattern ITEMWORD_ARGS_FORMAT = Pattern.compile("(?<type>[^/]+)"); //one keyword only
-
-    // '/' forward slashes are reserved for delimiter prefixes
-    public static final Pattern PERSON_DATA_ARGS_FORMAT =
-            Pattern.compile("(?<name>[^/]+)"
-                    + " (?<isPhonePrivate>p?)p/(?<phone>[^/]+)"
-                    + " (?<isEmailPrivate>p?)e/(?<email>[^/]+)"
-                    + " (?<isAddressPrivate>p?)a/(?<address>[^/]+)"
-                    + "(?<tagArguments>(?: t/[^/]+)*)"); // variable number of tags
 
     // '/' forward slashes are reserved for delimiter prefixes
     public static final Pattern EMPLOYEE_DATA_ARGS_FORMAT =
@@ -83,7 +76,7 @@ public class Parser {
 
     // '/' forward slashes are reserved for delimiter prefixes
     public static final Pattern EMPLOYEE_EDIT_DATA_ARGS_FORMAT =
-            Pattern.compile("(?<targetIndex>.+ )"
+            Pattern.compile("(?<targetIndex>\\d+ )"
                     + "((p/(?<phone>[^/]+))?)"
                     + "((e/(?<email>[^/]+))?)"
                     + "((a/(?<address>[^/]+))?)"
@@ -98,7 +91,9 @@ public class Parser {
             Pattern.compile("(?<name>[^/]+)");
 
     public static final Pattern MEMBER_DATA_ARGS_FORMAT =
-            Pattern.compile("(?<name>[^/]+)"); // variable number of tags
+            Pattern.compile("(?<name>[^/]+)"
+                    + "e/(?<email>[^/]+)"
+            ); // variable number of tags
 
     // '/' forward slashes are reserved for delimiter prefixes
     public static final Pattern MENU_DATA_ARGS_FORMAT =
@@ -107,11 +102,14 @@ public class Parser {
                     + "type/(?<type>[^/]+)"
                     + "(?<tagArguments>(?: t/[^/]+)*)"); // variable number of tags
 
-    public static final Pattern ORDER_DISH_ARGS_FORMAT = Pattern.compile("(?<targetIndex>.+)\\s+q/(?<quantity>.+)");
+    public static final Pattern DRAFT_DISH_ARGS_FORMAT =
+            Pattern.compile("\\d+\\s+q/\\d{1,3}(?:\\s+\\d+\\s+q/\\d{1,3})*");
+
+    public static final Pattern REDEEM_POINTS_ARGS_FORMAT = Pattern.compile("(?<points>[^/]+)");
 
     public static final String STATSMENU_DATE_ARGS_FORMAT_PATTERN_COMPILE_STRING =
-            "(f\\/(?<dateFrom>(0[1-9]|[12]\\d|3[01])(0[1-9]|1[0-2])[12]\\d{3}))?"
-            + " ?(t\\/(?<dateTo>(0[1-9]|[12]\\d|3[01])(0[1-9]|1[0-2])[12]\\d{3}))?"; // variable number of tags
+            "(f/(?<dateFrom>(0[1-9]|[12]\\d|3[01])(0[1-9]|1[0-2])[12]\\d{3}))?"
+            + " ?(t/(?<dateTo>(0[1-9]|[12]\\d|3[01])(0[1-9]|1[0-2])[12]\\d{3}))?"; // variable number of tags
 
     public static final Pattern STATSMENU_DATE_ARGS_FORMAT =
             Pattern.compile(STATSMENU_DATE_ARGS_FORMAT_PATTERN_COMPILE_STRING);
@@ -126,11 +124,6 @@ public class Parser {
     }
 
     /**
-     * Used for initial separation of command word and args.
-     */
-    public static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
-
-    /**
      * Parses user input into command for execution.
      *
      * @param userInput full user input string
@@ -142,8 +135,9 @@ public class Parser {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
         }
 
-        final String commandWord = matcher.group("commandWord");
+        final String commandWord = matcher.group("commandWord").toLowerCase();
         final String arguments = matcher.group("arguments");
+
         switch (commandWord) {
         case EmployeeAddCommand.COMMAND_WORD:
             return prepareEmployeeAdd(arguments);
@@ -184,8 +178,8 @@ public class Parser {
         case MenuListByTypeCommand.COMMAND_WORD:
             return prepareMenuListByType(arguments);
 
-        case MenuViewAllCommand.COMMAND_WORD:
-            return prepareViewAllMenu(arguments);
+        case MenuRecommendationCommand.COMMAND_WORD:
+            return new MenuRecommendationCommand();
 
         case MenuDeleteCommand.COMMAND_WORD:
             return prepareMenuDelete(arguments);
@@ -195,7 +189,6 @@ public class Parser {
 
         case MenuClearCommand.COMMAND_WORD:
             return new MenuClearCommand();
-
 
         case OrderAddCommand.COMMAND_WORD:
             return new OrderAddCommand();
@@ -214,6 +207,9 @@ public class Parser {
 
         case DraftOrderEditDishCommand.COMMAND_WORD:
             return prepareDraftOrderEditDish(arguments);
+
+        case DraftOrderEditPointsCommand.COMMAND_WORD:
+            return prepareDraftOrderEditPoints(arguments);
 
         case DraftOrderClearCommand.COMMAND_WORD:
             return new DraftOrderClearCommand();
@@ -236,27 +232,6 @@ public class Parser {
         case StatsHelpCommand.COMMAND_WORD:
             return new StatsHelpCommand();
 
-        case AddCommand.COMMAND_WORD:
-            return prepareAdd(arguments);
-
-        case DeleteCommand.COMMAND_WORD:
-            return prepareDelete(arguments);
-
-        case ClearCommand.COMMAND_WORD:
-            return new ClearCommand();
-
-        case FindCommand.COMMAND_WORD:
-            return prepareFind(arguments);
-
-        case ListCommand.COMMAND_WORD:
-            return new ListCommand();
-
-        case ViewCommand.COMMAND_WORD:
-            return prepareView(arguments);
-
-        case ViewAllCommand.COMMAND_WORD:
-            return prepareViewAll(arguments);
-
         case ExitCommand.COMMAND_WORD:
             return new ExitCommand();
 
@@ -264,38 +239,6 @@ public class Parser {
 
         default:
             return new HelpCommand();
-        }
-    }
-
-    /**
-     * Parses arguments in the context of the add person command.
-     *
-     * @param args full command args string
-     * @return the prepared command
-     */
-    private Command prepareAdd(String args) {
-        final Matcher matcher = PERSON_DATA_ARGS_FORMAT.matcher(args.trim());
-        // Validate arg string format
-        if (!matcher.matches()) {
-            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
-        }
-        try {
-            return new AddCommand(
-                    matcher.group("name"),
-
-                    matcher.group("phone"),
-                    isPrivatePrefixPresent(matcher.group("isPhonePrivate")),
-
-                    matcher.group("email"),
-                    isPrivatePrefixPresent(matcher.group("isEmailPrivate")),
-
-                    matcher.group("address"),
-                    isPrivatePrefixPresent(matcher.group("isAddressPrivate")),
-
-                    getTagsFromArgs(matcher.group("tagArguments"))
-            );
-        } catch (IllegalValueException ive) {
-            return new IncorrectCommand(ive.getMessage());
         }
     }
 
@@ -313,7 +256,8 @@ public class Parser {
         }
         try {
             return new MemberAddCommand(
-                    matcher.group("name")
+                    matcher.group("name"),
+                    matcher.group("email")
             );
         } catch (IllegalValueException ive) {
             return new IncorrectCommand(ive.getMessage());
@@ -335,11 +279,8 @@ public class Parser {
         try {
             return new MenuAddCommand(
                     matcher.group("name"),
-
                     matcher.group("price"),
-                    //isPrivatePrefixPresent(matcher.group("isPricePrivate")),
                     matcher.group("type"),
-
                     getTagsFromArgs(matcher.group("tagArguments"))
             );
         } catch (IllegalValueException ive) {
@@ -464,10 +405,10 @@ public class Parser {
             final int targetIndex = parseArgsAsDisplayedIndex(matcher.group("targetIndex"));
             return new EmployeeEditCommand(
                     targetIndex,
-                    prepareEditArg(matcher.group("phone"), "phone"),
-                    prepareEditArg(matcher.group("email"), "email"),
-                    prepareEditArg(matcher.group("address"), "address"),
-                    prepareEditArg(matcher.group("position"), "position")
+                    matcher.group("phone"),
+                    matcher.group("email"),
+                    matcher.group("address"),
+                    matcher.group("position")
             );
         } catch (ParseException | NumberFormatException e) {
             return new IncorrectCommand(String.format(
@@ -479,39 +420,10 @@ public class Parser {
     }
 
     /**
-     * Returns new information to be edited if it is not empty,
-     * else returns a placeholder string indicating that there is no new information
-     */
-    private static String prepareEditArg(String toCheck, String argumentType) {
-        if (toCheck == null || toCheck.isEmpty()) {
-            switch(argumentType) {
-            case "phone":
-                toCheck = "00000000";
-                break;
-            case "email":
-                toCheck = "noargs@noargs.com";
-                break;
-            default:
-                toCheck = "noargs";
-                break;
-            }
-            return toCheck;
-        }
-        return toCheck;
-    }
-
-    /**
-     * Checks whether the private prefix of a contact detail in the add command's arguments string is present.
-     */
-    private static boolean isPrivatePrefixPresent(String matchedPrefix) {
-        return matchedPrefix.equals("p");
-    }
-
-    /**
-     *      * Extracts the new person's tags from the add command's tag arguments string.
+     *      * Extracts the new menu's tags from the add command's tag arguments string.
      *      * Merges duplicate tag strings.
      */
-    private static Set<String> getTagsFromArgs(String tagArguments) throws IllegalValueException {
+    private static Set<String> getTagsFromArgs(String tagArguments) {
         // no tags
         if (tagArguments.isEmpty()) {
             return Collections.emptySet();
@@ -520,22 +432,6 @@ public class Parser {
         final Collection<String> tagStrings = Arrays.asList(tagArguments.replaceFirst(" t/", "").split(" t/"));
         return new HashSet<>(tagStrings);
     }
-
-    /**
-     * Parses arguments in the context of the delete person command.
-     *
-     * @param args full command args string
-     * @return the prepared command
-     */
-    private Command prepareDelete(String args) {
-        try {
-            final int targetIndex = parseArgsAsDisplayedIndex(args);
-            return new DeleteCommand(targetIndex);
-        } catch (ParseException | NumberFormatException e) {
-            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
-        }
-    }
-
 
     /**
      * Parses arguments in the context of the delete menu item command.
@@ -568,75 +464,6 @@ public class Parser {
         }
     }
 
-    /**
-     * Parses arguments in the context of the view command.
-     *
-     * @param args full command args string
-     * @return the prepared command
-     */
-    private Command prepareView(String args) {
-
-        try {
-            final int targetIndex = parseArgsAsDisplayedIndex(args);
-            return new ViewCommand(targetIndex);
-        } catch (ParseException | NumberFormatException e) {
-            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                    ViewCommand.MESSAGE_USAGE));
-        }
-    }
-
-    /**
-     * Parses arguments in the context of the view all command.
-     *
-     * @param args full command args string
-     * @return the prepared command
-     */
-    private Command prepareViewAll(String args) {
-
-        try {
-            final int targetIndex = parseArgsAsDisplayedIndex(args);
-            return new ViewAllCommand(targetIndex);
-        } catch (ParseException | NumberFormatException e) {
-            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                    ViewAllCommand.MESSAGE_USAGE));
-        }
-    }
-
-    /**
-     * Parses arguments in the context of the view all menu item command.
-     *
-     * @param args full command args string
-     * @return the prepared command
-     */
-    private Command prepareViewAllMenu(String args) {
-
-        try {
-            final int targetIndex = parseArgsAsDisplayedIndex(args);
-            return new MenuViewAllCommand(targetIndex);
-        } catch (ParseException | NumberFormatException e) {
-            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                    MenuViewAllCommand.MESSAGE_USAGE));
-        }
-    }
-
-    /**
-     * Parses arguments in the context of the find person command.
-     *
-     * @param args full command args string
-     * @return the prepared command
-     */
-    private Command prepareFind(String args) {
-        final Matcher matcher = KEYWORDS_ARGS_FORMAT.matcher(args.trim());
-        if (!matcher.matches()) {
-            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                    FindCommand.MESSAGE_USAGE));
-        }
-
-        // keywords delimited by whitespace
-        final String[] keywords = matcher.group("keywords").split("\\s+");
-        final Set<String> keywordSet = new HashSet<>(Arrays.asList(keywords));
-        return new FindCommand(keywordSet);
-    }
 
     /**
      * Parses arguments in the context of the find menu command.
@@ -652,7 +479,7 @@ public class Parser {
         }
 
         // keywords delimited by whitespace
-        final String[] keywords = matcher.group("keywords").split("\\s+");
+        final String[] keywords = matcher.group("keywords").toLowerCase().split("\\s+");
         final Set<String> keywordSet = new HashSet<>(Arrays.asList(keywords));
         return new MenuFindCommand(keywordSet);
     }
@@ -681,17 +508,55 @@ public class Parser {
      */
     private Command prepareDraftOrderEditDish(String args) {
         try {
-            final Matcher matcher = ORDER_DISH_ARGS_FORMAT.matcher(args.trim());
+            args = args.trim();
+            final Matcher matcher = DRAFT_DISH_ARGS_FORMAT.matcher(args);
             // Validate arg string format
             if (!matcher.matches()) {
-                throw new ParseException("Could not find index number and quantity to parse");
+                throw new ParseException("Could not find index numbers and quantities to parse");
             }
-            final int targetIndex = Integer.parseInt(matcher.group("targetIndex"));
-            final int quantity = Integer.parseInt(matcher.group("quantity"));
-            return new DraftOrderEditDishCommand(targetIndex, quantity);
+            Map<Integer, Integer> indexQuantityPairs = new HashMap<>();
+            int i = 0;
+            int index = 0;
+            int quantity;
+            for (String argument: args.split("\\s+")) {
+                if (!argument.isEmpty()) {
+                    if (i % 2 == 0) {
+                        index = Integer.parseInt(argument);
+                        if (indexQuantityPairs.containsKey(index)) {
+                            throw new IllegalValueException("Duplicate indexes detected");
+                        }
+                    } else {
+                        quantity = Integer.parseInt(argument.substring(2));
+                        indexQuantityPairs.put(index, quantity);
+                    }
+                    i++;
+                }
+            }
+            return new DraftOrderEditDishCommand(indexQuantityPairs);
         } catch (ParseException | NumberFormatException e) {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                    DraftOrderEditDishCommand.MESSAGE_USAGE));
+                    DraftOrderEditDishCommand.MESSAGE_INVALID_FORMAT));
+        } catch (IllegalValueException ive) {
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    DraftOrderEditDishCommand.MESSAGE_DUPLICATE_INDEX));
+        }
+    }
+
+    /**
+     *  Parses arguments in the context of the edit draft points command.
+     */
+    private Command prepareDraftOrderEditPoints(String args) {
+        try {
+            final Matcher matcher = REDEEM_POINTS_ARGS_FORMAT.matcher(args.trim());
+            // Validate arg string format
+            if (!matcher.matches()) {
+                throw new ParseException("Could not find the points to redeem");
+            }
+            final int points = Integer.parseInt(matcher.group("points"));
+            return new DraftOrderEditPointsCommand(points);
+        } catch (ParseException | NumberFormatException e) {
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    DraftOrderEditPointsCommand.MESSAGE_USAGE));
         }
     }
 

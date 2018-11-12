@@ -19,7 +19,7 @@ import seedu.addressbook.data.statistics.AsciiTable;
 import seedu.addressbook.data.statistics.QuantityRevenuePair;
 
 /**
- * Lists all food items in the address book to the user.
+ * Lists all menu statistics in the Rms to the user.
  */
 public class StatsMenuCommand extends Command {
 
@@ -28,7 +28,11 @@ public class StatsMenuCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ":\n"
             + "Displays statistics information for menu items.\n"
             + "Select date range from ddmmyyyy to ddmmyyyy with f/ddmmyyyy and t/ddmmyyyy\n\t"
-            + "Example: " + COMMAND_WORD + " [f/24102018] [t/26102018]";
+            + "Format: " + COMMAND_WORD + " [f/ddmmyyyy] [t/ddmmyyyy]\n\t"
+            + "Example: " + COMMAND_WORD + " f/12122017 t/11112018\n\t"
+            + "         " + COMMAND_WORD + " f/01012018";
+
+    public static final String MESSAGE_NO_ORDER = "There are no orders in the system to calculate menu stats.";
 
     private Date dateFrom;
     private Date dateTo;
@@ -40,13 +44,13 @@ public class StatsMenuCommand extends Command {
         sb.append("Displaying menu statistics ");
         if (dateFrom != null) {
             this.dateFrom = stringToDate(dateFrom);
-            sb.append("from " + dateFormat.format(this.dateFrom) + " ");
+            sb.append("from ").append(dateFormat.format(this.dateFrom)).append(" ");
         } else {
             this.dateFrom = new Date(0);
         }
         if (dateTo != null) {
             this.dateTo = stringToDate(dateTo);
-            sb.append("until " + dateFormat.format(this.dateTo));
+            sb.append("until ").append(dateFormat.format(this.dateTo));
         } else {
             this.dateTo = new Date();
         }
@@ -56,14 +60,18 @@ public class StatsMenuCommand extends Command {
 
     @Override
     public CommandResult execute() {
-        return new StatsCommandResult(heading + getMenuStats());
+        if (getMenuStats().equalsIgnoreCase(MESSAGE_NO_ORDER)) {
+            return new StatsCommandResult(MESSAGE_NO_ORDER);
+        } else {
+            return new StatsCommandResult(heading + getMenuStats());
+        }
     }
 
     private String getMenuStats() {
         StringBuilder sb = new StringBuilder();
         List<ReadOnlyOrder> allOrders = rms.getAllOrders().immutableListView();
         if (allOrders.isEmpty()) {
-            return "There are no orders in the system to calculate menu stats.";
+            return MESSAGE_NO_ORDER;
         }
         List<ReadOnlyMenus> allMenu = rms.getAllMenus().immutableListView();
         Map<ReadOnlyMenus, QuantityRevenuePair> allMenuSales = new TreeMap<>();
@@ -82,11 +90,11 @@ public class StatsMenuCommand extends Command {
                 if (!allMenuSales.containsKey(entry.getKey())) {
                     allMenuSales.put(entry.getKey(),
                             new QuantityRevenuePair(entry.getValue(),
-                                    entry.getKey().getPrice().convertValueOfPricetoDouble()));
+                                    entry.getKey().getPrice().convertValueOfPriceToDouble()));
                 } else {
                     allMenuSales.put(entry.getKey(),
                             allMenuSales.get(entry.getKey()).addData(entry.getValue(),
-                                    entry.getKey().getPrice().convertValueOfPricetoDouble()));
+                                    entry.getKey().getPrice().convertValueOfPriceToDouble()));
                 }
             }
         }
@@ -104,7 +112,7 @@ public class StatsMenuCommand extends Command {
             ReadOnlyMenus menu = sortedMenu.get(i).getKey();
             int quantity = sortedMenu.get(i).getValue().getQuantity();
             sb.append(menu.getName());
-            sb.append(" sold " + quantity + "\n");
+            sb.append(" sold ").append(quantity).append("\n");
 
             // Replace with menu.type during merge
             String type = menu.getType().value;
@@ -153,7 +161,7 @@ public class StatsMenuCommand extends Command {
         return calendar.getTime();
     }
 
-    private static Map<String, ReadOnlyMenus> getBs(List<ReadOnlyOrder> allOrders, List<ReadOnlyMenus> allMenu) {
+    public static Map<String, ReadOnlyMenus> getBs(List<ReadOnlyOrder> allOrders, List<ReadOnlyMenus> allMenu) {
         if (allOrders.isEmpty()) {
             return null;
         }
@@ -167,12 +175,12 @@ public class StatsMenuCommand extends Command {
             for (Map.Entry<ReadOnlyMenus, Integer> entry : dishItems.entrySet()) {
                 if (!allMenuSales.containsKey(entry.getKey())) {
                     int quantity = entry.getValue();
-                    double revenue = entry.getKey().getPrice().convertValueOfPricetoDouble();
+                    double revenue = entry.getKey().getPrice().convertValueOfPriceToDouble();
                     QuantityRevenuePair qr = new QuantityRevenuePair(quantity, revenue);
                     allMenuSales.put(entry.getKey(), qr);
                 } else {
                     int quantity = entry.getValue();
-                    double revenue = entry.getKey().getPrice().convertValueOfPricetoDouble();
+                    double revenue = entry.getKey().getPrice().convertValueOfPriceToDouble();
                     QuantityRevenuePair qr = allMenuSales.get(entry.getKey());
                     qr.addData(quantity, revenue);
                     allMenuSales.put(entry.getKey(), qr);
