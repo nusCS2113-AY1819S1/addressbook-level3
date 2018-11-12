@@ -49,14 +49,14 @@ public class LoginTest {
         assertEquals(password, credentials.getPassword() );
     }
 
-    @Test
-    public void testValidateCredentials() {
-        assertTrue(credentials.validateCredentials());
-        credentials.setPassword("fakePass123!@#");
-        assertFalse(credentials.validateCredentials());
-        credentials.setUsername("fakeUser123!@#");
-        assertFalse(credentials.validateCredentials());
-    }
+//    @Test
+//    public void testValidateCredentials() {
+//        assertTrue(credentials.validateCredentials());
+//        credentials.setPassword("fakePass123!@#");
+//        assertFalse(credentials.validateCredentials());
+//        credentials.setUsername("fakeUser123!@#");
+//        assertFalse(credentials.validateCredentials());
+//    }
 
 //    @Test
 //    public void testDeleteAndAddLogin(){
