@@ -8,6 +8,8 @@ image::homepage.png[]
 
 == Overview
 
+My name is Ang Wei Ming and I am a Year 2 student majoring in Information Security at National University of Singapore. Over the past 12 weeks I have been working on a project for the twinned module CS2113T/CS2101 with my team. The following is a my portfolio for this project that we have completed.
+
 This portfolio serves to provide an insight on the Restaurant Management System (RMS) project such as the purpose of this project, as well as the various features that our team has developed. Also stated are the different roles of each team members in the project and more importantly the contributions that I have made to the code and documentations.
 
 === Project Description
