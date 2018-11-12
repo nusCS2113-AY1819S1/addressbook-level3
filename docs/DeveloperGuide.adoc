@@ -207,7 +207,6 @@ The sort feature provides an avenue for users to view their MediBook entries in 
 In the future, the sort feature can be further enhanced in the following ways.
 
 . Sort according to appointment date with earliest appointment first
-. Sort according to a chosen tag (e.g. by patient/doctor)
 
 
 
