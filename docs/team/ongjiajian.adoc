@@ -1,0 +1,74 @@
+= Ong Jia Jian - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== About Me
+I am currently an undergraduate of National University of Singapore. I am in my year 2 of the Computer Engineering course and am expecting to graduate in mid-2021. I code, study, play and eat in Singapore.
+
+== PROJECT: AddressBook - Level 4
+
+== Why?
+
+AddressBook - Level 3 is a desktop address book application used for teaching Software Engineering principles in NUS under the module CS2113/T. Students are expected to work with the application to create a solution to a current real-world problem.
+After countless hours spent on ideation, my team and I singled out healthcare as  a prominent issue that needs to be addressed.
+
+MediBook is the result of me and my team's efforts on AddressBook.
+
+== Overview
+
+MediBook is a form of a centralised database to store all patient and staff information within a hospital. MediBook reduces inefficientices in the current healthcare system and can work as  a desktop and mobile application.
+The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 10 kLoC.
+
+== Summary of contributions
+
+* *Major enhancement 1*: added *the login feature for access to MediBook by individual account*
+** What it does: allows the user to log in to his own account on MediBook.
+** Justification: As the medical information of patients are highly sensitive and private, only staff members should have access. This personalised individual access is enabled with logins and accounts.
+** Highlights: After careful consideration, this enhancement is implemented as a standalone plugin; it does not affect the code of MediBook thus allowing for changes to the login system to be made with ease. The security features behind the login system is in line with industry standards and took a huge effort to implement.
+** Credits: _{mention here if you reused any code/ideas from elsewhere or if a third-party library is heavily used in the feature so that a reader can make a more accurate judgement of how much effort went into the feature}_
+
+* *Major enhancement 2*: added *authorisation and access levels*
+** What it does: allows for hierarchical viewing of sensitive information and data.
+** Justification: Even amongst doctors in the same institution, patient data should not be shared so loosely. Authorisation and access levels enables only the patient's direct doctor to be privy to his information, maintaining confidentiality of a patients data.
+** Highlights: [this feature is still in the works]
+
+* *Minor enhancement*: worked with editing text files and hashing passwords to store the login credentials of every account secure
+
+* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
+
+* *Other contributions*:
+
+** Project management:
+*** Managed releases `v1.1` - `v1.2` (2 releases) on GitHub
+** Enhancements to existing features:
+*** added NRIC field to Person class to be used as Username for Login feature and to maintain uniqueness of users
+*** Wrote additional tests for existing features to increase coverage from 0% to 4.7%
+** Documentation:
+*** Did cosmetic tweaks to existing contents of the User Guide: https://github.com[#14]
+** Community:
+*** PRs reviewed (with non-trivial review comments):
+*** Contributed to forum discussions
+*** Tested and reported bugs and suggestions for other teams in the class
+*** Some parts of the history feature I added was adopted by several other class mates
+
+== Contributions to the User Guide
+
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+include::../UserGuide.adoc[tag=undoredo]
+
+include::../UserGuide.adoc[tag=dataencryption]
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+include::../DeveloperGuide.adoc[tag=undoredo]
+
+include::../DeveloperGuide.adoc[tag=dataencryption]

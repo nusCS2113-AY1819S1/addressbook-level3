@@ -50,12 +50,18 @@ Help is also shown if you enter an incorrect command e.g. `abcd`
 Shows a list of all persons in the MediBook. +
 Format: `list`
 
-=== 4.3 Clearing all entries : `clear`
+=== 4.3 Sorting the list : `sort`
+
+Sorts the list of entries in MediBook according to alphabetical order.
+After the list is sorted, future commands will use the index of the sorted list.
+Format: `sort`
+
+=== 4.4 Clearing all entries : `clear`
 
 Clears all entries from the MediBook. +
 Format: `clear`
 
-=== 4.4 Finding all persons containing any keyword in their name: `find`
+=== 4.5 Finding all persons containing any keyword in their name: `find`
 
 Finds persons whose names contain any of the given keywords. +
 Format: `find KEYWORD [MORE_KEYWORDS]`
@@ -74,7 +80,7 @@ Returns `John Doe` and `john`.
 * `find Betsy Tim John` +
 Returns Any person having names `Betsy`, `Tim`, or `John`.
 
-=== 4.5 Adding a person: `add`
+=== 4.6 Adding a person: `add`
 
 Adds a person to the MediBook. +
 Format: `add NAME n/NRIC [p]p/PHONE_NUMBER [p]e/EMAIL [p]a/ADDRESS [p]s/TITLE [d/DD-MM-YYYY-HH:MM]... [t/TAG]...`
@@ -103,7 +109,7 @@ Examples:
 * `add John Doe n/S1239875U p/98765432 e/johnd@gmail.com a/311, Clementi Ave 2, #02-25 s/Patient d/01-01-2019-13:00 d/09-11-2018-14:00 t/hasDiabetesType2 t/onInsulinTherapy`
 * `add Betsy Crowe n/S7654321T pp/1234567 e/betsycrowe@gmail.com pa/Newgate Prison s/Doctor`
 
-=== 4.6 Deleting a person : `delete`
+=== 4.7 Deleting a person : `delete`
 
 Deletes the specified person from the MediBook. +
 Format: `delete INDEX`
@@ -126,7 +132,7 @@ Deletes the 2nd person in the MediBook.
 `delete 1` +
 Deletes the 1st person in the results of the `find` command.
 
-=== 4.7 View non-private details of a person : `view`
+=== 4.8 View non-private details of a person : `view`
 
 Displays the non-private details of the specified person. +
 Format: `view INDEX`
@@ -149,7 +155,7 @@ Views the 2nd person in the MediBook.
 `view 1` +
 Views the 1st person in the results of the `find` command.
 
-=== 4.8 View all details of a person : `viewall`
+=== 4.9 View all details of a person : `viewall`
 
 Displays all details (including private details) of the specified person. +
 Format: `viewall INDEX`
@@ -173,7 +179,7 @@ Views all details of the 2nd person in the MediBook.
 Views all details of the 1st person in the results of the `find` command.
 
 
-=== 4.9 Selecting a person to edit appointment: `edit-appointment`
+=== 4.10 Selecting a person to edit appointment: `edit-appointment`
 
 Selects the person to edit appointment. +
 Format: 'edit-appointment INDEX'
@@ -199,7 +205,7 @@ Access to the 2nd person in the MediBook.
 `edit-appointment 1` +
 Access to the 1st person in the results of the `find` command.
 
-==== 4.9.1 Viewing help : `help`
+==== 4.10.1 Viewing help : `help`
 
 Shows the help screen for the edit-appointment session. +
 Format: `help`
@@ -209,12 +215,12 @@ Format: `help`
 Help is also shown if you enter an incorrect command e.g. `abcd`
 ====
 
-==== 4.9.2 Listing the appointment of the selected person: `list`
+==== 4.10.2 Listing the appointment of the selected person: `list`
 
 Shows a list of all appointment of the selected person in the MediBook. +
 Format: `list`
 
-==== 4.9.3 Adding appointment to the selected person: `add`
+==== 4.10.3 Adding appointment to the selected person: `add`
 
 Adds appointments to the selected person in MediBook. +
 Format: `add DD-MM-YYYY-HH:MM...`
@@ -231,7 +237,7 @@ Examples:
 * `add 01-01-2019-13:00 02-01-2019-14:00 03-01-2019-15:00`
 
 
-==== 4.9.4 Deleting appointment of the selected person: `delete`
+==== 4.10.4 Deleting appointment of the selected person: `delete`
 
 Deletes appointments from the selected person in MediBook. +
 Format: `delete DD-MM-YYY-HH:MM...`
@@ -245,12 +251,12 @@ Examples:
 * `delete 01-01-2019-13:00`
 * `delete 01-01-2019-13:00 02-01-2019-14:00 03-01-2019-15:00`
 
-==== 4.9.5 Exiting the edit-appointment session: `done`
+==== 4.10.5 Exiting the edit-appointment session: `done`
 
 Exits the edit-appointment session. +
 Format: `done`
 
-=== 4.10 Create an associate between a doctor and a patient: `link`
+=== 4.11 Create an associate between a doctor and a patient: `link`
 
 Create an association between person specified at INDEX1 and the person specified at INDEX2  +
 Format: `link INDEX1 INDEX2`
@@ -272,9 +278,9 @@ Examples:
 `link 1 2` +
 Associate the 1st person in the MediBook with 2nd person in the MediBook.
 
-=== 4.11 Unlink
+=== 4.12 Unlink
 
-=== 4.12 Listing all persons associated: `associatelist`
+=== 4.13 Listing all persons associated: `associatelist`
 
 Shows a list of all persons associated with the specified person  +
 Format: `associatelist INDEX`
@@ -294,15 +300,6 @@ Examples:
 * `list` +
 `associatelist 2` +
 Views all persons associated with the 2nd person in the MediBook.
-
-=== 4.13 Opening MediChat : `chat` (Coming soon in v1.4)
-
-Opens up MediChat, an instant messaging client to instantly contact your colleagues.
-
-Note: In V1.3, the chat server has to be started first. Once MediChat window opens, type "localhost" when the IP address is requested. Next, enter a unique username.
-To simulate chatting, multiple MediChat windows have to be opened.
-
-Format: `chat` `localhost`
 
 === 4.14 Change Password
 

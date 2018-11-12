@@ -22,22 +22,22 @@ public class UndoCommand extends Command {
         try {
             prepUndo();
             saveHistory(COMMAND_WORD);
-            List<ReadOnlyPerson> allPersons = addressBook.getAllPersons().immutableListView();
-            List<ReadOnlyPerson> editableAllPersons = addressBook.getAllPersons().mutableListView();
+            List<ReadOnlyPerson> allPersons = addressBook.getMutableListView();
+            List<ReadOnlyPerson> editableAllPersons = addressBook.getMutableListView();
             return new CommandResult(MESSAGE_SUCCESS, allPersons, editableAllPersons);
         } catch (CommandStack.HistoryOutOfBoundException hoobe){
             return new CommandResult(MESSAGE_NO_COMMAND);
-        } catch (Exception e){
+        } catch (CommandStack.ImplementationErrorException iee){
             return new CommandResult(MESSAGE_FAILURE);
         }
     }
 
     /**
-     * Gets the UndoAbleCommand object to be undone and execute its undo
-     * @throws Exception if something goes wrong with undo-ing
+     * Call the undo logic in command stack
+     * @throws CommandStack.HistoryOutOfBoundException if there is no command to be undone
+     * @throws CommandStack.ImplementationErrorException if something went wrong while executing undo logic
      */
-    public void prepUndo() throws Exception {
-        UndoAbleCommand toUndo = commandStack.undoLast();
-        toUndo.executeUndo();
+    public void prepUndo() throws CommandStack.HistoryOutOfBoundException, CommandStack.ImplementationErrorException {
+        commandStack.undoLast();
     }
 }

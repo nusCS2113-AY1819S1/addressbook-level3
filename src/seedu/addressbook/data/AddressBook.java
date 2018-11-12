@@ -7,6 +7,8 @@ import seedu.addressbook.data.person.UniquePersonList;
 import seedu.addressbook.data.person.UniquePersonList.DuplicatePersonException;
 import seedu.addressbook.data.person.UniquePersonList.PersonNotFoundException;
 
+import java.util.List;
+
 /**
  * Represents the entire address book. Contains the data of the address book.
  */
@@ -90,6 +92,12 @@ public class AddressBook {
      */
     public UniquePersonList getAllPersons() {
         return new UniquePersonList(allPersons);
+    }
+    /**
+     * Defensively copied UniquePersonList of all persons in the address book at the time of the call and returns the mutableListView of it
+     */
+    public List<ReadOnlyPerson> getMutableListView() {
+        return new UniquePersonList(allPersons).mutableListView();
     }
 
     @Override
