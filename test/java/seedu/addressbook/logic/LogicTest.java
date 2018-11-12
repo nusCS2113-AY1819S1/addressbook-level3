@@ -51,7 +51,6 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 import org.junit.rules.TemporaryFolder;
 
-import seedu.addressbook.common.PatrolResourceStatus;
 import seedu.addressbook.autocorrect.AutoCorrect;
 import seedu.addressbook.autocorrect.CheckDistance;
 import seedu.addressbook.commands.AddCommand;
@@ -81,6 +80,7 @@ import seedu.addressbook.commands.ViewAllCommand;
 import seedu.addressbook.common.HttpRestClient;
 import seedu.addressbook.common.Location;
 import seedu.addressbook.common.Messages;
+import seedu.addressbook.common.PatrolResourceStatus;
 import seedu.addressbook.data.AddressBook;
 import seedu.addressbook.data.exception.PatrolResourceUnavailableException;
 import seedu.addressbook.data.person.DateOfBirth;
@@ -100,6 +100,7 @@ import seedu.addressbook.password.Password;
 import seedu.addressbook.storage.StorageFile;
 import seedu.addressbook.timeanddate.TimeAndDate;
 import seedu.addressbook.ui.UiFormatter;
+
 
 public class LogicTest {
 
@@ -1533,7 +1534,7 @@ public class LogicTest {
         final String input = InboxCommand.COMMAND_WORD;
         final String input1 = ShowUnreadCommand.COMMAND_WORD;
         final String expected = String.format(InboxCommand.MESSAGE_TOTAL_MESSAGE_NOTIFICATION, 0, 0);
-        final String expected1 = Messages.MESSAGE_NO_UNREAD_MSGS; 
+        final String expected1 = Messages.MESSAGE_NO_UNREAD_MSGS;
         assertCommandBehavior(input, expected);
         assertCommandBehavior(input1, expected1);
     }
