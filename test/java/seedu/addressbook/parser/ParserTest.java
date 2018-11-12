@@ -84,6 +84,7 @@ public class ParserTest {
         parseAndAssertCommandType(input, HelpCommand.class);
     }
 
+    //@@author SalsabilTasnia
     @Test
     public void menuClearCommand_parsedCorrectly() {
         final String input = "clearmenu";
@@ -108,27 +109,7 @@ public class ParserTest {
         parseAndAssertCommandType(input, MenuShowMainMenuCommand.class);
     }
 
-    @Test
-    public void menuListByTypeCommand_noArgs() {
-        // no keywords
-        final String inputs = "listmenutype";
-        final String resultMessage =
-                String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, MenuListByTypeCommand.MESSAGE_USAGE);
-
-        parseAndAssertIncorrectWithMessage(resultMessage, inputs);
-    }
-
-    @Test
-    public void menuListByTypeCommand_validArgs_parsedCorrectly() {
-        final String type = "main";
-        //final Set<String> keySet = new HashSet<>(Arrays.asList(keywords));
-        final String input = "listmenutype " + type;
-        final MenuListByTypeCommand result =
-                parseAndAssertCommandType(input, MenuListByTypeCommand.class);
-        assertEquals(type, result.getItemword());
-    }
-
-
+    //@@author
     @Test
     public void statsEmployeeCommand_parsedCorrectly() {
         final String input = "statsemp";
@@ -205,6 +186,7 @@ public class ParserTest {
      * Test single index argument commands
      */
 
+    //@@author SalsabilTasnia
     @Test
     public void menuDeleteCommand_noArgs() {
         final String[] inputs = { "delmenu", "delmenu " };
@@ -229,6 +211,7 @@ public class ParserTest {
         assertEquals(result.getTargetIndex(), testIndex);
     }
 
+    //@@author
     @Test
     public void draftOrderEditCustomerCommand_noArgs() {
         final String[] inputs = { "draftcustomer", "draftcustomer " };
@@ -278,8 +261,9 @@ public class ParserTest {
         assertEquals(result.getTargetIndex(), testIndex);
     }
 
+    //@@author SalsabilTasnia
     /**
-     * Test find persons by keyword in name command
+     * Test find menu items by keyword in name command
      */
 
     @Test
@@ -317,11 +301,35 @@ public class ParserTest {
         assertEquals(keySet, result.getKeywords());
     }
 
+    //@@author SalsabilTasnia
+    /**
+     * Test listing menu items according to their category types command
+     */
+
+    @Test
+    public void menuListByTypeCommand_noArgs() {
+        // no keywords
+        final String inputs = "listmenutype";
+        final String resultMessage =
+                String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, MenuListByTypeCommand.MESSAGE_USAGE);
+
+        parseAndAssertIncorrectWithMessage(resultMessage, inputs);
+    }
+
+    @Test
+    public void menuListByTypeCommand_validArgs_parsedCorrectly() {
+        final String type = "main";
+        //final Set<String> keySet = new HashSet<>(Arrays.asList(keywords));
+        final String input = "listmenutype " + type;
+        final MenuListByTypeCommand result =
+                parseAndAssertCommandType(input, MenuListByTypeCommand.class);
+        assertEquals(type, result.getItemword());
+    }
+
+    //@@author SalsabilTasnia
     /**
      * Test add menu item command
      */
-
-    //Testing for invalid argument cases in add menu command (invalid if the price prefix is not present)
 
     @Test
     public void menuAddCommand_invalidArgs() {
@@ -424,6 +432,7 @@ public class ParserTest {
         return sb.toString();
     }
 
+    //@@author
     /**
      * Test add member command
      */

@@ -115,6 +115,7 @@ public class Rms {
         allMembers.add(toAdd);
     }
 
+    //@@author SalsabilTasnia
     /**
      * Adds a menu item to the menu list.
      *
@@ -133,6 +134,7 @@ public class Rms {
         allOrders.add(toAdd);
     }
 
+    //@@author SalsabilTasnia
     /**
      * Checks if an equivalent menu item exists in the menu list.
      */
@@ -148,6 +150,17 @@ public class Rms {
     }
 
     /**
+<<<<<<< HEAD
+     * Checks if an equivalent employee exists in the Rms.
+     */
+    public boolean containsEmployee(ReadOnlyEmployee key) {
+        return allEmployees.containsDuplicate(key);
+    }
+
+    //@@author SalsabilTasnia
+    /**
+=======
+>>>>>>> 30777a089bd7526f53b2644a1dda5c30d2fd345b
      * Removes the equivalent menu item from the menu.
      *
      * @throws MenuNotFoundException if no such Order could be found.
@@ -199,6 +212,7 @@ public class Rms {
         allEmployees.edit(toRemove, toReplace);
     }
 
+    //@@author SalsabilTasnia
     /**
      * Clears all menu items from the menu.
      */
@@ -235,6 +249,7 @@ public class Rms {
         return new UniqueAttendanceList(allAttendance);
     }
 
+    //@@author SalsabilTasnia
     /**
      * Defensively copied UniqueMenuList of all menu items in the menu at the time of the call.
      */

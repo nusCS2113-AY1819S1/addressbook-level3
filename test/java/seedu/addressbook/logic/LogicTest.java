@@ -307,6 +307,7 @@ public class LogicTest {
         assertMemberCommandBehavior(commandWord + " 3", expectedMessage, Rms.empty(), false, lastShownList);
     }
 
+    //@@author SalsabilTasnia
     /**
      * Executes the menu command and confirms that the result message is correct.
      * Both the 'Rms' and the 'last shown menu list' are expected to be empty.
@@ -978,6 +979,7 @@ public class LogicTest {
         assertEquals(expectedTier3, testTier.toString());
     }
 
+    //@@author SalsabilTasnia
     @Test
     public void execute_addmenu_invalidArgsFormat() throws Exception {
         String expectedMessage = String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, MenuAddCommand.MESSAGE_USAGE);
@@ -1048,12 +1050,9 @@ public class LogicTest {
     @Test
     public void execute_listmenu_showsAllMenuItems() throws Exception {
         // prepare expectations
-        // TestDataHelper helper = new TestDataHelper();
         Rms expectedRms = new Rms();
         List<? extends ReadOnlyMenus> expectedMenuList = expectedRms.getAllMenus().immutableListView();
 
-        // prepare Rms state
-        //helper.addToRMS(rms, expectedMenuList);
 
         assertMenuCommandBehavior("listmenu",
                 Command.getMessageForMenuListShownSummary(expectedMenuList),
@@ -1272,6 +1271,7 @@ public class LogicTest {
         assertMenuCommandBehavior("showmainmenu", expectedMessage);
     }
 
+    //@@author
     @Test
     public void execute_clearorder() throws Exception {
         TestDataHelper helper = new TestDataHelper();

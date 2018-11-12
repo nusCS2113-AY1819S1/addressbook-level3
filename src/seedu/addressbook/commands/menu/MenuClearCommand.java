@@ -3,6 +3,7 @@ package seedu.addressbook.commands.menu;
 import seedu.addressbook.commands.Command;
 import seedu.addressbook.commands.CommandResult;
 
+//@@author SalsabilTasnia
 /**
  * Clears the menu list.
  */
