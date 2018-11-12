@@ -6,7 +6,7 @@ import java.text.SimpleDateFormat;
 //@@author iamputradanish
 
 /**
- * TODO: Add Javadoc comment
+ * Produces a timestamp given by system device.
  */
 public class TimeAndDate {
     private static SimpleDateFormat timeStampFormatter = new SimpleDateFormat("dd/MM/yyyy-HH:mm:ss:SSS");
@@ -22,7 +22,7 @@ public class TimeAndDate {
     }
 
     /**
-     * TODO: Add Javadoc comment
+     * Formats time and date by appending "Hrs"
      * @param theTime
      * @return
      */
@@ -36,7 +36,7 @@ public class TimeAndDate {
     }
 
     /**
-     * TODO: Add Javadoc comment
+     * Formats time and date by appending "Hrs"
      * @param theTime
      * @return
      */

@@ -166,7 +166,7 @@ public class StorageFile {
     //@@iamputradanish
 
     /**
-     * TODO: Add Javadoc comment
+     * populates Police Records with 20 individuals
      * @return
      * @throws IllegalValueException
      */
