@@ -528,7 +528,7 @@ public class Parser {
             int i = 0;
             int index = 0;
             int quantity;
-            for (String argument: args.split(" ")) {
+            for (String argument: args.split("\\s+")) {
                 if (!argument.isEmpty()) {
                     if (i % 2 == 0) {
                         index = Integer.parseInt(argument);
