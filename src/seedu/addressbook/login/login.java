@@ -15,6 +15,7 @@ public class login {
 //                System.out.println("Welcome to AddressBook3");
                 usernameF = "Administrator";
                 accesslevelF = 0;
+                credentials.validateCredentials();
                 return true;
             }else if(credentials.validateCredentials()){
 //                System.out.println("2Welcome to AddressBook3");

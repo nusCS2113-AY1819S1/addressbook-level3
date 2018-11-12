@@ -46,6 +46,7 @@ public class WorkWithLoginStorage {
     }
 
     public static boolean addLogin(Credentials username) {
+        openScanner();
         try {
             PrintWriter pw = new PrintWriter(new FileWriter(logins, true));
             pw.print("\n" + username.getUsername() + " " + hashing.hashIt(username.getPassword()) + " " + username.getAccessLevel());
