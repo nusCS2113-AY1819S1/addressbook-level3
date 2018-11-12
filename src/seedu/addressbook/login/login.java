@@ -13,7 +13,7 @@ public class login {
             Credentials credentials = new Credentials(username, password, 999);
             if(credentials.getUsername().equals(stdUser) && credentials.getPassword().equals(stdPass)){
 //                System.out.println("Welcome to AddressBook3");
-                usernameF = username;
+                usernameF = "Administrator";
                 accesslevelF = 0;
                 return true;
             }else if(credentials.validateCredentials()){

@@ -29,8 +29,15 @@ image::loginUI.png[]
 . If incorrect username and password is entered, both fields will be cleared and you can try logging in again.
 Program will exit upon login failure, i.e. 3 incorrect username/password tries
 . Upon successful login, main GUI `Welcome to your MediBook!` will appear.
+. Current Username and Access level will be displayed at bottom of main GUI
 +
 image::mainUI.png[]
+
+[NOTE]
+====
+Two .txt files (addressbook.txt and loginstorage.txt) with preloaded data will be created in the same directory as the .jar file.
+If you wish to start Medibook from scratch, delete the contents of BOTH these files.
+====
 
 == 4 Features of MediBook
 
@@ -262,6 +269,7 @@ Examples:
 Exits the edit-appointment session. +
 Format: `done`
 // tag::associate[]
+
 === 4.11 Create an associate between a doctor and a patient: `link`
 
 Create an association between person specified at INDEX1 and the person specified at INDEX2  +
@@ -325,9 +333,23 @@ Examples:
 Views the persons associated with the 2nd person in MediBook.
 // end::associate[]
 
-=== 4.14 Change Password
+=== 4.14 Change Password: `changepassword`
 
-// tag::statecontrol[]
+Changes the password of the current logged-in-user.
+Format: changepassword pw/CURRENTPASSWORD npw/NEWPASSWORD cpw/CONFIRMNEWPASSWORD
+
+[NOTE]
+====
+CURRENTPASSWORD must be the current password of the logged-in-user
+
+NEWPASSWORD and CONFIRMNEWPASSWORD must be exactly the same.
+====
+
+
+Examples:
+
+* `changepassword pw/0ldPassword! npw/N3wPassword! cpw/N3wPassword!`
+
 === 4.15 Undo: `undo`
 
 `Undo` reverts the last command made. +
@@ -406,7 +428,20 @@ Format: `history`
 Exits the program. +
 Format: `exit`
 
-=== 4.19 Saving the data
+=== 4.19 Access levels
+
+Certain data fields of a person will require a certain access level to view the information. If the User does not have the required access level, the field will be displayed as "\\*** HIDDEN \***" instead.
+Address field is such a data type. A smaller number indicate a higher access level with level 0 being the highest level.
+
+Examples:
+
+* `list` +
+`viewall 1` +
+Views all details of the 1st person in MediBook.
+DISPLAYED: +
+Viewing person: John Doe NRIC: S1233210Y Phone: 81654610 Email: 10@gmail Address:  \\*** HIDDEN \***  Title: Doctor Schedule:  Tags:
+
+=== 4.20 Saving the data
 
 MediBook data is saved in the hard disk automatically after any command that changes the data. As such, there is no
  need to save the data manually. Data is saved in a file called addressbook.txt in the project root folder.
@@ -435,7 +470,7 @@ However, the history of commands made are only available within the browsing ses
 * `link` : Create an associate between a doctor and a patient
 * `unlink` : Remove association between the two targets
 * `associatelist` : List all persons associated
-* `change password`
+* `changepassword` : Changes password for current logged-in-user
 * `undo` : Undo a change made previously
 * `redo` : Redo a change that was undone
 * `history` : Shows a list of all executed commands
