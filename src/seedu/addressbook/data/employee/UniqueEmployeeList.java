@@ -18,6 +18,8 @@ import seedu.addressbook.data.exception.DuplicateDataException;
  */
 public class UniqueEmployeeList implements Iterable<Employee> {
 
+    private final List<Employee> employeeInternalList = new ArrayList<>();
+
     /**
      * Signals that an operation would have violated the 'no duplicates' property of the list.
      */
@@ -32,8 +34,6 @@ public class UniqueEmployeeList implements Iterable<Employee> {
      * there is no such matching employee in the list.
      */
     public static class EmployeeNotFoundException extends Exception {}
-
-    private final List<Employee> employeeInternalList = new ArrayList<>();
 
     /**
      * Constructs empty employee list.

@@ -25,13 +25,12 @@ public class Price {
      *
      * @throws IllegalValueException if given phone string is invalid.
      */
-    public Price(String price/*, boolean isPrivate*/) throws IllegalValueException {
-        //this.isPrivate = isPrivate;
-        price = price.trim();
-        if (!isValidPrice(price)) {
+    public Price(String price) throws IllegalValueException {
+        String trimmedPrice = price.trim();
+        if (!isValidPrice(trimmedPrice)) {
             throw new IllegalValueException(MESSAGE_PRICE_CONSTRAINTS);
         }
-        this.value = price;
+        this.value = trimmedPrice;
     }
 
     /**

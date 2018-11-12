@@ -29,11 +29,11 @@ public class EmployeePosition {
      * @throws IllegalValueException if given name string is invalid.
      */
     public EmployeePosition(String value) throws IllegalValueException {
-        value = value.trim();
-        if (!isValidPosition(value)) {
+        String trimmedValue = value.trim();
+        if (!isValidPosition(trimmedValue)) {
             throw new IllegalValueException(MESSAGE_POSITION_CONSTRAINTS);
         }
-        this.value = value;
+        this.value = trimmedValue;
     }
 
     /**

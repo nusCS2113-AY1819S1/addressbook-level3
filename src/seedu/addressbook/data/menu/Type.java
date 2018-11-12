@@ -25,12 +25,12 @@ public class Type {
      *
      * @throws IllegalValueException if given name string is invalid.
      */
-    public Type(String name) throws IllegalValueException {
-        name = name.trim();
-        if (!isValidTypeName(name)) {
+    public Type(String type) throws IllegalValueException {
+        String trimmedType = type.trim();
+        if (!isValidTypeName(trimmedType)) {
             throw new IllegalValueException(MESSAGE_TYPE_CONSTRAINTS);
         }
-        this.value = name;
+        this.value = trimmedType;
     }
 
     /**

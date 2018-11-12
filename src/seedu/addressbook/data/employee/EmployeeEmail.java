@@ -27,11 +27,11 @@ public class EmployeeEmail {
      * @throws IllegalValueException if given email address string is invalid.
      */
     public EmployeeEmail(String email) throws IllegalValueException {
-        email = email.trim();
-        if (!isValidEmail(email)) {
+        String trimmedEmail = email.trim();
+        if (!isValidEmail(trimmedEmail)) {
             throw new IllegalValueException(MESSAGE_EMAIL_CONSTRAINTS);
         }
-        this.value = email;
+        this.value = trimmedEmail;
     }
 
     /**

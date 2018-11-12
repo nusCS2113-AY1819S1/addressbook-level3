@@ -142,25 +142,25 @@ class TestDataHelper {
         EmployeeAddress address;
         EmployeePosition position;
 
-        if (editParam.equals("phone")) {
+        if ("phone".equals(editParam)) {
             phone = new EmployeePhone(editDetail);
         } else {
             phone = e.getPhone();
         }
 
-        if (editParam.equals("email")) {
+        if ("email".equals(editParam)) {
             email = new EmployeeEmail(editDetail);
         } else {
             email = e.getEmail();
         }
 
-        if (editParam.equals("address")) {
+        if ("address".equals(editParam)) {
             address = new EmployeeAddress(editDetail);
         } else {
             address = e.getAddress();
         }
 
-        if (editParam.equals("position")) {
+        if ("position".equals(editParam)) {
             position = new EmployeePosition(editDetail);
         } else {
             position = e.getPosition();

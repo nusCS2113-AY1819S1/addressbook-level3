@@ -27,11 +27,11 @@ public class EmployeePhone {
      * @throws IllegalValueException if given phone string is invalid.
      */
     public EmployeePhone(String phone) throws IllegalValueException {
-        phone = phone.trim();
-        if (!isValidPhone(phone)) {
+        String trimmedPhone = phone.trim();
+        if (!isValidPhone(trimmedPhone)) {
             throw new IllegalValueException(MESSAGE_PHONE_CONSTRAINTS);
         }
-        this.value = phone;
+        this.value = trimmedPhone;
     }
 
     /**

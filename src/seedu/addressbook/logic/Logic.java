@@ -48,11 +48,11 @@ public class Logic {
         setRms(rms);
     }
 
-    void setStorage(StorageFile storage) {
+    public void setStorage(StorageFile storage) {
         this.storage = storage;
     }
 
-    void setRms(Rms rms) {
+    public void setRms(Rms rms) {
         this.rms = rms;
     }
 
