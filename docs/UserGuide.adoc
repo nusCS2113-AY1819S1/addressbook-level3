@@ -124,9 +124,10 @@ System adds Cheese Fries to the existing menu.
 
 Delete an item on the menu +
 Format: `delmenu INDEX`+
-Preconditions: The user must perform 'List Menu' , 'List Menu According to Category' or 'Find Menu' first before performing 'Delete Menu'
+Preconditions: The user must perform 'List Menu' , 'List Menu According to Category' or 'Find Menu' use cases first before performing 'Delete Menu'
 
 * Deletes the menu item in that particular index
+* INDEX should be less than or equal to the total number of food items stated at the end of the list
 
 Example: +
 `listmenutype main` +

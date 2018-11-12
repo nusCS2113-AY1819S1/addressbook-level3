@@ -197,10 +197,9 @@ generated from the ordering commands.
 // tag::Data[]
 [[Design-Data]]
 === Data component
-
 [[fig-DataComponent]]
 .Structure of the Data Component
-image::DataComponent.png[width="800"]
+image::DataComponent.png[width="600"]
 
 *API* :
 link:{repoURL}/src/seedu/addressbook/data[`data`]
