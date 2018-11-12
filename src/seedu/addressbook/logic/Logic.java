@@ -21,8 +21,10 @@ import seedu.addressbook.storage.StorageFile;
 public class Logic {
 
     private StorageFile storage;
+    //@@author px1099
     private Rms rms;
 
+    //@@author kangmingtay
     /**
      * The list of member shown to the user most recently.
      */
@@ -34,12 +36,13 @@ public class Logic {
      */
     private List<? extends ReadOnlyMenus> lastShownMenuList = Collections.emptyList();
 
-    //@@author
+    //@@author px1099
     /**
      *  The list of order shown to the user most recently.
      */
     private List<? extends ReadOnlyOrder> lastShownOrderList = Collections.emptyList();
 
+    //@@author kianhong95
     /**
      * The list of employee shown to the user most recently.
      */
@@ -50,6 +53,7 @@ public class Logic {
      */
     private List<? extends Attendance> lastShownAttendanceList = Collections.emptyList();
 
+    //@@author
     public Logic() throws Exception {
         setStorage(initializeStorage());
         setRms(storage.load());
@@ -80,6 +84,7 @@ public class Logic {
         return storage.getPath();
     }
 
+    //@@author kangmingtay
     /**
      * Unmodifiable view of the current last shown member list.
      */
@@ -87,6 +92,7 @@ public class Logic {
         return Collections.unmodifiableList(lastShownMemberList);
     }
 
+    //@@author kianhong95
     /**
      * Unmodifiable view of the current last shown order list.
      */
@@ -109,7 +115,7 @@ public class Logic {
         return Collections.unmodifiableList(lastShownMenuList);
     }
 
-    //@@author
+    //@@author px1099
     /**
      * Unmodifiable view of the current last shown order list.
      */
@@ -122,15 +128,17 @@ public class Logic {
         lastShownMenuList = newList;
     }
 
-    //@@author
+    //@@author px1099
     protected void setLastShownOrderList(List<? extends ReadOnlyOrder> newList) {
         lastShownOrderList = newList;
     }
 
+    //@@author kangmingtay
     protected void setLastShownMemberList(List<? extends ReadOnlyMember> newList) {
         lastShownMemberList = newList;
     }
 
+    //@@author kianhong95
     protected void setLastShownEmployeeList(List<? extends ReadOnlyEmployee> newList) {
         lastShownEmployeeList = newList;
     }
@@ -139,6 +147,7 @@ public class Logic {
         lastShownAttendanceList = newList;
     }
 
+    //@@author
     /**
      * Parses the user command, executes it, and returns the result.
      * @throws Exception if there was any problem during command execution.
@@ -168,6 +177,7 @@ public class Logic {
         return result;
     }
 
+    //@@author px1099
     /**
      * Updates the last shown lists if the result contains a list of result Objects.
      */
@@ -186,5 +196,7 @@ public class Logic {
             lastShownEmployeeList = employeeList.get();
         }
     }
+
+    //@@author
 }
 
