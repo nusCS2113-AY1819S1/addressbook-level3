@@ -12,8 +12,8 @@ public class hashing {
         try {
             return getHash(password, hashAlgo);
         }catch (Exception b){
-            System.out.println("sometihing");
-            return "gg";
+            b.printStackTrace();
+            return "";
         }
     }
 
@@ -24,9 +24,9 @@ public class hashing {
             byte[] hash = digest.digest(password.getBytes());
             return bytesToStringHex(hash);
         } catch (NoSuchAlgorithmException a) {
-            System.out.println("nosuchalgo found");
+            a.printStackTrace();
         }
-        return "abc";
+        return "";
     }
 
     private static String bytesToStringHex(byte[] bytes) {

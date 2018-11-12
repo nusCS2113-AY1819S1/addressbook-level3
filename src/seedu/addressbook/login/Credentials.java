@@ -1,8 +1,6 @@
 package seedu.addressbook.login;
 
 import seedu.addressbook.data.exception.IllegalValueException;
-import java.io.IOException;
-import java.util.Scanner;
 
 public class Credentials {
     private static final String USERNAME_VALIDATION_REGEX = "[stST]\\d{7}\\w";
@@ -15,27 +13,10 @@ public class Credentials {
     private int ACCESSLEVEL;
 
     public Credentials(String username, String password, int accesslevel){
-//        if(isValidUsername(username)){
             USERNAME = username;
-//            if(isValidPassword(password)){
                 PASSWORD = password;
                 ACCESSLEVEL = accesslevel;
-//            }
-//            WorkWithLoginStorage.addLogin(this);
-//        }
     }
-
-//    public Credentials(String username, String password) throws IllegalValueException {
-//        if(isValidUsername(username)) setUsername(username);
-//        else{
-//            throw new IllegalValueException(MESSAGE_USERNAME_CONSTRAINTS);
-//        }
-//        if(isValidPassword(password)) setPassword(password);
-//        else{
-//            throw new IllegalValueException(MESSAGE_PASSWORD_CONSTRAINTS);
-//        }
-//        WorkWithLoginStorage.addLogin(this);
-//    }
 
     public void addCredentials(String username, String password) throws IllegalValueException {
         if(isValidUsername(username)) setUsername(username);
@@ -59,11 +40,6 @@ public class Credentials {
 
     public void newLogin(){
         WorkWithLoginStorage.addLogin(this);
-        System.out.println("newLogin called");
-    }
-
-    private String hashPassword(String toBeHashed){
-        return hashing.hashIt(toBeHashed);
     }
 
     public void validateAccessLevel(){
@@ -96,10 +72,5 @@ public class Credentials {
     }
     public void setAccessLevel(int accesslevel){
         ACCESSLEVEL = accesslevel;
-    }
-
-
-    private void deletePassword(){
-        PASSWORD = null;
     }
 }
