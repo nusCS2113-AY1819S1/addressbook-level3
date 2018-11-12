@@ -105,14 +105,6 @@ public class ClearCommand extends UndoAbleCommand {
 ----
 As shown, the commands that extends from the UndoAbleCommand will need to know how to undo and redo the changes they have made. This requires the object to store information of the change made. For example the DeleteCommand object will need store the person that was deleted so that the change made can be undone.
 
-*The following core methods are in place to assist the mechanism:*
-
-* `*undoLast()*`- Undo the command at the top of the *undoStack* and push it to the *redoStack* +
-* `*redoLast()*`- Redo the command at the top of the *redoStack* and push it to the *undoStack* +
-* `*truncateOldPath()*`- Clears the *redoStack* following a change made after undo-ing. +
-* `*addCommandToStack()*`- Push an UndoAbleCommand into the command stack +
-* `*checkForAction()*`- Check whether the `truncateOldPath()` method needs to be called before calling `addCommandToStack()`. +
-
 *Below is an example usage scenario and the behaviours of the component at a given time:*
 
 *1. On start-up:*
@@ -219,7 +211,7 @@ In the future, the sort feature can be further enhanced in the following ways.
 The association feature allows users to associate a doctor together with a patient via the link and unlink command, as well as view the persons who are associated via the associatelist command. This segment will elaborate on the implementation of this feature.
 
 ==== 4.5.1 Current Implementation
-Store name and nric as Strings. (to be alaborated).
+The association feature is implemented as a Set of `Associated` objects. The associated object will hold a String which contains the name and nric of the person that is associated.
 
 ==== 4.5.2 Reason for Implementation
 This implementation is basically storing a String of an associated person's name and their nric into a set, which is simple to implement. However, since this implementation only stores a set of string, theres is nothing much you can do with it other than viewing it.
