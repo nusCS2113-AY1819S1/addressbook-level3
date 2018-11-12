@@ -171,12 +171,18 @@ Returns:  New member added: kang ming | Email: kangming@rms.com | Available Poin
 ==== List Member
 
 Shows a list of all the members in the RMS. Displays the NAME, POINTS, DATE JOINED, MEMBERSHIP TIER of each member. +
-Format: `listmembers`
+Format: `listmember`
 
-===== Delete Member
+Example: +
+`listmember`
+
+==== Delete Member
 
 Delete membership details of a member in the RMS +
 Format: `delmember INDEX`
+
+Example: +
+`delmember 1`
 
 // end::membercommands[]
 
