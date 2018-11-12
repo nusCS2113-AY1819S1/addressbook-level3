@@ -50,7 +50,7 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 import org.junit.rules.TemporaryFolder;
 
-import seedu.addressbook.PatrolResourceStatus;
+import seedu.addressbook.common.PatrolResourceStatus;
 import seedu.addressbook.autocorrect.AutoCorrect;
 import seedu.addressbook.autocorrect.CheckDistance;
 import seedu.addressbook.commands.AddCommand;

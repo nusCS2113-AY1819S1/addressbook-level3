@@ -43,7 +43,7 @@ Location is important, so backup officer knows where to travel to & ETA is cruci
 ** Able to delete a person from a record without listing beforehand
 
 * *Code contributed*:
-[https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}
+https://nuscs2113-ay1819s1.github.io/dashboard/#=undefined&search=matthew%20alexander&sort=displayName&since=2018-09-12&until=2018-10-30&timeframe=day&reverse=false&repoSort=true[Functional code & Test code]
 
 * *Other contributions*:
 ** Project management:

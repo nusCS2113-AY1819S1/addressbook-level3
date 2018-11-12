@@ -6,7 +6,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.logging.Logger;
 
-import seedu.addressbook.PatrolResourceStatus;
+import seedu.addressbook.common.PatrolResourceStatus;
 import seedu.addressbook.common.Messages;
 import seedu.addressbook.parser.Parser;
 import seedu.addressbook.readandwrite.ReaderAndWriter;

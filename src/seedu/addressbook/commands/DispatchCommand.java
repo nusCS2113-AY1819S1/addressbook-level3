@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import org.javatuples.Pair;
 import org.json.JSONException;
 
-import seedu.addressbook.PatrolResourceStatus;
+import seedu.addressbook.common.PatrolResourceStatus;
 import seedu.addressbook.common.Location;
 import seedu.addressbook.common.Messages;
 import seedu.addressbook.data.exception.IllegalValueException;

@@ -17,7 +17,7 @@ import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import seedu.addressbook.PatrolResourceStatus;
+import seedu.addressbook.common.PatrolResourceStatus;
 import seedu.addressbook.commands.AddCommand;
 import seedu.addressbook.commands.CheckCommand;
 import seedu.addressbook.commands.CheckPoStatusCommand;

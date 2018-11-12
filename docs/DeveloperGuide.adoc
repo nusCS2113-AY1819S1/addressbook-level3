@@ -74,6 +74,8 @@ This section describes some of the more important details of certain features im
 
 === 1a. Password Feature
 
+image::Password.PNG[]
+
 *Current Implementation*
 
 Users and passwords are stored in passwordStorage.txt in the format: USER (hashcoded)PASSWORD.
@@ -97,6 +99,7 @@ Alternatives considered:
 * Allowing any number of attempts to unlock device. Can be easily looped to try all permutations to access system.
 
 === 1b. Update Password Feature
+image::updatePassword.png[]
 
 *Current Implementation*
 
@@ -116,7 +119,8 @@ Alternatives considered:
 * Overwriting passwordStorage.txt . This will cause errors in replacing password.
 
 
-
+// tag::find[]
+[[find]]
 === 2a. "find" command (edited)
 
 *Current Implementation*
@@ -125,7 +129,7 @@ The new "find" command is revised from the existing "find" command in AB3. Inste
 It also implements the following operations:
 
 . execute() - executes the "find" command itself and displays the result to the user.
-. getPersonWithNric() - Searches the addressbook to retrieve the person with the specified NRIC.
+. getPersonWithNric() - Searches the Police Records to retrieve the person with the specified NRIC.
 
 The following is an example usage scenario of the "find" command:
 
@@ -139,7 +143,7 @@ Step 4: prepareFind determines string is a valid nric, then instantiates a new F
 
 Step 5: Logic class calls the execute() method on the FindCommand object.
 
-Step 6: The getPersonWithNric() method called in execute() searches the addressbook for the person with "s1234567a" if he exists and person is stored in a list.
+Step 6: The getPersonWithNric() method called in execute() searches the Police Records for the person with "s1234567a" if he exists and person is stored in a list.
 
 Step 7: The person is found and is stored in a matchedPerson list variable. execute() returns a CommandResult using the matchedPerson list as its argument.
 
@@ -151,8 +155,12 @@ Alternatives considered:
 *  Continue to use the original way of finding by name
 ** However, there could be multiple people with the same name
 ** Using nric to find people would be better as each person has a unique nric
+// end::find[]
 
+// tag::check[]
+[[check]]
 === 2b. "check" command
+image::CheckCommand_Sequence.png[]
 
 *Current Implementation*
 
@@ -164,7 +172,7 @@ corresponding to the specified NRIC.
 It also implements the following operations:
 
 . execute() - executes the "check" command itself and displays the result to the user.
-. getPersonWithNric() - Searches the addressbook to retrieve the person with the specified NRIC.
+. getPersonWithNric() - Searches the Police Records to retrieve the person with the specified NRIC.
 
 Below is an example of its usage:
 
@@ -191,15 +199,18 @@ Alternatives considered:
 ** Each timestamp would then be stored in the respective text file
 ** Pros: Retrieving timestamps would be much more efficient
 ** Cons: Space complexity would increase especially if the number of persons increased drastically
+// end::check[]
+
 // tag::edit[]
 [[edit]]
 === 2c. "edit" command
 
+image::EditCommand.png[]
 *Current Implementation*
 
 Only a HQP may use this command. This command allows HQP to update their chosen parameters which include the status, offense, postal code
 and wanted attributes of a specific NRIC. It is similar to the "find" command in the sense that
-it searches for the person in the addressBook list by NRIC.
+it searches for the person in the Police Records list by NRIC. At least one parameter must be updated. Offenses are added not replaced.
 
 It also implements these methods:
 
@@ -217,14 +228,59 @@ Step 4: prepareEdit method in Parser class would parse each non-empty input such
         from the input text to instantiate the EditCommand class.
 
 Step 5: Logic class then calls the execute method on EditCommand Object.
-        Person with NRIC "s1234567a" is searched for in the addressbook. If he/she exists,
+        Person with NRIC "s1234567a" is searched for in the Police Records. If he/she exists,
         then the person's attributes get updated accordingly.
 
 Step 6: CommandResult with successful message is returned to Logic class, which then displays
         to user: "Edited person: s1234567a".
+
+* Alternatives considered: Saving intended's person data, deleting it & adding a new person
+** Pros: Would not need to change existing implementations of Person class
+** Cons: Inefficient time complexity as need to delete & add new Person, complex implementation
+
 // end::edit[]
 
+// tag::delete[]
+[[delete]]
+=== 2d. "delete" command
+image::DeleteCommand_Sequence.png[]
+
+*Current Implementation*
+
+Only a HQP may use this command. A person's data is allowed to be deleted from the Police Records. It also
+implements the following methods:
+
+. execute() - executes the "delete" command itself and displays the success or error message to the user
+. resultDeletePrediction() - In the event that the user inputs an NRIC that does not exists, this method will check the Police Records and try to return any person with a similar NRIC to what was given by the user
+
+The following is an example usage scenario of the "delete" command:
+
+Step 1: The user(a HQP) input his password and unlocks the system.
+
+Step 2: The user executes "delete s1234567a"
+
+Step 3: Parser class determines the command word and runs prepareDelete method.
+
+Step 4: prepareDelete determines string is a valid nric, then instantiates a new DeleteCommand.
+
+Step 5: Logic class calls the execute() method on the DeleteCommand object.
+
+Step 6: In execute(), the Police Records will be iterated through to see if the person with the said NRIC exists.
+If not, resultDeletePrediction() will be called to check if any person has an NRIC close to the input.
+
+Step 7: Once the person is deleted, a success message will be displayed to the user using a CommandResult object,
+else it would be an error message stating the person with said NRIC does not exist
+
+
+Alternatives considered:
+
+* Delete by name parameter
+** Pros: Much more readable to user to delete a name than an NRIC
+** Cons: There can be more than 1 person with the same name, so deleting should use a more unique parameter
+//end ::delete[]
+
 === 3a. "showunread" command
+image::inboxCommand.png[]
 
 *Current Implementation*
 
@@ -320,6 +376,8 @@ Step 2: User executes "clearinbox" command. If command is successfully executed,
 [[request]]
 === 3e. "rb" command
 
+image::RequestCommand.PNG[]
+
 *Current Implementation*
 
 The rb command is an abbreviation of request backup.
@@ -356,11 +414,19 @@ Step 6: WriteNotification is instantiated to write the message the HQP inbox fil
 
 Step 7: CommandResult with successful message is returned to Logic class, which then displays
                 to user: "Request for backup case from po1 has been sent to HQP."
+
+
+
+* Alternatives considered: Chat Client API
+** Pros: Real time system supported, allows remote communication
+** Cons: Chat Client does not store messages after closing application (data does not persist), not much API documentation available for beginners
+
 // end::request[]
 
 // tag::dispatch[]
 [[dispatch]]
 === 3f. "dispatch" command
+image::DispatchCommand.PNG[]
 
 *Current Implementation*
 
@@ -400,7 +466,14 @@ Step 8: CommandResult with successful message is returned to Logic class, which 
         to user: "Dispatch for PO3 backup is successful."
 // end::dispatch[]
 
+* Alternatives considered: Chat Client API
+** Pros: Allows real time system with remote access so police officers can view in real time
+** Cons: Chat Client does not store messages after closing application (data does not persist), not much API documentation for beginners
+
+// tag::updatestatus[]
+[[updatestatus]]
 === 4a. "updatestatus" command
+image::UpdateStatus_Sequence.png[]
 
 *Current Implementation*
 
@@ -431,8 +504,12 @@ Alternatives considered:
 * Using a text file to store the statuses of the POs
 ** Pros: The statuses are saved even after exiting the system
 ** Cons: Time and space complexity increases especially if there are many POs to manage
+// end::updatestatus[]
 
+// tag::checkstatus[]
+[[checkstatus]]
 === 4b. "checkstatus" command
+image::CheckStatus_Sequence.png[]
 
 *Current Implementation*
 
@@ -462,11 +539,14 @@ Alternatives considered:
 * Similar to what was mentioned in "updatestatus" command section, use a text file for each PO and store their status
 ** Pros: Easier to identify a PO, just look for the text file with their ID
 ** Cons: Space would be an issue especially when there are many POs to manage
+// end::checkstatus[]
+
 
 // tag::autocorrect[]
 [[autocorrect]]
 
 === 5. Autocorrection feature
+image::AutoCorrectSequence.png[]
 
 *Current Implementation*
 
@@ -729,18 +809,39 @@ Use case ends.
 
 *Extensions*
 
-* 5a. User enters invalid NRIC format
-** 5a1. System shows an error message stating that NRIC has a certain alphanumeric format.
+* 3a. User enters an invalid password.
+** 3a1. System shows an error message.
++
+Use case resumes at step 2.
+
+* 4a. User enters invalid NRIC format
+** 4a1. System shows an error message stating that NRIC has a certain alphanumeric format.
 +
 Use case resumes at step 4.
 
-* 5b. User enters NRIC of a person that does not exist in the police records
-** 5b1. System shows an error message stating that person could not be found.
+* 4b. User enters NRIC of a person that does not exist in the police records
+** 4b1. System shows an error message stating that person could not be found.
 +
 Use case resumes at step 4.
 
-* 5c. User enters edit command with only NRIC tag without other details to change.
-** 5c1. System shows an error message stating that format is invalid
+* 4c. User enters edit command with only NRIC tag without other details to change.
+** 4c1. System shows an error message stating that format is invalid
++
+Use case resumes at step 4.
+
+* 4d. User enters edit command with proper NRIC format and Postal Code that is not 6 digits long.
+** 4d1. System shows an error message stating that Postal Code must be 6 digits long.
++
+Use case resumes at step 4.
+
+* 4e. User enters edit command with proper NRIC and wanted status that is invalid.
+** 4e1. System shows an error message stating that wanted status should be only of 3 types.
++
+Use case resumes at step 4.
+
+* 4f. User enters edit command with proper NRIC and invalid offense.
+** 4f1. System shows an error message stating offense is not in the list.
+** 4f2. System shows list of valid offenses
 +
 Use case resumes at step 4.
 
@@ -751,7 +852,8 @@ Use case resumes at step 4.
 // end::edit[]
 
 
-
+// tag::find[]
+[[find]]
 === Use case: Find person
 
 *MSS*
@@ -788,7 +890,10 @@ Use case resumes at step 6.
 ** 8a1. System shows an error message.
 +
 Use case ends.
+// end::find[]
 
+// tag::check[]
+[[check]]
 === Use case: Check person
 
 *MSS*
@@ -830,7 +935,10 @@ Use case ends.
 ** 6c1. System shows an error message.
 +
 Use case ends.
+// end::check[]
 
+// tag::updatestatus[]
+[[updatestatus]]
 === Use case: Update status of a PO
 
 *MSS*
@@ -862,7 +970,10 @@ Use case ends.
 ** 7a1. System shows an error message
 +
 Use case ends.
+// end::updatestatus[]
 
+// tag::checkstatus[]
+[[checkstatus]]
 === Use case: Check status of all POs
 
 *MSS*
@@ -887,6 +998,7 @@ Use case ends.
 ** 5a1. System shows an error message
 +
 Use case ends.
+// end::checkstatus[]
 
 //tag::usecase[]
 [[usecase]]
@@ -1112,15 +1224,20 @@ Use case resumes in step 2.
 +
 Use case resumes in step 4.
 
-* 7a. User enters an engaged police officer as backup.
-** 7a1. System shows an error message stating that the police officer entered is engaged.
+* 5b. User enters an engaged police officer as backup.
+** 5b1. System shows an error message stating that the police officer entered is engaged.
 +
 Use case resumes in step 4.
 
-* 7b. User enters an invalid case type.
-** 7b1.  System shows an error message and prompts user with list of offences.
+* 5c. User enters an invalid case type.
+** 5c1.  System shows an error message and prompts user with list of offences.
 +
 Use case resumes at step 4.
+
+* 5d. User enters same officer for backup & requester.
+** 5d1.  System shows an error message stating that backup & requester is same officer.
++
+Use Case resumes at step 4.
 // end:dispatch[]
 
 

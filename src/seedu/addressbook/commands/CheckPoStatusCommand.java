@@ -6,7 +6,7 @@ import java.util.List;
 
 import org.javatuples.Triplet;
 
-import seedu.addressbook.PatrolResourceStatus;
+import seedu.addressbook.common.PatrolResourceStatus;
 import seedu.addressbook.common.Location;
 
 /**
