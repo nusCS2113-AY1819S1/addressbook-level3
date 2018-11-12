@@ -606,9 +606,10 @@ public class LogicTest {
     @Test
     public void execute_dispatch_engagedOfficer() throws Exception {
         PatrolResourceStatus.setStatus("po3", true);
+        PatrolResourceStatus.setStatus("po2", true);
         String baseMessage = "Patrol resource %s is engaged.\n" + DispatchCommand.getMessageOfficerUnavailable();
 
-        assertCommandBehavior(DispatchCommand.COMMAND_WORD + " hqp theft po3", String.format(baseMessage, "hqp"));
+        assertCommandBehavior(DispatchCommand.COMMAND_WORD + " po2 theft po3", String.format(baseMessage, "po2"));
         assertCommandBehavior(DispatchCommand.COMMAND_WORD + " po3 riot po2", String.format(baseMessage, "po3"));
     }
 
