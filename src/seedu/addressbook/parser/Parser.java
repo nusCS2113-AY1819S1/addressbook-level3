@@ -220,13 +220,6 @@ public class Parser {
         }
     }
     //@@author
-    /**
-     * TODO: If not used, delete
-     * Checks whether the private prefix of a contact detail in the add command's arguments string is present.
-     */
-    private static boolean isPrivatePrefixPresent(String matchedPrefix) {
-        return matchedPrefix.equals("p");
-    }
 
     /**
      * Extracts the new person's tags from the add command's tag arguments string.
