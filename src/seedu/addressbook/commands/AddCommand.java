@@ -63,10 +63,8 @@ public class AddCommand extends UndoAbleCommand {
                 tagSet,
                 associatedSet
         );
-        System.out.println("newlogin condiitonadadss fulfilled");
 
         if(login.getAccesslevelF()==0 && title.equals("Doctor ")){
-            System.out.println("newlogin condiitons fulfilled");
             AddDoctorLogin(nric);
         }
     }

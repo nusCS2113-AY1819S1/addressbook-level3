@@ -40,7 +40,7 @@ The user interacts with it using a CLI, and it has a GUI created with JavaFX. It
 * *Other contributions*:
 
 ** Project management:
-*** Managed releases `v1.1` - `v1.2` (2 releases) on GitHub
+*** Managed releases `v1.1` - `v1.4` (4 releases) on GitHub
 ** Enhancements to existing features:
 *** added NRIC field to Person class to be used as Username for Login feature and to maintain uniqueness of users
 *** Wrote additional tests for existing features to increase coverage from 0% to 4.7%

@@ -5,6 +5,7 @@ import seedu.addressbook.data.AddressBook;
 import seedu.addressbook.data.exception.IllegalValueException;
 import seedu.addressbook.data.person.*;
 import seedu.addressbook.data.tag.Tag;
+import seedu.addressbook.login.Credentials;
 import seedu.addressbook.storage.jaxb.AdaptedAddressBook;
 
 import javax.xml.bind.JAXBContext;
@@ -165,7 +166,11 @@ public class StorageFile {
         UniquePersonList builder = new UniquePersonList();
         for(int i = 0; i < 20; i++){
            Person p = generatePerson(i);
-               builder.add(p);
+           if(p.getTitle().toString().equals("Doctor")){
+               Credentials credentials = new Credentials(p.getNric().toString(), p.getNric().toString(), 2);
+               credentials.newLogin();
+           }
+           builder.add(p);
         }
         return builder;
     }
@@ -191,6 +196,8 @@ public class StorageFile {
                 new HashSet<>(Arrays.asList()),
                 new HashSet<>(Arrays.asList())
         );
+
+
     }
 
     public String alternateTitle(int i){
