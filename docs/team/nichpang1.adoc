@@ -60,10 +60,3 @@ include::../DeveloperGuide.adoc[tag=logiccompo]
 include::../DeveloperGuide.adoc[tag=statecontrol]
 
 include::../DeveloperGuide.adoc[tag=associate]
-
-
-== Other Projects:
-
----
-
-* “Running game v1.0” for the independent summer project module (CP2106). Link to the app store can be found [https://play.google.com/store/apps/details?id=com.NaCl[here]].
