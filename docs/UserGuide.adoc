@@ -325,7 +325,7 @@ Examples:
 Views the persons associated with the 2nd person in MediBook.
 // end::associate[]
 
-=== 4.14 Change Password
+=== 4.14 Change Password: 'changepassword'
 
 Changes the password of the current logged-in-user.
 Format: changepassword pw/CURRENTPASSWORD npw/NEWPASSWORD cpw/CONFIRMNEWPASSWORD
