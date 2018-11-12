@@ -30,7 +30,6 @@ public class LogicTest {
     private StorageFile saveFile;
     private AddressBook addressBook;
     private Logic logic;
-    private Random rand = new Random();
 
 
     @Before
