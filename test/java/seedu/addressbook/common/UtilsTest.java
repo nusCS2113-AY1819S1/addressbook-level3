@@ -38,8 +38,7 @@ public class UtilsTest {
         assertTrue(Utils.isAnyNull(new Object(), new Object(), null));
 
         // confirms nulls inside the list are not considered
-        List<Object> nullList = Arrays.asList((Object) null);
-        assertFalse(Utils.isAnyNull(nullList));
+        assertFalse(Utils.isAnyNull((Object) null));
     }
 
     @Test

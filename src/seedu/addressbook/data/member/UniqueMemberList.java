@@ -135,13 +135,6 @@ public class UniqueMemberList implements Iterable<Member> {
         customerToUpdatePoints.updatePointsAndTier(price, usedPoints);
     }
 
-    /**
-     * Clears all members in list.
-     */
-    public void clear() {
-        internalList.clear();
-    }
-
     @Override
     public Iterator<Member> iterator() {
         return internalList.iterator();

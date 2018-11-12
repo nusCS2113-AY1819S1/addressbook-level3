@@ -136,42 +136,37 @@ class TestDataHelper {
 
     /** Generates a new employee based on the detail given */
     Employee generateEditEmployee(Employee e, String editParam, String editDetail) throws Exception {
+        EmployeeName name = e.getName();
         EmployeePhone phone;
         EmployeeEmail email;
         EmployeeAddress address;
         EmployeePosition position;
 
-        if (editParam == "phone") {
+        if (editParam.equals("phone")) {
             phone = new EmployeePhone(editDetail);
         } else {
             phone = e.getPhone();
         }
 
-        if (editParam == "email") {
+        if (editParam.equals("email")) {
             email = new EmployeeEmail(editDetail);
         } else {
             email = e.getEmail();
         }
 
-        if (editParam == "address") {
+        if (editParam.equals("address")) {
             address = new EmployeeAddress(editDetail);
         } else {
             address = e.getAddress();
         }
 
-        if (editParam == "position") {
+        if (editParam.equals("position")) {
             position = new EmployeePosition(editDetail);
         } else {
             position = e.getPosition();
         }
 
-        return new Employee(
-                e.getName(),
-                phone,
-                email,
-                address,
-                position
-                );
+        return new Employee(name, phone, email, address, position);
     }
 
     /**
@@ -271,19 +266,19 @@ class TestDataHelper {
 
         cmd.add(index);
 
-        if (editParam == "phone") {
+        if (editParam.equals("phone")) {
             cmd.add("p/" + editDetail);
         }
 
-        if (editParam == "email") {
+        if (editParam.equals("email")) {
             cmd.add("e/" + editDetail);
         }
 
-        if (editParam == "address") {
+        if (editParam.equals("address")) {
             cmd.add("a/" + editDetail);
         }
 
-        if (editParam == "position") {
+        if (editParam.equals("position")) {
             cmd.add("pos/" + editDetail);
         }
 
@@ -443,9 +438,7 @@ class TestDataHelper {
      */
     List<Employee> generateEmployeeList(Employee... employees) {
         List<Employee> employeeList = new ArrayList<>();
-        for (Employee e: employees) {
-            employeeList.add(e);
-        }
+        Collections.addAll(employeeList, employees);
         return employeeList;
     }
 
@@ -454,9 +447,7 @@ class TestDataHelper {
      */
     List<Attendance> generateAttendanceList(Attendance... attendances) {
         List<Attendance> attendanceList = new ArrayList<>();
-        for (Attendance a: attendances) {
-            attendanceList.add(a);
-        }
+        Collections.addAll(attendanceList, attendances);
         return attendanceList;
     }
 
@@ -465,9 +456,7 @@ class TestDataHelper {
      */
     List<Member> generateMemberList(Member... members) {
         List<Member> memberList = new ArrayList<>();
-        for (Member member: members) {
-            memberList.add(member);
-        }
+        Collections.addAll(memberList, members);
         return memberList;
     }
 
@@ -476,9 +465,7 @@ class TestDataHelper {
      */
     List<Menu> generateMenuList(Menu... menus) {
         List<Menu> menuList = new ArrayList<>();
-        for (Menu m: menus) {
-            menuList.add(m);
-        }
+        Collections.addAll(menuList, menus);
         return menuList;
     }
 
@@ -487,9 +474,7 @@ class TestDataHelper {
      */
     List<Order> generateOrderList(Order... orders) {
         List<Order> orderList = new ArrayList<>();
-        for (Order p: orders) {
-            orderList.add(p);
-        }
+        Collections.addAll(orderList, orders);
         return orderList;
     }
 

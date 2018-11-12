@@ -1,8 +1,5 @@
 package seedu.addressbook.data.employee;
 
-import java.util.Arrays;
-import java.util.List;
-
 import seedu.addressbook.data.exception.IllegalValueException;
 
 /**
@@ -23,7 +20,7 @@ public class EmployeePosition {
      * Empty constructor
      */
     public EmployeePosition() {
-        this.value = new String();
+        this.value = "";
     }
 
     /**
@@ -44,13 +41,6 @@ public class EmployeePosition {
      */
     public static boolean isValidPosition(String test) {
         return test.matches(POSITION_VALIDATION_REGEX);
-    }
-
-    /**
-     * Retrieves a listing of every word in the name, in order.
-     */
-    public List<String> getWordsInName() {
-        return Arrays.asList(value.split("\\s+"));
     }
 
     @Override

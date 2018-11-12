@@ -45,7 +45,7 @@ public class MemberDateTable {
         return yearMap.get(calendar.get(Calendar.YEAR)).getMonthMap().get(calendar.get(Calendar.MONTH)).getCount();
     }
 
-    public int getDayCount(Date date) {
+    public int getDayCount() {
         return yearMap.get(calendar.get(Calendar.YEAR))
                 .getMonthMap().get(calendar.get(Calendar.MONTH))
                 .getDayMap().get(calendar.get(Calendar.DATE))

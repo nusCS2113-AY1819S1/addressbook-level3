@@ -44,13 +44,13 @@ public class StatsMenuCommand extends Command {
         sb.append("Displaying menu statistics ");
         if (dateFrom != null) {
             this.dateFrom = stringToDate(dateFrom);
-            sb.append("from " + dateFormat.format(this.dateFrom) + " ");
+            sb.append("from ").append(dateFormat.format(this.dateFrom)).append(" ");
         } else {
             this.dateFrom = new Date(0);
         }
         if (dateTo != null) {
             this.dateTo = stringToDate(dateTo);
-            sb.append("until " + dateFormat.format(this.dateTo));
+            sb.append("until ").append(dateFormat.format(this.dateTo));
         } else {
             this.dateTo = new Date();
         }
@@ -90,11 +90,11 @@ public class StatsMenuCommand extends Command {
                 if (!allMenuSales.containsKey(entry.getKey())) {
                     allMenuSales.put(entry.getKey(),
                             new QuantityRevenuePair(entry.getValue(),
-                                    entry.getKey().getPrice().convertValueOfPricetoDouble()));
+                                    entry.getKey().getPrice().convertValueOfPriceToDouble()));
                 } else {
                     allMenuSales.put(entry.getKey(),
                             allMenuSales.get(entry.getKey()).addData(entry.getValue(),
-                                    entry.getKey().getPrice().convertValueOfPricetoDouble()));
+                                    entry.getKey().getPrice().convertValueOfPriceToDouble()));
                 }
             }
         }
@@ -112,7 +112,7 @@ public class StatsMenuCommand extends Command {
             ReadOnlyMenus menu = sortedMenu.get(i).getKey();
             int quantity = sortedMenu.get(i).getValue().getQuantity();
             sb.append(menu.getName());
-            sb.append(" sold " + quantity + "\n");
+            sb.append(" sold ").append(quantity).append("\n");
 
             // Replace with menu.type during merge
             String type = menu.getType().value;
@@ -175,12 +175,12 @@ public class StatsMenuCommand extends Command {
             for (Map.Entry<ReadOnlyMenus, Integer> entry : dishItems.entrySet()) {
                 if (!allMenuSales.containsKey(entry.getKey())) {
                     int quantity = entry.getValue();
-                    double revenue = entry.getKey().getPrice().convertValueOfPricetoDouble();
+                    double revenue = entry.getKey().getPrice().convertValueOfPriceToDouble();
                     QuantityRevenuePair qr = new QuantityRevenuePair(quantity, revenue);
                     allMenuSales.put(entry.getKey(), qr);
                 } else {
                     int quantity = entry.getValue();
-                    double revenue = entry.getKey().getPrice().convertValueOfPricetoDouble();
+                    double revenue = entry.getKey().getPrice().convertValueOfPriceToDouble();
                     QuantityRevenuePair qr = allMenuSales.get(entry.getKey());
                     qr.addData(quantity, revenue);
                     allMenuSales.put(entry.getKey(), qr);

@@ -1,7 +1,5 @@
 package seedu.addressbook.data.member;
 
-import static seedu.addressbook.common.Messages.MESSAGE_NEGATIVE_POINTS;
-
 import seedu.addressbook.data.exception.IllegalValueException;
 
 /**
@@ -11,6 +9,7 @@ public class Points {
 
     public static final int EARNED_POINTS_PER_DOLLAR = 10;
     public static final int REDEEMED_POINTS_PER_DOLLAR = 100;
+    public static final String MESSAGE_NEGATIVE_POINTS = "Update points cannot result in negative points.";
 
     private int currentPoints;
     private int totalPoints;
@@ -31,7 +30,6 @@ public class Points {
         this.totalPoints = totalPoints;
     }
 
-    // public final String MESSAGE_NEGATIVE_POINTS = "Update points cannot result in negative points.";
     /**
      * Converts the price into points and adds in to the existing points for the member
      * @param price of the order being made
@@ -65,15 +63,6 @@ public class Points {
         this.currentPoints = points;
     }
 
-    /**
-     * checks the points are valid
-     * @param points
-     * @return false if points are negative, true if points are positive or zero
-     */
-    public boolean isValidPoints(int points) {
-        return points >= 0;
-    }
-
     public double getRedeemedDiscount() {
         return (((double) currentPoints) / REDEEMED_POINTS_PER_DOLLAR);
     }
@@ -88,23 +77,20 @@ public class Points {
 
     @Override
     public String toString() {
-        return Integer.toString(currentPoints);
+        return Integer.toString(currentPoints) + Integer.toString(totalPoints);
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof Points // instanceof handles nulls
-                && this.toString().equals(((Points) other).currentPoints)); // state check
+                && this.currentPoints == ((Points) other).currentPoints
+                && this.totalPoints == ((Points) other).totalPoints); // state check
     }
 
     @Override
     public int hashCode() {
         return toString().hashCode();
     }
-    /*
-    public boolean isPrivate() {
-        return isPrivate;
-    }
-    */
+
 }

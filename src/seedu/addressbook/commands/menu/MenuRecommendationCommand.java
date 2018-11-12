@@ -20,6 +20,8 @@ public class MenuRecommendationCommand extends Command {
             + "Displays the best seller items as the recommendations of the month.\n\t"
             + "Example: " + COMMAND_WORD;
 
+    public static final String MESSAGE_NO_RECOMMENDATION = "There are no recommendation yet.";
+
     /**
      * Displays all the best selling items of each category in the menu, if the items in those categories are sold
      * The best selling items are obtained from the statistics that determine the best and worst selling items of
@@ -31,14 +33,16 @@ public class MenuRecommendationCommand extends Command {
         List<ReadOnlyMenus> allMenus = rms.getAllMenus().immutableListView();
         List<ReadOnlyOrder> allOrders = rms.getAllOrders().immutableListView();
         Map<String, ReadOnlyMenus> map = StatsMenuCommand.getBs(allOrders, allMenus);
-        final StringBuilder builder = new StringBuilder();
-        builder.append("Recommendations of the month are:\n\n");
-        for (Map.Entry m: map.entrySet()) {
-            builder.append(m.getKey()).append(" : \n\t").append(m.getValue()).append("\n\n");
+        if (map == null) {
+            return MESSAGE_NO_RECOMMENDATION;
+        } else {
+            final StringBuilder builder = new StringBuilder();
+            builder.append("Recommendations of the month are:\n\n");
+            for (Map.Entry<String, ReadOnlyMenus> m: map.entrySet()) {
+                builder.append(m.getKey()).append(" : \n\t").append(m.getValue()).append("\n\n");
+            }
+            return builder.toString();
         }
-
-        return builder.toString();
-
     }
 
     @Override

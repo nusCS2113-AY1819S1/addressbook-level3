@@ -29,7 +29,6 @@ public class MenuShowMainMenuCommand extends Command {
     final List<ReadOnlyMenus> typeList = new ArrayList<>();
     private List<ReadOnlyMenus> getFoodItemsBurger() {
         for (ReadOnlyMenus menuItem : rms.getAllMenus()) {
-            //final Set<String> wordsInName = new HashSet<>(burger.getType().getWordsInTypeName());
             final String wordsInItemName = menuItem.getType().value;
             typeSet.add(wordsInItemName);
             typeList.add(menuItem);

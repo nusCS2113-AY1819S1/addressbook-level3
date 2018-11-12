@@ -37,25 +37,23 @@ public class Price {
     /**
      * Convert value from String to double
      */
-    public double convertValueOfPricetoDouble() {
-        String doublevalue = this.value.substring(1);
-        double priceIndouble = Double.parseDouble(doublevalue);
-
-        return priceIndouble;
+    public double convertValueOfPriceToDouble() {
+        String doubleValue = this.value.substring(1);
+        return Double.parseDouble(doubleValue);
     }
 
     /**
      * Convert any double into a currency String format
      */
-    public static String convertPricetoString(double priceIndouble) {
-        String valueAsString = Double.toString(priceIndouble);
+    public static String convertPriceToString(double priceInDouble) {
+        String valueAsString = Double.toString(priceInDouble);
         String valueAsPrice = "$" + valueAsString;
         //ensuring the final answer is always returned in 2 decimal places
         int decimalIndex = valueAsPrice.indexOf(".");
         if ((valueAsPrice.substring(decimalIndex)).length() < 3) {
             valueAsPrice = valueAsPrice + "0";
         } else if ((valueAsPrice.substring(decimalIndex)).length() >= 3) {
-            valueAsPrice.substring(0, decimalIndex + 3);
+            valueAsPrice = valueAsPrice.substring(0, decimalIndex + 3);
 
         }
 

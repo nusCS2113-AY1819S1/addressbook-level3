@@ -11,7 +11,6 @@ import javax.xml.bind.annotation.XmlElement;
 import seedu.addressbook.common.Utils;
 import seedu.addressbook.data.employee.Attendance;
 import seedu.addressbook.data.employee.Timing;
-import seedu.addressbook.data.exception.IllegalValueException;
 
 
 /**

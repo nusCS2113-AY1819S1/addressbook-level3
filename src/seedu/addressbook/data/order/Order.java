@@ -115,7 +115,7 @@ public class Order implements ReadOnlyOrder {
     public double getOriginalPrice() {
         double result = 0;
         for (Map.Entry<ReadOnlyMenus, Integer> m: getDishItems().entrySet()) {
-            double dishPrice = m.getKey().getPrice().convertValueOfPricetoDouble();
+            double dishPrice = m.getKey().getPrice().convertValueOfPriceToDouble();
             int dishQuantity = m.getValue();
             result += (dishPrice * dishQuantity);
         }
@@ -152,17 +152,6 @@ public class Order implements ReadOnlyOrder {
         double result = getOriginalPrice();
         result -= points.getRedeemedDiscount();
         return result;
-    }
-
-    /**
-     * Get the number of a certain dish item in an order.
-     */
-    public int getDishQuantity(ReadOnlyMenus dish) {
-        if (dishItems.containsKey(dish)) {
-            return dishItems.get(dish);
-        } else {
-            return 0;
-        }
     }
 
     /**

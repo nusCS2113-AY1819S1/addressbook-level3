@@ -827,14 +827,14 @@ public class LogicTest {
 
     @Test
     public void execute_addmember_invalidNameData() throws Exception {
-        String expectedMessage = String.format(MemberName.MESSAGE_NAME_CONSTRAINTS);
+        String expectedMessage = MemberName.MESSAGE_NAME_CONSTRAINTS;
         assertMemberCommandBehavior(
                 "addmember []; e/valid@email", expectedMessage);
     }
 
     @Test
     public void execute_addmember_invalidEmailData() throws Exception {
-        String expectedMessage = String.format(MemberEmail.MESSAGE_EMAIL_CONSTRAINTS);
+        String expectedMessage = MemberEmail.MESSAGE_EMAIL_CONSTRAINTS;
         assertMemberCommandBehavior(
                 "addmember Valid Name e/invalid email", expectedMessage);
     }
@@ -1582,8 +1582,6 @@ public class LogicTest {
 
     @Test
     public void execute_addorder_missingCustomerAndDishes() throws Exception {
-        TestDataHelper helper = new TestDataHelper();
-
         Order expectedDraftOrder = new Order();
 
         String expectedMessage = Messages.MESSAGE_DRAFT_ORDER_DETAILS

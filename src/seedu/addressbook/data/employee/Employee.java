@@ -61,26 +61,6 @@ public class Employee implements ReadOnlyEmployee {
         return position;
     }
 
-    protected void setName(EmployeeName name) {
-        this.name = name;
-    }
-
-    protected void setPhone(EmployeePhone phone) {
-        this.phone = phone;
-    }
-
-    protected void setEmail(EmployeeEmail email) {
-        this.email = email;
-    }
-
-    protected void setAddress(EmployeeAddress address) {
-        this.address = address;
-    }
-
-    protected void setPosition(EmployeePosition position) {
-        this.position = position;
-    }
-
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object

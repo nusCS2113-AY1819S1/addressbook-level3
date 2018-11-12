@@ -1,8 +1,5 @@
 package seedu.addressbook.data.menu;
 
-import java.util.Arrays;
-import java.util.List;
-
 import seedu.addressbook.data.exception.IllegalValueException;
 
 /**
@@ -40,23 +37,15 @@ public class Type {
      * Returns true if a given string is a valid dish type.
      */
     public static boolean isValidTypeName(String test) {
-        return (test.equals("main") == true
-                || test.equals("sides") == true
-                || test.equals("beverage") == true
-                || test.equals("dessert") == true
-                || test.equals("others") == true
+        return (test.equals("main")
+                || test.equals("sides")
+                || test.equals("beverage")
+                || test.equals("dessert")
+                || test.equals("others")
                 || test.equals("set meal"))
-                && test.matches(TYPE_VALIDATION_REGEX) == true;
+                && test.matches(TYPE_VALIDATION_REGEX);
 
 
-    }
-
-    /**
-     * Retrieves a listing of every word in the name, in order.
-     */
-    public List<String> getWordsInTypeName() {
-
-        return Arrays.asList(value.split("\\s+"));
     }
 
     @Override

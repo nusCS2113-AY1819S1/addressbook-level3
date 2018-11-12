@@ -61,8 +61,7 @@ public class UniqueAttendanceList implements Iterable<Attendance> {
     public int getAttendanceIndex(String target) {
         for (Attendance attendance : attendanceInternalList) {
             if (attendance.getName().equals(target)) {
-                int index = attendanceInternalList.indexOf(attendance);
-                return index;
+                return attendanceInternalList.indexOf(attendance);
             }
         }
         return -1;

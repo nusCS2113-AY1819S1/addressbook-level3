@@ -27,21 +27,17 @@ public class MemberTier {
 
     /**
      * Checks the points and updates the existing tier.
-     * @param points
+     * @param points the number of Member points used for tier checking
      * @return MemberTier object with the updated tier value
      */
-    public MemberTier updateTier(Points points) {
+    public void updateTier(Points points) {
         int value = points.getCurrentPoints();
         if (value > GOLD_TIER) {
             this.tier = "Gold";
-            return this;
         } else if (value > SILVER_TIER) {
             this.tier = "Silver";
-            return this;
         } else if (value >= BRONZE_TIER) {
             this.tier = "Bronze";
-            return this;
         }
-        return this;
     }
 }

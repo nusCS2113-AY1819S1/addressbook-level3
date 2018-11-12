@@ -49,10 +49,10 @@ public class StatsMemberCommand extends Command {
                 tierCount[2]++;
             }
         }
-        res.append("Number of members: " + allMembers.size() + "\n\n");
-        res.append("New members this year: " + dateTable.getYearCount(new Date()) + "\n\n");
-        res.append("New members this month: " + dateTable.getMonthCount(new Date()) + "\n\n");
-        res.append("New members today: " + dateTable.getDayCount(new Date()));
+        res.append("Number of members: ").append(allMembers.size()).append("\n\n");
+        res.append("New members this year: ").append(dateTable.getYearCount(new Date())).append("\n\n");
+        res.append("New members this month: ").append(dateTable.getMonthCount(new Date())).append("\n\n");
+        res.append("New members today: ").append(dateTable.getDayCount());
         res.append("\n\n\n");
 
         res.append("Tier Table\n");

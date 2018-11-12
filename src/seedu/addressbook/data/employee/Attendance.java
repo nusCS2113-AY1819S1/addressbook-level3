@@ -47,14 +47,6 @@ public class Attendance {
         return new LinkedHashSet<>(timings);
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public void setClockedIn(boolean isClockedIn) {
-        this.isClockedIn = isClockedIn;
-    }
-
     @Override
     public int hashCode() {
         return Objects.hash(name, isClockedIn , timings);

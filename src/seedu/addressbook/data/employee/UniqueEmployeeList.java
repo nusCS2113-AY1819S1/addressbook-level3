@@ -78,11 +78,14 @@ public class UniqueEmployeeList implements Iterable<Employee> {
      * Checks if the list contains an employee that already exists in Rms.
      */
     public boolean containsDuplicate(ReadOnlyEmployee toCheck) {
-        return employeeInternalList.stream()
-        .filter(o -> o.getName().toString().toLowerCase()
-                .equals(toCheck.getName().toString().toLowerCase()))
-                .findFirst()
-                .isPresent();
+        String nameToCheck = toCheck.getName().toString().toLowerCase();
+        for (ReadOnlyEmployee employee: employeeInternalList) {
+            String employeeName = employee.getName().toString().toLowerCase();
+            if (employeeName.equals(nameToCheck)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     /**
@@ -122,13 +125,6 @@ public class UniqueEmployeeList implements Iterable<Employee> {
             throw new EmployeeNotFoundException();
         }
         employeeInternalList.add(toReplace);
-    }
-
-    /**
-     * Clears all employees in list.
-     */
-    public void clear() {
-        employeeInternalList.clear();
     }
 
     @Override

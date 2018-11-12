@@ -18,7 +18,7 @@ public class EmployeeEmail {
      * Empty constructor
      */
     public EmployeeEmail() {
-        this.value = new String();
+        this.value = "";
     }
 
     /**
