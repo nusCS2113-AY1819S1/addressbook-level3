@@ -10,8 +10,9 @@ import seedu.addressbook.data.exception.IllegalValueException;
 public class EmployeePhone {
 
     public static final String EXAMPLE = "91234567";
-    public static final String MESSAGE_PHONE_CONSTRAINTS = "Employee phone numbers should only contain numbers";
-    public static final String PHONE_VALIDATION_REGEX = "\\d+";
+    public static final String MESSAGE_PHONE_CONSTRAINTS = "Employee phone numbers should only contain numbers"
+                                                            + "and must be 8 digits";
+    public static final String PHONE_VALIDATION_REGEX = "\\d{8}";
 
     public final String value;
 
