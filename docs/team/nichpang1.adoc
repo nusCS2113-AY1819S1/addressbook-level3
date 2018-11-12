@@ -37,8 +37,6 @@ MediBook is an alternative to the primitive pen and paper management system for 
 *** Managed releases `v1.1` - `v1.4` (4 releases) on GitHub
 ** Documentation:
 *** Did some tweaks to organise existing contents of the Readme
-** Tools:
-*** Integrated travis-ci and auto-publishing
 
 == Contributions to the User Guide
 
