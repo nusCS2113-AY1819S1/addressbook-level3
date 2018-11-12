@@ -39,7 +39,6 @@ public class HelpCommand extends Command {
             + "Shows program usage instructions.\n\t"
             + "Example: " + COMMAND_WORD;
 
-    //@@author kangmingtay
     public static final String MESSAGE_ALL_USAGES = "1. " + HelpCommand.MESSAGE_USAGE
 
             + "\n\n2. " + EmployeeListCommand.MESSAGE_USAGE
@@ -75,7 +74,6 @@ public class HelpCommand extends Command {
 
             + "\n\n28. " + ExitCommand.MESSAGE_USAGE;
 
-    //@@author
     @Override
     public CommandResult execute() {
         return new CommandResult(MESSAGE_ALL_USAGES);
