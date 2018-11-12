@@ -95,6 +95,8 @@ This implementation was challenging because apart from the thought process, I ha
 * `Enhancements to existing features`:
 ** Updated the GUI font: https://github.com/CS2113-AY1819S1-F09-2/main/pull/94[#94]
 ** Updated the GUI size: https://github.com/CS2113-AY1819S1-F09-2/main/pull/112[#112]
+* `Code Integration`
+** Helped to integrate my team member's codes during the start of the project when we worked without the Travis CI (Continuous Integration) tool
 * `Documentation`:
 ** Addition of content to User Guide: https://github.com/CS2113-AY1819S1-F09-2/main/pull/100[#100], https://github.com/CS2113-AY1819S1-F09-2/main/pull/122[#122], https://github.com/CS2113-AY1819S1-F09-2/main/pull/213[#213]
 ** Addition of content to Developer Guide: https://github.com/CS2113-AY1819S1-F09-2/main/pull/8[#8], https://github.com/CS2113-AY1819S1-F09-2/main/pull/67[#67], https://github.com/CS2113-AY1819S1-F09-2/main/pull/114[#114], https://github.com/CS2113-AY1819S1-F09-2/main/pull/213[#213]
