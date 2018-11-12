@@ -6,6 +6,7 @@ import javax.xml.bind.annotation.XmlValue;
 import seedu.addressbook.common.Utils;
 import seedu.addressbook.data.employee.Timing;
 
+//@@author kianhong95
 /**
  * JAXB-friendly adapted tag data holder class.
  */

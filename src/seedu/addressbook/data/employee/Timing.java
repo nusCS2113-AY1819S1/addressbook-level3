@@ -1,8 +1,8 @@
-//@@author kianhong95
 package seedu.addressbook.data.employee;
 
 import java.util.Objects;
 
+//@@author kianhong95
 /**
  * Represents a Timing field in the Rms.
  */

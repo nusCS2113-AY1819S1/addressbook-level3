@@ -1,4 +1,3 @@
-//@@author kianhong95
 package seedu.addressbook.data.employee;
 
 import java.util.ArrayList;
@@ -11,6 +10,7 @@ import java.util.List;
 import seedu.addressbook.common.Utils;
 import seedu.addressbook.data.exception.DuplicateDataException;
 
+//@@author kianhong95
 /**
  * A list of employees. Does not allow null elements or duplicates.
  *

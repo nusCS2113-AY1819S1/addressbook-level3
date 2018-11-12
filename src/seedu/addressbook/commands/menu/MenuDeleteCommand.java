@@ -6,7 +6,6 @@ import seedu.addressbook.common.Messages;
 import seedu.addressbook.data.menu.ReadOnlyMenus;
 import seedu.addressbook.data.menu.UniqueMenuList.MenuNotFoundException;
 
-
 //@@author SalsabilTasnia
 /**
  * Deletes a menu item identified using it's last displayed index from the Rms.

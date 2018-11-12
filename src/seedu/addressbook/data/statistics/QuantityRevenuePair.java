@@ -1,5 +1,6 @@
 package seedu.addressbook.data.statistics;
 
+//@@author AngWM
 /**
  * Represents a pair of data: quantity and revenue of a statistic field
  */

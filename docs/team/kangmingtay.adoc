@@ -115,4 +115,5 @@ include::../UserGuide.adoc[tag=membercommands]
 
 include::../DeveloperGuide.adoc[tag=architecture]
 include::../DeveloperGuide.adoc[tag=MemberUseCases]
+include::../DeveloperGuide.adoc[tag=draftpointsimplementation]
 

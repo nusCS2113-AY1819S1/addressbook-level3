@@ -13,7 +13,7 @@ import seedu.addressbook.data.member.MemberTier;
 import seedu.addressbook.data.member.Points;
 import seedu.addressbook.data.member.ReadOnlyMember;
 
-
+//@@author kangmingtay
 /**
  * JAXB-friendly adapted person data holder class.
  */

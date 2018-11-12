@@ -25,22 +25,29 @@ import seedu.addressbook.data.order.UniqueOrderList;
 @XmlRootElement(name = "Rms")
 public class AdaptedRms {
 
+    //@@author SalsabilTasnia
     @XmlElement(name = "menus")
     private List<AdaptedMenu> menus = new ArrayList<>();
+    //@@author kangmingtay
     @XmlElement(name = "members")
     private List<AdaptedMember> members = new ArrayList<>();
+    //@@author kianhong95
     @XmlElement(name = "employees")
     private List<AdaptedEmployee> employees = new ArrayList<>();
+    //@@author px1099
     @XmlElement(name = "orders")
     private List<AdaptedOrder> orders = new ArrayList<>();
+    //@@author kianhong95
     @XmlElement(name = "attendance")
     private List<AdaptedAttendance> attendances = new ArrayList<>();
 
+    //@@author
     /**
      * No-arg constructor for JAXB use.
      */
     public AdaptedRms() {}
 
+    //@@author AngWM
     public AdaptedRms(Rms source) {
         source.getAllMenus().forEach(menu -> menus.add(new AdaptedMenu(menu)));
         source.getAllEmployees().forEach(employee -> employees.add(new AdaptedEmployee(employee)));
@@ -49,7 +56,7 @@ public class AdaptedRms {
         source.getAllAttendance().forEach(attendance -> attendances.add(new AdaptedAttendance(attendance)));
     }
 
-
+    //@@author px1099
     /**
      * Returns true if any required field is missing.
      *
@@ -66,6 +73,7 @@ public class AdaptedRms {
                 || attendances.stream().anyMatch(AdaptedAttendance::isAnyRequiredFieldMissing));
     }
 
+    //@@author AngWM
     /**
      * Converts this jaxb-friendly {@code AdaptedRms} object into the corresponding(@code Rms} object.
      * @throws IllegalValueException if there were any data constraints violated in the adapted person
@@ -105,4 +113,6 @@ public class AdaptedRms {
                 new UniqueAttendanceList(attendanceList)
         );
     }
+
+    //@@author
 }

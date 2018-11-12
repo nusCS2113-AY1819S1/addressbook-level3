@@ -2,7 +2,6 @@ package seedu.addressbook.data.menu;
 
 import seedu.addressbook.data.exception.IllegalValueException;
 
-
 //@@author SalsabilTasnia
 /**
  * Price of a particular menu item in the Restaurant Management System.
