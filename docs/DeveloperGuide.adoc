@@ -54,6 +54,16 @@ image::LoginComponentClassDiagram.png[]
 
 image::LogicComponentClassDiagram.png[]
 // end::logiccompo[]
+
+// tag::storage[]
+
+=== 3.4 Storage Component
+
+image::StorageComponentClassDiagram.png[]
+The storage component stores MediBook data in an XML format and is able to translate it back into a human-readable format in MediBook
+
+// end::storage[]
+
 == 4. Implementation
 This section describes some noteworthy details on how certain features are implemented.
 // tag::statecontrol[]
@@ -198,11 +208,13 @@ In future versions, the following details would be slowly incremented to ensure 
 . A command to view all or list the appointments in a chronological order following the reference date.
 . A doctor can view their respective patients appointment
 
+// tag::devorganisation[]
 === 4.4 Data Organisation
 Sorts entries in MediBook according to alphabetical order
 
 ==== 4.4.1 Current Implementation
-When the sort command is entered, the integrated sort function is called on the list of persons from UniquePersonList, using alphabetical order as the comparator.
+When the sortname command is entered, the integrated sort function is called on the list of persons from UniquePersonList, using alphabetical order as the comparator.
+When the sorttitle command is entered, Medibook entries are sorted according to alphabetical order within their sorted title.
 
 The sort command does not access the stored data directly.
 
@@ -213,13 +225,14 @@ The sort feature provides an avenue for users to view their MediBook entries in 
 In the future, the sort feature can be further enhanced in the following ways.
 
 . Sort according to appointment date with earliest appointment first
+// end::devorganisation[]
 
 // tag::associate[]
 === 4.5 Association
 The association feature allows users to associate a doctor together with a patient via the link and unlink command, as well as view the persons who are associated via the associatelist command. This segment will elaborate on the implementation of this feature.
 
 ==== 4.5.1 Current Implementation
-Store name and nric as Strings. (to be alaborated).
+Store name and NRIC as Strings. (to be elaborated).
 
 ==== 4.5.2 Reason for Implementation
 This implementation is basically storing a String of an associated person's name and their nric into a set, which is simple to implement. However, since this implementation only stores a set of string, theres is nothing much you can do with it other than viewing it.

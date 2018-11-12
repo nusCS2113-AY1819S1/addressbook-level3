@@ -1193,6 +1193,46 @@ public class LogicTest {
                                 expectedList);
     }
 
+    @Test
+    public void execute_sortname_sortsAccordingToAlphabeticalOrder() throws Exception   {
+        TestDataHelper helper = new TestDataHelper();
+        Person pTarget1 = helper.generatePersonWithName("Zulu", 1);
+        Person pTarget2 = helper.generatePersonWithName("Tango", 2);
+        Person p1 = helper.generatePersonWithName("Alpha", 3);
+        Person p2 = helper.generatePersonWithName("Delta", 4);
+
+        List<Person> fourPersons = helper.generatePersonList(p1, pTarget1, p2, pTarget2);
+        AddressBook expectedAB = helper.generateAddressBook(fourPersons);
+        List<Person> expectedList = helper.generatePersonList(p1, p2, pTarget2, pTarget1);
+        helper.addToAddressBook(addressBook, fourPersons);
+
+        assertCommandBehavior("sortname",
+                Command.getMessageForPersonListShownSummary(expectedList),
+                expectedAB,
+                true,
+                expectedList);
+    }
+
+    @Test
+    public void execute_sorttitle_sortsAccordingToTitle() throws Exception   {
+        TestDataHelper helper = new TestDataHelper();
+        Person pTarget1 = helper.generatePersonWithNameTitle(1, "Delta",  "Doctor");
+        Person pTarget2 = helper.generatePersonWithNameTitle(2, "Alpha", "Patient");
+        Person p1 = helper.generatePersonWithNameTitle(3, "Bravo", "Doctor");
+        Person p2 = helper.generatePersonWithNameTitle(4, "Charlie", "Patient");
+
+        List<Person> fourPersons = helper.generatePersonList(p1, pTarget1, p2, pTarget2);
+        AddressBook expectedAB = helper.generateAddressBook(fourPersons);
+        List<Person> expectedList = helper.generatePersonList(p1, pTarget1, pTarget2, p2);
+        helper.addToAddressBook(addressBook, fourPersons);
+
+        assertCommandBehavior("sorttitle",
+                Command.getMessageForPersonListShownSummary(expectedList),
+                expectedAB,
+                true,
+                expectedList);
+    }
+
     /**
      * A utility class to generate test data.
      */
@@ -1259,6 +1299,23 @@ public class LogicTest {
         Person generatePersonWithTitle(int seed, String title) throws Exception {
             return new Person(
                     new Name("Person " + seed),
+                    new Nric("S12343" + seed + seed + "Y", false),
+                    new Phone("" + Math.abs(seed), false),
+                    new Email(seed + "@email", false),
+                    new Address("House of " + seed, false),
+                    new Title(title),
+                    new HashSet<>(Arrays.asList(new Schedule("26-01-2019-11:00"), new Schedule("19-02-2019-23:00"))),
+                    new HashSet<>(Arrays.asList(new Tag("tag" + Math.abs(seed)), new Tag("tag" + Math.abs(seed + 1)))),
+                    new HashSet<>(Arrays.asList(new Associated("associate1")))
+            );
+        }
+
+        /**
+         * Generates a Person object with given name and title. Other fields will have some dummy values.
+         */
+        Person generatePersonWithNameTitle(int seed, String name, String title) throws Exception {
+            return new Person(
+                    new Name(name),
                     new Nric("S12343" + seed + seed + "Y", false),
                     new Phone("" + Math.abs(seed), false),
                     new Email(seed + "@email", false),
