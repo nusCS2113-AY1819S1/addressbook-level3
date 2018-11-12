@@ -26,13 +26,10 @@ MediBook is an alternative to the primitive pen and paper management system for 
 * *Minor enhancement*:
 ** Added a history command that allows the user to view a list of commands that were executed previously.
 ** Added a “Title” field in the Person class to differentiate a patient and a doctor in MediBook
-** Existing commands are adjusted to accommodate the changed Person class
-** Unit tests and parser arguments are adjusted to cater to said changes
 
 * *Code contributed*: [https://nuscs2113-ay1819s1.github.io/dashboard/#=undefined&search=nichpang1[Code]]
 
 * *Other contributions*:
-
 ** Project management:
 *** Managed releases `v1.1` - `v1.4` (4 releases) on GitHub
 ** Documentation:
@@ -42,7 +39,7 @@ MediBook is an alternative to the primitive pen and paper management system for 
 
 
 |===
-|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|_Given below are sections I contributed to the User Guide._
 |===
 
 include::../UserGuide.adoc[tag=associate]
@@ -52,7 +49,7 @@ include::../UserGuide.adoc[tag=statecontrol]
 == Contributions to the Developer Guide
 
 |===
-|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|_Given below are sections I contributed to the Developer Guide._
 |===
 
 include::../DeveloperGuide.adoc[tag=logiccompo]
