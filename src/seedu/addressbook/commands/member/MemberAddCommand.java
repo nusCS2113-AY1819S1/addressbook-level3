@@ -9,7 +9,7 @@ import seedu.addressbook.data.member.MemberName;
 import seedu.addressbook.data.member.ReadOnlyMember;
 import seedu.addressbook.data.member.UniqueMemberList;
 
-
+//@@author kangmingtay
 /**
  * Adds a member to the member list.
  */

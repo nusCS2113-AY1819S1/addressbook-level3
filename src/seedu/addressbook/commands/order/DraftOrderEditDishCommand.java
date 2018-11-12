@@ -8,6 +8,7 @@ import seedu.addressbook.commands.CommandResult;
 import seedu.addressbook.common.Messages;
 import seedu.addressbook.data.menu.ReadOnlyMenus;
 
+//@@author px1099
 /**
  * Edit the quantity of a dish item of the draft order.
  * The dish item is retrieved with the index of last displayed menu.
@@ -22,7 +23,7 @@ public class DraftOrderEditDishCommand extends Command {
             + "Parameters: INDEX q/QUANTITY [INDEX q/QUANTITY]...\n\t"
             + "Example: " + COMMAND_WORD + " 1 q/4 3 q/2";
 
-    public static final String MESSAGE_SUCCESS = "The dishes are edited in the draft order.";
+    public static final String MESSAGE_SUCCESS = "The dishes are edited in the draft order.\n%1$s";
 
     public static final String MESSAGE_INVALID_FORMAT = "The entered command does not follow the format\n"
             + "INDEX must be a non-negative integer\n"
@@ -57,7 +58,7 @@ public class DraftOrderEditDishCommand extends Command {
                 ReadOnlyMenus target = getTargetMenu();
                 rms.editDraftOrderDishItem(target, quantity);
             }
-            String message = MESSAGE_SUCCESS + "\n" + getDraftOrderAsString();
+            String message = String.format(MESSAGE_SUCCESS, getDraftOrderAsString());
             return new CommandResult(message);
         } catch (IndexOutOfBoundsException ie) {
             return new CommandResult(Messages.MESSAGE_INVALID_MENU_ITEM_DISPLAYED_INDEX);

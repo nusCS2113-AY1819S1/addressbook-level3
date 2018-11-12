@@ -2,6 +2,7 @@ package seedu.addressbook.data.member;
 
 import seedu.addressbook.data.exception.IllegalValueException;
 
+//@@author kangmingtay
 /**
  * Represents the number of membership point of a Member in the member list.
  */

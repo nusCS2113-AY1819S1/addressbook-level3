@@ -6,6 +6,7 @@ import seedu.addressbook.data.exception.IllegalValueException;
 import seedu.addressbook.data.member.Points;
 import seedu.addressbook.data.order.ReadOnlyOrder;
 
+//@@author kangmingtay
 /**
  * Edit the amount of points to redeem from the customer of the draft order.
  * The points to be redeemed will be keyed in and retrieved.
@@ -19,15 +20,15 @@ public class DraftOrderEditPointsCommand extends Command {
             + "Parameters: POINTS\n\t"
             + "Example: " + COMMAND_WORD + " 50";
 
-    public static final String MESSAGE_SUCCESS = "Points to be redeemed has been assigned into the draft";
+    public static final String MESSAGE_SUCCESS = "Points to be redeemed has been assigned into the draft\n%1$s";
 
-    public static final String MESSAGE_EMPTY_CUSTOMER_FIELD = "Member needs to be added first!";
+    public static final String MESSAGE_EMPTY_CUSTOMER_FIELD = "Member needs to be added first!\n%1$s";
 
-    public static final String MESSAGE_EMPTY_DISH_FIELD = "At least one dish needs to be added first!";
+    public static final String MESSAGE_EMPTY_DISH_FIELD = "At least one dish needs to be added first!\n%1$s";
 
-    public static final String MESSAGE_NO_REDEEMABLE_POINTS = "Member does not have any points to redeem!";
+    public static final String MESSAGE_NO_REDEEMABLE_POINTS = "Member does not have any points to redeem!\n%1$s";
 
-    public static final String MESSAGE_NEGATIVE_POINTS = "Points to be redeemed must not be a negative value!";
+    public static final String MESSAGE_NEGATIVE_POINTS = "Points to be redeemed must not be a negative value!\n%1$s";
 
     private final Points toRedeem;
 
@@ -55,11 +56,11 @@ public class DraftOrderEditPointsCommand extends Command {
                     points = maxPointsRedeemable;
                 }
                 rms.editDraftOrderPoints(points);
-                String message = MESSAGE_SUCCESS + "\n" + getDraftOrderAsString();
+                String message = String.format(MESSAGE_SUCCESS, getDraftOrderAsString());
                 return new CommandResult(message);
             }
         } catch (IllegalValueException e) {
-            String message = e.getMessage() + "\n" + getDraftOrderAsString();
+            String message = String.format(e.getMessage(), getDraftOrderAsString());
             return new CommandResult(message);
         }
     }

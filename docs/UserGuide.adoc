@@ -22,13 +22,9 @@ The Restaurant Management System (RMS) provides restaurants with a more efficien
 
 == Quick Start
 .  Ensure you have Java version `9` or later installed in your Computer.
+.  Download the latest `Rms.jar` here
 .  Copy the file to the folder you want to use as the home folder for your Restaurant Management System.
-.  Import the file into Intellij.
-.  Find the project pane (usually located at the left side).
-.  Open up src/seedu.addressbook folder.
-.  Right Click on `Main`.
-.  Click `Run Main.main()`.
-.  The GUI should appear in a few seconds.
+.  Double-click the file to start the application. The GUI should appear in a few seconds.
 +
 image::Ui.png[]
 +
@@ -44,6 +40,7 @@ image::Ui.png[]
 
 == Important Terminology
 .  _A customer is anyone who wants to place an order._
+. _An employee is a person that works at the restaurant._
 . _A member in the RMS is a registered customer who enjoys more benefits than an unregistered customer._
 . _A dish is a food item on the menu._
 
@@ -51,21 +48,6 @@ image::Ui.png[]
 == Features
 
 ====
-*How It Works*
-
-When the application is first started, users have to choose
- which state it wants to enter. There are 5 choices to pick from
- :
-
-1. Menu
-
-2. Order
-
-3. Customers
-
-4. Employees
-
-5. Statistics
 
 *Command Format*
 
@@ -123,20 +105,21 @@ System adds Cheese Fries to the existing menu.
 ==== Delete Menu
 
 Delete an item on the menu +
-Format: `deletemenu INDEX`
+Format: `delmenu INDEX` +
+Preconditions: The user must perform 'List Menu' , 'List Menu According to Category' or 'Find Menu' use cases first before performing 'Delete Menu'
 
 * Deletes the menu item in that particular index
-* Note that the user must perform 'List Menu' , 'List Menu According to Category' or 'Find Menu' first before performing 'Delete Menu'
+* INDEX should be less than or equal to the total number of food items stated at the end of the list
 
 Example: +
 `listmenutype main` +
-`deletemenu 1` +
+`delmenu 1` +
 System deletes menu item in index 1 from the displayed menu of main dishes. +
 `listmenutype main` +
-`deletemenu 1` +
+`delmenu 1` +
 System deletes the menu item in index 1 from the displayed menu of main dishes. +
 `findmenu Cheese Fries` +
-`deletemenu 3` +
+`delmenu 3` +
 System deletes Cheese Fries in index 3 from the displayed menu of items found with `Cheese Fries` keyword.
 
 ==== Find Menu
@@ -175,12 +158,15 @@ Returns Main: Double Cheese Burger, Sides: French Fries, Beverage: Sprite
 ==== Add Member
 
 Add a new member to the RMS +
-Format: `addmember` NAME
+Format: `addmember` NAME e/EMAIL
+
+* Member name cannot be longer than 30 alphanumeric characters and spaces.
+* Member name must have at least 1 character.
+* Email should be 2 alphanumeric/period strings that are no longer than 20 characters separated by '@'
 
 Example: +
-`addmember kang ming` +
-Returns: New member added: kangming Points: 0 Date: Wed Oct 31 20:30:50 SRET 2018 Tier: Bronze
-
+`addmember kang ming e/kangming@rms.com` +
+Returns:  New member added: kang ming | Email: kangming@rms.com | Available Points: 0 | Total Points: 0 | Tier: Bronze | Date: Mon Oct 20 22:12:07 SRET 2018
 
 ==== List Member
 
@@ -206,7 +192,11 @@ Format: `listemp`
 Adds a new employee to the RMS. +
 Format: `addemp NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS pos/POSITION`
 
-* Employees with same name are not allowed irregardless of it being in upper or lower case.
+* Employees with exact same names are not allowed irregardless of it being in upper or lower case.
+* Employee name cannot be longer than 30 alphanumeric characters and spaces.
+* Employee name must have at least 1 character.
+* Phone numbers must be an 8 digit number.
+* Email should be 2 alphanumeric/period strings that are no longer than 20 characters separated by '@'
 
 Example: +
  `addemp John Doe p/91234567 e/Example2018@rms.com a/Clementi Ave 2, Blk 543 #13-12 pos/Cashier` +
@@ -222,6 +212,8 @@ Format: `editemp INDEX [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [pos/POSITION]`
 * At least one of the optional parameters must be provided.
 * Existing values will be updated to the input values.
 * The index must be a positive integer `1, 2, 3 ...`
+* Phone numbers must be an 8 digit number.
+* Email should be 2 alphanumeric/period strings that are no longer than 20 characters separated by '@'
 
 Example: +
 
@@ -246,37 +238,29 @@ Deletes the 1st employee in the employee list.
 
 ==== Clock In
 
-Clocks in attendance for the specified employee based on the current time +
-Format: `clockIn NAME`
+Clocks in attendance for the specified employee based on the current date and time +
+Format: `clockin NAME`
 
 * Employee must either have been newly created or
-have used the "Clock Out" command, otherwise, they would not be able to use this command.
+have used the "Clock Out" command, otherwise the system will request the user to use the "Clock Out" command first.
 
 Example: +
-`clockIn John Doe` +
+`clockin John Doe` +
 Clocks in for the employee John Doe.
 
 
 ==== Clock Out
 
-Clocks out for the specified employee based on the current time. +
-Format: `clockOut NAME`
+Clocks out for the specified employee based on the current date and time. +
+Format: `clockout NAME`
 
-* Employee must have used the "Clock In" command, otherwise, they would not  e able to use this command.
+* Employee must have used the "Clock In" command, otherwise the system will request the user to use the "Clock In" command first.
 
 Example: +
-`clockOut John Doe` +
+`clockout John Doe` +
 Clocks out for the employee John Doe.
 
 // end::employeecommands[]
-
-//==== Calculate Wages
-
-//Calculates the wage of an employee. +
-//`Format calcwage NAME`
-
-//Examples: +
-//`calcwage Joe Bob`
 
 // tag::orderuserguide[]
 === Order
@@ -386,7 +370,9 @@ Format: `listorder`.
 
 ==== View Employee Statistics
 
-Display the employee statistics overview +
+Displays the employee statistics overview +
+Overview consists of the number of employees in the system,
+current on duty employees and all the employees' recent 3 activity +
 Format: statsemp
 
 Examples: +
@@ -394,7 +380,9 @@ Examples: +
 
 ==== View Member Statistics
 
-Display the member statistics overview +
+Displays the member statistics overview +
+Overview consists of the number of new member signups on the current day, month and year.
+It also includes the number of members in each member tier. +
 Format: statsmember
 
 Examples: +
@@ -402,7 +390,9 @@ Examples: +
 
 ==== View Menu Statistics
 
-Display the menu statistics overview without any parameters or with optional parameters `f/` or `t/` to set date range for calculatation of statistics +
+Displays the menu statistics overview without any parameters or with optional parameters `f/` or `t/` to set date range for calculation of statistics +
+Overview consists of the number of sales for all the menu items in the system. Including menu items that was deleted but still exists in an order. +
+Bestsellers and least popular items are also displayed.
 Format: statsmenu [f/mmddyyyy] [t/mmddyyyy]
 
 Examples: +
@@ -414,7 +404,9 @@ Examples: +
 
 ==== View Order Statistics
 
-Display the order statistics overview +
+Displays the order statistics overview +
+Overview consists of the number of sales as well as the revenue for the current day, month and year +
+Past 12 monthly revenue are also displayed here.
 Format: statsorder
 
 Examples: +
@@ -464,9 +456,9 @@ There is no need to save manually.
 
 *Delete Employee* : `delemp INDEX`
 
-*Clock In* : `clockIn NAME`
+*Clock In* : `clockin NAME`
 
-*Clock Out* : `clockOut NAME`
+*Clock Out* : `clockout NAME`
 
 === Members
 

@@ -109,7 +109,7 @@ public class ParserTest {
         parseAndAssertCommandType(input, MenuShowMainMenuCommand.class);
     }
 
-    //@@author
+    //@@author AngWM
     @Test
     public void statsEmployeeCommand_parsedCorrectly() {
         final String input = "statsemp";
@@ -140,12 +140,14 @@ public class ParserTest {
         parseAndAssertCommandType(input, StatsHelpCommand.class);
     }
 
+    //@@author kangmingtay
     @Test
     public void memberListCommand_parsedCorrectly() {
         final String input = "listmember";
         parseAndAssertCommandType(input, MemberListCommand.class);
     }
 
+    //@@author px1099
     @Test
     public void draftOrderClearCommand_parsedCorrectly() {
         final String input = "cleardraft";
@@ -176,6 +178,7 @@ public class ParserTest {
         parseAndAssertCommandType(input, OrderListCommand.class);
     }
 
+    //@@author
     @Test
     public void exitCommand_parsedCorrectly() {
         final String input = "exit";
@@ -211,7 +214,7 @@ public class ParserTest {
         assertEquals(result.getTargetIndex(), testIndex);
     }
 
-    //@@author
+    //@@author px1099
     @Test
     public void draftOrderEditCustomerCommand_noArgs() {
         final String[] inputs = { "draftcustomer", "draftcustomer " };
@@ -301,7 +304,7 @@ public class ParserTest {
         assertEquals(keySet, result.getKeywords());
     }
 
-    //@@author SalsabilTasnia
+
     /**
      * Test listing menu items according to their category types command
      */
@@ -326,7 +329,7 @@ public class ParserTest {
         assertEquals(type, result.getItemword());
     }
 
-    //@@author SalsabilTasnia
+
     /**
      * Test add menu item command
      */
@@ -432,7 +435,7 @@ public class ParserTest {
         return sb.toString();
     }
 
-    //@@author
+    //@@author kangmingtay
     /**
      * Test add member command
      */
@@ -506,6 +509,7 @@ public class ParserTest {
         return addCommand;
     }
 
+    //@@author AngWM
     /**
      * Test statsmenu with arg command
      */
@@ -540,6 +544,7 @@ public class ParserTest {
         parseAndAssertIncorrectWithMessage(resultMessage, inputs);
     }
 
+    //@@author px1099
     /**
      * Test draft dish command
      */
@@ -614,6 +619,7 @@ public class ParserTest {
         return input;
     }
 
+    //@@author
     /**
      * Utility methods
      */

@@ -2,7 +2,7 @@ package seedu.addressbook.data.member;
 
 import java.util.Date;
 
-
+//@@author kangmingtay
 /**
  * A read-only immutable interface for a Member in the Restaurant Management System.
  * Implementations should guarantee: details are present and not null, field values are validated.
@@ -42,7 +42,7 @@ public interface ReadOnlyMember {
         final StringBuilder builder = new StringBuilder();
         builder.append(getName());
         builder.append(" | Email: ").append(getEmail());
-        builder.append(" | Available Points: ").append(getCurrentPoints());
+        builder.append(" | Available Points: ").append(getCurrentPointsValue());
         builder.append(" | Total Points: ").append(getTotalPointsValue());
         builder.append(" | Tier: ").append(getMemberTier().toString());
         builder.append(" | Date: ").append(getDate());

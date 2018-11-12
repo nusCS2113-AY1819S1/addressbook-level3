@@ -53,8 +53,8 @@ class TestDataHelper {
         EmployeePosition position = new EmployeePosition("Cashier");
         return new Employee(name, phone, email, address, position);
     }
-    //@@author
 
+    //@@author kangmingtay
     /**
      * Generate a member for testing purpose
      */
@@ -64,10 +64,11 @@ class TestDataHelper {
         return new Member(name, email);
     }
 
+    //@@author kangmingtay
     /**
      * Generate a member with existing points for testing purpose
      */
-    Member david() throws Exception {
+    public Member david() throws Exception {
         MemberName name = new MemberName("David");
         MemberEmail email = new MemberEmail("David@gmail.com");
         Member david = new Member(name, email);
@@ -75,6 +76,7 @@ class TestDataHelper {
         return david;
     }
 
+    //@@author SalsabilTasnia
     /**
      * Generate a menu item for testing purpose
      */
@@ -88,6 +90,7 @@ class TestDataHelper {
         return new Menu(name, price, type, tags);
     }
 
+    //@@author px1099
     /**
      * Generate a map of dish items for testing purpose
      */
@@ -97,6 +100,7 @@ class TestDataHelper {
         return foods;
     }
 
+    //@@author kangmingtay
     /**
      * Generate empty points to redeem for testing purpose
      */
@@ -112,6 +116,7 @@ class TestDataHelper {
         return new Points(points).getCurrentPoints();
     }
 
+    //@@author px1099
     /**
      * Generate an order for testing purpose
      */
@@ -124,7 +129,7 @@ class TestDataHelper {
     /**
      * Generate an order with a customer with points for testing purpose
      */
-    Order foodOrderWithReturningCustomer() throws Exception {
+    public Order foodOrderWithReturningCustomer() throws Exception {
         long orderingTime = 1000;
         Date orderingDate = new Date(orderingTime);
         return new Order(david(), orderingDate, foodItems(), pointsToRedeem());
@@ -226,8 +231,8 @@ class TestDataHelper {
     public Attendance generateAttendanceWithTime(int seed, boolean isClockedIn, Set<Timing> timings) {
         return new Attendance("Employee " + seed, isClockedIn, timings);
     }
-    //@@author
 
+    //@@author kangmingtay
     /**
      * Generates a valid member using the given seed.
      * Running this function with the same parameter values guarantees the returned employee will have the same state.
@@ -242,6 +247,7 @@ class TestDataHelper {
         );
     }
 
+    //@@author SalsabilTasnia
     /**
      * Generates a valid menu item using the given seed.
      * Running this function with the same parameter values guarantees the returned menu item will have the same state.
@@ -258,6 +264,7 @@ class TestDataHelper {
         );
     }
 
+    //@@author px1099
     public Map<ReadOnlyMenus, Integer> generateDishItems(int seed) throws Exception {
         Map<ReadOnlyMenus, Integer> dishItems = new HashMap<>();
         dishItems.put(generateMenuItem(seed), Math.abs(seed));
@@ -326,9 +333,11 @@ class TestDataHelper {
 
         return cmd.toString();
     }
-    //@@author
 
-    /** Generates the correct add member command based on the member given */
+    //@@author kangmingtay
+    /**
+     * Generates the correct add member command based on the member given
+     */
     public String generateAddMemberCommand(Member e) {
         StringJoiner cmd = new StringJoiner(" ");
 
@@ -340,7 +349,9 @@ class TestDataHelper {
         return cmd.toString();
     }
 
-    /** Generates the correct add menu command based on the menu item given */
+    /**
+     * Generates the correct add menu command based on the menu item given
+     */
     public String generateMenuAddCommand(Menu m) {
         StringJoiner cmd = new StringJoiner(" ");
 
@@ -358,7 +369,10 @@ class TestDataHelper {
         return cmd.toString();
     }
 
-    /** Generates the correct edit draft dish command based on the given index number and quantity */
+    //@@author px1099
+    /**
+     * Generates the correct edit draft dish command based on the given index number and quantity
+     */
     public String generateDraftOrderEditDishCommand(int index, int quantity) {
         StringJoiner cmd = new StringJoiner(" ");
 
@@ -391,8 +405,8 @@ class TestDataHelper {
         addAttendancesToRms(rms, attendances);
         return rms;
     }
-    //@@author
 
+    //@@author SalsabilTasnia
     /**
      * Generates an Rms based on the list of Menu given.
      */
@@ -402,6 +416,7 @@ class TestDataHelper {
         return rms;
     }
 
+    //@@author kangmingtay
     /**
      * Generates an Rms based on the list of Member given.
      */
@@ -411,6 +426,7 @@ class TestDataHelper {
         return rms;
     }
 
+    //@@author px1099
     /**
      * Generates an Rms based on the list of Member given.
      */
@@ -426,6 +442,7 @@ class TestDataHelper {
         return rms;
     }
 
+    //@@author SalsabilTasnia
     /**
      * Adds the given list of Menus to the given Rms
      */
@@ -453,8 +470,8 @@ class TestDataHelper {
             rms.addAttendance(a);
         }
     }
-    //@@author
 
+    //@@author kangmingtay
     /**
      * Adds the given list of Members to the given Rms
      */
@@ -464,6 +481,7 @@ class TestDataHelper {
         }
     }
 
+    //@@author px1099
     /**
      * Adds the given list of Orders to the given Rms
      */
@@ -500,8 +518,8 @@ class TestDataHelper {
         Collections.addAll(attendanceList, attendances);
         return attendanceList;
     }
-    //@@author
 
+    //@@author kangmingtay
     /**
      * Creates a list of Members based on the give Member objects.
      */
@@ -511,6 +529,7 @@ class TestDataHelper {
         return memberList;
     }
 
+    //@@author SalsabilTasnia
     /**
      * Creates a list of Menu Items based on the give Menu objects.
      */
@@ -520,6 +539,7 @@ class TestDataHelper {
         return menuList;
     }
 
+    //@@author px1099
     /**
      * Creates a list of Orders based on the given Order objects.
      */
@@ -540,6 +560,7 @@ class TestDataHelper {
         return orderList;
     }
 
+    //@@author kangmingtay
     /**
      * Generates a Member object with given name. Other fields will have some dummy values.
      */
@@ -550,6 +571,7 @@ class TestDataHelper {
         );
     }
 
+    //@@author SalsabilTasnia
     /**
      * Generates a Menu object with given name. Other fields will have some dummy values.
      */
@@ -574,6 +596,7 @@ class TestDataHelper {
         );
     }
 
+    //@@author AngWM
     /** Generates the correct stats employee command */
     public String generateStatsEmpCommand() {
         StringJoiner cmd = new StringJoiner(" ");
@@ -618,4 +641,6 @@ class TestDataHelper {
 
         return cmd.toString();
     }
+
+    //@@author
 }

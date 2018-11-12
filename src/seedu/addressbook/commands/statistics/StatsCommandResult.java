@@ -2,6 +2,7 @@ package seedu.addressbook.commands.statistics;
 
 import seedu.addressbook.commands.CommandResult;
 
+//@@author AngWM
 /**
  * Represents the result of a command execution.
  */

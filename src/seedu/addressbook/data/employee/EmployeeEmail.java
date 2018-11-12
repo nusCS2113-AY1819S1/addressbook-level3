@@ -1,10 +1,9 @@
-//@@author kianhong95
 package seedu.addressbook.data.employee;
 
 import seedu.addressbook.common.Email;
 import seedu.addressbook.data.exception.IllegalValueException;
 
-
+//@@author kianhong95
 /**
  * Represents an Employee's email in the Rms.
  * Guarantees: immutable; is valid as declared in {@link #isValidEmail(String)}
