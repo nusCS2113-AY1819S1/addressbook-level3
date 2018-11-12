@@ -15,12 +15,12 @@ public class DraftOrderClearCommand extends Command {
             + "Delete all the fields of the draft order.\n\t"
             + "Example: " + COMMAND_WORD;
 
-    public static final String MESSAGE_SUCCESS = "The draft order is cleared.";
+    public static final String MESSAGE_SUCCESS = "The draft order is cleared.\n%1$s";
 
     @Override
     public CommandResult execute() {
         rms.clearDraftOrder();
-        String message = MESSAGE_SUCCESS + "\n" + getDraftOrderAsString();
+        String message = String.format(MESSAGE_SUCCESS, getDraftOrderAsString());
         return new CommandResult(message);
     }
 }

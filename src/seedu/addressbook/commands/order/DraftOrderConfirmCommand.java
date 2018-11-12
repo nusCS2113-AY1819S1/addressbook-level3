@@ -19,7 +19,7 @@ public class DraftOrderConfirmCommand extends Command {
             + "Example: " + COMMAND_WORD;
 
     public static final String MESSAGE_SUCCESS = "The order has been added:\n%1$s";
-    public static final String MESSAGE_DRAFT_INCOMPLETE = "The draft needs to be completed before confirming.";
+    public static final String MESSAGE_DRAFT_INCOMPLETE = "The draft needs to be completed before confirming.\n%1$s";
     public static final String MESSAGE_DUPLICATE_ORDER = "This order already exists in the order list";
 
     @Override
@@ -39,7 +39,7 @@ public class DraftOrderConfirmCommand extends Command {
                 rms.clearDraftOrder();
                 return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd.getAsTextAfterAdd()));
             } else {
-                message = MESSAGE_DRAFT_INCOMPLETE + "\n" + getDraftOrderAsString();
+                message = String.format(MESSAGE_DRAFT_INCOMPLETE, getDraftOrderAsString());
                 return new CommandResult(message);
             }
         } catch (UniqueOrderList.DuplicateOrderException doe) {

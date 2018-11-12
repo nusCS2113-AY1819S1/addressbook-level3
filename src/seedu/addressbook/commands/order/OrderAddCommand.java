@@ -21,16 +21,16 @@ public class OrderAddCommand extends Command {
 
     public static final String MESSAGE_ALL_ORDER_DRAFT_COMMANDS = "List of commands used for drafting a new order:";
 
-    public static final String MESSAGE_ALL_ORDER_DRAFT_COMMANDS_USAGES = OrderAddCommand.MESSAGE_USAGE
-            + "\n" + DraftOrderEditCustomerCommand.MESSAGE_USAGE
-            + "\n" + DraftOrderEditDishCommand.MESSAGE_USAGE
-            + "\n" + DraftOrderEditPointsCommand.MESSAGE_USAGE
-            + "\n" + DraftOrderClearCommand.MESSAGE_USAGE
-            + "\n" + DraftOrderConfirmCommand.MESSAGE_USAGE
-            + "\n" + MemberListCommand.MESSAGE_USAGE
-            + "\n" + MenuListCommand.MESSAGE_USAGE
-            + "\n" + MenuFindCommand.MESSAGE_USAGE
-            + "\n" + MenuListByTypeCommand.MESSAGE_USAGE;
+    public static final String MESSAGE_ALL_ORDER_DRAFT_COMMANDS_USAGES = "1. " + OrderAddCommand.MESSAGE_USAGE
+            + "\n" + "2. " + DraftOrderEditCustomerCommand.MESSAGE_USAGE
+            + "\n" + "3. " + DraftOrderEditDishCommand.MESSAGE_USAGE
+            + "\n" + "4. " + DraftOrderEditPointsCommand.MESSAGE_USAGE
+            + "\n" + "5. " + DraftOrderClearCommand.MESSAGE_USAGE
+            + "\n" + "6. " + DraftOrderConfirmCommand.MESSAGE_USAGE
+            + "\n" + "7. " + MemberListCommand.MESSAGE_USAGE
+            + "\n" + "8. " + MenuListCommand.MESSAGE_USAGE
+            + "\n" + "9. " + MenuFindCommand.MESSAGE_USAGE
+            + "\n" + "10." + MenuListByTypeCommand.MESSAGE_USAGE;
 
     public static final String MESSAGE_ADD_ORDER_INSTRUCTION = "Adding new order instructions:"
 

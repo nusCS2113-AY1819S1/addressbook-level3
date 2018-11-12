@@ -1330,6 +1330,10 @@ public class LogicTest {
 
     }
 
+    private String generateDraftOrderAsString(ReadOnlyOrder draft) {
+        return String.format(Messages.MESSAGE_DRAFT_ORDER_DETAILS, draft.getDraftDetailsAsText());
+    }
+
     @Test
     public void execute_deleteorder_invalidArgsFormat() throws Exception {
         String expectedMessage = String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT,
@@ -1417,9 +1421,8 @@ public class LogicTest {
         helper.addMembersToRms(rms, threeMembers);
         logic.setLastShownMemberList(threeMembers);
 
-        String expectedMessage = DraftOrderEditCustomerCommand.MESSAGE_SUCCESS
-                + "\n" + Messages.MESSAGE_DRAFT_ORDER_DETAILS
-                + "\n" + expectedDraftOrder.getDraftDetailsAsText();
+        String expectedMessage = String.format(DraftOrderEditCustomerCommand.MESSAGE_SUCCESS,
+                generateDraftOrderAsString(expectedDraftOrder));
 
         assertMemberCommandBehavior("draftcustomer 2",
                 expectedMessage,
@@ -1498,9 +1501,8 @@ public class LogicTest {
         helper.addToRmsMenu(rms, threeMenus);
         logic.setLastShownMenuList(threeMenus);
 
-        String expectedMessage = DraftOrderEditDishCommand.MESSAGE_SUCCESS
-                + "\n" + Messages.MESSAGE_DRAFT_ORDER_DETAILS
-                + "\n" + expectedDraftOrder.getDraftDetailsAsText();
+        String expectedMessage = String.format(DraftOrderEditDishCommand.MESSAGE_SUCCESS,
+                generateDraftOrderAsString(expectedDraftOrder));
 
         assertMenuCommandBehavior("draftdish 2 q/" + TestDataHelper.FOOD_QUANTITY,
                 expectedMessage,
@@ -1540,9 +1542,8 @@ public class LogicTest {
         rms.editDraftOrderCustomer(helper.eve());
         rms.editDraftOrderDishItem(helper.burger(), TestDataHelper.FOOD_QUANTITY);
 
-        String expectedMessage = DraftOrderClearCommand.MESSAGE_SUCCESS
-                + "\n" + Messages.MESSAGE_DRAFT_ORDER_DETAILS
-                + "\n" + expectedDraftOrder.getDraftDetailsAsText();
+        String expectedMessage = String.format(DraftOrderClearCommand.MESSAGE_SUCCESS,
+                generateDraftOrderAsString(expectedDraftOrder));
 
         assertOrderCommandBehavior("cleardraft", expectedMessage);
     }
@@ -1555,8 +1556,7 @@ public class LogicTest {
         rms.editDraftOrderCustomer(helper.eve());
         rms.editDraftOrderDishItem(helper.burger(), TestDataHelper.FOOD_QUANTITY);
 
-        String expectedMessage = Messages.MESSAGE_DRAFT_ORDER_DETAILS
-                + "\n" + expectedDraftOrder.getDraftDetailsAsText()
+        String expectedMessage = generateDraftOrderAsString(expectedDraftOrder)
                 + "\n\n" + OrderAddCommand.MESSAGE_ADD_ORDER_INSTRUCTION
                 + "\n\n" + OrderAddCommand.MESSAGE_ALL_ORDER_DRAFT_COMMANDS
                 + "\n\n" + OrderAddCommand.MESSAGE_ALL_ORDER_DRAFT_COMMANDS_USAGES;
@@ -1571,8 +1571,7 @@ public class LogicTest {
         Order expectedDraftOrder = helper.foodOrderWithoutCustomer();
         rms.editDraftOrderDishItem(helper.burger(), TestDataHelper.FOOD_QUANTITY);
 
-        String expectedMessage = Messages.MESSAGE_DRAFT_ORDER_DETAILS
-                + "\n" + expectedDraftOrder.getDraftDetailsAsText()
+        String expectedMessage = generateDraftOrderAsString(expectedDraftOrder)
                 + "\n\n" + OrderAddCommand.MESSAGE_ADD_ORDER_INSTRUCTION
                 + "\n\n" + OrderAddCommand.MESSAGE_ALL_ORDER_DRAFT_COMMANDS
                 + "\n\n" + OrderAddCommand.MESSAGE_ALL_ORDER_DRAFT_COMMANDS_USAGES;
@@ -1587,8 +1586,7 @@ public class LogicTest {
         Order expectedDraftOrder = helper.foodOrderWithoutDishes();
         rms.editDraftOrderCustomer(helper.eve());
 
-        String expectedMessage = Messages.MESSAGE_DRAFT_ORDER_DETAILS
-                + "\n" + expectedDraftOrder.getDraftDetailsAsText()
+        String expectedMessage = generateDraftOrderAsString(expectedDraftOrder)
                 + "\n\n" + OrderAddCommand.MESSAGE_ADD_ORDER_INSTRUCTION
                 + "\n\n" + OrderAddCommand.MESSAGE_ALL_ORDER_DRAFT_COMMANDS
                 + "\n\n" + OrderAddCommand.MESSAGE_ALL_ORDER_DRAFT_COMMANDS_USAGES;
@@ -1600,8 +1598,7 @@ public class LogicTest {
     public void execute_addorder_missingCustomerAndDishes() throws Exception {
         Order expectedDraftOrder = new Order();
 
-        String expectedMessage = Messages.MESSAGE_DRAFT_ORDER_DETAILS
-                + "\n" + expectedDraftOrder.getDraftDetailsAsText()
+        String expectedMessage = generateDraftOrderAsString(expectedDraftOrder)
                 + "\n\n" + OrderAddCommand.MESSAGE_ADD_ORDER_INSTRUCTION
                 + "\n\n" + OrderAddCommand.MESSAGE_ALL_ORDER_DRAFT_COMMANDS
                 + "\n\n" + OrderAddCommand.MESSAGE_ALL_ORDER_DRAFT_COMMANDS_USAGES;
@@ -1616,9 +1613,8 @@ public class LogicTest {
         Order expectedDraftOrder = helper.foodOrderWithoutDishes();
         rms.editDraftOrderCustomer(helper.eve());
 
-        String expectedMessage = DraftOrderConfirmCommand.MESSAGE_DRAFT_INCOMPLETE
-                + "\n" + Messages.MESSAGE_DRAFT_ORDER_DETAILS
-                + "\n" + expectedDraftOrder.getDraftDetailsAsText();
+        String expectedMessage = String.format(DraftOrderConfirmCommand.MESSAGE_DRAFT_INCOMPLETE,
+                generateDraftOrderAsString(expectedDraftOrder));
 
         assertOrderCommandBehavior("confirmdraft", expectedMessage);
     }
@@ -1632,9 +1628,8 @@ public class LogicTest {
         rms.editDraftOrderDishItem(helper.burger(), helper.FOOD_QUANTITY);
         rms.editDraftOrderPoints(helper.pointsToRedeem());
 
-        String expectedMessage = DraftOrderEditPointsCommand.MESSAGE_SUCCESS
-                + "\n" + Messages.MESSAGE_DRAFT_ORDER_DETAILS
-                + "\n" + expectedDraftOrder.getDraftDetailsAsText();
+        String expectedMessage = String.format(DraftOrderEditPointsCommand.MESSAGE_SUCCESS,
+                generateDraftOrderAsString(expectedDraftOrder));
 
         assertOrderCommandBehavior("draftpoints 0", expectedMessage);
     }
@@ -1646,9 +1641,8 @@ public class LogicTest {
         Order expectedDraftOrder = helper.foodOrderWithoutCustomer();
         rms.editDraftOrderDishItem(helper.burger(), helper.FOOD_QUANTITY);
 
-        String expectedMessage = DraftOrderEditPointsCommand.MESSAGE_EMPTY_CUSTOMER_FIELD
-                + "\n" + Messages.MESSAGE_DRAFT_ORDER_DETAILS
-                + "\n" + expectedDraftOrder.getDraftDetailsAsText();
+        String expectedMessage = String.format(DraftOrderEditPointsCommand.MESSAGE_EMPTY_CUSTOMER_FIELD,
+                generateDraftOrderAsString(expectedDraftOrder));
 
         assertOrderCommandBehavior("draftpoints 50", expectedMessage);
     }
@@ -1660,9 +1654,8 @@ public class LogicTest {
         Order expectedDraftOrder = helper.foodOrderWithoutDishes();
         rms.editDraftOrderCustomer(helper.eve());
 
-        String expectedMessage = DraftOrderEditPointsCommand.MESSAGE_EMPTY_DISH_FIELD
-                + "\n" + Messages.MESSAGE_DRAFT_ORDER_DETAILS
-                + "\n" + expectedDraftOrder.getDraftDetailsAsText();
+        String expectedMessage = String.format(DraftOrderEditPointsCommand.MESSAGE_EMPTY_DISH_FIELD,
+                generateDraftOrderAsString(expectedDraftOrder));
 
         assertOrderCommandBehavior("draftpoints 50", expectedMessage);
     }
@@ -1675,9 +1668,8 @@ public class LogicTest {
         rms.editDraftOrderCustomer(helper.eve());
         rms.editDraftOrderDishItem(helper.burger(), helper.FOOD_QUANTITY);
 
-        String expectedMessage = DraftOrderEditPointsCommand.MESSAGE_NO_REDEEMABLE_POINTS
-                + "\n" + Messages.MESSAGE_DRAFT_ORDER_DETAILS
-                + "\n" + expectedDraftOrder.getDraftDetailsAsText();
+        String expectedMessage = String.format(DraftOrderEditPointsCommand.MESSAGE_NO_REDEEMABLE_POINTS,
+                generateDraftOrderAsString(expectedDraftOrder));
 
         assertOrderCommandBehavior("draftpoints 50", expectedMessage);
     }
@@ -1690,9 +1682,8 @@ public class LogicTest {
         rms.editDraftOrderCustomer(helper.david());
         rms.editDraftOrderDishItem(helper.burger(), helper.FOOD_QUANTITY);
 
-        String expectedMessage = DraftOrderEditPointsCommand.MESSAGE_NEGATIVE_POINTS
-                + "\n" + Messages.MESSAGE_DRAFT_ORDER_DETAILS
-                + "\n" + expectedDraftOrder.getDraftDetailsAsText();
+        String expectedMessage = String.format(DraftOrderEditPointsCommand.MESSAGE_NEGATIVE_POINTS,
+                generateDraftOrderAsString(expectedDraftOrder));
 
         assertOrderCommandBehavior("draftpoints -50", expectedMessage);
     }

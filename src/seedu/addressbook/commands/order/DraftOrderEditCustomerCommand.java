@@ -20,7 +20,7 @@ public class DraftOrderEditCustomerCommand extends Command {
             + "Parameters: INDEX\n\t"
             + "Example: " + COMMAND_WORD + " 1";
 
-    public static final String MESSAGE_SUCCESS = "Customer is edited in the draft order.";
+    public static final String MESSAGE_SUCCESS = "Customer is edited in the draft order.\n%1$s";
 
     public DraftOrderEditCustomerCommand(int targetVisibleIndex) {
         super(targetVisibleIndex);
@@ -36,7 +36,7 @@ public class DraftOrderEditCustomerCommand extends Command {
             }
             rms.editDraftOrderPoints(0);
             rms.editDraftOrderCustomer(target);
-            String message = MESSAGE_SUCCESS + "\n" + getDraftOrderAsString();
+            String message = String.format(MESSAGE_SUCCESS, getDraftOrderAsString());
             return new CommandResult(message);
         } catch (IndexOutOfBoundsException ie) {
             return new CommandResult(Messages.MESSAGE_INVALID_MEMBER_DISPLAYED_INDEX);
