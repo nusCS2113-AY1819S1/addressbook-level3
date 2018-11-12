@@ -324,6 +324,8 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |`* * *` |user |To be able to update or recover my password |Access my account even if I forgot my password and keep my credentials secure
 |`* * *` |user |add a new person |
 |`* * *` |user |delete a person |remove entries that I no longer need
+|`* * *` |user |add in appointments dates easily |
+|`* * *` |user |delete appointments |remove appoinment entries that I no longer need
 |`* * *` |user |find a person by name |locate details of persons without having to go through the entire list
 |`* * *` |user |undo/redo changes made |revert changes that are unwanted
 |`* * *` |user |organise many persons in MediBook |sort persons by name |locate a person easily
@@ -374,6 +376,23 @@ Use case ends.
 . User logs in to MediBook (UC01)
 . MediBook determines access level of User (UC02)
 . MediBook will display information that User has access to and hide information that is beyond User’s access level
++
+Use case ends.
+
+=== Use case: UC04 - Editing Appointment of Existing Users
+
+*MSS*
+
+. User logs in to MediBook (UC01)
+. MediBook determines access level of User (UC02)
+. Users `list`
+. MediBook will display the list of People in MediBook
+. Users select person to `edit-appointment`
+. MediBook enters edit-appointment mode
+. User add appointments input
+. MediBook adds in the appointments for the indicted person and does not add in duplicated appointments
+. User exits edit-appointment mode using `done`
+. MediBook exits edit-appointment mode
 +
 Use case ends.
 
