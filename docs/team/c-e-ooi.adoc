@@ -47,7 +47,7 @@ MediBook optimises and enhances Address Book Level 3 to suit the needs of health
 
 * *Code contributed*: https://nuscs2113-ay1819s1.github.io/dashboard/#=undefined&search=c-e-ooi&sort=displayName&since=2018-09-12&until=2018-11-05&timeframe=day&reverse=false&repoSort=true[Reposense]
 
-STOPPED HERE and to add (Pull requests https://github.com[#33], https://github.com[#34])
+STOPPED HERE REMEMBBER TO FINSIH WRITING and to add (Pull requests https://github.com[#33], https://github.com[#34])
 
 * *Other contributions*:
 ** Project management:
@@ -79,6 +79,8 @@ include::../UserGuide.adoc[tag=Appointment]
 |===
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
+
+include::../DeveloperGuide.adoc[tag=DataComponent]
 
 include::../DeveloperGuide.adoc[tag=Appointment]
 

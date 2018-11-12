@@ -7,7 +7,7 @@
 :experimental:
 
 == 1 Introduction
-MediBook v1.4 is an application that functions as an advanced logbook for use in the healthcare industry. It allows healthcare professionals to keep track and sort patients’ details, arrange their schedule based on their patients’ appointments.
+MediBook v1.4 is an application that functions as an advanced logbook for use in the healthcare industry. It allows healthcare professionals to keep track and sort patients’ details, record patients’ appointments.
 
 
 This Developer Guide is intended for users with basic technical background as it details the setting up of our application, the design of our software architecture, describe the implementation of our key features, and the testing involved in our software. Appendix includes user stories and use cases for reference.
@@ -49,13 +49,22 @@ image::UIComponentClassDiagram.png[]
 === 3.2 Login Component
 
 image::LoginComponentClassDiagram.png[]
+
 // tag::logiccompo[]
 === 3.3 Logic Component
 
 image::LogicComponentClassDiagram.png[]
 // end::logiccompo[]
+
+// tag::DataComponent[]
+=== 3.4 Data Component
+
+image::DataComponentClassDiagram.png[]
+// end::DataComponent[]
+
 == 4. Implementation
 This section describes some noteworthy details on how certain features are implemented.
+
 // tag::statecontrol[]
 === 4.1  State control (undo/redo)
 The state control feature allows the user to manipulate the different states of the MediBook in the current session with the undo and redo command. This section will describe the implementation of this feature.
@@ -177,25 +186,66 @@ To ensure a secure MediBook, user login profiles must be stored securely. Storin
 Java Authentication and Authorisation System (JAAS) was also considered when deciding on how to implement MediBook’s login system. However, using JAAS is more restrictive than the current implementation which allows for easy change in hashing algorithms used and different security features in the future. JAAS is also harder to implement and as MediBook is currently targeted at about 1000 users, there is no need to use JAAS.
 
 
-=== 4.3 Scheduling
-Scheduling allows appointment to be stored in MediBook. MediBook recognises a schedule date with the tag 'd/'.
+// tag::Appointment[]
+=== 4.3 Record Appointments
+Record Appointment feature allows appointments to be stored in MediBook.
+
+When adding a person, MediBook recognises an appointment with the tag 'd/' and in the form DD-MM-YYY-HH:MM,
+where the year should be in the 20th or 21th Century and time in 24-hour clock format.
+
+DD-MM-YYY-HH:MM indicates the day and the starting time of the appointment.
+
+*Edit-Appointment Mode:*
+Users can enter edit-appointment mode by entering the `edit-appointment INDEX` where index refers to the person with that index number shown in the most recent listing.
+Once in edit-appointment mode, users can `add` multiple appointments, `delete` multiple appointments and `list` the appointments of the chosen person
+ before exiting edit-appointment mode using `done`. A `help` summary of the edit-appointment mode is also available.
+
+The following is a summary of the commands involved in edit-appointment:
+
+* `edit-appointment INDEX`
+* `add DD-MM-YYYY-HH:MM...`
+* `delete DD-MM-YYYY-HH:MM...`
+* `list`
+* `help`
+* `done`
 
 ==== 4.3.1 Current Implementation
-The schedule feature currently accepts dates from the users as an input category under the add command. Input must be in the format DD-MM-YYYY for it to be accepted as a proper schedule date input. For each person added, multiple schedule dates can be added and it is also not a compulsory field to fill.
+Every appointment is an object of the Schedule class. Each Person has a hashset of Schedule objects.
+This allows each Person to have zero to multiple Schedules. Furthermore, due to the property of hashset,
+ there would be no duplicated appointments.
 
-This is achieved by setting up a schedule class which sets a regular expression (regex) that only accept valid dates in the DD-MM-YYYY format. Non-existent dates such as 30-02-2019 or 28-28-2019 would not be accepted.
+Appointments are verified though the strict Schedule class which sets a regular expression (regex) that only accept valid appointments in the DD-MM-YYYY-HH:MM format.
+ Non-existent dates, such as 30-02-2019-13:00 or 28-28-2019-15:00, and time, like 01-01-2019-25:80, would not be accepted.
 
-Subsequently, a hashset of schedule act as an attribute for person class. Every time the add command is used to add a valid person, a person object is created with the set of schedule as part of the attribute of the person. As such, there can be multiple appointment dates added together with the person. The schedule is identified using the ‘d/’ mark.
+*Entering Edit-Appointment Mode:*
+
+As shown in the sequence diagram below, when the edit-appointment command is instantiated, the index input is used to identify the Person in the list to edit appointment.
+
+Afterwards, when it execute(), a static boolean in the Command class is set to true via SetEditingAppointmentState() to indicate that the user is now in edit-appointment mode.
+
+image::EditAppointmentSeqenceDiagram.png[]
+
+Subsequently, when commands are made, the Parser check them against the edit-appointment mode commands and execute accordingly.
+
+This only stops when the user exits edit-appointment mode using the command `
+
+image::AddAppointmentSequenceDiagram.png[]
 
 ==== 4.3.2 Reason for Implementation
-Due to the large number of patients the doctors care for, it is at times hard to keep track of the numerous appointments made by their patients. As such, a scheduling feature would record the appointment date so that they can keep track of the numerous appointments they have for the day.
+Every time a command that takes effect on a single Person is called, AddressBook level 3 requires users to indicated the index of the Person.
 
-==== 4.3.3 Future/Alternative Implementation
+Hence, I wanted to enter a mode for edit-appointment as it breaks down a very long input into multiple shorter ones.
+This makes easier and more intuitive for users, especially as patients would have multiple appointments made in one go or seek to
+make changes to their appointments.
+
+==== 4.3.3 Alternative Consideration
 In future versions, the following details would be slowly incremented to ensure a smooth user experience while using the scheduling feature of MediBook.
-
+list, organise
+* use apiiiii
 . Edit the appointment dates only.
 . A command to view all or list the appointments in a chronological order following the reference date.
 . A doctor can view their respective patients appointment
+// end::Appointment[]
 
 === 4.4 Data Organisation
 Sorts entries in MediBook according to alphabetical order
