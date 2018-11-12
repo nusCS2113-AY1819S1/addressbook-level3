@@ -1,4 +1,3 @@
-//@@author kianhong95
 package seedu.addressbook.data.employee;
 
 import seedu.addressbook.data.exception.IllegalValueException;
