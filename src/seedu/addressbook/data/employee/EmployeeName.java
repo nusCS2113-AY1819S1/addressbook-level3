@@ -3,6 +3,7 @@ package seedu.addressbook.data.employee;
 import seedu.addressbook.common.Name;
 import seedu.addressbook.data.exception.IllegalValueException;
 
+//@@author kianhong95
 /**
  * Represents an Employee's name in the Rms.
  * Guarantees: immutable; is valid as declared in {@link #isValidName(String)}

@@ -4,6 +4,7 @@ import java.util.LinkedHashSet;
 import java.util.Objects;
 import java.util.Set;
 
+//@@author kianhong95
 /**
  * Represents an Attendance list in the Rms.
  * Guarantees: EmployeeName is present, not null and validated

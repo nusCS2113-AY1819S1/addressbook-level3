@@ -1,5 +1,6 @@
 package seedu.addressbook.data.employee;
 
+//@@author kianhong95
 /**
  * A read-only immutable interface for an Employee in the Rms.
  * Implementations should guarantee: details are present and not null, field values are validated.

@@ -2,6 +2,7 @@ package seedu.addressbook.data.employee;
 
 import java.util.Objects;
 
+//@@author kianhong95
 /**
  * Represents an Employee in the system.
  * Guarantees: details are present and not null, field values are validated.

@@ -6,6 +6,7 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 
+//@@author kianhong95
 /**
  * A list of attendance timings. Does not allow null elements.
  */

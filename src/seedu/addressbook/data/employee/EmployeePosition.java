@@ -2,6 +2,7 @@ package seedu.addressbook.data.employee;
 
 import seedu.addressbook.data.exception.IllegalValueException;
 
+//@@author kianhong95
 /**
  * Represents an Employee's position in the Rms.
  * Guarantees: immutable; is valid as declared in {@link #isValidPosition(String)}
