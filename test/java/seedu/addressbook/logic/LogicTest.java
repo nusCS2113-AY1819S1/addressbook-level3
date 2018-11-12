@@ -391,16 +391,16 @@ public class LogicTest {
     @Test
     public void execute_addemp_invalidPersonData() throws Exception {
         assertEmployeeCommandBehavior(
-                "addemp []\\[;] p/12345 e/valid@e.mail a/valid, address pos/validPos",
+                "addemp []\\[;] p/81234567 e/valid@e.mail a/valid, address pos/validPos",
                 EmployeeName.MESSAGE_NAME_CONSTRAINTS);
         assertEmployeeCommandBehavior(
                 "addemp Valid Name p/not_numbers e/valid@e.mail a/valid, address pos/validPos",
                 EmployeePhone.MESSAGE_PHONE_CONSTRAINTS);
         assertEmployeeCommandBehavior(
-                "addemp Valid Name p/12345 e/notAnEmail a/valid, address pos/validPos",
+                "addemp Valid Name p/81234567 e/notAnEmail a/valid, address pos/validPos",
                 EmployeeEmail.MESSAGE_EMAIL_CONSTRAINTS);
         assertEmployeeCommandBehavior(
-                "addemp Valid Name p/12345 e/valid@e.mail a/valid, address pos/@#%&%",
+                "addemp Valid Name p/81234567 e/valid@e.mail a/valid, address pos/@#%&%",
                 EmployeePosition.MESSAGE_POSITION_CONSTRAINTS);
 
     }
