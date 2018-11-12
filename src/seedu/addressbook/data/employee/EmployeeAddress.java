@@ -10,8 +10,9 @@ import seedu.addressbook.data.exception.IllegalValueException;
 public class EmployeeAddress {
 
     public static final String EXAMPLE = "Clementi Ave 2, Blk 543 #13-12";
-    public static final String MESSAGE_ADDRESS_CONSTRAINTS = "Employee addresses can be in any format";
-    public static final String ADDRESS_VALIDATION_REGEX = ".+";
+    public static final String MESSAGE_ADDRESS_CONSTRAINTS = "Employee addresses can be in any format"
+                                                            + " but cannot be more than 50 characters";
+    public static final String ADDRESS_VALIDATION_REGEX = ".{1,50}+";
 
     public final String value;
 
