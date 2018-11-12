@@ -57,8 +57,14 @@ image::LoginComponentClassDiagram.png[]
 
 // tag::logiccompo[]
 === 3.3 Logic Component
+Class diagram for the Logic Component:
 
 image::LogicComponentClassDiagram.png[]
+
+Sequence diagram when a command is called (in this example, "delete 1") :
+
+image::LogicComponentSequence1.png[]
+
 // end::logiccompo[]
 == 4. Implementation
 This section describes some noteworthy details on how certain features are implemented.
