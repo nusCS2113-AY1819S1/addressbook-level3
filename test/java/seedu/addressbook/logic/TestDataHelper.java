@@ -266,20 +266,24 @@ class TestDataHelper {
 
         cmd.add(index);
 
-        if (editParam.equals("phone")) {
-            cmd.add("p/" + editDetail);
-        }
+        if (editParam == null || editDetail == null) {
+            return cmd.toString();
+        } else {
+            if (editParam.equals("phone")) {
+                cmd.add("p/" + editDetail);
+            }
 
-        if (editParam.equals("email")) {
-            cmd.add("e/" + editDetail);
-        }
+            if (editParam.equals("email")) {
+                cmd.add("e/" + editDetail);
+            }
 
-        if (editParam.equals("address")) {
-            cmd.add("a/" + editDetail);
-        }
+            if (editParam.equals("address")) {
+                cmd.add("a/" + editDetail);
+            }
 
-        if (editParam.equals("position")) {
-            cmd.add("pos/" + editDetail);
+            if (editParam.equals("position")) {
+                cmd.add("pos/" + editDetail);
+            }
         }
 
         return cmd.toString();
