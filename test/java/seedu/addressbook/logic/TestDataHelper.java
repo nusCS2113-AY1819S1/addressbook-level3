@@ -9,6 +9,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 import java.util.Set;
 import java.util.StringJoiner;
 
@@ -161,9 +162,11 @@ class TestDataHelper {
      * @param seed used to generate the employee data field values
      */
     public Employee generateEmployee(int seed) throws Exception {
+        Random rnd = new Random();
+        int randomPhone = 10000000 + rnd.nextInt(90000000);
         return new Employee(
                 new EmployeeName("Employee " + seed),
-                new EmployeePhone("" + Math.abs(seed)),
+                new EmployeePhone("" + randomPhone),
                 new EmployeeEmail(seed + "@email"),
                 new EmployeeAddress("House of " + seed),
                 new EmployeePosition("Position " + seed)

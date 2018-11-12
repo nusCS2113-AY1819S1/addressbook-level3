@@ -42,7 +42,7 @@ public interface ReadOnlyMember {
         final StringBuilder builder = new StringBuilder();
         builder.append(getName());
         builder.append(" | Email: ").append(getEmail());
-        builder.append(" | Available Points: ").append(getCurrentPoints());
+        builder.append(" | Available Points: ").append(getCurrentPointsValue());
         builder.append(" | Total Points: ").append(getTotalPointsValue());
         builder.append(" | Tier: ").append(getMemberTier().toString());
         builder.append(" | Date: ").append(getDate());
