@@ -23,19 +23,31 @@ public class Logic {
     private StorageFile storage;
     private Rms rms;
 
-    /** The list of member shown to the user most recently.  */
+    /**
+     * The list of member shown to the user most recently.
+     */
     private List<? extends ReadOnlyMember> lastShownMemberList = Collections.emptyList();
 
-    /** The list of menu shown to the user most recently.  */
+    //@@author SalsabilTasnia
+    /**
+     * The list of menu shown to the user most recently.
+     */
     private List<? extends ReadOnlyMenus> lastShownMenuList = Collections.emptyList();
 
-    /** The list of order shown to the user most recently.  */
+    //@@author
+    /**
+     *  The list of order shown to the user most recently.
+     */
     private List<? extends ReadOnlyOrder> lastShownOrderList = Collections.emptyList();
 
-    /** The list of employee shown to the user most recently.  */
+    /**
+     * The list of employee shown to the user most recently.
+     */
     private List<? extends ReadOnlyEmployee> lastShownEmployeeList = Collections.emptyList();
 
-    /** The list of employee shown to the user most recently.  */
+    /**
+     * The list of employee shown to the user most recently.
+     */
     private List<? extends Attendance> lastShownAttendanceList = Collections.emptyList();
 
     public Logic() throws Exception {
@@ -89,6 +101,7 @@ public class Logic {
         return Collections.unmodifiableList(lastShownAttendanceList);
     }
 
+    //@@author SalsabilTasnia
     /**
      * Unmodifiable view of the current last shown menu list.
      */
@@ -96,6 +109,7 @@ public class Logic {
         return Collections.unmodifiableList(lastShownMenuList);
     }
 
+    //@@author
     /**
      * Unmodifiable view of the current last shown order list.
      */
@@ -103,10 +117,12 @@ public class Logic {
         return Collections.unmodifiableList(lastShownOrderList);
     }
 
+    //@@author SalsabilTasnia
     protected void setLastShownMenuList(List<? extends ReadOnlyMenus> newList) {
         lastShownMenuList = newList;
     }
 
+    //@@author
     protected void setLastShownOrderList(List<? extends ReadOnlyOrder> newList) {
         lastShownOrderList = newList;
     }
@@ -152,7 +168,9 @@ public class Logic {
         return result;
     }
 
-    /** Updates the last shown lists if the result contains a list of result Objects. */
+    /**
+     * Updates the last shown lists if the result contains a list of result Objects.
+     */
     private void recordResult(CommandResult result) {
         final Optional<List<? extends ReadOnlyMenus>> menuList = result.getRelevantMenus();
         final Optional<List<? extends ReadOnlyOrder>> orderList = result.getRelevantOrders();

@@ -3,6 +3,7 @@ package seedu.addressbook.data.menu;
 import seedu.addressbook.data.exception.IllegalValueException;
 
 
+//@@author SalsabilTasnia
 /**
  * Price of a particular menu item in the Restaurant Management System.
  * Guarantees: immutable; is valid as declared in {@link #isValidPrice(String)}
@@ -15,10 +16,8 @@ public class Price {
             + "where A is a number of 1-3 digits and B and C are 1 digit each";
 
     public static final String PRICE_VALIDATION_REGEX = "\\$[1-9][0-9]{0,2}(\\.[0-9]{2})?|\\$0\\.[0-9]{2}|\\$0";
-    //"^\\$\\d+([.][0-9]+)?$";
 
     public final String value;
-    //private boolean isPrivate;
 
     /**
      * Validates given phone number.
@@ -34,7 +33,7 @@ public class Price {
     }
 
     /**
-     * Convert value from String to double
+     * Convert price value from String to double
      */
     public double convertValueOfPriceToDouble() {
         String doubleValue = this.value.substring(1);

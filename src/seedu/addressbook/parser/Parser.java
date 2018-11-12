@@ -166,6 +166,7 @@ public class Parser {
         case MemberDeleteCommand.COMMAND_WORD:
             return prepareMemberDelete(arguments);
 
+        //@@author SalsabilTasnia
         case MenuAddCommand.COMMAND_WORD:
             return prepareAddMenu(arguments);
 
@@ -190,6 +191,7 @@ public class Parser {
         case MenuClearCommand.COMMAND_WORD:
             return new MenuClearCommand();
 
+        //@@author
         case OrderAddCommand.COMMAND_WORD:
             return new OrderAddCommand();
 
@@ -264,6 +266,7 @@ public class Parser {
         }
     }
 
+    //@@author SalsabilTasnia
     /**
      * Parses arguments in the context of the add menu command.
      *
@@ -288,6 +291,7 @@ public class Parser {
         }
     }
 
+    //@@author
     /**
      * Parses arguments in the context of the add employee command.
      *
@@ -420,8 +424,8 @@ public class Parser {
     }
 
     /**
-     *      * Extracts the new menu's tags from the add command's tag arguments string.
-     *      * Merges duplicate tag strings.
+     * Extracts the new menu's tags from the add command's tag arguments string.
+     * Merges duplicate tag strings.
      */
     private static Set<String> getTagsFromArgs(String tagArguments) {
         // no tags
@@ -433,6 +437,7 @@ public class Parser {
         return new HashSet<>(tagStrings);
     }
 
+    //@@author SalsabilTasnia
     /**
      * Parses arguments in the context of the delete menu item command.
      *
@@ -448,6 +453,7 @@ public class Parser {
         }
     }
 
+    //@@author
     /**
      * Parses arguments in the context of the delete order command.
      *
@@ -465,6 +471,7 @@ public class Parser {
     }
 
 
+    //@@author SalsabilTasnia
     /**
      * Parses arguments in the context of the find menu command.
      *
@@ -484,6 +491,7 @@ public class Parser {
         return new MenuFindCommand(keywordSet);
     }
 
+    //@@author
     /**
      * Parses arguments in the context of the edit draft order customer command.
      *
@@ -595,6 +603,7 @@ public class Parser {
         );
     }
 
+    //@@author SalsabilTasnia
     /**
      * Parses arguments in the context of the list menu by type command.
      *
@@ -607,10 +616,6 @@ public class Parser {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     MenuListByTypeCommand.MESSAGE_USAGE));
         }
-
-        // keywords delimited by whitespace
-        //final String[] keywords = matcher.group("keywords").split("\\s+");
-        //final String itemword = matcher.group("itemword");
         return new MenuListByTypeCommand(matcher.group("type"));
     }
 

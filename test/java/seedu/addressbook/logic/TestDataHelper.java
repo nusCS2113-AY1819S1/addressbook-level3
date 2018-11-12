@@ -40,6 +40,7 @@ class TestDataHelper {
 
     public static final int FOOD_QUANTITY = 1;
 
+    //@@author kianhong95
     /**
      * Generate an employee for testing purpose
      */
@@ -51,6 +52,7 @@ class TestDataHelper {
         EmployeePosition position = new EmployeePosition("Cashier");
         return new Employee(name, phone, email, address, position);
     }
+    //@@author
 
     /**
      * Generate a member for testing purpose
@@ -145,6 +147,7 @@ class TestDataHelper {
         return new Order(eve(), orderingDate, new HashMap<>(), pointsToRedeem());
     }
 
+    //@@author kianhong95
     /**
      * Generates a valid employee using the given seed.
      * Running this function with the same parameter values guarantees the returned employee will have the same state.
@@ -202,22 +205,25 @@ class TestDataHelper {
      * Running this function with the same parameter values guarantees the returned attendance will have the same state.
      * Each unique seed will generate a unique Attendance object.
      *
-     * @param seed used to generate the attendance data field values
+     * @param seed used to generate the employee data field value
      */
     public Attendance generateAttendance(int seed) {
         return new Attendance("Employee " + seed);
     }
 
     /**
-     * Generates a valid attendance using the given seed.
+     * Generates a valid attendance with timing using the given seed and Timing Set.
      * Running this function with the same parameter values guarantees the returned attendance will have the same state.
      * Each unique seed will generate a unique Attendance object.
      *
-     * @param seed used to generate the attendance data field values
+     * @param seed used to generate the employee data field value
+     * @param isClockedIn set the clock in or out
+     * @param timings Timing Set to be added to the attendance
      */
     public Attendance generateAttendanceWithTime(int seed, boolean isClockedIn, Set<Timing> timings) {
         return new Attendance("Employee " + seed, isClockedIn, timings);
     }
+    //@@author
 
     /**
      * Generates a valid member using the given seed.
@@ -271,6 +277,7 @@ class TestDataHelper {
         );
     }
 
+    //@@author kianhong95
     /** Generates the correct add command based on the employee given */
     public String generateAddEmpCommand(Employee e) {
         StringJoiner cmd = new StringJoiner(" ");
@@ -316,6 +323,7 @@ class TestDataHelper {
 
         return cmd.toString();
     }
+    //@@author
 
     /** Generates the correct add member command based on the member given */
     public String generateAddMemberCommand(Member e) {
@@ -359,6 +367,7 @@ class TestDataHelper {
         return cmd.toString();
     }
 
+    //@@author kianhong95
     /**
      * Generates an Rms based on the list of Employees given.
      */
@@ -379,6 +388,7 @@ class TestDataHelper {
         addAttendancesToRms(rms, attendances);
         return rms;
     }
+    //@@author
 
     /**
      * Generates an Rms based on the list of Menu given.
@@ -422,11 +432,12 @@ class TestDataHelper {
         }
     }
 
+    //@@author kianhong95
     /**
      * Adds the given list of Employeees to the given Rms.
      */
     public void addEmployeesToRms(Rms rms, List<Employee> employeesToAdd) throws Exception {
-        for (Employee e: employeesToAdd) {
+        for (Employee e : employeesToAdd) {
             rms.addEmployee(e);
         }
     }
@@ -439,6 +450,7 @@ class TestDataHelper {
             rms.addAttendance(a);
         }
     }
+    //@@author
 
     /**
      * Adds the given list of Members to the given Rms
@@ -467,6 +479,7 @@ class TestDataHelper {
         addOrdersToRms(rms, generateOrderList(integers));
     }
 
+    //@@author kianhong95
     /**
      * Creates a list of Employees based on the give Employee objects.
      */
@@ -484,6 +497,7 @@ class TestDataHelper {
         Collections.addAll(attendanceList, attendances);
         return attendanceList;
     }
+    //@@author
 
     /**
      * Creates a list of Members based on the give Member objects.

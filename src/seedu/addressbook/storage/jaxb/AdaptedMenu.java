@@ -17,6 +17,7 @@ import seedu.addressbook.data.menu.ReadOnlyMenus;
 import seedu.addressbook.data.menu.Type;
 import seedu.addressbook.data.tag.Tag;
 
+//@@author SalsabilTasnia
 /**
  * JAXB-friendly adapted menu data holder class.
  */

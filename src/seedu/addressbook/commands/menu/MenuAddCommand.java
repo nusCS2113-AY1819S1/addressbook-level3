@@ -62,10 +62,6 @@ public class MenuAddCommand extends Command {
         );
     }
 
-    public MenuAddCommand(Menu toAddFoodItem) {
-        this.toAddFoodItem = toAddFoodItem;
-    }
-
     public ReadOnlyMenus getMenu() {
         return toAddFoodItem;
     }

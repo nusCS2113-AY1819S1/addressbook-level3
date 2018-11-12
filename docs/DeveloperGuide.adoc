@@ -993,6 +993,23 @@ Use case ends.
 +
 Use case ends.
 
+[discrete]
+=== Use case: List Menu To View All Menu Items
+System: Restaurant Management System (RMS) +
+Use Case: List employees +
+Actor: Manager, Cashier +
+
+Guarantees:
+
+* Displays list of menu items that exists in the menu database.
+
+*MSS*
+
+1.    User requests to view all the menu items of the menu database, not just based on their categories.
+2.    RMS displays all the menu items that exist in the restaurant's database.
++
+Use case ends.
+
 
 [discrete]
 === Use case: Add Menu

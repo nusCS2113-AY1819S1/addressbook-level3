@@ -18,8 +18,6 @@ public class MenuListCommand extends Command {
             + "Displays all menu items in the Rms system as a list with index numbers.\n\t"
             + "Example: " + COMMAND_WORD;
 
-
-
     @Override
     public CommandResult execute() {
         List<ReadOnlyMenus> allMenus = rms.getAllMenus().immutableListView();

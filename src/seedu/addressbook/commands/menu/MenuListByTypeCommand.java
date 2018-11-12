@@ -10,7 +10,7 @@ import seedu.addressbook.data.menu.Type;
 
 //@@author SalsabilTasnia
 /**
- * Lists all food items of a certain type in the menu list to the user.
+ * Lists all food items of a certain type (or category) in the menu list to the user.
  */
 public class MenuListByTypeCommand extends Command {
 
@@ -26,7 +26,6 @@ public class MenuListByTypeCommand extends Command {
 
     private final String itemword;
     private final List<ReadOnlyMenus> matchedFoodItems = new ArrayList<>();
-
     public MenuListByTypeCommand(String itemword) {
         this.itemword = itemword;
     }
@@ -34,7 +33,14 @@ public class MenuListByTypeCommand extends Command {
         return itemword;
     }
 
-    private List<ReadOnlyMenus> getFoodItems(String itemword) {
+
+    /**
+     * Retrieve all menu items in the menu that are of the same type as itemType
+     *
+     * @param itemType type of menu items the user wishes to view
+     * @return a list of menu items of type, 'itemType'
+     */
+    private List<ReadOnlyMenus> getFoodItems(String itemType) {
         for (ReadOnlyMenus menuItem : rms.getAllMenus()) {
             final String wordsInItemName = menuItem.getType().value;
             if (wordsInItemName.equals(itemword)) {
@@ -43,7 +49,6 @@ public class MenuListByTypeCommand extends Command {
         }
         return matchedFoodItems;
     }
-
 
     @Override
     public CommandResult execute() {
