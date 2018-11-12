@@ -123,20 +123,20 @@ System adds Cheese Fries to the existing menu.
 ==== Delete Menu
 
 Delete an item on the menu +
-Format: `deletemenu INDEX`
+Format: `delmenu INDEX`+
+Preconditions: The user must perform 'List Menu' , 'List Menu According to Category' or 'Find Menu' first before performing 'Delete Menu'
 
 * Deletes the menu item in that particular index
-* Note that the user must perform 'List Menu' , 'List Menu According to Category' or 'Find Menu' first before performing 'Delete Menu'
 
 Example: +
 `listmenutype main` +
-`deletemenu 1` +
+`delmenu 1` +
 System deletes menu item in index 1 from the displayed menu of main dishes. +
 `listmenutype main` +
-`deletemenu 1` +
+`delmenu 1` +
 System deletes the menu item in index 1 from the displayed menu of main dishes. +
 `findmenu Cheese Fries` +
-`deletemenu 3` +
+`delmenu 3` +
 System deletes Cheese Fries in index 3 from the displayed menu of items found with `Cheese Fries` keyword.
 
 ==== Find Menu
