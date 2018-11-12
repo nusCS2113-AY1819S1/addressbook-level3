@@ -58,6 +58,7 @@ public class AddCommand extends Command {
         );
     }
 
+
     public AddCommand(Person toAdd) {
         this.toAdd = toAdd;
     }

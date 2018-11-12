@@ -51,6 +51,7 @@ import seedu.addressbook.password.Password;
  */
 public class Parser {
 
+
     //@@author muhdharun -reused
     public static final Pattern PERSON_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
             Pattern.compile("(?<name>[^/]+)"
@@ -220,6 +221,7 @@ public class Parser {
         }
     }
     //@@author
+
 
     /**
      * Extracts the new person's tags from the add command's tag arguments string.
@@ -460,9 +462,8 @@ public class Parser {
     }
 
     /**
-     * TODO: Add Javadoc comment
-     * @param args
-     * @return
+     * @param args full command args string
+     * @return the prepared command
      */
     private Command prepareFind(String args) {
         args = args.trim();
