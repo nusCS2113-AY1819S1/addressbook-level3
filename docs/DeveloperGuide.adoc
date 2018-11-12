@@ -342,6 +342,8 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |`* * *` |user |To be able to update or recover my password |Access my account even if I forgot my password and keep my credentials secure
 |`* * *` |user |add a new person |
 |`* * *` |user |delete a person |remove entries that I no longer need
+|`* * *` |user |add in appointments dates easily |
+|`* * *` |user |delete appointments |remove appoinment entries that I no longer need
 |`* * *` |user |find a person by name |locate details of persons without having to go through the entire list
 |`* * *` |user |undo/redo changes made |revert changes that are unwanted
 |`* * *` |user |organise many persons in MediBook |sort persons by name |locate a person easily
@@ -395,6 +397,7 @@ Use case ends.
 +
 Use case ends.
 
+
 === Use case: UC04 - Delete person
 
 *MSS*
@@ -442,6 +445,34 @@ Use case ends.
 ** 3a1. MediBook shows an error message.
 +
 Use case resumes at step 2.
+
+=== Use case: UC06 - Editing Appointment of Existing Users
+
+*MSS*
+
+. Users `list`
+. MediBook will display the list of People in MediBook
+. Users select person to `edit-appointment`
+. MediBook enters edit-appointment mode
+. User add appointments input
+. MediBook adds in the appointments for the indicted person and does not add in duplicated appointments
+. User exits edit-appointment mode using `done`
+. MediBook exits edit-appointment mode
++
+Use case ends.
+
+*Extensions*
+
+* 2a. The list is empty.
++
+Use case ends.
+
+*Extensions*
+
+* 5a. User delete appointments input
+** 5a1.  MediBook delete in the appointments for the indicted person and does not change the missing appointments
++
+Use case ends.
 
 [appendix]
 == Non Functional Requirements

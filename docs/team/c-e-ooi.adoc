@@ -32,7 +32,7 @@ MediBook optimises and enhances Address Book Level 3 to suit the needs of health
 * *Major enhancement*: added *the ability to record and edit appointments*
 ** What it does:
 *** Allows the users to select a person in MediBook to edit the person's appointments
-*** Adds and delete several appointments]
+*** Adds and delete several appointments
 *** Shows the list of appointments the person has
 ** Justification:
 *** Recording and viewing patient appointments is an important aspect of healthcare administration. With this feature, users can make and view multiple appointments effectively
@@ -43,25 +43,26 @@ MediBook optimises and enhances Address Book Level 3 to suit the needs of health
 
 * *Minor enhancement*:
 ** Help message for edit-appointment mode
-** Made command words case-insensitive
+** Made command words case-insensitive https://github.com/CS2113-AY1819S1-F10-2/main/pull/139[#139]
 
 * *Code contributed*: https://nuscs2113-ay1819s1.github.io/dashboard/#=undefined&search=c-e-ooi&sort=displayName&since=2018-09-12&until=2018-11-05&timeframe=day&reverse=false&repoSort=true[Reposense]
-
-STOPPED HERE REMEMBBER TO FINSIH WRITING and to add (Pull requests https://github.com[#33], https://github.com[#34])
 
 * *Other contributions*:
 ** Project management:
 *** Managed Issue Tracker on GitHub, generated issues for own features and set milestones.
 ** Enhancements to existing features:
-*** Reformatted the display message for `list` command
+*** Reformatted the display message for `list` command https://github.com/CS2113-AY1819S1-F10-2/main/pull/139[#139]
 ** Documentation:
-*** Structured user guide
-*** Did cosmetic tweaks to existing contents of the User Guide: https://github.com[#14]
+*** Structured User Guide: https://github.com/CS2113-AY1819S1-F10-2/main/pull/144[#144]
+*** Did cosmetic tweaks to existing contents of the User Guide:  https://github.com/CS2113-AY1819S1-F10-2/main/pull/41[#41]
+*** User Guide and Developer Guide documentation for my own features: https://github.com/CS2113-AY1819S1-F10-2/main/pull/168[#168]
+https://github.com/CS2113-AY1819S1-F10-2/main/pull/147[#147] https://github.com/CS2113-AY1819S1-F10-2/main/pull/41[#41]
 ** Community:
-*** PRs reviewed (with non-trivial review comments): https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
-*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
+*** PRs reviewed: https://github.com/CS2113-AY1819S1-F10-2/main/pull/169[#169], https://github.com/CS2113-AY1819S1-F10-2/main/pull/157[#157], https://github.com/CS2113-AY1819S1-F10-2/main/pull/151[#151], https://github.com/CS2113-AY1819S1-F10-2/main/pull/137[#137]
+*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com/CS2113-AY1819S1-W13-4/main/issues/120[1],
+https://github.com/CS2113-AY1819S1-W13-4/main/issues/96[2], https://github.com/CS2113-AY1819S1-W13-4/main/issues/115[3])
 ** Tools:
-*** reposense
+*** Integrated a new Github plugin (Codacy) to the team repo
 
 
 == 3 Contributions to the User Guide
