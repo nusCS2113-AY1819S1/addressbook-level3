@@ -49,11 +49,11 @@ image::UIComponentClassDiagram.png[]
 === 3.2 Login Component
 
 image::LoginComponentClassDiagram.png[]
-
+// tag::logiccompo[]
 === 3.3 Logic Component
 
 image::LogicComponentClassDiagram.png[]
-
+// end::logiccompo[]
 == 4. Implementation
 This section describes some noteworthy details on how certain features are implemented.
 // tag::statecontrol[]
@@ -150,11 +150,16 @@ The `clear` command calls `*commandStack.checkForAction()*` which determines tha
 
 image::statecontrolimple5.png[]
 
+The following sequence diagram shows how the undo operation works after the command is parsed:
+
+image::UndoRedoSequenceDiagram.png[]
+
 ==== 4.1.2  Reason for this implementation
-Storing the different states of MediBook is relatively easy to implement and it is less prone to errors. However, a drawback for this implementation is the high memory usage required which might cause performance issues.
+Current implementation requires each UndoAbleCommand object to know how to revert their own changes.This will use less memory as minimal data is stored. For example, for `add`, only the person added will be saved. However, we must ensure that the implementation of each individual command are correct.
 
 ==== 4.1.3  Alternative consideration
-An alternative to the current implementation is to save the list of commands executed in the arraylist instead of the whole MediBook and reverse them when attempting to undo. However, this requires implemented class to know how to reverse each command. For example, undo-ing a `delete` command requires the class to perform `add` and the class has to remember all the arguments required to create the same person that was deleted.
+An alternative to the current implementation is to save the different states of the MediBook after each command and iterate through them whenever undo/redo is called. Though this is far less challenging than the current implementation, performance issues might arise due to the high memory usage required.
+
 // end::statecontrol[]
 === 4.2 Login System
 Securely logs user on to MediBook
