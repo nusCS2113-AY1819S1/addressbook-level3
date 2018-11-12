@@ -52,7 +52,7 @@ class TestDataHelper {
         EmployeePosition position = new EmployeePosition("Cashier");
         return new Employee(name, phone, email, address, position);
     }
-    //@@author kianhong95
+    //@@author
 
     /**
      * Generate a member for testing purpose
@@ -223,7 +223,7 @@ class TestDataHelper {
     public Attendance generateAttendanceWithTime(int seed, boolean isClockedIn, Set<Timing> timings) {
         return new Attendance("Employee " + seed, isClockedIn, timings);
     }
-    //@@author kianhong95
+    //@@author
 
     /**
      * Generates a valid member using the given seed.
@@ -323,7 +323,7 @@ class TestDataHelper {
 
         return cmd.toString();
     }
-    //@@author kianhong95
+    //@@author
 
     /** Generates the correct add member command based on the member given */
     public String generateAddMemberCommand(Member e) {
@@ -388,7 +388,7 @@ class TestDataHelper {
         addAttendancesToRms(rms, attendances);
         return rms;
     }
-    //@@author kianhong95
+    //@@author
 
     /**
      * Generates an Rms based on the list of Menu given.
@@ -450,7 +450,7 @@ class TestDataHelper {
             rms.addAttendance(a);
         }
     }
-    //@@author kianhong95
+    //@@author
 
     /**
      * Adds the given list of Members to the given Rms
@@ -497,7 +497,7 @@ class TestDataHelper {
         Collections.addAll(attendanceList, attendances);
         return attendanceList;
     }
-    //@@author kianhong95
+    //@@author
 
     /**
      * Creates a list of Members based on the give Member objects.

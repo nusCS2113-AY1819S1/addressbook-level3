@@ -211,7 +211,7 @@ public class LogicTest {
         assertEquals(lastShownAttendanceList, logic.getLastShownAttendanceList());
         assertEquals(rms, saveFile.load());
     }
-    //@@author kianhong95
+    //@@author
 
     /**
      * Executes the Member command and confirms that the result message is correct.
@@ -794,7 +794,7 @@ public class LogicTest {
     public void execute_editemp_invalidIndex() throws Exception {
         assertInvalidIndexBehaviorForEmployeeEditCommand("editemp");
     }
-    //@@author kianhong95
+    //@@author
 
     @Test
     public void execute_addmember_invalidArgsFormat() throws Exception {
