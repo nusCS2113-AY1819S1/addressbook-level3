@@ -332,6 +332,7 @@ Examples:
 `associatelist 2` +
 Views the persons associated with the 2nd person in MediBook.
 // end::associate[]
+// tag::changepassword[]
 
 === 4.14 Change Password: `changepassword`
 
@@ -349,6 +350,7 @@ NEWPASSWORD and CONFIRMNEWPASSWORD must be exactly the same.
 Examples:
 
 * `changepassword pw/0ldPassword! npw/N3wPassword! cpw/N3wPassword!`
+// end::changepassword[]
 
 === 4.15 Undo: `undo`
 
@@ -412,6 +414,7 @@ Format: `history`
 
 Exits the program. +
 Format: `exit`
+// tag::accesslevel[]
 
 === 4.19 Access levels
 
@@ -425,6 +428,7 @@ Examples:
 Views all details of the 1st person in MediBook.
 DISPLAYED: +
 Viewing person: John Doe NRIC: S1233210Y Phone: 81654610 Email: 10@gmail Address:  \\*** HIDDEN \***  Title: Doctor Schedule:  Tags:
+// end::accesslevel[]
 
 === 4.20 Saving the data
 
