@@ -355,8 +355,15 @@ public class Parser {
             }
 
             if (userInputParameters[INDEX_EDIT_OFFENSE_TAG] != null) {
+                logger.info("Offense tags are non empty for Edit Command");
                 offenses = getTagsFromArgs(userInputParameters[INDEX_EDIT_OFFENSE_TAG]);
             }
+
+            logger.info("Edit Command parameters: NRIC " + userInputParameters[0]
+                    + "Postal Code: " + userInputParameters[1]
+                    + "Status: " + userInputParameters[2]
+                    + "Wanted: " + userInputParameters[3]
+                    + "Offense(s) " + offenseString);
 
             return new EditCommand(
                     userInputParameters[0],
@@ -367,7 +374,7 @@ public class Parser {
             );
 
         } catch (IllegalValueException ive) {
-            logger.log(Level.WARNING, "Invalid edit command format.", ive);
+            logger.log(Level.WARNING, "Invalid Edit Command format.", ive);
             return new IncorrectCommand(ive.getMessage());
         }
     }
@@ -519,8 +526,10 @@ public class Parser {
                 + PatrolResourceStatus.getLocation(Password.getId()).getGoogleMapsUrl();
 
         try {
+            logger.info(String.format("Backup officer %s is handling case %s", Password.getId(), caseName));
             return new RequestHelpCommand(caseName, message);
         } catch (IllegalValueException ive) {
+            logger.warning(String.format("Offense %s is invalid", caseName));
             return new IncorrectCommand(Offense.MESSAGE_OFFENSE_INVALID + Offense.getListOfValidOffences());
         }
     }
