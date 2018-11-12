@@ -28,7 +28,6 @@ public class MemberTier {
     /**
      * Checks the points and updates the existing tier.
      * @param points the number of Member points used for tier checking
-     * @return MemberTier object with the updated tier value
      */
     public void updateTier(Points points) {
         int value = points.getCurrentPoints();
