@@ -1,3 +1,4 @@
+//@@author kianhong95
 package seedu.addressbook.commands.employee;
 
 import java.util.List;
@@ -11,6 +12,6 @@ import seedu.addressbook.data.employee.ReadOnlyEmployee;
 public class EmployeeCommandResult extends CommandResult {
 
     public EmployeeCommandResult(String feedbackToUser, List<? extends ReadOnlyEmployee> relevantEmployees) {
-        super(feedbackToUser, null, null, null, null, relevantEmployees, null);
+        super(feedbackToUser, null, null, null, relevantEmployees, null);
     }
 }

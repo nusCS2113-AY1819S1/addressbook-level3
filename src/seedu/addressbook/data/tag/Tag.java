@@ -3,7 +3,7 @@ package seedu.addressbook.data.tag;
 import seedu.addressbook.data.exception.IllegalValueException;
 
 /**
- * Represents a Tag in the address book.
+ * Represents a Tag in the Menu list.
  * Guarantees: immutable; name is valid as declared in {@link #isValidTagName(String)}
  */
 public class Tag {
@@ -18,12 +18,12 @@ public class Tag {
      *
      * @throws IllegalValueException if the given tag name string is invalid.
      */
-    public Tag(String name) throws IllegalValueException {
-        name = name.trim();
-        if (!isValidTagName(name)) {
+    public Tag(String tag) throws IllegalValueException {
+        String trimmedTag = tag.trim();
+        if (!isValidTagName(trimmedTag)) {
             throw new IllegalValueException(MESSAGE_TAG_CONSTRAINTS);
         }
-        this.tagName = name;
+        this.tagName = trimmedTag;
     }
 
     /**

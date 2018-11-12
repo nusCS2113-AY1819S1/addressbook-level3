@@ -31,13 +31,14 @@ public class DraftOrderEditCustomerCommand extends Command {
         try {
             final ReadOnlyMember target = getTargetMember();
             if (!rms.containsMember(target)) {
-                return new CommandResult(Messages.MESSAGE_PERSON_NOT_IN_ADDRESSBOOK);
+                return new CommandResult(Messages.MESSAGE_MEMBER_NOT_IN_RMS);
             }
+            rms.editDraftOrderPoints(0);
             rms.editDraftOrderCustomer(target);
             String message = MESSAGE_SUCCESS + "\n" + getDraftOrderAsString();
             return new CommandResult(message);
         } catch (IndexOutOfBoundsException ie) {
-            return new CommandResult(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+            return new CommandResult(Messages.MESSAGE_INVALID_MEMBER_DISPLAYED_INDEX);
         }
     }
 

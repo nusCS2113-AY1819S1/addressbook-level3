@@ -65,7 +65,7 @@ public class AsciiTable {
 
         for (int i = 0; i < noOfColumns; i++) {
             String cellString = headings[i];
-            sb.append(padCell(cellString, columnWidths[i], ' ', i == 0, i == noOfColumns - 1));
+            sb.append(padCell(cellString, columnWidths[i], ' ', i == 0));
         }
         sb.append("\n");
         sb.append(createRowBorder(true));
@@ -73,7 +73,7 @@ public class AsciiTable {
         for (int i = 0; i < data.size(); i++) {
             for (int j = 0; j < noOfColumns; j++) {
                 String cellString = data.get(i).get(j);
-                sb.append(padCell(cellString, columnWidths[j], ' ', j == 0, j == noOfColumns - 1));
+                sb.append(padCell(cellString, columnWidths[j], ' ', j == 0));
             }
             sb.append("\n");
             sb.append(createRowBorder(false));
@@ -117,7 +117,7 @@ public class AsciiTable {
     /**
      * Return a String after padding a String into a table cell
      */
-    private String padCell(String in, int width, char pad, boolean first, boolean last) {
+    private String padCell(String in, int width, char pad, boolean first) {
         int cellSize = in.length();
         int padSize = width - cellSize;
         StringBuffer outputBuffer = new StringBuffer(padSize);
@@ -129,23 +129,4 @@ public class AsciiTable {
         return ((first) ? colBorder : "") + this.prePad + in + outputBuffer.toString() + this.postPad + colBorder;
     }
 
-    private void setPrePad(String prePad) {
-        this.prePad = prePad;
-    }
-
-    private void setPostPad(String postPad) {
-        this.postPad = postPad;
-    }
-
-    private void setRowBorder(char rowBorder) {
-        this.rowBorder = rowBorder;
-    }
-
-    private void setColBorder(char colBorder) {
-        this.colBorder = colBorder;
-    }
-
-    private void setRowHBorder(char rowHBorder) {
-        this.rowHBorder = rowHBorder;
-    }
 }

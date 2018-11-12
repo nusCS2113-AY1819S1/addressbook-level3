@@ -1,3 +1,4 @@
+//@@author kianhong95
 package seedu.addressbook.data.employee;
 
 import seedu.addressbook.data.exception.IllegalValueException;
@@ -18,10 +19,27 @@ public class EditEmployeeDescriptor {
                                   String email,
                                   String address,
                                   String position) throws IllegalValueException {
-        this.phone = new EmployeePhone(phone);
-        this.email = new EmployeeEmail(email);
-        this.address = new EmployeeAddress(address);
-        this.position = new EmployeePosition(position);
+        if (phone == null) {
+            this.phone = new EmployeePhone();
+        } else {
+            this.phone = new EmployeePhone(phone);
+        }
+
+        if (email == null) {
+            this.email = new EmployeeEmail();
+        } else {
+            this.email = new EmployeeEmail(email);
+        }
+        if (address == null) {
+            this.address = new EmployeeAddress();
+        } else {
+            this.address = new EmployeeAddress(address);
+        }
+        if (position == null) {
+            this.position = new EmployeePosition();
+        } else {
+            this.position = new EmployeePosition(position);
+        }
     }
 
     /**

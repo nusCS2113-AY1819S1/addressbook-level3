@@ -31,7 +31,8 @@ public class OrderDeleteCommand extends Command {
         try {
             final ReadOnlyOrder target = getTargetOrder();
             rms.removeOrder(target);
-            return new CommandResult(String.format(MESSAGE_DELETE_ORDER_SUCCESS, target));
+            String message = String.format(MESSAGE_DELETE_ORDER_SUCCESS, target);
+            return new CommandResult(message);
 
         } catch (IndexOutOfBoundsException ie) {
             return new CommandResult(Messages.MESSAGE_INVALID_ORDER_DISPLAYED_INDEX);

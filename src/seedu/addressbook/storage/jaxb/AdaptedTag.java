@@ -51,7 +51,7 @@ public class AdaptedTag {
     /**
      * Converts this jaxb-friendly adapted tag object into the Tag object.
      *
-     * @throws IllegalValueException if there were any data constraints violated in the adapted person
+     * @throws IllegalValueException if there were any data constraints violated in the adapted tag
      */
     public Tag toModelType() throws IllegalValueException {
         return new Tag(getTagName());
