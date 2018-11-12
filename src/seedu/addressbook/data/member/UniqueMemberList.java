@@ -10,6 +10,7 @@ import java.util.List;
 import seedu.addressbook.common.Utils;
 import seedu.addressbook.data.exception.DuplicateDataException;
 
+//@@author kangmingtay
 /**
  * A list of members. Does not allow null elements or duplicates.
  *
@@ -111,6 +112,7 @@ public class UniqueMemberList implements Iterable<Member> {
         }
     }
 
+    //@@author px1099
     /**
      *  Checks if a member in another feature is in a list of members
      *  Returns the member if found, else create a new Member using the data from the member in the order
@@ -135,6 +137,7 @@ public class UniqueMemberList implements Iterable<Member> {
         customerToUpdatePoints.updatePointsAndTier(price, usedPoints);
     }
 
+    //@@author kangmingtay
     @Override
     public Iterator<Member> iterator() {
         return internalList.iterator();

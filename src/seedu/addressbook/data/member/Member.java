@@ -5,7 +5,7 @@ import java.util.Objects;
 
 import seedu.addressbook.data.exception.IllegalValueException;
 
-
+//@@author kangmingtay
 /**
  * Represents a Member in the member list.
  */
