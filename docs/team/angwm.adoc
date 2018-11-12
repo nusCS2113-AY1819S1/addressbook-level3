@@ -50,11 +50,19 @@ Able to display the statistics for the different features.
 
 * Employee statistics will show the attendance of their clocking and the current on duty personnel.
 
+image::statsemp.png[]
+
 * Member statistics shows the number of new members over a period of time and the number of members in each member tier.
+
+image::statsmember.png[]
 
 * Menu statistics tells us the sales of each menu items as well as the most and least popular items for each categories in the menu (e.g. mains or beverages).
 
+image::statsmenu.png[]
+
 * Order statistics displays the total number of orders and the revenue for day, month and year, along with the revenue for the past 12 months.
+
+image::statsorder.png[]
 
 
 === Team roles
