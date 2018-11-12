@@ -191,7 +191,7 @@ Views all details of the 2nd person in MediBook.
 `viewall 1` +
 Views all details of the 1st person in the results of the `find` command.
 
-
+// tag::Appointment[]
 === 4.10 Selecting a person to edit appointment: `edit-appointment`
 
 Selects the person to edit appointment. +
@@ -200,7 +200,6 @@ Format: 'edit-appointment INDEX'
 ****
 Access to the appointment of the person at the specified `INDEX`.
 The index refers to the index number shown in the most recent listing.
-
 
 Similar to `viewall`, `view` and `delete`, it requires `list` or `find` command to be called
  at least once in the session for an index reference to `edit-appointment`.
@@ -249,7 +248,6 @@ Examples:
 * `add 01-01-2019-13:00`
 * `add 01-01-2019-13:00 02-01-2019-14:00 03-01-2019-15:00`
 
-
 ==== 4.10.4 Deleting appointment of the selected person: `delete`
 
 Deletes appointments from the selected person in MediBook. +
@@ -268,6 +266,8 @@ Examples:
 
 Exits the edit-appointment session. +
 Format: `done`
+
+// end::Appointment[]
 
 // tag::associate[]
 === 4.11 Associate a patient and a doctor: `link`
