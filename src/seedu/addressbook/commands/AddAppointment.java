@@ -22,14 +22,14 @@ public class AddAppointment extends UndoAbleCommand{
             + "Example 1: " + COMMAND_WORD + " 01-01-2019-13:00\n\t"
             + "Example 2: " + COMMAND_WORD + " 01-01-2019-13:00" + " 01-02-2019-14:00" + " 01-03-2019-15:00";
 
-    private static final String MESSAGE_NO_CHANGE_MADE = "No changes made to the %1$s's set of appointment "
+    public static final String MESSAGE_NO_CHANGE_MADE = "No changes made to the %1$s's set of appointment "
             + "as appointment was already recorded for %2$s";
 
-    private static final String MESSAGE_ADDED_PERSON_APPOINTMENT = "%1$s has new appointment!\n";
+    public static final String MESSAGE_ADDED_PERSON_APPOINTMENT = "%1$s has new appointment!\n";
 
-    private static final String MESSAGE_FOR_ADDED_APPOINTMENTS = "\nAdded appointment on: %1$s\n";
+    public static final String MESSAGE_FOR_ADDED_APPOINTMENTS = "\nAdded appointment on: %1$s\n";
 
-    private static final String MESSAGE_FOR_DUPLICATE_APPOINTMENTS = "Appointment not added (already exist): %1$s";
+    public static final String MESSAGE_FOR_DUPLICATE_APPOINTMENTS = "Appointment not added (already exist): %1$s";
 
     private final Set<Schedule> scheduleSetToAdd;
 
@@ -104,10 +104,8 @@ public class AddAppointment extends UndoAbleCommand{
         for(Schedule scheduleAdd : scheduleSetToAdd) {
             if(initialScheduleSet.contains(scheduleAdd)){
                 duplicateAppointments.append(scheduleAdd.toString());
-                duplicateAppointments.append(" ");
             }else{
                 addedAppointments.append(scheduleAdd.toString());
-                addedAppointments.append(" ");
             }
         }
         String detailsMessage = String.format(MESSAGE_ADDED_PERSON_APPOINTMENT, name);

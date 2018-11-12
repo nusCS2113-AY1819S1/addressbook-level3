@@ -93,6 +93,38 @@ public class LogicTest {
         assertEquals(addressBook, saveFile.load());
     }
 
+    /**
+     * Executes the command and confirms that the result message is correct and
+     * also confirms that the following three parts of the Logic object's state are as expected:<br>
+     *      - the internal address book data are same as those in the {@code expectedAddressBook} <br>
+     *      - the internal 'last shown list' matches the {@code expectedLastList} <br>
+     *      - the storage file content matches data in {@code expectedAddressBook} <br>
+     * This assertCommandBehavior check of scheduleList input
+     */
+    private void assertCommandBehavior(String inputCommand,
+                                       String expectedMessage,
+                                       AddressBook expectedAddressBook,
+                                       boolean isRelevantPersonsExpected,
+                                       List<? extends ReadOnlyPerson> lastShownList,
+                                       Set<? extends Schedule> scheduleList) throws Exception {
+
+        //Execute the command
+        CommandResult r = logic.execute(inputCommand);
+
+        //Confirm the result contains the right data
+        assertEquals(expectedMessage, r.feedbackToUser);
+        assertEquals(r.getRelevantPersons().isPresent(), isRelevantPersonsExpected);
+        if(isRelevantPersonsExpected ){
+            assertEquals(lastShownList, r.getRelevantPersons().get());
+        }
+        assertEquals(scheduleList, r.getRelevantAppointments().get());
+
+        //Confirm the state of data is as expected
+        assertEquals(expectedAddressBook, addressBook);
+        assertEquals(lastShownList, logic.getLastShownList());
+        assertEquals(addressBook, saveFile.load());
+    }
+
 
     @Test
     public void executeUnknownCommandWord() throws Exception {
@@ -141,6 +173,10 @@ public class LogicTest {
                 "add Valid Name n/S7778889T p/not_numbers e/valid@e.mail a/valid, address s/Doctor d/01-01-2001-11:00", Phone.MESSAGE_PHONE_CONSTRAINTS);
         assertCommandBehavior(
                 "add Valid Name n/S7778889T p/12345 e/notAnEmail a/valid, address s/Doctor d/01-01-2001-11:00", Email.MESSAGE_EMAIL_CONSTRAINTS);
+        assertCommandBehavior(
+                "add Valid Name n/S7778889T p/12345 e/valid@e.mail a/valid, address s/Doctor d/01-01-2009", Schedule.MESSAGE_SCHEDULE_CONSTRAINTS);
+        assertCommandBehavior(
+                "add Valid Name n/S7778889T p/12345 e/valid@e.mail a/valid, address s/Doctor d/11:00", Schedule.MESSAGE_SCHEDULE_CONSTRAINTS);
         assertCommandBehavior(
                 "add Valid Name n/S7778889T p/12345 e/valid@e.mail a/valid, address s/Doctor d/01-01-2001-11:00 t/invalid_-[.tag", Tag.MESSAGE_TAG_CONSTRAINTS);
 
@@ -330,6 +366,488 @@ public class LogicTest {
                                 expectedAB,
                                 false,
                                 lastShownList);
+    }
+
+    @Test
+    public void execute_editAppointment_invalidArgsFormat() throws Exception {
+        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditAppointmentCommand.MESSAGE_USAGE);
+        assertCommandBehavior("edit-appointment ", expectedMessage);
+        assertCommandBehavior("edit-appointment arg not number", expectedMessage);
+    }
+
+    @Test
+    public void execute_editAppointment_invalidIndex() throws Exception {
+        assertInvalidIndexBehaviorForCommand("edit-appointment");
+    }
+
+    @Test
+    public void execute_editAppointment_enterEditAppointmentMode() throws Exception {
+        TestDataHelper helper = new TestDataHelper();
+        Person p1 = helper.generatePerson(1, true);
+        Person p2 = helper.generatePerson(2, false);
+        List<Person> lastShownList = helper.generatePersonList(p1, p2);
+        AddressBook expectedAB = helper.generateAddressBook(lastShownList);
+        helper.addToAddressBook(addressBook, lastShownList);
+
+        logic.setLastShownList(lastShownList);
+
+        assertCommandBehavior("edit-appointment 1",
+                String.format(EditAppointmentCommand.MESSAGE_EDIT_APPOINTMENT_MODE, p1.getName().toString()),
+                expectedAB,
+                false,
+                lastShownList);
+        EditAppointmentCommand.setEditingAppointmentState(false);
+
+        assertCommandBehavior("edit-appointment 2",
+                String.format(EditAppointmentCommand.MESSAGE_EDIT_APPOINTMENT_MODE, p2.getName().toString()),
+                expectedAB,
+                false,
+                lastShownList);
+        EditAppointmentCommand.setEditingAppointmentState(false);
+    }
+
+    @Test
+    public void execute_tryToEditAppointmentPersonMissingInAddressBook_errorMessage() throws Exception {
+        TestDataHelper helper = new TestDataHelper();
+        Person p1 = helper.generatePerson(1, false);
+        Person p2 = helper.generatePerson(2, false);
+        List<Person> lastShownList = helper.generatePersonList(p1, p2);
+
+        AddressBook expectedAB = new AddressBook();
+        expectedAB.addPerson(p1);
+
+        addressBook.addPerson(p1);
+        logic.setLastShownList(lastShownList);
+
+        assertCommandBehavior("edit-appointment 2",
+                Messages.MESSAGE_PERSON_NOT_IN_ADDRESSBOOK,
+                expectedAB,
+                false,
+                lastShownList);
+    }
+
+    @Test
+    public void executeInEditAppointmentMode_unknownCommandWord() throws Exception {
+        TestDataHelper helper = new TestDataHelper();
+        Person p1 = helper.generatePerson(1, true);
+        Person p2 = helper.generatePerson(2, false);
+        List<Person> lastShownList = helper.generatePersonList(p1, p2);
+        AddressBook expectedAB = helper.generateAddressBook(lastShownList);
+        helper.addToAddressBook(addressBook, lastShownList);
+
+        logic.setLastShownList(lastShownList);
+        EditAppointmentCommand.setEditingAppointmentState(true);
+        EditAppointmentCommand.setEditingPersonIndex(1);
+
+        String unknownCommand = "uicfhmowqewca";
+        assertCommandBehavior(unknownCommand,
+                String.format(HelpEditAppointment.MESSAGE_ALL_USAGES, p1.getName().toString()),
+                expectedAB,
+                false,
+                lastShownList);
+        EditAppointmentCommand.setEditingAppointmentState(false);
+    }
+
+    @Test
+    public void executeInEditAppointmentMode_help() throws Exception {
+        TestDataHelper helper = new TestDataHelper();
+        Person p1 = helper.generatePerson(1, true);
+        Person p2 = helper.generatePerson(2, false);
+        List<Person> lastShownList = helper.generatePersonList(p1, p2);
+        AddressBook expectedAB = helper.generateAddressBook(lastShownList);
+        helper.addToAddressBook(addressBook, lastShownList);
+
+        logic.setLastShownList(lastShownList);
+        EditAppointmentCommand.setEditingAppointmentState(true);
+        EditAppointmentCommand.setEditingPersonIndex(1);
+
+        assertCommandBehavior("help",
+                String.format(HelpEditAppointment.MESSAGE_ALL_USAGES, p1.getName().toString()),
+                expectedAB,
+                false,
+                lastShownList);
+        EditAppointmentCommand.setEditingAppointmentState(false);
+    }
+
+    @Test
+    public void executeInEditAppointmentMode_done() throws Exception {
+        TestDataHelper helper = new TestDataHelper();
+        Person p1 = helper.generatePerson(1, true);
+        Person p2 = helper.generatePerson(2, false);
+        List<Person> lastShownList = helper.generatePersonList(p1, p2);
+        AddressBook expectedAB = helper.generateAddressBook(lastShownList);
+        helper.addToAddressBook(addressBook, lastShownList);
+
+        logic.setLastShownList(lastShownList);
+        EditAppointmentCommand.setEditingAppointmentState(true);
+        EditAppointmentCommand.setEditingPersonIndex(1);
+
+        assertCommandBehavior("done",
+                String.format(ExitEditAppointment.MESSAGE_FINISH_EDIT_APPOINTMENT, p1.getName().toString()),
+                expectedAB,
+                false,
+                lastShownList);
+        EditAppointmentCommand.setEditingAppointmentState(false);
+    }
+
+    @Test
+    public void executeInEditAppointmentMode_list_showsAllSchedules() throws Exception {
+        TestDataHelper helper = new TestDataHelper();
+        Person p1 = helper.generatePerson(1, true);
+        Person p2 = helper.generatePerson(2, false);
+        List<Person> lastShownList = helper.generatePersonList(p1, p2);
+        AddressBook expectedAB = helper.generateAddressBook(lastShownList);
+        helper.addToAddressBook(addressBook, lastShownList);
+
+        logic.setLastShownList(lastShownList);
+        EditAppointmentCommand.setEditingAppointmentState(true);
+        EditAppointmentCommand.setEditingPersonIndex(1);
+        Set<Schedule> appointments = p1.getSchedules();
+
+        assertCommandBehavior("list",
+                ListAppointment.getMessageForAppointmentMadeByPerson(appointments, p1.getName()),
+                expectedAB,
+                false,
+                lastShownList,
+                appointments);
+        EditAppointmentCommand.setEditingAppointmentState(false);
+    }
+
+    @Test
+    public void executeInEditAppointmentMode_add_invalidArgsFormat() throws Exception {
+        TestDataHelper helper = new TestDataHelper();
+        Person p1 = helper.generatePerson(1, true);
+        Person p2 = helper.generatePerson(2, false);
+        List<Person> lastShownList = helper.generatePersonList(p1, p2);
+        AddressBook expectedAB = helper.generateAddressBook(lastShownList);
+        helper.addToAddressBook(addressBook, lastShownList);
+
+        logic.setLastShownList(lastShownList);
+        EditAppointmentCommand.setEditingAppointmentState(true);
+        EditAppointmentCommand.setEditingPersonIndex(1);
+
+        assertCommandBehavior("add",
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddAppointment.MESSAGE_USAGE),
+                expectedAB,
+                false,
+                lastShownList);
+        EditAppointmentCommand.setEditingAppointmentState(false);
+    }
+
+    @Test
+    public void executeInEditAppointmentMode_add_invalidScheduleFormat() throws Exception {
+        TestDataHelper helper = new TestDataHelper();
+        Person p1 = helper.generatePerson(1, true);
+        Person p2 = helper.generatePerson(2, false);
+        List<Person> lastShownList = helper.generatePersonList(p1, p2);
+        AddressBook expectedAB = helper.generateAddressBook(lastShownList);
+        helper.addToAddressBook(addressBook, lastShownList);
+
+        logic.setLastShownList(lastShownList);
+        EditAppointmentCommand.setEditingAppointmentState(true);
+        EditAppointmentCommand.setEditingPersonIndex(1);
+
+        String invalidScheduleFormat1 = "not DD-MM-YYYY-HH:MM";
+        String invalidScheduleFormat2 = "01-01-2019";
+        String invalidScheduleFormat3 = "23:59";
+        String invalidScheduleFormat4 = "01-01-2019-2359";
+        assertCommandBehavior("add " + invalidScheduleFormat1,
+                Schedule.MESSAGE_SCHEDULE_CONSTRAINTS,
+                expectedAB,
+                false,
+                lastShownList);
+        assertCommandBehavior("add " + invalidScheduleFormat2,
+                Schedule.MESSAGE_SCHEDULE_CONSTRAINTS,
+                expectedAB,
+                false,
+                lastShownList);
+        assertCommandBehavior("add " + invalidScheduleFormat3,
+                Schedule.MESSAGE_SCHEDULE_CONSTRAINTS,
+                expectedAB,
+                false,
+                lastShownList);
+        assertCommandBehavior("add " + invalidScheduleFormat4,
+                Schedule.MESSAGE_SCHEDULE_CONSTRAINTS,
+                expectedAB,
+                false,
+                lastShownList);
+        EditAppointmentCommand.setEditingAppointmentState(false);
+    }
+
+    private String scheduleSetToStringWithoutSpaceAtTheEnd(Set<Schedule> appointments) {
+        final StringBuilder scheduleList = new StringBuilder();
+        for (Schedule schedule : appointments) {
+            scheduleList.append(schedule.toString());
+        }
+        return scheduleList.toString().trim();
+    }
+
+    private String scheduleSetToString(Set<Schedule> appointments) {
+        final StringBuilder scheduleList = new StringBuilder();
+        for (Schedule schedule : appointments) {
+            scheduleList.append(schedule.toString());
+        }
+        return scheduleList.toString();
+    }
+
+    @Test
+    public void executeInEditAppointmentMode_addDuplicate_notAllowed() throws Exception {
+        TestDataHelper helper = new TestDataHelper();
+        Person p1 = helper.generatePerson(1, true);
+        Person p2 = helper.generatePerson(2, false);
+        List<Person> lastShownList = helper.generatePersonList(p1, p2);
+        AddressBook expectedAB = helper.generateAddressBook(lastShownList);
+        helper.addToAddressBook(addressBook, lastShownList);
+
+        logic.setLastShownList(lastShownList);
+        EditAppointmentCommand.setEditingAppointmentState(true);
+        EditAppointmentCommand.setEditingPersonIndex(1);
+        Set<Schedule> appointments = p1.getSchedules();
+
+        String scheduleString = scheduleSetToStringWithoutSpaceAtTheEnd(appointments);
+
+        assertCommandBehavior("add " + scheduleString,
+                String.format(AddAppointment.MESSAGE_NO_CHANGE_MADE, p1.getName().toString(), scheduleString),
+                expectedAB,
+                false,
+                lastShownList);
+        EditAppointmentCommand.setEditingAppointmentState(false);
+    }
+
+    @Test
+    public void executeInEditAppointmentMode_add_successful() throws Exception {
+        TestDataHelper helper = new TestDataHelper();
+        Person p1 = helper.generatePerson(1, true);
+        Person p2 = helper.generatePerson(2, false);
+        List<Person> lastShownList = helper.generatePersonList(p1, p2);
+        AddressBook expectedAB = helper.generateAddressBook(lastShownList);
+        helper.addToAddressBook(addressBook, lastShownList);
+
+        List<ReadOnlyPerson> lastShownEditableList = helper.generateEditablePersonList(p1, p2);
+
+        logic.setLastShownList(lastShownList);
+        logic.setEditableLastShownList(lastShownEditableList);
+
+        Set<Schedule> appointmentsToBeAdd = new HashSet<>();
+        appointmentsToBeAdd.add(helper.generateSchedule(1));
+        appointmentsToBeAdd.add(helper.generateSchedule(2));
+        appointmentsToBeAdd.add(helper.generateSchedule(3));
+        appointmentsToBeAdd.removeAll(p1.getSchedules());
+
+        String scheduleString = scheduleSetToString(appointmentsToBeAdd);
+
+        EditAppointmentCommand.setEditingAppointmentState(true);
+        EditAppointmentCommand.setEditingPersonIndex(1);
+
+
+        assertCommandBehavior("add " + scheduleString,
+                String.format(AddAppointment.MESSAGE_ADDED_PERSON_APPOINTMENT, p1.getName())
+                + String.format(AddAppointment.MESSAGE_FOR_ADDED_APPOINTMENTS, scheduleString),
+                expectedAB,
+                true,
+                lastShownList);
+        EditAppointmentCommand.setEditingAppointmentState(false);
+    }
+
+    @Test
+    public void executeInEditAppointmentMode_addDuplicateAndSuccessful() throws Exception {
+        TestDataHelper helper = new TestDataHelper();
+        Person p1 = helper.generatePerson(1, true);
+        Person p2 = helper.generatePerson(2, false);
+        List<Person> lastShownList = helper.generatePersonList(p1, p2);
+        AddressBook expectedAB = helper.generateAddressBook(lastShownList);
+        helper.addToAddressBook(addressBook, lastShownList);
+
+        List<ReadOnlyPerson> lastShownEditableList = helper.generateEditablePersonList(p1, p2);
+
+        logic.setLastShownList(lastShownList);
+        logic.setEditableLastShownList(lastShownEditableList);
+
+        Set<Schedule> appointmentsToBeAdd = new HashSet<>();
+        appointmentsToBeAdd.add(helper.generateSchedule(1));
+        appointmentsToBeAdd.add(helper.generateSchedule(2));
+        appointmentsToBeAdd.add(helper.generateSchedule(3));
+        appointmentsToBeAdd.removeAll(p1.getSchedules());
+
+        String scheduleStringAdd = scheduleSetToString(appointmentsToBeAdd);
+        String scheduleStringDuplicate = scheduleSetToString(p1.getSchedules());
+
+        appointmentsToBeAdd.addAll(p1.getSchedules());
+        String scheduleStringInput = scheduleSetToString(appointmentsToBeAdd);
+
+        EditAppointmentCommand.setEditingAppointmentState(true);
+        EditAppointmentCommand.setEditingPersonIndex(1);
+
+
+        assertCommandBehavior("add " + scheduleStringInput,
+                String.format(AddAppointment.MESSAGE_ADDED_PERSON_APPOINTMENT, p1.getName())
+                + String.format(AddAppointment.MESSAGE_FOR_ADDED_APPOINTMENTS, scheduleStringAdd)
+                        + String.format(AddAppointment.MESSAGE_FOR_DUPLICATE_APPOINTMENTS, scheduleStringDuplicate),
+                expectedAB,
+                true,
+                lastShownList);
+        EditAppointmentCommand.setEditingAppointmentState(false);
+    }
+
+    @Test
+    public void executeInEditAppointmentMode_delete_invalidArgsFormat() throws Exception {
+        TestDataHelper helper = new TestDataHelper();
+        Person p1 = helper.generatePerson(1, true);
+        Person p2 = helper.generatePerson(2, false);
+        List<Person> lastShownList = helper.generatePersonList(p1, p2);
+        AddressBook expectedAB = helper.generateAddressBook(lastShownList);
+        helper.addToAddressBook(addressBook, lastShownList);
+
+        logic.setLastShownList(lastShownList);
+        EditAppointmentCommand.setEditingAppointmentState(true);
+        EditAppointmentCommand.setEditingPersonIndex(1);
+
+        assertCommandBehavior("delete",
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteAppointment.MESSAGE_USAGE),
+                expectedAB,
+                false,
+                lastShownList);
+        EditAppointmentCommand.setEditingAppointmentState(false);
+    }
+
+    @Test
+    public void executeInEditAppointmentMode_delete_invalidScheduleFormat() throws Exception {
+        TestDataHelper helper = new TestDataHelper();
+        Person p1 = helper.generatePerson(1, true);
+        Person p2 = helper.generatePerson(2, false);
+        List<Person> lastShownList = helper.generatePersonList(p1, p2);
+        AddressBook expectedAB = helper.generateAddressBook(lastShownList);
+        helper.addToAddressBook(addressBook, lastShownList);
+
+        logic.setLastShownList(lastShownList);
+        EditAppointmentCommand.setEditingAppointmentState(true);
+        EditAppointmentCommand.setEditingPersonIndex(1);
+
+        String invalidScheduleFormat1 = "not DD-MM-YYYY-HH:MM";
+        String invalidScheduleFormat2 = "01-01-2019";
+        String invalidScheduleFormat3 = "23:59";
+        String invalidScheduleFormat4 = "01-01-2019-2359";
+        assertCommandBehavior("delete " + invalidScheduleFormat1,
+                Schedule.MESSAGE_SCHEDULE_CONSTRAINTS,
+                expectedAB,
+                false,
+                lastShownList);
+        assertCommandBehavior("delete " + invalidScheduleFormat2,
+                Schedule.MESSAGE_SCHEDULE_CONSTRAINTS,
+                expectedAB,
+                false,
+                lastShownList);
+        assertCommandBehavior("delete " + invalidScheduleFormat3,
+                Schedule.MESSAGE_SCHEDULE_CONSTRAINTS,
+                expectedAB,
+                false,
+                lastShownList);
+        assertCommandBehavior("delete " + invalidScheduleFormat4,
+                Schedule.MESSAGE_SCHEDULE_CONSTRAINTS,
+                expectedAB,
+                false,
+                lastShownList);
+        EditAppointmentCommand.setEditingAppointmentState(false);
+    }
+
+    @Test
+    public void executeInEditAppointmentMode_delete_successful() throws Exception {
+        TestDataHelper helper = new TestDataHelper();
+        Person p1 = helper.generatePerson(1, true);
+        Person p2 = helper.generatePerson(2, false);
+        List<Person> lastShownList = helper.generatePersonList(p1, p2);
+        AddressBook expectedAB = helper.generateAddressBook(lastShownList);
+        helper.addToAddressBook(addressBook, lastShownList);
+
+        logic.setLastShownList(lastShownList);
+
+        List<ReadOnlyPerson> lastShownEditableList = helper.generateEditablePersonList(p1, p2);
+        logic.setEditableLastShownList(lastShownEditableList);
+
+        EditAppointmentCommand.setEditingAppointmentState(true);
+        EditAppointmentCommand.setEditingPersonIndex(1);
+        Set<Schedule> appointments = p1.getSchedules();
+
+        String scheduleString = scheduleSetToString(appointments);
+
+        assertCommandBehavior("delete " + scheduleString,
+                String.format(DeleteAppointment.MESSAGE_DELETE_PERSON_APPOINTMENT, p1.getName())
+                        + String.format(DeleteAppointment.MESSAGE_FOR_DELETED_APPOINTMENTS, scheduleString),
+                expectedAB,
+                true,
+                lastShownList);
+        EditAppointmentCommand.setEditingAppointmentState(false);
+    }
+
+    @Test
+    public void executeInEditAppointmentMode_deleteNoneExist() throws Exception {
+        TestDataHelper helper = new TestDataHelper();
+        Person p1 = helper.generatePerson(1, true);
+        Person p2 = helper.generatePerson(2, false);
+        List<Person> lastShownList = helper.generatePersonList(p1, p2);
+        AddressBook expectedAB = helper.generateAddressBook(lastShownList);
+        helper.addToAddressBook(addressBook, lastShownList);
+
+        logic.setLastShownList(lastShownList);
+
+        Set<Schedule> appointments = new HashSet<>();
+        appointments.add(helper.generateSchedule(1));
+        appointments.add(helper.generateSchedule(2));
+        appointments.add(helper.generateSchedule(3));
+        appointments.removeAll(p1.getSchedules());
+
+        String scheduleString = scheduleSetToStringWithoutSpaceAtTheEnd(appointments);
+
+        EditAppointmentCommand.setEditingAppointmentState(true);
+        EditAppointmentCommand.setEditingPersonIndex(1);
+
+
+        assertCommandBehavior("delete " + scheduleString,
+                String.format(DeleteAppointment.MESSAGE_NO_CHANGE_MADE, p1.getName().toString(), scheduleString),
+                expectedAB,
+                false,
+                lastShownList);
+        EditAppointmentCommand.setEditingAppointmentState(false);
+    }
+
+    @Test
+    public void executeInEditAppointmentMode_DeleteNonExistentAndSuccessful() throws Exception {
+        TestDataHelper helper = new TestDataHelper();
+        Person p1 = helper.generatePerson(1, true);
+        Person p2 = helper.generatePerson(2, false);
+        List<Person> lastShownList = helper.generatePersonList(p1, p2);
+        AddressBook expectedAB = helper.generateAddressBook(lastShownList);
+        helper.addToAddressBook(addressBook, lastShownList);
+
+        List<ReadOnlyPerson> lastShownEditableList = helper.generateEditablePersonList(p1, p2);
+
+        logic.setLastShownList(lastShownList);
+        logic.setEditableLastShownList(lastShownEditableList);
+
+        Set<Schedule> appointmentsToBeAdd = new HashSet<>();
+        appointmentsToBeAdd.add(helper.generateSchedule(1));
+        appointmentsToBeAdd.add(helper.generateSchedule(2));
+        appointmentsToBeAdd.add(helper.generateSchedule(3));
+        appointmentsToBeAdd.removeAll(p1.getSchedules());
+
+        String scheduleStringNoneExistent = scheduleSetToString(appointmentsToBeAdd);
+        String scheduleStringDelete = scheduleSetToString(p1.getSchedules());
+
+        appointmentsToBeAdd.addAll(p1.getSchedules());
+        String scheduleStringInput = scheduleSetToString(appointmentsToBeAdd);
+
+        EditAppointmentCommand.setEditingAppointmentState(true);
+        EditAppointmentCommand.setEditingPersonIndex(1);
+
+
+        assertCommandBehavior("delete " + scheduleStringInput,
+                String.format(DeleteAppointment.MESSAGE_DELETE_PERSON_APPOINTMENT, p1.getName())
+                        + String.format(DeleteAppointment.MESSAGE_FOR_DELETED_APPOINTMENTS, scheduleStringDelete)
+                        + String.format(DeleteAppointment.MESSAGE_FOR_MISSING_APPOINTMENTS, scheduleStringNoneExistent),
+                expectedAB,
+                true,
+                lastShownList);
+        EditAppointmentCommand.setEditingAppointmentState(false);
     }
 
     @Test
@@ -719,6 +1237,18 @@ public class LogicTest {
             );
         }
         /**
+         * Generates a valid schedule using the given seed.
+         * Each unique seed will generate a unique schedule in String.
+         *
+         * @param seed used to generate the schedule string
+         */
+        Schedule generateSchedule(int seed) throws Exception {
+            int num1 = seed%28;
+            int num2 = (seed*7)%100;
+            int num3 = (seed*7)%24;
+            return new Schedule((num1 < 10 ? "0" : "") + num1 + "-12-20" + (num2 < 10 ? "0" : "") + num2 + "-" + (num3 < 10 ? "0" : "") + num3 + ":00");
+        }
+        /**
          * Generates a valid person using the given seed.
          * Running this function with the same parameter values guarantees the returned person will have the same state.
          * Each unique seed will generate a unique Person object.
@@ -802,6 +1332,17 @@ public class LogicTest {
             for(Person p: personsToAdd){
                 addressBook.addPerson(p);
             }
+        }
+
+        /**
+         * Creates a list of ReadOnlyPersons based on the give Person objects.
+         */
+        List<ReadOnlyPerson> generateEditablePersonList(Person... persons) throws Exception{
+            List<ReadOnlyPerson> personList = new ArrayList<>();
+            for(Person p: persons){
+                personList.add(p);
+            }
+            return personList;
         }
 
         /**
