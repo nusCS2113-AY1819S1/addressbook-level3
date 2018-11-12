@@ -122,6 +122,7 @@ Alternatives considered:
 // tag::find[]
 [[find]]
 === 2a. "find" command (edited)
+image::FindCommand_Sequence.png[]
 
 *Current Implementation*
 
@@ -329,6 +330,7 @@ Inbox command has the same implementation as the "showunread" command - except t
 This is to allow you to access the messages that you have previously marked as read.
 
 === 3c. "read" command
+image::ReadCommand_Sequence.png[]
 
 *Current Implementation*
 
@@ -351,6 +353,7 @@ Step 5: For the messages to be marked as read, the message itself is updated in 
 Step 6: The CommandResult object displays to the user a message indicating that the updating of the read status was successful or not.
 
 === 3d. "clearinbox" command
+image::ClearInboxCommand_Sequence.png[]
 
 *Current Implementation*
 
@@ -540,6 +543,26 @@ Alternatives considered:
 ** Pros: Easier to identify a PO, just look for the text file with their ID
 ** Cons: Space would be an issue especially when there are many POs to manage
 // end::checkstatus[]
+
+=== 4c. "time" command
+
+*Current Implementation*
+
+This command displays the current time to both HQP & PO.
+
+. execute() - executes the "DateTimeCommand" command
+
+The following is an example usage scenario of the "time" command:
+
+Step 1: User inputs password and unlocks the system.
+
+Step 2: User types "time" and executes it.
+
+Step 3: Parser class identifies command as "time" and returns a DateTimeCommand object.
+
+Step 4: Logic class calls the execute() method in the DateTimeCommand object.
+
+Step 5: execute() calls
 
 
 // tag::autocorrect[]

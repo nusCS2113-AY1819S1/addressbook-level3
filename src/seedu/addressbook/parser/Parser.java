@@ -17,7 +17,6 @@ import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import seedu.addressbook.common.PatrolResourceStatus;
 import seedu.addressbook.commands.AddCommand;
 import seedu.addressbook.commands.CheckCommand;
 import seedu.addressbook.commands.CheckPoStatusCommand;
@@ -40,6 +39,7 @@ import seedu.addressbook.commands.ShowUnreadCommand;
 import seedu.addressbook.commands.ShutdownCommand;
 import seedu.addressbook.commands.UpdateStatusCommand;
 import seedu.addressbook.commands.ViewAllCommand;
+import seedu.addressbook.common.PatrolResourceStatus;
 import seedu.addressbook.data.exception.IllegalValueException;
 import seedu.addressbook.data.person.Nric;
 import seedu.addressbook.data.person.Offense;
@@ -519,6 +519,7 @@ public class Parser {
                 + PatrolResourceStatus.getLocation(Password.getId()).getGoogleMapsUrl();
 
         try {
+            logger.info(String.format("%s ") );
             return new RequestHelpCommand(caseName, message);
         } catch (IllegalValueException ive) {
             return new IncorrectCommand(Offense.MESSAGE_OFFENSE_INVALID + Offense.getListOfValidOffences());
@@ -539,6 +540,7 @@ public class Parser {
         String[] argParts = args.trim().split("\\s+", 3);
 
         if (argParts.length < 3) {
+            logger.warning("Prepare Dispatch format is wrong");
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     DispatchCommand.MESSAGE_USAGE));
         }
@@ -549,14 +551,16 @@ public class Parser {
 
         try {
             if (backupOfficer.equalsIgnoreCase(dispatchRequester)) {
+                logger.warning("Backup officer same as Dispatch requester");
                 throw new IllegalValueException(String.format(DispatchCommand.getMessageBackupDispatchSame(),
                         backupOfficer));
             }
+            logger.info(String.format("%s officer backups to %s requester", backupOfficer, dispatchRequester));
             return new DispatchCommand(backupOfficer, dispatchRequester, caseName);
         } catch (IllegalValueException ive) {
+            logger.warning("Dispatch Command Invalid " + ive.getMessage());
             return new IncorrectCommand(ive.getMessage());
         }
-
 
     }
 
