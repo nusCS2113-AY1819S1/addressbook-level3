@@ -320,6 +320,13 @@ Use case resumes at step 2.
 . Should come with automated unit tests and open source code.
 . Should favor DOS style commands over Unix-style commands.
 
+== Manual Testing
+* Undo/Redo:
+** Can be tested by entering a command that changes the data in MediBook (e.g `add` , `delete`, etc) followed by an `undo` and then `redo`.
+* Association:
+** Can be tested by using `list` and then `link INDEX1 INDEX2` where INDEX1 and INDEX2 represents two people in the list with different title. After which, by doing a `associatelist INDEX1` you should see that the name and nric of the person in INDEX2 appears in the associates list.
+** Following that, doing `unlink INDEX1 INDEX2` followed by `associatelist INDEX1` and you should see that the association you have created is removed.
+
 [appendix]
 == Glossary
 
