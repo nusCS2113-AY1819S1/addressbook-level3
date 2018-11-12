@@ -18,6 +18,7 @@ All of this is secured by the login which also limits the user access level acco
 == 2 About
 This user guide provides an overview for healthcare professionals on the usage of MediBook.
 
+// tag::startmedibook[]
 == 3 Starting MediBook
 
 . Download the latest version of MediBook from our team's GitHub repository link:https://github.com/CS2113-AY1819S1-F10-2/main/releases[here].
@@ -25,7 +26,7 @@ This user guide provides an overview for healthcare professionals on the usage o
 . The login GUI should appear in a few seconds
 +
 image::loginUI.png[]
-. Enter "Username" in the username field and "Password" in the password field according to the prompts
+. Enter "Username" in the username field and "Password" in the password field according to the prompts to log in as Administrator
 . If incorrect username and password is entered, both fields will be cleared and you can try logging in again.
 Program will exit upon login failure, i.e. 3 incorrect username/password tries
 . Upon successful login, main GUI `Welcome to your MediBook!` will appear.
@@ -33,11 +34,15 @@ Program will exit upon login failure, i.e. 3 incorrect username/password tries
 +
 image::mainUI.png[]
 
+. You may then use list as
 [NOTE]
 ====
 Two .txt files (addressbook.txt and loginstorage.txt) with preloaded data will be created in the same directory as the .jar file.
-If you wish to start Medibook from scratch, delete the contents of BOTH these files.
+Preloaded doctor accounts uses the Person's NRIC as both username and password.
+
+If you wish to start Medibook from scratch, delete the CONTENTS of BOTH these files and login as Administrator
 ====
+// end::startmedibook[]
 
 == 4 Features of MediBook
 
@@ -101,6 +106,8 @@ Format: `add NAME n/NRIC [p]p/PHONE_NUMBER [p]e/EMAIL [p]a/ADDRESS s/TITLE [d/DD
 [NOTE]
 ====
 TITLE is used to differentiate a doctor and a patient. Putting `Doctor` in this field will create a doctor while `Patient` will create a patient.
+
+When adding a doctor as Administrator, a new account will be created with person  NRIC as username and *StandardPass123!* as password.
 
 DD-MM-YYYY-HH:MM is used to record appointment dates and their starting time.
 

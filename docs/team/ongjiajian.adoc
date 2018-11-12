@@ -18,7 +18,7 @@ MediBook is the result of me and my team's efforts on AddressBook.
 == Overview
 
 MediBook is a form of a centralised database to store all patient and staff information within a hospital. MediBook reduces inefficientices in the current healthcare system and can work as  a desktop and mobile application.
-The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 10 kLoC.
+The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 5 kLoC.
 
 == Summary of contributions
 
@@ -58,6 +58,8 @@ The user interacts with it using a CLI, and it has a GUI created with JavaFX. It
 |===
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
+
+include::../UserGuide.adoc[tag=startmedibook]
 
 include::../UserGuide.adoc[tag=changepassword]
 
