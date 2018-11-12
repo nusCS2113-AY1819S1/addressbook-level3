@@ -1,3 +1,4 @@
+//@@author kianhong95
 package seedu.addressbook.data.employee;
 
 /**
@@ -36,13 +37,13 @@ public interface ReadOnlyEmployee {
     default String getAsTextShowDetails() {
         final StringBuilder builder = new StringBuilder();
         builder.append(getName().fullName.trim())
-                .append(" Phone: ");
+                .append(" | Phone: ");
         builder.append(getPhone().value.trim())
-                .append(" Email: ");
+                .append(" | Email: ");
         builder.append(getEmail().value.trim())
-                .append(" Address: ");
+                .append(" | Address: ");
         builder.append(getAddress().value.trim())
-                .append(" Position: ");
+                .append(" | Position: ");
         builder.append(getPosition().value.trim());
         return builder.toString();
     }

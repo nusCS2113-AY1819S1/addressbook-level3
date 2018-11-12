@@ -11,6 +11,6 @@ import seedu.addressbook.data.member.ReadOnlyMember;
 public class MemberCommandResult extends CommandResult {
 
     public MemberCommandResult(String feedbackToUser, List<? extends ReadOnlyMember> relevantMembers) {
-        super(feedbackToUser, null, null, null, relevantMembers, null, null);
+        super(feedbackToUser, null, null, relevantMembers, null, null);
     }
 }

@@ -24,7 +24,7 @@ public class MemberDateTable {
     public void addData(Date date) {
         calendar.setTime(date);
         if (!yearMap.containsKey(calendar.get(Calendar.YEAR))) {
-            YearMember newYear = new YearMember(calendar.get(Calendar.YEAR));
+            YearMember newYear = new YearMember();
             yearMap.put(calendar.get(Calendar.YEAR), newYear.addData(date));
         } else {
             yearMap.put(calendar.get(Calendar.YEAR), yearMap.get(calendar.get(Calendar.YEAR)).addData(date));
@@ -45,7 +45,7 @@ public class MemberDateTable {
         return yearMap.get(calendar.get(Calendar.YEAR)).getMonthMap().get(calendar.get(Calendar.MONTH)).getCount();
     }
 
-    public int getDayCount(Date date) {
+    public int getDayCount() {
         return yearMap.get(calendar.get(Calendar.YEAR))
                 .getMonthMap().get(calendar.get(Calendar.MONTH))
                 .getDayMap().get(calendar.get(Calendar.DATE))
@@ -57,18 +57,16 @@ public class MemberDateTable {
  * Represents an year in the yearMap
  */
 class YearMember {
-    private int yearNo;
     private int count;
     private Map<Integer, MonthMember> monthMap;
     private Calendar calendar;
 
-    public YearMember(int yearNo) {
+    public YearMember() {
         this.calendar = new GregorianCalendar();
-        this.yearNo = yearNo;
         this.count = 0;
         this.monthMap = new HashMap<>();
         for (int i = 0; i < 12; i++) {
-            getMonthMap().put(i, new MonthMember(i));
+            getMonthMap().put(i, new MonthMember());
         }
     }
 
@@ -95,18 +93,16 @@ class YearMember {
  * Represents a month in the monthMap
  */
 class MonthMember {
-    private int monthNo;
     private int count;
     private Map<Integer, DayMember> dayMap;
     private Calendar calendar;
 
-    public MonthMember(int monthNo) {
+    public MonthMember() {
         this.calendar = new GregorianCalendar();
-        this.monthNo = monthNo;
         this.count = 0;
         this.dayMap = new HashMap<>();
         for (int i = 1; i <= 31; i++) {
-            getDayMap().put(i, new DayMember(i));
+            getDayMap().put(i, new DayMember());
         }
     }
 
@@ -133,11 +129,9 @@ class MonthMember {
  * Represents a day in the dayMap
  */
 class DayMember {
-    private int dayNo;
     private int count;
 
-    public DayMember(int dayNo) {
-        this.dayNo = dayNo;
+    public DayMember() {
         this.count = 0;
     }
 

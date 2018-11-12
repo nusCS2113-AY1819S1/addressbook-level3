@@ -7,7 +7,6 @@ import seedu.addressbook.data.employee.ReadOnlyEmployee;
 import seedu.addressbook.data.member.ReadOnlyMember;
 import seedu.addressbook.data.menu.ReadOnlyMenus;
 import seedu.addressbook.data.order.ReadOnlyOrder;
-import seedu.addressbook.data.person.ReadOnlyPerson;
 
 
 /**
@@ -34,34 +33,27 @@ public class Formatter {
     public String format(String... messages) {
         StringBuilder sb = new StringBuilder();
         for (String m : messages) {
-            sb.append(LINE_PREFIX + m.replace("\n", LS + LINE_PREFIX) + LS);
+            sb.append(LINE_PREFIX).append(m.replace("\n", LS + LINE_PREFIX)).append(LS);
         }
         return sb.toString();
     }
 
-    /** Formats the given list of persons for displaying to the user. */
-    public String format(List<? extends ReadOnlyPerson> persons) {
-        final List<String> formattedPersons = new ArrayList<>();
-        for (ReadOnlyPerson person : persons) {
-            formattedPersons.add(person.getAsTextHidePrivate());
-        }
-        return format(asIndexedList(formattedPersons));
-    }
-
+    //@@author SalsabilTasnia
     /** Formats the given list of menus for displaying to the user. */
     public String formatMenuResult(List<? extends ReadOnlyMenus> menus) {
         final List<String> formattedMenus = new ArrayList<>();
         for (ReadOnlyMenus menu : menus) {
-            formattedMenus.add(menu.getAsTextHidePrivate());
+            formattedMenus.add(menu.getAsText());
         }
         return format(asIndexedList(formattedMenus));
     }
 
+    //@@author
     /** Formats the given list of orders for displaying to the user. */
     public String formatOrderResult(List<? extends ReadOnlyOrder> orders) {
         final List<String> formattedOrders = new ArrayList<>();
         for (ReadOnlyOrder order : orders) {
-            formattedOrders.add(order.getAsTextHidePrivate());
+            formattedOrders.add(order.getAsText());
         }
         return format(asIndexedList(formattedOrders));
     }
@@ -70,7 +62,7 @@ public class Formatter {
     public String formatMemberResult(List<? extends ReadOnlyMember> members) {
         final List<String> formattedMembers = new ArrayList<>();
         for (ReadOnlyMember member : members) {
-            formattedMembers.add(member.getAsTextHidePrivate());
+            formattedMembers.add(member.getAsText());
         }
         return format(asIndexedList(formattedMembers));
     }
@@ -87,7 +79,7 @@ public class Formatter {
     /** Formats a list of strings as an indexed list. */
     private static String asIndexedList(List<String> listItems) {
         final StringBuilder formatted = new StringBuilder();
-        int displayIndex = 0 + DISPLAYED_INDEX_OFFSET;
+        int displayIndex = DISPLAYED_INDEX_OFFSET;
         for (String listItem : listItems) {
             formatted.append(getIndexedListItem(displayIndex, listItem)).append("\n");
             displayIndex++;

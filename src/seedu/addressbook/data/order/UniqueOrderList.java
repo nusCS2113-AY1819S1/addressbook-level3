@@ -18,6 +18,8 @@ import seedu.addressbook.data.exception.DuplicateDataException;
  */
 public class UniqueOrderList implements Iterable<Order> {
 
+    private final List<Order> internalList = new ArrayList<>();
+
     /**
      * Signals that an operation would have violated the 'no duplicates' property of the list.
      */
@@ -32,8 +34,6 @@ public class UniqueOrderList implements Iterable<Order> {
      * there is no such matching order in the list.
      */
     public static class OrderNotFoundException extends Exception {}
-
-    private final List<Order> internalList = new ArrayList<>();
 
     /**
      * Constructs empty order list.

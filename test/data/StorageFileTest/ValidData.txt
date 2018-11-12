@@ -1,17 +1,115 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <Rms>
-    <persons>
-        <name>John Doe</name>
-        <phone isPrivate="false">98765432</phone>
-        <email isPrivate="false">johnd@gmail.com</email>
-        <address isPrivate="false">John street, block 123, #01-01</address>
-    </persons>
-    <persons>
-        <name>Betsy Crowe</name>
-        <phone isPrivate="true">1234567</phone>
-        <email isPrivate="false">betsycrowe@gmail.com</email>
-        <address isPrivate="true">Newgate Prison</address>
-        <tagged>friend</tagged>
-        <tagged>criminal</tagged>
-    </persons>
+    <menus>
+        <name>Burger</name>
+        <price>$5.00</price>
+        <type>main</type>
+        <tagged>best</tagged>
+    </menus>
+    <menus>
+        <name>Fries</name>
+        <price>$2.00</price>
+        <type>sides</type>
+        <tagged>best</tagged>
+    </menus>
+    <members>
+        <name>Ang</name>
+        <email>Ang@gmail.com</email>
+        <points>0</points>
+        <totalPoints>0</totalPoints>
+        <date>1000</date>
+        <tier>Bronze</tier>
+    </members>
+    <members>
+        <name>Salsabil</name>
+        <email>Salsabil@gmail.com</email>
+        <points>10000</points>
+        <totalPoints>10000</totalPoints>
+        <date>1000</date>
+        <tier>Gold</tier>
+    </members>
+    <employees>
+        <name>Tay</name>
+        <phone>11111111</phone>
+        <email>11111111@gmail.com</email>
+        <address>11111111 Street</address>
+        <position>Cashier</position>
+    </employees>
+    <employees>
+        <name>Lim</name>
+        <phone>22222222</phone>
+        <email>22222222@gmail.com</email>
+        <address>22222222 Street</address>
+        <position>Cashier</position>
+    </employees>
+    <orders>
+        <customer>
+            <name>Ang</name>
+            <email>Ang@gmail.com</email>
+            <points>0</points>
+            <totalPoints>0</totalPoints>
+            <date>1000</date>
+            <tier>Bronze</tier>
+        </customer>
+        <date>1000</date>
+        <price>9.0</price>
+        <points>0</points>
+        <dishItems>
+            <dish>
+                <name>Burger</name>
+                <price>$5.00</price>
+                <type>main</type>
+                <tagged>best</tagged>
+            </dish>
+            <quantity>1</quantity>
+        </dishItems>
+        <dishItems>
+            <dish>
+                <name>Fries</name>
+                <price>$2.00</price>
+                <type>sides</type>
+                <tagged>best</tagged>
+            </dish>
+            <quantity>2</quantity>
+        </dishItems>
+    </orders>
+    <orders>
+        <customer>
+            <name>Salsabil</name>
+            <email>Salsabil@gmail.com</email>
+            <points>10000</points>
+            <totalPoints>10000</totalPoints>
+            <date>1000</date>
+            <tier>Gold</tier>
+        </customer>
+        <date>1000</date>
+        <price>8.0</price>
+        <points>100</points>
+        <dishItems>
+            <dish>
+                <name>Burger</name>
+                <price>$5.00</price>
+                <type>main</type>
+                <tagged>best</tagged>
+            </dish>
+            <quantity>1</quantity>
+        </dishItems>
+        <dishItems>
+            <dish>
+                <name>Fries</name>
+                <price>$2.00</price>
+                <type>sides</type>
+                <tagged>best</tagged>
+            </dish>
+            <quantity>2</quantity>
+        </dishItems>
+    </orders>
+    <attendance isClockedIn="true">
+        <name>Tay</name>
+        <timings isClockIn="true" date="11/08/2018">00:00</timings>
+    </attendance>
+    <attendance isClockedIn="true">
+        <name>Lim</name>
+        <timings isClockIn="true" date="11/08/2018">00:00</timings>
+    </attendance>
 </Rms>

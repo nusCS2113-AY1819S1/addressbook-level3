@@ -3,8 +3,9 @@ package seedu.addressbook.commands.menu;
 import seedu.addressbook.commands.Command;
 import seedu.addressbook.commands.CommandResult;
 
+//@@author SalsabilTasnia
 /**
- * Clears the address book.
+ * Clears the menu list.
  */
 public class MenuClearCommand extends Command {
 

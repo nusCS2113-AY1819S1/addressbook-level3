@@ -12,7 +12,6 @@ import seedu.addressbook.data.employee.ReadOnlyEmployee;
 import seedu.addressbook.data.member.ReadOnlyMember;
 import seedu.addressbook.data.menu.ReadOnlyMenus;
 import seedu.addressbook.data.order.ReadOnlyOrder;
-import seedu.addressbook.data.person.ReadOnlyPerson;
 import seedu.addressbook.parser.Parser;
 import seedu.addressbook.storage.StorageFile;
 
@@ -24,22 +23,31 @@ public class Logic {
     private StorageFile storage;
     private Rms rms;
 
-    /** The list of person shown to the user most recently.  */
-    private List<? extends ReadOnlyPerson> lastShownList = Collections.emptyList();
-
-    /** The list of member shown to the user most recently.  */
+    /**
+     * The list of member shown to the user most recently.
+     */
     private List<? extends ReadOnlyMember> lastShownMemberList = Collections.emptyList();
 
-    /** The list of menu shown to the user most recently.  */
+    //@@author SalsabilTasnia
+    /**
+     * The list of menu shown to the user most recently.
+     */
     private List<? extends ReadOnlyMenus> lastShownMenuList = Collections.emptyList();
 
-    /** The list of order shown to the user most recently.  */
+    //@@author
+    /**
+     *  The list of order shown to the user most recently.
+     */
     private List<? extends ReadOnlyOrder> lastShownOrderList = Collections.emptyList();
 
-    /** The list of employee shown to the user most recently.  */
+    /**
+     * The list of employee shown to the user most recently.
+     */
     private List<? extends ReadOnlyEmployee> lastShownEmployeeList = Collections.emptyList();
 
-    /** The list of employee shown to the user most recently.  */
+    /**
+     * The list of employee shown to the user most recently.
+     */
     private List<? extends Attendance> lastShownAttendanceList = Collections.emptyList();
 
     public Logic() throws Exception {
@@ -52,11 +60,11 @@ public class Logic {
         setRms(rms);
     }
 
-    void setStorage(StorageFile storage) {
+    public void setStorage(StorageFile storage) {
         this.storage = storage;
     }
 
-    void setRms(Rms rms) {
+    public void setRms(Rms rms) {
         this.rms = rms;
     }
 
@@ -70,13 +78,6 @@ public class Logic {
 
     public String getStorageFilePath() {
         return storage.getPath();
-    }
-
-    /**
-     * Unmodifiable view of the current last shown list.
-     */
-    public List<ReadOnlyPerson> getLastShownList() {
-        return Collections.unmodifiableList(lastShownList);
     }
 
     /**
@@ -100,6 +101,7 @@ public class Logic {
         return Collections.unmodifiableList(lastShownAttendanceList);
     }
 
+    //@@author SalsabilTasnia
     /**
      * Unmodifiable view of the current last shown menu list.
      */
@@ -107,6 +109,7 @@ public class Logic {
         return Collections.unmodifiableList(lastShownMenuList);
     }
 
+    //@@author
     /**
      * Unmodifiable view of the current last shown order list.
      */
@@ -114,14 +117,12 @@ public class Logic {
         return Collections.unmodifiableList(lastShownOrderList);
     }
 
-    protected void setLastShownList(List<? extends ReadOnlyPerson> newList) {
-        lastShownList = newList;
-    }
-
+    //@@author SalsabilTasnia
     protected void setLastShownMenuList(List<? extends ReadOnlyMenus> newList) {
         lastShownMenuList = newList;
     }
 
+    //@@author
     protected void setLastShownOrderList(List<? extends ReadOnlyOrder> newList) {
         lastShownOrderList = newList;
     }
@@ -158,7 +159,6 @@ public class Logic {
      */
     private CommandResult execute(Command command) throws Exception {
         command.setData(rms,
-                lastShownList,
                 lastShownMenuList,
                 lastShownOrderList,
                 lastShownMemberList,
@@ -168,26 +168,21 @@ public class Logic {
         return result;
     }
 
-    /** Updates the {@link #lastShownList} if the result contains a list of Persons. */
+    /**
+     * Updates the last shown lists if the result contains a list of result Objects.
+     */
     private void recordResult(CommandResult result) {
-        final Optional<List<? extends ReadOnlyPerson>> personList = result.getRelevantPersons();
         final Optional<List<? extends ReadOnlyMenus>> menuList = result.getRelevantMenus();
         final Optional<List<? extends ReadOnlyOrder>> orderList = result.getRelevantOrders();
         final Optional<List<? extends ReadOnlyMember>> memberList = result.getRelevantMember();
         final Optional<List<? extends ReadOnlyEmployee>> employeeList = result.getRelevantEmployee();
-        if (personList.isPresent()) {
-            lastShownList = personList.get();
-        }
         if (menuList.isPresent()) {
             lastShownMenuList = menuList.get();
-        }
-        if (orderList.isPresent()) {
+        } else if (orderList.isPresent()) {
             lastShownOrderList = orderList.get();
-        }
-        if (memberList.isPresent()) {
+        } else if (memberList.isPresent()) {
             lastShownMemberList = memberList.get();
-        }
-        if (employeeList.isPresent()) {
+        } else if (employeeList.isPresent()) {
             lastShownEmployeeList = employeeList.get();
         }
     }

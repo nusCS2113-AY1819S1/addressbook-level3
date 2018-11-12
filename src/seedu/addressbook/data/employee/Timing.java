@@ -1,3 +1,4 @@
+//@@author kianhong95
 package seedu.addressbook.data.employee;
 
 import java.util.Objects;
@@ -34,5 +35,14 @@ public class Timing {
     @Override
     public String toString() {
         return "Date = " + date + " Time = " + time + " isClockIn = " + isClockIn;
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof Timing // instanceof handles nulls
+                && this.time.equals(((Timing) other).time)
+                && this.date.equals(((Timing) other).date)
+                && this.isClockIn == ((Timing) other).isClockIn); // state check
     }
 }
