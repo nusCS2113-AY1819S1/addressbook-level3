@@ -10,12 +10,12 @@ import java.util.Date;
 public interface ReadOnlyMember {
 
     MemberName getName();
-    Points getPoints();
-    Points updatePoints(double price);
-    void updatePointsAndTier(double price);
+    MemberEmail getEmail();
+    Points getCurrentPoints();
     Date getDate();
     MemberTier getMemberTier();
-    MemberTier updateTier(Points points);
+    int getCurrentPointsValue();
+    int getTotalPointsValue();
 
 
     /**
@@ -31,45 +31,33 @@ public interface ReadOnlyMember {
     default boolean isSameStateAs(ReadOnlyMember other) {
         return other == this // short circuit if same object
                 || (other != null // this is first to avoid NPE below
-                && other.getName().equals(this.getName())); // state checks here onwards
+                && other.getName().equals(this.getName())
+                && other.getEmail().equals(this.getEmail())); // state checks here onwards
     }
 
     /**
-     * Formats the person as text, showing all contact details.
+     * Formats a member as text, showing all details.
      */
-    default String getAsTextShowAll() {
-        final StringBuilder builder = new StringBuilder();
-        final String detailIsPrivate = "(private) ";
-        builder.append(getName())
-                .append(" Points: ");
-        builder.append(getPoints())
-                .append(" Date: ");
-        builder.append(getDate())
-                .append(" Tier: ");
-        builder.append(getMemberTier().toString());
-        return builder.toString();
-    }
-
-    /**
-     * Formats a person as text, showing only non-private contact details.
-     */
-    default String getAsTextHidePrivate() {
+    default String getAsText() {
         final StringBuilder builder = new StringBuilder();
         builder.append(getName());
-        builder.append(" Points: ").append(getPoints());
-        builder.append(" Date: ").append(getDate());
-        builder.append(" Tier: ").append(getMemberTier().toString());
+        builder.append(" | Email: ").append(getEmail());
+        builder.append(" | Available Points: ").append(getCurrentPoints());
+        builder.append(" | Total Points: ").append(getTotalPointsValue());
+        builder.append(" | Tier: ").append(getMemberTier().toString());
+        builder.append(" | Date: ").append(getDate());
+        builder.append("\n");
         return builder.toString();
     }
 
     /**
-     * Formats a person as text, showing only non-private contact details and hide membership date.
+     * Formats a member as text, showing only contact details and member tier.
      */
     default String getAsTextInOrderList() {
         final StringBuilder builder = new StringBuilder();
         builder.append(getName());
-        builder.append(" Points: ").append(getPoints());
-        builder.append(" Tier: ").append(getMemberTier().toString());
+        builder.append(" | Email: ").append(getEmail());
+        builder.append(" | Tier: ").append(getMemberTier().toString());
         return builder.toString();
     }
 }

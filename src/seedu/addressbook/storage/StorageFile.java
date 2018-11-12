@@ -22,12 +22,16 @@ import seedu.addressbook.storage.jaxb.AdaptedRms;
 
 
 /**
- * Represents the file used to store address book data.
+ * Represents the file used to store Rms data.
  */
 public class StorageFile {
 
     /** Default file path used if the user doesn't provide the file name. */
     public static final String DEFAULT_STORAGE_FILEPATH = "Rms.txt";
+
+    public final Path path;
+
+    private final JAXBContext jaxbContext;
 
     /* Note: Note the use of nested classes below.
      * More info https://docs.oracle.com/javase/tutorial/java/javaOO/nested.html
@@ -51,10 +55,6 @@ public class StorageFile {
             super(message);
         }
     }
-
-    public final Path path;
-
-    private final JAXBContext jaxbContext;
 
     /**
      * @throws InvalidStorageFilePathException if the default path is invalid
@@ -108,7 +108,7 @@ public class StorageFile {
         } catch (IOException ioe) {
             throw new StorageOperationException("Error writing to file: " + path + " error: " + ioe.getMessage());
         } catch (JAXBException jaxbe) {
-            throw new StorageOperationException("Error converting address book into storage format");
+            throw new StorageOperationException("Error converting Rms into storage format");
         }
     }
 

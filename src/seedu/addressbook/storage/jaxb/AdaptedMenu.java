@@ -17,10 +17,20 @@ import seedu.addressbook.data.menu.ReadOnlyMenus;
 import seedu.addressbook.data.menu.Type;
 import seedu.addressbook.data.tag.Tag;
 
+//@@author SalsabilTasnia
 /**
- * JAXB-friendly adapted person data holder class.
+ * JAXB-friendly adapted menu data holder class.
  */
 public class AdaptedMenu {
+
+    @XmlElement(required = true)
+    private String name;
+    @XmlElement(required = true)
+    private AdaptedMenuItemDetail price;
+    @XmlElement(required = true)
+    private AdaptedMenuItemDetail type;
+    @XmlElement
+    private List<AdaptedTag> tagged = new ArrayList<>();
 
     /**
      * JAXB-friendly adapted menu item detail data holder class.
@@ -38,17 +48,6 @@ public class AdaptedMenu {
         }
     }
 
-    @XmlElement(required = true)
-    private String name;
-    @XmlElement(required = true)
-    private AdaptedMenuItemDetail price;
-    @XmlElement(required = true)
-    private AdaptedMenuItemDetail type;
-
-
-    @XmlElement
-    private List<AdaptedTag> tagged = new ArrayList<>();
-
     /**
      * No-arg constructor for JAXB use.
      */
@@ -56,9 +55,9 @@ public class AdaptedMenu {
 
 
     /**
-     * Converts a given Person into this class for JAXB use.
+     * Converts a given Menu into this class for JAXB use.
      *
-     * @param source future changes to this will not affect the created AdaptedPerson
+     * @param source future changes to this will not affect the created AdaptedMenu
      */
     public AdaptedMenu(ReadOnlyMenus source) {
         name = source.getName().fullName;
@@ -96,9 +95,9 @@ public class AdaptedMenu {
     }
 
     /**
-     * Converts this jaxb-friendly adapted person object into the Person object.
+     * Converts this jaxb-friendly adapted menu object into the Menu object.
      *
-     * @throws IllegalValueException if there were any data constraints violated in the adapted person
+     * @throws IllegalValueException if there were any data constraints violated in the adapted menu
      */
     public Menu toModelType() throws IllegalValueException {
         final Set<Tag> tags = new HashSet<>();

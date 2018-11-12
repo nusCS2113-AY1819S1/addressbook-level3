@@ -4,6 +4,7 @@ import java.util.Set;
 
 import seedu.addressbook.data.tag.Tag;
 
+//@@author SalsabilTasnia
 /**
  * A read-only immutable interface for a Menu Item in the Rms.
  * Implementations should guarantee: details are present and not null, field values are validated.
@@ -31,43 +32,12 @@ public interface ReadOnlyMenus {
     }
 
     /**
-     * Formats the food item as text, showing all relevant details.
+     * Formats a menu item as text, showing all contact details.
      */
-    default String getAsTextShowAll() {
+    default String getAsText() {
         final StringBuilder builder = new StringBuilder();
-        builder.append(getName())
-                .append(" Price: ");
-        builder.append(getPrice())
-                .append(" Type: ");
-        builder.append(getType())
-                .append(" Tags: ");
-        for (Tag tag : getTags()) {
-            builder.append(tag);
-        }
-        return builder.toString();
-    }
-
-    /**
-     * Formats the menu name and price as text, showing all relevant details.
-     */
-    default String getAsTextShowMenuAndPrice() {
-        final StringBuilder builder = new StringBuilder();
-        builder.append(getName())
-                .append(" Price: ");
-        builder.append(getPrice());
-        return builder.toString();
-    }
-
-    /**
-     * Formats a menu item as text, showing only non-private contact details.
-     */
-    default String getAsTextHidePrivate() {
-        final StringBuilder builder = new StringBuilder();
-        builder.append(getName()).append(" Price ").append(getPrice()).append(" Type: ").append(getType());
-        /*if (!getPrice().isPrivate()) {
-            builder.append(" Price: ").append(getPrice());
-        }*/
-        builder.append(" Tags: ");
+        builder.append(getName()).append(" | Price ").append(getPrice()).append(" | Type: ").append(getType());
+        builder.append(" | Tags: ");
         for (Tag tag : getTags()) {
             builder.append(tag);
         }

@@ -13,7 +13,7 @@ import seedu.addressbook.data.statistics.AsciiTable;
 import seedu.addressbook.data.statistics.OrderDateTable;
 
 /**
- * Lists all food items in the address book to the user.
+ * Lists all order statistics in the Rms to the user.
  */
 public class StatsOrderCommand extends Command {
 
@@ -22,6 +22,8 @@ public class StatsOrderCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ":\n"
             + "Displays statistics information for orders.\n\t"
             + "Example: " + COMMAND_WORD;
+
+    public static final String MESSAGE_NO_ORDER = "There are no orders in the system.";
 
 
     @Override
@@ -33,7 +35,7 @@ public class StatsOrderCommand extends Command {
         StringBuilder sb = new StringBuilder();
         List<ReadOnlyOrder> allOrders = rms.getAllOrders().immutableListView();
         if (allOrders.isEmpty()) {
-            return "There are no orders in the system.";
+            return MESSAGE_NO_ORDER;
         }
 
         OrderDateTable dateTable = new OrderDateTable();
@@ -47,16 +49,16 @@ public class StatsOrderCommand extends Command {
 
         sb.append("This year's statistics\n");
         sb.append("========================\n");
-        sb.append("Number of orders: " + Integer.toString(dateTable.getYearCount(currentDate)) + "\n");
-        sb.append("Revenue: $" + Utils.formatCurrency(dateTable.getYearRevenue(currentDate)) + "\n\n");
+        sb.append("Number of orders: ").append(Integer.toString(dateTable.getYearCount(currentDate))).append("\n");
+        sb.append("Revenue: $").append(Utils.formatCurrency(dateTable.getYearRevenue(currentDate))).append("\n\n");
         sb.append("This month's statistics\n");
         sb.append("========================\n");
-        sb.append("Number of orders: " + Integer.toString(dateTable.getMonthCount(currentDate)) + "\n");
-        sb.append("Revenue: $" + Utils.formatCurrency(dateTable.getMonthRevenue(currentDate)) + "\n\n");
+        sb.append("Number of orders: ").append(Integer.toString(dateTable.getMonthCount(currentDate))).append("\n");
+        sb.append("Revenue: $").append(Utils.formatCurrency(dateTable.getMonthRevenue(currentDate))).append("\n\n");
         sb.append("Today's statistics\n");
         sb.append("========================\n");
-        sb.append("Number of orders: " + Integer.toString(dateTable.getDayCount(currentDate)) + "\n");
-        sb.append("Revenue: $" + Utils.formatCurrency(dateTable.getDayRevenue(currentDate)));
+        sb.append("Number of orders: ").append(Integer.toString(dateTable.getDayCount(currentDate))).append("\n");
+        sb.append("Revenue: $").append(Utils.formatCurrency(dateTable.getDayRevenue(currentDate)));
         sb.append("\n\n\n");
 
         sb.append("Past 12 Months Sales\n");
@@ -73,6 +75,7 @@ public class StatsOrderCommand extends Command {
             }
             dataRow[i] = "$" + Utils.formatCurrency((dateTable.getMonthRevenue(calendar.getTime())));
         }
+        dataRow = rotateRight(dataRow, 12 - currentMonth);
         table.addRow(dataRow);
         sb.append(table.toString());
         return sb.toString();

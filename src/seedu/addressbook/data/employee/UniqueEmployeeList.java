@@ -1,3 +1,4 @@
+//@@author kianhong95
 package seedu.addressbook.data.employee;
 
 import java.util.ArrayList;
@@ -18,6 +19,8 @@ import seedu.addressbook.data.exception.DuplicateDataException;
  */
 public class UniqueEmployeeList implements Iterable<Employee> {
 
+    private final List<Employee> employeeInternalList = new ArrayList<>();
+
     /**
      * Signals that an operation would have violated the 'no duplicates' property of the list.
      */
@@ -32,8 +35,6 @@ public class UniqueEmployeeList implements Iterable<Employee> {
      * there is no such matching employee in the list.
      */
     public static class EmployeeNotFoundException extends Exception {}
-
-    private final List<Employee> employeeInternalList = new ArrayList<>();
 
     /**
      * Constructs empty employee list.
@@ -75,10 +76,17 @@ public class UniqueEmployeeList implements Iterable<Employee> {
     }
 
     /**
-     * Checks if the list contains an equivalent employee as the given argument.
+     * Checks if the list contains an employee that already exists in Rms.
      */
-    public boolean contains(ReadOnlyEmployee toCheck) {
-        return employeeInternalList.contains(toCheck);
+    public boolean containsDuplicate(ReadOnlyEmployee toCheck) {
+        String nameToCheck = toCheck.getName().toString().toLowerCase();
+        for (ReadOnlyEmployee employee: employeeInternalList) {
+            String employeeName = employee.getName().toString().toLowerCase();
+            if (employeeName.equals(nameToCheck)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     /**
@@ -88,7 +96,7 @@ public class UniqueEmployeeList implements Iterable<Employee> {
      *     if the employee to add is a duplicate of an existing employee in the list.
      */
     public void add(Employee toAdd) throws UniqueEmployeeList.DuplicateEmployeeException {
-        if (contains(toAdd)) {
+        if (containsDuplicate(toAdd)) {
             throw new UniqueEmployeeList.DuplicateEmployeeException();
         }
         employeeInternalList.add(toAdd);
@@ -118,13 +126,6 @@ public class UniqueEmployeeList implements Iterable<Employee> {
             throw new EmployeeNotFoundException();
         }
         employeeInternalList.add(toReplace);
-    }
-
-    /**
-     * Clears all employees in list.
-     */
-    public void clear() {
-        employeeInternalList.clear();
     }
 
     @Override

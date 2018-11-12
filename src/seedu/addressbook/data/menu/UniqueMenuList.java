@@ -1,7 +1,6 @@
 package seedu.addressbook.data.menu;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Iterator;
@@ -10,6 +9,7 @@ import java.util.List;
 import seedu.addressbook.common.Utils;
 import seedu.addressbook.data.exception.DuplicateDataException;
 
+//@@author SalsabilTasnia
 /**
  * A list of menus. Does not allow null elements or duplicates.
  *
@@ -17,6 +17,8 @@ import seedu.addressbook.data.exception.DuplicateDataException;
  * @see Utils#elementsAreUnique(Collection)
  */
 public class UniqueMenuList implements Iterable<Menu> {
+
+    private final List<Menu> internalMenuList = new ArrayList<>();
 
     /**
      * Signals that an operation would have violated the 'no duplicates' property of the list.
@@ -34,23 +36,10 @@ public class UniqueMenuList implements Iterable<Menu> {
      */
     public static class MenuNotFoundException extends Exception {}
 
-    private final List<Menu> internalMenuList = new ArrayList<>();
-
     /**
      * Constructs empty menu list.
      */
     public UniqueMenuList() {}
-
-    /**
-     * Constructs a menu list with the given menus.
-     */
-    public UniqueMenuList(Menu... menus) throws DuplicateMenuException {
-        final List<Menu> initialTags = Arrays.asList(menus);
-        if (!Utils.elementsAreUnique(initialTags)) {
-            throw new DuplicateMenuException();
-        }
-        internalMenuList.addAll(initialTags);
-    }
 
     /**
      * Constructs a list from the items in the given collection.

@@ -1,18 +1,15 @@
 package seedu.addressbook.common;
 
-import java.util.Arrays;
-import java.util.List;
-
 import seedu.addressbook.data.exception.IllegalValueException;
 
 /**
- * Represents a Person's name in the address book.
+ * Represents a Person's name in the Rms.
  * Guarantees: immutable; is valid as declared in {@link #isValidName(String)}
  */
 public class Name {
 
     public static final String EXAMPLE = "John Doe";
-    public static final String MESSAGE_NAME_CONSTRAINTS = "Person names should be spaces or alphanumeric characters";
+    public static final String MESSAGE_NAME_CONSTRAINTS = "Names should be spaces or alphanumeric characters";
     public static final String NAME_VALIDATION_REGEX = "[\\p{Alnum} ]+";
 
     public final String fullName;
@@ -23,11 +20,11 @@ public class Name {
      * @throws IllegalValueException if given name string is invalid.
      */
     public Name(String name) throws IllegalValueException {
-        name = name.trim();
-        if (!isValidName(name)) {
+        String trimmedName = name.trim();
+        if (!isValidName(trimmedName)) {
             throw new IllegalValueException(MESSAGE_NAME_CONSTRAINTS);
         }
-        this.fullName = name;
+        this.fullName = trimmedName;
     }
 
     /**
@@ -35,13 +32,6 @@ public class Name {
      */
     public static boolean isValidName(String test) {
         return test.matches(NAME_VALIDATION_REGEX);
-    }
-
-    /**
-     * Retrieves a listing of every word in the name, in order.
-     */
-    public List<String> getWordsInName() {
-        return Arrays.asList(fullName.split("\\s+"));
     }
 
     @Override
