@@ -6,6 +6,7 @@ import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.Map;
 
+//@@author AngWM
 /**
  * Represent a table storing the registering day of the members in the member list
  */

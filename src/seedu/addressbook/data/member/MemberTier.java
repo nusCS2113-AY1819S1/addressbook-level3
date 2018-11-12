@@ -1,5 +1,6 @@
 package seedu.addressbook.data.member;
 
+//@@author kangmingtay
 /**
  * Represents the number of membership tier of a Member in the member list.
  */

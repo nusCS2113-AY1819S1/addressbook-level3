@@ -1,4 +1,3 @@
-//@@author kianhong95
 package seedu.addressbook.data.employee;
 
 import java.util.ArrayList;
@@ -7,6 +6,7 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 
+//@@author kianhong95
 /**
  * A list of attendance timings. Does not allow null elements.
  */
