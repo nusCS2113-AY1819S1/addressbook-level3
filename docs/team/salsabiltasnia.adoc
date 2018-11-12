@@ -6,7 +6,7 @@
 == PROJECT: Restaurant Management System
 
 ---
-image::homepage.png[width="600"]
+image::homepage.png[width="800"]
 
 == Overview
 
@@ -51,7 +51,7 @@ RMS was created using Java and has a user interface that uses CLI. The project c
 *** Created test cases to test for the existing features to ensure every command functions as expected
 *** Wrote additional methods for team mate who required accessing the menu feature.
 
-** Documentation:
+* *Documentation*:
 
 *** Addition of content to User Guide: https://github.com/CS2113-AY1819S1-F09-2/main/pull/73[#73]
 https://github.com/CS2113-AY1819S1-F09-2/main/pull/135[#135]
@@ -62,7 +62,7 @@ https://github.com/CS2113-AY1819S1-F09-2/main/pull/214[#214]
 https://github.com/CS2113-AY1819S1-F09-2/main/pull/135[#135]
 https://github.com/CS2113-AY1819S1-F09-2/main/pull/202[#202]
 https://github.com/CS2113-AY1819S1-F09-2/main/pull/214[#214]
-** Community:
+* *Community*:
 *** PRs reviewed (with non-trivial review comments): https://github.com/CS2113-AY1819S1-F09-2/main/pull/109[#109], https://github.com/CS2113-AY1819S1-F09-2/main/pull/37[#37], https://github.com/CS2113-AY1819S1-F09-2/main/pull/36[36],
 
 == Contributions to the User Guide
