@@ -80,7 +80,6 @@ public class AddCommand extends UndoAbleCommand {
     private void AddDoctorLogin(String nric){
         Credentials credentials = new Credentials(nric, "StandardPass123!", 2);
         credentials.newLogin();
-        System.out.println("AddDoctorLogin called");
     }
 
     @Override

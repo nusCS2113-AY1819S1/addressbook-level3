@@ -26,18 +26,8 @@ public interface ReadOnlyPerson {
     Set<Tag> getTags();
 
     /**
-     * Returns true if the values inside this object is same as those of the other (Note: interfaces cannot override .equals)
+     * Returns true if the nric value inside this object is same as those of the other (Note: interfaces cannot override .equals)
      */
-//    default boolean isSameStateAs(ReadOnlyPerson other) {
-//        return other == this // short circuit if same object
-//                || (other != null // this is first to avoid NPE below
-//                && other.getName().equals(this.getName()) // state checks here onwards
-//                && other.getNric().equals(this.getNric())
-//                && other.getPhone().equals(this.getPhone())
-//                && other.getEmail().equals(this.getEmail())
-//                && other.getAddress().equals(this.getAddress())
-//                && other.getTitle().equals(this.getTitle()) );
-//    }
     default boolean isSameStateAs(ReadOnlyPerson other) {
         return other == this // short circuit if same object
                 || (other != null // this is first to avoid NPE below
@@ -70,7 +60,6 @@ public interface ReadOnlyPerson {
             builder.append(detailIsPrivate);
         }
         if(login.getAccesslevelF() <= getAddress().getAccessLevel()) {
-            System.out.println("hide getAsTextShowAll");
             builder.append(getAddress())
                     .append(" Title: ");
         }else{
@@ -105,7 +94,6 @@ public interface ReadOnlyPerson {
         }
         if (!getAddress().isPrivate()) {
             if(login.getAccesslevelF() <= getAddress().getAccessLevel()){
-                System.out.println("hide getAsTextHidePrivate");
                 builder.append(" Address: ").append(getAddress());
             }else{
                 builder.append(" Address: ").append(" *** HIDDEN *** ");
