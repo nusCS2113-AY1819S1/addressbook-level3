@@ -6,6 +6,7 @@ import java.text.SimpleDateFormat;
 //@@author iamputradanish
 
 /**
+ * Produces a timestamp given by system device.
  * Class for generating timestamps in different formats (in string form)
  */
 public class TimeAndDate {
@@ -22,6 +23,7 @@ public class TimeAndDate {
     }
 
     /**
+     * Formats time and date by appending "Hrs"
      *
      * @param theTime
      * @return the timestamp in string
@@ -36,6 +38,7 @@ public class TimeAndDate {
     }
 
     /**
+     * Formats time and date by appending "Hrs"
      * @param theTime
      * @return the timestamp in string
      */

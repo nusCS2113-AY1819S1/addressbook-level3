@@ -11,7 +11,7 @@ import java.io.PrintWriter;
 //@@author iamputradanish
 
 /**
- * TODO: Add Javadoc comment
+ * Class is used to read and write to external text files
  */
 public class ReaderAndWriter {
 
