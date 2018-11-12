@@ -89,6 +89,10 @@ public class Member implements ReadOnlyMember {
         return tier;
     }
 
+    public void setPoints(int value) {
+        points.setCurrentPoints(value);
+    }
+
     public Points updatePoints(double price, int pointsToRedeem) {
         return this.points.updatePoints(price, pointsToRedeem);
     }

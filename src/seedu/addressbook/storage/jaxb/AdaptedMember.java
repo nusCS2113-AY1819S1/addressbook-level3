@@ -2,9 +2,7 @@ package seedu.addressbook.storage.jaxb;
 
 import java.util.Date;
 
-import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlValue;
 
 import seedu.addressbook.common.Utils;
 import seedu.addressbook.data.exception.IllegalValueException;
@@ -38,32 +36,6 @@ public class AdaptedMember {
 
     @XmlElement(required = true)
     private String tier;
-
-    /**
-     * JAXB-friendly adapted contact detail data holder class.
-     */
-    private static class AdaptedContactDetail {
-        private String value;
-        private boolean isPrivate;
-
-        @XmlValue
-        public String getValue() {
-            return value;
-        }
-
-        @XmlAttribute(name = "isPrivate", required = true)
-        public boolean isPrivate() {
-            return isPrivate;
-        }
-
-        public void setValue(String value) {
-            this.value = value;
-        }
-
-        public void setPrivate(boolean aPrivate) {
-            isPrivate = aPrivate;
-        }
-    }
 
     /**
      * No-arg constructor for JAXB use.

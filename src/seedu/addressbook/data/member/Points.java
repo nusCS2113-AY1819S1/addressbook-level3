@@ -9,7 +9,12 @@ public class Points {
 
     public static final int EARNED_POINTS_PER_DOLLAR = 10;
     public static final int REDEEMED_POINTS_PER_DOLLAR = 100;
+    public static final int MAX_CURRENT_POINTS = 2000000000;
+    public static final int MAX_TOTAL_POINTS = 2000000000;
+
     public static final String MESSAGE_NEGATIVE_POINTS = "Update points cannot result in negative points.";
+    public static final String MESSAGE_MAXIMUM_POINTS_EXCEEDED = "Maximum points earned has been reached.";
+    public static final String MESSAGE_MAXIMUM_TOTAL_POINTS_EXCEEDED = "Maximum total points has been reached.";
 
     private int currentPoints;
     private int totalPoints;
@@ -44,8 +49,23 @@ public class Points {
             this.currentPoints -= pointsToRedeem;
             this.currentPoints += pointsEarned;
             this.totalPoints += pointsEarned;
+            if (currentPoints > MAX_CURRENT_POINTS) {
+                throw new IllegalValueException(MESSAGE_MAXIMUM_POINTS_EXCEEDED);
+            } else if (totalPoints > MAX_TOTAL_POINTS) {
+                throw new IllegalValueException(MESSAGE_MAXIMUM_TOTAL_POINTS_EXCEEDED);
+            }
             return this;
         } catch (IllegalValueException e) {
+            if (e.getMessage() == MESSAGE_NEGATIVE_POINTS) {
+                return this;
+            } else if (e.getMessage() == MESSAGE_MAXIMUM_POINTS_EXCEEDED) {
+                this.currentPoints = MAX_TOTAL_POINTS;
+                this.totalPoints = MAX_TOTAL_POINTS;
+                return this;
+            } else if (e.getMessage() == MESSAGE_MAXIMUM_TOTAL_POINTS_EXCEEDED) {
+                this.totalPoints = MAX_TOTAL_POINTS;
+                return this;
+            }
             return this;
         }
 
