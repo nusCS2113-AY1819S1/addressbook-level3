@@ -1,10 +1,6 @@
 package seedu.addressbook.commands;
 
-import seedu.addressbook.common.Messages;
 import seedu.addressbook.login.*;
-
-import javax.security.auth.login.CredentialNotFoundException;
-import java.io.IOException;
 
 public class ChangePasswordCommand extends UndoAbleCommand {
     public static final String COMMAND_WORD = "changepassword";

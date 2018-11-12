@@ -58,8 +58,14 @@ image::LoginComponentClassDiagram.png[]
 
 // tag::logiccompo[]
 === 3.3 Logic Component
+Class diagram for the Logic Component:
 
 image::LogicComponentClassDiagram.png[]
+
+Sequence diagram when a command is called (in this example, "delete 1") :
+
+image::LogicComponentSequence1.png[]
+
 // end::logiccompo[]
 
 // tag::DataComponent[]
@@ -379,24 +385,8 @@ Use case ends.
 +
 Use case ends.
 
-=== Use case: UC04 - Editing Appointment of Existing Users
 
-*MSS*
-
-. User logs in to MediBook (UC01)
-. MediBook determines access level of User (UC02)
-. Users `list`
-. MediBook will display the list of People in MediBook
-. Users select person to `edit-appointment`
-. MediBook enters edit-appointment mode
-. User add appointments input
-. MediBook adds in the appointments for the indicted person and does not add in duplicated appointments
-. User exits edit-appointment mode using `done`
-. MediBook exits edit-appointment mode
-+
-Use case ends.
-
-=== Use case: Delete person
+=== Use case: UC04 - Delete person
 
 *MSS*
 
@@ -418,6 +408,60 @@ Use case ends.
 +
 Use case resumes at step 2.
 
+=== Use case: UC05 - Undo/Redo
+
+*MSS*
+
+. User requests to list persons
+. MediBook shows a list of persons
+. User requests to delete a specific person in the list
+. MediBook deletes the person.
+. User realise it was a mistake and request an undo.
+. MediBook undo the delete.
+. User realise it was actually not a mistake and request a redo.
+. MediBook redo the delete.
++
+Use case ends.
+
+*Extensions*
+
+* 2a. The list is empty.
++
+Use case ends.
+
+* 3a. The given index is invalid.
+** 3a1. MediBook shows an error message.
++
+Use case resumes at step 2.
+
+=== Use case: UC06 - Editing Appointment of Existing Users
+
+*MSS*
+
+. Users `list`
+. MediBook will display the list of People in MediBook
+. Users select person to `edit-appointment`
+. MediBook enters edit-appointment mode
+. User add appointments input
+. MediBook adds in the appointments for the indicted person and does not add in duplicated appointments
+. User exits edit-appointment mode using `done`
+. MediBook exits edit-appointment mode
++
+Use case ends.
+
+*Extensions*
+
+* 2a. The list is empty.
++
+Use case ends.
+
+*Extensions*
+
+* 5a. User delete appointments input
+** 5a1.  MediBook delete in the appointments for the indicted person and does not change the missing appointments
++
+Use case ends.
+
 [appendix]
 == Non Functional Requirements
 
@@ -425,6 +469,13 @@ Use case resumes at step 2.
 . Should be able to hold up to 1000 persons.
 . Should come with automated unit tests and open source code.
 . Should favor DOS style commands over Unix-style commands.
+
+== Manual Testing
+* Undo/Redo:
+** Can be tested by entering a command that changes the data in MediBook (e.g `add` , `delete`, etc) followed by an `undo` and then `redo`.
+* Association:
+** Can be tested by using `list` and then `link INDEX1 INDEX2` where INDEX1 and INDEX2 represents two people in the list with different title. After which, by doing a `associatelist INDEX1` you should see that the name and nric of the person in INDEX2 appears in the associates list.
+** Following that, doing `unlink INDEX1 INDEX2` followed by `associatelist INDEX1` and you should see that the association you have created is removed.
 
 [appendix]
 == Glossary
