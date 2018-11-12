@@ -25,17 +25,23 @@ The user interacts with it using a CLI, and it has a GUI created with JavaFX. It
 * *Major enhancement 1*: added *the login feature for access to MediBook by individual account*
 ** What it does: allows the user to log in to his own account on MediBook.
 ** Justification: As the medical information of patients are highly sensitive and private, only staff members should have access. This personalised individual access is enabled with logins and accounts.
-** Highlights: After careful consideration, this enhancement is implemented as a standalone plugin; it does not affect the code of MediBook thus allowing for changes to the login system to be made with ease. The security features behind the login system is in line with industry standards and took a huge effort to implement.
-** Credits: _{mention here if you reused any code/ideas from elsewhere or if a third-party library is heavily used in the feature so that a reader can make a more accurate judgement of how much effort went into the feature}_
+** Highlights:
+*** After careful consideration, this enhancement is implemented as a standalone plugin; it does not affect the code of MediBook thus allowing for changes to the login system to be made with ease.
+*** The security features behind the login system is in line with industry standards and took a huge effort to implement.
+*** JavaFX was specially used to implement the login User Interface (UI). This includes the .fxml file and corresponding controller.
+
 
 * *Major enhancement 2*: added *authorisation and access levels*
-** What it does: allows for hierarchical viewing of sensitive information and data.
-** Justification: Even amongst doctors in the same institution, patient data should not be shared so loosely. Authorisation and access levels enables only the patient's direct doctor to be privy to his information, maintaining confidentiality of a patients data.
-** Highlights: [this feature is still in the works]
+** What it does: allows for hiding of sensitive and irrelevant information and data.
+** Justification: Even amongst doctors in the same institution, patient data should not be shared so loosely.
+Authorisation and access levels enables only the patient's direct doctor to be privy to his information, maintaining confidentiality of a patients data.
+** Highlights:
+*** With access levels, the system administrator can restrict access to information that is not required by the doctor in his duties. E.g. Patient's address should be hidden
+*** Access levels prevents unauthorised users from making changes to the data
 
 * *Minor enhancement*: worked with editing text files and hashing passwords to store the login credentials of every account secure
 
-* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
+* *Code contributed*: [https://nuscs2113-ay1819s1.github.io/dashboard/#=undefined&search=ongjiajian[Code]]
 
 * *Other contributions*:
 
@@ -43,14 +49,13 @@ The user interacts with it using a CLI, and it has a GUI created with JavaFX. It
 *** Managed releases `v1.1` - `v1.4` (4 releases) on GitHub
 ** Enhancements to existing features:
 *** added NRIC field to Person class to be used as Username for Login feature and to maintain uniqueness of users
-*** Wrote additional tests for existing features to increase coverage from 0% to 4.7%
+*** edited unique Persons to be found by NRIC instead of name for increased accuracy in identifying duplicated Person as all NRIC numbers are unique
+*** Wrote additional tests for existing features to increase coverage of Login component from 0% to 100%
 ** Documentation:
-*** Did cosmetic tweaks to existing contents of the User Guide: https://github.com[#14]
+*** Did cosmetic tweaks to existing contents of the User Guide
 ** Community:
 *** PRs reviewed (with non-trivial review comments):
-*** Contributed to forum discussions
-*** Tested and reported bugs and suggestions for other teams in the class
-*** Some parts of the history feature I added was adopted by several other class mates
+*** Tested and reported bugs and suggestions for other teams in the class with a special commendation from the other team: https://github.com/CS2113-AY1819S1-W13-3/main/issues/77[#77]
 
 == Contributions to the User Guide
 
