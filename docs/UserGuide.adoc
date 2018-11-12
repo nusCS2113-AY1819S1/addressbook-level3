@@ -193,7 +193,7 @@ Views all details of the 2nd person in MediBook.
 `viewall 1` +
 Views all details of the 1st person in the results of the `find` command.
 
-
+// tag::Appointment[]
 === 4.10 Selecting a person to edit appointment: `edit-appointment`
 
 Selects the person to edit appointment. +
@@ -202,7 +202,6 @@ Format: 'edit-appointment INDEX'
 ****
 Access to the appointment of the person at the specified `INDEX`.
 The index refers to the index number shown in the most recent listing.
-
 
 Similar to `viewall`, `view` and `delete`, it requires `list` or `find` command to be called
  at least once in the session for an index reference to `edit-appointment`.
@@ -251,7 +250,6 @@ Examples:
 * `add 01-01-2019-13:00`
 * `add 01-01-2019-13:00 02-01-2019-14:00 03-01-2019-15:00`
 
-
 ==== 4.10.4 Deleting appointment of the selected person: `delete`
 
 Deletes appointments from the selected person in MediBook. +
@@ -270,9 +268,11 @@ Examples:
 
 Exits the edit-appointment session. +
 Format: `done`
-// tag::associate[]
 
-=== 4.11 Create an associate between a doctor and a patient: `link`
+// end::Appointment[]
+
+// tag::associate[]
+=== 4.11 Associate a patient and a doctor: `link`
 
 Create an association between person specified at INDEX1 and the person specified at INDEX2  +
 Format: `link INDEX1 INDEX2`
@@ -294,7 +294,7 @@ Examples:
 `link 1 2` +
 Associate the 1st person with the 2nd person in MediBook.
 
-=== 4.12 Unlink
+=== 4.12 Remove association : `unlink`
 Removes association between person specified at INDEX1 and the person specified at INDEX2  +
 Format: `link INDEX1 INDEX2`
 
@@ -334,6 +334,7 @@ Examples:
 `associatelist 2` +
 Views the persons associated with the 2nd person in MediBook.
 // end::associate[]
+// tag::changepassword[]
 
 === 4.14 Change Password: `changepassword`
 
@@ -351,6 +352,7 @@ NEWPASSWORD and CONFIRMNEWPASSWORD must be exactly the same.
 Examples:
 
 * `changepassword pw/0ldPassword! npw/N3wPassword! cpw/N3wPassword!`
+// end::changepassword[]
 
 === 4.15 Undo: `undo`
 
@@ -361,21 +363,6 @@ Format: `undo` +
 Commands are undo-able if they make changes to the data and are made within the browsing session.
 This command is especially useful when an erroneous command, such as delete, is made which causes change to the data.
 ****
-
-Examples:
-
-* `list` +
-`delete 2` +
-Deletes the 2nd person in MediBook. +
-`undo` +
-Undo the deletion of the deleted person. +
-
-* `find Betsy` +
-`delete 1` +
-Deletes the 1st person in the results of the `find` command. +
-`undo` +
-Undo the deletion of the deleted person. +
-
 
 [NOTE]
 ====
@@ -429,6 +416,7 @@ Format: `history`
 
 Exits the program. +
 Format: `exit`
+// tag::accesslevel[]
 
 === 4.19 Access levels
 
@@ -442,6 +430,7 @@ Examples:
 Views all details of the 1st person in MediBook.
 DISPLAYED: +
 Viewing person: John Doe NRIC: S1233210Y Phone: 81654610 Email: 10@gmail Address:  \\*** HIDDEN \***  Title: Doctor Schedule:  Tags:
+// end::accesslevel[]
 
 === 4.20 Saving the data
 

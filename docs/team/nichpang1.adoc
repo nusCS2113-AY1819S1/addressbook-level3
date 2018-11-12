@@ -23,7 +23,11 @@ MediBook is an alternative to the primitive pen and paper management system for 
 ** Justification: This feature improves the product significantly because it allows the user to create connections between a patient and a doctor and thus, allows the staff to know the doctors whom are in charge of a particular patient and the patients whom a particular doctor is in charge of.
 
 
-* *Minor enhancement*: added a history command that allows the user to view a list of commands that were executed previously.
+* *Minor enhancement*:
+** Added a history command that allows the user to view a list of commands that were executed previously.
+** Added a “Title” field in the Person class to differentiate a patient and a doctor in MediBook
+** Existing commands are adjusted to accommodate the changed Person class
+** Unit tests and parser arguments are adjusted to cater to said changes
 
 * *Code contributed*: [https://nuscs2113-ay1819s1.github.io/dashboard/#=undefined&search=nichpang1[Code]]
 
@@ -31,14 +35,8 @@ MediBook is an alternative to the primitive pen and paper management system for 
 
 ** Project management:
 *** Managed releases `v1.1` - `v1.4` (4 releases) on GitHub
-** Enhancements to existing features:
-*** Wrote additional tests for existing features to increase coverage
 ** Documentation:
-*** Did some tweaks to organise existing contents of the Readme
-** Tools:
-*** Integrated travis-ci and auto-publishing
-
-_{you can add/remove categories in the list above}_
+*** Did some tweaks to organise contents of the Readme: https://github.com/CS2113-AY1819S1-F10-2/main/pull/12[#12] , https://github.com/CS2113-AY1819S1-F10-2/main/pull/17[#17] , https://github.com/CS2113-AY1819S1-F10-2/main/pull/167[#167]
 
 == Contributions to the User Guide
 
@@ -62,10 +60,3 @@ include::../DeveloperGuide.adoc[tag=logiccompo]
 include::../DeveloperGuide.adoc[tag=statecontrol]
 
 include::../DeveloperGuide.adoc[tag=associate]
-
-
-== Other Projects:
-
----
-
-* “Running game v1.0” for the independent summer project module (CP2106). Link to the app store can be found [https://play.google.com/store/apps/details?id=com.NaCl[here]].

@@ -4,7 +4,7 @@
 :stylesDir: ../stylesheets
 
 == About Me
-I am currently an undergraduate of National University of Singapore. I am in my year 2 of the Computer Engineering course and am expecting to graduate in mid-2021. I code, study, play and eat in Singapore.
+I am currently an undergraduate of National University of Singapore. I am in  year 2 of the Computer Engineering course and am expecting to graduate in mid-2021.
 
 == PROJECT: AddressBook - Level 4
 
@@ -40,7 +40,7 @@ The user interacts with it using a CLI, and it has a GUI created with JavaFX. It
 * *Other contributions*:
 
 ** Project management:
-*** Managed releases `v1.1` - `v1.2` (2 releases) on GitHub
+*** Managed releases `v1.1` - `v1.4` (4 releases) on GitHub
 ** Enhancements to existing features:
 *** added NRIC field to Person class to be used as Username for Login feature and to maintain uniqueness of users
 *** Wrote additional tests for existing features to increase coverage from 0% to 4.7%
@@ -59,9 +59,9 @@ The user interacts with it using a CLI, and it has a GUI created with JavaFX. It
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
 
-include::../UserGuide.adoc[tag=undoredo]
+include::../UserGuide.adoc[tag=changepassword]
 
-include::../UserGuide.adoc[tag=dataencryption]
+include::../UserGuide.adoc[tag=accesslevel]
 
 == Contributions to the Developer Guide
 
@@ -69,6 +69,4 @@ include::../UserGuide.adoc[tag=dataencryption]
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
-include::../DeveloperGuide.adoc[tag=undoredo]
-
-include::../DeveloperGuide.adoc[tag=dataencryption]
+include::../DeveloperGuide.adoc[tag=loginaccess]

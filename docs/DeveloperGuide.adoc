@@ -7,7 +7,7 @@
 :experimental:
 
 == 1 Introduction
-MediBook v1.4 is an application that functions as an advanced logbook for use in the healthcare industry. It allows healthcare professionals to keep track and sort patients’ details, arrange their schedule based on their patients’ appointments.
+MediBook v1.4 is an application that functions as an advanced logbook for use in the healthcare industry. It allows healthcare professionals to keep track and sort patients’ details, record patients’ appointments.
 
 
 This Developer Guide is intended for users with basic technical background as it details the setting up of our application, the design of our software architecture, describe the implementation of our key features, and the testing involved in our software. Appendix includes user stories and use cases for reference.
@@ -42,13 +42,20 @@ This Developer Guide is intended for users with basic technical background as it
 
 image::mainClassDiagram.png[]
 
+// tag::uicompo[]
+
 === 3.1 UI Component
 
 image::UIComponentClassDiagram.png[]
+// end::uicompo[]
 
+// tag::logincompo[]
 === 3.2 Login Component
 
 image::LoginComponentClassDiagram.png[]
+
+// end::logincompo[]
+
 // tag::logiccompo[]
 === 3.3 Logic Component
 
@@ -64,8 +71,15 @@ The storage component stores MediBook data in an XML format and is able to trans
 
 // end::storage[]
 
+// tag::DataComponent[]
+=== 3.5 Data Component
+
+image::DataComponentClassDiagram.png[]
+// end::DataComponent[]
+
 == 4. Implementation
 This section describes some noteworthy details on how certain features are implemented.
+
 // tag::statecontrol[]
 
 === 4.1  State control (undo/redo)
@@ -115,14 +129,6 @@ public class ClearCommand extends UndoAbleCommand {
 ----
 As shown, the commands that extends from the UndoAbleCommand will need to know how to undo and redo the changes they have made. This requires the object to store information of the change made. For example the DeleteCommand object will need store the person that was deleted so that the change made can be undone.
 
-*The following core methods are in place to assist the mechanism:*
-
-* `*undoLast()*`- Undo the command at the top of the *undoStack* and push it to the *redoStack* +
-* `*redoLast()*`- Redo the command at the top of the *redoStack* and push it to the *undoStack* +
-* `*truncateOldPath()*`- Clears the *redoStack* following a change made after undo-ing. +
-* `*addCommandToStack()*`- Push an UndoAbleCommand into the command stack +
-* `*checkForAction()*`- Check whether the `truncateOldPath()` method needs to be called before calling `addCommandToStack()`. +
-
 *Below is an example usage scenario and the behaviours of the component at a given time:*
 
 *1. On start-up:*
@@ -165,48 +171,120 @@ The following sequence diagram shows how the undo operation works after the comm
 
 image::UndoRedoSequenceDiagram.png[]
 
-==== 4.1.2  Reason for this implementation
+==== 4.1.1  Current implementation
 Current implementation requires each UndoAbleCommand object to know how to revert their own changes.This will use less memory as minimal data is stored. For example, for `add`, only the person added will be saved. However, we must ensure that the implementation of each individual command are correct.
 
 ==== 4.1.3  Alternative consideration
 An alternative to the current implementation is to save the different states of the MediBook after each command and iterate through them whenever undo/redo is called. Though this is far less challenging than the current implementation, performance issues might arise due to the high memory usage required.
 
 // end::statecontrol[]
-=== 4.2 Login System
-Securely logs user on to MediBook
 
-==== 4.2.1 Current Implementation
-Login is implemented before the main GUI launches. Upon the launch of MediBook, MediBook prompts for two input from the User, username and password. MediBook then compares the given pair of inputs with loginstorage.txt.
+// tag::loginaccess[]
+=== 4.2 Login System and Access Level
+Securely logs user on to MediBook with a preassigned access level.
 
-loginstorage.txt stores the username of all users and the hashes of their passwords. MediBook iterates through loginstorage.txt to find the matching username, and the corresponding hashed password. The password entered is hashed using Java’s SHA-512 hashing algorithm. The result is then matched with the hash stored in loginstorage.txt, if both matches then login is successful and user is allowed into MediBook. If they do not match, then the program is terminated.
+=== 4.2.1 Current Implementation
+Login is implemented as a User Interface(UI) before the main Graphic UI(GUI) launches. The login UI and main GUI are two different scenes. Upon the launch of MediBook, the scene is set to the login UI and MediBook prompts for two input from the User, username and password. MediBook then compares the given pair of inputs with the data in the file loginstorage.txt.
+On successful login, the scene will switch from login UI to the main GUI scene.
 
-==== 4.2.2 Reason for this implementation
-There is no need to open the GUI, if User fails to log in, thus login is implemented before the GUI launches.
+image::sceneswitch.png[]
+
+Similar to the main GUI, login UI uses JavaFX with the file, signin.fxml, and its controller class, LoginWindow. LoginWindow class handles the getting of user inputs (i.e. Username and Password).
+Additionally, LoginWindow will reject empty fields and prompt the user for non-empty inputs. These are implemented with the function tryLogin().
+If valid inputs are entered by the user, LoginWindow will send the inputs to the Login component of Medibook. The Login component will return an answer in the form of a Boolean as to whether login is successful or not.
+The user has three tries to enter a correct set of username and password before the program exits for security reasons.
+
+When Login component receives the input from LoginWindow, a Credentials class object with the given username and password will be instantiated in Login class.
+Using the methods of the Credentials class, validation of the Credentials will take place. The Credentials are passed through the WorkWithLoginStorage class which will retrieve data from loginstorage.txt and comapre it with the input.
+loginstorage.txt stores the username of all users and the hashes of their passwords and their respective access levels.
+WorkWithLoginStorage class iterates through loginstorage.txt to find the matching username, and the corresponding hashed password. The password input is then hashed using Java’s SHA-512 hashing algorithm and the result is compared with the hashed password stored in loginstorage.txt.
+If both matches then a Boolean true will be returned and a Boolean false if otherwise.
+
+=== 4.2.2 Reason for Implementation
+A different UI scene is used for login so as to allow main GUI to be more isolated. Should the User fail to log in, access to Medibook must and will be denied. Thus login is implemented before the main GUI.
+As login UI and main GUI will never need to be concurrent, two separate scenes and switching from login UI to main GUI can be used.
+
 To ensure a secure MediBook, user login profiles must be stored securely. Storing the hash result instead of the password ensures that should loginstorage.txt be compromised, the actual passwords are still unknown to the perpetrators.
-
-==== 4.2.3 Alternative consideration
-Java Authentication and Authorisation System (JAAS) was also considered when deciding on how to implement MediBook’s login system. However, using JAAS is more restrictive than the current implementation which allows for easy change in hashing algorithms used and different security features in the future. JAAS is also harder to implement and as MediBook is currently targeted at about 1000 users, there is no need to use JAAS.
+This is due to hashes being one-way. It is almost impossible for people to get back the actual password with a hash. Also, two similar passwords (e.g. Password123! and Password124!) will result in a completely different hash making it even harder for hackers to work out the actual password based on the hashes.
 
 
-=== 4.3 Scheduling
-Scheduling allows appointment to be stored in MediBook. MediBook recognises a schedule date with the tag 'd/'.
+=== 4.2.3 Future/Alternative Implementation
+An alternative implementation, Java Authentication and Authorisation System (JAAS), was also considered when deciding on how to implement MediBook’s login system. However, using JAAS is more restrictive than the current implementation which allows for easy change in hashing algorithms used and different security features in the future. JAAS is also harder to implement and as MediBook is currently targeted at about 1000 users, there is no need to use JAAS.
+In the future, a salt will be used to safeguard against rainbow table attacks where hackers compare the hashes from loginstorage.txt with their own table of hashes of all different combinations of passwords.
+// end::loginaccess[]
+
+// tag::Appointment[]
+=== 4.3 Record Appointments
+Record Appointment feature allows appointments to be stored in MediBook.
+
+When adding a person, MediBook recognises an appointment with the tag 'd/' and in the form DD-MM-YYY-HH:MM,
+where the year should be in the 20th or 21th Century and time in 24-hour clock format.
+
+DD-MM-YYY-HH:MM indicates the day and the starting time of the appointment.
+
+*Edit-Appointment Mode:*
+Users can enter edit-appointment mode by entering the `edit-appointment INDEX` where index refers to the person with that index number shown in the most recent listing.
+Once in edit-appointment mode, users can `add` multiple appointments, `delete` multiple appointments and `list` the appointments of the chosen person
+ before exiting edit-appointment mode using `done`. A `help` summary of the edit-appointment mode is also available.
+
+The following is a summary of the commands involved in edit-appointment:
+
+* `edit-appointment INDEX`
+* `add DD-MM-YYYY-HH:MM...`
+* `delete DD-MM-YYYY-HH:MM...`
+* `list`
+* `help`
+* `done`
 
 ==== 4.3.1 Current Implementation
-The schedule feature currently accepts dates from the users as an input category under the add command. Input must be in the format DD-MM-YYYY for it to be accepted as a proper schedule date input. For each person added, multiple schedule dates can be added and it is also not a compulsory field to fill.
+Every appointment is an object of the Schedule class. Each Person has a hashset of Schedule objects.
+This allows each Person to have zero to multiple Schedules. Furthermore, due to the property of hashset,
+ there would be no duplicated appointments.
 
-This is achieved by setting up a schedule class which sets a regular expression (regex) that only accept valid dates in the DD-MM-YYYY format. Non-existent dates such as 30-02-2019 or 28-28-2019 would not be accepted.
+Appointments are verified though the strict Schedule class which sets a regular expression (regex) that only accept valid appointments in the DD-MM-YYYY-HH:MM format.
+ Non-existent dates, such as 30-02-2019-13:00 or 28-28-2019-15:00, and time, like 01-01-2019-25:80, would not be accepted.
 
-Subsequently, a hashset of schedule act as an attribute for person class. Every time the add command is used to add a valid person, a person object is created with the set of schedule as part of the attribute of the person. As such, there can be multiple appointment dates added together with the person. The schedule is identified using the ‘d/’ mark.
+*Entering Edit-Appointment Mode:* (And Exiting)
+
+As shown in the sequence diagram below, when the edit-appointment command is instantiated, the index input is used to identify the Person in the list to edit appointment.
+
+Afterwards, when it execute(), a static boolean in the Command class is set to true via SetEditingAppointmentState() to indicate that the user is now in edit-appointment mode.
+
+image::EditAppointmentSeqenceDiagram.png[]
+
+Subsequently, when commands are made, the Parser check them against the edit-appointment mode commands and execute accordingly.
+
+This only stops when the user exits edit-appointment mode using the command `done`. ExitAppointmentCommand would set the static boolean in Command class back to false
+using SetEditingAppoinmentState(false).
+
+
+*Add Appoinments in Edit-Appointment Mode:*
+
+When AddAppoinment is instantiated, it converts and stores the hashset of Schedule appointments.
+
+As shown in the sequence diagram below, in execute(), a Person copy of the original index person is made and updated with the latest schedule.
+editPerson() is used to replace the Person in the UniquePersonList of people in the AddressBook. Delete is also done in the similar manner.
+
+image::AddAppointmentSequenceDiagram.png[]
+
 
 ==== 4.3.2 Reason for Implementation
-Due to the large number of patients the doctors care for, it is at times hard to keep track of the numerous appointments made by their patients. As such, a scheduling feature would record the appointment date so that they can keep track of the numerous appointments they have for the day.
+Every time a command that takes effect on a single Person is called, AddressBook level 3 requires users to indicated the index of the Person.
 
-==== 4.3.3 Future/Alternative Implementation
-In future versions, the following details would be slowly incremented to ensure a smooth user experience while using the scheduling feature of MediBook.
+Hence, I wanted to enter a mode for edit-appointment as it breaks down a very long input into multiple shorter ones.
+This makes easier and more intuitive for users, especially as patients would have multiple appointments made in one go or seek to
+make changes to their appointments.
 
-. Edit the appointment dates only.
-. A command to view all or list the appointments in a chronological order following the reference date.
-. A doctor can view their respective patients appointment
+==== 4.3.3 Alternative Consideration
+In future versions, the following details can be implemented for a better appointment feature for MediBook.
+
+* Use Calendar class in java.util. This allows precise date and time to be recorded, easier comparision between appointments
+and current date and time can be obtained. This class also provides additional fields and methods for implementing a concrete calendar system outside the package.
+* Organise the appointments in chronological order. Possible methods of achieving are to use a TreeSet instead of Hashset
+and to use the Calender Class mentioned.
+* A command feature to list all the appointments in a chronological order following the reference date.
+* A command feature for doctor to view their respective patients' appointments for the day or for specific days.
+// end::Appointment[]
 
 // tag::devorganisation[]
 === 4.4 Data Organisation
@@ -232,7 +310,7 @@ In the future, the sort feature can be further enhanced in the following ways.
 The association feature allows users to associate a doctor together with a patient via the link and unlink command, as well as view the persons who are associated via the associatelist command. This segment will elaborate on the implementation of this feature.
 
 ==== 4.5.1 Current Implementation
-Store name and NRIC as Strings. (to be elaborated).
+The association feature is implemented as a Set of `Associated` objects. The associated object will hold a String which contains the name and nric of the person that is associated.
 
 ==== 4.5.2 Reason for Implementation
 This implementation is basically storing a String of an associated person's name and their nric into a set, which is simple to implement. However, since this implementation only stores a set of string, theres is nothing much you can do with it other than viewing it.
