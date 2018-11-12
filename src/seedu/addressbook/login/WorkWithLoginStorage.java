@@ -2,12 +2,14 @@ package seedu.addressbook.login;
 
 import java.io.*;
 import java.util.Scanner;
+
+import seedu.addressbook.Main;
 import seedu.addressbook.login.hashing;
 import seedu.addressbook.login.Credentials;
 
 public class WorkWithLoginStorage {
     private static boolean debug = false;
-    private static File logins = new File("src/seedu/addressbook/login/loginstorage.txt");
+    private static File logins = new File("loginstorage.txt");
     private static Scanner sc;
     private static String USERNAME;
     private static String PASSWORD;
@@ -17,6 +19,8 @@ public class WorkWithLoginStorage {
         try {
             logins.createNewFile();
             sc = new Scanner(logins);
+        } catch (FileNotFoundException fnfe) {
+            fnfe.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -24,7 +28,6 @@ public class WorkWithLoginStorage {
 
     public static boolean compareCredentials(String username, String password)   {
         openScanner();
-
         if(debug) System.out.println(logins.getAbsolutePath());
 //        if(debug) System.out.println("user = " + user +"; pass = " + pass);
         if(retrieveUsername(username)){

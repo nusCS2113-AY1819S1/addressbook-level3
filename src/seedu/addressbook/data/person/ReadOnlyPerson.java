@@ -74,7 +74,7 @@ public interface ReadOnlyPerson {
             builder.append(getAddress())
                     .append(" Title: ");
         }else{
-            builder.append(" HIDDEN").append(" Title: ");
+            builder.append(" *** HIDDEN *** ").append(" Title: ");
         }
         builder.append(getTitle())
                 .append(" Schedule: ");
@@ -108,7 +108,7 @@ public interface ReadOnlyPerson {
                 System.out.println("hide getAsTextHidePrivate");
                 builder.append(" Address: ").append(getAddress());
             }else{
-                builder.append(" Address: ").append(" HIDDEN");
+                builder.append(" Address: ").append(" *** HIDDEN *** ");
             }
         }
         builder.append(" Title: ").append(getTitle());

@@ -1,5 +1,6 @@
 package seedu.addressbook.storage;
 
+import seedu.addressbook.commands.AddCommand;
 import seedu.addressbook.data.AddressBook;
 import seedu.addressbook.data.exception.IllegalValueException;
 import seedu.addressbook.data.person.*;
