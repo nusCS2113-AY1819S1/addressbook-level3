@@ -68,8 +68,17 @@ image::LogicComponentSequence1.png[]
 
 // end::logiccompo[]
 
+// tag::storage[]
+
+=== 3.4 Storage Component
+
+image::StorageComponentClassDiagram.png[]
+The storage component stores MediBook data in an XML format and is able to translate it back into a human-readable format in MediBook
+
+// end::storage[]
+
 // tag::DataComponent[]
-=== 3.4 Data Component
+=== 3.5 Data Component
 
 image::DataComponentClassDiagram.png[]
 // end::DataComponent[]
@@ -283,11 +292,13 @@ and to use the Calender Class mentioned.
 * A command feature for doctor to view their respective patients' appointments for the day or for specific days.
 // end::Appointment[]
 
+// tag::devorganisation[]
 === 4.4 Data Organisation
 Sorts entries in MediBook according to alphabetical order
 
 ==== 4.4.1 Current Implementation
-When the sort command is entered, the integrated sort function is called on the list of persons from UniquePersonList, using alphabetical order as the comparator.
+When the sortname command is entered, the integrated sort function is called on the list of persons from UniquePersonList, using alphabetical order as the comparator.
+When the sorttitle command is entered, Medibook entries are sorted according to alphabetical order within their sorted title.
 
 The sort command does not access the stored data directly.
 
@@ -298,6 +309,7 @@ The sort feature provides an avenue for users to view their MediBook entries in 
 In the future, the sort feature can be further enhanced in the following ways.
 
 . Sort according to appointment date with earliest appointment first
+// end::devorganisation[]
 
 // tag::associate[]
 === 4.5 Association
