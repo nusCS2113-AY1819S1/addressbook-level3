@@ -1,4 +1,4 @@
-= Police Records and Intelligence Syetem - User Guide
+= Police Records and Intelligence System - User Guide
 :site-section: UserGuide
 :toc:
 :toc-title:
