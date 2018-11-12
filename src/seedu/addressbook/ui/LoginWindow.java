@@ -18,7 +18,6 @@ import seedu.addressbook.logic.Logic;
 import seedu.addressbook.login.login;
 import seedu.addressbook.ui.MainWindow;
 
-//import java.util.List;
 import java.util.Optional;
 
 import static seedu.addressbook.common.Messages.*;

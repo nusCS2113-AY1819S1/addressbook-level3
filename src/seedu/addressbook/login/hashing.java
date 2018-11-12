@@ -2,7 +2,6 @@ package seedu.addressbook.login;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.security.SecureRandom;
 
 public class hashing {
 
@@ -29,13 +28,6 @@ public class hashing {
         }
         return "abc";
     }
-
-//    private static byte[] getSalt(){
-//        byte[] bytes = new byte[20];
-//        SecureRandom random = new SecureRandom();
-//        random.nextBytes(bytes);
-//        return bytes;
-//    }
 
     private static String bytesToStringHex(byte[] bytes) {
         char[] hexChars = new char[bytes.length * 2];

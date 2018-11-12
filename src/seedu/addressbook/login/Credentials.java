@@ -13,8 +13,6 @@ public class Credentials {
     private String PASSWORD;
     private String USERNAME;
     private int ACCESSLEVEL;
-//    private String salt;
-//    private  int authLevel;
 
     public Credentials(String username, String password, int accesslevel){
 //        if(isValidUsername(username)){

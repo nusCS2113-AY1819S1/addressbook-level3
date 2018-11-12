@@ -8,12 +8,10 @@ import seedu.addressbook.login.hashing;
 import seedu.addressbook.login.Credentials;
 
 public class WorkWithLoginStorage {
-    private static boolean debug = false;
     private static File logins = new File("loginstorage.txt");
     private static Scanner sc;
     private static String USERNAME;
     private static String PASSWORD;
-    private static int POSITION;
 
     private static void openScanner()   {
         try {
@@ -28,12 +26,8 @@ public class WorkWithLoginStorage {
 
     public static boolean compareCredentials(String username, String password)   {
         openScanner();
-        if(debug) System.out.println(logins.getAbsolutePath());
-//        if(debug) System.out.println("user = " + user +"; pass = " + pass);
         if(retrieveUsername(username)){
-            if(debug) System.out.println("user correct");
             retrieveStoredHash();
-            if(debug)System.out.println("password = " + PASSWORD + "2");
             return (hashing.hashIt(password)).equals(PASSWORD);
         }else {
             return false;
@@ -112,9 +106,4 @@ public class WorkWithLoginStorage {
         sc.next();
         return sc.nextInt();
     }
-
-//    public static void retrieveSalt(){
-//        //to be implemented
-//    }
-
 }
