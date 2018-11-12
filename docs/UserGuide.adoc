@@ -29,6 +29,8 @@ The police database is for police officers(PO) and headquarter personnel(HQP). B
 +
 image::Ui.png[width="790"]
 +
+// tag::password[]
+[[password]]
 
 [NOTE]
 ====
@@ -48,6 +50,7 @@ image::Ui.png[width="790"]
 .	To display the full list of commands and a summary of their functions in the application, type 'help' and press kbd:[Enter].
 .	Refer to Section 3, “Features” for details of each feature.
 
+// end::password[]
 
 [[Features]]
 == Features
@@ -251,14 +254,15 @@ Examples:
 Generates message to dispatch an officer to backup a requesting officer
 Message would be sent to requester & backup officer which includes ETA(Real Time) & Location (Google Maps URL).
 
-Format: 'dispatch BACKUP OFFICER OFFENSE REQUESTER OFFICER'
+Format: 'dispatch BACKUP_OFFICER OFFENSE REQUESTER_OFFICER'
 
 *   dispatch po1 gun po3
 *   Sends a set of GPS coordinates, current case, ETA and Google Maps URL location of requester
     to backup officer and vice-versa.
 // end::dispatch[]
 
-
+// tag::logout[]
+[[logout]]
 === Logout : `logout` (HQP & PO)
 
 Logs the user out from the system.
@@ -281,6 +285,8 @@ Examples:
 *	update password
 *	Please enter a password to change
 *   User then has to enter existing password and new alphanumeric password of minimum length 5
+
+// end::logout[]
 
 === Check unread notifications: `showunread` (HQP & PO)
 
@@ -331,6 +337,8 @@ Clears the text file containing all the messages (both read and unread) for the 
 
 Format: 'clearinbox'
 
+// tag::shutdown[]
+[[shutdown]]
 === Shutdown program : `shutdown` (HQP & PO)
 
 Shutdown the system
@@ -339,7 +347,8 @@ Format: 'shutdown'
 
 Examples:
 *   shutdown
-*   Police Records shuts down
+*   Police Records System shuts down
+// end::shutdown[]
 
 // tag::autocorrect[]
 [[autocorrect]]

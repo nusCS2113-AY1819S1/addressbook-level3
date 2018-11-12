@@ -51,7 +51,6 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 import org.junit.rules.TemporaryFolder;
 
-import seedu.addressbook.PatrolResourceStatus;
 import seedu.addressbook.autocorrect.AutoCorrect;
 import seedu.addressbook.autocorrect.CheckDistance;
 import seedu.addressbook.commands.AddCommand;
@@ -81,6 +80,7 @@ import seedu.addressbook.commands.ViewAllCommand;
 import seedu.addressbook.common.HttpRestClient;
 import seedu.addressbook.common.Location;
 import seedu.addressbook.common.Messages;
+import seedu.addressbook.common.PatrolResourceStatus;
 import seedu.addressbook.data.AddressBook;
 import seedu.addressbook.data.exception.PatrolResourceUnavailableException;
 import seedu.addressbook.data.person.DateOfBirth;
@@ -100,6 +100,7 @@ import seedu.addressbook.password.Password;
 import seedu.addressbook.storage.StorageFile;
 import seedu.addressbook.timeanddate.TimeAndDate;
 import seedu.addressbook.ui.UiFormatter;
+
 
 public class LogicTest {
 
@@ -606,9 +607,10 @@ public class LogicTest {
     @Test
     public void execute_dispatch_engagedOfficer() throws Exception {
         PatrolResourceStatus.setStatus("po3", true);
+        PatrolResourceStatus.setStatus("po2", true);
         String baseMessage = "Patrol resource %s is engaged.\n" + DispatchCommand.getMessageOfficerUnavailable();
 
-        assertCommandBehavior(DispatchCommand.COMMAND_WORD + " hqp theft po3", String.format(baseMessage, "hqp"));
+        assertCommandBehavior(DispatchCommand.COMMAND_WORD + " po2 theft po3", String.format(baseMessage, "po2"));
         assertCommandBehavior(DispatchCommand.COMMAND_WORD + " po3 riot po2", String.format(baseMessage, "po3"));
     }
 
@@ -849,30 +851,6 @@ public class LogicTest {
     }
 
     //@@author muhdharun
-    /*
-    @Test
-    public void execute_find_onlyMatchesFullNric() throws Exception {
-        TestDataHelper helper = new TestDataHelper();
-
-        Person pTarget1 = helper.generatePersonWithNric("s1234567a");
-        Person pTarget2 = helper.generatePersonWithNric("s1234567b");
-        Person p1 = helper.generatePersonWithNric("s1234567c");
-        Person p2 = helper.generatePersonWithNric("s1234567d");
-
-        List<Person> fourPersons = helper.generatePersonList(p1, pTarget1, p2, pTarget2);
-        Person expectedPerson = pTarget2;
-        String nric = expectedPerson.getNric().getIdentificationNumber();
-        helper.addToAddressBook(addressBook, fourPersons);
-
-        assertCommandBehavior("find " + nric,
-                Command.getMessageForPersonShownSummary(expectedPerson),
-                addressBook,
-                false,
-                Collections.emptyList());
-
-    }
-    */
-
     @Test
     public void execute_find_differentButValidFile() throws Exception {
         TestDataHelper helper = new TestDataHelper();
@@ -1556,7 +1534,7 @@ public class LogicTest {
         final String input = InboxCommand.COMMAND_WORD;
         final String input1 = ShowUnreadCommand.COMMAND_WORD;
         final String expected = String.format(InboxCommand.MESSAGE_TOTAL_MESSAGE_NOTIFICATION, 0, 0);
-        final String expected1 = Messages.MESSAGE_NO_UNREAD_MSGS; //TODO: Refactor all message strings
+        final String expected1 = Messages.MESSAGE_NO_UNREAD_MSGS;
         assertCommandBehavior(input, expected);
         assertCommandBehavior(input1, expected1);
     }
