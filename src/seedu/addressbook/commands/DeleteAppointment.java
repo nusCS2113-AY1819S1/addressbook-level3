@@ -24,14 +24,14 @@ public class DeleteAppointment extends Command {
             + "Example 1: " + COMMAND_WORD + " 01-01-2019-13:00 \n\t"
             + "Example 2: " + COMMAND_WORD + " 01-01-2019-13:00" + " 01-02-2019-14:00" + " 01-03-2019-15:00";
 
-    private static final String MESSAGE_NO_CHANGE_MADE = "No changes made to the %1$s set of appointment "
+    public static final String MESSAGE_NO_CHANGE_MADE = "No changes made to the %1$s set of appointment "
             + "as no appointment were made on %2$s";
 
-    private static final String MESSAGE_DELETE_PERSON_APPOINTMENT = "%1$s has deleted appointment!\n";
+    public static final String MESSAGE_DELETE_PERSON_APPOINTMENT = "%1$s has deleted appointment!\n";
 
-    private static final String MESSAGE_FOR_DELETED_APPOINTMENTS = "\nDeleted appointment for: %1$s\n";
+    public static final String MESSAGE_FOR_DELETED_APPOINTMENTS = "\nDeleted appointment for: %1$s\n";
 
-    private static final String MESSAGE_FOR_MISSING_APPOINTMENTS = "Appointment that does not exist: %1$s";
+    public static final String MESSAGE_FOR_MISSING_APPOINTMENTS = "Appointment that does not exist: %1$s";
 
 
     private final Set<Schedule> scheduleSetToDelete;
@@ -99,13 +99,10 @@ public class DeleteAppointment extends Command {
         StringBuilder missingAppointments = new StringBuilder();
 
         for(Schedule scheduleDelete : scheduleSetToDelete) {
-            if(initialScheduleSet.contains(scheduleDelete)){
+            if(initialScheduleSet.contains(scheduleDelete))
                 deletedAppointments.append(scheduleDelete.toString());
-                deletedAppointments.append(" ");
-            }else{
+            else
                 missingAppointments.append(scheduleDelete.toString());
-                missingAppointments.append(" ");
-            }
         }
         String detailsMessage = String.format(MESSAGE_DELETE_PERSON_APPOINTMENT, name);
         detailsMessage +=  String.format(MESSAGE_FOR_DELETED_APPOINTMENTS, deletedAppointments);
