@@ -42,13 +42,19 @@ This Developer Guide is intended for users with basic technical background as it
 
 image::mainClassDiagram.png[]
 
+// tag::uicompo[]
+
 === 3.1 UI Component
 
 image::UIComponentClassDiagram.png[]
+// end::uicompo[]
 
+// tag::logincompo[]
 === 3.2 Login Component
 
 image::LoginComponentClassDiagram.png[]
+// end::logincompo[]
+
 // tag::logiccompo[]
 === 3.3 Logic Component
 
@@ -147,28 +153,47 @@ The following sequence diagram shows how the undo operation works after the comm
 
 image::UndoRedoSequenceDiagram.png[]
 
-==== 4.1.2  Reason for this implementation
+==== 4.1.1  Current implementation
 Current implementation requires each UndoAbleCommand object to know how to revert their own changes.This will use less memory as minimal data is stored. For example, for `add`, only the person added will be saved. However, we must ensure that the implementation of each individual command are correct.
 
 ==== 4.1.3  Alternative consideration
 An alternative to the current implementation is to save the different states of the MediBook after each command and iterate through them whenever undo/redo is called. Though this is far less challenging than the current implementation, performance issues might arise due to the high memory usage required.
 
 // end::statecontrol[]
-=== 4.2 Login System
-Securely logs user on to MediBook
 
-==== 4.2.1 Current Implementation
-Login is implemented before the main GUI launches. Upon the launch of MediBook, MediBook prompts for two input from the User, username and password. MediBook then compares the given pair of inputs with loginstorage.txt.
+// tag::loginaccess[]
+=== 4.2 Login System and Access Level
+Securely logs user on to MediBook with a preassigned access level.
 
-loginstorage.txt stores the username of all users and the hashes of their passwords. MediBook iterates through loginstorage.txt to find the matching username, and the corresponding hashed password. The password entered is hashed using Java’s SHA-512 hashing algorithm. The result is then matched with the hash stored in loginstorage.txt, if both matches then login is successful and user is allowed into MediBook. If they do not match, then the program is terminated.
+=== 4.2.1 Current Implementation
+Login is implemented as a User Interface(UI) before the main Graphic UI(GUI) launches. The login UI and main GUI are two different scenes. Upon the launch of MediBook, the scene is set to the login UI and MediBook prompts for two input from the User, username and password. MediBook then compares the given pair of inputs with the data in the file loginstorage.txt.
+On successful login, the scene will switch from login UI to the main GUI scene.
 
-==== 4.2.2 Reason for this implementation
-There is no need to open the GUI, if User fails to log in, thus login is implemented before the GUI launches.
+image::sceneswitch.png[]
+
+Similar to the main GUI, login UI uses JavaFX with the file, signin.fxml, and its controller class, LoginWindow. LoginWindow class handles the getting of user inputs (i.e. Username and Password).
+Additionally, LoginWindow will reject empty fields and prompt the user for non-empty inputs. These are implemented with the function tryLogin().
+If valid inputs are entered by the user, LoginWindow will send the inputs to the Login component of Medibook. The Login component will return an answer in the form of a Boolean as to whether login is successful or not.
+The user has three tries to enter a correct set of username and password before the program exits for security reasons.
+
+When Login component receives the input from LoginWindow, a Credentials class object with the given username and password will be instantiated in Login class.
+Using the methods of the Credentials class, validation of the Credentials will take place. The Credentials are passed through the WorkWithLoginStorage class which will retrieve data from loginstorage.txt and comapre it with the input.
+loginstorage.txt stores the username of all users and the hashes of their passwords and their respective access levels.
+WorkWithLoginStorage class iterates through loginstorage.txt to find the matching username, and the corresponding hashed password. The password input is then hashed using Java’s SHA-512 hashing algorithm and the result is compared with the hashed password stored in loginstorage.txt.
+If both matches then a Boolean true will be returned and a Boolean false if otherwise.
+
+=== 4.2.2 Reason for Implementation
+A different UI scene is used for login so as to allow main GUI to be more isolated. Should the User fail to log in, access to Medibook must and will be denied. Thus login is implemented before the main GUI.
+As login UI and main GUI will never need to be concurrent, two separate scenes and switching from login UI to main GUI can be used.
+
 To ensure a secure MediBook, user login profiles must be stored securely. Storing the hash result instead of the password ensures that should loginstorage.txt be compromised, the actual passwords are still unknown to the perpetrators.
+This is due to hashes being one-way. It is almost impossible for people to get back the actual password with a hash. Also, two similar passwords (e.g. Password123! and Password124!) will result in a completely different hash making it even harder for hackers to work out the actual password based on the hashes.
 
-==== 4.2.3 Alternative consideration
-Java Authentication and Authorisation System (JAAS) was also considered when deciding on how to implement MediBook’s login system. However, using JAAS is more restrictive than the current implementation which allows for easy change in hashing algorithms used and different security features in the future. JAAS is also harder to implement and as MediBook is currently targeted at about 1000 users, there is no need to use JAAS.
 
+=== 4.2.3 Future/Alternative Implementation
+An alternative implementation, Java Authentication and Authorisation System (JAAS), was also considered when deciding on how to implement MediBook’s login system. However, using JAAS is more restrictive than the current implementation which allows for easy change in hashing algorithms used and different security features in the future. JAAS is also harder to implement and as MediBook is currently targeted at about 1000 users, there is no need to use JAAS.
+In the future, a salt will be used to safeguard against rainbow table attacks where hackers compare the hashes from loginstorage.txt with their own table of hashes of all different combinations of passwords.
+// end::loginaccess[]
 
 === 4.3 Scheduling
 Scheduling allows appointment to be stored in MediBook. MediBook recognises a schedule date with the tag 'd/'.
