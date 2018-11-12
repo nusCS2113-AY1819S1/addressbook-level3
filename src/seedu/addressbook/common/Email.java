@@ -15,6 +15,13 @@ public class Email {
     public final String value;
 
     /**
+     * Empty constructor
+     */
+    public Email() {
+        this.value = "";
+    }
+
+    /**
      * Validates given email.
      *
      * @throws IllegalValueException if given email address string is invalid.
