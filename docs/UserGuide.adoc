@@ -262,7 +262,7 @@ Examples:
 Exits the edit-appointment session. +
 Format: `done`
 // tag::associate[]
-=== 4.11 Create an associate between a doctor and a patient: `link`
+=== 4.11 Associate a patient and a doctor: `link`
 
 Create an association between person specified at INDEX1 and the person specified at INDEX2  +
 Format: `link INDEX1 INDEX2`
@@ -284,7 +284,7 @@ Examples:
 `link 1 2` +
 Associate the 1st person with the 2nd person in MediBook.
 
-=== 4.12 Unlink
+=== 4.12 Remove association : `unlink`
 Removes association between person specified at INDEX1 and the person specified at INDEX2  +
 Format: `link INDEX1 INDEX2`
 
@@ -337,21 +337,6 @@ Format: `undo` +
 Commands are undo-able if they make changes to the data and are made within the browsing session.
 This command is especially useful when an erroneous command, such as delete, is made which causes change to the data.
 ****
-
-Examples:
-
-* `list` +
-`delete 2` +
-Deletes the 2nd person in MediBook. +
-`undo` +
-Undo the deletion of the deleted person. +
-
-* `find Betsy` +
-`delete 1` +
-Deletes the 1st person in the results of the `find` command. +
-`undo` +
-Undo the deletion of the deleted person. +
-
 
 [NOTE]
 ====
