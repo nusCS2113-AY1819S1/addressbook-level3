@@ -834,29 +834,23 @@ public class LogicTest {
     }
 
     //@@author muhdharun
-    /*
     @Test
     public void execute_find_onlyMatchesFullNric() throws Exception {
         TestDataHelper helper = new TestDataHelper();
 
-        Person pTarget1 = helper.generatePersonWithNric("s1234567a");
-        Person pTarget2 = helper.generatePersonWithNric("s1234567b");
-        Person p1 = helper.generatePersonWithNric("s1234567c");
-        Person p2 = helper.generatePersonWithNric("s1234567d");
+        Person toBeFound = helper.generatePersonWithNric("f9453178y");
 
-        List<Person> fourPersons = helper.generatePersonList(p1, pTarget1, p2, pTarget2);
-        Person expectedPerson = pTarget2;
-        String nric = expectedPerson.getNric().getIdentificationNumber();
-        helper.addToAddressBook(addressBook, fourPersons);
+        addressBook.addPerson(toBeFound);
+
+        String nric = toBeFound.getNric().getIdentificationNumber();
 
         assertCommandBehavior("find " + nric,
-                Command.getMessageForPersonShownSummary(expectedPerson),
+                Command.getMessageForPersonShownSummary(toBeFound),
                 addressBook,
                 false,
                 Collections.emptyList());
 
     }
-    */
 
     @Test
     public void execute_find_differentButValidFile() throws Exception {
