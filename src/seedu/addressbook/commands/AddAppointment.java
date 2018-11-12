@@ -11,7 +11,7 @@ import java.util.*;
 
 import static seedu.addressbook.ui.Gui.DISPLAYED_INDEX_OFFSET;
 
-public class AddAppointment extends Command{
+public class AddAppointment extends UndoAbleCommand{
 
     public static final String COMMAND_WORD = "add";
 
@@ -34,7 +34,8 @@ public class AddAppointment extends Command{
     private final Set<Schedule> scheduleSetToAdd;
 
     private final String inputForHistory;
-
+    private ReadOnlyPerson target;
+    private Person updatedPerson;
 
     /**
      * Convenience constructor using raw values.
@@ -55,9 +56,8 @@ public class AddAppointment extends Command{
     @Override
     public CommandResult execute() {
         try {
-            saveHistory("(edit-appointment " + checkEditingPersonIndex() + ") " + COMMAND_WORD + " " + inputForHistory);
             this.setTargetIndex(checkEditingPersonIndex());
-            final ReadOnlyPerson target = getTargetPerson();
+            target = getTargetPerson();
             Set<Schedule> scheduleSet = target.getSchedules();
 
             String detailsMessage = getDetailedMessage(scheduleSet, target.getName().toString());
@@ -67,12 +67,13 @@ public class AddAppointment extends Command{
                 return new CommandResult(String.format(MESSAGE_NO_CHANGE_MADE, target.getName(), inputForHistory));
             }
 
-            Person updatedPerson = new Person(target);
+            updatedPerson = new Person(target);
             updatedPerson.setSchedule(scheduleSet);
             addressBook.editPerson(target, updatedPerson);
 
             List<ReadOnlyPerson> editablePersonList = this.getEditableLastShownList();
             editablePersonList.set(checkEditingPersonIndex() - DISPLAYED_INDEX_OFFSET, updatedPerson);
+            saveUndoableToHistory("(edit-appointment " + checkEditingPersonIndex() + ") " + COMMAND_WORD + " " + inputForHistory);
             return new CommandResult(detailsMessage, editablePersonList, editablePersonList, false);
 
         } catch (IndexOutOfBoundsException ie) {
@@ -116,4 +117,13 @@ public class AddAppointment extends Command{
         return detailsMessage;
     }
 
+    @Override
+    public void executeUndo() throws Exception {
+        addressBook.editPerson(updatedPerson, target.getPerson());
+    }
+
+    @Override
+    public void executeRedo() throws Exception {
+        addressBook.editPerson(target, updatedPerson);
+    }
 }
