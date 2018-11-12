@@ -60,6 +60,7 @@ Help is also shown if you enter an incorrect command e.g. `abcd`
 Shows a list of all persons in MediBook. +
 Format: `list`
 
+// tag::organisation[]
 === 4.3 Sorting the list : `sortname`
 
 Sorts the list of entries in MediBook according to alphabetical order.
@@ -72,6 +73,7 @@ Sorts the entries in MediBook according to title.
 Entries within the titles are sorted according to alphabetical order.
 After the list is sorted, future commands (e.g. `delete` ) will use the index of the sorted list.
 Format: `sorttitle`
+// end::organisation[]
 
 
 === 4.4 Clearing all entries : `clear`
