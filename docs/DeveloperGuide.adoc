@@ -226,11 +226,15 @@ list if they present their membership card, pick the dish from the menu list one
 object that has the same customer and list of dishes fields as the ordering draft to be added to the order list, the
 member points of the customer is updated, and the ordering draft is cleared afterward.
 
+// tag::draftpointsimplementation[]
+
 === Providing the option for members to accumulate and redeem points
 
 To allow members in the RMS to accumulate and redeem points when an order is made, the command `draftpoints` was implemented.
 
-* As long as the customer and list of dish fields are not empty, the command `draftpoints` can be used to add a Points object from the Member class into the draft order. The Points object is referenced from the Points object in the Member class that was added by using the `draftcustomer` command.
+* As long as the customer and list of dish fields are not empty, the command `draftpoints` can be used to add a Points object from the Member class into the draft order. A new Points object will be created to store the points that the user wishes to redeem. Once the order is confirmed, the Points object in the Member class that was added by using the `draftcustomer` command will be updated. The member list will then show the newly updated points of that member while the order list will reflect the points that the member has earned from the order. The final price of the order will be calculated based on the price of each dish multiplied by the quantity and also take into account the number of points redeemed.
+
+// end::draftpointsimplementation[]
 
 === Saving and Loading the order list
 
