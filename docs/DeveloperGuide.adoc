@@ -208,7 +208,7 @@ An example of how `logging into an account` works:
 . If the password is correct, the *Command* will update the *Privilege* level(`user`) and its *Person*(`myPerson`) to match that of the *Account*.
 . Finally, the *Command* retrieve the *Name* of the *Person* in a string format to be printed as part of the feedback message.
 
-Step 2 is illustrated in the Object Diagram below.
+Step 3 is illustrated in the Object Diagram below.
 
 
 [[fig-PrivilegeObjectDiagram]]
