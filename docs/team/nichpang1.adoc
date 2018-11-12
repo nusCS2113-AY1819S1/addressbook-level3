@@ -38,8 +38,6 @@ MediBook is an alternative to the primitive pen and paper management system for 
 ** Tools:
 *** Integrated travis-ci and auto-publishing
 
-_{you can add/remove categories in the list above}_
-
 == Contributions to the User Guide
 
 
