@@ -67,6 +67,7 @@ public class UtilsTest {
         assertNotUnique(null, "a", "b", null);
     }
 
+    //@@author AngWM
     @Test
     public void sortByValue() {
         Map<String, Integer> input = new HashMap<>();
@@ -105,6 +106,7 @@ public class UtilsTest {
         assertEquals(expected, Utils.formatCurrency((input)));
     }
 
+    //@@author
     private void assertAreUnique(Object... objects) {
         assertTrue(Utils.elementsAreUnique(Arrays.asList(objects)));
     }

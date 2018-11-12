@@ -211,8 +211,8 @@ public class LogicTest {
         assertEquals(lastShownAttendanceList, logic.getLastShownAttendanceList());
         assertEquals(rms, saveFile.load());
     }
-    //@@author
 
+    //@@author kangmingtay
     /**
      * Executes the Member command and confirms that the result message is correct.
      * Both the 'rms' and the 'last shown list' are expected to be empty.
@@ -251,6 +251,7 @@ public class LogicTest {
         assertEquals(rms, saveFile.load());
     }
 
+    //@@author px1099
     /**
      * Executes the Order command and confirms that the result message is correct.
      * Both the 'rms' and the 'last shown list' are expected to be empty.
@@ -289,6 +290,7 @@ public class LogicTest {
         assertEquals(rms, saveFile.load());
     }
 
+    //@@author kangmingtay
     /**
      * Confirms the 'invalid argument index number behaviour' for the given command
      * targeting a single member in the last shown list, using visible index.
@@ -349,6 +351,7 @@ public class LogicTest {
         assertEquals(rms, saveFile.load());
     }
 
+    //@@author
     @Test
     public void execute_unknownCommandWord() throws Exception {
         String unknownCommand = "uicfhmowqewca";
@@ -421,6 +424,7 @@ public class LogicTest {
 
     }
 
+    //@@author AngWM
     @Test
     public void execute_statsmenu_invalidArgsFormat() throws Exception {
         String expectedMessage = String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, StatsMenuCommand.MESSAGE_USAGE);
@@ -432,6 +436,7 @@ public class LogicTest {
                 "statsmenu f/062017 t/2018", expectedMessage);
     }
 
+    //@@author kianhong95
     @Test
     public void execute_addempDuplicate_notAllowed() throws Exception {
         // setup expectations
@@ -795,8 +800,8 @@ public class LogicTest {
     public void execute_editemp_invalidIndex() throws Exception {
         assertInvalidIndexBehaviorForEmployeeEditCommand("editemp");
     }
-    //@@author
 
+    //@@author kangmingtay
     @Test
     public void execute_addmember_invalidArgsFormat() throws Exception {
         String expectedMessage = String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, MemberAddCommand.MESSAGE_USAGE);
@@ -1134,7 +1139,6 @@ public class LogicTest {
                 expectedList);
     }
 
-
     /**
       * Confirms the 'invalid argument index number behaviour' for the given command
       * targeting a single menu item in the last shown menu list, using visible index.
@@ -1275,7 +1279,7 @@ public class LogicTest {
         assertMenuCommandBehavior("showmainmenu", expectedMessage);
     }
 
-    //@@author
+    //@@author px1099
     @Test
     public void execute_clearorder() throws Exception {
         TestDataHelper helper = new TestDataHelper();
@@ -1693,6 +1697,8 @@ public class LogicTest {
         assertOrderCommandBehavior("draftpoints -50", expectedMessage);
     }
 
+    //@@author
+
     /*
     @Test
     public void execute_confirmorder_missingCustomer() throws Exception {
@@ -1715,6 +1721,7 @@ public class LogicTest {
     }
     */
 
+    //@@author AngWM
     /**
      * Executes the command and confirms that the result message is correct
      */
@@ -1801,5 +1808,5 @@ public class LogicTest {
                 StatsOrderCommand.MESSAGE_NO_ORDER, false);
     }
 
+    //@@author
 }
-
