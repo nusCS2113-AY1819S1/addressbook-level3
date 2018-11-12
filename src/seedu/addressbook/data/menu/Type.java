@@ -10,13 +10,14 @@ import seedu.addressbook.data.exception.IllegalValueException;
 public class Type {
 
     public static final String EXAMPLE = "main";
-    public static final String MESSAGE_TYPE_CONSTRAINTS = "Item Type should only be one of the few Category:"
-                                                           + "\n" + "main"
-                                                           + "\n" + "sides"
-                                                           + "\n" + "beverage"
-                                                           + "\n" + "dessert"
-                                                           + "\n" + "others"
-                                                           + "\n" + "set meal";
+    public static final String MESSAGE_TYPE_CONSTRAINTS =
+            "Item Type should only be one of the few Category:"
+            + "\n" + "main"
+            + "\n" + "sides"
+            + "\n" + "beverage"
+            + "\n" + "dessert"
+            + "\n" + "others"
+            + "\n" + "set meal";
     public static final String TYPE_VALIDATION_REGEX = "[\\p{Alnum} ]+";
 
     public final String value;

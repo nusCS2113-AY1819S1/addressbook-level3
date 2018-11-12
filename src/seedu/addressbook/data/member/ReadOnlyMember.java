@@ -2,7 +2,7 @@ package seedu.addressbook.data.member;
 
 import java.util.Date;
 
-
+//@@author kangmingtay
 /**
  * A read-only immutable interface for a Member in the Restaurant Management System.
  * Implementations should guarantee: details are present and not null, field values are validated.

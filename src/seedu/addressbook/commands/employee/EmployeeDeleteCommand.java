@@ -1,4 +1,3 @@
-//@@author kianhong95
 package seedu.addressbook.commands.employee;
 
 import seedu.addressbook.commands.Command;
@@ -8,6 +7,7 @@ import seedu.addressbook.data.employee.Attendance;
 import seedu.addressbook.data.employee.ReadOnlyEmployee;
 import seedu.addressbook.data.employee.UniqueEmployeeList.EmployeeNotFoundException;
 
+//@@author kianhong95
 /**
  * Deletes an employee identified using it's last displayed index from the Rms.
  */

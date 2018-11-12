@@ -6,6 +6,7 @@ import seedu.addressbook.commands.Command;
 import seedu.addressbook.commands.CommandResult;
 import seedu.addressbook.data.member.ReadOnlyMember;
 
+//@@author kangmingtay
 /**
  * Lists all members in the member list to the user.
  */
