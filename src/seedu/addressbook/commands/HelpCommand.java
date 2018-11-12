@@ -25,7 +25,7 @@ public class HelpCommand extends Command {
             + "\n" + LinkCommand.MESSAGE_USAGE + "\n"
             + "\n" + UnLinkCommand.MESSAGE_USAGE + "\n"
             + "\n" + AssociateListCommand.MESSAGE_USAGE + "\n"
-            //change password
+            + "\n" + ChangePasswordCommand.MESSAGE_USAGE +"\n"
             + "\n" + UndoCommand.MESSAGE_USAGE + "\n"
             + "\n" + RedoCommand.MESSAGE_USAGE + "\n"
             + "\n" + EditAppointmentCommand.MESSAGE_USAGE + "\n"

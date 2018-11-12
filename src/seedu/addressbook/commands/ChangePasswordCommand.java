@@ -7,7 +7,7 @@ import javax.security.auth.login.CredentialNotFoundException;
 import java.io.IOException;
 
 public class ChangePasswordCommand extends UndoAbleCommand {
-    public static final String COMMAND_WORD = "change-pass";
+    public static final String COMMAND_WORD = "changepassword";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ":\n" + "Changes password of current user.\n"
             + "Parameters: pw/CURRENT_PASSWORD npw/NEW_PASSWORD cpw/CONFIRM_NEW_PASSWORD\n"
