@@ -149,6 +149,7 @@ public class Rms {
         return allMembers.contains(key);
     }
 
+
     //@@author SalsabilTasnia
     /**
      * Removes the equivalent menu item from the menu.
