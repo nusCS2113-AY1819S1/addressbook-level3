@@ -58,7 +58,6 @@ public class AddCommand extends Command {
         );
     }
 
-    //TODO: If not used, delete
     public AddCommand(Person toAdd) {
         this.toAdd = toAdd;
     }

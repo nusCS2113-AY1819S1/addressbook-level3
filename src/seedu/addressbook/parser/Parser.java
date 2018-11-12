@@ -1,6 +1,7 @@
 package seedu.addressbook.parser;
 
 import static seedu.addressbook.common.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.addressbook.common.Messages.MESSAGE_PO_NOT_FOUND;
 
 import java.io.IOException;
 import java.math.BigInteger;
@@ -50,9 +51,6 @@ import seedu.addressbook.password.Password;
  */
 public class Parser {
 
-    //TODO If not used, delete
-    public static final Pattern KEYWORDS_ARGS_FORMAT =
-            Pattern.compile("(?<keywords>\\S+(?:\\s+\\S+)*)"); // one or more keywords separated by whitespace
     //@@author muhdharun -reused
     public static final Pattern PERSON_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
             Pattern.compile("(?<name>[^/]+)"
@@ -63,9 +61,6 @@ public class Parser {
                     + " w/(?<wantedFor>[^/]+)"
                     + "(?<pastOffenseArguments>(?: o/[^/]+)*)"); // variable number of offenses
     //@@author
-
-    //TODO If not used, delete
-    public static final Pattern PERSON_NAME_FORMAT = Pattern.compile("(?<name>[^/]+)");
 
     private static final Pattern PERSON_NRIC_FORMAT = Pattern.compile("(?<nric>[^/]+)");
     private static final String PO_REGEX = "[Pp][Oo][0-9]+";
@@ -556,8 +551,13 @@ public class Parser {
         backupOfficer = argParts[0].toLowerCase();
         caseName = argParts[1].toLowerCase();
         dispatchRequester = argParts[2].toLowerCase();
-
+        if (args.matches(PO_REGEX)) {
+            return new UpdateStatusCommand(args);
+        }
         try {
+            if (!backupOfficer.matches(PO_REGEX) || !dispatchRequester.matches(PO_REGEX)) {
+                throw new IllegalValueException(MESSAGE_PO_NOT_FOUND);
+            }
             if (backupOfficer.equalsIgnoreCase(dispatchRequester)) {
                 logger.warning("Backup officer same as Dispatch requester");
                 throw new IllegalValueException(String.format(DispatchCommand.getMessageBackupDispatchSame(),

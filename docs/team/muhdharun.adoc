@@ -1,6 +1,16 @@
 = Muhammad Harun - Project Portfolio
-:site-section: AboutUs
+:site-section: ProjectPortfolio
+:toc:
+:toc-title:
+:imagesDir: ../images
 :stylesDir: ../stylesheets
+:xrefstyle: full
+
+:tip-caption: :bulb:
+:note-caption: :information_source:
+:warning-caption: :warning:
+:experimental:
+
 
 == PROJECT: Police Records and Intelligence System (PRISM)
 

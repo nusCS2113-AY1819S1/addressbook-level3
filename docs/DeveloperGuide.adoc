@@ -1531,3 +1531,247 @@ A person that is being screened by a PO.
 Refers to the `PRISM` Application itself (i.e. when a user exits the system, he closes the application).
 
 // end::glossary[]
+
+[appendix]
+== Instructions for Manual Testing
+
+Given below are instructions to test the app manually.
+
+[NOTE]
+These instructions only provide a starting point for testers to work on; testers are expected to do more _exploratory_ testing.
+
+[NOTE]
+If you want to work with pre-populated data, do not tamper with any of the text files. Should they be tampered accidentally, delete the text file that was tampered and relaunch the jar file to regenerate the text file.
+
+
+=== Launch
+
+. Initial launch
+
+.. Download the jar file and copy into an empty folder
+.. Double-click the jar file +
+   Expected: Shows the GUI with a set of sample persons. The window size may not be optimum. Input "list" command after logging to check if the data is loaded successfully
+.. Resize the window if needed
+
+=== Accounts for both HQP and POs
+
+There are a total of 6 accounts (1 HQP and 5 POs) available in the sample data:
+
+[width="50%",cols="22%,<20%",options="header",]
+|=======================================================================
+|User |Password
+|HQP |papa123
+|PO1 |popo1
+|PO2 |popo2
+|PO3 |popo3
+|PO4 |popo4
+|PO5 |popo5
+|=======================================================================
+
+
+=== Saving Data
+
+. Dealing with missing/corrupted data files
+
+.. As mentioned earlier, if the jar file is run with any of the data files missing, the jar file will auto-generate the required data files with pre-populated data for the purpose of testing.
+
+=== Update password
+
+. Updates password of a user
+
+.. Prerequisites: Logged in as HQP
+.. Test case:
+... Enter existing password to be updated, for e.g: 'popo1'
+... Enter new alphanumeric password (at least 5 characters long) for example 'police1'
+... Enter same password again, i.e 'police1'
+... Expected: Success message shown
+
+=== Viewing Help
+
+. Displays a list of commands available for the current user
+
+.. Prerequisites: Logged in as HQP or PO
+.. Test case: 'help' +
+   Expected: Shows list of available commands
+
+=== Check time
+
+. Shows the current time
+
+.. Prerequisites: Logged in as HQP or PO
+.. Test case: 'time' +
+   Expected: Shows current time
+
+=== Reading notifications from inbox (`showunread` & `inbox`)
+. Prerequisites: Logged in as either HQP or PO.
+. Dealing with missing data files
+.. If data files are missing while the application is running, the application will generate the required data files. However if for some reason that doesn't happen, the command would throw an exception, indicating to the user that data file for user's inbox cannot be found.
+. Reading an inbox with no messages
+.. `showunread` A feedback will be displayed to the user indicating that there are no unread messages.
+.. `inbox` A feedback will be displayed to the user indicating the total number of messages in the inbox, and 0 unread messages.
+
+=== Marking notifications as read
+. Prerequisites: Logged in as either HQP or PO. Inbox must have been opened (use of `inbox` or `showunread` command) as well.
+. Dealing with an unopened inbox
+.. If you have not used `showunread` or `inbox` command, a feedback will be displayed ot user indicating that inbox is not opened yet.
+. Dealing with an unopened inbox after logging out and logging in again
+.. If you open your inbox and log out (`logout`) without exiting the application, you will still need to re-open your inbox before using `read` command. Otherwise, the system will display a feedback that you have not opened your inbox.
+. Dealing with no (unread) messages in inbox
+.. A feedback will be displayed to you indicating that there are no unread messages.
+. Dealing with invalid indices
+.. If you enter a negative number, or a number larger than the number of unread messages, a feedback will be displayed indicating what the valid range of indices are.
+.. If you enter a nonsense value such as a character or symbol, a feedback will be displayed indicating that you have entered the command with an invalid format.
+.. If you enter a positive number for the index that is bigger than the threshold set, a feedback will be displayed indicating that the index entered was too large.
+
+=== Clearing your inbox
+. Dealing with missing data files
+.. If data files are missing while the application is running, the application will generate the required data files. However if for some reason that doesn't happen, the command would throw an exception, indicating to the user that data file for user's inbox cannot be found.
+
+=== Request backup for specific case
+
+. Sends a message to HQP inbox with case, patrol resource ID & location in Google Maps URL
+
+.. Prerequisites: Logged in as HQP or PO
+.. Test case: 'rb gun' +
+   Expected:  Success message will be displayed to the user stating request sent
+.. Test case: 'rb bob' +
+  Expected: Invalid offense message error shwon, valid offenses will be presented in a list
+
+=== Dispatch police officer for specific case to requester
+
+. Sends a message to backup officer & requester with Case, Location & Estimated Time of Arrival
+
+.. Prerequisites: Logged in as HQP only
+.. Test case: 'dispatch po1 riot po3' +
+   Expected: Success message will be displayed to the user stating backup successful
+.. Test case: 'dispatch po1 bob po3' +
+   Expected: Invalid offense message error shown
+.. Test case: 'dispatch po1 gun po3' (po1 engaged already)
+   Expected: Error message shown
+.. Test case: 'dispatch po1 gun po1' +
+   Expected: Error message shown
+.. Test case: 'dispatch bobo gun po1' +
+   Expected: Error message shown
+
+=== Adding a person
+
+. Adds a person to the Police records
+
+.. Prerequisites: Logged in as HQP
+.. Test case: 'add John Doe n/s1234567a d/1996 p/510246 s/wanted w/none o/theft o/drugs +
+   Expected: If wanted, wantedFor parameter cannot be none, error message shown
+.. Test case: 'add John Doe n/s1234567a d/1996 p/510246 s/xc w/none o/theft o/drugs' +
+   Expected: If person is not found, success message will be shown, else, a duplicate person error message will be shown instead
+.. Test case: 'add John Doe s1234567a d/1996 p/510246 s/xc w/none o/theft o/drugs' (or any other missing prefixes) +
+   Expected: Invalid command format, error message is shown
+.. Test case: 'add John Doe n/s123a d/1996 p/510246 s/xc w/none o/theft o/drugs (or any other invalid data)
+   Expected: Error message for invalid data format will be shown
+
+=== List all persons
+
+. Displays a list of all persons
+
+.. PrerequisitesL Logged in as HQP or PO
+.. Test case: 'list' +
+   Expected: List of persons, if any, is shown
+
+=== Finding a person in the Police Records
+
+. Finds a person using the NRIC parameter to see his/her details
+
+.. Prerequisites: Logged in as HQP or PO
+.. Test case: 'find s1234567a' (Assuming person with this NRIC exists) +
+   Expected: Person's details will be displayed
+.. Test case: 'find s1234567a' (If person does not exist in the Police Records) +
+   Expected: Error message stating person not found will be shown
+.. Test case: 'find ' or 'find 11111' +
+   Expected: Invalid command format, error message will be shown
+
+=== Checking a person's screening history
+
+. Check a person's screening history in the form of timestamps
+
+.. Prerequisites: Logged in as HQP
+.. Test case: 'check s1234567a' (Assuming person with this NRIC exists) +
+   Expected: A list of timestamps and the number of times person was screened will be displayed
+.. Test case: 'check s1234567a' (If person does not exist in the Police Records) +
+   Expected: Error message stating person not found will be shown
+.. Test case: 'check ' or 'check 11111' +
+   Expected: Invalid command format, error message will be shown
+
+=== Update a PO's engagement status to free
+
+. Sets the PO's isEngaged boolean value to false (so PO is free for dispatch)
+
+.. Prerequisites: Logged in as HQP
+.. Test case: 'updatestatus po1' (Assuming PO with such ID exists) +
+   Expected: A success message will be shown
+.. Test case: 'updatestatus po20' +
+   Expected: No such PO exists, an error message will be shown
+.. Test case: 'updatestatus ' or 'updatestatus asdf' +
+   Expected: Invalid command format, error message will be shown
+
+=== Check engagement status of all POs
+
+. Displays all the engagement status of all POs in a list
+
+.. Prerequisites: Logged in as HQP or PO
+.. Test case: 'checkstatus' +
+   Expected: List of POs and their engagement statuses
+
+=== Edit a person's details
+
+. Edits the details, only selected parameters, of a person. At least one optional parameter has to be filled
+
+.. Prerequisites: Logged in as HQP
+.. Test case: 'edit n/s1234567a p/111111 s/xc w/none o/theft +
+   Expected: If person exists, success message is shown, else, error message is shown
+.. Test case: 'edit n/s1234567a 111111' (or any missing prefix or parameters) +
+   Expected: Invalid command format, person's details are not edited, error message shown
+
+=== Delete a person
+
+. Deletes a person from the Police Records
+
+.. Prerequisites: Logged in as HQP
+.. Test case: 'Delete s1234567a' (Assuming person with this NRIC exists) +
+   Expected: Success message will be shown
+.. Test case: 'Delete s1234567a' (If person does not exist) +
+   Expected: Person does not exist, error message is shown
+.. Test case: 'Delete ' or 'Delete 1111' +
+   Expected: Invalid command format, error message shown
+
+=== Clear
+
+. Clears the entire Police Records
+
+.. Prerequisites: Logged in as HQP
+.. Test case: 'clear' +
+   Expected: Success message is shown
+=== Logout
+
+. Logout from system so that another password can be entered
+
+.. Prerequisite: Logged in as HQP or PO
+.. Test case: 'logout' +
+   Expected: Startup screen is shown
+
+=== Autocorrect
+
+. Autocorrects an input if the input has a similar spelling to other commands
+
+.. Prerequisites: Logged in as HQP or PO
+.. Test case: 'lost' +
+   Expected: Message stating if you meant 'list'
+.. Test case: 'exit' +
+   Expected: Message stating if you meant 'edit'
+
+=== Shutdown
+
+. Shuts down the system
+
+.. Prerequisites: Logged in as HQP or PO or not at all
+.. Test case: 'shutdown' +
+   Expected: System closes
+
+
