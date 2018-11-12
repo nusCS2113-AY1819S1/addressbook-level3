@@ -36,7 +36,7 @@ MediBook is an alternative to the primitive pen and paper management system for 
 ** Project management:
 *** Managed releases `v1.1` - `v1.4` (4 releases) on GitHub
 ** Documentation:
-*** Did some tweaks to organise existing contents of the Readme
+*** Did some tweaks to organise contents of the Readme: https://github.com/CS2113-AY1819S1-F10-2/main/pull/12[#12] , https://github.com/CS2113-AY1819S1-F10-2/main/pull/17[#17] ,
 
 == Contributions to the User Guide
 
