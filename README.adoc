@@ -1,7 +1,6 @@
 = MediBook
 ifdef::env-github,env-browser[:relfileprefix: docs/]
 ifdef::env-github,env-browser[:imagesDir: docs/images]
-ifdef::env-github,env-browser[:imagesDir: docs/team]
 
 https://travis-ci.com/CS2113-AY1819S1-F10-2/main[image:https://travis-ci.com/CS2113-AY1819S1-F10-2/main.svg?branch=master[Build Status]]
 https://www.codacy.com/app/C-E-OOI/main?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=CS2113-AY1819S1-F10-2/main&amp;utm_campaign=Badge_Grade[image:https://api.codacy.com/project/badge/Grade/88e1de3c8a33415eb7acb3963e14f733[Codacy Badge]]
@@ -31,26 +30,22 @@ Features
 image::nichpang1.png[]
 
 Nicholas Pang Wey Shern +
-State Control & Association
-Portfolio: <<nichpang1#>>
+State Control
 
 image::ongjiajian.png[]
 
 Ong Jia Jian +
 Authentication
-Portfolio: <<ongjiajian#>>
 
 image::c-e-ooi.png[]
 
 Ooi Xi Yi +
 Scheduling
-Portfolio: <<c-e-ooi#>>
 
 image::keithtqs.png[]
 
 Keith Tan Qisheng +
 Organisation
-Portfolio: <<keithtqs#>>
 
 == Acknowledgements
 
