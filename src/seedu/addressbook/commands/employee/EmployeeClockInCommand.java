@@ -11,6 +11,7 @@ import seedu.addressbook.data.employee.Attendance;
 import seedu.addressbook.data.employee.EmployeeName;
 import seedu.addressbook.data.employee.Timing;
 
+//@@author kianhong95
 /**
  * Clocks in for the specified employee based on the current time.
  */

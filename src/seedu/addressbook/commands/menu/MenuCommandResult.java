@@ -5,6 +5,7 @@ import java.util.List;
 import seedu.addressbook.commands.CommandResult;
 import seedu.addressbook.data.menu.ReadOnlyMenus;
 
+//@@author SalsabilTasnia
 /**
  * Represents the result of a command execution.
  */

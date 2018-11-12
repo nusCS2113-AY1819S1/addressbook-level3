@@ -6,6 +6,7 @@ import seedu.addressbook.data.exception.IllegalValueException;
 import seedu.addressbook.data.member.Points;
 import seedu.addressbook.data.order.ReadOnlyOrder;
 
+//@@author kangmingtay
 /**
  * Edit the amount of points to redeem from the customer of the draft order.
  * The points to be redeemed will be keyed in and retrieved.

@@ -253,6 +253,10 @@ public class Rms {
         return draftOrder;
     }
 
+    public String getDraftOrderAsText() {
+        return draftOrder.getDraftDetailsAsText();
+    }
+
     /**
      * Set a member to be the customer of the draft order
      */
