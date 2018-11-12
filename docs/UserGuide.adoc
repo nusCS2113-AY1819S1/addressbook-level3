@@ -10,27 +10,25 @@ ifdef::env-github[]
 endif::[]
 
 == 1 Introduction
-The MediBook v1.4 optimises and streamline healthcare administration for a better heathcare experience for all.
-This is done so as MediBook allows healthcare professionals to keep track of patients’ details, arrange their schedule
-based on their patients’ appointments and communicate efficiently between colleagues.
-All of this is secured by the log in which also limits the user access level accordingly.
+MediBook v1.4 optimises and streamlines healthcare administration for a better heathcare experience for all.
+MediBook helps healthcare professionals to store and organise patients’ details as well as arrange their schedule
+based on their patients’ appointments.
+All of this is secured by the login which also limits the user access level accordingly.
 
 == 2 About
 This user guide provides an overview for healthcare professionals on the usage of MediBook.
 
 == 3 Starting MediBook
 
-. Find the project pane (usually located at the left side)
-. Open up `src/seedu.addressbook` folder
-. Right click on `Main`
-. Click `Run Main.main()`
+. Download the latest version of MediBook from our team's GitHub repository link:https://github.com/CS2113-AY1819S1-F10-2/main/releases[here].
+. Double click the jar file to start it.
 . The login GUI should appear in a few seconds
 +
 image::loginUI.png[]
 . Enter "Username" in the username field and "Password" in the password field according to the prompts
 . If incorrect username and password is entered, both fields will be cleared and you can try logging in again.
 Program will exit upon login failure, i.e. 3 incorrect username/password tries
-. Upon successful login, main GUI `Welcome to MediBook` will appear.
+. Upon successful login, main GUI `Welcome to your MediBook!` will appear.
 +
 image::mainUI.png[]
 
@@ -47,18 +45,26 @@ Help is also shown if you enter an incorrect command e.g. `abcd`
 
 === 4.2 Listing all persons : `list`
 
-Shows a list of all persons in the MediBook. +
+Shows a list of all persons in MediBook. +
 Format: `list`
 
-=== 4.3 Sorting the list : `sort`
+=== 4.3 Sorting the list : `sortname`
 
 Sorts the list of entries in MediBook according to alphabetical order.
-After the list is sorted, future commands will use the index of the sorted list.
-Format: `sort`
+After the list is sorted, future commands (e.g. `delete` ) will use the index of the sorted list.
+Format: `sortname`
+
+=== 4.3.1 Sorting the list according to title : `sorttitle`
+
+Sorts the entries in MediBook according to title.
+Entries within the titles are sorted according to alphabetical order.
+After the list is sorted, future commands (e.g. `delete` ) will use the index of the sorted list.
+Format: `sorttitle`
+
 
 === 4.4 Clearing all entries : `clear`
 
-Clears all entries from the MediBook. +
+Clears all entries in MediBook. +
 Format: `clear`
 
 === 4.5 Finding all persons containing any keyword in their name: `find`
@@ -82,23 +88,23 @@ Returns Any person having names `Betsy`, `Tim`, or `John`.
 
 === 4.6 Adding a person: `add`
 
-Adds a person to the MediBook. +
-Format: `add NAME n/NRIC [p]p/PHONE_NUMBER [p]e/EMAIL [p]a/ADDRESS [p]s/TITLE [d/DD-MM-YYYY-HH:MM]... [t/TAG]...`
+Adds a person to MediBook. +
+Format: `add NAME n/NRIC [p]p/PHONE_NUMBER [p]e/EMAIL [p]a/ADDRESS s/TITLE [d/DD-MM-YYYY-HH:MM]... [t/TAG]...`
 
 [NOTE]
 ====
-TITLE is used to differentiate Doctor and Patient.
+TITLE is used to differentiate a doctor and a patient. Putting `Doctor` in this field will create a doctor while `Patient` will create a patient.
 
 DD-MM-YYYY-HH:MM is used to record appointment dates and their starting time.
 
-TAG is used to tag medical conditions and other important information
+TAG is used to tag medical conditions and other important information.
 ====
 
 ****
 Words in `UPPER_CASE` are the parameters, items in `SQUARE_BRACKETS` are optional,
 items with `...` after them can have multiple instances. Order of parameters are fixed.
 
-Put a `p` before the phone / email / address / title prefixes to mark it as `private`. `private` details can only
+Put a `p` before the phone / email / address prefixes to mark it as `private`. `private` details can only
 be seen using the `viewall` command.
 
 Persons can have any number of appointment dates and tags (including 0)
@@ -111,7 +117,7 @@ Examples:
 
 === 4.7 Deleting a person : `delete`
 
-Deletes the specified person from the MediBook. +
+Deletes the specified person from MediBook. +
 Format: `delete INDEX`
 
 ****
@@ -126,7 +132,7 @@ Examples:
 
 * `list` +
 `delete 2` +
-Deletes the 2nd person in the MediBook.
+Deletes the 2nd person in MediBook.
 
 * `find Betsy` +
 `delete 1` +
@@ -149,7 +155,7 @@ Examples:
 
 * `list` +
 `view 2` +
-Views the 2nd person in the MediBook.
+Views the 2nd person in MediBook.
 
 * `find Betsy` +
 `view 1` +
@@ -172,7 +178,7 @@ Examples:
 
 * `list` +
 `viewall 2` +
-Views all details of the 2nd person in the MediBook.
+Views all details of the 2nd person in MediBook.
 
 * `find Betsy` +
 `viewall 1` +
@@ -199,7 +205,7 @@ Once access, edits can be done repeated to the selected person's appoinments unt
 Examples:
 * `list` +
 `edit-appointment 2` +
-Access to the 2nd person in the MediBook.
+Access to the 2nd person in MediBook.
 
 * `find Betsy` +
 `edit-appointment 1` +
@@ -217,7 +223,7 @@ Help is also shown if you enter an incorrect command e.g. `abcd`
 
 ==== 4.10.2 Listing the appointment of the selected person: `list`
 
-Shows a list of all appointment of the selected person in the MediBook. +
+Shows a list of all appointment of the selected person in MediBook. +
 Format: `list`
 
 ==== 4.10.3 Adding appointment to the selected person: `add`
@@ -256,7 +262,7 @@ Examples:
 
 Exits the edit-appointment session. +
 Format: `done`
-
+// tag::associate[]
 === 4.11 Create an associate between a doctor and a patient: `link`
 
 Create an association between person specified at INDEX1 and the person specified at INDEX2  +
@@ -277,13 +283,30 @@ Examples:
 
 * `list` +
 `link 1 2` +
-Associate the 1st person in the MediBook with 2nd person in the MediBook.
+Associate the 1st person with the 2nd person in MediBook.
 
 === 4.12 Unlink
+Removes association between person specified at INDEX1 and the person specified at INDEX2  +
+Format: `link INDEX1 INDEX2`
+
+****
+The index refers to the index number shown in the most recent listing. If there are no association between the two, user will see an message stating that instead.
+****
+
+[NOTE]
+====
+Similar to viewall, view and delete, it requires list or find command to be called at least once in the session for an index reference to edit-appointment.
+====
+
+Examples:
+
+* `list` +
+`unlink 1 2` +
+Removes association between the 1st person with the 2nd person in MediBook.
 
 === 4.13 Listing all persons associated: `associatelist`
 
-Shows a list of all persons associated with the specified person  +
+Shows a list of persons associated with the specified person  +
 Format: `associatelist INDEX`
 
 ****
@@ -300,37 +323,65 @@ Examples:
 
 * `list` +
 `associatelist 2` +
-Views all persons associated with the 2nd person in the MediBook.
+Views the persons associated with the 2nd person in MediBook.
+// end::associate[]
 
 === 4.14 Change Password
 
-=== 4.15 Undo/Redo : `undo` , `redo`
+// tag::statecontrol[]
+=== 4.15 Undo: `undo`
 
-`Undo` reverts the last command made. `Redo` reverts specifically the last undo command made when applicable. +
+`Undo` reverts the last command made. +
 Format: `undo` +
-Format: `redo`
 
 ****
 Commands are undo-able if they make changes to the data and are made within the browsing session.
-Commands are redo-able if undo are made without other commands called.
+This command is especially useful when an erroneous command, such as delete, is made which causes change to the data.
+****
+
+Examples:
+
+* `list` +
+`delete 2` +
+Deletes the 2nd person in MediBook. +
+`undo` +
+Undo the deletion of the deleted person. +
+
+* `find Betsy` +
+`delete 1` +
+Deletes the 1st person in the results of the `find` command. +
+`undo` +
+Undo the deletion of the deleted person. +
+
+
+[NOTE]
+====
+Calling undo when no changes are made to MediBook's data will result in an error message saying "No commands to undo" instead.
+====
+
+=== 4.16 Redo: `redo`
+`Redo` reverts the last undo command made when applicable. +
+Format: `redo`
+
+****
+Redo can be called after a undo command.
 This two commands are especially useful when an erroneous command, such as delete, is made which causes change to the data.
 ****
 
 [NOTE]
 ====
-Redo commands are only available after undo command(s) are made.
-However, once a change is made after an undo, a redo to previous changes that are undone is no longer possible.
+Once a change is made after an undo, a redo to previous changes that are undone is no longer possible. In this case an error message saying "No commands to redo" will be shown.
 ====
 
 Examples:
 
 * `list` +
 `delete 2` +
-Deletes the 2nd person in the MediBook. +
+Deletes the 2nd person in MediBook. +
 `undo` +
 Undo the deletion of the deleted person. +
 `redo` +
-Redo the deletion of 2nd person in the MediBook.
+Redo the deletion of 2nd person in MediBook.
 
 * `find Betsy` +
 `delete 1` +
@@ -340,26 +391,17 @@ Undo the deletion of the deleted person. +
 `redo` +
 Redo the deletion of 1st person in the results of the `find` command.
 
-
 [NOTE]
 ====
-Undo/Redo command currently is only implemented for `add`/`delete`/`clear`/`link` as other commands that make changes to the data might be incomplete
+Calling redo when no undo was done will result in an error message saying "No commands to redo" instead.
 ====
-
-=== 4.16 Redo
 
 === 4.17 Listing all executed commands : `history`
 
 Shows a list of all executed commands in the current session. +
 Format: `history`
 
-
-[NOTE]
-====
-As some commands are incomplete, they might not be be reflected in `history` eventhough they are executed.
-If you encounter this, please feel free to let us know. Thank you!
-====
-
+// end::statecontrol[]
 === 4.18 Exiting the program : `exit`
 
 Exits the program. +
@@ -367,22 +409,24 @@ Format: `exit`
 
 === 4.19 Saving the data
 
-MediBook data are saved in the hard disk automatically after any command that changes the data. As such, there is no
- need to save the data manually. These data are saved in a file called addressbook.txt in the project root folder.
+MediBook data is saved in the hard disk automatically after any command that changes the data. As such, there is no
+ need to save the data manually. Data is saved in a file called addressbook.txt in the project root folder.
 
 However, the history of commands made are only available within the browsing session and would no longer be available
- after the exit or the program is closed. Undo and Redo commands are also only applicable within the browsing session.
+ after typing the exit command or the program is closed. Undo and Redo commands are also only applicable within the browsing session.
 
 == 5 A Compact Summary
 
 * `help` : Shows the help screen
-* `list` : Shows a list of all persons in the Heath Booklet.
-* `clear` : Clear all entries in the MediBook
+* `list` : Shows a list of all persons in MediBook.
+* `sortname` : Sorts according to name and lists all.
+* `sorttitle` : Sorts according to title and lists all.
+* `clear` : Clear all entries in MediBook
 * `find` : Finds persons whose names contain any of the given keywords
-* `add` : Adds a person into the MediBook
-* `delete` : Delete a person in the MediBook
-* `view` : View the information of a person in the MediBook
-* `viewall` : View all information of a person in the MediBook
+* `add` : Adds a person into MediBook
+* `delete` : Delete a person in MediBook
+* `view` : View the information of a person in MediBook
+* `viewall` : View all information of a person in MediBook
 * `edit-appointment` : Selects a person to edit his/her appointment dates
 ** `help` : Shows the help screen for the edit-appointment session
 ** `list` : Shows the list of all appointments for the selected persons
@@ -390,9 +434,8 @@ However, the history of commands made are only available within the browsing ses
 ** `delete` : Delete the appointment dates
 ** `done` : Exit the edit-appointment session
 * `link` : Create an associate between a doctor and a patient
-* `unlink`
+* `unlink` : Remove association between the two targets
 * `associatelist` : List all persons associated
-* `chat` : Opens MediChat
 * `change password`
 * `undo` : Undo a change made previously
 * `redo` : Redo a change that was undone
