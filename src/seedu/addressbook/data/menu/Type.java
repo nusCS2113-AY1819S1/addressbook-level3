@@ -37,12 +37,12 @@ public class Type {
      * Returns true if a given string is a valid dish type.
      */
     public static boolean isValidTypeName(String test) {
-        return (test.equals("main")
-                || test.equals("sides")
-                || test.equals("beverage")
-                || test.equals("dessert")
-                || test.equals("others")
-                || test.equals("set meal"))
+        return ("main".equals(test)
+                || "sides".equals(test)
+                || "beverage".equals(test)
+                || "dessert".equals(test)
+                || "others".equals(test)
+                || "set meal".equals(test))
                 && test.matches(TYPE_VALIDATION_REGEX);
 
 

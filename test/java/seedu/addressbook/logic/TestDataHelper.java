@@ -43,7 +43,7 @@ class TestDataHelper {
     /**
      * Generate an employee for testing purpose
      */
-    Employee peter() throws Exception {
+    public Employee peter() throws Exception {
         EmployeeName name = new EmployeeName("Peter Lee");
         EmployeePhone phone = new EmployeePhone("91234567");
         EmployeeEmail email = new EmployeeEmail("PeterLee89@rms.com");
@@ -55,7 +55,7 @@ class TestDataHelper {
     /**
      * Generate a member for testing purpose
      */
-    Member eve() throws Exception {
+    public Member eve() throws Exception {
         MemberName name = new MemberName("Eve");
         MemberEmail email = new MemberEmail("eve@gmail.com");
         return new Member(name, email);
@@ -64,7 +64,7 @@ class TestDataHelper {
     /**
      * Generate a menu item for testing purpose
      */
-    Menu burger() throws Exception {
+    public Menu burger() throws Exception {
         MenuName name = new MenuName("Cheese Burger");
         Price price = new Price("$5.00");
         Type type = new Type("main");
@@ -77,7 +77,7 @@ class TestDataHelper {
     /**
      * Generate a map of dish items for testing purpose
      */
-    Map<ReadOnlyMenus, Integer> foodItems() throws Exception {
+    public Map<ReadOnlyMenus, Integer> foodItems() throws Exception {
         Map<ReadOnlyMenus, Integer> foods = new HashMap<>();
         foods.put(burger(), FOOD_QUANTITY);
         return foods;
@@ -86,14 +86,14 @@ class TestDataHelper {
     /**
      * Generate empty points to redeem for testing purpose
      */
-    int pointsToRedeem() {
+    public int pointsToRedeem() {
         return new Points().getCurrentPoints();
     }
 
     /**
      * Generate an order for testing purpose
      */
-    Order foodOrder() throws Exception {
+    public Order foodOrder() throws Exception {
         long orderingTime = 1000;
         Date orderingDate = new Date(orderingTime);
         return new Order(eve(), orderingDate, foodItems(), pointsToRedeem());
@@ -102,7 +102,7 @@ class TestDataHelper {
     /**
      * Generate an order without customer field for testing purpose
      */
-    Order foodOrderWithoutCustomer() throws Exception {
+    public Order foodOrderWithoutCustomer() throws Exception {
         long orderingTime = 1000;
         Date orderingDate = new Date(orderingTime);
         return new Order(new Member(), orderingDate, foodItems(), pointsToRedeem());
@@ -111,7 +111,7 @@ class TestDataHelper {
     /**
      * Generate an order without dishes for testing purpose
      */
-    Order foodOrderWithoutDishes() throws Exception {
+    public Order foodOrderWithoutDishes() throws Exception {
         long orderingTime = 1000;
         Date orderingDate = new Date(orderingTime);
         return new Order(eve(), orderingDate, new HashMap<>(), pointsToRedeem());
@@ -124,7 +124,7 @@ class TestDataHelper {
      *
      * @param seed used to generate the employee data field values
      */
-    Employee generateEmployee(int seed) throws Exception {
+    public Employee generateEmployee(int seed) throws Exception {
         return new Employee(
                 new EmployeeName("Employee " + seed),
                 new EmployeePhone("" + Math.abs(seed)),
@@ -135,7 +135,7 @@ class TestDataHelper {
     }
 
     /** Generates a new employee based on the detail given */
-    Employee generateEditEmployee(Employee e, String editParam, String editDetail) throws Exception {
+    public Employee generateEditEmployee(Employee e, String editParam, String editDetail) throws Exception {
         EmployeeName name = e.getName();
         EmployeePhone phone;
         EmployeeEmail email;
@@ -176,7 +176,7 @@ class TestDataHelper {
      *
      * @param seed used to generate the attendance data field values
      */
-    Attendance generateAttendance(int seed) {
+    public Attendance generateAttendance(int seed) {
         return new Attendance("Employee " + seed);
     }
 
@@ -187,7 +187,7 @@ class TestDataHelper {
      *
      * @param seed used to generate the attendance data field values
      */
-    Attendance generateAttendanceWithTime(int seed, boolean isClockedIn, Set<Timing> timings) {
+    public Attendance generateAttendanceWithTime(int seed, boolean isClockedIn, Set<Timing> timings) {
         return new Attendance("Employee " + seed, isClockedIn, timings);
     }
 
@@ -198,7 +198,7 @@ class TestDataHelper {
      *
      * @param seed used to generate the employee data field values
      */
-    Member generateMember(int seed) throws Exception {
+    public Member generateMember(int seed) throws Exception {
         return new Member(
                 new MemberName("Member " + seed),
                 new MemberEmail(seed + "@email")
@@ -212,7 +212,7 @@ class TestDataHelper {
      *
      * @param seed used to generate the menu item data field values
      */
-    Menu generateMenuItem(int seed) throws Exception {
+    public Menu generateMenuItem(int seed) throws Exception {
         return new Menu(
                 new MenuName("Menu " + seed),
                 new Price("$" + Math.abs(seed)),
@@ -221,7 +221,7 @@ class TestDataHelper {
         );
     }
 
-    Map<ReadOnlyMenus, Integer> generateDishItems(int seed) throws Exception {
+    public Map<ReadOnlyMenus, Integer> generateDishItems(int seed) throws Exception {
         Map<ReadOnlyMenus, Integer> dishItems = new HashMap<>();
         dishItems.put(generateMenuItem(seed), Math.abs(seed));
         return dishItems;
@@ -234,7 +234,7 @@ class TestDataHelper {
      *
      * @param seed used to generate the menu item data field values
      */
-    Order generateOrder(int seed) throws Exception {
+    public Order generateOrder(int seed) throws Exception {
         return new Order(
                 generateMember(seed),
                 new Date(Math.abs(seed)),
@@ -244,7 +244,7 @@ class TestDataHelper {
     }
 
     /** Generates the correct add command based on the employee given */
-    String generateAddEmpCommand(Employee e) {
+    public String generateAddEmpCommand(Employee e) {
         StringJoiner cmd = new StringJoiner(" ");
 
         cmd.add("addemp");
@@ -259,7 +259,7 @@ class TestDataHelper {
     }
 
     /** Generates the correct edit command based on the employee given */
-    String generateEditEmpCommand(String index, String editParam, String editDetail) {
+    public String generateEditEmpCommand(String index, String editParam, String editDetail) {
         StringJoiner cmd = new StringJoiner(" ");
 
         cmd.add("editemp");
@@ -290,7 +290,7 @@ class TestDataHelper {
     }
 
     /** Generates the correct add member command based on the member given */
-    String generateAddMemberCommand(Member e) {
+    public String generateAddMemberCommand(Member e) {
         StringJoiner cmd = new StringJoiner(" ");
 
         cmd.add("addmember");
@@ -302,7 +302,7 @@ class TestDataHelper {
     }
 
     /** Generates the correct add menu command based on the menu item given */
-    String generateMenuAddCommand(Menu m) {
+    public String generateMenuAddCommand(Menu m) {
         StringJoiner cmd = new StringJoiner(" ");
 
         cmd.add("addmenu");
@@ -320,7 +320,7 @@ class TestDataHelper {
     }
 
     /** Generates the correct edit draft dish command based on the given index number and quantity */
-    String generateDraftOrderEditDishCommand(int index, int quantity) {
+    public String generateDraftOrderEditDishCommand(int index, int quantity) {
         StringJoiner cmd = new StringJoiner(" ");
 
         cmd.add("draftdish");
@@ -334,7 +334,7 @@ class TestDataHelper {
     /**
      * Generates an Rms based on the list of Employees given.
      */
-    Rms generateRmsEmployees(List<Employee> employees) throws Exception {
+    public Rms generateRmsEmployees(List<Employee> employees) throws Exception {
         Rms rms = new Rms();
         addEmployeesToRms(rms, employees);
         return rms;
@@ -343,7 +343,9 @@ class TestDataHelper {
     /**
      * Generates an Rms based on the list of Employees and Attendances given.
      */
-    Rms generateRmsEmployeesAndAttendances(List<Employee> employees, List<Attendance> attendances) throws Exception {
+    public Rms generateRmsEmployeesAndAttendances(
+            List<Employee> employees,
+            List<Attendance> attendances) throws Exception {
         Rms rms = new Rms();
         addEmployeesToRms(rms, employees);
         addAttendancesToRms(rms, attendances);
@@ -353,7 +355,7 @@ class TestDataHelper {
     /**
      * Generates an Rms based on the list of Menu given.
      */
-    Rms generateRmsMenu(List<Menu> menus) throws Exception {
+    public Rms generateRmsMenu(List<Menu> menus) throws Exception {
         Rms rms = new Rms();
         addToRmsMenu(rms, menus);
         return rms;
@@ -362,7 +364,7 @@ class TestDataHelper {
     /**
      * Generates an Rms based on the list of Member given.
      */
-    Rms generateRmsMember(List<Member> members) throws Exception {
+    public Rms generateRmsMember(List<Member> members) throws Exception {
         Rms rms = new Rms();
         addMembersToRms(rms, members);
         return rms;
@@ -371,13 +373,13 @@ class TestDataHelper {
     /**
      * Generates an Rms based on the list of Member given.
      */
-    Rms generateRmsOrder(List<Order> orders) throws Exception {
+    public Rms generateRmsOrder(List<Order> orders) throws Exception {
         Rms rms = new Rms();
         addOrdersToRms(rms, orders);
         return rms;
     }
 
-    Rms generateRmsOrder(Integer... integers) throws Exception {
+    public Rms generateRmsOrder(Integer... integers) throws Exception {
         Rms rms = new Rms();
         addOrdersToRms(rms, integers);
         return rms;
@@ -386,7 +388,7 @@ class TestDataHelper {
     /**
      * Adds the given list of Menus to the given Rms
      */
-    void addToRmsMenu(Rms rms, List<Menu> menusToAdd) throws Exception {
+    public void addToRmsMenu(Rms rms, List<Menu> menusToAdd) throws Exception {
         for (Menu m: menusToAdd) {
             rms.addMenu(m);
         }
@@ -395,7 +397,7 @@ class TestDataHelper {
     /**
      * Adds the given list of Employeees to the given Rms.
      */
-    void addEmployeesToRms(Rms rms, List<Employee> employeesToAdd) throws Exception {
+    public void addEmployeesToRms(Rms rms, List<Employee> employeesToAdd) throws Exception {
         for (Employee e: employeesToAdd) {
             rms.addEmployee(e);
         }
@@ -404,7 +406,7 @@ class TestDataHelper {
     /**
      * Adds the given list of Employeees to the given Rms.
      */
-    void addAttendancesToRms(Rms rms, List<Attendance> attendancesToAdd) {
+    public void addAttendancesToRms(Rms rms, List<Attendance> attendancesToAdd) {
         for (Attendance a: attendancesToAdd) {
             rms.addAttendance(a);
         }
@@ -413,7 +415,7 @@ class TestDataHelper {
     /**
      * Adds the given list of Members to the given Rms
      */
-    void addMembersToRms(Rms rms, List<Member> membersToAdd) throws Exception {
+    public void addMembersToRms(Rms rms, List<Member> membersToAdd) throws Exception {
         for (Member member: membersToAdd) {
             rms.addMember(member);
         }
@@ -422,7 +424,7 @@ class TestDataHelper {
     /**
      * Adds the given list of Orders to the given Rms
      */
-    void addOrdersToRms(Rms rms, List<Order> ordersToAdd) throws Exception {
+    public void addOrdersToRms(Rms rms, List<Order> ordersToAdd) throws Exception {
         for (Order order: ordersToAdd) {
             rms.addOrder(order);
         }
@@ -433,14 +435,14 @@ class TestDataHelper {
      * @param rms The Rms to which the Orders will be added
      * @param integers the seeds used to create the Orders
      */
-    void addOrdersToRms(Rms rms, Integer... integers) throws Exception {
+    public void addOrdersToRms(Rms rms, Integer... integers) throws Exception {
         addOrdersToRms(rms, generateOrderList(integers));
     }
 
     /**
      * Creates a list of Employees based on the give Employee objects.
      */
-    List<Employee> generateEmployeeList(Employee... employees) {
+    public List<Employee> generateEmployeeList(Employee... employees) {
         List<Employee> employeeList = new ArrayList<>();
         Collections.addAll(employeeList, employees);
         return employeeList;
@@ -449,7 +451,7 @@ class TestDataHelper {
     /**
      * Creates a list of Attendances based on the give Attendance objects.
      */
-    List<Attendance> generateAttendanceList(Attendance... attendances) {
+    public List<Attendance> generateAttendanceList(Attendance... attendances) {
         List<Attendance> attendanceList = new ArrayList<>();
         Collections.addAll(attendanceList, attendances);
         return attendanceList;
@@ -458,7 +460,7 @@ class TestDataHelper {
     /**
      * Creates a list of Members based on the give Member objects.
      */
-    List<Member> generateMemberList(Member... members) {
+    public List<Member> generateMemberList(Member... members) {
         List<Member> memberList = new ArrayList<>();
         Collections.addAll(memberList, members);
         return memberList;
@@ -467,7 +469,7 @@ class TestDataHelper {
     /**
      * Creates a list of Menu Items based on the give Menu objects.
      */
-    List<Menu> generateMenuList(Menu... menus) {
+    public List<Menu> generateMenuList(Menu... menus) {
         List<Menu> menuList = new ArrayList<>();
         Collections.addAll(menuList, menus);
         return menuList;
@@ -476,7 +478,7 @@ class TestDataHelper {
     /**
      * Creates a list of Orders based on the given Order objects.
      */
-    List<Order> generateOrderList(Order... orders) {
+    public List<Order> generateOrderList(Order... orders) {
         List<Order> orderList = new ArrayList<>();
         Collections.addAll(orderList, orders);
         return orderList;
@@ -485,7 +487,7 @@ class TestDataHelper {
     /**
      * Creates a list of Orders based on the given integers.
      */
-    List<Order> generateOrderList(Integer... integers) throws Exception {
+    public List<Order> generateOrderList(Integer... integers) throws Exception {
         List<Order> orderList = new ArrayList<>();
         for (Integer n: integers) {
             orderList.add(generateOrder(n));
@@ -496,7 +498,7 @@ class TestDataHelper {
     /**
      * Generates a Member object with given name. Other fields will have some dummy values.
      */
-    Member generateMemberWithName(String name) throws Exception {
+    public Member generateMemberWithName(String name) throws Exception {
         return new Member(
                 new MemberName(name),
                 new MemberEmail(name + "@email")
@@ -506,7 +508,7 @@ class TestDataHelper {
     /**
      * Generates a Menu object with given name. Other fields will have some dummy values.
      */
-    Menu generateMenuWithName(String name) throws Exception {
+    public Menu generateMenuWithName(String name) throws Exception {
         return new Menu(
                 new MenuName(name),
                 new Price("$5.00"),
@@ -518,7 +520,7 @@ class TestDataHelper {
     /**
      * Generates a Menu object with given name. Other fields will have some dummy values.
      */
-    Menu generateMenuWithGivenNameAndType(String name, String type) throws Exception {
+    public Menu generateMenuWithGivenNameAndType(String name, String type) throws Exception {
         return new Menu(
                 new MenuName(name),
                 new Price("$5.00"),
@@ -528,7 +530,7 @@ class TestDataHelper {
     }
 
     /** Generates the correct stats employee command */
-    String generateStatsEmpCommand() {
+    public String generateStatsEmpCommand() {
         StringJoiner cmd = new StringJoiner(" ");
 
         cmd.add("statsemp");
@@ -537,7 +539,7 @@ class TestDataHelper {
     }
 
     /** Generates the correct stats member command */
-    String generateStatsMemberCommand() {
+    public String generateStatsMemberCommand() {
         StringJoiner cmd = new StringJoiner(" ");
 
         cmd.add("statsmember");
@@ -546,7 +548,7 @@ class TestDataHelper {
     }
 
     /** Generates the correct stats menu command based on the to and from dates given */
-    String generateStatsMenuCommand(Date from, Date to) {
+    public String generateStatsMenuCommand(Date from, Date to) {
         SimpleDateFormat dateFormat = new SimpleDateFormat("ddMMYYYY");
 
         StringJoiner cmd = new StringJoiner(" ");
@@ -564,7 +566,7 @@ class TestDataHelper {
     }
 
     /** Generates the correct stats order command */
-    String generateStatsOrderCommand() {
+    public String generateStatsOrderCommand() {
         StringJoiner cmd = new StringJoiner(" ");
 
         cmd.add("statsorder");

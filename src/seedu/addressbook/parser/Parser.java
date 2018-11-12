@@ -52,6 +52,11 @@ import seedu.addressbook.data.exception.IllegalValueException;
  */
 public class Parser {
 
+    /**
+     * Used for initial separation of command word and args.
+     */
+    public static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
+
     public static final Pattern INDEX_ARGS_FORMAT = Pattern.compile("(?<targetIndex>.+)");
 
     public static final Pattern KEYWORDS_ARGS_FORMAT =
@@ -115,11 +120,6 @@ public class Parser {
             super(message);
         }
     }
-
-    /**
-     * Used for initial separation of command word and args.
-     */
-    public static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
 
     /**
      * Parses user input into command for execution.

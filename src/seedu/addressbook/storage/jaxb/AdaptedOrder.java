@@ -22,6 +22,17 @@ import seedu.addressbook.data.order.ReadOnlyOrder;
  */
 public class AdaptedOrder {
 
+    @XmlElement(required = true)
+    private AdaptedMember customer;
+    @XmlElement(required = true)
+    private long date;
+    @XmlElement(required = true)
+    private double price;
+    @XmlElement(required = true)
+    private int points;
+    @XmlElement
+    private List<AdaptedDishItem> dishItems = new ArrayList<>();
+
     /**
      * JAXB-friendly adapted dish item data holder class.
      */
@@ -47,18 +58,6 @@ public class AdaptedOrder {
             this.quantity = quantity;
         }
     }
-
-    @XmlElement(required = true)
-    private AdaptedMember customer;
-    @XmlElement(required = true)
-    private long date;
-    @XmlElement(required = true)
-    private double price;
-    @XmlElement(required = true)
-    private int points;
-
-    @XmlElement
-    private List<AdaptedDishItem> dishItems = new ArrayList<>();
 
     /**
      * No-arg constructor for JAXB use.

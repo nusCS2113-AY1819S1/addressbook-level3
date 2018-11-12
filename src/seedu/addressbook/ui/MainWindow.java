@@ -36,9 +36,6 @@ public class MainWindow {
     @FXML
     private TextField commandInput;
 
-    public MainWindow(){
-    }
-
     public void setLogic(Logic logic) {
         this.logic = logic;
     }
@@ -52,7 +49,7 @@ public class MainWindow {
      * Exit the program if the exit command is given
      */
     @FXML
-    void onCommand(ActionEvent event) {
+    private void onCommand(ActionEvent event) {
         try {
             String userCommandText = commandInput.getText();
             CommandResult result = logic.execute(userCommandText);

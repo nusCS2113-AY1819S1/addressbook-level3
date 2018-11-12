@@ -21,6 +21,24 @@ import seedu.addressbook.data.member.ReadOnlyMember;
  */
 public class AdaptedMember {
 
+    @XmlElement(required = true)
+    private String name;
+
+    @XmlElement(required = true)
+    private String email;
+
+    @XmlElement(required = true)
+    private int points;
+
+    @XmlElement(required = true)
+    private int totalPoints;
+
+    @XmlElement(required = true)
+    private long date;
+
+    @XmlElement(required = true)
+    private String tier;
+
     /**
      * JAXB-friendly adapted contact detail data holder class.
      */
@@ -46,24 +64,6 @@ public class AdaptedMember {
             isPrivate = aPrivate;
         }
     }
-
-    @XmlElement(required = true)
-    private String name;
-
-    @XmlElement(required = true)
-    private String email;
-
-    @XmlElement(required = true)
-    private int points;
-
-    @XmlElement(required = true)
-    private int totalPoints;
-
-    @XmlElement(required = true)
-    private long date;
-
-    @XmlElement(required = true)
-    private String tier;
 
     /**
      * No-arg constructor for JAXB use.
