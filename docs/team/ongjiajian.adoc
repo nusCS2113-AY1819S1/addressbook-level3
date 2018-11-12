@@ -41,7 +41,7 @@ Authorisation and access levels enables only the patient's direct doctor to be p
 
 * *Minor enhancement*: worked with editing text files and hashing passwords to store the login credentials of every account secure
 
-* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
+* *Code contributed*: [https://nuscs2113-ay1819s1.github.io/dashboard/#=undefined&search=ongjiajian[Code]]
 
 * *Other contributions*:
 
