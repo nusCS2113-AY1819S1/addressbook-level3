@@ -42,7 +42,15 @@ This Developer Guide is intended for users with basic technical background as it
 
 image::mainClassDiagram.png[]
 
-=== 3.2 Logic Component
+=== 3.1 UI Component
+
+image::UIComponentClassDiagram.png[]
+
+=== 3.2 Login Component
+
+image::LoginComponentClassDiagram.png[]
+
+=== 3.3 Logic Component
 
 image::LogicComponentClassDiagram.png[]
 
