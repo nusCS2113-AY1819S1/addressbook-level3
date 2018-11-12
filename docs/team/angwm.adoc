@@ -124,4 +124,6 @@ include::../UserGuide.adoc[tag=statisticscommands]
 
 include::../DeveloperGuide.adoc[tag=storage]
 
+include::../DeveloperGuide.adoc[tag=statisticsimplementation]
+
 include::../DeveloperGuide.adoc[tag=statisticsusecase]

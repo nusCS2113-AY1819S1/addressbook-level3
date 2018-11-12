@@ -250,7 +250,7 @@ image::StorageClassDiagram.png[width="800"]
 
 The `Storage` component,
 
-* can save the RMS data in an xml format and load it back when needed.
+* This component saves the RMS data in an XML format and is also able to load the XML back into data.
 
 // end::storage[]
 
@@ -300,6 +300,25 @@ message can be specifically wrote in each states to reduce the burdens of rememb
 This can be done by introducing a status variable in the `Logic` module, creating command to change the state variable
 and adjusting the returning command in the `Parser` based on that variable.
 // end::orderimplementation[]
+
+// tag::statisticsimplementation[]
+
+=== Statistics
+
+==== Displaying Tables
+
+As RMS is a CLI (Command Line Interface) based program, we are not able to display any graphical tables to the users. However, the alternative to this is to print out the tables in an Ascii format. Therefore, the `AsciiTable` class is created. This class helps to format any data into a string that is able to display as an AsciiTable.
+
+In order to display this table correctly, the font being used in the results windows needs to be a monospaced^*^ font.
+
+_*Monospaced fonts refer to fonts with every characters having equal width size._
+
+==== Calculating Menu Statistics
+
+The way the statistics for menu items are calculated is by iterating through the list of orders and incrementing a counter for each unique menu items every time it is sold. These counters are then sorted in ascending order and it will print the menu item with the most sales and the one with the least sales for the best sellers and the unpopular items respectively.
+
+
+// end::statisticsimplementation[]
 
 //==== Current Implementation
 //
