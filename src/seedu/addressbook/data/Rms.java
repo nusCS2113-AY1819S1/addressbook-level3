@@ -149,18 +149,9 @@ public class Rms {
         return allMembers.contains(key);
     }
 
-    /**
-<<<<<<< HEAD
-     * Checks if an equivalent employee exists in the Rms.
-     */
-    public boolean containsEmployee(ReadOnlyEmployee key) {
-        return allEmployees.containsDuplicate(key);
-    }
 
     //@@author SalsabilTasnia
     /**
-=======
->>>>>>> 30777a089bd7526f53b2644a1dda5c30d2fd345b
      * Removes the equivalent menu item from the menu.
      *
      * @throws MenuNotFoundException if no such Order could be found.
