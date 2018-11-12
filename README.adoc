@@ -30,7 +30,8 @@ Features
 image::nichpang1.png[]
 
 Nicholas Pang Wey Shern +
-State Control
+State Control & Association
+Portfolio: <<team/nicpang1#, nichpang1>>
 
 image::ongjiajian.png[]
 
