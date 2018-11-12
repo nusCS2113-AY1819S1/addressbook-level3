@@ -387,7 +387,9 @@ Format: `listorder`.
 
 ==== View Employee Statistics
 
-Display the employee statistics overview +
+Displays the employee statistics overview +
+Overview consists of the number of employees in the system,
+current on duty employees and all the employees' recent 3 activity +
 Format: statsemp
 
 Examples: +
@@ -395,7 +397,9 @@ Examples: +
 
 ==== View Member Statistics
 
-Display the member statistics overview +
+Displays the member statistics overview +
+Overview consists of the number of new member signups on the current day, month and year.
+It also includes the number of members in each member tier. +
 Format: statsmember
 
 Examples: +
@@ -403,7 +407,9 @@ Examples: +
 
 ==== View Menu Statistics
 
-Display the menu statistics overview without any parameters or with optional parameters `f/` or `t/` to set date range for calculatation of statistics +
+Displays the menu statistics overview without any parameters or with optional parameters `f/` or `t/` to set date range for calculation of statistics +
+Overview consists of the number of sales for all the menu items in the system. Including menu items that was deleted but still exists in an order. +
+Bestsellers and least popular items are also displayed.
 Format: statsmenu [f/mmddyyyy] [t/mmddyyyy]
 
 Examples: +
@@ -415,7 +421,9 @@ Examples: +
 
 ==== View Order Statistics
 
-Display the order statistics overview +
+Displays the order statistics overview +
+Overview consists of the number of sales as well as the revenue for the current day, month and year +
+Past 12 monthly revenue are also displayed here.
 Format: statsorder
 
 Examples: +
