@@ -88,7 +88,7 @@ This implementation was challenging because apart from the thought process, I ha
 
 * `Credits`: https://github.com/nusCS2113-AY1819S1/addressbook-level3
 
-* *Code contributed*: https://github.com/CS2113-AY1819S1-F09-2/main[Project Github Page]
+* *Code contributed*: https://nuscs2113-ay1819s1.github.io/dashboard/#=undefined&search=angwm[Project Reposense Page]
 
 === Other Contributions
 
