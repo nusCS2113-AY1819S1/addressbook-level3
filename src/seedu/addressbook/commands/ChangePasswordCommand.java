@@ -7,14 +7,15 @@ import javax.security.auth.login.CredentialNotFoundException;
 import java.io.IOException;
 
 public class ChangePasswordCommand extends UndoAbleCommand {
-    public static final String COMMAND_WORD = "change-pass";
+    public static final String COMMAND_WORD = "changepassword";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ":\n" + "Changes password of current user.\n"
             + "Parameters: pw/CURRENT_PASSWORD npw/NEW_PASSWORD cpw/CONFIRM_NEW_PASSWORD\n"
             + "Example: " + COMMAND_WORD + "pw/0ldPassword! npw/n3wPassword! cpw/n3wPassword!";
 
     public static final String MESSAGE_SUCCESS = "Your password has been successfully changed!";
-    public static final String MESSAGE_FAILED = "failed to change password!";
+    public static final String MESSAGE_FAILED = "Failed to change password!";
+    public static final String MESSAGE_ADMIN_FAILED = "Administrator password cannot be changed!";
     public static final String MESSAGE_FAILED_DIFF_PASSWORD = "New passwords do not match!";
     public static final String MESSAGE_FAILED_WRONG_PASSWORD = "Current password is incorrect!";
 
@@ -30,6 +31,9 @@ public class ChangePasswordCommand extends UndoAbleCommand {
     @Override
     public CommandResult execute() {
         String username = login.getUsernameF();
+        if(username.equals("Administrator")){
+            return new CommandResult(MESSAGE_ADMIN_FAILED);
+        }
         int accesslevel = login.getAccesslevelF();
         if(!next.equals(confirm)){
             return new CommandResult(MESSAGE_FAILED_DIFF_PASSWORD);

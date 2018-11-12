@@ -14,7 +14,6 @@ public class Nric {
     public static final String EXAMPLE = "S1234567A";
     public static final String MESSAGE_NRIC_CONSTRAINTS = "Person NRIC should be either S or T followed by 7 digits and a letter";
     public static final String NRIC_VALIDATION_REGEX = "[stST]\\d{7}\\w";
-    private static final String ALrequired = "5"; //Minimum Access Level to view such information
 
     public final String NRIC;
     private boolean isPrivate;
@@ -66,5 +65,4 @@ public class Nric {
     public boolean isPrivate() {
         return isPrivate;
     }
-
 }
