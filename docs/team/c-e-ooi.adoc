@@ -1,72 +1,85 @@
-= John Doe - Project Portfolio
+= Ooi Xi Yi - Project Portfolio
 :site-section: AboutUs
 :imagesDir: ../images
 :stylesDir: ../stylesheets
 
-== PROJECT: AddressBook - Level 4
+== PROJECT: MediBook
 
 ---
 
-== Overview
+== 1 Overview and Introduction
 
-AddressBook - Level 4 is a desktop address book application used for teaching Software Engineering principles. The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 10 kLoC.
+=== 1.1 Portfolio Purpose
+This portfolio will be submitted to CS2101 for grading and is used to document my role and contribution to MediBook – an
+ application developed under NUS module CS2113T by Team F10-2 of AY1819S1.
 
-== Summary of contributions
 
-* *Major enhancement*: added *the ability to undo/redo previous commands*
-** What it does: allows the user to undo all previous commands one at a time. Preceding undo commands can be reversed by using the redo command.
-** Justification: This feature improves the product significantly because a user can make mistakes in commands and the app should provide a convenient way to rectify them.
-** Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required changes to existing commands.
-** Credits: _{mention here if you reused any code/ideas from elsewhere or if a third-party library is heavily used in the feature so that a reader can make a more accurate judgement of how much effort went into the feature}_
+=== 1.2 Project Name and Description
+https://github.com/CS2113-AY1819S1-F10-2/main[MediBook] seeks to improve healthcare administration for a better
+ healthcare experience. This is achieved by digitalising healthcare records.
 
-* *Minor enhancement*: added a history command that allows the user to navigate to previous commands using up/down keys.
+In this project, I was task with incorporating an appointment feature that allows appointments to be recorded in
+ MediBook. This feature is also known as MediCal.
 
-* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
+MediBook is built by Team F10-2 of CS2113T of AY1819S1 and consists of four members. Our details can be found in <<README#, README>>.
+
+This project is built on an https://github.com/nusCS2113-AY1819S1/addressbook-level3[existing Address Book sample application (Level 3)].
+MediBook optimises and enhances Address Book Level 3 to suit the needs of healthcare professionals with healthcare administrative matters.
+
+
+== 2 Summary of contributions
+
+* *Major enhancement*: added *the ability to record and edit appointments*
+** What it does:
+*** Allows the users to select a person in MediBook to edit the person's appointments
+*** Adds and delete several appointments]
+*** Shows the list of appointments the person has
+** Justification:
+*** Recording and viewing patient appointments is an important aspect of healthcare administration. With this feature, users can make and view multiple appointments effectively
+** Highlights:
+*** This enhancement enters its own edit-appointment mode after the user has select the person to edit. Hence, it was
+ challenging as there is a need to manage the edit-appointment mode, in addition to making modification to existing
+  person in the list, which is not supported in the original AddressBook (Level 3) we started from.
+
+* *Minor enhancement*:
+** Help message for edit-appointment mode
+** Made command words case-insensitive
+
+* *Code contributed*: https://nuscs2113-ay1819s1.github.io/dashboard/#=undefined&search=c-e-ooi&sort=displayName&since=2018-09-12&until=2018-11-05&timeframe=day&reverse=false&repoSort=true[Reposense]
+
+STOPPED HERE and to add (Pull requests https://github.com[#33], https://github.com[#34])
 
 * *Other contributions*:
-
 ** Project management:
-*** Managed releases `v1.3` - `v1.5rc` (3 releases) on GitHub
+*** Managed Issue Tracker on GitHub, generated issues for own features and set milestones.
 ** Enhancements to existing features:
-*** Updated the GUI color scheme (Pull requests https://github.com[#33], https://github.com[#34])
-*** Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests https://github.com[#36], https://github.com[#38])
+*** Reformatted the display message for `list` command
 ** Documentation:
+*** Structured user guide
 *** Did cosmetic tweaks to existing contents of the User Guide: https://github.com[#14]
 ** Community:
 *** PRs reviewed (with non-trivial review comments): https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
-*** Contributed to forum discussions (examples:  https://github.com[1], https://github.com[2], https://github.com[3], https://github.com[4])
 *** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
-*** Some parts of the history feature I added was adopted by several other class mates (https://github.com[1], https://github.com[2])
 ** Tools:
-*** Integrated a third party library (Natty) to the project (https://github.com[#42])
-*** Integrated a new Github plugin (CircleCI) to the team repo
+*** reposense
 
-_{you can add/remove categories in the list above}_
 
-== Contributions to the User Guide
+== 3 Contributions to the User Guide
 
 
 |===
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
 
-include::../UserGuide.adoc[tag=undoredo]
+include::../UserGuide.adoc[tag=Appointment]
 
-include::../UserGuide.adoc[tag=dataencryption]
 
-== Contributions to the Developer Guide
+== 4 Contributions to the Developer Guide
 
 |===
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
-include::../DeveloperGuide.adoc[tag=undoredo]
-
-include::../DeveloperGuide.adoc[tag=dataencryption]
+include::../DeveloperGuide.adoc[tag=Appointment]
 
 
-== PROJECT: PowerPointLabs
-
----
-
-_{Optionally, you may include other projects in your portfolio.}_
