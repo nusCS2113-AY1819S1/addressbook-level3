@@ -11,9 +11,9 @@ public class EmployeePosition {
 
 
     public static final String EXAMPLE = "Cashier";
-    public static final String MESSAGE_POSITION_CONSTRAINTS =
-            "Employee position should be spaces or alphanumeric characters";
-    public static final String POSITION_VALIDATION_REGEX = "[\\p{Alnum} ]+";
+    public static final String MESSAGE_POSITION_CONSTRAINTS = "Position cannot be longer than "
+                    + "30 alphanumeric characters and spaces.";
+    public static final String POSITION_VALIDATION_REGEX = "[\\p{Alnum} ]{1,30}+";
 
     public final String value;
 
