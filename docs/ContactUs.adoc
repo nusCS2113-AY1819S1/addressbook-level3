@@ -1,5 +1,7 @@
 = Contact Us
 :site-section: AboutUs
+:imagesDir: images
+:stylesDir: stylesheets
 
 * *Bug reports, Suggestions* : Post in our https://github.com/CS2113-AY1819S1-F09-2/main/issues[issue tracker]
 if you noticed bugs or have suggestions on how to improve.

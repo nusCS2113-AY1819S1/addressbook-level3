@@ -432,9 +432,6 @@ The SE-EDU team does not provide support for modified template files.
 
 There are three ways to run tests.
 
-[TIP]
-The most reliable way to run tests is the 3rd one. The first two methods might fail some GUI tests due to platform/resolution-specific idiosyncrasies.
-
 *Method 1: Using IntelliJ JUnit test runner*
 
 * To run all tests, right-click on the `src/test/java` folder and choose `Run 'All Tests'`
@@ -443,6 +440,14 @@ The most reliable way to run tests is the 3rd one. The first two methods might f
 *Method 2: Using Gradle*
 
 * Open a console and run the command `gradlew clean allTests` (Mac/Linux: `./gradlew clean allTests`)
+
+*Method 3: Manual testing*
+
+* Go to https://github.com/CS2113-AY1819S1-F09-2/main/releases[our github release page] and download `Rms.jar` and `Rms.txt`
+* Put them into the same folder and run `Rms.jar` and confirm that the program is running with pre-populated data
+* `Rms.txt` is populated with existing data, which allows testers to test the program using the data in `Rms.txt`
+* Test the program using the user and the developer guide
+
 
 [NOTE]
 See <<UsingGradle#, UsingGradle.adoc>> for more info on how to run tests using Gradle.
