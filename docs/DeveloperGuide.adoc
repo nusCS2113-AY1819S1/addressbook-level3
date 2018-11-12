@@ -94,7 +94,7 @@ Step 3: unlockDevice() in Password class is called.
 
 Step 4: The user input, userCommandText, is then hashcoded using userCommandText.hashCode().
 
-Step 5: Using a Buffered reader from the readAndWrite class, a loop through passwordStorage.txt tries to match the hashcoded input with an existing password.
+Step 5: Using a Buffered reader from the ReaderAndWriter class, a loop through passwordStorage.txt tries to match the hashcoded input with an existing password.
 
 Step 6: The user and password are stored in passwordStorage.txt in this format : "userID (hashcoded)password".
 
@@ -110,7 +110,7 @@ Step 7: When matched, the userID is returned and a welcome message is displayed 
 ** Cons: Slow buffered reader has to loop through all passwords in the text file
 * **Alternative 2:** Using username and password
 ** Pros: Can use a hashmap for quick look up, with the userID as key and hashcoded password as the value
-** Cons: More input from user, and difficult to store in an external text file.
+** Cons: More input from user, and difficult to store in an external text file
 
 === 1b. Update Password Feature
 image::updatePassword.png[]
@@ -140,19 +140,22 @@ Step 7: The new entered password runs through passwordValidityChecker() to check
 
 Step 8: The user enters the same new password. It matches with the oneTimePassword.
 
-Step 9: The Buffered reader then reads reads through passwordStorage.txt, and a Print writer from the ReadAndWrite class writes existing passwords to a temporary file, while writing the new password in place of the old password to change.
+Step 9: The Buffered reader then reads reads through passwordStorage.txt, and a Print writer from the ReaderAndWriter class writes existing passwords to a temporary file, while writing the new password in place of the old password that has been requested to be updated.
 
+Step 10: The temporary file is renamed to passwordStorage.txt and deleting the old passwordStorage.txt file.
+
+Step 11: The System returns a message that update password is successful.
 
 ==== Design Considerations
 
-===== Aspect: How password feature is implemented
+===== Aspect: How update password feature is implemented
 
-* **Alternative 1 (current choice):** Using a password with no need for username
-** Pros: Reduce user's keyboard input
-** Cons: Slow buffered reader has to loop through all passwords in the text file
-* **Alternative 2:** Using username and password
-** Pros: Can use a hashmap for quick look up, with the userID as key and hashcoded password as the value
-** Cons: More input from user, and difficult to store in an external text file.
+* **Alternative 1 (current choice):** writing to a temporary file then renaming
+** Pros: No conflicts when writing to a new file
+** Cons: Space is required for the new file before deleting original file
+* **Alternative 2:** Overwriting current passwordStorage.txt file
+** Pros: Maintain space usage
+** Cons: Many errors when overwriting
 
 // end::password[]
 
@@ -188,15 +191,17 @@ Step 7: The person is found and is stored in a matchedPerson list variable. exec
 Step 8: The CommandResult object displays to the user the searched person and his details, all of which in string form.
 
 
-Alternatives considered:
+==== Design Considerations
 
-*  Continue to use the original way of finding by name
-** However, there could be multiple people with the same name
-** Using nric to find people would be better as each person has a unique nric
-// end::find[]
+===== Aspect: How find command is implemented
 
-// tag::check[]
-[[check]]
+* **Alternative 1 (current choice):** Finding using NRIC
+** Pros: Using nric to find people would be better as each person has a unique nric
+** Cons: Difficult to implement
+* **Alternative 2:** Finding by name
+** Pros: Use current implementation
+** Cons: There could be multiple people with the same name
+
 === 2b. "check" command
 image::CheckCommand_Sequence.png[]
 
@@ -230,12 +235,15 @@ the corresponding timestamp is stored in a list.
 
 Step 7: The list from step 6 gets returned by execute() to create a CommandResult object which displays all the timestamps to the user.
 
+==== Design Considerations
 
-Alternatives considered:
+===== Aspect: How check command is implemented
 
-* Having a text file for each person, stored in a 'persons' folder
-** Each timestamp would then be stored in the respective text file
-** Pros: Retrieving timestamps would be much more efficient
+* **Alternative 1 (current choice):** All timestamps are stored in one file
+** Pros: Maintains space usage
+** Cons: Slow to retrieve timestamps as have to loop through whole file
+* **Alternative 2:** Having a text file for each person, stored in a 'persons' folder
+** Pros: Each timestamp would then be stored in the respective text file, Retrieving timestamps would be much more efficient
 ** Cons: Space complexity would increase especially if the number of persons increased drastically
 // end::check[]
 
@@ -273,9 +281,16 @@ Step 5: Logic class then calls the execute method on EditCommand Object.
 Step 6: CommandResult with successful message is returned to Logic class, which then displays
         to user: "Edited person: s1234567a".
 
-* Alternatives considered: Saving intended's person data, deleting it & adding a new person
-** Pros: Would not need to change existing implementations of Person class
-** Cons: Inefficient time complexity as need to delete & add new Person, complex implementation
+==== Design Considerations
+
+===== Aspect: How edit command is implemented
+
+* **Alternative 1 (current choice):** Can set attributes for read-only person
+** Pros: Editable persons
+** Cons: Should ot edit read only person
+* **Alternative 2:** Maintain person as read-only
+** Pros: Attributes are protected
+** Cons: Cannot edit persons easily
 
 // end::edit[]
 
@@ -351,18 +366,16 @@ Step 6: execute() returns a CommandResult using the concatenated string as its a
 
 Step 7: The CommandResult object displays to the user the number of unread messages he has, and the list of unread messages sorted according to their urgency.
 
+==== Design Considerations
 
-Alternatives considered:
+===== Aspect: How showunread command is implemented
 
-* Using a List instead of a TreeSet.
-** Pros: Smaller space complexity.
-** Cons: Less efficient code as 'sort' function must be called every time a new message is stored to maintain sorted order.
-Eventually, we decided to use TreeSet in our implementation as we felt that the pros outweighed the cons. This becomes more obvious when the amount of data stored gets larger.
-
-* Using a single text file for storing messages, storing the userID of the recipient in the text file.
-** Pros: Fewer files to manage and filepaths to traverse.
-** Cons: Less efficient as it means more memory is required for storage per message stored (additional information of recipient of message required to be stored in the data structure itself when loaded).
-Eventually, we also used multiple message storage files, each dedicated to a specific user, as this allowed us to increase the time efficiency of the code as the getMessagesFor() method did not need to sort through the messages based on recipient anymore. This benefit becomes especially obvious as well when there is a large number of messages that has to be stored, directed towards multiple users.
+* **Alternative 1 (current choice):** Using a TreeSet
+** Pros: Auto-sorts by read-status, priority then timestamp
+** Cons: Difficult to implement
+* **Alternative 2:** Using a List
+** Pros: Smaller time complexity
+** Cons: Does not auto-sort
 
 === 3b. "inbox" command
 
@@ -460,12 +473,16 @@ Step 6: WriteNotification is instantiated to write the message the HQP inbox fil
 Step 7: CommandResult with successful message is returned to Logic class, which then displays
                 to user: "Request for backup case from po1 has been sent to HQP."
 
+==== Design Considerations
 
+===== Aspect: How rb command is implemented
 
-* Alternatives considered: Chat Client API
-** Pros: Real time system supported, allows remote communication
-** Cons: Chat Client does not store messages after closing application (data does not persist), not much API documentation available for beginners
-
+* **Alternative 1 (current choice):** Writes using ReaderAndWriter class
+** Pros: Data is maintained across multiple sessions
+** Cons: External text files can be tempered
+* **Alternative 2:** Using chat client API
+** Pros: Safe and reliable real time support
+** Cons: Data is not maintained across multiple sessions
 // end::request[]
 
 // tag::dispatch[]
@@ -509,6 +526,13 @@ Step 7: Both Msg objects are passed to WriteNotification class to be written to 
 
 Step 8: CommandResult with successful message is returned to Logic class, which then displays
         to user: "Dispatch for PO3 backup is successful."
+
+==== Design Considerations
+
+===== Aspect: How dispatch command is implemented
+
+* **Alternatives: ** Similar considerations as rb command.
+
 // end::dispatch[]
 
 * Alternatives considered: Chat Client API
@@ -543,10 +567,14 @@ Step 6: execute() also calls for the setStatus() method in PatrolResourceStatus 
 
 Step 7: A CommandResult object with the successful message is created to be displayed to the user.
 
+==== Design Considerations
 
-Alternatives considered:
+===== Aspect: How updatestatus command is implemented
 
-* Using a text file to store the statuses of the POs
+* **Alternative 1 (current choice):** Internally implemented statuses of POS
+** Pros: Faster to look up statuses of POs
+** Cons: The statuses reset after you exit the program
+* **Alternative 2:** Using a text file to store the statuses of POs
 ** Pros: The statuses are saved even after exiting the system
 ** Cons: Time and space complexity increases especially if there are many POs to manage
 // end::updatestatus[]
@@ -579,12 +607,11 @@ Step 5: execute() also calls for the extractEngagementInformation() method and s
 Step 6: A CommandResult object is created and displays the list to the user.
 
 
-Alternatives considered:
+==== Design Considerations
 
-* Similar to what was mentioned in "updatestatus" command section, use a text file for each PO and store their status
-** Pros: Easier to identify a PO, just look for the text file with their ID
-** Cons: Space would be an issue especially when there are many POs to manage
-// end::checkstatus[]
+===== Aspect: How updatestatus command is implemented
+
+* **Alternative :** Similar considerations as updatestatus
 
 === 4c. "time" command
 
@@ -616,7 +643,7 @@ Step 5: execute() calls
 
 This command logs the current user out of the System.
 
-. execute() - executes the "logout" command and returns all boolean flags related to passwords are set to false.
+. execute() - executes the "logout" command , all boolean flags related to passwords are set to false and clears the message inboxes.
 
 The following is an example usage scenario of the "logout" command:
 
@@ -628,12 +655,14 @@ Step 3: Boolean flags for isHQP, isPO1, isPO2, isPO3, isPO4, isPO5 in the Passwo
 
 Step 4: isUpdatePasswordConfirm and isUpdatingPassword flags are also set to false through lockUpdatePasswordConfirm() and lockUpdatingPassword() in the Password class is also set to false.
 
-Step 5: A CommandResult object is created and displays a message that the user is logged out of the System and prompts for a password.
+Step 5: resetInboxWhenLogout() in the Inbox class clears all records of displayed messages and resets the number of unread messages to default value of -1.
+
+Step 6: A CommandResult object is created and displays a message that the user is logged out of the System and prompts for a password.
 
 
 ==== Design Considerations
 
-===== Aspect: How logout executes
+===== Aspect: How logout command is implemented
 
 * **Alternative 1 (current choice):** Logout extends command.
 ** Pros: Easy to implement.
@@ -690,15 +719,47 @@ to the Parser class. This is to ensure invalid input can be caught by the
 algorithm to give its correction before it is deemed as invalid by the Parser
 during which time all commands will be laid out to the user.
 
-Alternatives considered:
+==== Design Considerations
 
-* Running the algorithm from the Parser- This however will not allow the
-prediction to be reported efficiently.
+===== Aspect: How autocorrect feature is implemented
 
-* Include predictions with more than one character changes- This will bring
-in ambiguity in the correction algorithm and increases chances of errors.
+* **Alternative 1 (current choice):** Using user input directly from MainWindow class
+** Pros: Able to autocorrect raw input
+** Cons: More front-end coding through MainWindow class
+* **Alternative 2:** Running the algorithm from the Parser class
+** Pros: Implementing new code with existing code
+** Cons: Difficult to run autocorrect through parser
 
 //end::autocorrect[]
+
+// tag::shutdown[]
+[[shutdown]]
+
+=== 7. "shutdown" command
+
+*Current Implementation*
+
+This command shuts down the System.
+
+. execute() - executes the "shutdown" command and returns all boolean flags related to passwords are set to false.
+
+The following is an example usage scenario of the "logout" command:
+
+Step 1: User executes "shutdown".
+
+Step 2: Boolean flags for isHQP, isPO1, isPO2, isPO3, isPO4, isPO5 in the Password class is set to false. This is done using the lockIsHqp() and lockIsPo() methods in the Password class.
+
+Step 3: isUpdatePasswordConfirm and isUpdatingPassword flags are also set to false through lockUpdatePasswordConfirm() and lockUpdatingPassword() in the Password class is also set to false.
+
+Step 4: mainApp.stop() in MainWindow class shuts down the system
+
+// end::shutdown[]
+
+---
+
+=== Implementation
+
+---
 
 === 7a. "help" command
 
@@ -747,11 +808,12 @@ Step 5: Logic class then calls the execute method on AddCommand Object.
 Step 6: CommandResult with successful message is returned to Logic class, which then displays
         to user: "New person added: John Doe Nric: s1234567a DateOfBirth: 1996 Postal Code: 510246 Status: xc Wanted For: [none] Past Offences:[drugs][theft]".
 
+
 === Logging
 
 We are using `java.util.logging` package for logging. The `Parser` class is used to manage the logging levels and logging destinations.
 
-* The logging level can be controlled using the `logLevel` setting in the configuration file (See <<Implementation-Configuration>>)
+* The logging level can be controlled using the `logLevel` setting in the configuration file
 * The `Logger` for a class can be obtained using `Parser.getLogger(Class)` which will log messages according to the specified logging level
 * Currently log messages are output through: `Console` and to a `.log` file.
 
@@ -910,6 +972,8 @@ HQP- Headquarters Personnel
 
 (For all use cases below, the *System* is the `Police Records` and the *User* is either the `Police Officer (PO)' or 'Headquarters Personnel (HQP)', unless specified otherwise)
 
+// tag::pwUse[]
+[[pwUse]]
 === Use case: Enter Headquarters Personnel password
 
 *MSS*
@@ -1006,6 +1070,8 @@ Use case resumes at step 5.
 * 5c1 or 7c1. System shows error message for invalid new password.
 +
 Use case resumes at step 5.
+
+// end::pwUse[]
 
 === Use case: Add person
 
