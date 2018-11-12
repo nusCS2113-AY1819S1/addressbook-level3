@@ -1,8 +1,8 @@
-//@@author kianhong95
 package seedu.addressbook.data.employee;
 
 import seedu.addressbook.data.exception.IllegalValueException;
 
+//@@author kianhong95
 /**
  * Stores the details to edit the employee with. Each non-empty field value will replace the
  * corresponding field value of the employee.

@@ -30,14 +30,21 @@ import seedu.addressbook.data.order.UniqueOrderList.OrderNotFoundException;
  */
 public class Rms {
 
+    //@@author kianhong95
     private final UniqueEmployeeList allEmployees;
+    //@@author kangmingtay
     private final UniqueMemberList allMembers;
+    //@@author SalsabilTasnia
     private final UniqueMenuList allFoodItems;
+    //@@author px1099
     private final UniqueOrderList allOrders;
+    //@@author kianhong95
     private final UniqueAttendanceList allAttendance;
 
+    //@@author px1099
     private Order draftOrder = new Order();
 
+    //@@author AngWM
     /**
      * Creates an empty Rms.
      */
@@ -68,6 +75,7 @@ public class Rms {
         return new Rms();
     }
 
+    //@@author kianhong95
     /**
      * Adds an employee to the Rms.
      *
@@ -105,6 +113,7 @@ public class Rms {
     public void updateAttendance(Attendance oldAttendance, Attendance newAttendance) {
         allAttendance.setAttendance(oldAttendance, newAttendance); }
 
+    //@@author kangmingtay
     /**
      * Adds a member to the Member list.
      *
@@ -125,6 +134,7 @@ public class Rms {
         allFoodItems.add(toAdd);
     }
 
+    //@@author px1099
     /**
      * Adds an order to the order list.
      *
@@ -142,13 +152,13 @@ public class Rms {
         return allFoodItems.contains(key);
     }
 
+    //@@author kangmingtay
     /**
      * Checks if an equivalent member exists in the member list.
      */
     public boolean containsMember(ReadOnlyMember key) {
         return allMembers.contains(key);
     }
-
 
     //@@author SalsabilTasnia
     /**
@@ -160,6 +170,7 @@ public class Rms {
         allFoodItems.remove(toRemove);
     }
 
+    //@@author px1099
     /**
      * Removes the equivalent order from the order list.
      *
@@ -169,6 +180,7 @@ public class Rms {
         allOrders.remove(toRemove);
     }
 
+    //@@author kangmingtay
     /**
      * Removes the equivalent member from the member list.
      *
@@ -178,6 +190,7 @@ public class Rms {
         allMembers.remove(toRemove);
     }
 
+    //@@author kianhong95
     /**
      * Removes the equivalent employee from the Rms.
      *
@@ -211,6 +224,7 @@ public class Rms {
         allFoodItems.clear();
     }
 
+    //@@author px1099
     /**
      * Clears all orders from the order list.
      */
@@ -218,6 +232,7 @@ public class Rms {
         allOrders.clear();
     }
 
+    //@@author kangmingtay
     /**
      * Defensively copied UniqueMemberList of all members in the member list at the time of the call.
      */
@@ -225,13 +240,13 @@ public class Rms {
         return new UniqueMemberList(allMembers);
     }
 
+    //@@author kianhong95
     /**
      * Defensively copied UniqueEmployeeList of all employees in the employee list at the time of the call.
      */
     public UniqueEmployeeList getAllEmployees() {
         return new UniqueEmployeeList(allEmployees);
     }
-
 
     /**
      * Defensively copied UniqueEmployeeList of all employees in the employee list at the time of the call.
@@ -248,6 +263,7 @@ public class Rms {
         return new UniqueMenuList(allFoodItems);
     }
 
+    //@@author px1099
     /**
      * Defensively copied UniqueOrderList of all orders in the employee list at the time of the call.
      */
@@ -257,6 +273,10 @@ public class Rms {
 
     public ReadOnlyOrder getDraftOrder() {
         return draftOrder;
+    }
+
+    public String getDraftOrderAsText() {
+        return draftOrder.getDraftDetailsAsText();
     }
 
     /**
@@ -273,6 +293,7 @@ public class Rms {
         draftOrder.changeDishQuantity(dish, quantity);
     }
 
+    //@@author kangmingtay
     /**
      * Edit the number of points to be redeemed
      */
@@ -280,6 +301,7 @@ public class Rms {
         draftOrder.setPoints(points);
     }
 
+    //@@author px1099
     /**
      * Update the member points of a customer
      * @param customer the ReadOnlyMember interface of the Member object to update points
@@ -309,5 +331,6 @@ public class Rms {
     public int hashCode() {
         return Objects.hash(allAttendance, allEmployees, allFoodItems, allMembers, allOrders);
     }
-}
 
+    //@@author
+}

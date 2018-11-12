@@ -48,7 +48,7 @@ public class Formatter {
         return format(asIndexedList(formattedMenus));
     }
 
-    //@@author
+    //@@author px1099
     /** Formats the given list of orders for displaying to the user. */
     public String formatOrderResult(List<? extends ReadOnlyOrder> orders) {
         final List<String> formattedOrders = new ArrayList<>();
@@ -58,6 +58,7 @@ public class Formatter {
         return format(asIndexedList(formattedOrders));
     }
 
+    //@@author kangmingtay
     /** Formats the given list of members for displaying to the user. */
     public String formatMemberResult(List<? extends ReadOnlyMember> members) {
         final List<String> formattedMembers = new ArrayList<>();
@@ -67,6 +68,7 @@ public class Formatter {
         return format(asIndexedList(formattedMembers));
     }
 
+    //@@author kianhong95
     /** Formats the given list of employees for displaying to the user. */
     public String formatEmployeeResult(List<? extends ReadOnlyEmployee> employees) {
         final List<String> formattedOrders = new ArrayList<>();
@@ -76,6 +78,7 @@ public class Formatter {
         return format(asIndexedList(formattedOrders));
     }
 
+    //@@author
     /** Formats a list of strings as an indexed list. */
     private static String asIndexedList(List<String> listItems) {
         final StringBuilder formatted = new StringBuilder();

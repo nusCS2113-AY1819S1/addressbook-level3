@@ -1,5 +1,6 @@
-==Contact Us
+= Contact Us
+:site-section: AboutUs
 
-* *Bug reports, Suggestions* : Post in our https://github.com/se-edu/addressbook-level3/issues[issue tracker]
+* *Bug reports, Suggestions* : Post in our https://github.com/CS2113-AY1819S1-F09-2/main/issues[issue tracker]
 if you noticed bugs or have suggestions on how to improve.
 * *Contributing* : We welcome pull requests. Follow the process described https://github.com/oss-generic/process[here]

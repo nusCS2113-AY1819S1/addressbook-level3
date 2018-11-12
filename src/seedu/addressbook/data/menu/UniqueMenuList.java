@@ -102,7 +102,7 @@ public class UniqueMenuList implements Iterable<Menu> {
     }
 
     /**
-     * Clears all persons in list.
+     * Clears all menu items in list.
      */
     public void clear() {
         internalMenuList.clear();

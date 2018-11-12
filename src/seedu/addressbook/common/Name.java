@@ -9,8 +9,9 @@ import seedu.addressbook.data.exception.IllegalValueException;
 public class Name {
 
     public static final String EXAMPLE = "John Doe";
-    public static final String MESSAGE_NAME_CONSTRAINTS = "Names should be spaces or alphanumeric characters";
-    public static final String NAME_VALIDATION_REGEX = "[\\p{Alnum} ]+";
+    public static final String MESSAGE_NAME_CONSTRAINTS = "Name cannot be longer than "
+            + "30 alphanumeric characters and spaces.";
+    public static final String NAME_VALIDATION_REGEX = "[\\p{Alnum} ]{1,30}+";
 
     public final String fullName;
 

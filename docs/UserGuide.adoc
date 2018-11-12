@@ -22,13 +22,9 @@ The Restaurant Management System (RMS) provides restaurants with a more efficien
 
 == Quick Start
 .  Ensure you have Java version `9` or later installed in your Computer.
+.  Download the latest `Rms.jar` here
 .  Copy the file to the folder you want to use as the home folder for your Restaurant Management System.
-.  Import the file into Intellij.
-.  Find the project pane (usually located at the left side).
-.  Open up src/seedu.addressbook folder.
-.  Right Click on `Main`.
-.  Click `Run Main.main()`.
-.  The GUI should appear in a few seconds.
+.  Double-click the file to start the application. The GUI should appear in a few seconds.
 +
 image::Ui.png[]
 +
@@ -44,6 +40,7 @@ image::Ui.png[]
 
 == Important Terminology
 .  _A customer is anyone who wants to place an order._
+. _An employee is a person that works at the restaurant._
 . _A member in the RMS is a registered customer who enjoys more benefits than an unregistered customer._
 . _A dish is a food item on the menu._
 
@@ -51,21 +48,6 @@ image::Ui.png[]
 == Features
 
 ====
-*How It Works*
-
-When the application is first started, users have to choose
- which state it wants to enter. There are 5 choices to pick from
- :
-
-1. Menu
-
-2. Order
-
-3. Customers
-
-4. Employees
-
-5. Statistics
 
 *Command Format*
 
@@ -112,6 +94,8 @@ Add a new item to the menu. +
 Format: `addmenu NAME p/PRICE type/TYPE [t/TAG]...`
 
 * Adds the new menu item into the menu list
+* Names must be unique, cannot be longer than 30 alphanumeric characters and spaces. It must contain minimum one character.
+* Note that duplicate menu name is still detected even if the user tries to key in the same name with extra spaces at the *end* of the menu name (eg. 'Cheese Burger' and 'Cheese Burger  ')
 * Price must follow the formal $A.BC or $A where A is a number of 1-3 digits and B and C are 1 digit each.
 * Type should only be of the following categories: main, sides, beverage, dessert, others, set meal
 * A new food item can have multiple tags (including 0)
@@ -176,22 +160,31 @@ Returns Main: Double Cheese Burger, Sides: French Fries, Beverage: Sprite
 ==== Add Member
 
 Add a new member to the RMS +
-Format: `addmember` NAME
+Format: `addmember NAME e/EMAIL`
+
+* Member name cannot be longer than 30 alphanumeric characters and spaces.
+* Member name must have at least 1 character.
+* Email should be 2 alphanumeric/period strings that are no longer than 20 characters separated by '@'
 
 Example: +
-`addmember kang ming` +
-Returns: New member added: kangming Points: 0 Date: Wed Oct 31 20:30:50 SRET 2018 Tier: Bronze
-
+`addmember kang ming e/kangming@rms.com` +
+Returns:  New member added: kang ming | Email: kangming@rms.com | Available Points: 0 | Total Points: 0 | Tier: Bronze | Date: Mon Oct 20 22:12:07 SRET 2018
 
 ==== List Member
 
 Shows a list of all the members in the RMS. Displays the NAME, POINTS, DATE JOINED, MEMBERSHIP TIER of each member. +
-Format: `listmembers`
+Format: `listmember`
 
-===== Delete Member
+Example: +
+`listmember`
+
+==== Delete Member
 
 Delete membership details of a member in the RMS +
 Format: `delmember INDEX`
+
+Example: +
+`delmember 1`
 
 // end::membercommands[]
 
@@ -207,7 +200,11 @@ Format: `listemp`
 Adds a new employee to the RMS. +
 Format: `addemp NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS pos/POSITION`
 
-* Employees with same name are not allowed irregardless of it being in upper or lower case.
+* Employees with exact same names are not allowed irregardless of it being in upper or lower case.
+* Employee name cannot be longer than 30 alphanumeric characters and spaces.
+* Employee name must have at least 1 character.
+* Phone numbers must be an 8 digit number.
+* Email should be 2 alphanumeric/period strings that are no longer than 20 characters separated by '@'
 
 Example: +
  `addemp John Doe p/91234567 e/Example2018@rms.com a/Clementi Ave 2, Blk 543 #13-12 pos/Cashier` +
@@ -223,6 +220,8 @@ Format: `editemp INDEX [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [pos/POSITION]`
 * At least one of the optional parameters must be provided.
 * Existing values will be updated to the input values.
 * The index must be a positive integer `1, 2, 3 ...`
+* Phone numbers must be an 8 digit number.
+* Email should be 2 alphanumeric/period strings that are no longer than 20 characters separated by '@'
 
 Example: +
 
@@ -247,37 +246,29 @@ Deletes the 1st employee in the employee list.
 
 ==== Clock In
 
-Clocks in attendance for the specified employee based on the current time +
-Format: `clockIn NAME`
+Clocks in attendance for the specified employee based on the current date and time +
+Format: `clockin NAME`
 
 * Employee must either have been newly created or
-have used the "Clock Out" command, otherwise, they would not be able to use this command.
+have used the "Clock Out" command, otherwise the system will request the user to use the "Clock Out" command first.
 
 Example: +
-`clockIn John Doe` +
+`clockin John Doe` +
 Clocks in for the employee John Doe.
 
 
 ==== Clock Out
 
-Clocks out for the specified employee based on the current time. +
-Format: `clockOut NAME`
+Clocks out for the specified employee based on the current date and time. +
+Format: `clockout NAME`
 
-* Employee must have used the "Clock In" command, otherwise, they would not  e able to use this command.
+* Employee must have used the "Clock In" command, otherwise the system will request the user to use the "Clock In" command first.
 
 Example: +
-`clockOut John Doe` +
+`clockout John Doe` +
 Clocks out for the employee John Doe.
 
 // end::employeecommands[]
-
-//==== Calculate Wages
-
-//Calculates the wage of an employee. +
-//`Format calcwage NAME`
-
-//Examples: +
-//`calcwage Joe Bob`
 
 // tag::orderuserguide[]
 === Order
@@ -473,9 +464,9 @@ There is no need to save manually.
 
 *Delete Employee* : `delemp INDEX`
 
-*Clock In* : `clockIn NAME`
+*Clock In* : `clockin NAME`
 
-*Clock Out* : `clockOut NAME`
+*Clock Out* : `clockout NAME`
 
 === Members
 

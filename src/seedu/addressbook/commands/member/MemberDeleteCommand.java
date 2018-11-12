@@ -6,6 +6,7 @@ import seedu.addressbook.common.Messages;
 import seedu.addressbook.data.member.ReadOnlyMember;
 import seedu.addressbook.data.member.UniqueMemberList.MemberNotFoundException;
 
+//@@author kangmingtay
 /**
  * Deletes a member identified using it's last displayed index from the member list.
  */

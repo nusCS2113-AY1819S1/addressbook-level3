@@ -17,18 +17,22 @@ public class CommandResult {
     /** The feedback message to be shown to the user. Contains a description of the execution result */
     public final String feedbackToUser;
 
+    //@@author kianhong95
     /** The list of employees that was produced by the command */
     private final List<? extends ReadOnlyEmployee> relevantEmployees;
 
     /** The list of attendances that was produced by the command */
     private final List<? extends Attendance> relevantAttendances;
 
+    //@@author SalsabilTasnia
     /** The menu list produced by the menu command*/
     private final List<? extends ReadOnlyMenus> relevantMenus;
 
+    //@@author kangmingtay
     /** The list of members that was produced by the command */
     private final List<? extends ReadOnlyMember> relevantMembers;
 
+    //@@author px1099
     /** The list of orders that was produced by the order command */
     private final List<? extends ReadOnlyOrder> relevantOrders;
 
@@ -57,6 +61,7 @@ public class CommandResult {
         this.relevantAttendances = relevantAttendances;
     }
 
+    //@@author SalsabilTasnia
     /**
      * Returns list of menu items relevant to the command result, if any.
      */
@@ -64,6 +69,7 @@ public class CommandResult {
         return Optional.ofNullable(relevantMenus);
     }
 
+    //@@author px1099
     /**
      * Returns list of orders relevant to the command result, if any.
      */
@@ -71,6 +77,7 @@ public class CommandResult {
         return Optional.ofNullable(relevantOrders);
     }
 
+    //@@author kangmingtay
     /**
      * Returns list of members relevant to the command result, if any.
      */
@@ -78,6 +85,7 @@ public class CommandResult {
         return Optional.ofNullable(relevantMembers);
     }
 
+    //@@author kianhong95
     /**
      * Returns list of employees relevant to the command result, if any.
      */
@@ -92,4 +100,5 @@ public class CommandResult {
         return Optional.ofNullable(relevantAttendances);
     }
 
+    //@@author
 }
