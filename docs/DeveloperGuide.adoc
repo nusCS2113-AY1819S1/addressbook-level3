@@ -250,7 +250,7 @@ image::StorageClassDiagram.png[width="800"]
 
 The `Storage` component,
 
-* can save the Address Book data in xml format and read it back.
+* can save the RMS data in an xml format and load it back when needed.
 
 // end::storage[]
 
