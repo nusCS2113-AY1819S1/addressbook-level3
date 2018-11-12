@@ -71,9 +71,5 @@ public class LoginTest {
         assertTrue(WorkWithLoginStorage.addLogin(credentials));
         assertTrue(login.main(credentials.getUsername(), credentials.getPassword()));
     }
-//    @Test
-//    public void testHashIt(){
-//        String hashedPassword = "20B0855B805188A131444C4B0C7B4BEB1F1C2C7D72EAC683AE42B6A439F9F4D9796454836148972BDB2F02E0487195BB620FAD6E168AC76F7C0BFE4743871C18";
-//        assertEquals(hashedPassword, hashing.hashIt(credentials.getPassword()));
-//    }
+
 }
