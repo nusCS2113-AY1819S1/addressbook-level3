@@ -12,6 +12,7 @@ import seedu.addressbook.data.employee.EmployeePosition;
 import seedu.addressbook.data.employee.ReadOnlyEmployee;
 import seedu.addressbook.data.exception.IllegalValueException;
 
+//@@author kianhong95
 /**
  * JAXB-friendly adapted employee data holder class.
  */
