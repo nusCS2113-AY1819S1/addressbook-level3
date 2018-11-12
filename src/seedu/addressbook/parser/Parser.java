@@ -519,7 +519,6 @@ public class Parser {
                 + PatrolResourceStatus.getLocation(Password.getId()).getGoogleMapsUrl();
 
         try {
-            logger.info(String.format("%s ") );
             return new RequestHelpCommand(caseName, message);
         } catch (IllegalValueException ive) {
             return new IncorrectCommand(Offense.MESSAGE_OFFENSE_INVALID + Offense.getListOfValidOffences());
