@@ -94,6 +94,8 @@ Add a new item to the menu. +
 Format: `addmenu NAME p/PRICE type/TYPE [t/TAG]...`
 
 * Adds the new menu item into the menu list
+* Names must be unique, cannot be longer than 30 alphanumeric characters and spaces. It must contain minimum one character.
+* Note that duplicate menu name is still detected even if the user tries to key in the same name with extra spaces at the *end* of the menu name (eg. 'Cheese Burger' and 'Cheese Burger  ')
 * Price must follow the formal $A.BC or $A where A is a number of 1-3 digits and B and C are 1 digit each.
 * Type should only be of the following categories: main, sides, beverage, dessert, others, set meal
 * A new food item can have multiple tags (including 0)
