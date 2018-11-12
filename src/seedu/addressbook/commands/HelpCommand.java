@@ -13,7 +13,8 @@ public class HelpCommand extends Command {
 
     public static final String MESSAGE_ALL_USAGES = HelpCommand.MESSAGE_USAGE + "\n"
             + "\n" + ListCommand.MESSAGE_USAGE + "\n"
-            + "\n" + SortCommand.MESSAGE_USAGE + "\n"
+            + "\n" + SortNameCommand.MESSAGE_USAGE + "\n"
+            + "\n" + SortTitleCommand.MESSAGE_USAGE + "\n"
             + "\n" + ClearCommand.MESSAGE_USAGE + "\n"
             + "\n" + FindCommand.MESSAGE_USAGE + "\n"
             + "\n" + AddCommand.MESSAGE_USAGE + "\n"
@@ -21,14 +22,14 @@ public class HelpCommand extends Command {
             + "\n" + ViewCommand.MESSAGE_USAGE + "\n"
             + "\n" + ViewAllCommand.MESSAGE_USAGE + "\n"
             + "\n" + EditAppointmentCommand.MESSAGE_USAGE + "\n"
-            //link
-            //unlink
-            //association list
+            + "\n" + LinkCommand.MESSAGE_USAGE + "\n"
+            + "\n" + UnLinkCommand.MESSAGE_USAGE + "\n"
+            + "\n" + AssociateListCommand.MESSAGE_USAGE + "\n"
             //change password
             + "\n" + UndoCommand.MESSAGE_USAGE + "\n"
             + "\n" + RedoCommand.MESSAGE_USAGE + "\n"
             + "\n" + EditAppointmentCommand.MESSAGE_USAGE + "\n"
-            //history
+            + "\n" + HistoryCommand.MESSAGE_USAGE + "\n"
             + "\n" + ExitCommand.MESSAGE_USAGE;
 
     @Override

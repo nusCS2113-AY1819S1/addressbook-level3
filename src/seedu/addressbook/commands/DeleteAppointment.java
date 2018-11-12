@@ -13,7 +13,7 @@ import java.util.Set;
 
 import static seedu.addressbook.ui.Gui.DISPLAYED_INDEX_OFFSET;
 
-public class DeleteAppointment extends Command {
+public class DeleteAppointment extends UndoAbleCommand {
 
     public static final String COMMAND_WORD = "delete";
 
@@ -24,19 +24,21 @@ public class DeleteAppointment extends Command {
             + "Example 1: " + COMMAND_WORD + " 01-01-2019-13:00 \n\t"
             + "Example 2: " + COMMAND_WORD + " 01-01-2019-13:00" + " 01-02-2019-14:00" + " 01-03-2019-15:00";
 
-    private static final String MESSAGE_NO_CHANGE_MADE = "No changes made to the %1$s set of appointment "
+    public static final String MESSAGE_NO_CHANGE_MADE = "No changes made to the %1$s set of appointment "
             + "as no appointment were made on %2$s";
 
-    private static final String MESSAGE_DELETE_PERSON_APPOINTMENT = "%1$s has deleted appointment!\n";
+    public static final String MESSAGE_DELETE_PERSON_APPOINTMENT = "%1$s has deleted appointment!\n";
 
-    private static final String MESSAGE_FOR_DELETED_APPOINTMENTS = "\nDeleted appointment for: %1$s\n";
+    public static final String MESSAGE_FOR_DELETED_APPOINTMENTS = "\nDeleted appointment for: %1$s\n";
 
-    private static final String MESSAGE_FOR_MISSING_APPOINTMENTS = "Appointment that does not exist: %1$s";
+    public static final String MESSAGE_FOR_MISSING_APPOINTMENTS = "Appointment that does not exist: %1$s";
 
 
     private final Set<Schedule> scheduleSetToDelete;
 
     private final String inputForHistory;
+    private ReadOnlyPerson target;
+    private Person updatedPerson;
 
 
     /**
@@ -58,9 +60,8 @@ public class DeleteAppointment extends Command {
     @Override
     public CommandResult execute() {
         try {
-            saveHistory("(edit-appointment " + checkEditingPersonIndex() + ") " + COMMAND_WORD + " " + inputForHistory);
             this.setTargetIndex(checkEditingPersonIndex());
-            final ReadOnlyPerson target = getTargetPerson();
+            target = getTargetPerson();
             Set<Schedule> scheduleSet = target.getSchedules();
 
             String detailsMessage = getDetailedMessage(scheduleSet, target.getName().toString());
@@ -70,12 +71,13 @@ public class DeleteAppointment extends Command {
                 return new CommandResult(String.format(MESSAGE_NO_CHANGE_MADE, target.getName(), inputForHistory));
             }
 
-            Person updatedPerson = new Person(target);
+            updatedPerson = new Person(target);
             updatedPerson.setSchedule(scheduleSet);
             addressBook.editPerson(target, updatedPerson);
 
             List<ReadOnlyPerson> editablePersonList = this.getEditableLastShownList();
             editablePersonList.set(checkEditingPersonIndex() - DISPLAYED_INDEX_OFFSET, updatedPerson);
+            saveUndoableToHistory("(edit-appointment " + checkEditingPersonIndex() + ") " + COMMAND_WORD + " " + inputForHistory);
             return new CommandResult(String.format(detailsMessage, target.getName()), editablePersonList, editablePersonList, false);
 
         } catch (IndexOutOfBoundsException ie) {
@@ -99,13 +101,10 @@ public class DeleteAppointment extends Command {
         StringBuilder missingAppointments = new StringBuilder();
 
         for(Schedule scheduleDelete : scheduleSetToDelete) {
-            if(initialScheduleSet.contains(scheduleDelete)){
+            if(initialScheduleSet.contains(scheduleDelete))
                 deletedAppointments.append(scheduleDelete.toString());
-                deletedAppointments.append(" ");
-            }else{
+            else
                 missingAppointments.append(scheduleDelete.toString());
-                missingAppointments.append(" ");
-            }
         }
         String detailsMessage = String.format(MESSAGE_DELETE_PERSON_APPOINTMENT, name);
         detailsMessage +=  String.format(MESSAGE_FOR_DELETED_APPOINTMENTS, deletedAppointments);
@@ -114,4 +113,13 @@ public class DeleteAppointment extends Command {
         return detailsMessage;
     }
 
+    @Override
+    public void executeUndo() throws Exception {
+        addressBook.editPerson(updatedPerson, target.getPerson());
+    }
+
+    @Override
+    public void executeRedo() throws Exception {
+        addressBook.editPerson(target, updatedPerson);
+    }
 }
