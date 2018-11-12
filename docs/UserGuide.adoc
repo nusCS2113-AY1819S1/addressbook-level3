@@ -410,7 +410,7 @@ Examples: +
 Displays the menu statistics overview without any parameters or with optional parameters `f/` or `t/` to set date range for calculation of statistics +
 Overview consists of the number of sales for all the menu items in the system. Including menu items that was deleted but still exists in an order. +
 Bestsellers and least popular items are also displayed.
-Format: statsmenu [f/mmddyyyy] [t/mmddyyyy]
+Format: statsmenu [f/MMDDYYY] [t/MMDDYYY]
 
 Examples: +
 

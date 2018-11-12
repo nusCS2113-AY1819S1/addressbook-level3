@@ -28,7 +28,7 @@ public class StatsMenuCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ":\n"
             + "Displays statistics information for menu items.\n"
             + "Select date range from ddmmyyyy to ddmmyyyy with f/ddmmyyyy and t/ddmmyyyy\n\t"
-            + "Format: " + COMMAND_WORD + " [f/ddmmyyyy] [t/ddmmyyyy]\n\t"
+            + "Format: " + COMMAND_WORD + " [f/DDMMYYYY] [t/DDMMYYYY]\n\t"
             + "Example: " + COMMAND_WORD + " f/12122017 t/11112018\n\t"
             + "         " + COMMAND_WORD + " f/01012018";
 
