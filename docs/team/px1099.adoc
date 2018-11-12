@@ -23,7 +23,10 @@ It has five main features:
 
 The interactions of this application with the users are implemented with a Command Line Interface (CLI) which prints out the results based on the command the user type in.
 
-This project is morphed from the https://github.com/se-edu/addressbook-level3[Address Book Level 3] created by https://github.com/se-edu[SE-EDU initiative].
+This project is morphed from the
+https://github.com/se-edu/addressbook-level3[Address Book Level 3]
+created by
+https://github.com/se-edu[SE-EDU initiative].
 
 The application is developed by team F09-2 for the module CS2113T in the National University of Singapore (NUS).
 
