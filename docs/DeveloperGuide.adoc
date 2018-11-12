@@ -49,11 +49,11 @@ image::UIComponentClassDiagram.png[]
 === 3.2 Login Component
 
 image::LoginComponentClassDiagram.png[]
-
+// tag::logiccompo[]
 === 3.3 Logic Component
 
 image::LogicComponentClassDiagram.png[]
-
+// end::logiccompo[]
 == 4. Implementation
 This section describes some noteworthy details on how certain features are implemented.
 // tag::statecontrol[]

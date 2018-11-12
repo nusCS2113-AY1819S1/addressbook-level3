@@ -89,22 +89,22 @@ Returns Any person having names `Betsy`, `Tim`, or `John`.
 === 4.6 Adding a person: `add`
 
 Adds a person to MediBook. +
-Format: `add NAME n/NRIC [p]p/PHONE_NUMBER [p]e/EMAIL [p]a/ADDRESS [p]s/TITLE [d/DD-MM-YYYY-HH:MM]... [t/TAG]...`
+Format: `add NAME n/NRIC [p]p/PHONE_NUMBER [p]e/EMAIL [p]a/ADDRESS s/TITLE [d/DD-MM-YYYY-HH:MM]... [t/TAG]...`
 
 [NOTE]
 ====
-TITLE is used to differentiate Doctor and Patient.
+TITLE is used to differentiate a doctor and a patient. Putting `Doctor` in this field will create a doctor while `Patient` will create a patient.
 
 DD-MM-YYYY-HH:MM is used to record appointment dates and their starting time.
 
-TAG is used to tag medical conditions and other important information
+TAG is used to tag medical conditions and other important information.
 ====
 
 ****
 Words in `UPPER_CASE` are the parameters, items in `SQUARE_BRACKETS` are optional,
 items with `...` after them can have multiple instances. Order of parameters are fixed.
 
-Put a `p` before the phone / email / address / title prefixes to mark it as `private`. `private` details can only
+Put a `p` before the phone / email / address prefixes to mark it as `private`. `private` details can only
 be seen using the `viewall` command.
 
 Persons can have any number of appointment dates and tags (including 0)
@@ -261,7 +261,7 @@ Examples:
 
 Exits the edit-appointment session. +
 Format: `done`
-
+// tag::associate[]
 === 4.11 Create an associate between a doctor and a patient: `link`
 
 Create an association between person specified at INDEX1 and the person specified at INDEX2  +
@@ -285,10 +285,27 @@ Examples:
 Associate the 1st person with the 2nd person in MediBook.
 
 === 4.12 Unlink
+Removes association between person specified at INDEX1 and the person specified at INDEX2  +
+Format: `link INDEX1 INDEX2`
+
+****
+The index refers to the index number shown in the most recent listing. If there are no association between the two, user will see an message stating that instead.
+****
+
+[NOTE]
+====
+Similar to viewall, view and delete, it requires list or find command to be called at least once in the session for an index reference to edit-appointment.
+====
+
+Examples:
+
+* `list` +
+`unlink 1 2` +
+Removes association between the 1st person with the 2nd person in MediBook.
 
 === 4.13 Listing all persons associated: `associatelist`
 
-Shows a list of all persons associated with the specified person  +
+Shows a list of persons associated with the specified person  +
 Format: `associatelist INDEX`
 
 ****
@@ -305,26 +322,54 @@ Examples:
 
 * `list` +
 `associatelist 2` +
-Views all persons associated with the 2nd person in MediBook.
+Views the persons associated with the 2nd person in MediBook.
+// end::associate[]
 
 === 4.14 Change Password
 
-=== 4.15 Undo/Redo : `undo` , `redo`
+// tag::statecontrol[]
+=== 4.15 Undo: `undo`
 
-`Undo` reverts the last command made. `Redo` reverts specifically the last undo command made when applicable. +
+`Undo` reverts the last command made. +
 Format: `undo` +
-Format: `redo`
 
 ****
 Commands are undo-able if they make changes to the data and are made within the browsing session.
-Commands are redo-able if undo are made without other commands called.
+This command is especially useful when an erroneous command, such as delete, is made which causes change to the data.
+****
+
+Examples:
+
+* `list` +
+`delete 2` +
+Deletes the 2nd person in MediBook. +
+`undo` +
+Undo the deletion of the deleted person. +
+
+* `find Betsy` +
+`delete 1` +
+Deletes the 1st person in the results of the `find` command. +
+`undo` +
+Undo the deletion of the deleted person. +
+
+
+[NOTE]
+====
+Calling undo when no changes are made to MediBook's data will result in an error message saying "No commands to undo" instead.
+====
+
+=== 4.16 Redo: `redo`
+`Redo` reverts the last undo command made when applicable. +
+Format: `redo`
+
+****
+Redo can be called after a undo command.
 This two commands are especially useful when an erroneous command, such as delete, is made which causes change to the data.
 ****
 
 [NOTE]
 ====
-Redo commands are only available after undo command(s) are made.
-However, once a change is made after an undo, a redo to previous changes that are undone is no longer possible.
+Once a change is made after an undo, a redo to previous changes that are undone is no longer possible. In this case an error message saying "No commands to redo" will be shown.
 ====
 
 Examples:
@@ -345,26 +390,17 @@ Undo the deletion of the deleted person. +
 `redo` +
 Redo the deletion of 1st person in the results of the `find` command.
 
-
 [NOTE]
 ====
-Undo/Redo command currently is only implemented for `add`/`delete`/`clear`/`link` as other commands that make changes to the data might be incomplete
+Calling redo when no undo was done will result in an error message saying "No commands to redo" instead.
 ====
-
-=== 4.16 Redo
 
 === 4.17 Listing all executed commands : `history`
 
 Shows a list of all executed commands in the current session. +
 Format: `history`
 
-
-[NOTE]
-====
-As some commands are incomplete, they might not be be reflected in `history` even though they are executed.
-If you encounter this, please feel free to let us know. Thank you!
-====
-
+// end::statecontrol[]
 === 4.18 Exiting the program : `exit`
 
 Exits the program. +
@@ -397,7 +433,7 @@ However, the history of commands made are only available within the browsing ses
 ** `delete` : Delete the appointment dates
 ** `done` : Exit the edit-appointment session
 * `link` : Create an associate between a doctor and a patient
-* `unlink`
+* `unlink` : Remove association between the two targets
 * `associatelist` : List all persons associated
 * `change password`
 * `undo` : Undo a change made previously
