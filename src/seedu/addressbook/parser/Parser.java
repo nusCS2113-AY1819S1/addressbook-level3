@@ -64,8 +64,10 @@ public class Parser {
     public static final Pattern KEYWORDS_ARGS_FORMAT =
             Pattern.compile("(?<keywords>\\S+(?:\\s+\\S+)*)"); // one or more keywords separated by whitespace
 
+    //@@author SalsabilTasnia
     public static final Pattern ITEMWORD_ARGS_FORMAT = Pattern.compile("(?<type>[^/]+)"); //one keyword only
 
+    //@@author kianhong95
     // '/' forward slashes are reserved for delimiter prefixes
     public static final Pattern EMPLOYEE_DATA_ARGS_FORMAT =
             Pattern.compile("(?<name>[^/]+)"
@@ -90,11 +92,13 @@ public class Parser {
     public static final Pattern CLOCK_IN_DATA_ARGS_FORMAT =
             Pattern.compile("(?<name>[^/]+)");
 
+    //@@author kangmingtay
     public static final Pattern MEMBER_DATA_ARGS_FORMAT =
             Pattern.compile("(?<name>[^/]+)"
                     + "e/(?<email>[^/]+)"
             ); // variable number of tags
 
+    //@@author SalsabilTasnia
     // '/' forward slashes are reserved for delimiter prefixes
     public static final Pattern MENU_DATA_ARGS_FORMAT =
             Pattern.compile("(?<name>[^/]+)"
@@ -102,11 +106,14 @@ public class Parser {
                     + "type/(?<type>[^/]+)"
                     + "(?<tagArguments>(?: t/[^/]+)*)"); // variable number of tags
 
+    //@@author px1099
     public static final Pattern DRAFT_DISH_ARGS_FORMAT =
             Pattern.compile("\\d+\\s+q/\\d{1,3}(?:\\s+\\d+\\s+q/\\d{1,3})*");
 
+    //@@author kangmingtay
     public static final Pattern REDEEM_POINTS_ARGS_FORMAT = Pattern.compile("(?<points>[^/]+)");
 
+    //@@author AngWM
     public static final String STATSMENU_DATE_ARGS_FORMAT_PATTERN_COMPILE_STRING =
             "(f/(?<dateFrom>(0[1-9]|[12]\\d|3[01])(0[1-9]|1[0-2])[12]\\d{3}))?"
             + " ?(t/(?<dateTo>(0[1-9]|[12]\\d|3[01])(0[1-9]|1[0-2])[12]\\d{3}))?"; // variable number of tags
@@ -114,6 +121,7 @@ public class Parser {
     public static final Pattern STATSMENU_DATE_ARGS_FORMAT =
             Pattern.compile(STATSMENU_DATE_ARGS_FORMAT_PATTERN_COMPILE_STRING);
 
+    //@@author
     /**
      * Signals that the user input could not be parsed.
      */
@@ -166,7 +174,6 @@ public class Parser {
         case MemberDeleteCommand.COMMAND_WORD:
             return prepareMemberDelete(arguments);
 
-        //@@author SalsabilTasnia
         case MenuAddCommand.COMMAND_WORD:
             return prepareAddMenu(arguments);
 
@@ -191,7 +198,6 @@ public class Parser {
         case MenuClearCommand.COMMAND_WORD:
             return new MenuClearCommand();
 
-        //@@author
         case OrderAddCommand.COMMAND_WORD:
             return new OrderAddCommand();
 
@@ -244,12 +250,12 @@ public class Parser {
         }
     }
 
+    //@@author kangmingtay
     /**
      * Parses arguments in the context of the add member command.
      * @param args full command args string
      * @return the prepared command
      */
-
     private Command prepareAddMember(String args) {
         final Matcher matcher = MEMBER_DATA_ARGS_FORMAT.matcher(args.trim());
         // Validate arg string format
@@ -291,7 +297,7 @@ public class Parser {
         }
     }
 
-    //@@author
+    //@@author kianhong95
     /**
      * Parses arguments in the context of the add employee command.
      *
@@ -370,6 +376,7 @@ public class Parser {
         }
     }
 
+    //@@author kangmingtay
     /**
      * Parses arguments in the context of the delete member command.
      * @param args full command args string
@@ -386,6 +393,7 @@ public class Parser {
         }
     }
 
+    //@@author kianhong95
     /**
      * Parses arguments in the context of the edit employee command.
      *
@@ -423,6 +431,7 @@ public class Parser {
         }
     }
 
+    //@@author
     /**
      * Extracts the new menu's tags from the add command's tag arguments string.
      * Merges duplicate tag strings.
@@ -453,7 +462,7 @@ public class Parser {
         }
     }
 
-    //@@author
+    //@@author px1099
     /**
      * Parses arguments in the context of the delete order command.
      *
@@ -469,7 +478,6 @@ public class Parser {
                     OrderDeleteCommand.MESSAGE_USAGE));
         }
     }
-
 
     //@@author SalsabilTasnia
     /**
@@ -491,7 +499,7 @@ public class Parser {
         return new MenuFindCommand(keywordSet);
     }
 
-    //@@author
+    //@@author px1099
     /**
      * Parses arguments in the context of the edit draft order customer command.
      *
@@ -508,6 +516,7 @@ public class Parser {
         }
     }
 
+    //@@author px1099
     /**
      * Parses arguments in the context of the edit draft order dish command.
      *
@@ -550,6 +559,7 @@ public class Parser {
         }
     }
 
+    //@@author kangmingtay
     /**
      *  Parses arguments in the context of the edit draft points command.
      */
@@ -568,6 +578,7 @@ public class Parser {
         }
     }
 
+    //@@author
     /**
      * Parses the given arguments string as a single index number.
      *
@@ -584,6 +595,7 @@ public class Parser {
         return Integer.parseInt(matcher.group("targetIndex"));
     }
 
+    //@@author AngWM
     /**
      * Parses arguments in the context of the stats menu command.
      *
@@ -619,4 +631,5 @@ public class Parser {
         return new MenuListByTypeCommand(matcher.group("type"));
     }
 
+    //@@author
 }

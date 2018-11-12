@@ -44,6 +44,7 @@ public class MainWindow {
         this.mainApp = mainApp;
     }
 
+    //@@author px1099
     /**
      * Handle the text interface command line
      * Exit the program if the exit command is given
@@ -65,6 +66,7 @@ public class MainWindow {
         }
     }
 
+    //@@author
     private void exitApp() throws Exception {
         mainApp.stop();
     }
@@ -84,6 +86,7 @@ public class MainWindow {
         outputConsole.clear();
     }
 
+    //@@author px1099
     /** Displays the result of a command execution to the user. */
     public void displayResult(String input, CommandResult result) {
         clearOutputConsole();
@@ -103,6 +106,7 @@ public class MainWindow {
         display(String.format(Messages.MESSAGE_ENTERED_COMMAND_FORMAT, input), result.feedbackToUser);
     }
 
+    //@@author
     /**
      * Display the welcome message with the version information and the storage file path
      */
@@ -118,6 +122,7 @@ public class MainWindow {
         outputConsole.setText(outputConsole.getText() + new Formatter().format(messages));
     }
 
+    //@@author kangmingtay
     /**
      * Displays the list of members in the output display area, formatted as an indexed list.
      * Private contact details are hidden.
@@ -126,6 +131,7 @@ public class MainWindow {
         display(new Formatter().formatMemberResult(members));
     }
 
+    //@@author px1099
     /**
      * Displays the list of orders in the output display area, formatted as an indexed list.
      * Private contact details are hidden.
@@ -134,6 +140,7 @@ public class MainWindow {
         display(new Formatter().formatOrderResult(orders));
     }
 
+    //@@author SalsabilTasnia
     /**
      * Displays the menu list in the output display area, formatted as an indexed list.
      */
@@ -141,6 +148,7 @@ public class MainWindow {
         display(new Formatter().formatMenuResult(menus));
     }
 
+    //@@author kianhong95
     /**
      * Displays the employee list in the output display area, formatted as an indexed list.
      */
@@ -148,5 +156,5 @@ public class MainWindow {
         display(new Formatter().formatEmployeeResult(employees));
     }
 
-
+    //@@author
 }

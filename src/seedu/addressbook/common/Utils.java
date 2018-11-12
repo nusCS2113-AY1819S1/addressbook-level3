@@ -28,6 +28,7 @@ public class Utils {
         return false;
     }
 
+    //@@author kianhong95
     /**
      * Returns true if {@code items} contain any elements that are non-null.
      */
@@ -35,6 +36,7 @@ public class Utils {
         return items != null && Arrays.stream(items).anyMatch(Objects::nonNull);
     }
 
+    //@@author
     /**
      * Checks if every element in a collection are unique by {@link Object#equals(Object)}.
      */
@@ -49,6 +51,7 @@ public class Utils {
         return true;
     }
 
+    //@@author AngWM
     /**
      * Sort a map by the values
      */
@@ -67,6 +70,7 @@ public class Utils {
         return df.format(input);
     }
 
+    //@@author px1099
     /**
      * Create blank space to position the next String at an exact distance compared to the start of the prefix String.
      * @param prefix the String after which the blank space is inserted.
@@ -90,4 +94,5 @@ public class Utils {
         return blankSpace("", distance);
     }
 
+    //@@author
 }

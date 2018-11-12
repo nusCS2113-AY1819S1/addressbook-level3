@@ -16,11 +16,17 @@ import seedu.addressbook.data.order.ReadOnlyOrder;
  */
 public abstract class Command {
 
+    //@@author AngWM
     protected Rms rms;
+    //@@author SalsabilTasnia
     protected List<? extends ReadOnlyMenus> relevantMenus;
+    //@@author kangmingtay
     protected List<? extends ReadOnlyMember> relevantMembers;
+    //@@author px1099
     protected List<? extends ReadOnlyOrder> relevantOrders;
+    //@@author kianhong95
     protected List<? extends ReadOnlyEmployee> relevantEmployees;
+    //@@author
 
     private int targetIndex = -1;
 
@@ -34,6 +40,7 @@ public abstract class Command {
     protected Command() {
     }
 
+    //@@author kianhong95
     /**
      * Constructs a feedback message to summarise an operation that displayed a listing of employees.
      *
@@ -47,6 +54,7 @@ public abstract class Command {
         return String.format(Messages.MESSAGE_EMPLOYEES_LISTED_OVERVIEW, employeesDisplayed.size());
     }
 
+    //@@author SalsabilTasnia
     /**
      * Constructs a feedback message to summarise an operation that displayed a listing of menu.
      *
@@ -57,6 +65,7 @@ public abstract class Command {
         return String.format(Messages.MESSAGE_MENUS_LISTED_OVERVIEW, menusDisplayed.size());
     }
 
+    //@@author kangmingtay
     /**
      * Constructs a feedback message to summarise an operation that displayed a listing of members.
      *
@@ -67,6 +76,7 @@ public abstract class Command {
         return String.format(Messages.MESSAGE_MEMBERS_LISTED_OVERVIEW, membersDisplayed.size());
     }
 
+    //@@author px1099
     /**
      * Constructs a feedback message to summarise an operation that displayed a listing of orders.
      *
@@ -83,10 +93,11 @@ public abstract class Command {
      * @return draft order details
      */
     protected String getDraftOrderAsString() {
-        final ReadOnlyOrder draftOrder = rms.getDraftOrder();
-        return Messages.MESSAGE_DRAFT_ORDER_DETAILS + "\n" + draftOrder.getDraftDetailsAsText();
+        final String draftOrder = rms.getDraftOrderAsText();
+        return String.format(Messages.MESSAGE_DRAFT_ORDER_DETAILS, draftOrder);
     }
 
+    //@@ author
     /**
      * Executes the command and returns the result.
      */
@@ -95,6 +106,7 @@ public abstract class Command {
     //Note: it is better to make the execute() method abstract, by replacing the above method with the line below:
     //public abstract CommandResult execute();
 
+    //@@author AngWM
     /**
      * Supplies the data the command will operate on.
      */
@@ -110,6 +122,7 @@ public abstract class Command {
         this.relevantEmployees = relevantEmployees;
     }
 
+    //@@author SalsabilTasnia
     /**
      * Extracts the the target menu item in the last shown menu list from the given arguments.
      *
@@ -119,6 +132,7 @@ public abstract class Command {
         return relevantMenus.get(getTargetIndex() - DISPLAYED_INDEX_OFFSET);
     }
 
+    //@@author kangmingtay
     /**
      * Extracts the the target member in the last shown list from the given arguments.
      *
@@ -128,6 +142,7 @@ public abstract class Command {
         return relevantMembers.get(getTargetIndex() - DISPLAYED_INDEX_OFFSET);
     }
 
+    //@@author px1099
     /**
      * Extracts the the target order in the last shown order list from the given arguments.
      *
@@ -137,8 +152,9 @@ public abstract class Command {
         return relevantOrders.get(getTargetIndex() - DISPLAYED_INDEX_OFFSET);
     }
 
+    //@@author kianhong95
     /**
-     * Extracts the target order in the last shown employee list from the given arguments.
+     * Extracts the target employee in the last shown employee list from the given arguments.
      *
      * @throws IndexOutOfBoundsException if the target index is out of bounds of the last viewed listing
      */
@@ -146,6 +162,7 @@ public abstract class Command {
         return relevantEmployees.get(getTargetIndex() - DISPLAYED_INDEX_OFFSET);
     }
 
+    //@@author
     public int getTargetIndex() {
         return targetIndex;
     }
