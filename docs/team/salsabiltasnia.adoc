@@ -24,7 +24,7 @@ RMS was created using Java and has a user interface that uses CLI. The project c
 == Summary of contributions
 
 |===
-|_This sections provides a summary of the various contributions I have made to the RMS project. These contributions include Major enhancement, Code contributions and Other contributions. _
+|_This sections provides a summary of the various contributions I have made to the RMS project. These contributions include Major enhancement, Code contributions and Other contributions._
 |===
 
 * *Major Enhancement*: Added the *Menu Feature*
