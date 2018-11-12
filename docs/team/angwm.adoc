@@ -4,6 +4,7 @@
 :stylesDir: ../stylesheets
 
 == PROJECT: Restaurant Management System
+image::homepage.png[]
 
 == Overview
 
@@ -20,6 +21,8 @@ Restaurant Management System (RMS) is a CLI^*^ based desktop application that ca
 _* Command Line Interface. Refers to an user interface where an end user enters commands into the application by typing instead of clicking._
 
 === Features
+
+image::Ui.png[]
 
 ==== Employee feature
 
