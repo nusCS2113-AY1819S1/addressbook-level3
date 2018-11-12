@@ -3,7 +3,7 @@
 :imagesDir: ../images
 :stylesDir: ../stylesheets
 
-== PROJECT: AddressBook - Level 3
+== PROJECT: MediBook
 
 ---
 
@@ -21,30 +21,22 @@ MediBook is an alternative to the primitive pen and paper management system for 
 * *Major enhancement*: added *the ability to associate a patient with a doctor and vice versa*
 ** What it does: allows the user to associate two person of different title (patient or doctor) in the MediBook. Once associated, the user can list all the people associate to a person.
 ** Justification: This feature improves the product significantly because it allows the user to create connections between a patient and a doctor and thus, allows the staff to know the doctors whom are in charge of a particular patient and the patients whom a particular doctor is in charge of.
-** Highlights: This enhancement requires an in-depth understanding of how each existing command works as well as commands that will be added in the future. This makes the implementation challenging as modifications have to be made on existing commands and any new commands that will be added in.
 
 
-* *Minor enhancement*: added a history command that allows the user to navigate to previous commands using up/down keys.
+* *Minor enhancement*: added a history command that allows the user to view a list of commands that were executed previously.
 
-* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
+* *Code contributed*: [https://nuscs2113-ay1819s1.github.io/dashboard/#=undefined&search=nichpang1[Code]]
 
 * *Other contributions*:
 
 ** Project management:
-*** Managed releases `v1.3` - `v1.5rc` (3 releases) on GitHub
+*** Managed releases `v1.1` - `v1.4` (4 releases) on GitHub
 ** Enhancements to existing features:
-*** Updated the GUI color scheme (Pull requests https://github.com[#33], https://github.com[#34])
-*** Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests https://github.com[#36], https://github.com[#38])
+*** Wrote additional tests for existing features to increase coverage
 ** Documentation:
-*** Did cosmetic tweaks to existing contents of the User Guide: https://github.com[#14]
-** Community:
-*** PRs reviewed (with non-trivial review comments): https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
-*** Contributed to forum discussions (examples:  https://github.com[1], https://github.com[2], https://github.com[3], https://github.com[4])
-*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
-*** Some parts of the history feature I added was adopted by several other class mates (https://github.com[1], https://github.com[2])
+*** Did some tweaks to organise existing contents of the Readme
 ** Tools:
-*** Integrated a third party library (Natty) to the project (https://github.com[#42])
-*** Integrated a new Github plugin (CircleCI) to the team repo
+*** Integrated travis-ci and auto-publishing
 
 _{you can add/remove categories in the list above}_
 
@@ -72,8 +64,8 @@ include::../DeveloperGuide.adoc[tag=statecontrol]
 include::../DeveloperGuide.adoc[tag=associate]
 
 
-== PROJECT: PowerPointLabs
+== Other Projects:
 
 ---
 
-_{Optionally, you may include other projects in your portfolio.}_
+* “Running game v1.0” for the independent summer project module (CP2106). Link to the app store can be found [https://play.google.com/store/apps/details?id=com.NaCl[here]].
