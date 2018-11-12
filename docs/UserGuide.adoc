@@ -22,7 +22,7 @@ The Restaurant Management System (RMS) provides restaurants with a more efficien
 
 == Quick Start
 .  Ensure you have Java version `9` or later installed in your Computer.
-.  Download the latest `Rms.jar` here
+.  Download the latest `Rms.jar` https://github.com/CS2113-AY1819S1-F09-2/main/releases[here]
 .  Copy the file to the folder you want to use as the home folder for your Restaurant Management System.
 .  Double-click the file to start the application. The GUI should appear in a few seconds.
 +
