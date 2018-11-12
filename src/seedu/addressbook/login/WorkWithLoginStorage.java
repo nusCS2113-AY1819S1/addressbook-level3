@@ -3,10 +3,6 @@ package seedu.addressbook.login;
 import java.io.*;
 import java.util.Scanner;
 
-import seedu.addressbook.Main;
-import seedu.addressbook.login.hashing;
-import seedu.addressbook.login.Credentials;
-
 public class WorkWithLoginStorage {
     private static File logins = new File("loginstorage.txt");
     private static Scanner sc;
@@ -46,8 +42,7 @@ public class WorkWithLoginStorage {
             pw.print("\n" + username.getUsername() + " " + hashing.hashIt(username.getPassword()) + " " + username.getAccessLevel());
             pw.close();
         } catch (IOException e){
-            System.out.println("cannot create file");
-            return false;
+            e.printStackTrace();
         }
         return true;
     }
@@ -59,9 +54,7 @@ public class WorkWithLoginStorage {
             openScanner();
             while(sc.hasNext()){
                 USERNAME = sc.next();
-                System.out.println(USERNAME);
                 if(matchUsername(username.getUsername())){
-                    System.out.println("matches");
                     sc.nextLine();
                 }else{
                     pw.print(USERNAME + sc.nextLine());
@@ -75,7 +68,7 @@ public class WorkWithLoginStorage {
             file1.renameTo(logins);
             return true;
         }catch (IOException e){
-            System.out.println("cannot create file");
+            e.printStackTrace();
             return false;
         }
     }
@@ -97,7 +90,6 @@ public class WorkWithLoginStorage {
 
     private static void retrieveStoredHash() {
         PASSWORD = sc.next();
-        System.out.println("PASSWORD IS "+ PASSWORD);
     }
 
     public static int retrieveAccessLevel(String username){
