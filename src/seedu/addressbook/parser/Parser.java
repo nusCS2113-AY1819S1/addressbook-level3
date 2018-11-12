@@ -54,6 +54,11 @@ import seedu.addressbook.data.exception.IllegalValueException;
  */
 public class Parser {
 
+    /**
+     * Used for initial separation of command word and args.
+     */
+    public static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
+
     public static final Pattern INDEX_ARGS_FORMAT = Pattern.compile("(?<targetIndex>.+)");
 
     public static final Pattern KEYWORDS_ARGS_FORMAT =
@@ -103,8 +108,8 @@ public class Parser {
     public static final Pattern REDEEM_POINTS_ARGS_FORMAT = Pattern.compile("(?<points>[^/]+)");
 
     public static final String STATSMENU_DATE_ARGS_FORMAT_PATTERN_COMPILE_STRING =
-            "(f\\/(?<dateFrom>(0[1-9]|[12]\\d|3[01])(0[1-9]|1[0-2])[12]\\d{3}))?"
-            + " ?(t\\/(?<dateTo>(0[1-9]|[12]\\d|3[01])(0[1-9]|1[0-2])[12]\\d{3}))?"; // variable number of tags
+            "(f/(?<dateFrom>(0[1-9]|[12]\\d|3[01])(0[1-9]|1[0-2])[12]\\d{3}))?"
+            + " ?(t/(?<dateTo>(0[1-9]|[12]\\d|3[01])(0[1-9]|1[0-2])[12]\\d{3}))?"; // variable number of tags
 
     public static final Pattern STATSMENU_DATE_ARGS_FORMAT =
             Pattern.compile(STATSMENU_DATE_ARGS_FORMAT_PATTERN_COMPILE_STRING);
@@ -117,11 +122,6 @@ public class Parser {
             super(message);
         }
     }
-
-    /**
-     * Used for initial separation of command word and args.
-     */
-    public static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
 
     /**
      * Parses user input into command for execution.
@@ -282,11 +282,8 @@ public class Parser {
         try {
             return new MenuAddCommand(
                     matcher.group("name"),
-
                     matcher.group("price"),
-                    //isPrivatePrefixPresent(matcher.group("isPricePrivate")),
                     matcher.group("type"),
-
                     getTagsFromArgs(matcher.group("tagArguments"))
             );
         } catch (IllegalValueException ive) {
@@ -427,17 +424,10 @@ public class Parser {
     }
 
     /**
-     * Checks whether the private prefix of a contact detail in the add command's arguments string is present.
-     */
-    private static boolean isPrivatePrefixPresent(String matchedPrefix) {
-        return matchedPrefix.equals("p");
-    }
-
-    /**
      * Extracts the new menu's tags from the add command's tag arguments string.
      * Merges duplicate tag strings.
      */
-    private static Set<String> getTagsFromArgs(String tagArguments) throws IllegalValueException {
+    private static Set<String> getTagsFromArgs(String tagArguments) {
         // no tags
         if (tagArguments.isEmpty()) {
             return Collections.emptySet();

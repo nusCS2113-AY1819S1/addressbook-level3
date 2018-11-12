@@ -1,9 +1,7 @@
 package seedu.addressbook.commands.menu;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import seedu.addressbook.commands.Command;
 import seedu.addressbook.commands.CommandResult;
@@ -28,8 +26,6 @@ public class MenuListByTypeCommand extends Command {
 
     private final String itemword;
     private final List<ReadOnlyMenus> matchedFoodItems = new ArrayList<>();
-    private final Set<String> typeSet = new HashSet<>();
-
     public MenuListByTypeCommand(String itemword) {
         this.itemword = itemword;
     }
@@ -46,9 +42,8 @@ public class MenuListByTypeCommand extends Command {
      */
     private List<ReadOnlyMenus> getFoodItems(String itemType) {
         for (ReadOnlyMenus menuItem : rms.getAllMenus()) {
-            final String wordsInItemName = menuItem.getType().getValue();
-            typeSet.add(wordsInItemName);
-            if (wordsInItemName.equals(itemType)) {
+            final String wordsInItemName = menuItem.getType().value;
+            if (wordsInItemName.equals(itemword)) {
                 matchedFoodItems.add(menuItem);
             }
         }
@@ -58,7 +53,7 @@ public class MenuListByTypeCommand extends Command {
     @Override
     public CommandResult execute() {
         final List<ReadOnlyMenus> itemsFound = getFoodItems(itemword);
-        if (Type.isValidTypeName(itemword) == false) {
+        if (!Type.isValidTypeName(itemword)) {
             return new MenuCommandResult(MESSAGE_ERROR);
         }
 

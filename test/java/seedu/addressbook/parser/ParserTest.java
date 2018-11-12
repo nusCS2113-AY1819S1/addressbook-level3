@@ -338,9 +338,9 @@ public class ParserTest {
             "addmenu ",
             "addmenu wrong args format",
             // no price prefix
-            String.format("addmenu $s $s type/$s", MenuName.EXAMPLE, Price.EXAMPLE, Type.EXAMPLE),
+            String.format("addmenu %1$s %2$s type/%3$s", MenuName.EXAMPLE, Price.EXAMPLE, Type.EXAMPLE),
             // no type prefix
-            String.format("addmenu $s p/$s $s", MenuName.EXAMPLE, Price.EXAMPLE, Type.EXAMPLE)
+            String.format("addmenu %1$s p/%2$s %3$s", MenuName.EXAMPLE, Price.EXAMPLE, Type.EXAMPLE)
         };
         final String resultMessage = String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT,
                 MenuAddCommand.MESSAGE_USAGE);
@@ -357,15 +357,15 @@ public class ParserTest {
         final String validTypeArg = "type/" + Type.EXAMPLE;
         final String invalidTagArg = "t/invalid_-[.tag";
 
-        final String addMenuCommandFormatString = "addmenu $s $s $s";
+        final String addMenuCommandFormatString = "addmenu %1$s %2$s %3$s";
 
         // test each incorrect person data field argument individually
         final String[] inputs = {
              // invalid menu name
              String.format(addMenuCommandFormatString, invalidMenuName, validPriceArg, validTypeArg),
-             // invalid pricee
+             // invalid price
              String.format(addMenuCommandFormatString, validMenuName, invalidPriceArg, validTypeArg),
-             // invalid typa
+             // invalid type
              String.format(addMenuCommandFormatString, validMenuName, validPriceArg, invalidTypeArg),
              // invalid tag
              String.format(addMenuCommandFormatString, validMenuName, validPriceArg, validTypeArg) + " " + invalidTagArg
@@ -389,14 +389,15 @@ public class ParserTest {
     }
 
     @Test
-    public void menuAddCommand_duplicateTags_merged() throws IllegalValueException {
+    public void menuAddCommand_duplicateTags_merged() {
         final Menu testMenu = generateTestMenu();
-        String input = convertMenuToAddCommandString(testMenu);
+        StringBuilder sb = new StringBuilder();
+        sb.append(convertMenuToAddCommandString(testMenu));
         for (Tag tag : testMenu.getTags()) {
             // create duplicates by doubling each tag
-            input += " t/" + tag.tagName;
+            sb.append(" t/").append(tag.tagName);
         }
-
+        String input = sb.toString();
         final MenuAddCommand result = parseAndAssertCommandType(input, MenuAddCommand.class);
         assertEquals(result.getMenu(), testMenu);
     }
@@ -421,14 +422,14 @@ public class ParserTest {
      * Return the command line used to add the given Menu item to the menu list
      */
     private static String convertMenuToAddCommandString(ReadOnlyMenus menu) {
-        String addmenuCommand = "addmenu "
-                + menu.getName().fullName
-                + " p/" + menu.getPrice().value
-                + " type/" + menu.getType().value;
+        StringBuilder sb = new StringBuilder();
+        sb.append("addmenu ").append(menu.getName().fullName)
+                .append(" p/").append(menu.getPrice().value)
+                .append(" type/").append(menu.getType().value);
         for (Tag tag : menu.getTags()) {
-            addmenuCommand += " t/" + tag.tagName;
+            sb.append(" t/").append(tag.tagName);
         }
-        return addmenuCommand;
+        return sb.toString();
     }
 
     //@@author
@@ -439,10 +440,9 @@ public class ParserTest {
     @Test
     public void memberAddCommand_invalidMemberDataInArgs() {
         final String invalidName = "[]\\[;]";
-        final String validName = MemberName.EXAMPLE;
 
         // address can be any string, so no invalid address
-        final String memberAddCommandFormatString = "addmember p/";
+        final String memberAddCommandFormatString = "addmember p/%1$s";
 
         // test each incorrect person data field argument individually
         // add subsequent tests below when more fields are added...

@@ -43,7 +43,7 @@ public class UtilsTest {
     }
 
     @Test
-    public void elementsAreUnique() throws Exception {
+    public void elementsAreUnique() {
         // empty list
         assertAreUnique();
 
@@ -68,7 +68,7 @@ public class UtilsTest {
     }
 
     @Test
-    public void sortByValue() throws Exception {
+    public void sortByValue() {
         Map<String, Integer> input = new HashMap<>();
         input.put("3", 5);
         input.put("6", 12);
@@ -91,7 +91,7 @@ public class UtilsTest {
     }
 
     @Test
-    public void formatCurrency() throws Exception {
+    public void formatCurrency() {
         double input = 9999.2;
         String expected = "9999.20";
         assertEquals(expected, Utils.formatCurrency((input)));

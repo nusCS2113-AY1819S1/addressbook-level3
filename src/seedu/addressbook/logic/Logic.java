@@ -60,11 +60,11 @@ public class Logic {
         setRms(rms);
     }
 
-    void setStorage(StorageFile storage) {
+    public void setStorage(StorageFile storage) {
         this.storage = storage;
     }
 
-    void setRms(Rms rms) {
+    public void setRms(Rms rms) {
         this.rms = rms;
     }
 
@@ -178,14 +178,11 @@ public class Logic {
         final Optional<List<? extends ReadOnlyEmployee>> employeeList = result.getRelevantEmployee();
         if (menuList.isPresent()) {
             lastShownMenuList = menuList.get();
-        }
-        if (orderList.isPresent()) {
+        } else if (orderList.isPresent()) {
             lastShownOrderList = orderList.get();
-        }
-        if (memberList.isPresent()) {
+        } else if (memberList.isPresent()) {
             lastShownMemberList = memberList.get();
-        }
-        if (employeeList.isPresent()) {
+        } else if (employeeList.isPresent()) {
             lastShownEmployeeList = employeeList.get();
         }
     }

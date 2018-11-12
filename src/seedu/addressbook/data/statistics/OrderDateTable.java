@@ -26,7 +26,7 @@ public class OrderDateTable {
     public void addData(ReadOnlyOrder order) {
         calendar.setTime(order.getDate());
         if (!yearMap.containsKey(calendar.get(Calendar.YEAR))) {
-            YearOrder newYear = new YearOrder(calendar.get(Calendar.YEAR));
+            YearOrder newYear = new YearOrder();
             yearMap.put(calendar.get(Calendar.YEAR), newYear.addData(order));
         } else {
             yearMap.put(calendar.get(Calendar.YEAR), yearMap.get(calendar.get(Calendar.YEAR)).addData(order));
@@ -100,20 +100,18 @@ public class OrderDateTable {
  * Represents an year in the yearMap
  */
 class YearOrder {
-    private int yearNo;
     private int count;
     private Double totalRevenue;
     private Map<Integer, MonthOrder> monthMap;
     private Calendar calendar;
 
-    public YearOrder(int yearNo) {
+    public YearOrder() {
         this.calendar = new GregorianCalendar();
-        this.yearNo = yearNo;
         this.count = 0;
         this.totalRevenue = 0.0;
         this.monthMap = new HashMap<>();
         for (int i = 0; i < 12; i++) {
-            getMonthMap().put(i, new MonthOrder(i));
+            getMonthMap().put(i, new MonthOrder());
         }
     }
 
@@ -145,20 +143,18 @@ class YearOrder {
  * Represents a month in the monthMap
  */
 class MonthOrder {
-    private int monthNo;
     private int count;
     private Double totalRevenue;
     private Map<Integer, DayOrder> dayMap;
     private Calendar calendar;
 
-    public MonthOrder(int monthNo) {
+    public MonthOrder() {
         this.calendar = new GregorianCalendar();
-        this.monthNo = monthNo;
         this.count = 0;
         this.totalRevenue = 0.0;
         this.dayMap = new HashMap<>();
         for (int i = 1; i <= 31; i++) {
-            getDayMap().put(i, new DayOrder(i));
+            getDayMap().put(i, new DayOrder());
         }
     }
 
@@ -190,12 +186,10 @@ class MonthOrder {
  * Represents a day in the dayMap
  */
 class DayOrder {
-    private int dayNo;
     private int count;
     private Double totalRevenue;
 
-    public DayOrder(int dayNo) {
-        this.dayNo = dayNo;
+    public DayOrder() {
         this.count = 0;
         this.totalRevenue = 0.0;
     }

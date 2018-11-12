@@ -18,7 +18,7 @@ public class EmployeeAddress {
      * Empty constructor
      */
     public EmployeeAddress() {
-        this.value = new String();
+        this.value = "";
     }
 
     /**
@@ -27,11 +27,11 @@ public class EmployeeAddress {
      * @throws IllegalValueException if given address string is invalid.
      */
     public EmployeeAddress(String address) throws IllegalValueException {
-        address = address.trim();
-        if (!isValidAddress(address)) {
+        String trimmedAddress = address.trim();
+        if (!isValidAddress(trimmedAddress)) {
             throw new IllegalValueException(MESSAGE_ADDRESS_CONSTRAINTS);
         }
-        this.value = address;
+        this.value = trimmedAddress;
     }
 
     /**

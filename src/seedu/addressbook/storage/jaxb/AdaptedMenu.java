@@ -23,6 +23,15 @@ import seedu.addressbook.data.tag.Tag;
  */
 public class AdaptedMenu {
 
+    @XmlElement(required = true)
+    private String name;
+    @XmlElement(required = true)
+    private AdaptedMenuItemDetail price;
+    @XmlElement(required = true)
+    private AdaptedMenuItemDetail type;
+    @XmlElement
+    private List<AdaptedTag> tagged = new ArrayList<>();
+
     /**
      * JAXB-friendly adapted menu item detail data holder class.
      */
@@ -38,17 +47,6 @@ public class AdaptedMenu {
             this.value = value;
         }
     }
-
-    @XmlElement(required = true)
-    private String name;
-    @XmlElement(required = true)
-    private AdaptedMenuItemDetail price;
-    @XmlElement(required = true)
-    private AdaptedMenuItemDetail type;
-
-
-    @XmlElement
-    private List<AdaptedTag> tagged = new ArrayList<>();
 
     /**
      * No-arg constructor for JAXB use.

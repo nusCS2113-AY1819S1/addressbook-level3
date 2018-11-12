@@ -18,6 +18,8 @@ import seedu.addressbook.data.exception.DuplicateDataException;
  */
 public class UniqueMenuList implements Iterable<Menu> {
 
+    private final List<Menu> internalMenuList = new ArrayList<>();
+
     /**
      * Signals that an operation would have violated the 'no duplicates' property of the list.
      */
@@ -33,8 +35,6 @@ public class UniqueMenuList implements Iterable<Menu> {
      * there is no such matching person in the list.
      */
     public static class MenuNotFoundException extends Exception {}
-
-    private final List<Menu> internalMenuList = new ArrayList<>();
 
     /**
      * Constructs empty menu list.

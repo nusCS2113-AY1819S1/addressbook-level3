@@ -12,7 +12,7 @@ import seedu.addressbook.data.exception.IllegalValueException;
 public class Member implements ReadOnlyMember {
 
     public static final String EMPTY_NAME_STRING = "baLpcbImfjsHuIhCnEKM";
-    public static final String EMPTY_EMAIL_STRING = "Example2018@rms.com";
+    public static final String EMPTY_EMAIL_STRING = "baLpcbImfjsHuIhCnEKM@rms.com";
 
     private MemberName name;
     private MemberEmail email;
@@ -97,23 +97,18 @@ public class Member implements ReadOnlyMember {
         return this.points.updatePoints(price, pointsToRedeem);
     }
 
-    public MemberTier updateTier(Points points) {
-        return tier.updateTier(points);
+    public void updateTier(Points points) {
+        tier.updateTier(points);
     }
 
 
 
     /**
      * Updates the points and membership tier of the member
-     * @param price
      */
     public void updatePointsAndTier(double price, int pointsToRedeem) {
         Points newPoints = updatePoints(price, pointsToRedeem);
         updateTier(newPoints);
-    }
-
-    protected void setName(MemberName name) {
-        this.name = name;
     }
 
     @Override
