@@ -74,17 +74,16 @@ public class Utils {
      * @return the filler space required
      */
     public static String blankSpace(String prefix, int distance) {
-        String fillingSpace;
+        StringBuilder sb = new StringBuilder();
         int fillingSpaceLength = distance - prefix.length();
         if (fillingSpaceLength > 0) {
-            fillingSpace = "";
             for (int i = 0; i < fillingSpaceLength; i++) {
-                fillingSpace += " ";
+                sb.append(" ");
             }
         } else {
-            fillingSpace = "\t";
+            return "\t";
         }
-        return fillingSpace;
+        return sb.toString();
     }
 
     public static String blankSpace(int distance) {

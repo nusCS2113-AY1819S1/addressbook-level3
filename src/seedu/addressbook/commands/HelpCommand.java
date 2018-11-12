@@ -22,6 +22,7 @@ import seedu.addressbook.commands.order.OrderClearCommand;
 import seedu.addressbook.commands.order.OrderDeleteCommand;
 import seedu.addressbook.commands.order.OrderListCommand;
 import seedu.addressbook.commands.statistics.StatsEmployeeCommand;
+import seedu.addressbook.commands.statistics.StatsHelpCommand;
 import seedu.addressbook.commands.statistics.StatsMemberCommand;
 import seedu.addressbook.commands.statistics.StatsMenuCommand;
 import seedu.addressbook.commands.statistics.StatsOrderCommand;
@@ -65,12 +66,13 @@ public class HelpCommand extends Command {
             + "\n\n21. " + DraftOrderClearCommand.MESSAGE_USAGE
             + "\n\n22. " + DraftOrderConfirmCommand.MESSAGE_USAGE
 
-            + "\n\n23. " + StatsEmployeeCommand.MESSAGE_USAGE
-            + "\n\n24. " + StatsMenuCommand.MESSAGE_USAGE
-            + "\n\n25. " + StatsMemberCommand.MESSAGE_USAGE
-            + "\n\n26. " + StatsOrderCommand.MESSAGE_USAGE
+            + "\n\n23. " + StatsHelpCommand.MESSAGE_USAGE
+            + "\n\n24. " + StatsEmployeeCommand.MESSAGE_USAGE
+            + "\n\n25. " + StatsMenuCommand.MESSAGE_USAGE
+            + "\n\n26. " + StatsMemberCommand.MESSAGE_USAGE
+            + "\n\n27. " + StatsOrderCommand.MESSAGE_USAGE
 
-            + "\n\n27. " + ExitCommand.MESSAGE_USAGE;
+            + "\n\n28. " + ExitCommand.MESSAGE_USAGE;
 
     @Override
     public CommandResult execute() {

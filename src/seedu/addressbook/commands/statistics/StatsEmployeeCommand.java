@@ -36,7 +36,7 @@ public class StatsEmployeeCommand extends Command {
         if (allEmployees.isEmpty()) {
             return MESSAGE_NO_EMPLOYEE;
         }
-        res.append("Number of employees: " + allEmployees.size() + "\n\n");
+        res.append("Number of employees: ").append(allEmployees.size()).append("\n\n");
         res.append("Currently on duty employees: ");
         AsciiTable onDuty = createOnDutyTable();
         AsciiTable recentAttendance = createRecentAttendanceTable();
@@ -72,7 +72,7 @@ public class StatsEmployeeCommand extends Command {
             }
 
         }
-        res.append(count + "\n");
+        res.append(count).append("\n");
         if (count != 0) {
             res.append(onDuty.toString());
         }

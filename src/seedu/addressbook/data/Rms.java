@@ -1,8 +1,6 @@
 package seedu.addressbook.data;
 
-import java.util.HashSet;
 import java.util.Objects;
-import java.util.Set;
 
 import seedu.addressbook.data.employee.Attendance;
 import seedu.addressbook.data.employee.Employee;
@@ -18,7 +16,6 @@ import seedu.addressbook.data.member.UniqueMemberList.DuplicateMemberException;
 import seedu.addressbook.data.member.UniqueMemberList.MemberNotFoundException;
 import seedu.addressbook.data.menu.Menu;
 import seedu.addressbook.data.menu.ReadOnlyMenus;
-import seedu.addressbook.data.menu.Type;
 import seedu.addressbook.data.menu.UniqueMenuList;
 import seedu.addressbook.data.menu.UniqueMenuList.DuplicateMenuException;
 import seedu.addressbook.data.menu.UniqueMenuList.MenuNotFoundException;
@@ -32,8 +29,6 @@ import seedu.addressbook.data.order.UniqueOrderList.OrderNotFoundException;
  * Represents the entire Rms. Contains the data of the Rms.
  */
 public class Rms {
-
-    private static Set<Type> typeSet = new HashSet<>();
 
     private final UniqueEmployeeList allEmployees;
     private final UniqueMemberList allMembers;
@@ -153,13 +148,6 @@ public class Rms {
     }
 
     /**
-     * Checks if an equivalent employee exists in the Rms.
-     */
-    public boolean containsEmployee(ReadOnlyEmployee key) {
-        return allEmployees.containsDuplicate(key);
-    }
-
-    /**
      * Removes the equivalent menu item from the menu.
      *
      * @throws MenuNotFoundException if no such Order could be found.
@@ -209,20 +197,6 @@ public class Rms {
      */
     public void editEmployee(ReadOnlyEmployee toRemove, Employee toReplace) throws EmployeeNotFoundException {
         allEmployees.edit(toRemove, toReplace);
-    }
-
-    /**
-     * Clears all members from the member list.
-     */
-    public void clearMembers() {
-        allMembers.clear();
-    }
-
-    /**
-     * Clears all employees from the Rms.
-     */
-    public void clearEmployee() {
-        allEmployees.clear();
     }
 
     /**

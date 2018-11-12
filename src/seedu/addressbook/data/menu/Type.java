@@ -1,8 +1,5 @@
 package seedu.addressbook.data.menu;
 
-import java.util.Arrays;
-import java.util.List;
-
 import seedu.addressbook.data.exception.IllegalValueException;
 
 /**
@@ -28,35 +25,27 @@ public class Type {
      *
      * @throws IllegalValueException if given name string is invalid.
      */
-    public Type(String name) throws IllegalValueException {
-        name = name.trim();
-        if (!isValidTypeName(name)) {
+    public Type(String type) throws IllegalValueException {
+        String trimmedType = type.trim();
+        if (!isValidTypeName(trimmedType)) {
             throw new IllegalValueException(MESSAGE_TYPE_CONSTRAINTS);
         }
-        this.value = name;
+        this.value = trimmedType;
     }
 
     /**
      * Returns true if a given string is a valid dish type.
      */
     public static boolean isValidTypeName(String test) {
-        return (test.equals("main") == true
-                || test.equals("sides") == true
-                || test.equals("beverage") == true
-                || test.equals("dessert") == true
-                || test.equals("others") == true
-                || test.equals("set meal"))
-                && test.matches(TYPE_VALIDATION_REGEX) == true;
+        return ("main".equals(test)
+                || "sides".equals(test)
+                || "beverage".equals(test)
+                || "dessert".equals(test)
+                || "others".equals(test)
+                || "set meal".equals(test))
+                && test.matches(TYPE_VALIDATION_REGEX);
 
 
-    }
-
-    /**
-     * Retrieves a listing of every word in the name, in order.
-     */
-    public List<String> getWordsInTypeName() {
-
-        return Arrays.asList(value.split("\\s+"));
     }
 
     @Override

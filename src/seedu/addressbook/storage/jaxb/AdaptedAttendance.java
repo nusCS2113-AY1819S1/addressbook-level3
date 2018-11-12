@@ -11,7 +11,6 @@ import javax.xml.bind.annotation.XmlElement;
 import seedu.addressbook.common.Utils;
 import seedu.addressbook.data.employee.Attendance;
 import seedu.addressbook.data.employee.Timing;
-import seedu.addressbook.data.exception.IllegalValueException;
 
 
 /**
@@ -67,7 +66,7 @@ public class AdaptedAttendance {
     /**
      * Converts this jaxb-friendly adapted attendance object into the Attendance object.
      */
-    public Attendance toModelType() throws IllegalValueException {
+    public Attendance toModelType() {
         final String name = this.name;
         final boolean isClockedIn = this.isClockedIn;
 

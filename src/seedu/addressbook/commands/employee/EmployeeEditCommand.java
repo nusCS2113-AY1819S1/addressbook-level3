@@ -33,7 +33,7 @@ public class EmployeeEditCommand extends Command {
             + "p/" + EmployeePhone.EXAMPLE;
 
     public static final String MESSAGE_EDIT_EMPLOYEE_SUCCESS = "Edited Employee: %1$s";
-    public static final String MESSAGE_NOARGS = "At least one field to edit must be provided.";
+    public static final String MESSAGE_NOARGS = "At least one field to edit must be provided.\n%1$s";
 
     private final EditEmployeeDescriptor editEmployeeDescriptor;
 

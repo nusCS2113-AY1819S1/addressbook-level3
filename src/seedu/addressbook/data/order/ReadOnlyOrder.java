@@ -80,7 +80,7 @@ public interface ReadOnlyOrder {
             builder.append("\n\t   Redeemed points:\t").append(getPoints());
         }
         builder.append("\n\t   Total price:\t\t");
-        builder.append(Price.convertPricetoString(getPrice()));
+        builder.append(Price.convertPriceToString(getPrice()));
         return builder.toString();
     }
 
@@ -116,7 +116,7 @@ public interface ReadOnlyOrder {
             builder.append("\n\tRedeemed points:\t\t").append(getPoints());
         }
         builder.append("\n\tTotal price:\t\t");
-        builder.append(Price.convertPricetoString(getPrice()));
+        builder.append(Price.convertPriceToString(getPrice()));
         builder.append("\n\tEarned points:\t\t").append(getEarnedPointsValue());
         return builder.toString();
     }
@@ -166,7 +166,7 @@ public interface ReadOnlyOrder {
             builder.append(" / ").append(getMaxPointsRedeemable());
         }
         builder.append("\n\tTotal price:\t\t");
-        builder.append(Price.convertPricetoString(getPrice()));
+        builder.append(Price.convertPriceToString(getPrice()));
         return builder.toString();
     }
 }

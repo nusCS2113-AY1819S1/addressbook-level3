@@ -346,24 +346,6 @@ public class LogicTest {
         assertEquals(rms, saveFile.load());
     }
 
-    /**
-     * Executes the stats command and confirms that the result message is correct<br>
-     */
-    private void assertStatsCommandBehavior(String inputCommand,
-                                            String expectedMessage,
-                                            Rms expectedRms) throws Exception {
-
-        //Execute the command
-        CommandResult r = logic.execute(inputCommand);
-
-        //Confirm the result contains the right data
-        assertEquals(expectedMessage, r.feedbackToUser);
-
-        //Confirm the state of data is as expected
-        assertEquals(expectedRms, rms);
-        assertEquals(rms, saveFile.load());
-    }
-
     @Test
     public void execute_unknownCommandWord() throws Exception {
         String unknownCommand = "uicfhmowqewca";
@@ -668,7 +650,7 @@ public class LogicTest {
         logic.setLastShownAttendanceList(lastShownAttendanceList);
 
         assertEmployeeAttendanceCommandBehavior("clockin Employee 5",
-                String.format(Messages.MESSAGE_EMPLOYEE_NOT_IN_RMS),
+                Messages.MESSAGE_EMPLOYEE_NOT_IN_RMS,
                 expectedRms,
                 false,
                 false,
@@ -745,7 +727,7 @@ public class LogicTest {
         logic.setLastShownAttendanceList(lastShownAttendanceList);
 
         assertEmployeeAttendanceCommandBehavior("clockout Employee 5",
-                String.format(Messages.MESSAGE_EMPLOYEE_NOT_IN_RMS),
+                Messages.MESSAGE_EMPLOYEE_NOT_IN_RMS,
                 expectedRms,
                 false,
                 false,
@@ -799,7 +781,7 @@ public class LogicTest {
         logic.setLastShownEmployeeList(lastShownList);
 
         assertEmployeeCommandBehavior(helper.generateEditEmpCommand("2", null, null),
-                String.format(EmployeeEditCommand.MESSAGE_NOARGS),
+                String.format(EmployeeEditCommand.MESSAGE_NOARGS, EmployeeEditCommand.MESSAGE_USAGE),
                 Rms.empty(),
                 false,
                 lastShownList);
@@ -826,14 +808,14 @@ public class LogicTest {
 
     @Test
     public void execute_addmember_invalidNameData() throws Exception {
-        String expectedMessage = String.format(MemberName.MESSAGE_NAME_CONSTRAINTS);
+        String expectedMessage = MemberName.MESSAGE_NAME_CONSTRAINTS;
         assertMemberCommandBehavior(
                 "addmember []; e/valid@email", expectedMessage);
     }
 
     @Test
     public void execute_addmember_invalidEmailData() throws Exception {
-        String expectedMessage = String.format(MemberEmail.MESSAGE_EMAIL_CONSTRAINTS);
+        String expectedMessage = MemberEmail.MESSAGE_EMAIL_CONSTRAINTS;
         assertMemberCommandBehavior(
                 "addmember Valid Name e/invalid email", expectedMessage);
     }
@@ -1512,7 +1494,7 @@ public class LogicTest {
                 + "\n" + Messages.MESSAGE_DRAFT_ORDER_DETAILS
                 + "\n" + expectedDraftOrder.getDraftDetailsAsText();
 
-        assertMenuCommandBehavior("draftdish 2 q/" + helper.FOOD_QUANTITY,
+        assertMenuCommandBehavior("draftdish 2 q/" + TestDataHelper.FOOD_QUANTITY,
                 expectedMessage,
                 expectedRms,
                 false,
@@ -1548,7 +1530,7 @@ public class LogicTest {
 
         Order expectedDraftOrder = new Order();
         rms.editDraftOrderCustomer(helper.eve());
-        rms.editDraftOrderDishItem(helper.burger(), helper.FOOD_QUANTITY);
+        rms.editDraftOrderDishItem(helper.burger(), TestDataHelper.FOOD_QUANTITY);
 
         String expectedMessage = DraftOrderClearCommand.MESSAGE_SUCCESS
                 + "\n" + Messages.MESSAGE_DRAFT_ORDER_DETAILS
@@ -1563,7 +1545,7 @@ public class LogicTest {
 
         Order expectedDraftOrder = helper.foodOrder();
         rms.editDraftOrderCustomer(helper.eve());
-        rms.editDraftOrderDishItem(helper.burger(), helper.FOOD_QUANTITY);
+        rms.editDraftOrderDishItem(helper.burger(), TestDataHelper.FOOD_QUANTITY);
 
         String expectedMessage = Messages.MESSAGE_DRAFT_ORDER_DETAILS
                 + "\n" + expectedDraftOrder.getDraftDetailsAsText()
@@ -1579,7 +1561,7 @@ public class LogicTest {
         TestDataHelper helper = new TestDataHelper();
 
         Order expectedDraftOrder = helper.foodOrderWithoutCustomer();
-        rms.editDraftOrderDishItem(helper.burger(), helper.FOOD_QUANTITY);
+        rms.editDraftOrderDishItem(helper.burger(), TestDataHelper.FOOD_QUANTITY);
 
         String expectedMessage = Messages.MESSAGE_DRAFT_ORDER_DETAILS
                 + "\n" + expectedDraftOrder.getDraftDetailsAsText()
@@ -1608,8 +1590,6 @@ public class LogicTest {
 
     @Test
     public void execute_addorder_missingCustomerAndDishes() throws Exception {
-        TestDataHelper helper = new TestDataHelper();
-
         Order expectedDraftOrder = new Order();
 
         String expectedMessage = Messages.MESSAGE_DRAFT_ORDER_DETAILS
@@ -1755,7 +1735,7 @@ public class LogicTest {
 
         // Test employee statistics when there are no employees
         assertStatisticsCommandBehavior(helper.generateStatsEmpCommand(),
-                String.format(StatsEmployeeCommand.MESSAGE_NO_EMPLOYEE), true);
+                StatsEmployeeCommand.MESSAGE_NO_EMPLOYEE, true);
 
         // Test employee statistics when there are employees
         Employee toBeAdded = helper.peter();
@@ -1763,7 +1743,7 @@ public class LogicTest {
         rms.addEmployee(toBeAdded);
         rms.addAttendance(toBeAddedAttendace);
         assertStatisticsCommandBehavior(helper.generateStatsEmpCommand(),
-                String.format(StatsEmployeeCommand.MESSAGE_NO_EMPLOYEE), false);
+                StatsEmployeeCommand.MESSAGE_NO_EMPLOYEE, false);
     }
 
     @Test
@@ -1772,13 +1752,13 @@ public class LogicTest {
 
         // Test member statistics when there are no members
         assertStatisticsCommandBehavior(helper.generateStatsMemberCommand(),
-                String.format(StatsMemberCommand.MESSAGE_NO_MEMBERS), true);
+                StatsMemberCommand.MESSAGE_NO_MEMBERS, true);
 
         // Test member statistics when there are members
         Member toBeAdded = helper.generateMember(1);
         rms.addMember(toBeAdded);
         assertStatisticsCommandBehavior(helper.generateStatsMemberCommand(),
-                String.format(StatsMemberCommand.MESSAGE_NO_MEMBERS), false);
+                StatsMemberCommand.MESSAGE_NO_MEMBERS, false);
     }
 
     @Test
@@ -1787,7 +1767,7 @@ public class LogicTest {
 
         // Test menu statistics when there are no orders
         assertStatisticsCommandBehavior(helper.generateStatsMenuCommand(null, null),
-                String.format(StatsMenuCommand.MESSAGE_NO_ORDER), true);
+                StatsMenuCommand.MESSAGE_NO_ORDER, true);
 
         // Test menu statistics when there are orders
         Order toBeAddedOrder = helper.generateOrder(1);
@@ -1797,7 +1777,7 @@ public class LogicTest {
         Menu toBeAddedMenu = helper.generateMenuItem(1);
         rms.addMenu(toBeAddedMenu);
         assertStatisticsCommandBehavior(helper.generateStatsMenuCommand(null, null),
-                String.format(StatsMenuCommand.MESSAGE_NO_ORDER), false);
+                StatsMenuCommand.MESSAGE_NO_ORDER, false);
     }
 
     @Test
@@ -1806,7 +1786,7 @@ public class LogicTest {
 
         // Test order statistics when there are no orders
         assertStatisticsCommandBehavior(helper.generateStatsOrderCommand(),
-                String.format(StatsOrderCommand.MESSAGE_NO_ORDER), true);
+                StatsOrderCommand.MESSAGE_NO_ORDER, true);
 
         // Test order statistics when there are orders
         Order toBeAdded = helper.generateOrder(1);
@@ -1814,7 +1794,7 @@ public class LogicTest {
         toBeAdded = helper.generateOrder(2);
         rms.addOrder(toBeAdded);
         assertStatisticsCommandBehavior(helper.generateStatsOrderCommand(),
-                String.format(StatsOrderCommand.MESSAGE_NO_ORDER), false);
+                StatsOrderCommand.MESSAGE_NO_ORDER, false);
     }
 
 }

@@ -33,7 +33,7 @@ public class Formatter {
     public String format(String... messages) {
         StringBuilder sb = new StringBuilder();
         for (String m : messages) {
-            sb.append(LINE_PREFIX + m.replace("\n", LS + LINE_PREFIX) + LS);
+            sb.append(LINE_PREFIX).append(m.replace("\n", LS + LINE_PREFIX)).append(LS);
         }
         return sb.toString();
     }
@@ -77,7 +77,7 @@ public class Formatter {
     /** Formats a list of strings as an indexed list. */
     private static String asIndexedList(List<String> listItems) {
         final StringBuilder formatted = new StringBuilder();
-        int displayIndex = 0 + DISPLAYED_INDEX_OFFSET;
+        int displayIndex = DISPLAYED_INDEX_OFFSET;
         for (String listItem : listItems) {
             formatted.append(getIndexedListItem(displayIndex, listItem)).append("\n");
             displayIndex++;

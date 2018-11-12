@@ -10,7 +10,7 @@ public class Email {
     public static final String EXAMPLE = "Example2018@rms.com";
     public static final String MESSAGE_EMAIL_CONSTRAINTS =
             "Emails should be 2 alphanumeric/period strings separated by '@'";
-    public static final String EMAIL_VALIDATION_REGEX = "[\\w\\.]+@[\\w\\.]+";
+    public static final String EMAIL_VALIDATION_REGEX = "[\\w.]+@[\\w.]+";
 
     public final String value;
 
@@ -20,11 +20,11 @@ public class Email {
      * @throws IllegalValueException if given email address string is invalid.
      */
     public Email(String email) throws IllegalValueException {
-        email = email.trim();
-        if (!isValidEmail(email)) {
+        String trimmedEmail = email.trim();
+        if (!isValidEmail(trimmedEmail)) {
             throw new IllegalValueException(MESSAGE_EMAIL_CONSTRAINTS);
         }
-        this.value = email;
+        this.value = trimmedEmail;
     }
 
     /**

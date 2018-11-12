@@ -23,11 +23,11 @@ public class MenuName {
      * @throws IllegalValueException if given name string is invalid.
      */
     public MenuName(String name) throws IllegalValueException {
-        name = name.trim();
-        if (!isValidName(name)) {
+        String trimmedName = name.trim();
+        if (!isValidName(trimmedName)) {
             throw new IllegalValueException(MESSAGE_NAME_CONSTRAINTS);
         }
-        this.fullName = name;
+        this.fullName = trimmedName;
     }
 
     /**
