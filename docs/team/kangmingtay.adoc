@@ -6,7 +6,7 @@
 == PROJECT: Restaurant Management System
 
 ---
-== Introduction
+== About Myself
 
 Hello! My name is Kang Ming and I am a Year 2 Computer Engineering student at the National University of Singapore (NUS). The purpose of this page is to showcase and document my contributions to a recent software engineering project that I have been working on. The next section will provide a brief overview of what my project is about!
 
