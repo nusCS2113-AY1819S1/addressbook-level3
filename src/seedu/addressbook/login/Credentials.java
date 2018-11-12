@@ -62,7 +62,6 @@ public class Credentials {
     public void newLogin(){
         WorkWithLoginStorage.addLogin(this);
         System.out.println("newLogin called");
-
     }
 
     private String hashPassword(String toBeHashed){
