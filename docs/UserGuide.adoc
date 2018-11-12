@@ -181,8 +181,15 @@ Example: +
 Delete membership details of a member in the RMS +
 Format: `delmember INDEX`
 
+* Deletes the member at the specified `INDEX`.
+* The index refers to the index number shown in the displayed member list.
+* The index must be a positive integer `1, 2, 3 ...`
+
 Example: +
+`listmember` +
 `delmember 1`
+
+Returns: Deleted member: kang ming | Email: kangming@rms.com | Available Points: 0 | Total Points: 0 | Tier: Bronze | Date: Mon Oct 20 22:19:32 SRET 2018
 
 // end::membercommands[]
 
