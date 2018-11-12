@@ -10,25 +10,7 @@
         <takers>0</takers>
     </examsList>
     <examsList isPrivate="true">
-        <subjectName>biology</subjectName>
-        <examName>Biology Paper 3</examName>
-        <examDate>07-06-2018</examDate>
-        <examStartTime>11:00</examStartTime>
-        <examEndTime>16:00</examEndTime>
-        <examDetails>Seconday 3</examDetails>
-        <takers>0</takers>
-    </examsList>
-    <examsList isPrivate="true">
-        <subjectName>biology</subjectName>
-        <examName>Biology Paper 1</examName>
-        <examDate>02-06-2018</examDate>
-        <examStartTime>11:00</examStartTime>
-        <examEndTime>16:00</examEndTime>
-        <examDetails>Seconday 3</examDetails>
-        <takers>0</takers>
-    </examsList>
-    <examsList isPrivate="true">
-        <subjectName>biology</subjectName>
+        <subjectName>Biology</subjectName>
         <examName>Biology Paper 2</examName>
         <examDate>04-06-2018</examDate>
         <examStartTime>11:00</examStartTime>
@@ -37,12 +19,30 @@
         <takers>0</takers>
     </examsList>
     <examsList isPrivate="true">
-        <subjectName>chicken</subjectName>
-        <examName>biology</examName>
+        <subjectName>Biology</subjectName>
+        <examName>Biology Paper 3</examName>
         <examDate>06-06-2018</examDate>
         <examStartTime>11:00</examStartTime>
         <examEndTime>16:00</examEndTime>
         <examDetails>Seconday 2</examDetails>
+        <takers>0</takers>
+    </examsList>
+    <examsList isPrivate="true">
+        <subjectName>Biology</subjectName>
+        <examName>Biology Paper 1</examName>
+        <examDate>04-06-2018</examDate>
+        <examStartTime>11:00</examStartTime>
+        <examEndTime>16:00</examEndTime>
+        <examDetails>Seconday 3</examDetails>
+        <takers>0</takers>
+    </examsList>
+    <examsList isPrivate="true">
+        <subjectName>Biology</subjectName>
+        <examName>Biology Paper 2</examName>
+        <examDate>06-06-2018</examDate>
+        <examStartTime>11:00</examStartTime>
+        <examEndTime>16:00</examEndTime>
+        <examDetails>Seconday 3</examDetails>
         <takers>0</takers>
     </examsList>
     <examsList isPrivate="false">
@@ -109,7 +109,7 @@
         <takers>0</takers>
     </examsList>
     <examsList isPrivate="true">
-        <subjectName>english</subjectName>
+        <subjectName>English</subjectName>
         <examName>English Finals Paper 1</examName>
         <examDate>03-06-2018</examDate>
         <examStartTime>14:00</examStartTime>
@@ -118,7 +118,7 @@
         <takers>0</takers>
     </examsList>
     <examsList isPrivate="false">
-        <subjectName>Math</subjectName>
+        <subjectName>Mathametics</subjectName>
         <examName>Math Midterms for Sec 3</examName>
         <examDate>02-09-2018</examDate>
         <examStartTime>11:00</examStartTime>

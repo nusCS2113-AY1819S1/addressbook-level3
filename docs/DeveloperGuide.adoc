@@ -1566,9 +1566,9 @@ The master password for the `raise` commamd is `default_pw`.
 . Edit an exam in the ExamBook and change its details
 
 .. Prerequisites: List all exams using the `listexams` command. Multiple exams in the list. Logged in as admin.
-.. Test case: `editexam 1 p/n` +
+.. Test case: `editexam 1 d/07-06-2018` +
    Expected: Exam is edited. Status console shows success message. Output console displays the updated list of exams.
-.. Test case: `editexam 1 p/n` after the previous test case was performed. +
+.. Test case: `editexam 1 p/y` +
    Expected: Exam is not edited. Error details are shown in the status console. Output console remains the same.
 
 === Viewing exams as a student
