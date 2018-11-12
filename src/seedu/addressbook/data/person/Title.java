@@ -21,9 +21,7 @@ public class Title {
     }
 
     public static boolean isValidTitle(String test){
-        return (test.equals("Doctor") || test.equals("Patient"));
-        //if(test.equals("Doctor") || test.equals("Patient")) return true;
-        //else return false;
+        return (test.equals("Doctor") || test.equals("Patient")); 
     }
 
     @Override
