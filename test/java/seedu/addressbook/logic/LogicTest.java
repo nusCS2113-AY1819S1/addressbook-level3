@@ -137,6 +137,7 @@ public class LogicTest {
         assertEquals(rms, saveFile.load());
     }
 
+    //@@author kianhong95
     /**
      * Executes the Employee command and confirms that the result message is correct.
      * Both the 'rms' and the 'last shown list' are expected to be empty.
@@ -210,6 +211,7 @@ public class LogicTest {
         assertEquals(lastShownAttendanceList, logic.getLastShownAttendanceList());
         assertEquals(rms, saveFile.load());
     }
+    //@@author kianhong95
 
     /**
      * Executes the Member command and confirms that the result message is correct.
@@ -362,6 +364,7 @@ public class LogicTest {
         assertCommandBehavior("exit", ExitCommand.MESSAGE_EXIT_ACKNOWEDGEMENT);
     }
 
+    //@@author kianhong95
     @Test
     public void execute_addemp_invalidArgsFormat() throws Exception {
         String expectedMessage = String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT,
@@ -791,6 +794,7 @@ public class LogicTest {
     public void execute_editemp_invalidIndex() throws Exception {
         assertInvalidIndexBehaviorForEmployeeEditCommand("editemp");
     }
+    //@@author kianhong95
 
     @Test
     public void execute_addmember_invalidArgsFormat() throws Exception {
