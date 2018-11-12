@@ -8,6 +8,10 @@
 ---
 image::homepage.png[width="800"]
 
+== About Myself
+
+My name is Salsabil Tasnia Ali Nikita MD, I am a Year 2 Computer Engineering student in National University of Singapore (NUS). The purpose of this portfolio is to document my contributions to the Restaurant Management System project.
+
 == Overview
 
 Restaurant Management System (RMS) is a desktop management App targeted to Fast Food Chains. It is an integrated system that caters to both front end and back end operations in a restaurant. This application is developed to be used by managers, cashiers and other employees in a restaurant.
@@ -20,7 +24,7 @@ RMS was created using Java and has a user interface that uses CLI. The project c
 == Summary of contributions
 
 |===
-|_This sections provides a summary of the various contributions I have made to the RMS project. These contributions include Major enhancement, Code contributions and Other contributions_
+|_This sections provides a summary of the various contributions I have made to the RMS project. These contributions include Major enhancement, Code contributions and Other contributions. _
 |===
 
 * *Major Enhancement*: Added the *Menu Feature*
@@ -69,7 +73,7 @@ https://github.com/CS2113-AY1819S1-F09-2/main/pull/214[#214]
 
 
 |===
-|_Given below are sections I contributed to the User Guide. This section provides explicit instructions on how to use the Menu Feature and explains the outcome of each of the menu commands. A summary of the different commands used to operate the Menu is also provided._
+|_Given below are sections I contributed to the User Guide. This section provides explicit instructions on how to use the Menu Feature and explains the outcome of each of the menu commands. A summary of the different commands used to operate the Menu is also provided. Overall, the User Guide serves as a manual for first time users of RMS and taken them step-by-step through each features._
 |===
 
 include::../UserGuide.adoc[tag=menucommands]
@@ -79,7 +83,7 @@ include::../UserGuide.adoc[tag=menucommandsummary]
 == Contributions to the Developer Guide
 
 |===
-|_Given below are sections I contributed to the Developer Guide. This sections provides various scenarios when different aspects of the Menu feature ought be used and who should use them. It also shows the Data diagram that I have created for the entire project._
+|_Given below are sections I contributed to the Developer Guide. This sections provides various scenarios when different aspects of the Menu feature ought be used and who should use them. It also shows the Data diagram that I have created for the entire project. This section allows new Developers of the product to understand each feature easily provides the architecture of the entire system._
 |===
 
 include::../DeveloperGuide.adoc[tag=menuusecase]
