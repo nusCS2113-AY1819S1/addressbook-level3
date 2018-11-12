@@ -80,13 +80,13 @@ image::PointsEarned.png[]
 *** Managed releases v1.1 - v1.3 (3 releases) on GitHub
 
 ** Membership Platform Enhancement:
-*** Addition of membership platform: https://github.com/CS2113-AY1819S1-F09-2/main/pull/32[#32], https://github.com/CS2113-AY1819S1-F09-2/main/pull/69[#69], https://github.com/CS2113-AY1819S1-F09-2/main/pull/86[#86], https://github.com/CS2113-AY1819S1-F09-2/main/pull/99[#99], https://github.com/CS2113-AY1819S1-F09-2/main/pull/125[#125]
+*** Addition of membership platform: https://github.com/CS2113-AY1819S1-F09-2/main/pull/32[#32], https://github.com/CS2113-AY1819S1-F09-2/main/pull/69[#69], https://github.com/CS2113-AY1819S1-F09-2/main/pull/86[#86], https://github.com/CS2113-AY1819S1-F09-2/main/pull/99[#99], https://github.com/CS2113-AY1819S1-F09-2/main/pull/125[#125], https://github.com/CS2113-AY1819S1-F09-2/main/pull/177[#177]
 
 ** Tests for membership features:
-*** Addition of tests for membership feature: https://github.com/CS2113-AY1819S1-F09-2/main/pull/70[#70]
+*** Addition of tests for membership feature: https://github.com/CS2113-AY1819S1-F09-2/main/pull/70[#70], https://github.com/CS2113-AY1819S1-F09-2/main/pull/200[#200], https://github.com/CS2113-AY1819S1-F09-2/main/pull/201[#201]
 
 ** Documentation:
-*** Addition of content to User Guide: https://github.com/CS2113-AY1819S1-F09-2/main/pull/3[#3], https://github.com/CS2113-AY1819S1-F09-2/main/pull/4[#4], https://github.com/CS2113-AY1819S1-F09-2/main/pull/74[#74]
+*** Addition of content to User Guide: https://github.com/CS2113-AY1819S1-F09-2/main/pull/3[#3], https://github.com/CS2113-AY1819S1-F09-2/main/pull/4[#4], https://github.com/CS2113-AY1819S1-F09-2/main/pull/74[#74], https://github.com/CS2113-AY1819S1-F09-2/main/pull/204[#204]
 
 *** Addition of content to Developer Guide: https://github.com/CS2113-AY1819S1-F09-2/main/pull/85[#85]
 
