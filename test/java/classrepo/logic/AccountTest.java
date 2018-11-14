@@ -1,4 +1,4 @@
-//@@author 0wn643
+//@@author 0WN643
 package classrepo.logic;
 
 import static classrepo.commands.account.AddAccountCommand.MESSAGE_INVALID_PRIVILEGE;
