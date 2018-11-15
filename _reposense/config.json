@@ -9,8 +9,7 @@
     {
       "githubId": "OngJiaJian",
       "displayName": "ONG...IAN",
-      "authorNames": ["OngJiaJian"],
-      "authorNames": ["Ong Jia Jian"],
+      "authorNames": ["OngJiaJian","Ong Jia Jian"]
     },
     {
       "githubId": "C-E-OOI",
@@ -20,8 +19,7 @@
     {
       "githubId": "keithtqs",
       "displayName": "TAN...ITH",
-      "authorNames": ["keithtqs"],
-      "authorNames": ["Keith"]
+      "authorNames": ["keithtqs", "Keith"]
     }
   ]
 }
