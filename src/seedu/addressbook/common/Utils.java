@@ -1,8 +1,15 @@
 package seedu.addressbook.common;
 
+import java.text.DecimalFormat;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
 import java.util.Set;
+
 
 /**
  * Utility methods
@@ -21,6 +28,15 @@ public class Utils {
         return false;
     }
 
+    //@@author kianhong95
+    /**
+     * Returns true if {@code items} contain any elements that are non-null.
+     */
+    public static boolean isAnyNonNull(Object... items) {
+        return items != null && Arrays.stream(items).anyMatch(Objects::nonNull);
+    }
+
+    //@@author
     /**
      * Checks if every element in a collection are unique by {@link Object#equals(Object)}.
      */
@@ -34,4 +50,49 @@ public class Utils {
         }
         return true;
     }
+
+    //@@author AngWM
+    /**
+     * Sort a map by the values
+     */
+    public static <K, V extends Comparable<? super V>> List<Map.Entry <K, V>> sortByValue(Map<K, V> map) {
+        List<Map.Entry<K, V>> list = new ArrayList<>(map.entrySet());
+        list.sort(Map.Entry.comparingByValue());
+
+        return list;
+    }
+
+    /**
+     * Format a double into a currency String
+     */
+    public static String formatCurrency(double input) {
+        DecimalFormat df = new DecimalFormat("0.00");
+        return df.format(input);
+    }
+
+    //@@author px1099
+    /**
+     * Create blank space to position the next String at an exact distance compared to the start of the prefix String.
+     * @param prefix the String after which the blank space is inserted.
+     * @param distance the distance between the start of the two String that the blank space between them aims to fill.
+     * @return the filler space required
+     */
+    public static String blankSpace(String prefix, int distance) {
+        StringBuilder sb = new StringBuilder();
+        int fillingSpaceLength = distance - prefix.length();
+        if (fillingSpaceLength > 0) {
+            for (int i = 0; i < fillingSpaceLength; i++) {
+                sb.append(" ");
+            }
+        } else {
+            return "\t";
+        }
+        return sb.toString();
+    }
+
+    public static String blankSpace(int distance) {
+        return blankSpace("", distance);
+    }
+
+    //@@author
 }

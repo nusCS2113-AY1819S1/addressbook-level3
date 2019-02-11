@@ -1,0 +1,139 @@
+= Ang Wei Ming - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: Restaurant Management System
+image::homepage.png[]
+
+== Overview
+
+My name is Ang Wei Ming and I am a Year 2 student majoring in Information Security at National University of Singapore. Over the past 12 weeks I have been working on a project for the twinned module CS2113T/CS2101 with my team. The following is my portfolio for this project that we have completed.
+
+This portfolio serves to provide an insight on the Restaurant Management System (RMS) project such as the purpose of this project, as well as the various features that our team has developed. Also stated are the different roles of each team members in the project and more importantly the contributions that I have made to the code and documentations.
+
+=== Project Description
+
+As frequent customers of restaurants, our team realized that most restaurants around the world are using inefficient systems to manage their restaurants. This includes taking orders on papers, calculating daily revenues at the end of the day, or even having a manual clocking machine for employees starting or ending their shift. Even if a restaurant uses alternative systems to mitigate such issues, they are usually segregated, causing the restaurant manager to maintain different systems all at once. All these can affect the way the restaurant is being run and possibly affect the quality of food and service negatively.
+
+Therefore, our team decided to develop an All-in-One application called Restaurant Management System (RMS) that is able to handle the different processes within a running restaurant efficiently.
+
+Restaurant Management System (RMS) is a CLI^*^ based desktop application that can be used within a restaurant to perform various tasks such as listing menu items, order taking, as well as keeping track of members and employees. Restaurant managers will also be able to oversee the different processes more efficiently through a statistics feature.
+
+_* Command Line Interface. Refers to an user interface where an end user enters commands into the application by typing instead of clicking._
+
+=== Features
+
+image::Ui.png[]
+
+==== Employee feature
+
+Manage employees working in the restaurant by adding their information into the application. Employees will have to use the application to clock in when the shift starts and clock out when it ends.
+
+==== Member feature
+
+Customers of the restaurant can opt to sign up as a member in the application and will be able to accumulate points that can be used to offset future orders made with the application.
+
+Members are also sorted into different tiers according to the points accumulated
+
+==== Menu feature
+
+Restaurant managers will use this feature to list new items on the menu or make adjustments to the menu such as pricing and this set of menu can then be used when taking orders.
+
+==== Order feature
+
+Cashiers can take customers' orders and this order information such as the sales revenue and the items ordered will be stored in the application. Additionally, orders can be tagged to a customer if he/she is a member.
+
+==== Statistics feature
+
+Able to display the statistics for the different features.
+
+* Employee statistics will show the attendance of their clocking and the current on duty personnel.
+
+image::statsemp.png[]
+
+* Member statistics shows the number of new members over a period of time and the number of members in each member tier.
+
+image::statsmember.png[]
+
+* Menu statistics tells us the sales of each menu items as well as the most and least popular items for each categories in the menu (e.g. mains or beverages).
+
+image::statsmenu.png[]
+
+* Order statistics displays the total number of orders and the revenue for day, month and year, along with the revenue for the past 12 months.
+
+image::statsorder.png[]
+
+
+=== Team roles
+* Ang Wei Ming
+** In charge of the statistics feature.
+* Lim Kian Hong
+** In charge of the employee feature.
+* Pham Quang Minh
+** In charge of the order feature as well as code testing.
+* Salsabil Tasnia
+** In charge of the menu feature.
+* Tay Kang Ming
+** In charge of the member feature and the overall project coordination.
+
+== Summary of contributions
+
+|===
+|_This section describes in details the various contributions I made to the code base as well as the documentations of the project. Depending on the type of contribution, it is split into different sections._
+|===
+
+=== Major Enhancements
+
+I added the statistics feature for all the different information stored in the application.
+
+
+* `What it does`: As described in the features sections of this portfolio, the statistics feature allows restaurant managers to view the overview statistics of the menus, orders, members and employees
+* `Justification`: This feature will be able to let the restaurant managers understand how the restaurant is currently performing and how much it is earning. It also allows the manager to keep track of their members and employees
+* `Highlights`: Data displayed under the different statistics commands have to be easy to understand as well as useful to the restaurant managers.
+It required thinking from a perspective of a restaurant manager to understand what kind of information he/she would want to see.
+This implementation was challenging because apart from the thought process, I had to make use of the limited data the other features were able to provide.
+
+* `Credits`: https://github.com/nusCS2113-AY1819S1/addressbook-level3
+
+* *Code contributed*: https://nuscs2113-ay1819s1.github.io/dashboard/#=undefined&search=angwm[Project Reposense Page]
+
+=== Other Contributions
+
+* `Enhancements to existing features`:
+** Updated the GUI font: https://github.com/CS2113-AY1819S1-F09-2/main/pull/94[#94]
+** Updated the GUI size: https://github.com/CS2113-AY1819S1-F09-2/main/pull/112[#112]
+* `Code Integration`
+** Helped to integrate my team member's codes during the start of the project when we worked without the Travis CI (Continuous Integration) tool
+* `Documentation`:
+** Addition of content to User Guide: https://github.com/CS2113-AY1819S1-F09-2/main/pull/100[#100], https://github.com/CS2113-AY1819S1-F09-2/main/pull/122[#122], https://github.com/CS2113-AY1819S1-F09-2/main/pull/213[#213]
+** Addition of content to Developer Guide: https://github.com/CS2113-AY1819S1-F09-2/main/pull/8[#8], https://github.com/CS2113-AY1819S1-F09-2/main/pull/67[#67], https://github.com/CS2113-AY1819S1-F09-2/main/pull/114[#114], https://github.com/CS2113-AY1819S1-F09-2/main/pull/213[#213]
+* `Community`:
+** PRs reviewed (with non-trivial review comments): https://github.com/CS2113-AY1819S1-F09-2/main/pull/107[#107], https://github.com/CS2113-AY1819S1-F09-2/main/pull/113[#113], https://github.com/CS2113-AY1819S1-F09-2/main/pull/117[#117], https://github.com/CS2113-AY1819S1-F09-2/main/pull/120[#120], https://github.com/CS2113-AY1819S1-F09-2/main/pull/138[#138], https://github.com/CS2113-AY1819S1-F09-2/main/pull/202[#202], https://github.com/CS2113-AY1819S1-F09-2/main/pull/203[#203], https://github.com/CS2113-AY1819S1-F09-2/main/pull/205[#205]
+//*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
+//** Tools:
+//*** Integrated a third party library (Natty) to the project (https://github.com[#42])
+//*** Integrated a new Github plugin (CircleCI) to the team repo
+
+
+== Contributions to the User Guide
+
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+include::../UserGuide.adoc[tag=statisticscommands]
+
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+include::../DeveloperGuide.adoc[tag=storage]
+
+include::../DeveloperGuide.adoc[tag=statisticsimplementation]
+
+include::../DeveloperGuide.adoc[tag=statisticsusecase]

@@ -1,24 +1,37 @@
 package seedu.addressbook.storage;
 
-import seedu.addressbook.data.AddressBook;
-import seedu.addressbook.data.exception.IllegalValueException;
-import seedu.addressbook.storage.jaxb.AdaptedAddressBook;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.Reader;
+import java.io.Writer;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
-import java.io.*;
-import java.nio.file.Path;
-import java.nio.file.Paths;
+
+import seedu.addressbook.data.Rms;
+import seedu.addressbook.data.exception.IllegalValueException;
+import seedu.addressbook.storage.jaxb.AdaptedRms;
+
 
 /**
- * Represents the file used to store address book data.
+ * Represents the file used to store Rms data.
  */
 public class StorageFile {
 
     /** Default file path used if the user doesn't provide the file name. */
-    public static final String DEFAULT_STORAGE_FILEPATH = "addressbook.txt";
+    public static final String DEFAULT_STORAGE_FILEPATH = "Rms.txt";
+
+    public final Path path;
+
+    private final JAXBContext jaxbContext;
 
     /* Note: Note the use of nested classes below.
      * More info https://docs.oracle.com/javase/tutorial/java/javaOO/nested.html
@@ -34,7 +47,7 @@ public class StorageFile {
     }
 
     /**
-     * Signals that some error has occured while trying to convert and read/write data between the application
+     * Signals that some error has occurred while trying to convert and read/write data between the application
      * and the storage file.
      */
     public static class StorageOperationException extends Exception {
@@ -42,10 +55,6 @@ public class StorageFile {
             super(message);
         }
     }
-
-    private final JAXBContext jaxbContext;
-
-    public final Path path;
 
     /**
      * @throws InvalidStorageFilePathException if the default path is invalid
@@ -59,7 +68,7 @@ public class StorageFile {
      */
     public StorageFile(String filePath) throws InvalidStorageFilePathException {
         try {
-            jaxbContext = JAXBContext.newInstance(AdaptedAddressBook.class);
+            jaxbContext = JAXBContext.newInstance(AdaptedRms.class);
         } catch (JAXBException jaxbe) {
             throw new RuntimeException("jaxb initialisation error");
         }
@@ -83,7 +92,7 @@ public class StorageFile {
      *
      * @throws StorageOperationException if there were errors converting and/or storing data to file.
      */
-    public void save(AddressBook addressBook) throws StorageOperationException {
+    public void save(Rms rms) throws StorageOperationException {
 
         /* Note: Note the 'try with resource' statement below.
          * More info: https://docs.oracle.com/javase/tutorial/essential/exceptions/tryResourceClose.html
@@ -91,7 +100,7 @@ public class StorageFile {
         try (final Writer fileWriter =
                      new BufferedWriter(new FileWriter(path.toFile()))) {
 
-            final AdaptedAddressBook toSave = new AdaptedAddressBook(addressBook);
+            final AdaptedRms toSave = new AdaptedRms(rms);
             final Marshaller marshaller = jaxbContext.createMarshaller();
             marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
             marshaller.marshal(toSave, fileWriter);
@@ -99,7 +108,7 @@ public class StorageFile {
         } catch (IOException ioe) {
             throw new StorageOperationException("Error writing to file: " + path + " error: " + ioe.getMessage());
         } catch (JAXBException jaxbe) {
-            throw new StorageOperationException("Error converting address book into storage format");
+            throw new StorageOperationException("Error converting Rms into storage format");
         }
     }
 
@@ -108,12 +117,12 @@ public class StorageFile {
      *
      * @throws StorageOperationException if there were errors reading and/or converting data from file.
      */
-    public AddressBook load() throws StorageOperationException {
+    public Rms load() throws StorageOperationException {
         try (final Reader fileReader =
                      new BufferedReader(new FileReader(path.toFile()))) {
 
             final Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();
-            final AdaptedAddressBook loaded = (AdaptedAddressBook) unmarshaller.unmarshal(fileReader);
+            final AdaptedRms loaded = (AdaptedRms) unmarshaller.unmarshal(fileReader);
             // manual check for missing elements
             if (loaded.isAnyRequiredFieldMissing()) {
                 throw new StorageOperationException("File data missing some elements");
@@ -127,7 +136,7 @@ public class StorageFile {
 
         // create empty file if not found
         } catch (FileNotFoundException fnfe) {
-            final AddressBook empty = new AddressBook();
+            final Rms empty = new Rms();
             save(empty);
             return empty;
 

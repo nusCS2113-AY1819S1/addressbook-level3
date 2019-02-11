@@ -1,18 +1,17 @@
 package seedu.addressbook.storage.jaxb;
 
+import javax.xml.bind.annotation.XmlValue;
+
 import seedu.addressbook.common.Utils;
 import seedu.addressbook.data.exception.IllegalValueException;
 import seedu.addressbook.data.tag.Tag;
-
-import javax.xml.bind.annotation.XmlValue;
 
 /**
  * JAXB-friendly adapted tag data holder class.
  */
 public class AdaptedTag {
 
-    @XmlValue
-    public String tagName;
+    private String tagName;
 
     /**
      * No-arg constructor for JAXB use.
@@ -25,7 +24,16 @@ public class AdaptedTag {
      * @param source future changes to this will not affect the created AdaptedTag
      */
     public AdaptedTag(Tag source) {
-        tagName = source.tagName;
+        setTagName(source.tagName);
+    }
+
+    @XmlValue
+    public String getTagName() {
+        return tagName;
+    }
+
+    public void setTagName(String tagName) {
+        this.tagName = tagName;
     }
 
     /**
@@ -37,15 +45,16 @@ public class AdaptedTag {
      * so we check for that.
      */
     public boolean isAnyRequiredFieldMissing() {
-        return Utils.isAnyNull(tagName);
+        return Utils.isAnyNull(getTagName());
     }
 
     /**
      * Converts this jaxb-friendly adapted tag object into the Tag object.
      *
-     * @throws IllegalValueException if there were any data constraints violated in the adapted person
+     * @throws IllegalValueException if there were any data constraints violated in the adapted tag
      */
     public Tag toModelType() throws IllegalValueException {
-        return new Tag(tagName);
+        return new Tag(getTagName());
     }
+
 }

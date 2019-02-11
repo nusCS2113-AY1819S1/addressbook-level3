@@ -1,0 +1,78 @@
+= Kian Hong - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: Restaurant Management System
+
+---
+
+== Introduction
+
+The purpose of this portfolio is to detail the contributions that I have made throughout the time that me and my team
+have spent on this project.
+
+Our team was formed through our CS2113T module which we were taking together. The project that we have done is an idea
+that we have come up with as a team, where we aim to align our project to meet Singapore's goal of cultivating a smart
+nation. Not only that, the project has aspects of sustainability that would allow future developers that would like to
+adopt our project, to morph existing features or add new features to meet the ever changing needs of users, be it from
+the food industry or other industries.
+
+Restaurant Management System is an application that can be run on a desktop,
+which helps restaurants run more smoothly and efficiently by turning everyday processes and tasks that needs to be
+carried out by restaurants into a paperless and digital format.
+
+The main features of the Restaurant Management System are:
+
+* Menu management
+* Order management
+* Employee management
+* Member management
+* Statistics
+
+== Summary of contributions
+|===
+|_Given below are the contributions that I have made for the project._
+|===
+
+* *Major enhancement*: Added employee management features.
+** *What it does*: Allows restaurant managers to manage their employees through the system.
+The system stores details of the employees
+where the managers are able to view, add, edit and delete the details of the employees that are available in the system.
+ Additionally, employees of the restaurant can clock in and out their attendance using the system,
+  where details of their attendance would be stored in the system.
+** Justification: This feature improves the product significantly as restaurant managers using the system
+would be able to manage his/her employees more efficiently.
+** Highlights: Needed to ensure that the commands implemented would be easy to understand and use for a non-tech savvy audience.
+The commands had to properly take care of formatting errors of commands that could be entered by such users and
+display examples on how to properly use the command that they are trying to use that can guide them when such
+formatting errors are encountered.
+** Credits: https://github.com/nusCS2113-AY1819S1/addressbook-level3
+
+* *Code contributed*: https://nuscs2113-ay1819s1.github.io/dashboard/#=undefined&search=kianhong95&sort=displayName&since=2018-09-12&until=2018-11-04&timeframe=day&reverse=false&repoSort=true[Link to code contributed]
+
+** Documentation:
+*** Addition of content to User Guide: https://github.com/CS2113-AY1819S1-F09-2/main/pull/9[#9], https://github.com/CS2113-AY1819S1-F09-2/main/pull/82[#82], https://github.com/CS2113-AY1819S1-F09-2/main/pull/118[#118]
+*** Addition of content to Developer Guide: https://github.com/CS2113-AY1819S1-F09-2/main/pull/91[#91], https://github.com/CS2113-AY1819S1-F09-2/main/pull/120[#120]
+** Community:
+*** PRs reviewed (with non-trivial review comments): https://github.com/CS2113-AY1819S1-F09-2/main/pull/88[#88], https://github.com/CS2113-AY1819S1-F09-2/main/pull/99[#99], https://github.com/CS2113-AY1819S1-F09-2/main/pull/100[#100]
+
+== Contributions to the User Guide
+
+
+|===
+|_ Given below are the additions that I have made to the User Guide for the project. They demonstrate my capability to craft documentation that is targeted at end-users._
+|===
+
+include::../UserGuide.adoc[tag=employeecommands]
+
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections that I have added to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+include::../DeveloperGuide.adoc[tag=UI]
+
+include::../DeveloperGuide.adoc[tag=employeeusecase]

@@ -2,7 +2,7 @@
 *.class
 
 # Default data file
-addressbook.txt
+Rms.txt
 
 # Package Files #
 *.jar
@@ -22,3 +22,4 @@ publish.sh
 .gradle/
 build/
 
+/config.json

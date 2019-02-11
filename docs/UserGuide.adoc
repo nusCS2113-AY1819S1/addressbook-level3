@@ -1,150 +1,523 @@
-= User Guide
+= Restaurant Management System (RMS) - User Guide
 :site-section: UserGuide
+:toc:
+:toc-title:
+:toc-placement: preamble
+:sectnums:
 :imagesDir: images
 :stylesDir: stylesheets
+:xrefstyle: full
+:experimental:
 ifdef::env-github[]
 :tip-caption: :bulb:
 :note-caption: :information_source:
 endif::[]
+:repoURL: https://github.com/CS2113-AY1819S1-F09-2/main/tree/master
 
-This product is not meant for end-users and therefore there is no user-friendly installer.
-Please refer to the <<DeveloperGuide#setting-up, Setting up>> section to learn how to set up the project.
+By: `CS2113-AY1819S1-F09-2`      Since: `Aug 2018`      Licence: `MIT`
 
-== Starting the program
+== Introduction
 
-. Find the project pane (usually located at the left side)
-. Open up `src/seedu.addressbook` folder
-. Right click on `Main`
-. Click `Run Main.main()`
-. The GUI should appear in a few seconds
+The Restaurant Management System (RMS) provides restaurants with a more efficient way to manage their operations. It has a wide variety of features which cater to different roles in a restaurant. In line with Singapore's "Smart Nation" movement, the RMS aims to digitise the restaurant business and make day-to-day operations smoother and simpler. Jump to <<Setting up>> to get started.
+
+== Quick Start
+.  Ensure you have Java version `9` or later installed in your Computer.
+.  Download the latest `Rms.jar` https://github.com/CS2113-AY1819S1-F09-2/main/releases[here]
+.  Copy the file to the folder you want to use as the home folder for your Restaurant Management System.
+.  Double-click the file to start the application. The GUI should appear in a few seconds.
 +
 image::Ui.png[]
++
+.  Type the command in the command box and press kbd:[Enter] to execute it.
+.  Some example commands you can try:
 
-== Viewing help : `help`
+* *`listmenu`* : lists all menu items
+* **`addmember`**`John Doe` : adds a member named `John Doe` to the Restaurant Management System.
+* *`listorder`* : lists all orders in the order list.
+* **`deleteorder`**`3` : deletes the 3rd order shown in the last shown order list
+* *`exit`* : exits the app
+.  Refer to <<Features>> for details of each command.
 
-Format: `help`
+== Important Terminology
+.  _A customer is anyone who wants to place an order._
+. _An employee is a person that works at the restaurant._
+. _A member in the RMS is a registered customer who enjoys more benefits than an unregistered customer._
+. _A dish is a food item on the menu._
 
-[TIP]
-====
-Help is also shown if you enter an incorrect command e.g. `abcd`
-====
+[[Features]]
+== Features
 
-== Adding a person: `add`
-
-Adds a person to the address book. +
-Format: `add NAME [p]p/PHONE_NUMBER [p]e/EMAIL [p]a/ADDRESS [t/TAG]...`
-
-****
-Words in `UPPER_CASE` are the parameters, items in `SQUARE_BRACKETS` are optional,
-items with `...` after them can have multiple instances. Order of parameters are fixed.
-
-Put a `p` before the phone / email / address prefixes to mark it as `private`. `private` details can only
-be seen using the `viewall` command.
-
-Persons can have any number of tags (including 0)
-****
-
-Examples:
-
-* `add John Doe p/98765432 e/johnd@gmail.com a/John street, block 123, #01-01`
-* `add Betsy Crowe pp/1234567 e/betsycrowe@gmail.com pa/Newgate Prison t/criminal t/friend`
-
-== Listing all persons : `list`
-
-Shows a list of all persons in the address book. +
-Format: `list`
-
-== Finding all persons containing any keyword in their name: `find`
-
-Finds persons whose names contain any of the given keywords. +
-Format: `find KEYWORD [MORE_KEYWORDS]`
-
-[NOTE]
-====
-The search is case sensitive, the order of the keywords does not matter, only the name is searched,
-and persons matching at least one keyword will be returned (i.e. `OR` search).
 ====
 
-Examples:
+*Command Format*
 
-* `find John` +
-Returns `John Doe` but not `john`.
+* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
+* Items in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
+====
 
-* `find Betsy Tim John` +
-Returns Any person having names `Betsy`, `Tim`, or `John`.
+// tag::menucommands[]
+=== Menu
 
-== Deleting a person : `delete`
+==== Show Main Menu
 
-Deletes the specified person from the address book. Irreversible. +
-Format: `delete INDEX`
+Shows a list of menu categories available. +
 
-****
-Deletes the person at the specified `INDEX`.
-The index refers to the index number shown in the most recent listing.
-****
+Format: `showmainmenu`
 
-Examples:
+==== List Menu
 
-* `list` +
-`delete 2` +
-Deletes the 2nd person in the address book.
+Shows a list of all the menu items that exists in the restaurant's menu database. +
 
-* `find Betsy` +
-`delete 1` +
-Deletes the 1st person in the results of the `find` command.
+Each menu item include details of: menu item, price, type and any relevant tags. +
 
-== View non-private details of a person : `view`
+Format: `listmenu`
 
-Displays the non-private details of the specified person. +
-Format: `view INDEX`
+* List the current menu items in the menu
 
-****
-Views the person at the specified `INDEX`.
-The index refers to the index number shown in the most recent listing.
-****
+==== List Menu According to Category
 
-Examples:
+Shows a list of the menu items of a particular category type. The category types are shown in the Main Menu (e.g main, sides). +
 
-* `list` +
-`view 2` +
-Views the 2nd person in the address book.
+Each menu item include details of: menu item, price, type and any relevant tags. +
 
-* `find Betsy` +
-`view 1` +
-Views the 1st person in the results of the `find` command.
+Format: `listmenutype TYPE`
 
-== View all details of a person : `viewall`
+* List the current menu items of a particular category in the menu
 
-Displays all details (including private details) of the specified person. +
-Format: `viewall INDEX`
+Example: +
+`listmenutype main` +
+System shows all the main dishes in the menu.
 
-****
-Views all details of the person at the specified `INDEX`.
-The index refers to the index number shown in the most recent listing.
-****
+==== Add Menu
 
-Examples:
+Add a new item to the menu. +
+Format: `addmenu NAME p/PRICE type/TYPE [t/TAG]...`
 
-* `list` +
-`viewall 2` +
-Views all details of the 2nd person in the address book.
+* Adds the new menu item into the menu list
+* Names must be unique, cannot be longer than 30 alphanumeric characters and spaces. It must contain minimum one character.
+* Note that duplicate menu name is still detected even if the user tries to key in the same name with extra spaces at the *end* of the menu name (eg. 'Cheese Burger' and 'Cheese Burger  ')
+* Price must follow the formal $A.BC or $A where A is a number of 1-3 digits and B and C are 1 digit each.
+* Type should only be of the following categories: main, sides, beverage, dessert, others, set meal
+* A new food item can have multiple tags (including 0)
 
-* `find Betsy` +
-`viewall 1` +
-Views all details of the 1st person in the results of the `find` command.
+Example: +
+`addmenu Cheese Fries p/$3.50 type/sides t/newItem t/seasonalSpecial` +
+System adds Cheese Fries to the existing menu.
 
-== Clearing all entries : `clear`
+==== Delete Menu
 
-Clears all entries from the address book. +
-Format: `clear`
+Delete an item on the menu +
+Format: `delmenu INDEX` +
+Preconditions: The user must perform 'List Menu' , 'List Menu According to Category' or 'Find Menu' use cases first before performing 'Delete Menu'
 
-== Exiting the program : `exit`
+* Deletes the menu item in that particular index
+* INDEX should be less than or equal to the total number of food items stated at the end of the list
 
-Exits the program. +
-Format: `exit`
+Example: +
+`listmenutype main` +
+`delmenu 1` +
+System deletes menu item in index 1 from the displayed menu of main dishes. +
+`listmenutype main` +
+`delmenu 1` +
+System deletes the menu item in index 1 from the displayed menu of main dishes. +
+`findmenu Cheese Fries` +
+`delmenu 3` +
+System deletes Cheese Fries in index 3 from the displayed menu of items found with `Cheese Fries` keyword.
 
-== Saving the data
+==== Find Menu
 
-Address book data are saved in the hard disk automatically after any command that changes the data.
+Finds the menu item(s) related to the keywords typed in by the user. +
+Format: `findmenu KEYWORD [MORE KEYWORDS]`
 
-There is no need to save manually. Address book data are saved in a file called `addressbook.txt` in the project root folder.
+* A list of menu items with names related to the keyword(s) will be displayed.
+* The search is case insensitive eg. `cheese` will match `Cheese`.
+* Order of keywords do not matter.
+* Only full words will be matched. eg `burg` will not match `Burger`
+* Menu items matching atleast one key word will be returned. eg '`cheese` will return `Cheese Fries`, `Cheese Burger`.
+
+Example: +
+`findmenu Burger Coke Fries` +
+Returns Double Cheese burger, Veggie Burger, Coke, coke zero, Fries, Curly Fries
+
+==== Menu Recommendations
+
+Displays the best selling items of each category, if they are sold, as the recommended items of the restaurant. +
+Format: `recommendations`
+
+* For a particular category, if no menu items are sold, items from that category will not be displayed under recommendations.
+* Atleast one item from each category must be sold in order for recommendations to reflect items from that category.
+
+Example: +
+`recommendations` +
+Returns Main: Double Cheese Burger, Sides: French Fries, Beverage: Sprite
+
+// end::menucommands[]
+
+[[MemberCommands]]
+// tag::membercommands[]
+=== Members
+
+==== Add Member
+
+Add a new member to the RMS +
+Format: `addmember NAME e/EMAIL`
+
+* Member name cannot be longer than 30 alphanumeric characters and spaces.
+* Member name must have at least 1 character.
+* Email should be 2 alphanumeric/period strings that are no longer than 20 characters separated by '@'
+
+Example: +
+`addmember kang ming e/kangming@rms.com` +
+Returns:  New member added: kang ming | Email: kangming@rms.com | Available Points: 0 | Total Points: 0 | Tier: Bronze | Date: Mon Oct 20 22:12:07 SRET 2018
+
+==== List Member
+
+Shows a list of all the members in the RMS. Displays the NAME, POINTS, DATE JOINED, MEMBERSHIP TIER of each member. +
+Format: `listmember`
+
+Example: +
+`listmember`
+
+==== Delete Member
+
+Delete membership details of a member in the RMS +
+Format: `delmember INDEX`
+
+* Deletes the member at the specified `INDEX`.
+* The index refers to the index number shown in the displayed member list.
+* The index must be a positive integer `1, 2, 3 ...`
+
+Example: +
+`listmember` +
+`delmember 1`
+
+Returns: Deleted member: kang ming | Email: kangming@rms.com | Available Points: 0 | Total Points: 0 | Tier: Bronze | Date: Mon Oct 20 22:19:32 SRET 2018
+
+// end::membercommands[]
+
+// tag::employeecommands[]
+=== Employees
+==== List Employees
+
+Show a list of all the employees on the RMS. +
+Format: `listemp`
+
+==== Add Employee
+
+Adds a new employee to the RMS. +
+Format: `addemp NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS pos/POSITION`
+
+* Employees with exact same names are not allowed irregardless of it being in upper or lower case.
+* Employee name cannot be longer than 30 alphanumeric characters and spaces.
+* Employee name must have at least 1 character.
+* Phone numbers must be an 8 digit number.
+* Email should be 2 alphanumeric/period strings that are no longer than 20 characters separated by '@'
+
+Example: +
+ `addemp John Doe p/91234567 e/Example2018@rms.com a/Clementi Ave 2, Blk 543 #13-12 pos/Cashier` +
+ Adds a new employee with the specified details.
+
+==== Edit Employee
+
+Edit details of an employee in the RMS. +
+Format: `editemp INDEX [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [pos/POSITION]`
+
+* Edits the employee at the specified `INDEX`.
+* Parameters in square brackets are optional.
+* At least one of the optional parameters must be provided.
+* Existing values will be updated to the input values.
+* The index must be a positive integer `1, 2, 3 ...`
+* Phone numbers must be an 8 digit number.
+* Email should be 2 alphanumeric/period strings that are no longer than 20 characters separated by '@'
+
+Example: +
+
+* `listemp` +
+* `editemp 1 pos/Cashier` +
+Edits the position of the 1st employee in the employee list to Cashier.
+
+==== Delete Employee
+
+Deletes an employee from the RMS. +
+Format: `delemp INDEX`
+
+* Deletes the employee at the specified `INDEX`.
+* The index refers to the index number shown in the displayed employee list.
+* The index must be a positive integer `1, 2, 3 ...`
+
+Example: +
+
+* `listemp` +
+* `delemp 1` +
+Deletes the 1st employee in the employee list.
+
+==== Clock In
+
+Clocks in attendance for the specified employee based on the current date and time +
+Format: `clockin NAME`
+
+* Employee must either have been newly created or
+have used the "Clock Out" command, otherwise the system will request the user to use the "Clock Out" command first.
+
+Example: +
+`clockin John Doe` +
+Clocks in for the employee John Doe.
+
+
+==== Clock Out
+
+Clocks out for the specified employee based on the current date and time. +
+Format: `clockout NAME`
+
+* Employee must have used the "Clock In" command, otherwise the system will request the user to use the "Clock In" command first.
+
+Example: +
+`clockout John Doe` +
+Clocks out for the employee John Doe.
+
+// end::employeecommands[]
+
+// tag::orderuserguide[]
+=== Order
+
+==== Add Order
+
+image::AddOrderInstruction.png[]
+
+To add a new order to the order list, a draft must be completed before adding it to the order list. +
+
+To do so, dishes must be added into the draft before it can be added into the order list after
+the draft is confirmed.
+
+If the customer is a registered member, the customer's information can be found in the member list and can be added
+into the order draft to use and accumulate member points
+once the order is confirmed.
+
+* *Display Draft And Instruction For Adding New Order* +
++
+Displays the current draft, steps to add an order and the list of order draft commands that can be used +
++
+Format: `addorder`
+
+* *Edit A Dish Item Of The Draft* +
++
+By picking dishes from the last shown menu and state the quantity to be added,
+te dish items can be added, deleted or edited in the draft order. +
++
+ ** If the quantity is set to 0, then the dish will be removed from the draft.
+ ** If the quantity is a positive integer, then the quantity of the dish will be set to quantity.
++
+Format: `draftdish INDEX q/QUANTITY [INDEX q/QUANTITY]...`
+
+** There must be no duplicated index in the input command.
+** The indexes refer to the index numbers shown in the last shown menu list.
+** The indexes must be non-negative integers.
+** The quantities must be non-negative integers of 1-3 digits.
+
+* *Select A Member As The Customer Of The Draft* +
+_This step is only necessary if the customer is a member._
++
+Select a member from the last shown member list to be the customer of the draft order. +
++
+Format: `draftcustomer INDEX`
++
+ ** The index refers to the index number shown in the last shown member list.
+
+* *Redeems member points in the draft order* +
+_This step can only be done after the following conditions have been met:_
++
+. _A member has been added to the draft order._
++
+. _At least one dish has been added to the draft order._
++
+Assign member points to be redeemed as discount for the draft order.
++
+Format: `draftpoints POINTS`
++
+ ** The points redeemed must be a non-negative integer.
+ ** The limit to the redeemable points is set as the smaller value between the amount of points the customer currently
+ has and the maximum amount of points can be deduced from the order such that the final price is not less than zero.
+ ** If the assigned redeemed points is more than the limit, then it will be set back to the limit.
+
+* *Clear Draft* +
++
+Clear all details of the draft order. +
++
+Format: `cleardraft`
+
+* *ConfirmDraft* +
++
+Confirm the draft and add it to the order list. +
++
+Once it is confirmed, the ordered dish items in the
+newly added order can no longer be changed. +
++
+Format: `confirmdraft`
+
+==== Delete Order
+
+Delete an order. +
+
+The deleted order is specified by the index of that order on the last displayed order list. +
+
+Format: `deleteorder INDEX`
+
+* The index refers to the index number shown in the last shown order list.
+
+==== Clear Order
+
+Clear the entire order list. +
+
+Format: `clearorder`
+
+==== List Orders
+
+Shows a list of all the current orders.
+
+Each order include details of: customer, ordered time, total price and the list of dish items and quantities ordered
+
+Format: `listorder`.
+// end::orderuserguide[]
+
+
+// tag::statisticscommands[]
+=== Statistics
+
+==== View Employee Statistics
+
+Displays the employee statistics overview +
+Overview consists of the number of employees in the system,
+current on duty employees and all the employees' recent 3 activity +
+Format: statsemp
+
+Examples: +
+`statsemp`
+
+==== View Member Statistics
+
+Displays the member statistics overview +
+Overview consists of the number of new member signups on the current day, month and year.
+It also includes the number of members in each member tier. +
+Format: statsmember
+
+Examples: +
+`statsmember`
+
+==== View Menu Statistics
+
+Displays the menu statistics overview without any parameters or with optional parameters `f/` or `t/` to set date range for calculation of statistics +
+Overview consists of the number of sales for all the menu items in the system. Including menu items that was deleted but still exists in an order. +
+Bestsellers and least popular items are also displayed.
+Format: statsmenu [f/MMDDYYY] [t/MMDDYYY]
+
+Examples: +
+
+* `statsmenu`
+* `statsmenu f/01122017 t/31122017`
+* `statsmenu f/01012017`
+* `statsmenu f/31122018`
+
+==== View Order Statistics
+
+Displays the order statistics overview +
+Overview consists of the number of sales as well as the revenue for the current day, month and year +
+Past 12 monthly revenue are also displayed here.
+Format: statsorder
+
+Examples: +
+`statsorder`
+
+// end::statisticscommands[]
+
+=== Saving the data
+
+Data from the Restaurant Management System are saved in the hard disk automatically after any command that changes the data. +
+There is no need to save manually.
+
+== FAQ
+
+*Q*: How do I transfer my data to another Computer? +
+*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Restaurant Management System folder.
+
+== Command Summary
+
+// tag::menucommandsummary[]
+
+
+=== Menu
+
+*Show Main Menu Page* : `showmainmenu`
+
+*Find Menu* : `findmenu KEYWORD [MORE KEYWORDS]`
+
+*Add Item* : `addmenu NAME p/PRICE type/TYPE [t/TAG]`
+
+*Delete Item* : `delmenu INDEX`
+
+*List Menu* : `listmenu`
+
+*List Menu According to Category* : `listmenubytype TYPE`
+
+*See Recommended Menu Items* : `recommendations`
+// end::menucommandsummary[]
+
+=== Employees
+
+*List Emplyees* : `listemp`
+
+*Add Employee* : `addemp NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS pos/POSITION`
+
+*Edit Employee* : `editemp INDEX [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [pos/POSITION]`
+
+*Delete Employee* : `delemp INDEX`
+
+*Clock In* : `clockin NAME`
+
+*Clock Out* : `clockout NAME`
+
+=== Members
+
+*Add Member* : `addmember NAME e/EMAIL`
+
+*List Member* : `listmember`
+
+*Delete Member* : `delmember INDEX`
+
+
+// tag::ordercommandsummary[]
+=== Order
+
+* *Add Order:*
+
+** *Display Add Order Commands*: `addorder`
+
+** *Edit Draft Dishes*: `draftdish INDEX q/QUANTITY` +
+e.g. `draftdish 4 q/1`
+
+** *Select Draft Customer*: `draftcustomer INDEX` +
+e.g. `draftcustomer 2`
+
+** *Redeem Member Points*: `draftpoints POINTS` +
+e.g. `draftpoints 100`
+
+** *Clear The Draft*: `cleardraft`
+
+** *Confirm Draft*: `confirmdraft`
+
+* *Delete Order* : `deleteorder INDEX` +
+e.g. `deleteorder 3`
+
+* *Clear Order List* : `clearorder`
+
+* *List All Orders* : `listorder`
+// end::ordercommandsummary[]
+
+=== Statistics
+
+*View Employee Statistics* : `statsemp`
+
+*View Member Statistics* : `statsmember`
+
+*View Menu Statistics* : `statsmenu [f/ddmmyyyy] [t/ddmmyyyy]`
+
+*View Order Statistics* : `statsorder`
