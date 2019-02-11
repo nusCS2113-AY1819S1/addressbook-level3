@@ -1,38 +1,53 @@
 package seedu.addressbook.storage.jaxb;
 
-import seedu.addressbook.common.Utils;
-import seedu.addressbook.data.exception.IllegalValueException;
-import seedu.addressbook.data.person.*;
-import seedu.addressbook.data.tag.Tag;
-
-import javax.xml.bind.annotation.XmlAttribute;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlValue;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlValue;
+
+import seedu.addressbook.common.Utils;
+import seedu.addressbook.data.exception.IllegalValueException;
+import seedu.addressbook.data.person.DateOfBirth;
+import seedu.addressbook.data.person.Name;
+import seedu.addressbook.data.person.Nric;
+import seedu.addressbook.data.person.Offense;
+import seedu.addressbook.data.person.Person;
+import seedu.addressbook.data.person.PostalCode;
+import seedu.addressbook.data.person.ReadOnlyPerson;
+import seedu.addressbook.data.person.Status;
 
 /**
  * JAXB-friendly adapted person data holder class.
  */
 public class AdaptedPerson {
 
+    /**
+     * JAXB- friendly adapted contact details holder
+     */
     private static class AdaptedContactDetail {
         @XmlValue
-        public String value;
+        private String value;
+
         @XmlAttribute(required = true)
-        public boolean isPrivate;
+        private boolean isPrivate;
     }
 
     @XmlElement(required = true)
     private String name;
     @XmlElement(required = true)
-    private AdaptedContactDetail phone;
+    private AdaptedContactDetail nric;
     @XmlElement(required = true)
-    private AdaptedContactDetail email;
+    private AdaptedContactDetail dateOfBirth;
     @XmlElement(required = true)
-    private AdaptedContactDetail address;
+    private AdaptedContactDetail postalCode;
+    @XmlElement(required = true)
+    private AdaptedContactDetail status;
+    @XmlElement(required = true)
+    private AdaptedContactDetail wantedFor;
 
     @XmlElement
     private List<AdaptedTag> tagged = new ArrayList<>();
@@ -48,25 +63,30 @@ public class AdaptedPerson {
      *
      * @param source future changes to this will not affect the created AdaptedPerson
      */
-    public AdaptedPerson(ReadOnlyPerson source) {
+    AdaptedPerson(ReadOnlyPerson source) {
         name = source.getName().fullName;
 
-        phone = new AdaptedContactDetail();
-        phone.isPrivate = source.getPhone().isPrivate();
-        phone.value = source.getPhone().value;
+        nric = new AdaptedContactDetail();
+        nric.value = source.getNric().getIdentificationNumber();
 
-        email = new AdaptedContactDetail();
-        email.isPrivate = source.getEmail().isPrivate();
-        email.value = source.getEmail().value;
+        dateOfBirth = new AdaptedContactDetail();
+        dateOfBirth = new AdaptedContactDetail();
+        dateOfBirth.value = source.getDateOfBirth().getDob();
 
-        address = new AdaptedContactDetail();
-        address.isPrivate = source.getAddress().isPrivate();
-        address.value = source.getAddress().value;
+        postalCode = new AdaptedContactDetail();
+        postalCode.value = source.getPostalCode().getPostalCode();
+
+        status = new AdaptedContactDetail();
+        status.value = source.getStatus().getCurrentStatus();
+
+        wantedFor = new AdaptedContactDetail();
+        wantedFor.value = source.getWantedFor().getOffense();
 
         tagged = new ArrayList<>();
-        for (Tag tag : source.getTags()) {
+        for (Offense tag : source.getPastOffenses()) {
             tagged.add(new AdaptedTag(tag));
         }
+
     }
 
     /**
@@ -77,15 +97,15 @@ public class AdaptedPerson {
      * is to ensure that every xml element in the document is present. JAXB sets missing elements as null,
      * so we check for that.
      */
-    public boolean isAnyRequiredFieldMissing() {
+    boolean isAnyRequiredFieldMissing() {
         for (AdaptedTag tag : tagged) {
             if (tag.isAnyRequiredFieldMissing()) {
                 return true;
             }
         }
-        // second call only happens if phone/email/address are all not null
-        return Utils.isAnyNull(name, phone, email, address)
-                || Utils.isAnyNull(phone.value, email.value, address.value);
+        // second call only happens if nric/postalCode/status are all not null
+        return Utils.isAnyNull(name, nric, dateOfBirth, postalCode, status, wantedFor)
+                || Utils.isAnyNull(nric.value, dateOfBirth.value, postalCode.value, status.value, wantedFor.value);
     }
 
     /**
@@ -93,15 +113,20 @@ public class AdaptedPerson {
      *
      * @throws IllegalValueException if there were any data constraints violated in the adapted person
      */
-    public Person toModelType() throws IllegalValueException {
-        final Set<Tag> tags = new HashSet<>();
+    Person toModelType() throws IllegalValueException {
+        final Set<Offense> tags = new HashSet<>();
+
         for (AdaptedTag tag : tagged) {
             tags.add(tag.toModelType());
         }
+        Set<String> screeningHist = new HashSet<>();
+
         final Name name = new Name(this.name);
-        final Phone phone = new Phone(this.phone.value, this.phone.isPrivate);
-        final Email email = new Email(this.email.value, this.email.isPrivate);
-        final Address address = new Address(this.address.value, this.address.isPrivate);
-        return new Person(name, phone, email, address, tags);
+        final Nric nric = new Nric(this.nric.value);
+        final DateOfBirth dateOfBirth = new DateOfBirth(this.dateOfBirth.value);
+        final PostalCode postalCode = new PostalCode(this.postalCode.value);
+        final Status status = new Status(this.status.value);
+        final Offense wantedFor = new Offense(this.wantedFor.value);
+        return new Person(name, nric, dateOfBirth, postalCode, status, wantedFor, tags);
     }
 }

@@ -1,150 +1,468 @@
-= User Guide
+= Police Records and Intelligence System - User Guide
 :site-section: UserGuide
+:toc:
+:toc-title:
+:toc-placement: preamble
+:sectnums:
 :imagesDir: images
 :stylesDir: stylesheets
+:experimental:
 ifdef::env-github[]
 :tip-caption: :bulb:
 :note-caption: :information_source:
 endif::[]
+:repoURL: https://github.com/CS2113-AY1819S1-F10-3/main
 
-This product is not meant for end-users and therefore there is no user-friendly installer.
-Please refer to the <<DeveloperGuide#setting-up, Setting up>> section to learn how to set up the project.
+By: `Team F10-3`      Since: `Aug 2018`
 
-== Starting the program
+== Introduction
 
-. Find the project pane (usually located at the left side)
-. Open up `src/seedu.addressbook` folder
-. Right click on `Main`
-. Click `Run Main.main()`
-. The GUI should appear in a few seconds
+The police database is for police officers(PO) and headquarter personnel(HQP). Both groups will have varying access and authorization levels to this database. POs would be able to read from the database after screening someone while on patrol and choose his course of action base on the status/threat level of subject. HQP would have the added functions of adding and removing people from the database. Refer to quick start to get started 
+
+== Quick Start
+
+.	Ensure that you have Java Version 9 installed on your device.
+.	Download the latest version of PRISM https://github.com/CS2113-AY1819S1-F10-3/main/releases/download/v1.4/F10-3.PRISM.jar[here].
+.	Copy the jar file to a preferred folder (an empty folder).
+.	Double-click the file to start the app. The user interface should appear in a few seconds.
+.	NOTE: DO NOT edit the text files that comes with the PRISM jar file.
 +
-image::Ui.png[]
-
-== Viewing help : `help`
-
-Format: `help`
-
-[TIP]
-====
-Help is also shown if you enter an incorrect command e.g. `abcd`
-====
-
-== Adding a person: `add`
-
-Adds a person to the address book. +
-Format: `add NAME [p]p/PHONE_NUMBER [p]e/EMAIL [p]a/ADDRESS [t/TAG]...`
-
-****
-Words in `UPPER_CASE` are the parameters, items in `SQUARE_BRACKETS` are optional,
-items with `...` after them can have multiple instances. Order of parameters are fixed.
-
-Put a `p` before the phone / email / address prefixes to mark it as `private`. `private` details can only
-be seen using the `viewall` command.
-
-Persons can have any number of tags (including 0)
-****
-
-Examples:
-
-* `add John Doe p/98765432 e/johnd@gmail.com a/John street, block 123, #01-01`
-* `add Betsy Crowe pp/1234567 e/betsycrowe@gmail.com pa/Newgate Prison t/criminal t/friend`
-
-== Listing all persons : `list`
-
-Shows a list of all persons in the address book. +
-Format: `list`
-
-== Finding all persons containing any keyword in their name: `find`
-
-Finds persons whose names contain any of the given keywords. +
-Format: `find KEYWORD [MORE_KEYWORDS]`
+image::Ui.png[width="790"]
++
+// tag::password[]
+[[password]]
 
 [NOTE]
 ====
-The search is case sensitive, the order of the keywords does not matter, only the name is searched,
-and persons matching at least one keyword will be returned (i.e. `OR` search).
+*   The text box is located at the bottom of the screen, and is grey in colour
+*   Throughout the list of features, each command will indicate if its available for HQP, PO or both
 ====
 
-Examples:
+.	Type the password in the text box below and press kbd:[Enter] to enter system as a specific user.
+.	Defaults passwords for the users (Passwords are Case Sensitive):
+.. HQP: papa123
+.. PO1: popo1
+.. PO2: popo2
+.. PO3: popo3
+.. PO4: popo4
+.. PO5: popo5
+.	Type a command in the same text box and press kbd:[Enter] to excecute it.
+.	To display the full list of commands and a summary of their functions in the application, type 'help' and press kbd:[Enter].
+.	Refer to Section 3, “Features” for details of each feature.
 
-* `find John` +
-Returns `John Doe` but not `john`.
+// end::password[]
 
-* `find Betsy Tim John` +
-Returns Any person having names `Betsy`, `Tim`, or `John`.
+[[Features]]
+== Features
 
-== Deleting a person : `delete`
+====
+*Command Format*
 
-Deletes the specified person from the address book. Irreversible. +
-Format: `delete INDEX`
+* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`
+* Items in the `WANTEDFOR` parameter must be given if `STATUS` is "wanted"
+* Items in square brackets are optional e.g `n/NAME [p/POSTALCODE] [s/STATUS]` can be used as `n/John Doe p/510246 s/xc` or `n/John Doe s/xc`
+* Items with `…`​ after them can be used multiple times including zero times e.g. `o/OFFENSE...` can be used as `{nbsp}` (i.e. 0 times), `o/theft`, `o/riot o/drugs` etc
+====
 
-****
-Deletes the person at the specified `INDEX`.
-The index refers to the index number shown in the most recent listing.
-****
+=== Viewing help : `help` (HQP & PO)
 
-Examples:
+Lists all the commands in a user friendly format for users and how to use them.
 
-* `list` +
-`delete 2` +
-Deletes the 2nd person in the address book.
+[NOTE]
+====
+*   You will be unable to see the list of available commands until logged in, due to the sensitivity of the data
+*   You will be shown a different set of commands depending on the type of access to the system- HQP or PO
+====
 
-* `find Betsy` +
-`delete 1` +
-Deletes the 1st person in the results of the `find` command.
-
-== View non-private details of a person : `view`
-
-Displays the non-private details of the specified person. +
-Format: `view INDEX`
-
-****
-Views the person at the specified `INDEX`.
-The index refers to the index number shown in the most recent listing.
-****
-
-Examples:
-
-* `list` +
-`view 2` +
-Views the 2nd person in the address book.
-
-* `find Betsy` +
-`view 1` +
-Views the 1st person in the results of the `find` command.
-
-== View all details of a person : `viewall`
-
-Displays all details (including private details) of the specified person. +
-Format: `viewall INDEX`
-
-****
-Views all details of the person at the specified `INDEX`.
-The index refers to the index number shown in the most recent listing.
-****
+Format: 'help'
 
 Examples:
 
-* `list` +
-`viewall 2` +
-Views all details of the 2nd person in the address book.
+*	help
+*	Displays all commands which can be used by the user
 
-* `find Betsy` +
-`viewall 1` +
-Views all details of the 1st person in the results of the `find` command.
+// tag::time[]
 
-== Clearing all entries : `clear`
+[[time]]
+=== Display date and time : `time` (HQP & PO)
 
-Clears all entries from the address book. +
-Format: `clear`
+Shows the current System date and time.
 
-== Exiting the program : `exit`
+Format: 'time'
 
-Exits the program. +
-Format: `exit`
+Examples:
 
-== Saving the data
+*	time
+*	Displays the current date, and time in hrs
 
-Address book data are saved in the hard disk automatically after any command that changes the data.
+// end::time[]
 
-There is no need to save manually. Address book data are saved in a file called `addressbook.txt` in the project root folder.
+=== Adding a person: `add` (HQP only)
+
+Adds a criminal to the database.
+
+Format: 'add NAME n/NRIC d/YEAROFBIRTH p/POSTALCODE s/STATUS w/WANTEDFOR [o/PASTOFFENSES]'
+
+Examples:
+
+
+*	add John Doe n/f1234567p d/1996 p/510246 s/xc w/none o/theft o/drugs"
+*   Displays a message stating the new person being added
+
+
+[NOTE]
+====
+*   If a person's STATUS is "wanted", the WANTEDFOR parameter has to be filled
+*   No two persons can have the same NRICs, the other parameters such as NAME, POSTALCODE, etc, can be the same
+*   Date of birth here only refers to the year
+====
+
+[TIP]
+A person can have 0 or more past offenses
+
+// tag::edit[]
+[[edit]]
+=== Editing a person : `edit` (HQP only)
+
+Edit specified parameter(s) of an existing person in the Police Records - only by HQP.
+
+Format: 'edit n/NRIC p/[POSTAL_CODE] s/[STATUS] w/[WANTED_FOR] o/[PAST_OFFENCES]'
+
+[NOTE]
+====
+*   The NRIC tag 'n/' is required
+*   The other tags are optional, but at least one of them must be filled
+====
+
+****
+*	Edits the person with the specified NRIC.
+*	At least one of the optional fields must be provided.
+*	Existing values will be updated to the input values.
+*   Offenses can only be added not replaced.
+****
+
+Examples:
+
+*	edit n/g1952866q p/510246
+*	Edits the postal code of the person with the specified NRIC to be 510246
+// end::edit[]
+
+=== Display a list of all persons : `list` (HQP & PO)
+
+Shows a list of every person in the Police Records
+
+Format: 'list'
+
+Examples:
+
+*	list
+*	Displays list of all persons
+
+
+=== Find a person by NRIC : `find` (HQP & PO)
+
+Finds a person in the Police Records by the specified NRIC
+
+Format: 'find NRIC'
+
+Examples:
+
+*	find s1234567a
+*	Returns person with 's1234567a'
+
+
+[NOTE]
+====
+*   A timestamp and current ID is stored whenever this command is used
+====
+
+=== Get screening history of a person: `check` (HQP)
+
+Displays all the times a person was screened in the form of timestamps (using 'find' command) - Only by HQP
+
+Format: 'check s1234567a'
+
+*	Returns an indexed list of timestamps for specified person, as well as corresponding PO ID nuber
+
+
+Examples:
+
+*	check s1234567a
+*	Shows an indexed list of timestamps for when person with s1234567a was screened by any POs
+
+
+=== Get status of POs: `checkstatus` (HQP & PO)
+
+Shows all POs and their current engagement statuses
+
+Format: 'checkstatus'
+
+=== Update status of PO: `updatestatus` (HQP only)
+
+Updates the PO so that it is not engaged anymore
+
+Format: 'updatestatus PO(ID)'
+
+Examples:
+
+*  updatestatus po2
+*  po2 is now free for dispatch
+
+=== Deleting a person : `delete` (HQP only)
+
+Deletes the specified person from the database.
+
+Format: 'delete NRIC'
+
+*	Deletes the person with the specifies NRIC.
+
+Examples:
+
+*	delete g1952866q
+*	Deletes the person with the specified NRIC from the records.
+
+=== Clear records : `clear` (HQP only)
+
+Clears all records of people in the Police Records.
+
+Format: 'clear'
+
+Example:
+
+*	clear
+*	Records will now be empty
+
+// tag::request[]
+[[request]]
+=== Requesting for assistance : `rb` (HQP & PO)
+
+Generates GPS coordinates of current location with current case and sends it to HQP.
+HQP would receive message in inbox.
+
+Format: 'rb OFFENSE'
+
+Examples:
+
+*	rb gun
+*   Sends a set of GPS coordinates, Current Case and Google Maps URL location to HQP.
+// end::request[]
+
+// tag::dispatch[]
+[[dispatch]]
+=== Dispatch assistance for requester: `dispatch` (HQP only)
+
+Generates message to dispatch an officer to backup a requesting officer
+Message would be sent to requester & backup officer which includes ETA(Real Time) & Location (Google Maps URL).
+
+Format: 'dispatch BACKUP_OFFICER OFFENSE REQUESTER_OFFICER'
+
+*   dispatch po1 gun po3
+*   Sends a set of GPS coordinates, current case, ETA and Google Maps URL location of requester
+    to backup officer and vice-versa.
+// end::dispatch[]
+
+// tag::logout[]
+[[logout]]
+=== Logout : `logout` (HQP & PO)
+
+Logs the user out from the system.
+
+Format: 'logout'
+
+Examples:
+
+*	logout
+*	Any user must enter their respective password to log in
+
+=== Update Password : `update password` (HQP)
+
+Updates password of any existing user - only HQP can change the user's password
+
+Format: 'update password'
+
+Examples:
+
+*	update password
+*	Please enter a password to change
+*   User then has to enter existing password and new alphanumeric password of minimum length 5
+
+// end::logout[]
+
+=== Check unread notifications: `showunread` (HQP & PO)
+
+For HQPs: Check inbox to see a list of backup requests made by POs, and are sorted based on severity first, and then time stamp.
+For POs: Check inbox to see who is responding to request for backup/ambulance/fire truck or to see if there are any dispatch orders
+
+Format: 'showunread'
+
+
+Examples (as a HQP):
+
+*	'showunread'
+*	Shows a list of dispatch requests (sorted by severity then timestamp) made by POs on the ground:
+
+Examples (as a PO):
+*	'showunread'
+*	Shows any backup messages by HQ or response for backup if any
+
+=== Check all notifications: `inbox` (HQP & PO)
+
+For HQPs: Check inbox to see a list of backup requests made by POs, and are sorted based on severity first, and then time stamp.
+For POs: Check inbox to see who is responding to request for backup/ambulance/fire truck or to see if there are any dispatch orders
+
+Format: 'inbox'
+
+
+Examples (as a HQP):
+
+*	'inbox'
+*	Shows a list of backup requests (sorted by severity then timestamp) made by POs on the ground:
+
+Examples (as a PO):
+*	'inbox'
+*	Shows any dispatch messages by HQ or response for backup if any
+
+=== Read message : `read`(HQP & PO)
+
+Updates the status of unread messages to read. Command to be used after `showunread` or `inbox` command
+
+Format: 'read INDEX'
+
+Examples:
+*  read 1
+
+=== Clear inbox: `clearinbox` (HQP & PO)
+
+Clears the text file containing all the messages (both read and unread) for the user.
+
+Format: 'clearinbox'
+
+// tag::shutdown[]
+[[shutdown]]
+=== Shutdown program : `shutdown` (HQP & PO)
+
+Shutdown the system
+
+Format: 'shutdown'
+
+Examples:
+*   shutdown
+*   Police Records System shuts down
+// end::shutdown[]
+
+// tag::autocorrect[]
+[[autocorrect]]
+=== AutoCorrect feature (HQP & PO)
+
+Predicts expected input when the user enters invalid input that is close to input expected by the Police Records System.
+Currently all non-password commands and NRICs are covered by the feature.
+
+[NOTE]
+====
+*   The feature predicts correction for commands that are a single character away from valid command
+*   The feature predicts correction for NRICs that are one or two characters away from valid NRIC
+====
+
+****
+ The feature works differently depending on the type of user.
+
+*	For HQP, all commands as well as NRICs under edit, check and delete command are covered by the feature.
+*   For POs, only commands they are authorized to use are covered by the feature.
+*	The autocorrect feature does not cover the update password command, and NRICs under commands accessible by POs to
+maintain security.
+
+****
+
+Examples:
+
+*	lost
+*	Predicts that the user meant to use the command `list` and shows valid implementation of the list command
+// end::autocorrect[]
+
+== Commands List
+ 
+*	*Help* : 'help'
+
+*   *Show time* : 'time'
+
+*	*Add*  : 'add n/NAME n/NRIC d/YEAR_OF_BIRTH p/POSTAL_CODE s/STATUS w/WANTED_FOR o/PAST OFFENCES...'
+
+E.g. add John Doe n/s1234567a d/1996 p/510246 s/xc w/none o/theft o/drugs
+E.g. add Bob n/g1234567a d/1996 p/111111 s/clear w/none
+
+*	*Edit* : 'edit NRIC n/[NAME] p/[POSTAL_CODE] s/[STATUS] w/WANTED_FOR o/PAST_OFFENCES'
+
+E.g. edit g1952866q p/510246
+
+*	*List* : 'list'
+
+*	*Find* : 'find NRIC'
+
+E.g. find s1234567a
+
+*	*Check* : 'check NRIC'
+
+E.g. check s1234567a
+
+*   *Get status of POs* : 'checkstatus'
+
+*   *Update status of PO* : 'updatestatus'
+
+E.g  updatestatus po2
+
+*	*Delete* : 'delete NRIC'
+
+E.g. delete g1952866q
+
+*	*Clear* : 'clear'
+
+*	*Request for backup* : 'RB'
+
+*	*Dispatch* : 'dispatch PO(ID) CASE PO(ID)'
+
+E.g. dispatch po2 gun po4
+
+*	*Lock* : 'lock'
+
+*	*Update Password* : 'update password'
+
+*	*Check unread notifications* : 'showunread'
+
+*   *Check all notifications* : 'inbox'
+
+*   *Read message* : 'read INDEX'
+
+E.g  read 1
+
+*   *Clear Inbox*  : 'clearinbox'
+
+*	*Shutdown* : 'shutdown'
+
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

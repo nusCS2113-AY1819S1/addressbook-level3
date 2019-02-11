@@ -1,10 +1,10 @@
 package seedu.addressbook.storage.jaxb;
 
+import javax.xml.bind.annotation.XmlValue;
+
 import seedu.addressbook.common.Utils;
 import seedu.addressbook.data.exception.IllegalValueException;
-import seedu.addressbook.data.tag.Tag;
-
-import javax.xml.bind.annotation.XmlValue;
+import seedu.addressbook.data.person.Offense;
 
 /**
  * JAXB-friendly adapted tag data holder class.
@@ -12,7 +12,7 @@ import javax.xml.bind.annotation.XmlValue;
 public class AdaptedTag {
 
     @XmlValue
-    public String tagName;
+    private String offenseName;
 
     /**
      * No-arg constructor for JAXB use.
@@ -24,8 +24,8 @@ public class AdaptedTag {
      *
      * @param source future changes to this will not affect the created AdaptedTag
      */
-    public AdaptedTag(Tag source) {
-        tagName = source.tagName;
+    AdaptedTag(Offense source) {
+        offenseName = source.getOffense();
     }
 
     /**
@@ -36,8 +36,8 @@ public class AdaptedTag {
      * is to ensure that every xml element in the document is present. JAXB sets missing elements as null,
      * so we check for that.
      */
-    public boolean isAnyRequiredFieldMissing() {
-        return Utils.isAnyNull(tagName);
+    boolean isAnyRequiredFieldMissing() {
+        return Utils.isAnyNull(offenseName);
     }
 
     /**
@@ -45,7 +45,7 @@ public class AdaptedTag {
      *
      * @throws IllegalValueException if there were any data constraints violated in the adapted person
      */
-    public Tag toModelType() throws IllegalValueException {
-        return new Tag(tagName);
+    Offense toModelType() throws IllegalValueException {
+        return new Offense(offenseName);
     }
 }

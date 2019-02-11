@@ -1,56 +1,96 @@
 package seedu.addressbook.commands;
 
-import seedu.addressbook.data.person.ReadOnlyPerson;
+import java.io.IOException;
 
-import java.util.*;
+import seedu.addressbook.data.AddressBook;
+import seedu.addressbook.data.person.ReadOnlyPerson;
+import seedu.addressbook.storage.StorageFile;
 
 /**
- * Finds and lists all persons in address book whose name contains any of the argument keywords.
- * Keyword matching is case sensitive.
+ * Finds a particular person with the specified Nric, used for screening.
+ * Letters in Nric must be in lower case.
  */
 public class FindCommand extends Command {
-
+    //@@author muhdharun -reused
     public static final String COMMAND_WORD = "find";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ":\n" + "Finds all persons whose names contain any of "
-            + "the specified keywords (case-sensitive) and displays them as a list with index numbers.\n\t"
-            + "Parameters: KEYWORD [MORE_KEYWORDS]...\n\t"
-            + "Example: " + COMMAND_WORD + " alice bob charlie";
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ":\n" + "Finds person with specified Nric \n\t"
+            + "Parameters: Nric ...\n\t"
+            + "Example: " + COMMAND_WORD + " s1234567a";
 
-    private final Set<String> keywords;
+    private String nric;
+    private String screeningDatabase = "screeningHistory.txt";
+    private AddressBook addressBookForTest; //For testing
 
-    public FindCommand(Set<String> keywords) {
-        this.keywords = keywords;
+    public FindCommand(String nricToFind) {
+        this.nric = nricToFind;
+    }
+
+    public String getNric() {
+        return nric;
+    }
+
+    public void setFile(String file) {
+        this.screeningDatabase = file;
     }
 
     /**
-     * Returns copy of keywords in this command.
+     *  Used for testing purposes, especially for when testing for wrong file paths
      */
-    public Set<String> getKeywords() {
-        return new HashSet<>(keywords);
+    public void setAddressBook(AddressBook addressBook) {
+        this.addressBookForTest = addressBook;
+        try {
+            StorageFile storage = new StorageFile();
+            this.addressBook = storage.load();
+        } catch (Exception e) {
+            //Catch block is empty as this method will only be called during testing
+            // as a different addressbook could be used
+        }
+    }
+
+    public String getDbName() {
+        return screeningDatabase;
     }
 
     @Override
     public CommandResult execute() {
-        final List<ReadOnlyPerson> personsFound = getPersonsWithNameContainingAnyKeyword(keywords);
-        return new CommandResult(getMessageForPersonListShownSummary(personsFound), personsFound);
+        try {
+            final ReadOnlyPerson personFound = getPersonWithNric();
+            return new CommandResult(getMessageForPersonShownSummary(personFound));
+        } catch (IOException ioe) {
+            String fileNotFoundError = "File not found";
+            return new CommandResult(fileNotFoundError);
+        }
     }
 
+
     /**
-     * Retrieve all persons in the address book whose names contain some of the specified keywords.
+     * Retrieve the person in the records whose name contain the specified Nric.
      *
-     * @param keywords for searching
-     * @return list of persons found
+     * @return Persons found, null if no person found
      */
-    private List<ReadOnlyPerson> getPersonsWithNameContainingAnyKeyword(Set<String> keywords) {
-        final List<ReadOnlyPerson> matchedPersons = new ArrayList<>();
-        for (ReadOnlyPerson person : addressBook.getAllPersons()) {
-            final Set<String> wordsInName = new HashSet<>(person.getName().getWordsInName());
-            if (!Collections.disjoint(wordsInName, keywords)) {
-                matchedPersons.add(person);
+    private ReadOnlyPerson getPersonWithNric() throws IOException {
+        ReadOnlyPerson result = null;
+        if (this.addressBookForTest != null) {
+            for (ReadOnlyPerson person : this.addressBookForTest.getAllPersons().immutableListView()) {
+                if (person.getNric().getIdentificationNumber().equals(nric)) {
+                    this.addressBookForTest.addPersonToDbAndUpdate(person);
+                    this.addressBookForTest.updateDatabase(screeningDatabase);
+                    result = person;
+                    break;
+                }
+            }
+        } else {
+            for (ReadOnlyPerson person : relevantPersons) {
+                if (person.getNric().getIdentificationNumber().equals(nric)) {
+                    addressBook.addPersonToDbAndUpdate(person);
+                    addressBook.updateDatabase(screeningDatabase);
+                    result = person;
+                    break;
+                }
             }
         }
-        return matchedPersons;
+        return result;
     }
 
 }

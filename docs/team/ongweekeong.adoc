@@ -1,0 +1,173 @@
+= Ong Wee Keong  - Project Portfolio
+:site-section: ProjectPortfolio
+:toc:
+:toc-title:
+:sectnums:
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+:xrefstyle: full
+
+:tip-caption: :bulb:
+:note-caption: :information_source:
+:warning-caption: :warning:
+:experimental:
+= PROJECT: Police Records Intelligent System (PRISM)
+
+== Introduction
+The purpose of this portfolio is to document the specific contributions that I have made to this project. The project, with the end product being called “Police Records System” (PRS), was done over the course of one semester in National University of Singapore (NUS), under the module CS2113T, which aims to teach Software Engineering principles and Object-Oriented Programming. PRS was done by a team of 5 people including myself, and 4 other course mates. 
+
+
+=== Overview of Project
+PRS is a product that was morphed from the original Addressbook Level 3, published by a Github organization called Software Engineering Education (https://github.com/se-edu/addressbook-level3). PRS is an application that is designed to aid Police Officers in their patrolling duties to make screening subjects more efficient and well documented. 
+It also serves as a system for communication between Police Officers (POs) on patrol and the Headquarters Personnel (HQP) in cases where additional manpower resources are required for backup.
+PRS is currently a desktop application, designed specifically for users who are comfortable with using Command-Line Interface (CLI). 
+
+=== Main Features Implemented
+Over the course of the project, my team and I have implemented 5 major features:
+
+. Password-Lock
+. Text Prediction and Correction
+. Screening History
+. Notification Messages
+. Editing and Deleting by NRIC of Subjects
+
+== Summary of Contributions
+The purpose of this section is to allow readers to get a clearer idea of how the work was divided among the team, and the specific contributions that I have made for the project. The major feature that I was working on in the project is explained below
+
+* Role: Developer 
+
+=== Major Enhancement – Notification Messages System
+
+* What it does: This feature allows you as a system user to send specific messages to other users, and read unread messages that other uses may have sent to you. To read unread messages that have been sent to you, type “showunread” in the CLI. Messages will appear with the most urgent message appearing at the top.
+
+* Justification/Significance: This feature is highly significant in the product, as it is the pipeline that enables communication between different system users to happen. This is the feature that enables POs to request for backup when required, and for HQP to dispatch backup as required. 
+
+* Highlights: This enhancement supports communication between users, which is something completely new in this system. This was previously not possible through the code base given to us in Addressbook Level 3. Thus, the implementation was highly challenging as rigorous thinking was required to come up with an appropriate system that allows various users to send and receive specifically from another user, as well as methods for storing the messages sent and received.
+
+=== Minor Enhancement – Allows users to mark messages as read
+
+*	This enhancement allows users to respond to the messages that are sent to them and updating the read status of those messages once action has been taken, depending on the nature of the message sent to them.
+
+=== Code Contributed:
+*	https://nuscs2113-ay1819s1.github.io/dashboard/#=undefined&search=keong&sort=displayName&since=2018-09-12&until=2018-10-30&timeframe=day&reverse=false&repoSort=true[Functional & Test code]
+
+=== Other Contributions:
+*	Enhancements to existing features:
+**	Wrote additional tests for implemented features to increase code coverage from 40.7% to 51.38% (Pull request https://github.com/CS2113-AY1819S1-F10-3/main/pull/155[#155])
+**   Actively tested the end product to find and fix bugs (See issues https://github.com/CS2113-AY1819S1-F10-3/main/issues/134[#134], https://github.com/CS2113-AY1819S1-F10-3/main/issues/165[#165] and pull requests https://github.com/CS2113-AY1819S1-F10-3/main/pull/219[#219], https://github.com/CS2113-AY1819S1-F10-3/main/pull/229[#229], https://github.com/CS2113-AY1819S1-F10-3/main/pull/234[#234])
+*   Documentation:
+**  Standardized formatting in developer guide (Pull Request https://github.com/CS2113-AY1819S1-F10-3/main/pull/120[#120])
+**  Helped the team to collate code contribution for each team member (Pull request https://github.com/CS2113-AY1819S1-F10-3/main/pull/153[#153])
+*   Miscellaneous:
+**  Edited `build.gradle` file to enable jar file generation using shadowJar
+
+
+
+== Contributions to the User Guide
+The User Guide is written with the end-users as the main target audience. The sections which I contributed to the User Guide are as shown below:
+
+=== `1. Introduction`
+The police database is for police officers (PO) and headquarter personnel(HQP). Both groups will have varying access and authorization levels to this database. POs would be able to read from the database after screening someone while on patrol and choose his course of action base on the status/threat level of subject. HQP would have the added functions of adding and removing people from the database. Refer to quick start to get started
+
+=== `3.16 Check unread notifications: 'showunread' (HQP & PO)`
+
+For HQPs: Check inbox to see a list of backup requests made by POs, and are sorted based on severity first, and then time stamp.
+For POs: Check inbox to see who is responding to request for backup/ambulance/fire truck or to see if there are any dispatch orders
+
+Format: 'showunread'
+
+
+Examples (as a HQP):
+
+*	'showunread'
+*	Shows a list of dispatch requests (sorted by severity then timestamp) made by POs on the ground:
+
+Examples (as a PO):
+*	'showunread'
+*	Shows any backup messages by HQ or response for backup if any
+
+=== `3.17 Check all notifications: 'inbox' (HQP & PO)`
+
+For HQPs: Check inbox to see a list of backup requests made by POs, and are sorted based on severity first, and then time stamp.
+For POs: Check inbox to see who is responding to request for backup/ambulance/fire truck or to see if there are any dispatch orders
+
+Format: 'inbox'
+
+
+Examples (as a HQP):
+
+*	'inbox'
+*	Shows a list of backup requests (sorted by severity then timestamp) made by POs on the ground:
+
+Examples (as a PO):
+*	'inbox'
+*	Shows any dispatch messages by HQ or response for backup if any
+
+=== `3.18 Read message : 'read'(HQP & PO)`
+
+Updates the status of unread messages to read. Command to be used after `showunread` or `inbox` command
+
+Format: 'read INDEX'
+
+Examples:
+*  read 1
+
+=== `3.19 Clear inbox: 'clearinbox' (HQP & PO)`
+
+Clears the text file containing all the messages (both read and unread) for the user.
+
+Format: 'clearinbox'
+
+
+
+== Contributions to the Developer Guide
+The Developer Guide is written for developers who wish to contribute to the project or adapt it for their own use, to get a better understanding of the software. The sections below are my contributions to the Developer Guide:
+
+=== `Introduction`
+The purpose of this Developer Guide is to provide useful information to software developers who desire to contribute to the project (e.g. optimizing of code, adding test cases, etc.), including an overview of the software architecture, design as well as current implementations and intended functionality of current features. The police database is for police officers(PO) and headquarters personnel(HQP). Both groups will have varying access and authorization levels to this database. POs would be able to read from the database after screening someone while on patrol and choose his course of action base on the status/threat level of subject. HQP would have the added functions of adding and removing people from the database. Refer to quick start to get started.
+
+=== `Setting up`
+To set up the project successfully on your computer, follow the steps below.
+
+==== Prerequisites
+In order to start the setup, you are required to install the following:
+
+* JDK 9 or later
+* IntelliJ IDE
+
+==== Importing the project into IntelliJ
+
+. Open IntelliJ (if you are not in the welcome screen, click `File` > `Close Project` to close the existing project dialog first)
+. Set up the correct JDK version
+.. Click `Configure` > `Project Defaults` > `Project Structure`
+.. If JDK 9 is listed in the drop down, select it. If it is not, click `New...` and select the directory where you installed JDK 9
+.. Click `OK`
+. Click `Import Project`
+. Locate the `build.gradle` file and select it. Click `OK`
+. Click `Open as Project`
+. Click `OK` to accept the default settings
+. Run the `seedu.addressbook.Main` class (right-click the `Main` class and click `Run Main.main()`) and try executing a few commands
+. Run all the tests (right-click the `test` folder, and click `Run 'All Tests'`) and ensure that they pass
+. Open the `StorageFile` file and check for any code errors
+.. Due to an ongoing https://youtrack.jetbrains.com/issue/IDEA-189060[issue] with some of the newer versions of IntelliJ, code errors may be detected even if the project can be built and run successfully
+.. To resolve this, place your cursor over any of the code section highlighted in red. Press kbd:[ALT + ENTER], and select `Add '--add-modules=java.xml.bind' to module compiler options`
+
+=== `Design`
+The diagram below shows a high level architecture design of the current classes that are used in the project.
+
+image::mainClassDiagramFULLEdited.png[]
+
+=== `Implementation`
+This section describes some of the more important details of certain features implemented.
+
+include::../DeveloperGuide.adoc[tag=wkFeatures]
+
+
+
+=== `Use Cases`
+
+include::../DeveloperGuide.adoc[tag=inbox]
+
+=== `Glossary`
+
+include::../DeveloperGuide.adoc[tag=glossary]

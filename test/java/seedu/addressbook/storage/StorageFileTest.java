@@ -1,26 +1,36 @@
 package seedu.addressbook.storage;
 
 import static org.junit.Assert.assertEquals;
+import static seedu.addressbook.common.Messages.MESSAGE_INBOX_FILE_NOT_FOUND;
+import static seedu.addressbook.util.TestUtil.assertTextFilesEqual;
+
+import java.io.IOException;
 import java.nio.file.Paths;
+
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.TreeSet;
 
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 import org.junit.rules.TemporaryFolder;
 
+import junit.framework.TestCase;
+
 import seedu.addressbook.data.AddressBook;
 import seedu.addressbook.data.exception.IllegalValueException;
-import seedu.addressbook.data.person.Address;
-import seedu.addressbook.data.person.Email;
+import seedu.addressbook.data.person.DateOfBirth;
 import seedu.addressbook.data.person.Name;
+import seedu.addressbook.data.person.Nric;
+import seedu.addressbook.data.person.Offense;
 import seedu.addressbook.data.person.Person;
-import seedu.addressbook.data.person.Phone;
-import seedu.addressbook.data.tag.Tag;
+import seedu.addressbook.data.person.PostalCode;
+import seedu.addressbook.data.person.Status;
+import seedu.addressbook.inbox.Msg;
+import seedu.addressbook.inbox.NotificationReader;
 import seedu.addressbook.storage.StorageFile.StorageOperationException;
-import static seedu.addressbook.util.TestUtil.assertTextFilesEqual;
 
 public class StorageFileTest {
     private static final String TEST_DATA_FOLDER = "test/data/StorageFileTest";
@@ -53,12 +63,11 @@ public class StorageFileTest {
 
     @Test
     public void load_validFormat() throws Exception {
-        AddressBook actualAB = getStorage("ValidData.txt").load();
-        AddressBook expectedAB = getTestAddressBook();
+        AddressBook actualAb = getStorage("ValidData.txt").load();
+        AddressBook expectedAb = getTestAddressBook();
 
         // ensure loaded AddressBook is properly constructed with test data
-        // TODO: overwrite equals method in AddressBook class and replace with equals method below
-        assertEquals(actualAB.getAllPersons(), expectedAB.getAllPersons());
+        assertEquals(actualAb.getAllPersons(), expectedAb.getAllPersons());
     }
 
     @Test
@@ -97,15 +106,33 @@ public class StorageFileTest {
     private AddressBook getTestAddressBook() throws Exception {
         AddressBook ab = new AddressBook();
         ab.addPerson(new Person(new Name("John Doe"),
-                                new Phone("98765432", false),
-                                new Email("johnd@gmail.com", false),
-                                new Address("John street, block 123, #01-01", false),
+                                new Nric("s1234567a"),
+                                new DateOfBirth("1998"),
+                                new PostalCode("510244"),
+                                new Status("clear"),
+                                new Offense(),
                                 Collections.emptySet()));
         ab.addPerson(new Person(new Name("Betsy Crowe"),
-                                new Phone("1234567", true),
-                                new Email("betsycrowe@gmail.com", false),
-                                new Address("Newgate Prison", true),
-                                new HashSet<>(Arrays.asList(new Tag("friend"), new Tag("criminal")))));
+                                new Nric("g7654321b"),
+                                new DateOfBirth("2000"),
+                                new PostalCode("123456"),
+                                new Status("wanted"),
+                                new Offense("drugs"),
+                                new HashSet<>(Arrays.asList(new Offense("theft"), new Offense("riot")))));
         return ab;
     }
+
+    //@@author ongweekeong
+    @Test
+    public void load_missingInboxFile() {
+        String result = "";
+        try {
+            NotificationReader testReader = new NotificationReader("Nonsense");
+            TreeSet<Msg> testSet = testReader.readFromFile();
+        } catch (IOException e) {
+            result = MESSAGE_INBOX_FILE_NOT_FOUND;
+        }
+        TestCase.assertEquals(MESSAGE_INBOX_FILE_NOT_FOUND, result);
+    }
+
 }

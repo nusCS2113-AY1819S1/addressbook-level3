@@ -1,14 +1,16 @@
 package seedu.addressbook.storage.jaxb;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+
 import seedu.addressbook.data.AddressBook;
 import seedu.addressbook.data.exception.IllegalValueException;
 import seedu.addressbook.data.person.Person;
 import seedu.addressbook.data.person.UniquePersonList;
 
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * JAXB-friendly adapted address book data holder class.
@@ -33,7 +35,6 @@ public class AdaptedAddressBook {
         persons = new ArrayList<>();
         source.getAllPersons().forEach(person -> persons.add(new AdaptedPerson(person)));
     }
-
 
     /**
      * Returns true if any required field is missing.
