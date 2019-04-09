@@ -23,6 +23,10 @@ public class Logic {
     /** The list of person shown to the user most recently.  */
     private List<? extends ReadOnlyPerson> lastShownList = Collections.emptyList();
 
+    /** The list of editable person shown to the user most recently.  */
+    private List<ReadOnlyPerson> editableRelevantPersons = Collections.emptyList();
+
+
     public Logic() throws Exception{
         setStorage(initializeStorage());
         setAddressBook(storage.load());
@@ -65,6 +69,17 @@ public class Logic {
     }
 
     /**
+     * Modifiable list of the current last shown list.
+     */
+    public List<ReadOnlyPerson> getEditableLastShownList() {
+        return editableRelevantPersons;
+    }
+
+    protected void setEditableLastShownList(List<ReadOnlyPerson> newList) {
+        editableRelevantPersons = newList;
+    }
+
+    /**
      * Parses the user command, executes it, and returns the result.
      * @throws Exception if there was any problem during command execution.
      */
@@ -83,17 +98,25 @@ public class Logic {
      * @throws Exception if there was any problem during command execution.
      */
     private CommandResult execute(Command command) throws Exception {
-        command.setData(addressBook, lastShownList);
+        command.setData(addressBook, lastShownList, editableRelevantPersons);
         CommandResult result = command.execute();
         storage.save(addressBook);
         return result;
     }
 
-    /** Updates the {@link #lastShownList} if the result contains a list of Persons. */
+    /**
+     * Updates the {@link #lastShownList} and {@link #editableRelevantPersons}if the result contains
+     * a uneditable list of Persons and editable list of Persons respectively.
+     */
     private void recordResult(CommandResult result) {
         final Optional<List<? extends ReadOnlyPerson>> personList = result.getRelevantPersons();
+        final Optional<List<ReadOnlyPerson>> editablePersonList = result.getEditableRelevantPersons();
         if (personList.isPresent()) {
             lastShownList = personList.get();
         }
+        if (editablePersonList.isPresent()) {
+            editableRelevantPersons = editablePersonList.get();
+        }
     }
+
 }

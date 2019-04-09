@@ -33,7 +33,7 @@ public class FindCommand extends Command {
     @Override
     public CommandResult execute() {
         final List<ReadOnlyPerson> personsFound = getPersonsWithNameContainingAnyKeyword(keywords);
-        return new CommandResult(getMessageForPersonListShownSummary(personsFound), personsFound);
+        return new CommandResult(getMessageForPersonListShownSummary(personsFound), personsFound, personsFound);
     }
 
     /**
@@ -44,6 +44,7 @@ public class FindCommand extends Command {
      */
     private List<ReadOnlyPerson> getPersonsWithNameContainingAnyKeyword(Set<String> keywords) {
         final List<ReadOnlyPerson> matchedPersons = new ArrayList<>();
+        saveHistory(COMMAND_WORD + " " + getKeywords().toString());
         for (ReadOnlyPerson person : addressBook.getAllPersons()) {
             final Set<String> wordsInName = new HashSet<>(person.getName().getWordsInName());
             if (!Collections.disjoint(wordsInName, keywords)) {

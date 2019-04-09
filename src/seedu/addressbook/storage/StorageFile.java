@@ -1,7 +1,11 @@
 package seedu.addressbook.storage;
 
+import seedu.addressbook.commands.AddCommand;
 import seedu.addressbook.data.AddressBook;
 import seedu.addressbook.data.exception.IllegalValueException;
+import seedu.addressbook.data.person.*;
+import seedu.addressbook.data.tag.Tag;
+import seedu.addressbook.login.Credentials;
 import seedu.addressbook.storage.jaxb.AdaptedAddressBook;
 
 import javax.xml.bind.JAXBContext;
@@ -11,6 +15,10 @@ import javax.xml.bind.Unmarshaller;
 import java.io.*;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Random;
 
 /**
  * Represents the file used to store address book data.
@@ -127,10 +135,14 @@ public class StorageFile {
 
         // create empty file if not found
         } catch (FileNotFoundException fnfe) {
-            final AddressBook empty = new AddressBook();
-            save(empty);
-            return empty;
-
+            try {
+                UniquePersonList testPersons = generateTestPersons();
+                final AddressBook newAB = new AddressBook(testPersons);
+                save(newAB);
+                return newAB;
+            }catch (Exception e){
+                throw new StorageOperationException("Error generating new addressbook");
+            }
         // other errors
         } catch (IOException ioe) {
             throw new StorageOperationException("Error writing to file: " + path);
@@ -145,4 +157,51 @@ public class StorageFile {
         return path.toString();
     }
 
+    /**
+     * Generates 20 test person
+     * @return the UniquePersonList of the 20 generated persons
+     * @throws Exception if something went wrong while generating the list
+     */
+    public UniquePersonList generateTestPersons() throws Exception{
+        UniquePersonList builder = new UniquePersonList();
+        for(int i = 0; i < 20; i++){
+           Person p = generatePerson(i);
+           if(p.getTitle().toString().equals("Doctor")){
+               Credentials credentials = new Credentials(p.getNric().toString(), p.getNric().toString(), 2);
+               credentials.newLogin();
+           }
+           builder.add(p);
+        }
+        return builder;
+    }
+
+    /**
+     * Generate unique person with given seed. Providing the same seed will guarantee the same generated person
+     * @param seed for generating person
+     * @return the generated test person
+     * @throws Exception if something went wrong while generating a person
+     */
+    public Person generatePerson(int seed) throws Exception{
+        String[] names = {"John Doe", "Christina Rogers", "Tan Ah Hock", "Christopher Wong", "Tan Ah Gao", "Rosie Benitez", "Alicja Calhoun", "Fiona Romero", "Sadie Lindsey", "Elena Person", "Kameron Floyd", "Cynthia Nguyen", "Ayesha Christensen", "Paris Palacios", "Benjamin Cain", "Charles Vance", "Raja Wise", "Thierry Valencia", "Rio Gray", "Juliet Murillo"};
+        String title = alternateTitle(seed);
+        int temp = 10 + seed;
+        return new Person(
+                new Name(names[seed]),
+                new Nric("S12332" + temp + "Y", false),
+                new Phone("816546" + temp, false),
+                new Email(temp + "@gmail", false),
+                new Address("House of " + names[seed], false),
+                new Title(title),
+                new HashSet<>(Arrays.asList()),
+                new HashSet<>(Arrays.asList()),
+                new HashSet<>(Arrays.asList())
+        );
+
+
+    }
+
+    public String alternateTitle(int i){
+        if(i % 2 == 0) return "Doctor";
+        else return "Patient";
+    }
 }

@@ -185,11 +185,14 @@ public class ParserTest {
                 "add ",
                 "add wrong args format",
                 // no phone prefix
-                String.format("add $s $s e/$s a/$s", Name.EXAMPLE, Phone.EXAMPLE, Email.EXAMPLE, Address.EXAMPLE),
+                String.format("add $s $s e/$s a/$s s/$s", Name.EXAMPLE, Phone.EXAMPLE, Email.EXAMPLE, Address.EXAMPLE, Title.EXAMPLE),
                 // no email prefix
-                String.format("add $s p/$s $s a/$s", Name.EXAMPLE, Phone.EXAMPLE, Email.EXAMPLE, Address.EXAMPLE),
+                String.format("add $s p/$s $s a/$s s/$s", Name.EXAMPLE, Phone.EXAMPLE, Email.EXAMPLE, Address.EXAMPLE, Title.EXAMPLE),
                 // no address prefix
-                String.format("add $s p/$s e/$s $s", Name.EXAMPLE, Phone.EXAMPLE, Email.EXAMPLE, Address.EXAMPLE)
+                String.format("add $s p/$s e/$s $s s/$s", Name.EXAMPLE, Phone.EXAMPLE, Email.EXAMPLE, Address.EXAMPLE, Title.EXAMPLE),
+                // no title prefix
+                String.format("add $s p/$s e/$s a/$s $s", Name.EXAMPLE, Phone.EXAMPLE, Email.EXAMPLE, Address.EXAMPLE, Title.EXAMPLE)
+
         };
         final String resultMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE);
         parseAndAssertIncorrectWithMessage(resultMessage, inputs);
@@ -203,6 +206,10 @@ public class ParserTest {
         final String validPhoneArg = "p/" + Phone.EXAMPLE;
         final String invalidEmailArg = "e/notAnEmail123";
         final String validEmailArg = "e/" + Email.EXAMPLE;
+        final String invalidTitleArg = " s/notDoctorOrPatient";
+        final String validTitleArg = " s/" + Title.EXAMPLE;
+        final String validScheduleArg = " d/" + Schedule.EXAMPLE;
+        final String invalidScheduleArg = " d/notinDD-MM-YYYY";
         final String invalidTagArg = "t/invalid_-[.tag";
 
         // address can be any string, so no invalid address
@@ -216,8 +223,12 @@ public class ParserTest {
                 String.format(addCommandFormatString, validName, invalidPhoneArg, validEmailArg),
                 // invalid email
                 String.format(addCommandFormatString, validName, validPhoneArg, invalidEmailArg),
+                // invalid title
+                String.format(addCommandFormatString, validName, validPhoneArg, validEmailArg) + invalidTitleArg,
+                // invalid schedule
+                String.format(addCommandFormatString, validName, validPhoneArg, validEmailArg) + validTitleArg + invalidScheduleArg,
                 // invalid tag
-                String.format(addCommandFormatString, validName, validPhoneArg, validEmailArg) + " " + invalidTagArg
+                String.format(addCommandFormatString, validName, validPhoneArg, validEmailArg) + validTitleArg + validScheduleArg + " " + invalidTagArg
         };
         for (String input : inputs) {
             parseAndAssertCommandType(input, IncorrectCommand.class);
@@ -225,9 +236,30 @@ public class ParserTest {
     }
 
     @Test
-    public void addCommand_validPersonData_parsedCorrectly() {
+    public void addCommand_validPersonDataWithoutSchedulesAndTags_parsedCorrectly() {
+        final Person testPerson = generateTestPerson();
+        final String input = convertPersonToMinimumAddCommandString(testPerson);
+        final AddCommand result = parseAndAssertCommandType(input, AddCommand.class);
+        assertEquals(result.getPerson(), testPerson);
+    }
+
+    @Test
+    public void addCommand_validPersonDataWithSchedulesAndTags_parsedCorrectly() {
         final Person testPerson = generateTestPerson();
         final String input = convertPersonToAddCommandString(testPerson);
+        final AddCommand result = parseAndAssertCommandType(input, AddCommand.class);
+        assertEquals(result.getPerson(), testPerson);
+    }
+
+    @Test
+    public void addCommand_duplicateSchedulesWithoutTag_merged() throws IllegalValueException {
+        final Person testPerson = generateTestPerson();
+        String input = convertPersonToTaglessAddCommandString(testPerson);
+        for (Schedule schedule : testPerson.getSchedules()) {
+            // create duplicates by doubling each schedule
+            input += " d/" + schedule.value;
+        }
+
         final AddCommand result = parseAndAssertCommandType(input, AddCommand.class);
         assertEquals(result.getPerson(), testPerson);
     }
@@ -249,22 +281,61 @@ public class ParserTest {
         try {
             return new Person(
                 new Name(Name.EXAMPLE),
+                new Nric(Nric.EXAMPLE, true),
                 new Phone(Phone.EXAMPLE, true),
                 new Email(Email.EXAMPLE, false),
                 new Address(Address.EXAMPLE, true),
-                new HashSet<>(Arrays.asList(new Tag("tag1"), new Tag("tag2"), new Tag("tag3")))
+                new Title(Title.EXAMPLE),
+                new HashSet<>(Arrays.asList(new Schedule(Schedule.EXAMPLE), new Schedule(Schedule.EXAMPLE2)) ),
+                new HashSet<>(Arrays.asList(new Tag("tag1"), new Tag("tag2"), new Tag("tag3"))),
+                new HashSet<>(Arrays.asList(new Associated("associate1"), new Associated("associated2")))
             );
         } catch (IllegalValueException ive) {
             throw new RuntimeException("test person data should be valid by definition");
         }
     }
 
+    private static String convertPersonToMinimumAddCommandString(ReadOnlyPerson person) {
+        String addCommand = "add "
+                + person.getName().fullName
+                + (person.getNric().isPrivate() ? " pn/" : " n/") + person.getNric().NRIC
+                + (person.getPhone().isPrivate() ? " pp/" : " p/") + person.getPhone().value
+                + (person.getEmail().isPrivate() ? " pe/" : " e/") + person.getEmail().value
+                + (person.getAddress().isPrivate() ? " pa/" : " a/") + person.getAddress().value
+                + (" s/") + person.getTitle().value;
+
+        return addCommand;
+    }
+
+    private static String convertPersonToTaglessAddCommandString(ReadOnlyPerson person) {
+        String addCommand = "add "
+                + person.getName().fullName
+                + (person.getNric().isPrivate() ? " pn/" : " n/") + person.getNric().NRIC
+                + (person.getPhone().isPrivate() ? " pp/" : " p/") + person.getPhone().value
+                + (person.getEmail().isPrivate() ? " pe/" : " e/") + person.getEmail().value
+                + (person.getAddress().isPrivate() ? " pa/" : " a/") + person.getAddress().value
+                + (" s/") + person.getTitle().value;
+
+        for (Schedule schedule : person.getSchedules()) {
+            addCommand += " d/" + schedule.value;
+        }
+
+        return addCommand;
+    }
+
     private static String convertPersonToAddCommandString(ReadOnlyPerson person) {
         String addCommand = "add "
                 + person.getName().fullName
+                + (person.getNric().isPrivate() ? " pn/" : " n/") + person.getNric().NRIC
                 + (person.getPhone().isPrivate() ? " pp/" : " p/") + person.getPhone().value
                 + (person.getEmail().isPrivate() ? " pe/" : " e/") + person.getEmail().value
-                + (person.getAddress().isPrivate() ? " pa/" : " a/") + person.getAddress().value;
+                + (person.getAddress().isPrivate() ? " pa/" : " a/") + person.getAddress().value
+                + (" s/") + person.getTitle().value;
+
+        for (Schedule schedule : person.getSchedules()) {
+            addCommand += " d/" + schedule.value;
+        }
+
         for (Tag tag : person.getTags()) {
             addCommand += " t/" + tag.tagName;
         }

@@ -1,0 +1,59 @@
+= Nicholas Pang Wey Shern - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: MediBook
+
+---
+
+== Overview
+
+MediBook is an alternative to the primitive pen and paper management system for hospitals to store patient data as well as doctor information and their schedule. It allows doctors to have essential patients information at their fingertips. In accordance with PDPA, doctors will only be able to see patients information that are relevant to them. The user interacts with it using a CLI with a basic GUI. It is written in Java, and has about 5 kLoC
+
+== Summary of contributions
+
+* *Major enhancement*: added *the ability to undo/redo previous commands*
+** What it does: allows the user to undo changes that are made by mistake. This can be reversed by using the redo command.
+** Justification: This feature improves the product significantly because it allows the user to rectify their mistakes.
+** Highlights: This enhancement requires an in-depth understanding of how each existing command works as well as commands that will be added in the future. This makes the implementation challenging as modifications have to be made on existing commands and any new commands that will be added in.
+
+* *Major enhancement*: added *the ability to associate a patient with a doctor and vice versa*
+** What it does: allows the user to associate two person of different title (patient or doctor) in the MediBook. Once associated, the user can list all the people associate to a person.
+** Justification: This feature improves the product significantly because it allows the user to create connections between a patient and a doctor and thus, allows the staff to know the doctors whom are in charge of a particular patient and the patients whom a particular doctor is in charge of.
+
+
+* *Minor enhancement*:
+** Added a history command that allows the user to view a list of commands that were executed previously.
+** Added a “Title” field in the Person class to differentiate a patient and a doctor in MediBook
+
+* *Code contributed*: [https://nuscs2113-ay1819s1.github.io/dashboard/#=undefined&search=nichpang1[Code]]
+
+* *Other contributions*:
+** Project management:
+*** Managed releases `v1.1` - `v1.4` (4 releases) on GitHub
+** Documentation:
+*** Did some tweaks to organise contents of the Readme: https://github.com/CS2113-AY1819S1-F10-2/main/pull/12[#12] , https://github.com/CS2113-AY1819S1-F10-2/main/pull/17[#17] , https://github.com/CS2113-AY1819S1-F10-2/main/pull/167[#167]
+
+== Contributions to the User Guide
+
+
+|===
+|_Given below are sections I contributed to the User Guide._
+|===
+
+include::../UserGuide.adoc[tag=associate]
+
+include::../UserGuide.adoc[tag=statecontrol]
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide._
+|===
+
+include::../DeveloperGuide.adoc[tag=logiccompo]
+
+include::../DeveloperGuide.adoc[tag=statecontrol]
+
+include::../DeveloperGuide.adoc[tag=associate]

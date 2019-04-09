@@ -1,0 +1,64 @@
+= Keith Tan - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: MediBook
+
+---
+
+== Overview
+MediBook is adapted from Software Engineering Education’s (SE-EDU) AddressBook Level 3 application and it has been designed specifically for healthcare professionals. It contains approximately three thousand lines of code (LoC) and it is written in an object-oriented programming (OOP) fashion of the Java programming language.
+
+== Summary of contributions
+
+Together with my project group mates, Xi Yi, Nicholas and Jia Jian, MediBook was born. The following is a summary of my contributions.
+
+* *Major enhancement*: *Sort* - Sorts MediBook entries according to name or title.
+** What it does:
+*** Presents an organised view for the user to see the entries of Medibook
+*** Allows the user to find out a contact in a shorter amount of time if he/she forgets the name for the find function
+** Justification:
+*** Just a regular contacts application in a smartphone, there is a need to sort the entries according to alphabetical order as people use that method to find their contact details.
+** Highlights:
+*** Although sorting comes as an integrated feature in Java, implementing it into MediBook proved challenging as multiple classes were involved.
+
+* *Minor enhancement*: Added a feature to allow case insensitive search
+
+* *Code contributed*: [https://nuscs2113-ay1819s1.github.io/dashboard/#=undefined&search=keithtqs[Functional and Test Code]]
+
+* *Other contributions*:
+
+** Project management:
+*** Notified team about updates disseminated through GitHub and email.
+** Documentation:
+*** Contributed to the User Guide and Developer Guide as well as editing its language structure for clarity.
+** Tools:
+*** Configured RepoSense and shadowJar for the team repo
+
+== Contributions to the User Guide
+
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+include::../UserGuide.adoc[tag=organisation]
+
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+include::../DeveloperGuide.adoc[tag=storage]
+
+include::../DeveloperGuide.adoc[tag=devorganisation]
+
+
+== Past Projects
+
+---
+
+* “LimpehWatchingYou” for my independent summer project module, Orbital (CP2106). More info [https://drive.google.com/file/d/1qSn1T7BFVu8EiE3iHkMCQSkt47kRu26f/view[here]].

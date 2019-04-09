@@ -1,0 +1,25 @@
+{
+  "authors":
+  [
+    {
+      "githubId": "NichPang1",
+      "displayName": "NIC...ERN",
+      "authorNames": ["NichPang1"]
+    },
+    {
+      "githubId": "OngJiaJian",
+      "displayName": "ONG...IAN",
+      "authorNames": ["OngJiaJian","Ong Jia Jian"]
+    },
+    {
+      "githubId": "C-E-OOI",
+      "displayName": "OOI... YI",
+      "authorNames": ["C-E-OOI"]
+    },
+    {
+      "githubId": "keithtqs",
+      "displayName": "TAN...ITH",
+      "authorNames": ["keithtqs", "Keith"]
+    }
+  ]
+}

@@ -2,15 +2,22 @@
 <AddressBook>
     <persons>
         <name>John Doe</name>
+        <nric isPrivate="false">S4567911A</nric>
         <phone isPrivate="false">98765432</phone>
         <email isPrivate="false">johnd@gmail.com</email>
         <address isPrivate="false">John street, block 123, #01-01</address>
+        <title isPrivate="false">Doctor</title>
     </persons>
     <persons>
         <name>Betsy Crowe</name>
+        <nric isPrivate="true">S1112223Q</nric>
         <phone isPrivate="true">1234567</phone>
         <email isPrivate="false">betsycrowe@gmail.com</email>
         <address isPrivate="true">Newgate Prison</address>
+        <title isPrivate="false">Patient</title>
+        <scheduled>01-05-2019-11:00</scheduled>
+        <scheduled>04-06-2020-13:00</scheduled>
+        <associates>associate1</associates>
         <tagged>friend</tagged>
         <tagged>criminal</tagged>
     </persons>

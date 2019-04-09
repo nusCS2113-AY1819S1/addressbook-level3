@@ -13,11 +13,7 @@ import org.junit.rules.TemporaryFolder;
 
 import seedu.addressbook.data.AddressBook;
 import seedu.addressbook.data.exception.IllegalValueException;
-import seedu.addressbook.data.person.Address;
-import seedu.addressbook.data.person.Email;
-import seedu.addressbook.data.person.Name;
-import seedu.addressbook.data.person.Person;
-import seedu.addressbook.data.person.Phone;
+import seedu.addressbook.data.person.*;
 import seedu.addressbook.data.tag.Tag;
 import seedu.addressbook.storage.StorageFile.StorageOperationException;
 import static seedu.addressbook.util.TestUtil.assertTextFilesEqual;
@@ -97,15 +93,23 @@ public class StorageFileTest {
     private AddressBook getTestAddressBook() throws Exception {
         AddressBook ab = new AddressBook();
         ab.addPerson(new Person(new Name("John Doe"),
+                                new Nric("S4567911A", false),
                                 new Phone("98765432", false),
                                 new Email("johnd@gmail.com", false),
                                 new Address("John street, block 123, #01-01", false),
+                                new Title("Doctor"),
+                                Collections.emptySet(),
+                                Collections.emptySet(),
                                 Collections.emptySet()));
         ab.addPerson(new Person(new Name("Betsy Crowe"),
+                                new Nric("S1112223Q", true),
                                 new Phone("1234567", true),
                                 new Email("betsycrowe@gmail.com", false),
                                 new Address("Newgate Prison", true),
-                                new HashSet<>(Arrays.asList(new Tag("friend"), new Tag("criminal")))));
+                                new Title("Patient"),
+                                new HashSet<>(Arrays.asList(new Schedule("01-05-2019-11:00"), new Schedule("04-06-2020-13:00") )),
+                                new HashSet<>(Arrays.asList(new Tag("friend"), new Tag("criminal"))),
+                                new HashSet<>(Arrays.asList(new Associated("associate1")))));
         return ab;
     }
 }

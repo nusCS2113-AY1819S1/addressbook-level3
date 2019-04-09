@@ -6,12 +6,14 @@ import javafx.fxml.FXML;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import seedu.addressbook.commands.ExitCommand;
+import seedu.addressbook.data.person.Schedule;
 import seedu.addressbook.logic.Logic;
 import seedu.addressbook.commands.CommandResult;
 import seedu.addressbook.data.person.ReadOnlyPerson;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 import static seedu.addressbook.common.Messages.*;
 
@@ -40,13 +42,15 @@ public class MainWindow {
     @FXML
     private TextField commandInput;
 
+    @FXML
+    public TextArea userAccount;
 
     @FXML
     void onCommand(ActionEvent event) {
         try {
             String userCommandText = commandInput.getText();
             CommandResult result = logic.execute(userCommandText);
-            if(isExitCommand(result)){
+            if(isExitCommand(result)) {
                 exitApp();
                 return;
             }
@@ -58,13 +62,17 @@ public class MainWindow {
         }
     }
 
+    public void setAccount(String username, int accesslevel){
+        userAccount.setText("\n Logged in as " + username + " with level " + accesslevel);
+    }
+
     private void exitApp() throws Exception {
         mainApp.stop();
     }
 
     /** Returns true of the result given is the result of an exit command */
     private boolean isExitCommand(CommandResult result) {
-        return result.feedbackToUser.equals(ExitCommand.MESSAGE_EXIT_ACKNOWEDGEMENT);
+        return result.feedbackToUser.equals(ExitCommand.MESSAGE_EXIT_ACKNOWLEDGEMENT);
     }
 
     /** Clears the command input box */
@@ -73,7 +81,7 @@ public class MainWindow {
     }
 
     /** Clears the output display area */
-    public void clearOutputConsole(){
+    public void clearOutputConsole() {
         outputConsole.clear();
     }
 
@@ -81,8 +89,11 @@ public class MainWindow {
     public void displayResult(CommandResult result) {
         clearOutputConsole();
         final Optional<List<? extends ReadOnlyPerson>> resultPersons = result.getRelevantPersons();
-        if(resultPersons.isPresent()) {
+        final Optional<Set<? extends Schedule>> scheduleSet = result.getRelevantAppointments();
+        if (resultPersons.isPresent() && result.canPrint()) {
             display(resultPersons.get());
+        }else if(scheduleSet.isPresent()) {
+            display(scheduleSet.get());
         }
         display(result.feedbackToUser);
     }
@@ -98,6 +109,14 @@ public class MainWindow {
      */
     private void display(List<? extends ReadOnlyPerson> persons) {
         display(new Formatter().format(persons));
+    }
+
+    /**
+     * Displays the list of appointments in the output display area, formatted as an set of dates.
+     *
+     */
+    private void display(Set<? extends Schedule> scheduleSet) {
+        display(new Formatter().format(scheduleSet));
     }
 
     /**

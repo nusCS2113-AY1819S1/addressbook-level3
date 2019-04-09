@@ -1,0 +1,88 @@
+= Ooi Xi Yi - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: MediBook
+
+---
+
+== 1 Overview and Introduction
+
+=== 1.1 Portfolio Purpose
+This portfolio will be submitted to CS2101 for grading and is used to document my role and contribution to MediBook – an
+ application developed under NUS module CS2113T by Team F10-2 of AY1819S1.
+
+
+=== 1.2 Project Name and Description
+https://github.com/CS2113-AY1819S1-F10-2/main[MediBook] seeks to improve healthcare administration for a better
+ healthcare experience. This is achieved by digitalising healthcare records.
+
+In this project, I was task with incorporating an appointment feature that allows appointments to be recorded in
+ MediBook. This feature is also known as MediCal.
+
+MediBook is built by Team F10-2 of CS2113T of AY1819S1 and consists of four members. Our details can be found in <<README#, README>>.
+
+This project is built on an https://github.com/nusCS2113-AY1819S1/addressbook-level3[existing Address Book sample application (Level 3)].
+MediBook optimises and enhances Address Book Level 3 to suit the needs of healthcare professionals with healthcare administrative matters.
+
+
+== 2 Summary of contributions
+
+* *Major enhancement*: added *the ability to record and edit appointments*
+** What it does:
+*** Allows the users to select a person in MediBook to edit the person's appointments
+*** Adds and delete several appointments
+*** Shows the list of appointments the person has
+** Justification:
+*** Recording and viewing patient appointments is an important aspect of healthcare administration. With this feature, users can make and view multiple appointments effectively
+** Highlights:
+*** This enhancement enters its own edit-appointment mode after the user has select the person to edit. Hence, it was
+ challenging as there is a need to manage the edit-appointment mode, in addition to making modification to existing
+  person in the list, which is not supported in the original AddressBook (Level 3) we started from.
+
+* *Minor enhancement*:
+** Help message for edit-appointment mode
+** Made command words case-insensitive https://github.com/CS2113-AY1819S1-F10-2/main/pull/139[#139]
+
+* *Code contributed*: https://nuscs2113-ay1819s1.github.io/dashboard/#=undefined&search=c-e-ooi&sort=displayName&since=2018-09-12&until=2018-11-05&timeframe=day&reverse=false&repoSort=true[Reposense]
+
+* *Other contributions*:
+** Project management:
+*** Managed Issue Tracker on GitHub, generated issues for own features and set milestones.
+** Enhancements to existing features:
+*** Reformatted the display message for `list` command https://github.com/CS2113-AY1819S1-F10-2/main/pull/139[#139]
+** Documentation:
+*** Structured User Guide: https://github.com/CS2113-AY1819S1-F10-2/main/pull/144[#144]
+*** Did cosmetic tweaks to existing contents of the User Guide:  https://github.com/CS2113-AY1819S1-F10-2/main/pull/41[#41]
+*** User Guide and Developer Guide documentation for my own features: https://github.com/CS2113-AY1819S1-F10-2/main/pull/168[#168]
+https://github.com/CS2113-AY1819S1-F10-2/main/pull/147[#147] https://github.com/CS2113-AY1819S1-F10-2/main/pull/41[#41]
+** Community:
+*** PRs reviewed: https://github.com/CS2113-AY1819S1-F10-2/main/pull/169[#169], https://github.com/CS2113-AY1819S1-F10-2/main/pull/157[#157], https://github.com/CS2113-AY1819S1-F10-2/main/pull/151[#151], https://github.com/CS2113-AY1819S1-F10-2/main/pull/137[#137]
+*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com/CS2113-AY1819S1-W13-4/main/issues/120[1],
+https://github.com/CS2113-AY1819S1-W13-4/main/issues/96[2], https://github.com/CS2113-AY1819S1-W13-4/main/issues/115[3])
+** Tools:
+*** Integrated a new Github plugin (Codacy) to the team repo
+
+
+== 3 Contributions to the User Guide
+
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+include::../UserGuide.adoc[tag=Appointment]
+
+
+== 4 Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+include::../DeveloperGuide.adoc[tag=DataComponent]
+
+include::../DeveloperGuide.adoc[tag=Appointment]
+
+

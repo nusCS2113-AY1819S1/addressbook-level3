@@ -1,17 +1,22 @@
 package seedu.addressbook.data;
 
+import seedu.addressbook.data.person.Associated;
 import seedu.addressbook.data.person.Person;
 import seedu.addressbook.data.person.ReadOnlyPerson;
 import seedu.addressbook.data.person.UniquePersonList;
 import seedu.addressbook.data.person.UniquePersonList.DuplicatePersonException;
 import seedu.addressbook.data.person.UniquePersonList.PersonNotFoundException;
 
+import java.util.List;
+
 /**
  * Represents the entire address book. Contains the data of the address book.
  */
 public class AddressBook {
 
-    private final UniquePersonList allPersons;
+    private CommandHistory commandHistory;
+    private CommandStack commandStack;
+    private UniquePersonList allPersons;
 
     public static AddressBook empty() {
         return new AddressBook();
@@ -22,6 +27,8 @@ public class AddressBook {
      */
     public AddressBook() {
         allPersons = new UniquePersonList();
+        commandHistory = new CommandHistory();
+        commandStack = new CommandStack();
     }
 
     /**
@@ -31,6 +38,12 @@ public class AddressBook {
      */
     public AddressBook(UniquePersonList persons) {
         this.allPersons = new UniquePersonList(persons);
+        this.commandHistory = new CommandHistory();
+        this.commandStack = new CommandStack();
+    }
+
+    public void switchAddressBook(UniquePersonList persons){
+        allPersons = new UniquePersonList(persons);
     }
 
     /**
@@ -40,6 +53,15 @@ public class AddressBook {
      */
     public void addPerson(Person toAdd) throws DuplicatePersonException {
         allPersons.add(toAdd);
+    }
+
+    /**
+     * Edit a person in the address book.
+     *
+     * @throws PersonNotFoundException if no such person could be found in the list.
+     */
+    public void editPerson(ReadOnlyPerson toRemove, Person toAdd) throws PersonNotFoundException{
+        allPersons.edit(toRemove, toAdd);
     }
 
     /**
@@ -71,6 +93,12 @@ public class AddressBook {
     public UniquePersonList getAllPersons() {
         return new UniquePersonList(allPersons);
     }
+    /**
+     * Defensively copied UniquePersonList of all persons in the address book at the time of the call and returns the mutableListView of it
+     */
+    public List<ReadOnlyPerson> getMutableListView() {
+        return new UniquePersonList(allPersons).mutableListView();
+    }
 
     @Override
     public boolean equals(Object other) {
@@ -82,5 +110,39 @@ public class AddressBook {
     @Override
     public int hashCode() {
         return allPersons.hashCode();
+    }
+
+    public CommandHistory getCommandHistory() {
+        return commandHistory;
+    }
+
+    public CommandStack getCommandStack() { return commandStack;}
+
+    /**
+     * Link two person
+     * @param target
+     * @param target2
+     * @throws Associated.DuplicateAssociationException if there is already an association between target and target2
+     * @throws Associated.SameTitleException if target and target 2 have the same tittle
+     */
+    public void linkTwoPerson(ReadOnlyPerson target, ReadOnlyPerson target2) throws Associated.DuplicateAssociationException, Associated.SameTitleException {
+        Person targetObject = target.getPerson();
+        Person targetObject2 = target2.getPerson();
+        targetObject.addAnAssociate(target2);
+        targetObject2.addAnAssociate(target);
+    }
+
+    /**
+     * Unlink two person
+     * @param target
+     * @param target2
+     * @throws Associated.NoAssociationException if there is no association between target and target2
+     * @throws Associated.SameTitleException if target and target 2 have the same tittle
+     */
+    public void unlinkTwoPerson(ReadOnlyPerson target, ReadOnlyPerson target2) throws Associated.NoAssociationException, Associated.SameTitleException{
+        Person targetObject = target.getPerson();
+        Person targetObject2 = target2.getPerson();
+        targetObject.removeAnAssociate(target2);
+        targetObject2.removeAnAssociate(target);
     }
 }

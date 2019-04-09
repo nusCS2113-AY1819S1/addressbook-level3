@@ -75,6 +75,24 @@ public class UniquePersonList implements Iterable<Person> {
     }
 
 
+    public List<ReadOnlyPerson> sortNameView() {
+        internalList.sort(Comparator.comparing(t -> t.getName().fullName));
+        return new ArrayList<>(internalList);
+    }
+
+    public List<ReadOnlyPerson> sortTitleView() {
+        internalList.sort(Comparator.comparing(t -> t.getName().fullName));
+        internalList.sort(Comparator.comparing(t -> t.getTitle().value));
+        return new ArrayList<>(internalList);
+    }
+
+    /**
+     * Modifiable java List view with elements cast as mutable {@link ReadOnlyPerson}s.
+     */
+    public List<ReadOnlyPerson> mutableListView() {
+        return new ArrayList<>(internalList);
+    }
+
     /**
      * Checks if the list contains an equivalent person as the given argument.
      */
@@ -92,6 +110,19 @@ public class UniquePersonList implements Iterable<Person> {
             throw new DuplicatePersonException();
         }
         internalList.add(toAdd);
+    }
+
+    /**
+     * Replace the equivalent person from the list.
+     *
+     * @throws PersonNotFoundException if no such person could be found in the list.
+     */
+    public void edit(ReadOnlyPerson toRemove, Person toAdd) throws PersonNotFoundException{
+        int index = internalList.indexOf(toRemove);
+        if (index == -1) {
+            throw new PersonNotFoundException();
+        }
+        internalList.set(index, toAdd);
     }
 
     /**
